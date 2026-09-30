@@ -1,0 +1,13 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.selectOption: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByLabel('页面', { exact: true })
+
+    at E:\trae-studio\TRAEWORK\aiwork-studio\scripts\capture-visual-review.mjs:45:43 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.13.0

@@ -1,0 +1,18 @@
+{
+  "tool": "playwright 1.58.2 / existing Edge / isolated temporary context",
+  "artifactType": "static-document-review-only",
+  "businessRequests": [],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-s/eZ/lYRD1S/i/dT89jV31mAce40Mfve/ASJJAA9ico='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked."
+  ],
+  "storageWrites": [],
+  "captureCount": 0,
+  "allBusinessButtonsDisabled": true,
+  "layoutFailures": [],
+  "reviewControlChecks": [],
+  "zoomVerification": "not performed; no device scaling substituted for browser zoom",
+  "screenshots": [],
+  "failure": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('页面', { exact: true })\u001b[22m\n"
+}

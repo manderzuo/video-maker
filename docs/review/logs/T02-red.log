@@ -1,0 +1,112 @@
+✖ T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs (1.3864ms)
+✖ T02-C02: critical states have real captures at 1440/1280/1024 in both themes (5.5349ms)
+✖ T02-C03: payment and PG conflict material explicitly preserves constraints and gating (0.5755ms)
+✖ T02-C04: real browser review generated no business requests or storage writes (0.2332ms)
+✖ T02-G02: human approval is required before the visual baseline is accepted (0.2004ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 109.8474
+
+✖ failing tests:
+
+test at tests\planning\visual-baseline.test.mjs:5:1
+✖ T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs (1.3864ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 23
+  
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:6:25)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 23,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\planning\visual-baseline.test.mjs:14:1
+✖ T02-C02: critical states have real captures at 1440/1280/1024 in both themes (5.5349ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(v.criticalStates?.length>0)
+  
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:15:25)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\planning\visual-baseline.test.mjs:23:1
+✖ T02-C03: payment and PG conflict material explicitly preserves constraints and gating (0.5755ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(v.dialogs?.length)
+  
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:24:25)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\planning\visual-baseline.test.mjs:30:1
+✖ T02-C04: real browser review generated no business requests or storage writes (0.2332ms)
+  AssertionError [ERR_ASSERTION]: browser evidence exists
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:31:63)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\planning\visual-baseline.test.mjs:40:1
+✖ T02-G02: human approval is required before the visual baseline is accepted (0.2004ms)
+  AssertionError [ERR_ASSERTION]: critical states exist
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:41:25)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

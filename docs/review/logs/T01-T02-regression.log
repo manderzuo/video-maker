@@ -1,0 +1,43 @@
+✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (0.9154ms)
+✔ T01-C02: all five pinned revisions have independently verified snapshots (1.397ms)
+✔ T01-C03: every source has a license disposition and evidence (0.9012ms)
+✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.5086ms)
+✔ T01-C05: write policy denies external/source paths, traversal and symlinks (4.2202ms)
+✔ T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs (5.7103ms)
+✔ T02-C02: critical states have real captures at 1440/1280/1024 in both themes (1.7884ms)
+✔ T02-C03: payment and PG conflict material explicitly preserves constraints and gating (1.0609ms)
+✔ T02-C04: real browser review generated no business requests or storage writes (0.2651ms)
+✖ T02-G02: human approval is required before the visual baseline is accepted (1.1809ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 139.8941
+
+✖ failing tests:
+
+test at tests\planning\visual-baseline.test.mjs:40:1
+✖ T02-G02: human approval is required before the visual baseline is accepted (1.1809ms)
+  AssertionError [ERR_ASSERTION]: canvas-save-failed: human visual review pending
+  + actual - expected
+  
+  + 'pending'
+  - 'approved'
+  
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:42:46)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'pending',
+    expected: 'approved',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
