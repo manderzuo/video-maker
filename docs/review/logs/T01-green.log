@@ -1,8 +1,8 @@
-✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (0.8922ms)
-✔ T01-C02: all five pinned revisions have independently verified snapshots (1.3085ms)
-✔ T01-C03: every source has a license disposition and evidence (0.7127ms)
-✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.4829ms)
-✔ T01-C05: write policy denies external/source paths, traversal and symlinks (3.7877ms)
+✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (1.0446ms)
+✔ T01-C02: all five pinned revisions have independently verified snapshots (1.3208ms)
+✔ T01-C03: every source has a license disposition and evidence (0.7256ms)
+✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.427ms)
+✔ T01-C05: write policy denies external/source paths, traversal and symlinks (4.5394ms)
 ℹ tests 5
 ℹ suites 0
 ℹ pass 5
@@ -10,4 +10,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 97.0046
+ℹ duration_ms 107.3281

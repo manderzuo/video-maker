@@ -50,6 +50,7 @@ test('T01-C05: write policy denies external/source paths, traversal and symlinks
   for (const path of ['../outside.txt', 'E:/trae-studio/sources/anything', 'C:/outside.txt', '../aiwork-studio-other/test']) {
     assert.throws(() => assertProjectWritePath(root, path), /outside_authorized_project/);
   }
+  assert.throws(() => assertProjectWritePath(resolve(root, '..'), 'outside.txt'), /outside_authorized_project/);
   const { mkdirSync, symlinkSync, rmdirSync, lstatSync } = await import('node:fs');
   const external = resolve(root, 'work/external-fixture');
   const link = resolve(root, 'work/escape-link');
