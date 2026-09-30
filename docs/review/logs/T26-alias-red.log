@@ -1,0 +1,25 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/generation-preflight.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/generation-preflight.test.ts (5 tests | 1 failed) 16ms
+   × T26: plain-text reference placeholders also need an explicit readable input binding 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/generation-preflight.test.ts > T26: plain-text reference placeholders also need an explicit readable input binding
+AssertionError: expected [] to include 'reference_alias_unbound'
+ ❯ tests/unit/generation-preflight.test.ts:11:272
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  03:35:06
+   Duration  435ms (transform 157ms, setup 43ms, import 201ms, tests 16ms, environment 0ms)
+

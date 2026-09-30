@@ -10,7 +10,7 @@ import {assetSchema} from '../../domain/asset';
 import {readRun,putRunInTransaction,validateFrozenBody} from '../../infrastructure/storage/run-repository';
 import {claimPreparation,assertPreparation,releasePreparation} from './preparation-lock';
 import {fingerprintText} from './fingerprint';
-export const videoRunSnapshotSchema=z.strictObject({prompt:localText.refine(v=>!!v.trim(),'prompt_empty'),spec:videoSpecSchema,references:z.array(z.strictObject({assetId:id,mediaType:z.enum(['image','video']),role:z.literal('参考'),alias:id,nodeId:id.optional(),runId:id.optional()}))});
+export const videoRunSnapshotSchema=z.strictObject({prompt:localText.refine(v=>!!v.trim(),'prompt_empty'),spec:videoSpecSchema,references:z.array(z.strictObject({assetId:id,mediaType:z.enum(['image','video']),role:z.literal('参考'),alias:id,nodeId:id.optional(),runId:id.optional(),sha256:z.string().regex(/^[a-f0-9]{64}$/).optional(),bytes:z.number().int().positive().optional()}))});
 export type VideoRunSnapshot=z.infer<typeof videoRunSnapshotSchema>;
 export type PreparedVideoRequest={runId:string;binding:RunBinding;finalBody:string;bodyHash:string;idempotencyKey:string;assetMappings:CoreAssetRef[]};
 export type PrepareOptions={client?:CoreClient;capability?:CapabilityProfile;db?:StudioDb;lease?:ProjectLeaseToken};
@@ -30,7 +30,7 @@ export async function prepareVideoRequest(runId:string,options:PrepareOptions={}
   if(new Set(input.references.map(r=>r.assetId)).size!==input.references.length||new Set(input.references.map(r=>r.alias)).size!==input.references.length)throw Error('reference_identity_duplicate');
   const token=await claimPreparation(db,run,options.lease);
   try{
-   const assets=await transact(db,['assets','blobs'],'readonly',async tx=>{const values=[];for(const ref of input.references){const value:unknown=await requestResult(tx.objectStore('assets').get(ref.assetId));if(!value)throw Error('reference_asset_missing');const asset=assetSchema.parse(value),row:{blob:Blob}|undefined=await requestResult(tx.objectStore('blobs').get(asset.blobKey));if(!row?.blob)throw Error('reference_blob_missing');if(asset.mediaType!==ref.mediaType)throw Error('reference_media_mismatch');values.push({asset,blob:row.blob});}return values;});
+   const assets=await transact(db,['assets','blobs'],'readonly',async tx=>{const values=[];for(const ref of input.references){const value:unknown=await requestResult(tx.objectStore('assets').get(ref.assetId));if(!value)throw Error('reference_asset_missing');const asset=assetSchema.parse(value),row:{blob:Blob}|undefined=await requestResult(tx.objectStore('blobs').get(asset.blobKey));if(!row?.blob)throw Error('reference_blob_missing');if(asset.mediaType!==ref.mediaType)throw Error('reference_media_mismatch');if(ref.sha256!==undefined&&ref.sha256!==asset.sha256||ref.bytes!==undefined&&ref.bytes!==asset.bytes)throw Error('reference_identity_changed');values.push({asset,blob:row.blob});}return values;});
    // Validate every byte-bearing reference before the first upload.
    for(const value of assets)await validateUploadAsset(value.asset,value.blob,cap);
    const assetMappings:CoreAssetRef[]=[];

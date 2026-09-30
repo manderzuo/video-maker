@@ -1,0 +1,24 @@
+{
+ "taskId":"T26","status":"实施完成，自检通过，待统一验收/独立审查",
+ "baseCommit":"64c4adc86e917d17991526e2448ffb077cd0f772","headCommit":null,
+ "actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
+ "files":["src/application/runs/preflight.ts","src/application/runs/approval.ts","src/application/runs/prepare-request.ts","src/adapters/core/current-connection.ts","src/features/canvas/GenerationConfirmDialog.tsx","src/features/canvas/CanvasPage.tsx","src/features/canvas/nodes/VideoNode.tsx","src/ui/tokens.css","tests/e2e/generation-preflight.spec.ts","tests/fixtures/generation.ts","tests/unit/generation-preflight.test.ts","tests/unit/run-approval.test.ts"],
+ "commands":[
+  {"command":"npm run test:e2e -- tests/e2e/generation-preflight.spec.ts","exitCode":1,"passed":0,"failed":6,"skipped":0,"logPath":"docs/review/logs/T26-red.log"},
+  {"command":"npm run test:unit -- tests/unit/generation-preflight.test.ts","exitCode":1,"passed":0,"failed":4,"skipped":0,"logPath":"docs/review/logs/T26-unit-red.log"},
+  {"command":"npm run test:unit -- tests/unit/generation-preflight.test.ts","exitCode":1,"passed":3,"failed":1,"skipped":0,"logPath":"docs/review/logs/T26-unit-green.log","note":"测试夹具让草稿与能力共用同一spec对象；修正为独立副本，不记实现红灯"},
+  {"command":"npm run test:e2e -- tests/e2e/generation-preflight.spec.ts","exitCode":0,"passed":6,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-green-initial.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":201,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-unit-initial.log"},
+  {"command":"npm run test:unit -- tests/unit/generation-preflight.test.ts","exitCode":1,"passed":4,"failed":1,"skipped":0,"logPath":"docs/review/logs/T26-alias-red.log"},
+  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/generation-preflight.spec.ts --grep checkbox","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T26-checkbox-red.log"},
+  {"command":"npm run test:e2e -- tests/e2e/generation-preflight.spec.ts tests/e2e/typed-nodes.spec.ts tests/e2e/prompt-canvas-commands.spec.ts","exitCode":0,"passed":27,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-browser.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":210,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-unit-final.log"},
+  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-typecheck-final.log"},
+  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-lint-final.log"},
+  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T26-build.log"}
+ ],
+ "interactionIds":["C-15","C-16","V-08","V-09","V-10"],"screenshots":["docs/review/screenshots/T26-generation-confirm.png"],
+ "networkMode":"真实Chromium本地页面、假Key内存配置；预检/批准零上传或业务POST",
+ "behavior":["同步纯预检与异步SHA封印分开；当前可见节点/显式文字与素材、模型规格、字节/数量/可读性、租约/未保存状态逐项检查","确认单720px、金额未知、服务/授权档案、节点数量/顺序/提示词/参数/素材和下游依赖，未勾选禁用确认，ESC零副作用并恢复焦点","一次批准绑定revision/数量/SHA指纹/原服务授权/原输入与素材SHA；确认时再次读当前图/素材/能力，改变或两分钟过期即拒绝","持久批准和所有Run同事务，先保存每Run独立幂等键；双点击/并发只产生一批准，quota回滚全部","原输入不夹取时长、不静默去除未绑定参考；普通文本别名也强制明确素材绑定","T25准备阶段支持本次批准的素材SHA/字节冻结，变更禁止上传"],
+ "knownLimitations":["批准成功当前显示等待执行；传输与未知提交在紧接T27接入，未声称本任务已经生成视频","生产连接设置页由T38实现；当前无已核验真实部署，测试只配置内存本地假客户端","未核验可靠报价或Core准入，不把本地校验成功当账务通过","当前批量预检仅批准可见且固定的输入；依赖队列与新上游结果重新确认在T29/T34实现","T22三张截图在相关真实回归中更新，保留实际运行产物；设计稿与运行截图区别明确","用户视觉/独立审查尚未发生；保留完整视觉、许可、真实联调发布门槛"]
+}

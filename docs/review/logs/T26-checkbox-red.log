@@ -1,0 +1,40 @@
+[WebServer] (node:22540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog (1.2s)
+
+
+  1) tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m32[39m
+    Received:   [31m670[39m
+
+      14 | test('T26 V-10: Escape cancels without approval or Run and restores the preflight button focus',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();await expect(page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')).toBeFocused();expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);});
+      15 | test('T26: confirmation remains disabled until the exact fee/input acknowledgment is selected',async({page})=>{const dialog=await open(page);await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeDisabled();});
+    > 16 | test('T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog',async({page})=>{const dialog=await open(page),box=dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知');await expect(box).toBeVisible();const geometry=await box.boundingBox();expect(geometry!.width).toBeLessThan(32);await expect(box.locator('..')).toHaveCSS('display','flex');});
+         |                                                                                                                                                                                                                                                                                            ^
+      17 | test('T26: quota failure atomically preserves draft and refuses approval/Run creation',async({page,networkCounter})=>{const dialog=await open(page);await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(this.name==='runs')throw new DOMException('injected confirmation quota','QuotaExceededError');return original.apply(this,args);};});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('保存失败');const counts=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').count()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:')).length})));});expect(counts).toEqual({runs:0,approvals:0});expect(networkCounter.paidRequests).toHaveLength(0);});
+      18 | test('T26: changing text even without revision bump invalidates the reviewed input snapshot',async({page})=>{const dialog=await open(page);await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const graph=await m.requestResult(tx.objectStore('graphs').get('p1'));graph.nodes.find((n:{id:string})=>n.id==='text-1').data.text='确认后改变';tx.objectStore('graphs').put(graph);}));});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('已变化');});
+      19 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:16:284
+
+    Error Context: test-results\generation-preflight-T26-r-fdfa8-er-than-spanning-the-dialog\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-r-fdfa8-er-than-spanning-the-dialog\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-r-fdfa8-er-than-spanning-the-dialog\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog 

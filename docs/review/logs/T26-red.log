@@ -1,0 +1,209 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/generation-preflight.spec.ts
+
+[WebServer] (node:17216) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:10956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests (3.1s)
+(node:22968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash (3.1s)
+(node:23648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft (3.3s)
+(node:26988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run (3.1s)
+(node:7204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus (3.1s)
+(node:28984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  6 tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected (3.1s)
+
+
+  1) tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests 
+
+    TimeoutError: locator.click: Timeout 2000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')[22m
+
+
+       6 |  const seedUrl='/tests/fixtures/generation.ts';await (await import(seedUrl)).seedGeneration();
+       7 | });await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await (await import(path)).connectGeneration();});}
+    >  8 | async function open(page:Page){await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();return page.getByRole('dialog',{name:'生成确认单',exact:true});}
+         |                                                                                                               ^
+       9 | test.beforeEach(async({page})=>boot(page));
+      10 | test('T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await expect(dialog).toContainText('金额未知');await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('本地Mock');expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T26-generation-confirm.png'});});
+      11 | test('T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash',async({page,networkCounter})=>{const dialog=await open(page);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).evaluate(button=>{(button as HTMLButtonElement).click();(button as HTMLButtonElement).click();});await expect(page.getByText('已确认 1 项 · 等待执行',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(saved.runs).toHaveLength(1);expect(saved.approvals).toHaveLength(1);expect(saved.approvals[0].planHash).toMatch(/^[a-f0-9]{64}$/);expect(saved.approvals[0].revision).toBe(1);expect(saved.approvals[0].nodeCount).toBe(1);expect(saved.runs[0].inputSnapshot.prompt).toBe('原创确认正文');expect(saved.runs[0].finalBody).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);});
+        at open (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:8:111)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:10:160
+
+    Error Context: test-results\generation-preflight-T26-C-3d2c2-ro-uploads-or-paid-requests\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-C-3d2c2-ro-uploads-or-paid-requests\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-C-3d2c2-ro-uploads-or-paid-requests\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash 
+
+    TimeoutError: locator.click: Timeout 2000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')[22m
+
+
+       6 |  const seedUrl='/tests/fixtures/generation.ts';await (await import(seedUrl)).seedGeneration();
+       7 | });await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await (await import(path)).connectGeneration();});}
+    >  8 | async function open(page:Page){await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();return page.getByRole('dialog',{name:'生成确认单',exact:true});}
+         |                                                                                                               ^
+       9 | test.beforeEach(async({page})=>boot(page));
+      10 | test('T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await expect(dialog).toContainText('金额未知');await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('本地Mock');expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T26-generation-confirm.png'});});
+      11 | test('T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash',async({page,networkCounter})=>{const dialog=await open(page);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).evaluate(button=>{(button as HTMLButtonElement).click();(button as HTMLButtonElement).click();});await expect(page.getByText('已确认 1 项 · 等待执行',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(saved.runs).toHaveLength(1);expect(saved.approvals).toHaveLength(1);expect(saved.approvals[0].planHash).toMatch(/^[a-f0-9]{64}$/);expect(saved.approvals[0].revision).toBe(1);expect(saved.approvals[0].nodeCount).toBe(1);expect(saved.runs[0].inputSnapshot.prompt).toBe('原创确认正文');expect(saved.runs[0].finalBody).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);});
+        at open (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:8:111)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:11:158
+
+    Error Context: test-results\generation-preflight-T26-C-390da-vision-count-input-and-hash\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-C-390da-vision-count-input-and-hash\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-C-390da-vision-count-input-and-hash\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft 
+
+    TimeoutError: locator.click: Timeout 2000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')[22m
+
+
+      10 | test('T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await expect(dialog).toContainText('金额未知');await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('本地Mock');expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T26-generation-confirm.png'});});
+      11 | test('T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash',async({page,networkCounter})=>{const dialog=await open(page);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).evaluate(button=>{(button as HTMLButtonElement).click();(button as HTMLButtonElement).click();});await expect(page.getByText('已确认 1 项 · 等待执行',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(saved.runs).toHaveLength(1);expect(saved.approvals).toHaveLength(1);expect(saved.approvals[0].planHash).toMatch(/^[a-f0-9]{64}$/);expect(saved.approvals[0].revision).toBe(1);expect(saved.approvals[0].nodeCount).toBe(1);expect(saved.runs[0].inputSnapshot.prompt).toBe('原创确认正文');expect(saved.runs[0].finalBody).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 12 | test('T26-C03: unsupported duration produces an explicit blocker without clamping the draft',async({page})=>{await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const graph=await m.requestResult(tx.objectStore('graphs').get('p1'));graph.nodes.find((n:{id:string})=>n.id==='video-1').data.draft.durationSeconds=15;tx.objectStore('graphs').put(graph);}));});await page.reload();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await (await import(path)).connectGeneration();});await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'输入无效清单'});await expect(dialog).toContainText('时长或比例');expect(await page.getByTestId('node-video-1').getByLabel('时长（秒）').inputValue()).toBe('15');await expect(page.getByRole('dialog',{name:'生成确认单'})).not.toBeVisible();});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      13 | test('T26-C04: persisted graph changes after preview invalidate the approval and create no Run',async({page})=>{const dialog=await open(page);await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{for(const name of ['projects','graphs']){const row=await m.requestResult(tx.objectStore(name).get('p1'));row.revision++;tx.objectStore(name).put(row);}}));});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('已变化');});
+      14 | test('T26 V-10: Escape cancels without approval or Run and restores the preflight button focus',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();await expect(page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')).toBeFocused();expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);});
+      15 | test('T26: confirmation remains disabled until the exact fee/input acknowledgment is selected',async({page})=>{const dialog=await open(page);await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeDisabled();});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:12:793
+
+    Error Context: test-results\generation-preflight-T26-C-161d8--without-clamping-the-draft\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-C-161d8--without-clamping-the-draft\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-C-161d8--without-clamping-the-draft\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run 
+
+    TimeoutError: locator.click: Timeout 2000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')[22m
+
+
+       6 |  const seedUrl='/tests/fixtures/generation.ts';await (await import(seedUrl)).seedGeneration();
+       7 | });await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await (await import(path)).connectGeneration();});}
+    >  8 | async function open(page:Page){await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();return page.getByRole('dialog',{name:'生成确认单',exact:true});}
+         |                                                                                                               ^
+       9 | test.beforeEach(async({page})=>boot(page));
+      10 | test('T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await expect(dialog).toContainText('金额未知');await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('本地Mock');expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T26-generation-confirm.png'});});
+      11 | test('T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash',async({page,networkCounter})=>{const dialog=await open(page);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).evaluate(button=>{(button as HTMLButtonElement).click();(button as HTMLButtonElement).click();});await expect(page.getByText('已确认 1 项 · 等待执行',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(saved.runs).toHaveLength(1);expect(saved.approvals).toHaveLength(1);expect(saved.approvals[0].planHash).toMatch(/^[a-f0-9]{64}$/);expect(saved.approvals[0].revision).toBe(1);expect(saved.approvals[0].nodeCount).toBe(1);expect(saved.runs[0].inputSnapshot.prompt).toBe('原创确认正文');expect(saved.runs[0].finalBody).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);});
+        at open (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:8:111)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:13:132
+
+    Error Context: test-results\generation-preflight-T26-C-83345--approval-and-create-no-Run\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-C-83345--approval-and-create-no-Run\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-C-83345--approval-and-create-no-Run\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus 
+
+    TimeoutError: locator.click: Timeout 2000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')[22m
+
+
+       6 |  const seedUrl='/tests/fixtures/generation.ts';await (await import(seedUrl)).seedGeneration();
+       7 | });await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await (await import(path)).connectGeneration();});}
+    >  8 | async function open(page:Page){await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();return page.getByRole('dialog',{name:'生成确认单',exact:true});}
+         |                                                                                                               ^
+       9 | test.beforeEach(async({page})=>boot(page));
+      10 | test('T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await expect(dialog).toContainText('金额未知');await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('本地Mock');expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T26-generation-confirm.png'});});
+      11 | test('T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash',async({page,networkCounter})=>{const dialog=await open(page);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).evaluate(button=>{(button as HTMLButtonElement).click();(button as HTMLButtonElement).click();});await expect(page.getByText('已确认 1 项 · 等待执行',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(saved.runs).toHaveLength(1);expect(saved.approvals).toHaveLength(1);expect(saved.approvals[0].planHash).toMatch(/^[a-f0-9]{64}$/);expect(saved.approvals[0].revision).toBe(1);expect(saved.approvals[0].nodeCount).toBe(1);expect(saved.runs[0].inputSnapshot.prompt).toBe('原创确认正文');expect(saved.runs[0].finalBody).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);});
+        at open (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:8:111)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:14:147
+
+    Error Context: test-results\generation-preflight-T26-V-063f0--the-preflight-button-focus\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-V-063f0--the-preflight-button-focus\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-V-063f0--the-preflight-button-focus\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected 
+
+    TimeoutError: locator.click: Timeout 2000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').locator('[data-interaction-id="V-08"]')[22m
+
+
+       6 |  const seedUrl='/tests/fixtures/generation.ts';await (await import(seedUrl)).seedGeneration();
+       7 | });await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await (await import(path)).connectGeneration();});}
+    >  8 | async function open(page:Page){await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();return page.getByRole('dialog',{name:'生成确认单',exact:true});}
+         |                                                                                                               ^
+       9 | test.beforeEach(async({page})=>boot(page));
+      10 | test('T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests',async({page,networkCounter})=>{const dialog=await open(page);await expect(dialog).toBeVisible();await expect(dialog).toContainText('金额未知');await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('本地Mock');expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T26-generation-confirm.png'});});
+      11 | test('T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash',async({page,networkCounter})=>{const dialog=await open(page);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).evaluate(button=>{(button as HTMLButtonElement).click();(button as HTMLButtonElement).click();});await expect(page.getByText('已确认 1 项 · 等待执行',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(saved.runs).toHaveLength(1);expect(saved.approvals).toHaveLength(1);expect(saved.approvals[0].planHash).toMatch(/^[a-f0-9]{64}$/);expect(saved.approvals[0].revision).toBe(1);expect(saved.approvals[0].nodeCount).toBe(1);expect(saved.runs[0].inputSnapshot.prompt).toBe('原创确认正文');expect(saved.runs[0].finalBody).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);});
+        at open (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:8:111)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\generation-preflight.spec.ts:15:131
+
+    Error Context: test-results\generation-preflight-T26-c-ad50f--acknowledgment-is-selected\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\generation-preflight-T26-c-ad50f--acknowledgment-is-selected\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\generation-preflight-T26-c-ad50f--acknowledgment-is-selected\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests 
+    tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click persists one approval bound to revision, count, input and hash 
+    tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft 
+    tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run 
+    tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus 
+    tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected 

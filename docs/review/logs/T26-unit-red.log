@@ -1,0 +1,65 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/generation-preflight.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/generation-preflight.test.ts (4 tests | 4 failed) 15ms
+   × T26: preflight is pure and captures the exact visible text/spec/revision 9ms
+   × T26: unknown capability, authorization and dirty inputs remain separate blockers 3ms
+   × T26: unsupported duration is reported and the original draft stays intact 2ms
+   × T26: an unbound textual reference is blocked rather than silently removed 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/generation-preflight.test.ts > T26: preflight is pure and captures the exact visible text/spec/revision
+AssertionError: expected 'blocked' to be 'ready' // Object.is equality
+
+Expected: "ready"
+Received: "blocked"
+
+ ❯ tests/unit/generation-preflight.test.ts:7:141
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/unit/generation-preflight.test.ts > T26: unknown capability, authorization and dirty inputs remain separate blockers
+AssertionError: expected [ 'preflight_not_implemented' ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   "capability_unverified",
+-   "session_credential_required",
+-   "unsaved_changes",
++ [
++   "preflight_not_implemented",
+  ]
+
+ ❯ tests/unit/generation-preflight.test.ts:8:267
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/unit/generation-preflight.test.ts > T26: unsupported duration is reported and the original draft stays intact
+AssertionError: expected [ 'preflight_not_implemented' ] to include 'video_spec_unsupported'
+ ❯ tests/unit/generation-preflight.test.ts:9:347
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/unit/generation-preflight.test.ts > T26: an unbound textual reference is blocked rather than silently removed
+AssertionError: expected [ 'preflight_not_implemented' ] to include 'reference_unbound'
+ ❯ tests/unit/generation-preflight.test.ts:10:347
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  03:23:46
+   Duration  333ms (transform 69ms, setup 43ms, import 90ms, tests 15ms, environment 0ms)
+

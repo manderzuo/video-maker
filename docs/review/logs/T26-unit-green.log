@@ -1,0 +1,25 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/generation-preflight.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/generation-preflight.test.ts (4 tests | 1 failed) 17ms
+   × T26: unsupported duration is reported and the original draft stays intact 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/generation-preflight.test.ts > T26: unsupported duration is reported and the original draft stays intact
+AssertionError: expected [] to include 'video_spec_unsupported'
+ ❯ tests/unit/generation-preflight.test.ts:9:347
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  03:31:56
+   Duration  491ms (transform 184ms, setup 50ms, import 236ms, tests 17ms, environment 0ms)
+
