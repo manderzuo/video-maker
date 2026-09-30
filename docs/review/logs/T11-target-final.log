@@ -1,0 +1,24 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/app-shell.spec.ts tests/e2e/harness.spec.ts
+
+[WebServer] (node:29764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:3844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (913ms)
+  ok 2 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (707ms)
+  ok 3 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (901ms)
+  ok 4 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (486ms)
+  ok 5 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (710ms)
+  ok 6 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (480ms)
+  ok 7 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (563ms)
+  ok 8 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (793ms)
+  ok 9 tests\e2e\harness.spec.ts:2:1 › T03-C03: credential-free app bootstrap and local mock counting (492ms)
+
+  9 passed (10.6s)

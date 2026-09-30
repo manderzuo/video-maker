@@ -1,0 +1,21 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/app-shell.spec.ts
+
+[WebServer] (node:11916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:30376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (793ms)
+  ok 2 tests\e2e\app-shell.spec.ts:8:1 › T11-C03: unknown routes show owned 404 and a working return (500ms)
+  ok 3 tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (752ms)
+  ok 4 tests\e2e\app-shell.spec.ts:18:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (530ms)
+  ok 5 tests\e2e\app-shell.spec.ts:23:1 › T11-C06: entry/navigation never opens external links automatically (544ms)
+  ok 6 tests\e2e\app-shell.spec.ts:28:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (827ms)
+
+  6 passed (7.2s)

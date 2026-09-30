@@ -1,0 +1,221 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/app-shell.spec.ts
+
+[WebServer] (node:28168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:30320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (30.0s)
+(node:29916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\app-shell.spec.ts:8:1 › T11-C03: unknown routes show owned 404 and a working return (5.5s)
+(node:21972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (30.0s)
+(node:33428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\app-shell.spec.ts:18:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (30.1s)
+(node:28724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\app-shell.spec.ts:23:1 › T11-C06: entry/navigation never opens external links automatically (30.0s)
+(node:30080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  6 tests\e2e\app-shell.spec.ts:28:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (30.0s)
+
+
+  1) tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '进入本地模式', exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test('T11-C01/C02: local mode enters projects and eight owned navigation entries are available',async({page,networkCounter})=>{
+    > 3 |  await page.goto('/welcome');await page.getByRole('button',{name:'进入本地模式',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);
+        |                                                                                        ^
+      4 |  await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link')).toHaveCount(8);
+      5 |  for(const name of ['项目','素材','提示词生成','提示词库','任务','活动','设置','帮助'])await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name,exact:true})).toBeVisible();
+      6 |  expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T11-shell-dark.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:3:88
+
+    Error Context: test-results\app-shell-T11-C01-C02-loca-79cd6-ation-entries-are-available\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-C01-C02-loca-79cd6-ation-entries-are-available\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-C01-C02-loca-79cd6-ation-entries-are-available\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\app-shell.spec.ts:8:1 › T11-C03: unknown routes show owned 404 and a working return ─
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: '找不到这个页面' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: '找不到这个页面' })[22m
+
+
+       7 | });
+       8 | test('T11-C03: unknown routes show owned 404 and a working return',async({page})=>{
+    >  9 |  await page.goto('/unknown-page');await expect(page.getByRole('heading',{name:'找不到这个页面'})).toBeVisible();await page.getByRole('link',{name:'返回项目'}).click();await expect(page).toHaveURL(/\/projects$/);
+         |                                                                                            ^
+      10 | });
+      11 | test('T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger',async({page})=>{
+      12 |  await page.goto('/projects');await page.getByRole('button',{name:'命令面板',exact:true}).click();
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:9:92
+
+    Error Context: test-results\app-shell-T11-C03-unknown--ae346-ed-404-and-a-working-return\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-C03-unknown--ae346-ed-404-and-a-working-return\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-C03-unknown--ae346-ed-404-and-a-working-return\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '命令面板', exact: true })[22m
+
+
+      10 | });
+      11 | test('T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger',async({page})=>{
+    > 12 |  await page.goto('/projects');await page.getByRole('button',{name:'命令面板',exact:true}).click();
+         |                                                                                       ^
+      13 |  await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).toBeVisible();const trigger=page.getByRole('button',{name:'快捷键说明',exact:true});await trigger.click();
+      14 |  const inner=page.getByRole('dialog',{name:'快捷键说明',exact:true});await expect(inner).toBeVisible();for(let i=0;i<7;i++){await page.keyboard.press('Tab');expect(await inner.evaluate(element=>element.contains(document.activeElement))).toBe(true);}
+      15 |  await page.keyboard.press('Escape');await expect(inner).not.toBeVisible();await expect(trigger).toBeFocused();
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:12:87
+
+    Error Context: test-results\app-shell-T11-C04-nested-d-97b3f-er-and-restores-its-trigger\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-C04-nested-d-97b3f-er-and-restores-its-trigger\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-C04-nested-d-97b3f-er-and-restores-its-trigger\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\app-shell.spec.ts:18:1 › T11-C05: composing and editable targets do not trigger global keyboard commands 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.focus: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('searchbox', { name: '全局搜索' })[22m
+
+
+      17 | });
+      18 | test('T11-C05: composing and editable targets do not trigger global keyboard commands',async({page})=>{
+    > 19 |  await page.goto('/projects');const search=page.getByRole('searchbox',{name:'全局搜索'});await search.focus();await search.dispatchEvent('keydown',{key:'k',code:'KeyK',ctrlKey:true,isComposing:true,bubbles:true});
+         |                                                                                                   ^
+      20 |  await page.keyboard.press('Control+k');await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).not.toBeVisible();
+      21 |  await search.evaluate(element=>(element as HTMLInputElement).blur());await page.keyboard.press('Control+k');await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).toBeVisible();
+      22 | });
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:19:99
+
+    Error Context: test-results\app-shell-T11-C05-composin-7ac40-er-global-keyboard-commands\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-C05-composin-7ac40-er-global-keyboard-commands\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-C05-composin-7ac40-er-global-keyboard-commands\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\app-shell.spec.ts:23:1 › T11-C06: entry/navigation never opens external links automatically 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '进入本地模式', exact: true })[22m
+
+
+      23 | test('T11-C06: entry/navigation never opens external links automatically',async({page,context,networkCounter})=>{
+      24 |  const opened:string[]=[];context.on('page',tab=>opened.push(tab.url()));
+    > 25 |  await page.goto('/welcome');await page.getByRole('button',{name:'进入本地模式',exact:true}).click();await page.getByRole('link',{name:'帮助',exact:true}).click();
+         |                                                                                        ^
+      26 |  expect(opened).toHaveLength(0);expect(networkCounter.requests.filter(r=>!r.url.startsWith('http://127.0.0.1:4179')&&!r.url.startsWith('ws://127.0.0.1:4179'))).toHaveLength(0);
+      27 | });
+      28 | test('T11: accepted font size, dark/light themes and narrow layout remain readable',async({page})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:25:88
+
+    Error Context: test-results\app-shell-T11-C06-entry-na-c5245-xternal-links-automatically\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-C06-entry-na-c5245-xternal-links-automatically\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-C06-entry-na-c5245-xternal-links-automatically\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests\e2e\app-shell.spec.ts:28:1 › T11: accepted font size, dark/light themes and narrow layout remain readable 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '切换到浅色主题' })[22m
+
+
+      28 | test('T11: accepted font size, dark/light themes and narrow layout remain readable',async({page})=>{
+      29 |  await page.goto('/projects');expect(await page.locator('body').evaluate(element=>getComputedStyle(element).fontSize)).toBe('16px');
+    > 30 |  await page.getByRole('button',{name:'切换到浅色主题'}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','light');
+         |                                                  ^
+      31 |  await page.screenshot({path:'docs/review/screenshots/T11-shell-light.png'});await page.reload();await expect(page.locator('html')).toHaveAttribute('data-theme','light');
+      32 |  await page.setViewportSize({width:720,height:900});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:'docs/review/screenshots/T11-shell-narrow.png'});
+      33 | });
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:30:50
+
+    Error Context: test-results\app-shell-T11-accepted-fon-57be8-rrow-layout-remain-readable\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-accepted-fon-57be8-rrow-layout-remain-readable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-accepted-fon-57be8-rrow-layout-remain-readable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available 
+    tests\e2e\app-shell.spec.ts:8:1 › T11-C03: unknown routes show owned 404 and a working return ──
+    tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger 
+    tests\e2e\app-shell.spec.ts:18:1 › T11-C05: composing and editable targets do not trigger global keyboard commands 
+    tests\e2e\app-shell.spec.ts:23:1 › T11-C06: entry/navigation never opens external links automatically 
+    tests\e2e\app-shell.spec.ts:28:1 › T11: accepted font size, dark/light themes and narrow layout remain readable 

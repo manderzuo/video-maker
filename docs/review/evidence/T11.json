@@ -1,0 +1,138 @@
+{
+  "taskId": "T11",
+  "status": "应用壳与通用控件实施完成，自检通过；后续连接/编辑器集成待对应任务，待统一验收/独立审查",
+  "baseCommit": "67363b62634d9811e980c5f9199d5727f818621c",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/app/App.tsx",
+    "src/app/routes.tsx",
+    "src/app/navigation.ts",
+    "src/ui/tokens.css",
+    "src/ui/Button.tsx",
+    "src/ui/Dialog.tsx",
+    "src/ui/Toast.tsx",
+    "src/ui/copy.zh-CN.ts",
+    "src/vite-env.d.ts",
+    "public/favicon.svg",
+    "src/main.tsx",
+    "index.html",
+    "tests/e2e/app-shell.spec.ts",
+    "tests/e2e/ui-controls.spec.ts",
+    "tests/e2e/harness.spec.ts",
+    "tests/fixtures/ui.html",
+    "tests/fixtures/ui-fixture.tsx"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/app-shell.spec.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T11-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/app-shell.spec.ts",
+      "phase": "first-implementation",
+      "exitCode": 1,
+      "passed": 5,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T11-green.log",
+      "note": "真实Tab焦点离开原生dialog，补显式首尾循环"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/app-shell.spec.ts tests/e2e/harness.spec.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T11-target-final.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/ui-controls.spec.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T11-controls.log",
+      "note": "新测试源语法错误导致未运行；不算行为红灯，修正对象参数语法后实际执行"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/ui-controls.spec.ts",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T11-controls-fixed.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T11-e2e-regression.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "logPath": "docs/review/logs/T11-typecheck-final.log",
+      "note": "测试参数语法错误，不忽略类型检查"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T11-typecheck-fixed.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T11-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T11-build.log"
+    }
+  ],
+  "interactionIds": [
+    "G-01",
+    "G-02",
+    "G-03",
+    "G-04",
+    "G-05",
+    "G-07",
+    "G-08",
+    "G-09",
+    "G-10",
+    "W-01",
+    "W-02",
+    "W-03",
+    "W-04",
+    "W-05",
+    "W-06"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T11-shell-dark.png",
+    "docs/review/screenshots/T11-shell-light.png",
+    "docs/review/screenshots/T11-shell-narrow.png"
+  ],
+  "networkMode": "local browser tests only",
+  "businessCalls": 0,
+  "rulings": [
+    "用户已将视觉/统一验收移至全部内容完成后，允许产品UI继续实现；不修改visual-manifest的pending或批准测试，不把用户字号认可扩展为完整批准。",
+    "八项导航按1.1增补包含独立提示词生成与提示词库；PG路由为/prompt-generator?type=video，未联网加载素材/渠道/推广。",
+    "原生dialog提供模态与Esc目标，真实Tab检查发现焦点会离开至浏览器chrome，补显式首尾循环；保持嵌套Esc只关上层并恢复触发焦点。",
+    "T03启动测试随真实App接入更新为验证自有字标链接与引导标题，保留真实本地Mock POST计数，不删旧用例或假定产品完整。",
+    "本阶段W05连接测试禁用并明确未核验；T23/T24/T37须接入同一受控连接实现后补齐W05。G01保存导航、G10布局与W06新建项目由T12/T13接入，不用当前空态推定完整业务已实现。"
+  ],
+  "knownLimitations": [
+    "项目/素材/任务等主体页面在后续任务逐页接入，当前是导航壳与真实通用控件，不声称23页已完成。",
+    "主题持久偏好可用，Key输入不进入配置/存储，输入失焦隐藏；真实鉴权与health/models未调用。",
+    "真实125%/150%浏览器缩放、独立审查与用户统一验收待；720宽度为真实viewport测试，不冒充页面缩放。",
+    "Toast时长用浏览器时钟推进验证，不声称实际等待5秒；重要错误无自动消失。"
+  ]
+}

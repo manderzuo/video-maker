@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/ui-controls.spec.ts
+
+[WebServer] (node:34400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+SyntaxError: E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\ui-controls.spec.ts: Did not expect a type annotation here. (6:125)
+
+  4 |  const button=page.getByRole('button',{name:'开始本地异步操作',exact:true});await button.click();await expect(button).toBeDisabled();await expect(button).toHaveAttribute('aria-busy','true');
+  5 |  await button.dispatchEvent('click');await button.dispatchEvent('click');await expect(page.getByLabel('操作次数')).toHaveText('1');await page.getByRole('button',{name:'完成操作',exact:true}).click();await expect(button).toBeEnabled();
+> 6 |  await expect(page.getByRole('button',{name:'受控操作',exact:true})).toBeDisabled();await expect(page.getByText('当前服务能力未验证',exact:true)).toBeVisible();
+    |                                                                                                                              ^
+  7 |  await page.clock.fastForward(5000);await expect(page.getByText('保存成功')).not.toBeVisible();await expect(page.getByRole('alert')).toContainText('尚未保存');
+  8 |  expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);
+  9 | });
+
+   at ui-controls.spec.ts:6
+
+  4 |  const button=page.getByRole('button',{name:'开始本地异步操作',exact:true});await button.click();await expect(button).toBeDisabled();await expect(button).toHaveAttribute('aria-busy','true');
+  5 |  await button.dispatchEvent('click');await button.dispatchEvent('click');await expect(page.getByLabel('操作次数')).toHaveText('1');await page.getByRole('button',{name:'完成操作',exact:true}).click();await expect(button).toBeEnabled();
+> 6 |  await expect(page.getByRole('button',{name:'受控操作',exact:true})).toBeDisabled();await expect(page.getByText('当前服务能力未验证',exact:true)).toBeVisible();
+    |                                                                                                                             ^
+  7 |  await page.clock.fastForward(5000);await expect(page.getByText('保存成功')).not.toBeVisible();await expect(page.getByRole('alert')).toContainText('尚未保存');
+  8 |  expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);
+  9 | });
+Error: No tests found.
+Make sure that arguments are regular expressions matching test files.
+You may need to escape symbols like "$" or "*" and quote the arguments.
+

@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/e2e/ui-controls.spec.ts(6,126): error TS1005: ',' expected.

@@ -1,0 +1,54 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/app-shell.spec.ts
+
+[WebServer] (node:1212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:19940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (874ms)
+  ok 2 tests\e2e\app-shell.spec.ts:8:1 › T11-C03: unknown routes show owned 404 and a working return (589ms)
+  x  3 tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (678ms)
+(node:29044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\app-shell.spec.ts:18:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (775ms)
+  ok 5 tests\e2e\app-shell.spec.ts:23:1 › T11-C06: entry/navigation never opens external links automatically (611ms)
+  ok 6 tests\e2e\app-shell.spec.ts:28:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (900ms)
+
+
+  1) tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+      12 |  await page.goto('/projects');await page.getByRole('button',{name:'命令面板',exact:true}).click();
+      13 |  await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).toBeVisible();const trigger=page.getByRole('button',{name:'快捷键说明',exact:true});await trigger.click();
+    > 14 |  const inner=page.getByRole('dialog',{name:'快捷键说明',exact:true});await expect(inner).toBeVisible();for(let i=0;i<7;i++){await page.keyboard.press('Tab');expect(await inner.evaluate(element=>element.contains(document.activeElement))).toBe(true);}
+         |                                                                                                                                                                                                                                         ^
+      15 |  await page.keyboard.press('Escape');await expect(inner).not.toBeVisible();await expect(trigger).toBeFocused();
+      16 |  await page.keyboard.press('Escape');await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).not.toBeVisible();await expect(page.getByRole('button',{name:'命令面板',exact:true})).toBeFocused();
+      17 | });
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\app-shell.spec.ts:14:233
+
+    Error Context: test-results\app-shell-T11-C04-nested-d-97b3f-er-and-restores-its-trigger\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-shell-T11-C04-nested-d-97b3f-er-and-restores-its-trigger\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-shell-T11-C04-nested-d-97b3f-er-and-restores-its-trigger\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\app-shell.spec.ts:11:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger 
+  5 passed (10.0s)

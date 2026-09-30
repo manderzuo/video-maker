@@ -1,0 +1,412 @@
+{
+  "currentTask": "T12",
+  "scope": "T01-T50，用户统一验收放在全部实现后",
+  "independentReviewPerformed": false,
+  "complete": false,
+  "tasks": [
+    {
+      "evidenceFile": "docs/review/evidence/T01.json",
+      "headCommit": "66ceb20400c2b9027383902392b7993d2d99a182",
+      "id": "T01",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp00-00-tasks.md",
+      "status": "自检通过，待审查",
+      "title": "冻结来源、目录与重构范围"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T02.json",
+      "headCommit": "31a6a6f62f8a316256844e877a9f6f6f83766af3",
+      "id": "T02",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp00-00-tasks.md",
+      "status": "具体文档材料已准备，待视觉认可与独立审查；未完成",
+      "title": "关键视觉与交互状态收口"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T03.json",
+      "headCommit": "0eee5909fb812b3662fce9390645cee87aca7c9f",
+      "id": "T03",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp00-00-tasks.md",
+      "status": "实施完成，自检通过，待独立审查",
+      "title": "建立隔离工程与可阻断回归工具链"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T04.json",
+      "headCommit": "92a4248db3bcee4f956e077332b316d5c1aafd45",
+      "id": "T04",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待独立审查",
+      "title": "统一领域类型、Schema与输入限制"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T05.json",
+      "headCommit": "f921d3e0c84a539ec4737e51d9b8f48a225af529",
+      "id": "T05",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待独立审查",
+      "title": "IndexedDB事务保存与可恢复日志"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T06.json",
+      "headCommit": "ac3ed3c6c3ec1daf69862cc96ec5c800005cfe83",
+      "id": "T06",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待独立审查",
+      "title": "多标签写者租约与运行单飞锁"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T07.json",
+      "headCommit": "1082b9943d3ab9c34363277f2aefda93cc00803d",
+      "id": "T07",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
+      "title": "本地素材导入、元数据和缩略图"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T08.json",
+      "headCommit": "b7c1d97975808514afc33b5ad4c6957c68e5dc04",
+      "id": "T08",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
+      "title": "引用计数、软删除与任务证据保留"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T09.json",
+      "headCommit": "7031041c6fa275b7cc20499d60e09a63a9ad5bce",
+      "id": "T09",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
+      "title": "Core凭据会话与脱敏边界"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T10.json",
+      "headCommit": "67363b62634d9811e980c5f9199d5727f818621c",
+      "id": "T10",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp01-01-tasks.md",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
+      "title": "统一命令、修订与撤销重做"
+    },
+    {
+      "evidenceFile": "docs/review/evidence/T11.json",
+      "headCommit": null,
+      "id": "T11",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "应用壳/通用控件自检通过；连接与编辑器集成待后续；待统一验收",
+      "title": "应用导航、引导、通用控件与自有品牌"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T12",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "未开始",
+      "title": "项目主页、模板、归档和回收站"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T13",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "未开始",
+      "title": "画布选择、平移、缩放与键盘等价操作"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T14",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "未开始",
+      "title": "五类节点、类型连线和输入检查器"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T15",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "未开始",
+      "title": "节点菜单、分组、分支与布局"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T16",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "未开始",
+      "title": "素材库、预览和重新关联"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T17",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
+      "status": "未开始",
+      "title": "提示词库、模板变量与本地搜索"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T18",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
+      "status": "未开始",
+      "title": "抽取本地视频提示词规则"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T19",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
+      "status": "未开始",
+      "title": "约束冲突、引用和分镜总时长校验"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T20",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
+      "status": "未开始",
+      "title": "提示词草稿、PromptRun与不可变历史"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T21",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
+      "status": "未开始",
+      "title": "提示词工作台、侧栏和历史面板"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T22",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
+      "status": "未开始",
+      "title": "草稿到画布的原子插入、应用和建流程"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T23",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "固定Core公开契约、能力证据与Mock"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T24",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "同源HTTP通道、地址规范与请求鉴权"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T25",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "上传素材映射与最终请求冻结"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T26",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "预检、费用确认和一次性执行批准"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T27",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "视频提交、持久幂等与未知结果"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T28",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "任务轮询、退避和查询状态"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T29",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "依赖执行队列与刷新恢复"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T30",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "Core文字优化与独立PromptRun"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T31",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "AI结果解析、差异与提示词模式联通"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T32",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
+      "status": "未开始",
+      "title": "作业版本、改版和续写"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T33",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
+      "status": "未开始",
+      "title": "鉴权媒体内容、缓存与浏览器下载"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T34",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
+      "status": "未开始",
+      "title": "任务中心与底部抽屉共享记录"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T35",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
+      "status": "未开始",
+      "title": "审片、A/B比较和结果复用"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T36",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
+      "status": "未开始",
+      "title": "安全项目包、导入迁移与草稿备份"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T37",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
+      "status": "未开始",
+      "title": "设置、存储占用与缓存清理"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T38",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
+      "status": "未开始",
+      "title": "恢复中心、活动记录与帮助"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T39",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
+      "status": "未开始",
+      "title": "本机Agent连接与最小授权通道"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T40",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
+      "status": "未开始",
+      "title": "结构化提案与revision冲突处理"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T41",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
+      "status": "未开始",
+      "title": "画布MCP工具与唯一执行入口"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T42",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
+      "status": "未开始",
+      "title": "Agent面板、上下文预览与停止行为"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T43",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
+      "status": "未开始",
+      "title": "条件能力与原功能处置完整性"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T44",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
+      "status": "未开始",
+      "title": "260项交互与30弹窗追踪回归"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T45",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
+      "status": "未开始",
+      "title": "安全与故障注入整链路测试"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T46",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
+      "status": "未开始",
+      "title": "视觉、可访问性与性能验收"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T47",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
+      "status": "未开始",
+      "title": "独立启动、部署与发行包扫描"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T48",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
+      "status": "未开始",
+      "title": "经授权的真实Core联调"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T49",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
+      "status": "未开始",
+      "title": "升级、备份与回滚演练"
+    },
+    {
+      "evidenceFile": null,
+      "headCommit": null,
+      "id": "T50",
+      "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
+      "status": "未开始",
+      "title": "整分支独立审查与最终交接"
+    }
+  ],
+  "projectRoot": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+  "authorizationFile": "docs/review/IMPLEMENTATION_AUTHORIZATION.md",
+  "branch": "feat/aiwork-studio",
+  "userAcceptancePerformed": false
+}
