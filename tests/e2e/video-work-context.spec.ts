@@ -1,0 +1,5 @@
+import {test,expect} from '../helpers/network-guard';
+import {seedStudio} from '../helpers/seed-studio';
+test('T32 D08: original result opens bounded work dialog; absent capability disables execution and Escape restores focus, zero POST',async({page,networkCounter})=>{
+ await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/canvas');const trigger=page.getByRole('button',{name:'作业版本与续写',exact:true});await trigger.click();const dialog=page.getByRole('dialog',{name:'作业版本与续写',exact:true});await expect(dialog).toContainText('续写时长表示新增片段');await expect(dialog).toContainText('原片保留，不自动拼接');await expect(dialog.getByRole('button',{name:'读取作业版本',exact:true})).toBeDisabled();await expect(dialog.getByRole('button',{name:'确认改版',exact:true})).toBeDisabled();await expect(dialog.getByRole('button',{name:'确认续写',exact:true})).toBeDisabled();await page.screenshot({path:'docs/review/screenshots/T32-work-limited.png'});await page.keyboard.press('Escape');await expect(trigger).toBeFocused();expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);
+});

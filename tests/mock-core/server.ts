@@ -4,7 +4,7 @@ import {registerTestMockOrigin} from '../helpers/mock-network';
 import accepted from '../fixtures/core-v2/video-accepted.json';
 import completed from '../fixtures/core-v2/video-completed.json';
 export type MockRequest={method:string;path:string;credentialPresent:boolean;idempotencyKey?:string;body?:unknown};
-export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;loseChatResponse?:boolean;chatDelayMs?:number;chatContent?:string;statusErrorOnce?:number;statusRetryAfter?:string;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean};
+export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;loseChatResponse?:boolean;chatDelayMs?:number;chatContent?:string;statusErrorOnce?:number;statusRetryAfter?:string;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean;workResponse?:unknown};
 export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
  const requests:MockRequest[]=[],faults:MockFaults={},tasks=new Map<string,{fingerprint:string;taskId:string}>(),taskOwners=new Map<string,string>();let counter=0;
  const server=createServer(async(req,res)=>{
@@ -34,6 +34,7 @@ export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
     }
     if(path==='/v1/chat/completions'){if(faults.loseChatResponse){faults.loseChatResponse=false;req.socket.destroy();return;}if(faults.chatDelayMs)await new Promise(resolve=>setTimeout(resolve,faults.chatDelayMs));json(200,{id:'mock-chat-'+(++counter),object:'chat.completion',model:'fake-text-only',choices:[{index:0,message:{role:'assistant',content:faults.chatContent??'本地模拟文字结果，非真实模型输出'}}]});return;}
    }
+   if(method==='GET'&&path==='/v1/video-works/work-1'&&faults.workResponse&&[...taskOwners.values()].includes(identity)){json(200,faults.workResponse);return;}
    const match=path.match(/^\/v1\/videos\/(mock-core-\d+)(\/content)?$/);
    if(method==='GET'&&match&&taskOwners.get(match[1])===identity){
     if(match[2]){if(faults.contentRedirect){res.writeHead(302,{Location:faults.contentRedirect});res.end();return;}res.writeHead(200,{'Content-Type':'video/mp4','X-Studio-Mock':'true'});res.end(options.contentBytes??new Uint8Array([0,0,0,12,102,116,121,112,105,115,111,109]));return;}

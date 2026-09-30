@@ -1,0 +1,91 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-work-context.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-work-context.test.ts (6 tests | 6 failed) 119ms
+   × T32-C01: disabled continuation fails closed with no fallback paid submission 73ms
+   × T32-C05: different original binding is refused before any work query or paid call 14ms
+   × T32-C02: genuine HTTP 404 cannot fall back to a normal generation 10ms
+   × T32: fixed source fields are projected; URLs, ownership and sealed snapshots never enter local version view 1ms
+   × T32-C02: parent version belongs to the fixed source Run and asset, never latest work by key 11ms
+   × T32-C03/C04/C06: a readable completed identity without a proven parent spec cannot authorize regeneration or stitching 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32-C01: disabled continuation fails closed with no fallback paid submission
+AssertionError: expected [Function] to throw error including 'continuation_disabled' but got 'not_implemented'
+
+Expected: "continuation_disabled"
+Received: "not_implemented"
+
+ ❯ tests/unit/video-work-context.test.ts:8:221
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32-C05: different original binding is refused before any work query or paid call
+AssertionError: expected [Function] to throw error including 'original_authorization_required' but got 'not_implemented'
+
+Expected: "original_authorization_required"
+Received: "not_implemented"
+
+ ❯ tests/unit/video-work-context.test.ts:9:272
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32-C02: genuine HTTP 404 cannot fall back to a normal generation
+AssertionError: expected [Function] to throw error including 'work_context_unavailable' but got 'not_implemented'
+
+Expected: "work_context_unavailable"
+Received: "not_implemented"
+
+ ❯ tests/unit/video-work-context.test.ts:10:181
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32: fixed source fields are projected; URLs, ownership and sealed snapshots never enter local version view
+Error: not_implemented
+ ❯ parseVideoWork src/adapters/core/video-works.ts:4:79
+      2| import type {CoreClient} from './http-client';
+      3| export type VideoWork={workId:string;versions:{versionId:string;workId…
+      4| export function parseVideoWork(_value:unknown,_workId:string):VideoWor…
+       |                                                                               ^
+      5| export async function getVideoWork(_workId:string,_binding:RunBinding,…
+      6|
+ ❯ tests/unit/video-work-context.test.ts:11:131
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32-C02: parent version belongs to the fixed source Run and asset, never latest work by key
+AssertionError: expected [Function] to throw error including 'work_source_binding_mismatch' but got 'not_implemented'
+
+Expected: "work_source_binding_mismatch"
+Received: "not_implemented"
+
+ ❯ tests/unit/video-work-context.test.ts:12:243
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32-C03/C04/C06: a readable completed identity without a proven parent spec cannot authorize regeneration or stitching
+AssertionError: expected [Function] to throw error including 'work_parent_spec_unverified' but got 'not_implemented'
+
+Expected: "work_parent_spec_unverified"
+Received: "not_implemented"
+
+ ❯ tests/unit/video-work-context.test.ts:13:204
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  05:51:23
+   Duration  699ms (transform 241ms, setup 47ms, import 350ms, tests 119ms, environment 0ms)
+

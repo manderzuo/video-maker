@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-work-context.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  05:55:42
+   Duration  685ms (transform 237ms, setup 45ms, import 338ms, tests 134ms, environment 0ms)
+

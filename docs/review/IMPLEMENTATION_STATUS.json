@@ -1,5 +1,5 @@
 {
-  "currentTask": "T32",
+  "currentTask": "T33",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -246,18 +246,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T31.json",
-      "headCommit": null,
+      "headCommit": "4985e04a017bdced6428fa81d6c3a1de7c834724",
       "id": "T31",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "AI结果解析、差异与提示词模式联通"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T32.json",
       "headCommit": null,
       "id": "T32",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "基础版受限功能已实施，自检通过；改版/续写执行受父版本规格与部署核验门槛限制，待统一验收/独立审查",
       "title": "作业版本、改版和续写"
     },
     {

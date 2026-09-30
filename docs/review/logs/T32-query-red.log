@@ -1,0 +1,35 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-work-context.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-work-context.test.ts (9 tests | 1 failed) 136ms
+   × T32: original completed query can discover work version without changing billing or submission request ID 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32: original completed query can discover work version without changing billing or submission request ID
+AssertionError: expected undefined to deeply equal { workId: 'work-1', …(1) }
+
+- Expected:
+{
+  "baseVersionId": "version-1",
+  "workId": "work-1",
+}
+
++ Received:
+undefined
+
+ ❯ tests/unit/video-work-context.test.ts:19:433
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  05:59:10
+   Duration  699ms (transform 242ms, setup 43ms, import 342ms, tests 136ms, environment 0ms)
+

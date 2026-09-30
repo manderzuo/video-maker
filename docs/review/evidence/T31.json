@@ -1,31 +1,239 @@
 {
- "taskId":"T31","status":"实施完成，自检通过，待统一验收/独立审查","baseCommit":"4eb7503a2b085d64d4b484376182d7ea4b165fbd","headCommit":null,"branch":"feat/prompt-generation","actualProjectPath":"E:/trae-studio/TRAEWORK/aiwork-studio","actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
- "files":["src/adapters/core/prompt-result-parser.ts","src/adapters/core/current-connection.ts","src/features/prompt-generation/AIOptimizeDialog.tsx","src/features/prompt-generation/PromptResultDiff.tsx","src/features/prompt-generation/PromptGeneratorPanel.tsx","src/features/prompt-generation/result-versions.ts","src/application/prompts/optimize-text.ts","src/ui/tokens.css","tests/e2e/prompt-result-parser.spec.ts","tests/e2e/prompt-workspace.spec.ts","tests/unit/prompt-result-parser.test.ts","tests/unit/prompt-response-attachment.test.ts","tests/unit/text-optimization.test.ts"],
- "commands":[
-  {"command":"npm run test:unit -- tests/unit/prompt-result-parser.test.ts","exitCode":1,"passed":1,"failed":3,"skipped":0,"logPath":"docs/review/logs/T31-parser-red.log"},
-  {"command":"npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts","exitCode":1,"passed":0,"failed":3,"skipped":0,"logPath":"docs/review/logs/T31-ui-red.log"},
-  {"command":"npm run test:unit -- tests/unit/prompt-result-parser.test.ts","exitCode":1,"passed":3,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-parser-green.log","note":"测试误要求可选result字段必须存在，改为分别检查invalid/raw与result为undefined，语义未降低"},
-  {"command":"npm run typecheck","exitCode":2,"passed":null,"failed":2,"skipped":0,"logPath":"docs/review/logs/T31-typecheck.log","note":"浏览器RequestRecord只有url，修正测试从URL读取pathname，没有屏蔽类型错误"},
-  {"command":"npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts","exitCode":1,"passed":1,"failed":2,"skipped":0,"logPath":"docs/review/logs/T31-ui-initial.log","note":"异步保存使触发按钮暂时禁用导致丢焦点，补显式恢复原触发元素；另一失败为测试请求字段错误"},
-  {"command":"npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts","exitCode":0,"passed":3,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-ui-initial-verified.log"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'late response|stopping waiting'","exitCode":1,"passed":1,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-late-stop-red.log","note":"隐藏离开弹窗包含同一状态文案，测试改为定位实际banner后继续验证旧请求风险门控"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'stopping waiting'","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-risk-ui-red.log"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts -t 'fresh chat after'","exitCode":1,"passed":0,"failed":1,"skipped":13,"logPath":"docs/review/logs/T31-risk-domain-red.log"},
-  {"command":"npm run test:unit -- tests/unit/prompt-response-attachment.test.ts","exitCode":1,"passed":3,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-attachment.log","note":"重复解析因Schema字段顺序导致误报不可变版本冲突，公共事务写入先规范化后比较，未削弱历史不可变保护"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'restore from saved storage'","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-refresh-red.log"},
-  {"command":"npm run test:unit","exitCode":0,"passed":276,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-unit.log"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts tests/unit/prompt-result-parser.test.ts tests/unit/prompt-response-attachment.test.ts","exitCode":0,"passed":22,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-target-final.log"},
-  {"command":"npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-canvas-commands.spec.ts","exitCode":1,"passed":29,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-browser-final.log","note":"旧T21断言尚未接入的文案过期，改为实际授权/模型/费用门控说明；禁用、零PromptRun、零Run、零付费请求断言全部保留"},
-  {"command":"npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-canvas-commands.spec.ts","exitCode":0,"passed":30,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-browser-verified.log"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'parsed candidate keeps'","exitCode":0,"passed":1,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-diff-browser-final.log"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'PGD02'","exitCode":0,"passed":1,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-confirm-browser-final.log"},
-  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-typecheck-final.log"},
-  {"command":"npm run lint","exitCode":1,"passed":null,"failed":1,"skipped":0,"logPath":"docs/review/logs/T31-lint.log","note":"prefer-const修正"},
-  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-lint-final.log"},
-  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T31-build-final.log"}
- ],
- "interactionIds":["T-07","PG21","PG15","PG17","PG18","PG19","PG20"],"dialogs":["PGD02","PGD06"],"screenshots":["docs/review/screenshots/T31-ai-confirm.png","docs/review/screenshots/T31-ai-confirm-cancelled.png","docs/review/screenshots/T31-ai-candidate-diff.png"],"networkMode":"原生IndexedDB等价事务+实际回环HTTP Mock、真实Chromium同源假文字接口；无真实Core",
- "behavior":["PGD02明确选已核验文字模型，参考说明默认不勾选；展示冻结确切请求和未知费用，取消/ESC零请求、恢复原焦点，普通Key仅当前标签内存","严格JSON结构或明确三段旧标记兼容；旧标记参数不猜成可执行规格，未知指令字段/重复标记拒绝；raw纯文字保留，无HTML执行或自动AI修复","AI仅追加候选历史；按原PromptRun请求SHA/原输入修订核对并比较品牌、对白与其它锁定约束；新输入与新人工正文不被晚到结果覆盖","诊断+候选保存同事务，规范化后幂等不重复历史；响应写入后本地保存配额失败可明确重新解析已保存响应，零第二次聊天","刷新恢复原安全响应与候选差异，读取不要求重发或重新提供Key；无效响应保留但不冒充成功候选","停止等待保持waiting_stopped与not_provided，不取消/退款；新的PromptRun独立预览与确认，旧未知请求清单绑定SHA且必须单独风险同意","T30领域服务与本任务UI完整联通，收到文字不代表Core结算；选择候选、入库、插入或应用仍不调用视频API"],
- "sourceVersion":"只读prompt-for-seedance-gptimage2.5 d8ba7c104ba7c24e3d28b0c3bede8764544bea8b，src/optimizer/main.jsx SHA256 3315cf16e7c5c950125dabbb605732de9a553d340b3bd8af1a92415b59d4fb52；仅核对FINAL_PROMPT/IMPROVEMENTS/PARAMETERS格式，MIT来源台账保留",
- "knownLimitations":["最终领域22目标行为、7新增实际UI行为和23相关UI回归；未声称真实Core、真实费用、全平台输入法或全部浏览器验收通过","原始文字响应安全诊断留在本地；诊断默认不导出全文的最终统一策略待T43实现，CoreKey已脱敏/拒绝入库","解析结构和有限字面约束不保证自然语言理解或生成质量；候选执行仍经过预检和单独收费确认","主资源包519.44kB警告记录待T46分包，未提高阈值掩盖","用户统一验收、独立审查、全面视觉与125/150缩放、前端标识许可和真实接口验证仍待"]
+  "taskId": "T31",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "4eb7503a2b085d64d4b484376182d7ea4b165fbd",
+  "headCommit": "4985e04a017bdced6428fa81d6c3a1de7c834724",
+  "branch": "feat/prompt-generation",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/adapters/core/prompt-result-parser.ts",
+    "src/adapters/core/current-connection.ts",
+    "src/features/prompt-generation/AIOptimizeDialog.tsx",
+    "src/features/prompt-generation/PromptResultDiff.tsx",
+    "src/features/prompt-generation/PromptGeneratorPanel.tsx",
+    "src/features/prompt-generation/result-versions.ts",
+    "src/application/prompts/optimize-text.ts",
+    "src/ui/tokens.css",
+    "tests/e2e/prompt-result-parser.spec.ts",
+    "tests/e2e/prompt-workspace.spec.ts",
+    "tests/unit/prompt-result-parser.test.ts",
+    "tests/unit/prompt-response-attachment.test.ts",
+    "tests/unit/text-optimization.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-result-parser.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-parser-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-ui-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-result-parser.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-parser-green.log",
+      "note": "测试误要求可选result字段必须存在，改为分别检查invalid/raw与result为undefined，语义未降低"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "passed": null,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-typecheck.log",
+      "note": "浏览器RequestRecord只有url，修正测试从URL读取pathname，没有屏蔽类型错误"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-ui-initial.log",
+      "note": "异步保存使触发按钮暂时禁用导致丢焦点，补显式恢复原触发元素；另一失败为测试请求字段错误"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-ui-initial-verified.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'late response|stopping waiting'",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-late-stop-red.log",
+      "note": "隐藏离开弹窗包含同一状态文案，测试改为定位实际banner后继续验证旧请求风险门控"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'stopping waiting'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-risk-ui-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts -t 'fresh chat after'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 13,
+      "logPath": "docs/review/logs/T31-risk-domain-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-response-attachment.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-attachment.log",
+      "note": "重复解析因Schema字段顺序导致误报不可变版本冲突，公共事务写入先规范化后比较，未削弱历史不可变保护"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'restore from saved storage'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-refresh-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 276,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-unit.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts tests/unit/prompt-result-parser.test.ts tests/unit/prompt-response-attachment.test.ts",
+      "exitCode": 0,
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-target-final.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 1,
+      "passed": 29,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-browser-final.log",
+      "note": "旧T21断言尚未接入的文案过期，改为实际授权/模型/费用门控说明；禁用、零PromptRun、零Run、零付费请求断言全部保留"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 0,
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-browser-verified.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'parsed candidate keeps'",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-diff-browser-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-result-parser.spec.ts --grep 'PGD02'",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-confirm-browser-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 1,
+      "passed": null,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-lint.log",
+      "note": "prefer-const修正"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T31-build-final.log"
+    }
+  ],
+  "interactionIds": [
+    "T-07",
+    "PG21",
+    "PG15",
+    "PG17",
+    "PG18",
+    "PG19",
+    "PG20"
+  ],
+  "dialogs": [
+    "PGD02",
+    "PGD06"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T31-ai-confirm.png",
+    "docs/review/screenshots/T31-ai-confirm-cancelled.png",
+    "docs/review/screenshots/T31-ai-candidate-diff.png"
+  ],
+  "networkMode": "原生IndexedDB等价事务+实际回环HTTP Mock、真实Chromium同源假文字接口；无真实Core",
+  "behavior": [
+    "PGD02明确选已核验文字模型，参考说明默认不勾选；展示冻结确切请求和未知费用，取消/ESC零请求、恢复原焦点，普通Key仅当前标签内存",
+    "严格JSON结构或明确三段旧标记兼容；旧标记参数不猜成可执行规格，未知指令字段/重复标记拒绝；raw纯文字保留，无HTML执行或自动AI修复",
+    "AI仅追加候选历史；按原PromptRun请求SHA/原输入修订核对并比较品牌、对白与其它锁定约束；新输入与新人工正文不被晚到结果覆盖",
+    "诊断+候选保存同事务，规范化后幂等不重复历史；响应写入后本地保存配额失败可明确重新解析已保存响应，零第二次聊天",
+    "刷新恢复原安全响应与候选差异，读取不要求重发或重新提供Key；无效响应保留但不冒充成功候选",
+    "停止等待保持waiting_stopped与not_provided，不取消/退款；新的PromptRun独立预览与确认，旧未知请求清单绑定SHA且必须单独风险同意",
+    "T30领域服务与本任务UI完整联通，收到文字不代表Core结算；选择候选、入库、插入或应用仍不调用视频API"
+  ],
+  "sourceVersion": "只读prompt-for-seedance-gptimage2.5 d8ba7c104ba7c24e3d28b0c3bede8764544bea8b，src/optimizer/main.jsx SHA256 3315cf16e7c5c950125dabbb605732de9a553d340b3bd8af1a92415b59d4fb52；仅核对FINAL_PROMPT/IMPROVEMENTS/PARAMETERS格式，MIT来源台账保留",
+  "knownLimitations": [
+    "最终领域22目标行为、7新增实际UI行为和23相关UI回归；未声称真实Core、真实费用、全平台输入法或全部浏览器验收通过",
+    "原始文字响应安全诊断留在本地；诊断默认不导出全文的最终统一策略待T43实现，CoreKey已脱敏/拒绝入库",
+    "解析结构和有限字面约束不保证自然语言理解或生成质量；候选执行仍经过预检和单独收费确认",
+    "主资源包519.44kB警告记录待T46分包，未提高阈值掩盖",
+    "用户统一验收、独立审查、全面视觉与125/150缩放、前端标识许可和真实接口验证仍待"
+  ]
 }

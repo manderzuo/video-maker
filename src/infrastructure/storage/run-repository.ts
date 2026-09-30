@@ -12,6 +12,7 @@ export async function validateFrozenBody(run:Run){
  }
 }
 export function assertRunIdentity(previous:Run,run:Run){
+ if(previous.workContext&&(previous.workContext.workId!==run.workContext?.workId||previous.workContext.baseVersionId&&previous.workContext.baseVersionId!==run.workContext?.baseVersionId))throw Error('video_work_identity_frozen');
  for(const key of ['projectId','nodeId','graphRevision','connectionId','authBindingId','originSnapshot','idempotencyKey','createdAt','inputSnapshot'] as const)if(JSON.stringify(previous[key])!==JSON.stringify(run[key]))throw new Error('run_identity_frozen');
  if(previous.finalBody!==undefined&&(previous.finalBody!==run.finalBody||previous.finalBodyHash!==run.finalBodyHash))throw new Error('final_body_frozen');
 }

@@ -1,0 +1,35 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-work-context.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-work-context.test.ts (7 tests | 1 failed) 117ms
+   × T32: parsed original work identity is saved separately from task ID; handles and URLs are excluded and changed work rejected 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-work-context.test.ts > T32: parsed original work identity is saved separately from task ID; handles and URLs are excluded and changed work rejected
+AssertionError: expected undefined to deeply equal { workId: 'work-1', …(1) }
+
+- Expected:
+{
+  "baseVersionId": "version-1",
+  "workId": "work-1",
+}
+
++ Received:
+undefined
+
+ ❯ tests/unit/video-work-context.test.ts:16:461
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed (7)
+   Start at  05:53:38
+   Duration  667ms (transform 227ms, setup 46ms, import 329ms, tests 117ms, environment 0ms)
+
