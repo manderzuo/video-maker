@@ -1,20 +1,130 @@
 {
- "taskId":"T28","status":"实施完成，自检通过，待统一验收/独立审查","baseCommit":"30d750d8f9afafa2ee410d8da168c840984479cb","headCommit":null,
- "actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
- "files":["src/application/runs/poll-video.ts","src/adapters/core/retry-policy.ts","src/domain/run-status.ts","src/adapters/core/contracts.ts","src/adapters/core/http-client.ts","src/application/runs/recover-submit.ts","tests/unit/video-polling.test.ts","tests/helpers/video-harness.ts","tests/mock-core/server.ts"],
- "commands":[
-  {"command":"npm run test:unit -- tests/unit/video-polling.test.ts","exitCode":1,"passed":0,"failed":8,"skipped":0,"logPath":"docs/review/logs/T28-red.log"},
-  {"command":"npm run test:unit -- tests/unit/video-polling.test.ts","exitCode":0,"passed":8,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-green-initial.log"},
-  {"command":"npm run typecheck","exitCode":2,"passed":null,"failed":2,"skipped":0,"logPath":"docs/review/logs/T28-typecheck.log","note":"查询锁和释放记录可能缺失，已改显式检查，未屏蔽类型错误"},
-  {"command":"npm run test:unit -- tests/unit/video-polling.test.ts","exitCode":1,"passed":8,"failed":2,"skipped":0,"logPath":"docs/review/logs/T28-loop-red.log"},
-  {"command":"npm run test:unit -- tests/unit/video-polling.test.ts","exitCode":0,"passed":10,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-loop-green.log"},
-  {"command":"npm run test:unit","exitCode":0,"passed":242,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-unit.log"},
-  {"command":"npm run test:e2e -- tests/e2e/video-submit.spec.ts tests/e2e/core-transport.spec.ts","exitCode":0,"passed":6,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-browser.log"},
-  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-typecheck-verified.log"},
-  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-lint-final.log"},
-  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T28-build.log"}
- ],
- "interactionIds":["V-11","V-12","V-13","J-04","J-05","F-05"],"screenshots":[],"networkMode":"精确回环端口HTTP Mock、真实Chromium同源假接口；无真实Core",
- "behavior":["单次查询与循环只GET原task，原绑定/普通Key不足时auth_required，401/403要求授权，404/5xx保留执行/账务/交付","正常3秒，异常2/4/8/16/30秒带抖动；真实HTTP429 Retry-After秒数/HTTP-date传到安全摘要和下一延迟；隐藏页面至少15秒","显式暂停持久化且原执行/交付/账务/幂等键不改；晚到真实HTTP响应受运行revision/查询fence限制，不覆盖暂停","查询运行单飞和持久30秒查询锁；resume只保存查询意图，不发视频POST；下一步明确GET","成功与账务not_provided可并存，未知状态和旧queued观察不降级running，生成终态不被查询网络故障抹掉","查询save配额回滚原执行，恢复后只重试GET；原提交CoreRequestId不被查询请求编号改写","循环在持久暂停、需要授权、缺身份或任务终态停止；停止本地计时/GET不取消生成","共享恢复查询使用同一观察规则；安全摘要不保存Key/raw response/content URL"],
- "knownLimitations":["本任务交付跨页查询服务和循环接口，无新控制页面；队列T29、任务中心T34将消费暂停/恢复接口，当前提交页尚未接自动循环","本地fake-indexeddb事务+真实HTTP验证含15目标行为；真实浏览器6项验证共享传输/恢复，未宣称全平台睡眠或真实Core通过","交付状态仍由T32文件交付确认；远端completed不当本地缓存或系统下载成功，账务无明确证据不推断结算","浏览器回归更新T27未知结果运行截图，无新T28截图","用户统一验收/独立审查/完整视觉与许可/真实接口验证均待，默认实际取消仍门控"]
+  "taskId": "T28",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "30d750d8f9afafa2ee410d8da168c840984479cb",
+  "headCommit": "8878fc63ae881e0fdafd826a3e2832b6d9752c65",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/application/runs/poll-video.ts",
+    "src/adapters/core/retry-policy.ts",
+    "src/domain/run-status.ts",
+    "src/adapters/core/contracts.ts",
+    "src/adapters/core/http-client.ts",
+    "src/application/runs/recover-submit.ts",
+    "tests/unit/video-polling.test.ts",
+    "tests/helpers/video-harness.ts",
+    "tests/mock-core/server.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/video-polling.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 8,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-polling.test.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-green-initial.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "passed": null,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-typecheck.log",
+      "note": "查询锁和释放记录可能缺失，已改显式检查，未屏蔽类型错误"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-polling.test.ts",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-loop-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-polling.test.ts",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-loop-green.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 242,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-unit.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/video-submit.spec.ts tests/e2e/core-transport.spec.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-browser.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-typecheck-verified.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T28-build.log"
+    }
+  ],
+  "interactionIds": [
+    "V-11",
+    "V-12",
+    "V-13",
+    "J-04",
+    "J-05",
+    "F-05"
+  ],
+  "screenshots": [],
+  "networkMode": "精确回环端口HTTP Mock、真实Chromium同源假接口；无真实Core",
+  "behavior": [
+    "单次查询与循环只GET原task，原绑定/普通Key不足时auth_required，401/403要求授权，404/5xx保留执行/账务/交付",
+    "正常3秒，异常2/4/8/16/30秒带抖动；真实HTTP429 Retry-After秒数/HTTP-date传到安全摘要和下一延迟；隐藏页面至少15秒",
+    "显式暂停持久化且原执行/交付/账务/幂等键不改；晚到真实HTTP响应受运行revision/查询fence限制，不覆盖暂停",
+    "查询运行单飞和持久30秒查询锁；resume只保存查询意图，不发视频POST；下一步明确GET",
+    "成功与账务not_provided可并存，未知状态和旧queued观察不降级running，生成终态不被查询网络故障抹掉",
+    "查询save配额回滚原执行，恢复后只重试GET；原提交CoreRequestId不被查询请求编号改写",
+    "循环在持久暂停、需要授权、缺身份或任务终态停止；停止本地计时/GET不取消生成",
+    "共享恢复查询使用同一观察规则；安全摘要不保存Key/raw response/content URL"
+  ],
+  "knownLimitations": [
+    "本任务交付跨页查询服务和循环接口，无新控制页面；队列T29、任务中心T34将消费暂停/恢复接口，当前提交页尚未接自动循环",
+    "本地fake-indexeddb事务+真实HTTP验证含15目标行为；真实浏览器6项验证共享传输/恢复，未宣称全平台睡眠或真实Core通过",
+    "交付状态仍由T32文件交付确认；远端completed不当本地缓存或系统下载成功，账务无明确证据不推断结算",
+    "浏览器回归更新T27未知结果运行截图，无新T28截图",
+    "用户统一验收/独立审查/完整视觉与许可/真实接口验证均待，默认实际取消仍门控"
+  ]
 }

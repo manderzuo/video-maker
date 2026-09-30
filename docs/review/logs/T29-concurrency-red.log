@@ -1,0 +1,37 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/run-queue.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/run-queue.test.ts (9 tests | 1 failed) 250ms
+   × T29: three approved preparations use the same original approval, at most three in flight 72ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29: three approved preparations use the same original approval, at most three in flight
+AssertionError: expected [ 'accepted', 'blocked', 'blocked' ] to deeply equal [ 'accepted', 'accepted', 'accepted' ]
+
+- Expected
++ Received
+
+  [
+    "accepted",
+-   "accepted",
+-   "accepted",
++   "blocked",
++   "blocked",
+  ]
+
+ ❯ tests/unit/run-queue.test.ts:27:105
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  04:54:19
+   Duration  878ms (transform 295ms, setup 44ms, import 409ms, tests 250ms, environment 0ms)
+

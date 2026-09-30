@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/run-queue.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/run-queue.test.ts (10 tests | 1 failed) 256ms
+   × T29: graph change while a queue activates leaves a durable paused queue and sends nothing 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29: graph change while a queue activates leaves a durable paused queue and sends nothing
+AssertionError: expected 'active' to be 'paused' // Object.is equality
+
+Expected: "paused"
+Received: "active"
+
+ ❯ tests/unit/run-queue.test.ts:31:618
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed (10)
+   Start at  04:59:16
+   Duration  894ms (transform 301ms, setup 43ms, import 420ms, tests 256ms, environment 0ms)
+

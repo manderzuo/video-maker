@@ -1,0 +1,8 @@
+import {Button} from '../../ui/Button';
+import type {RunQueue} from '../../application/runs/queue';
+const states={draft:'待确认',ready:'准备就绪',active:'正在准备与提交',paused:'已暂停',waiting_confirmation:'等待输入确认',blocked:'依赖受阻',completed:'已提交'};
+const items={waiting_confirmation:'待确认输入',ready:'待提交',preparing:'正在准备',accepted:'已提交',blocked:'受阻',submit_unknown:'提交结果不明'};
+export function QueueControls({queue,canWrite,onPause,onResume,onConcurrency}:{queue:RunQueue;canWrite:boolean;onPause:()=>Promise<void>;onResume:()=>void;onConcurrency:(value:number)=>Promise<void>}){
+ const pending=queue.items.filter(i=>!['accepted','submit_unknown'].includes(i.status));
+ return <section aria-label="执行队列" className="queue-controls"><strong>执行队列 · {states[queue.state]}</strong><label>本地准备并行<select aria-label="本地准备并行" value={queue.preparationConcurrency} disabled={!canWrite||!['paused','ready','draft'].includes(queue.state)} onChange={event=>void onConcurrency(Number(event.target.value))}>{[1,2,3].map(n=><option key={n} value={n}>{n}</option>)}</select></label><p>此数量只控制本地准备；服务准入由 Core 决定。暂停不会取消已发出的任务，也不表示退款。</p><ul>{queue.items.map(item=><li key={item.nodeId}>{item.nodeId} · {items[item.status]}{item.errorCode==='upstream_failed'?' · 原上游任务失败':item.requiresVisibleOutputs.length?' · 先查看并明确引用上游结果':''}</li>)}</ul><Button data-interaction-id="C-17" disabled={!canWrite||!['ready','active'].includes(queue.state)} onClick={onPause}>暂停待提交项</Button><Button data-interaction-id="C-18" disabled={!canWrite||queue.state!=='paused'||!pending.length||queue.items.some(i=>i.status==='submit_unknown')} disabledReason="待提交项需要重新确认；结果不明的请求请先核对原记录。" onClick={onResume}>重新确认待提交项</Button></section>;
+}

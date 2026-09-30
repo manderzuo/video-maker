@@ -1,0 +1,23 @@
+{
+ "taskId":"T29","status":"实施完成，自检通过，待统一验收/独立审查","baseCommit":"8878fc63ae881e0fdafd826a3e2832b6d9752c65","headCommit":null,
+ "actualProjectPath":"E:/trae-studio/TRAEWORK/aiwork-studio","branch":"feat/aiwork-studio","actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
+ "files":["src/application/runs/queue.ts","src/application/runs/graph-plan.ts","src/application/runs/submit-video.ts","src/features/tasks/QueueControls.tsx","src/features/canvas/CanvasPage.tsx","src/ui/tokens.css","tests/unit/run-queue.test.ts","tests/e2e/run-queue.spec.ts"],
+ "commands":[
+  {"command":"npm run test:unit -- tests/unit/run-queue.test.ts","exitCode":1,"passed":0,"failed":6,"skipped":0,"logPath":"docs/review/logs/T29-red.log"},
+  {"command":"npm run test:unit -- tests/unit/run-queue.test.ts","exitCode":1,"passed":8,"failed":1,"skipped":0,"logPath":"docs/review/logs/T29-concurrency-red.log"},
+  {"command":"npm run test:unit -- tests/unit/run-queue.test.ts","exitCode":0,"passed":9,"failed":0,"skipped":0,"logPath":"docs/review/logs/T29-target.log"},
+  {"command":"npm run test:unit -- tests/unit/run-queue.test.ts","exitCode":1,"passed":9,"failed":1,"skipped":0,"logPath":"docs/review/logs/T29-revision-red.log"},
+  {"command":"npm run test:e2e -- tests/e2e/run-queue.spec.ts","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T29-ui-red.log"},
+  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/run-queue.spec.ts --grep 'actual pause'","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T29-pause-ui-red.log"},
+  {"command":"npm run typecheck","exitCode":2,"passed":null,"failed":2,"skipped":0,"logPath":"docs/review/logs/T29-typecheck.log","note":"JSX括号修正；更早另有不存在的Run字段TS2339退出1，已删除错误字段引用，保留真实执行状态检查"},
+  {"command":"npm run test:unit","exitCode":0,"passed":254,"failed":0,"skipped":0,"logPath":"docs/review/logs/T29-unit.log"},
+  {"command":"npm run test:e2e -- tests/e2e/run-queue.spec.ts tests/e2e/video-submit.spec.ts tests/e2e/generation-preflight.spec.ts","exitCode":0,"passed":15,"failed":0,"skipped":0,"logPath":"docs/review/logs/T29-browser-final.log"},
+  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T29-typecheck-verified.log"},
+  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T29-lint-final.log"},
+  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T29-build-final.log"}
+ ],
+ "interactionIds":["C-17","C-18","J-06","J-07"],"screenshots":["docs/review/screenshots/T29-queue-paused.png"],"networkMode":"原生IndexedDB等价事务+精确回环HTTP Mock，真实Chromium同源假接口；无真实Core",
+ "behavior":["显式视频节点作用域、DAG排序、分组不隐式展开；Result绑定原runId，上游失败阻断，未看过的上游输出必须再次明确引用/确认","现有receipts保存严格Schema队列，默认1/最大3本地准备，并行实际HTTP验证；相同approval只有一个队列","原T26批准与T27准备/冻结/意图/幂等流程复用，持久队列owner/epoch与项目写权在发送意图事务检查","暂停/刷新保存paused并撤销旧队列owner，零自动续发/取消/退款推断；已发响应仍更新原Run，最终队列从原Run恢复真实显示","原结果未知暂停后续发送，禁止复用旧确认恢复或自动换键；重新查看D05后只为明确尚未发送的节点创建新批准，保留旧未发送身份supersededRunIds","画布变化发送前拒绝；激活期间变化也将队列落盘为暂停；不重跑未选中镜头","画布接入T28原身份只读轮询循环；停止页面计时不取消生成"],
+ "terminologyDecision":"计划T29接口写RunPlan[]，示例却读取每项nodeId；T26已有RunPlan定义为封存批次。按统一实现决策保留T26契约，T29逐节点输出名GraphNodePlan，示例语义一致，避免重造两套RunPlan。",
+ "knownLimitations":["12项领域队列行为+2项实际UI行为，未宣称Windows睡眠/全部浏览器/全页面完整验收","Core并发准入不由本地准备1–3决定；当前真实部署能力/取消/财务仍未知门控","跨页任务中心J06/J07后续T34消费同一队列接口，当前已有Canvas C17/C18","505.63kB主资源包出现Vite 500kB警告，记录待T46性能处理，未提高阈值掩盖","纯Video→Video依赖仅规划等待，必须明确引用可见Result重新预检；不会自动把未来结果替换进原批准","统一用户验收/独立审查/完整视觉许可/真实接口验证待进行"]
+}

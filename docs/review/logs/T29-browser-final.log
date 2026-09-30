@@ -1,0 +1,30 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/run-queue.spec.ts tests/e2e/video-submit.spec.ts tests/e2e/generation-preflight.spec.ts
+
+[WebServer] (node:28452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:26964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests (1.3s)
+  ok  2 tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click preserves one approval and sends exactly one confirmed frozen request (1.2s)
+  ok  3 tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft (1.5s)
+  ok  4 tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run (1.1s)
+  ok  5 tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus (1.1s)
+  ok  6 tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected (1.1s)
+  ok  7 tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog (1.1s)
+  ok  8 tests\e2e\generation-preflight.spec.ts:17:1 › T26: quota failure atomically preserves draft and refuses approval/Run creation (1.1s)
+  ok  9 tests\e2e\generation-preflight.spec.ts:18:1 › T26: changing text even without revision bump invalidates the reviewed input snapshot (1.1s)
+  ok 10 tests\e2e\run-queue.spec.ts:4:1 › T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST (1.1s)
+  ok 11 tests\e2e\run-queue.spec.ts:12:1 › T29: actual pause while the first request waits keeps its response and stops the second submission (1.3s)
+  ok 12 tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable (1.2s)
+  ok 13 tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay (1.3s)
+  ok 14 tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment (1.4s)
+  ok 15 tests\e2e\video-submit.spec.ts:12:1 › T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission (1.4s)
+
+  15 passed (21.1s)

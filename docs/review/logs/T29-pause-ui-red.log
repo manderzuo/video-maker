@@ -1,0 +1,48 @@
+[WebServer] (node:27996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\run-queue.spec.ts:12:1 › T29: actual pause while the first request waits keeps its response and stops the second submission (6.5s)
+
+
+  1) tests\e2e\run-queue.spec.ts:12:1 › T29: actual pause while the first request waits keeps its response and stops the second submission 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('region', { name: '执行队列' })
+    Expected substring: [32m"video-1 · 已提交"[39m
+    Received string:    [31m"执行队列 · 已暂停本地准备并行123此数量只控制本地准备；服务准入由 Core 决定。暂停不会取消已发出的任务，也不表示退款。video-1 · 提交结果不明video-2 · 待提交暂停待提交项重新确认待提交项待提交项需要重新确认；结果不明的请求请先核对原记录。"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('region', { name: '执行队列' })[22m
+    [2m    9 × locator resolved to <section aria-label="执行队列" class="queue-controls">…</section>[22m
+    [2m      - unexpected value "执行队列 · 已暂停本地准备并行123此数量只控制本地准备；服务准入由 Core 决定。暂停不会取消已发出的任务，也不表示退款。video-1 · 提交结果不明video-2 · 待提交暂停待提交项重新确认待提交项待提交项需要重新确认；结果不明的请求请先核对原记录。"[22m
+
+
+      12 | test('T29: actual pause while the first request waits keeps its response and stops the second submission',async({page,networkCounter})=>{
+      13 |  await seedStudio(page,'unverified-capability');await page.evaluate(async()=>{const fixture='/tests/fixtures/generation.ts';await(await import(fixture)).seedGeneration();const database='/src/infrastructure/storage/database.ts',d=await import(database);await d.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>d.transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const graph=await d.requestResult(tx.objectStore('graphs').get('p1')),video=structuredClone(graph.nodes.find((n:{id:string})=>n.id==='video-1'));video.id='video-2';video.title='第二镜头';video.y=350;graph.nodes.push(video);graph.edges.push({id:'second-text',sourceId:'text-1',targetId:'video-2',port:'text',order:0});tx.objectStore('graphs').put(graph);}));});
+    > 14 |  await page.goto('/projects/p1/canvas');await page.evaluate(async()=>{const fixture='/tests/fixtures/generation.ts';await(await import(fixture)).connectGeneration();});let release!:()=>void;const held=new Promise<void>(resolve=>{release=resolve;});let received=0;await page.route('**/core-api/v1/videos/generations',async route=>{received++;await held;await route.fulfill({status:202,contentType:'application/json',body:JSON.stringify({task:{id:'mock-queue-first',status:'queued'},request_id:'mock-queue-request'})});});await page.getByRole('button',{name:'运行全部视频',exact:true}).click();const dialog=page.getByRole('dialog',{name:'生成确认单',exact:true});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 2 项',exact:true}).click();await expect.poll(()=>received).toBe(1);const controls=page.getByRole('region',{name:'执行队列'});await controls.getByRole('button',{name:'暂停待提交项'}).click();release();await expect(controls).toContainText('已暂停');await expect(controls).toContainText('video-1 · 已提交');await expect(controls).toContainText('video-2 · 待提交');expect(networkCounter.paidRequests).toHaveLength(1);await expect(page.getByRole('dialog',{name:'提交结果不明'})).not.toBeVisible();
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      15 | });
+      16 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\run-queue.spec.ts:14:1009
+
+    Error Context: test-results\run-queue-T29-actual-pause-8ebfb-stops-the-second-submission\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-queue-T29-actual-pause-8ebfb-stops-the-second-submission\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\run-queue-T29-actual-pause-8ebfb-stops-the-second-submission\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\run-queue.spec.ts:12:1 › T29: actual pause while the first request waits keeps its response and stops the second submission 

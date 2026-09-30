@@ -14,7 +14,7 @@ import {allowedCorePath} from '../../adapters/core/route-policy';
 import {applySubmissionOutcome} from '../../domain/video-run-machine';
 import {sanitizeKnownSecrets,hasSessionCredential} from '../../security/credential-session';
 import {z} from 'zod';
-export type SubmitOptions=PrepareOptions&{tabId?:string};
+export type SubmitOptions=PrepareOptions&{tabId?:string;dispatchGuard?:(tx:IDBTransaction)=>Promise<void>};
 type ApprovalReceipt={id:string;kind:'video';plan:RunPlan;planHash:string;runIds:string[];nodeCount:number};
 const preparedReceiptSchema=z.object({runId:z.string(),bodyHash:z.string(),assetMappings:z.array(coreAssetRefSchema)});
 function assertPreparedApproval(raw:unknown,run:Run){
@@ -58,10 +58,15 @@ export async function submitVideo(runId:string,options:SubmitOptions={}):Promise
   const preparedReceipt=await transact(db,['receipts'],'readonly',tx=>requestResult<unknown>(tx.objectStore('receipts').get(`prepared:${runId}`)));assertPreparedApproval(preparedReceipt,prepared);
   const claim=await claimRunDispatch(runId,tabId,{db});if(!claim.ok)throw Error(claim.errorCode);
   const marked=await markRunDispatched(claim.token,{db,beforeDispatch:async tx=>{
+   await options.dispatchGuard?.(tx);
    await assertProjectWriter(tx,run.projectId,options.lease);
    const project:{revision:number;archived:boolean;trashedAt:number|null}|undefined=await requestResult(tx.objectStore('projects').get(run.projectId));if(!project||project.archived||project.trashedAt!=null||project.revision!==run.graphRevision||approval.plan.expiresAt<=Date.now())throw Error('approval_expired');
    const receipt:ApprovalReceipt|undefined=await requestResult(tx.objectStore('receipts').get(approval.id));if(!receipt||JSON.stringify(receipt)!==JSON.stringify(approval))throw Error('video_approval_required');
-   const current=preflightRun(await storedRunDraft(tx,run.projectId,approval.plan.nodes.map(n=>n.nodeId),{client,capability},true));if(current.status!=='ready'||planPayload(current.plan)!==planPayload(approval.plan))throw Error('approval_expired');
+   const draft=await storedRunDraft(tx,run.projectId,approval.plan.nodes.map(n=>n.nodeId),{client,capability},true);
+   // Members of this already confirmed batch are not new prior-unknown attempts.
+   // Unrelated or older unknown Runs remain part of the risk acknowledgement.
+   draft.priorRuns=draft.priorRuns?.filter(r=>!approval.runIds.includes(r.id));
+   const current=preflightRun(draft);if(current.status!=='ready'||planPayload(current.plan)!==planPayload(approval.plan))throw Error('approval_expired');
    const now:Run|undefined=await requestResult(tx.objectStore('runs').get(runId));if(!now||now.finalBody!==prepared.finalBody||now.finalBodyHash!==prepared.finalBodyHash)throw Error('final_body_frozen');
    assertPreparedApproval(await requestResult(tx.objectStore('receipts').get(`prepared:${runId}`)),now);
   }});if(!marked.ok)throw Error(marked.errorCode);

@@ -1,0 +1,50 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/run-queue.spec.ts
+
+[WebServer] (node:28608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:21804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\run-queue.spec.ts:4:1 › T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST (6.1s)
+
+
+  1) tests\e2e\run-queue.spec.ts:4:1 › T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('region', { name: '执行队列' })
+    Expected substring: [32m"已暂停"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('region', { name: '执行队列' })[22m
+
+
+       8 |   const draft=await d.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>d.transact(db,['graphs','assets','blobs','diagnostics','runs'],'readonly',(tx:IDBTransaction)=>a.storedRunDraft(tx,'p1',['video-1'],core,true)));const checked=p.preflightRun(draft);if(checked.status!=='ready')throw Error('fixture blocked');const plan=await p.sealRunPlan(checked.plan),approved=await a.approveRun(plan,{confirmed:true,kind:'video',planHash:plan.planHash,nodeCount:1,acknowledgeUnknownFee:true},{...core,lease});await q.createRunQueue({projectId:'p1',revision:1,nodeIds:['video-1'],approved},{...core,lease,tabId:s.studioTabId});
+       9 |  });
+    > 10 |  await page.goto('/projects/p1/canvas');await page.evaluate(async()=>{const fixture='/tests/fixtures/generation.ts';await(await import(fixture)).connectGeneration();});const controls=page.getByRole('region',{name:'执行队列'});await expect(controls).toContainText('已暂停');expect(networkCounter.paidRequests).toHaveLength(0);await controls.getByRole('button',{name:'重新确认待提交项'}).click();await expect(page.getByRole('dialog',{name:'生成确认单',exact:true})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);await page.keyboard.press('Escape');await expect(controls.getByRole('button',{name:'重新确认待提交项'})).toBeFocused();await page.screenshot({path:'docs/review/screenshots/T29-queue-paused.png'});
+         |                                                                                                                                                                                                                                                      ^
+      11 | });
+      12 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\run-queue.spec.ts:10:246
+
+    Error Context: test-results\run-queue-T29-refreshed-pe-e3e3f-confirmation-with-zero-POST\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\run-queue-T29-refreshed-pe-e3e3f-confirmation-with-zero-POST\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\run-queue-T29-refreshed-pe-e3e3f-confirmation-with-zero-POST\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\run-queue.spec.ts:4:1 › T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST 

@@ -1,0 +1,102 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/run-queue.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/run-queue.test.ts (6 tests | 6 failed) 133ms
+   × T29-C04: selecting only the second shot never expands to the other shots or group media 69ms
+   × T29-C01: preparation concurrency defaults to one and values above three are rejected 16ms
+   × T29-C02: pausing prevents pending sends and never cancels the already accepted task 12ms
+   × T29-C03: refreshing a saved ready queue pauses it and never resumes pending submissions 11ms
+   × T29-C05: failed original upstream blocks the downstream draft rather than automatically choosing new media 15ms
+   × T29-C06: changed graph revision invalidates the pending approval before the first queue video POST 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29-C04: selecting only the second shot never expands to the other shots or group media
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/run-queue.test.ts:16:164
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29-C01: preparation concurrency defaults to one and values above three are rejected
+Error: queue_not_implemented
+ ❯ createRunQueue src/application/runs/queue.ts:9:128
+      7| export type QueueApproval={queueId:string;planHashes:string[];revision…
+      8| export type QueueOptions=SubmitOptions&{onUpdate?:(queue:RunQueue)=>vo…
+      9| export async function createRunQueue(input:QueueInput,options:QueueOpt…
+       |                                                                                                                                ^
+     10| export async function executeQueue(queueId:string,options:QueueOptions…
+     11| export async function readQueue(queueId:string,options:QueueOptions={}…
+ ❯ tests/unit/run-queue.test.ts:17:156
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29-C02: pausing prevents pending sends and never cancels the already accepted task
+Error: queue_not_implemented
+ ❯ createRunQueue src/application/runs/queue.ts:9:128
+      7| export type QueueApproval={queueId:string;planHashes:string[];revision…
+      8| export type QueueOptions=SubmitOptions&{onUpdate?:(queue:RunQueue)=>vo…
+      9| export async function createRunQueue(input:QueueInput,options:QueueOpt…
+       |                                                                                                                                ^
+     10| export async function executeQueue(queueId:string,options:QueueOptions…
+     11| export async function readQueue(queueId:string,options:QueueOptions={}…
+ ❯ tests/unit/run-queue.test.ts:18:149
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29-C03: refreshing a saved ready queue pauses it and never resumes pending submissions
+Error: queue_not_implemented
+ ❯ createRunQueue src/application/runs/queue.ts:9:128
+      7| export type QueueApproval={queueId:string;planHashes:string[];revision…
+      8| export type QueueOptions=SubmitOptions&{onUpdate?:(queue:RunQueue)=>vo…
+      9| export async function createRunQueue(input:QueueInput,options:QueueOpt…
+       |                                                                                                                                ^
+     10| export async function executeQueue(queueId:string,options:QueueOptions…
+     11| export async function readQueue(queueId:string,options:QueueOptions={}…
+ ❯ tests/unit/run-queue.test.ts:19:153
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29-C05: failed original upstream blocks the downstream draft rather than automatically choosing new media
+Error: queue_not_implemented
+ ❯ createRunQueue src/application/runs/queue.ts:9:128
+      7| export type QueueApproval={queueId:string;planHashes:string[];revision…
+      8| export type QueueOptions=SubmitOptions&{onUpdate?:(queue:RunQueue)=>vo…
+      9| export async function createRunQueue(input:QueueInput,options:QueueOpt…
+       |                                                                                                                                ^
+     10| export async function executeQueue(queueId:string,options:QueueOptions…
+     11| export async function readQueue(queueId:string,options:QueueOptions={}…
+ ❯ tests/unit/run-queue.test.ts:20:572
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/run-queue.test.ts > T29-C06: changed graph revision invalidates the pending approval before the first queue video POST
+Error: queue_not_implemented
+ ❯ createRunQueue src/application/runs/queue.ts:9:128
+      7| export type QueueApproval={queueId:string;planHashes:string[];revision…
+      8| export type QueueOptions=SubmitOptions&{onUpdate?:(queue:RunQueue)=>vo…
+      9| export async function createRunQueue(input:QueueInput,options:QueueOpt…
+       |                                                                                                                                ^
+     10| export async function executeQueue(queueId:string,options:QueueOptions…
+     11| export async function readQueue(queueId:string,options:QueueOptions={}…
+ ❯ tests/unit/run-queue.test.ts:21:174
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  04:44:21
+   Duration  791ms (transform 300ms, setup 54ms, import 414ms, tests 133ms, environment 0ms)
+

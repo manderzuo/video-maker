@@ -1,0 +1,6 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+src/features/canvas/CanvasPage.tsx(131,222): error TS1005: '}' expected.
+src/features/canvas/CanvasPage.tsx(131,602): error TS1005: '}' expected.

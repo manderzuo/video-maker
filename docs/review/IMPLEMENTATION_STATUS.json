@@ -1,5 +1,5 @@
 {
-  "currentTask": "T29",
+  "currentTask": "T30",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -222,18 +222,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T28.json",
-      "headCommit": null,
+      "headCommit": "8878fc63ae881e0fdafd826a3e2832b6d9752c65",
       "id": "T28",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "任务轮询、退避和查询状态"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T29.json",
       "headCommit": null,
       "id": "T29",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "依赖执行队列与刷新恢复"
     },
     {
