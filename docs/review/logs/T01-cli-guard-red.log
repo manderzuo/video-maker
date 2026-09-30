@@ -1,0 +1,32 @@
+✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (0.8757ms)
+✔ T01-C02: all five pinned revisions have independently verified snapshots (1.2541ms)
+✔ T01-C03: every source has a license disposition and evidence (0.7533ms)
+✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.4665ms)
+✖ T01-C05: write policy denies external/source paths, traversal and symlinks (727.0463ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 817.9782
+
+✖ failing tests:
+
+test at tests\planning\source-policy.test.mjs:44:1
+✖ T01-C05: write policy denies external/source paths, traversal and symlinks (727.0463ms)
+  AssertionError [ERR_ASSERTION]: freeze CLI must refuse a caller-supplied working directory
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/source-policy.test.mjs:69:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

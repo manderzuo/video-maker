@@ -2,7 +2,9 @@ import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { assertProjectWritePath } from './source-policy.mjs';
 const root = process.cwd();
+assertProjectWritePath(root, 'docs/review/source-manifest.json');
 const sources = [
  ['basketikun/infinite-canvas','dab19adc0847e32e39b7fc8ff90cb392561fb826','infinite-canvas','canvas algorithms only; UI/providers/storage/remote plugins excluded'],
  ['manderzuo/Trae-core','c056dffc41c701fb1b78a84c18c2ec139d3d708b','Trae-core','public contract reference only; finance/admin/internal bridge excluded'],

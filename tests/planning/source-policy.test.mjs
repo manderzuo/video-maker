@@ -51,7 +51,7 @@ test('T01-C05: write policy denies external/source paths, traversal and symlinks
     assert.throws(() => assertProjectWritePath(root, path), /outside_authorized_project/);
   }
   assert.throws(() => assertProjectWritePath(resolve(root, '..'), 'outside.txt'), /outside_authorized_project/);
-  const { mkdirSync, symlinkSync, rmdirSync, lstatSync } = await import('node:fs');
+  const { mkdirSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync } = await import('node:fs');
   const external = resolve(root, 'work/external-fixture');
   const link = resolve(root, 'work/escape-link');
   mkdirSync(external, { recursive: true });
@@ -62,4 +62,11 @@ test('T01-C05: write policy denies external/source paths, traversal and symlinks
   symlinkSync(resolve(root, '..'), link, 'junction');
   try { assert.throws(() => assertProjectWritePath(root, relative(root, resolve(link, 'outside.txt'))), /outside_authorized_project/); }
   finally { rmdirSync(link); }
+  // This test-owned directory is inside work/, so a broken guard never touches user files.
+  const otherRoot = mkdtempSync(resolve(root, 'work/policy-other-root-'));
+  const { spawnSync } = await import('node:child_process');
+  const run = spawnSync(process.execPath, [resolve(root, 'scripts/freeze-sources.mjs')], { cwd: otherRoot, encoding: 'utf8' });
+  assert.equal(run.status, 1, 'freeze CLI must refuse a caller-supplied working directory');
+  assert.match(run.stderr, /outside_authorized_project/);
+  assert.equal(existsSync(resolve(otherRoot, 'docs')), false, 'deny before any write');
 });
