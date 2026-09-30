@@ -1,0 +1,4 @@
+import {test,expect} from '../helpers/network-guard';
+test.use({launchOptions:{downloadsPath:'E:/trae-studio/tools/temp/playwright-downloads'}});
+test.beforeEach(async({page})=>{await page.goto('/assets');await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';await(await import(url)).seedAssetLibrary();});await page.reload();});
+test('T16-C04: original download acknowledges browser trigger and preserves bytes and filename',async({page})=>{await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const download=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();expect((await download).suggestedFilename()).toBe('参考.png');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载：参考.png'})).toBeVisible();await expect(page.getByText('已保存到下载目录',{exact:true})).toHaveCount(0);});

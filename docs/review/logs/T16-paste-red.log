@@ -1,0 +1,52 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts -g canvas files|readonly target
+
+[WebServer] (node:35460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:25280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\asset-library.spec.ts:2:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state (6.8s)
+(node:29048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\asset-library.spec.ts:3:1 › T16 readonly target: insert is blocked by another writer without creating nodes or media (1.6s)
+
+
+  1) tests\e2e\asset-library.spec.ts:2:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m2[39m
+    Received: [31m1[39m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await expect(page.getByTestId('canvas-stage')).toBeVisible();const before=await state(page);await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';const file=(await import(url)).wave(880),data=new DataTransfer();data.items.add(file);document.querySelector('[data-testid="canvas-stage"]')!.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});await expect.poll(async()=>(await state(page)).graph.nodes.length).toBe(2);const after=await state(page);expect(after.assets.length).toBe(before.assets.length+1);expect(after.blobs.length).toBe(before.blobs.length+1);expect(after.graph.revision).toBe(2);await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<IDBObjectStore['put']>){if(this.name==='blobs')throw new DOMException('quota','QuotaExceededError');return put.apply(this,args);};});await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';const data=new DataTransfer();data.items.add((await import(url)).wave(990));document.querySelector('[data-testid="canvas-stage"]')!.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});await expect(page.getByRole('alert')).toContainText('空间');expect(await state(page)).toEqual(after);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      3 | test('T16 readonly target: insert is blocked by another writer without creating nodes or media',async({page})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/project-lease.ts';await(await import(url)).acquireProjectLease('p1','other-writer',Date.now());});const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await page.getByRole('button',{name:'添加到画布',exact:true}).click();await page.getByRole('dialog',{name:'选择目标项目'}).getByRole('button',{name:'插入 素材项目',exact:true}).click();await expect(page.getByRole('alert')).toContainText('写权');expect(await state(page)).toEqual(before);});
+      4 | const state=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return(await import(url)).storedAssets();});
+      5 | test.beforeEach(async({page})=>{await page.goto('/assets');await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';await(await import(url)).seedAssetLibrary();});await page.reload();});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-library.spec.ts:2:595
+
+    Error Context: test-results\asset-library-T16-canvas-f-614d7-llback-keeps-original-state\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-canvas-f-614d7-llback-keeps-original-state\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-canvas-f-614d7-llback-keeps-original-state\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\asset-library.spec.ts:2:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state 
+  1 passed (14.2s)

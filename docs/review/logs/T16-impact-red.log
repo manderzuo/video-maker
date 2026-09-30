@@ -1,0 +1,43 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts -g different content confirmation|input replacement
+
+[WebServer] (node:8648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:35984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\asset-library.spec.ts:2:1 › T16 different content confirmation creates a new asset and retains original graph and source (2.0s)
+  x  2 tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged (865ms)
+
+
+  1) tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged 
+
+    Error: page.evaluate: TransactionInactiveError: Failed to execute 'put' on 'IDBObjectStore': The transaction has finished.
+        at eval (eval at evaluate (:290:30), <anonymous>:42:32)
+        at async transact (http://127.0.0.1:4179/src/infrastructure/storage/database.ts:48:20)
+        at async eval (eval at evaluate (:290:30), <anonymous>:10:7)
+        at async <anonymous>:316:30
+        at eval (eval at evaluate (:290:30), <anonymous>:42:32)
+        at async transact (http://127.0.0.1:4179/src/infrastructure/storage/database.ts:48:20)
+        at async eval (eval at evaluate (:290:30), <anonymous>:10:7)
+        at async <anonymous>:316:30
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-library.spec.ts:3:134
+
+    Error Context: test-results\asset-library-T16-input-re-d347c-th-historical-Run-unchanged\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-input-re-d347c-th-historical-Run-unchanged\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-input-re-d347c-th-historical-Run-unchanged\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged 
+  1 passed (5.9s)

@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-library-boundary.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/asset-library-boundary.test.ts (5 tests | 1 failed) 45ms
+   × T16 public relink result follows shared discriminants and reports errors without persistence 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/asset-library-boundary.test.ts > T16 public relink result follows shared discriminants and reports errors without persistence
+AssertionError: expected 'restored' to be 'same_hash_restored' // Object.is equality
+
+Expected: "same_hash_restored"
+Received: "restored"
+
+ ❯ tests/unit/asset-library-boundary.test.ts:8:539
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  22:58:35
+   Duration  502ms (transform 161ms, setup 38ms, import 233ms, tests 45ms, environment 0ms)
+

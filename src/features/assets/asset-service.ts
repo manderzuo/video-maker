@@ -1,0 +1,17 @@
+import {assetSchema,type Asset} from '../../domain/asset';
+import {withDatabase,transact,requestResult,type StudioDb} from '../../infrastructure/storage/database';
+import {loadResourceSnapshot} from './reference-index';
+import {deletionTables} from '../projects/delete-policy';
+import {applyUiCommand} from '../../application/commands/apply-command';
+import {readGraph} from '../../infrastructure/storage/project-repository';
+import {getProjectWriter} from '../projects/project-service';
+import {releaseProjectLease} from '../../infrastructure/storage/project-lease';
+import type {GraphOperation} from '../../application/commands/registry';
+
+import {assetNodeTitle} from './canvas-import';
+export function listAssetResources(db?:StudioDb){return withDatabase(db,c=>transact(c,deletionTables,'readonly',loadResourceSnapshot));}
+export async function saveAssetMetadata(asset:Asset,input:{title:string;tags:string[];description:string},db?:StudioDb){const next=assetSchema.parse({...asset,...input,metadataRevision:(asset.metadataRevision??0)+1});return withDatabase(db,c=>transact(c,['assets','receipts'],'readwrite',async tx=>{const current=assetSchema.parse(await requestResult(tx.objectStore('assets').get(asset.id)));if(JSON.stringify(current)!==JSON.stringify(asset))throw new Error('asset_metadata_conflict');const receiptId=crypto.randomUUID();tx.objectStore('assets').put(next);tx.objectStore('receipts').put({id:receiptId,kind:'asset-metadata',before:current,after:next});return {asset:next,receiptId};}));}
+export async function undoAssetMetadata(receiptId:string,db?:StudioDb){return withDatabase(db,c=>transact(c,['assets','receipts'],'readwrite',async tx=>{const receipt=await requestResult<{id:string;kind:string;before:Asset;after:Asset;undone?:boolean}>(tx.objectStore('receipts').get(receiptId));if(!receipt||receipt.kind!=='asset-metadata'||receipt.undone)throw new Error('asset_undo_unavailable');const current=assetSchema.parse(await requestResult(tx.objectStore('assets').get(receipt.after.id)));if(JSON.stringify(current)!==JSON.stringify(receipt.after))throw new Error('asset_metadata_conflict');const restored={...receipt.before,metadataRevision:(current.metadataRevision??0)+1};tx.objectStore('assets').put(restored);tx.objectStore('receipts').put({...receipt,undone:true});return restored;}));}
+export async function useAssetInProject(asset:Asset,projectId:string,nodeId?:string,expectedRevision?:number){const lease=await getProjectWriter(projectId);try{const graph=await readGraph(projectId);if(!graph)throw new Error('project_missing');if(expectedRevision!==undefined&&graph.revision!==expectedRevision)throw new Error('project_revision_conflict');const node=graph.nodes.find(n=>n.id===nodeId);if(nodeId&&(!node||node.type!=='asset'||node.locked))throw new Error('asset_node_not_editable');const op:GraphOperation=node?{id:crypto.randomUUID(),type:'update_node',payload:{nodeId:node.id,patch:{data:{kind:'asset',assetId:asset.id}}}}:{id:crypto.randomUUID(),type:'add_node',payload:{node:{id:crypto.randomUUID(),title:assetNodeTitle(asset),type:'asset',x:64,y:64,locked:false,data:{kind:'asset',assetId:asset.id}}}};const receipt=await applyUiCommand({id:crypto.randomUUID(),projectId,baseRevision:graph.revision,operations:[op]},{lease});if(receipt.status!=='applied')throw new Error(receipt.errorCode??'asset_insert_failed');return receipt;}finally{await releaseProjectLease(lease);}}
+
+

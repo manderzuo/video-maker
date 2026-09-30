@@ -1,0 +1,158 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts
+
+[WebServer] (node:24248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:33636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\asset-library.spec.ts:4:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active (6.4s)
+(node:29252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\asset-library.spec.ts:5:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible (6.4s)
+(node:34124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\asset-library.spec.ts:6:1 › T16-C04: original download acknowledges browser trigger and preserves bytes and filename (1.3s)
+  x  4 tests\e2e\asset-library.spec.ts:7:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently (2.2s)
+(node:35640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\asset-library.spec.ts:8:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display (1.4s)
+(node:36476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 tests\e2e\asset-library.spec.ts:9:1 › T16-M03/M08: image fit/original preview and insertion only adds an asset node (1.5s)
+
+
+  1) tests\e2e\asset-library.spec.ts:4:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: >= [32m5[39m
+    Received:    [31m3.849717[39m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      2 | const state=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return(await import(url)).storedAssets();});
+      3 | test.beforeEach(async({page})=>{await page.goto('/assets');await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';await(await import(url)).seedAssetLibrary();});await page.reload();});
+    > 4 | test('T16-C01/C02: native audio is initially muted without autoplay and only one player stays active',async({page,networkCounter})=>{await expect(page.locator('audio')).toHaveCount(2);expect(await page.locator('audio').evaluateAll(xs=>xs.every(x=>x.paused&&x.muted&&!x.autoplay))).toBe(true);await page.locator('[data-interaction-id="M-04"]').nth(0).click();await expect.poll(()=>page.locator('audio').evaluateAll(xs=>xs.filter(x=>!x.paused).length)).toBe(1);await page.locator('[data-interaction-id="M-04"]').nth(1).click();expect(await page.locator('audio').evaluateAll(xs=>xs.map(x=>x.paused))).toEqual([true,false]);await page.getByLabel('声音440.wav 播放进度').fill('5');await expect.poll(()=>page.locator('audio').nth(1).evaluate(x=>x.currentTime)).toBeGreaterThanOrEqual(5);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      5 | test('T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible',async({page})=>{await page.getByRole('combobox',{name:'素材类型',exact:true}).selectOption('image');await expect(page.locator('[data-testid="asset-card"]')).toHaveCount(1);await page.getByLabel('选择 参考.png',{exact:true}).check();await page.getByRole('button',{name:'列表',exact:true}).click();await expect(page.getByLabel('选择 参考.png',{exact:true})).toBeChecked();await page.getByRole('button',{name:'详情 参考.png',exact:true}).focus();await page.keyboard.press('Enter');await page.getByRole('link',{name:'定位 素材项目 / 图片引用',exact:true}).press('Enter');await expect(page.getByLabel('选择 图片引用',{exact:true})).toBeChecked();});
+      6 | test('T16-C04: original download acknowledges browser trigger and preserves bytes and filename',async({page})=>{await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const download=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();expect((await download).suggestedFilename()).toBe('参考.png');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载：参考.png'})).toBeVisible();await expect(page.getByText('已保存到下载目录',{exact:true})).toHaveCount(0);});
+      7 | test('T16-C03: same hash restores original identity; same filename with different content does not replace silently',async({page})=>{const before=await state(page),asset=before.assets[2];await page.evaluate(async id=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const db=await openStudioDb();try{await transact(db,['blobs'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('blobs').delete(id));}finally{db.close();}},asset.blobKey);await page.reload();await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const bytes=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await(await import(url)).imageFile()).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'改名.png',mimeType:'image/png',buffer:Buffer.from(bytes)});await expect(page.getByText('相同内容已恢复，原素材身份与来源保留。',{exact:true})).toBeVisible();expect((await state(page)).assets).toEqual(before.assets);const other=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await import(url)).wave(880).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'参考.png',mimeType:'audio/wav',buffer:Buffer.from(other)});await expect(page.getByRole('dialog',{name:'确认不同内容'})).toBeVisible();expect((await state(page)).assets).toHaveLength(3);await page.getByRole('dialog',{name:'确认不同内容'}).getByRole('button',{name:'取消',exact:true}).click();expect((await state(page)).graph).toEqual(before.graph);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-library.spec.ts:4:671
+
+    Error Context: test-results\asset-library-T16-C01-C02--66334-nly-one-player-stays-active\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-C01-C02--66334-nly-one-player-stays-active\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-C01-C02--66334-nly-one-player-stays-active\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\asset-library.spec.ts:5:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeChecked[2m([22m[2m)[22m failed
+
+    Locator:  getByLabel('选择 图片引用', { exact: true })
+    Expected: checked
+    Received: unchecked
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeChecked" with timeout 5000ms[22m
+    [2m  - waiting for getByLabel('选择 图片引用', { exact: true })[22m
+    [2m    8 × locator resolved to <input type="checkbox" aria-label="选择 图片引用"/>[22m
+    [2m      - unexpected value "unchecked"[22m
+
+
+      3 | test.beforeEach(async({page})=>{await page.goto('/assets');await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';await(await import(url)).seedAssetLibrary();});await page.reload();});
+      4 | test('T16-C01/C02: native audio is initially muted without autoplay and only one player stays active',async({page,networkCounter})=>{await expect(page.locator('audio')).toHaveCount(2);expect(await page.locator('audio').evaluateAll(xs=>xs.every(x=>x.paused&&x.muted&&!x.autoplay))).toBe(true);await page.locator('[data-interaction-id="M-04"]').nth(0).click();await expect.poll(()=>page.locator('audio').evaluateAll(xs=>xs.filter(x=>!x.paused).length)).toBe(1);await page.locator('[data-interaction-id="M-04"]').nth(1).click();expect(await page.locator('audio').evaluateAll(xs=>xs.map(x=>x.paused))).toEqual([true,false]);await page.getByLabel('声音440.wav 播放进度').fill('5');await expect.poll(()=>page.locator('audio').nth(1).evaluate(x=>x.currentTime)).toBeGreaterThanOrEqual(5);expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 5 | test('T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible',async({page})=>{await page.getByRole('combobox',{name:'素材类型',exact:true}).selectOption('image');await expect(page.locator('[data-testid="asset-card"]')).toHaveCount(1);await page.getByLabel('选择 参考.png',{exact:true}).check();await page.getByRole('button',{name:'列表',exact:true}).click();await expect(page.getByLabel('选择 参考.png',{exact:true})).toBeChecked();await page.getByRole('button',{name:'详情 参考.png',exact:true}).focus();await page.keyboard.press('Enter');await page.getByRole('link',{name:'定位 素材项目 / 图片引用',exact:true}).press('Enter');await expect(page.getByLabel('选择 图片引用',{exact:true})).toBeChecked();});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      6 | test('T16-C04: original download acknowledges browser trigger and preserves bytes and filename',async({page})=>{await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const download=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();expect((await download).suggestedFilename()).toBe('参考.png');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载：参考.png'})).toBeVisible();await expect(page.getByText('已保存到下载目录',{exact:true})).toHaveCount(0);});
+      7 | test('T16-C03: same hash restores original identity; same filename with different content does not replace silently',async({page})=>{const before=await state(page),asset=before.assets[2];await page.evaluate(async id=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const db=await openStudioDb();try{await transact(db,['blobs'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('blobs').delete(id));}finally{db.close();}},asset.blobKey);await page.reload();await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const bytes=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await(await import(url)).imageFile()).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'改名.png',mimeType:'image/png',buffer:Buffer.from(bytes)});await expect(page.getByText('相同内容已恢复，原素材身份与来源保留。',{exact:true})).toBeVisible();expect((await state(page)).assets).toEqual(before.assets);const other=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await import(url)).wave(880).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'参考.png',mimeType:'audio/wav',buffer:Buffer.from(other)});await expect(page.getByRole('dialog',{name:'确认不同内容'})).toBeVisible();expect((await state(page)).assets).toHaveLength(3);await page.getByRole('dialog',{name:'确认不同内容'}).getByRole('button',{name:'取消',exact:true}).click();expect((await state(page)).graph).toEqual(before.graph);});
+      8 | test('T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display',async({page})=>{const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await page.getByLabel('素材名称',{exact:true}).fill('改名参考');await page.getByLabel('素材标签',{exact:true}).fill('风格,参考');await page.getByRole('button',{name:'保存素材信息',exact:true}).click();await expect(page.getByRole('button',{name:'详情 改名参考',exact:true})).toBeVisible();expect((await state(page)).assets[2]).toMatchObject({sha256:before.assets[2].sha256,tags:['风格','参考']});await page.getByRole('button',{name:'撤销素材信息修改',exact:true}).click();await expect(page.getByRole('button',{name:'详情 参考.png',exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T16-asset-library.png'});});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-library.spec.ts:5:693
+
+    Error Context: test-results\asset-library-T16-C05-filt-4d993-ion-are-keyboard-accessible\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-C05-filt-4d993-ion-are-keyboard-accessible\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-C05-filt-4d993-ion-are-keyboard-accessible\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\asset-library.spec.ts:7:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently 
+
+    Error: browser.newContext: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=E:\trae-studio\tools\temp\playwright_chromiumdev_profile-ajzIDz --remote-debugging-pipe --no-startup-window
+    <launched> pid=26056
+    [pid=26056][err] [26056:18916:0930/223810.862:ERROR:components\edge_ess\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577
+    [pid=26056][err] [26056:30100:0930/223811.062:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:165] QQBrowser user data path not found.
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-C03-same-386d1-t-does-not-replace-silently\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-C03-same-386d1-t-does-not-replace-silently\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\asset-library.spec.ts:8:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoMatchObject[2m([22m[32mexpected[39m[2m)[22m
+
+    [32m- Expected  - 4[39m
+    [31m+ Received  + 0[39m
+
+    [2m  Object {[22m
+    [2m    "sha256": "e432a1d04a8927597de641fdb0e58b96873ac89bd212942536729f27a32de0ee",[22m
+    [32m-   "tags": Array [[39m
+    [32m-     "风格",[39m
+    [32m-     "参考",[39m
+    [32m-   ],[39m
+    [2m  }[22m
+
+       6 | test('T16-C04: original download acknowledges browser trigger and preserves bytes and filename',async({page})=>{await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const download=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();expect((await download).suggestedFilename()).toBe('参考.png');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载：参考.png'})).toBeVisible();await expect(page.getByText('已保存到下载目录',{exact:true})).toHaveCount(0);});
+       7 | test('T16-C03: same hash restores original identity; same filename with different content does not replace silently',async({page})=>{const before=await state(page),asset=before.assets[2];await page.evaluate(async id=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const db=await openStudioDb();try{await transact(db,['blobs'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('blobs').delete(id));}finally{db.close();}},asset.blobKey);await page.reload();await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const bytes=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await(await import(url)).imageFile()).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'改名.png',mimeType:'image/png',buffer:Buffer.from(bytes)});await expect(page.getByText('相同内容已恢复，原素材身份与来源保留。',{exact:true})).toBeVisible();expect((await state(page)).assets).toEqual(before.assets);const other=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await import(url)).wave(880).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'参考.png',mimeType:'audio/wav',buffer:Buffer.from(other)});await expect(page.getByRole('dialog',{name:'确认不同内容'})).toBeVisible();expect((await state(page)).assets).toHaveLength(3);await page.getByRole('dialog',{name:'确认不同内容'}).getByRole('button',{name:'取消',exact:true}).click();expect((await state(page)).graph).toEqual(before.graph);});
+    >  8 | test('T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display',async({page})=>{const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await page.getByLabel('素材名称',{exact:true}).fill('改名参考');await page.getByLabel('素材标签',{exact:true}).fill('风格,参考');await page.getByRole('button',{name:'保存素材信息',exact:true}).click();await expect(page.getByRole('button',{name:'详情 改名参考',exact:true})).toBeVisible();expect((await state(page)).assets[2]).toMatchObject({sha256:before.assets[2].sha256,tags:['风格','参考']});await page.getByRole('button',{name:'撤销素材信息修改',exact:true}).click();await expect(page.getByRole('button',{name:'详情 参考.png',exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T16-asset-library.png'});});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+       9 | test('T16-M03/M08: image fit/original preview and insertion only adds an asset node',async({page,networkCounter})=>{await page.getByRole('button',{name:'预览 参考.png',exact:true}).click();const preview=page.getByRole('dialog',{name:'素材预览'});await expect(preview.getByRole('img',{name:'参考.png',exact:true})).toBeVisible();await preview.getByRole('button',{name:'原尺寸',exact:true}).click();await preview.getByRole('button',{name:'关闭素材预览',exact:true}).click();const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await page.getByRole('button',{name:'添加到画布',exact:true}).click();await page.getByRole('dialog',{name:'选择目标项目'}).getByRole('button',{name:'插入 素材项目',exact:true}).click();await expect.poll(async()=>(await state(page)).graph.nodes.length).toBe(2);expect((await state(page)).assets).toEqual(before.assets);expect((await state(page)).runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);});
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-library.spec.ts:8:506
+
+    Error Context: test-results\asset-library-T16-M07-meta-1584a-synchronizes-canvas-display\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-M07-meta-1584a-synchronizes-canvas-display\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-M07-meta-1584a-synchronizes-canvas-display\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\e2e\asset-library.spec.ts:4:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active 
+    tests\e2e\asset-library.spec.ts:5:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible 
+    tests\e2e\asset-library.spec.ts:7:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently 
+    tests\e2e\asset-library.spec.ts:8:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display 
+  2 passed (30.2s)

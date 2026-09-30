@@ -1,0 +1,20 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts -g input replacement|player cleanup|native audio|same hash|different content confirmation
+
+[WebServer] (node:3144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:35168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\asset-library.spec.ts:2:1 › T16 different content confirmation creates a new asset and retains original graph and source (2.0s)
+  ok 2 tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged (1.6s)
+  ok 3 tests\e2e\asset-library.spec.ts:4:1 › T16 player cleanup: hiding active media pauses the detached element and releases its object URL (937ms)
+  ok 4 tests\e2e\asset-library.spec.ts:10:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active (964ms)
+  ok 5 tests\e2e\asset-library.spec.ts:13:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently (2.2s)
+
+  5 passed (10.8s)

@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-library-boundary.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  22:38:57
+   Duration  690ms (transform 209ms, setup 53ms, import 320ms, tests 36ms, environment 0ms)
+

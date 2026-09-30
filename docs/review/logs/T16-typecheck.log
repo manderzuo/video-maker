@@ -1,0 +1,16 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/e2e/asset-library.spec.ts(4,250): error TS2339: Property 'paused' does not exist on type 'HTMLElement | SVGElement'.
+  Property 'paused' does not exist on type 'HTMLElement'.
+tests/e2e/asset-library.spec.ts(4,260): error TS2339: Property 'muted' does not exist on type 'HTMLElement | SVGElement'.
+  Property 'muted' does not exist on type 'HTMLElement'.
+tests/e2e/asset-library.spec.ts(4,270): error TS2339: Property 'autoplay' does not exist on type 'HTMLElement | SVGElement'.
+  Property 'autoplay' does not exist on type 'HTMLElement'.
+tests/e2e/asset-library.spec.ts(4,435): error TS2339: Property 'paused' does not exist on type 'HTMLElement | SVGElement'.
+  Property 'paused' does not exist on type 'HTMLElement'.
+tests/e2e/asset-library.spec.ts(4,589): error TS2339: Property 'paused' does not exist on type 'HTMLElement | SVGElement'.
+  Property 'paused' does not exist on type 'HTMLElement'.
+tests/e2e/asset-library.spec.ts(4,736): error TS2339: Property 'currentTime' does not exist on type 'HTMLElement | SVGElement'.
+  Property 'currentTime' does not exist on type 'HTMLElement'.

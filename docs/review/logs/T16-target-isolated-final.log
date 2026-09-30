@@ -1,0 +1,31 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts tests/e2e/asset-download.spec.ts
+
+[WebServer] (node:27180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:15192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\asset-download.spec.ts:4:1 › T16-C04: original download acknowledges browser trigger and preserves bytes and filename (1.2s)
+(node:34276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 tests\e2e\asset-library.spec.ts:2:1 › T16 different content confirmation creates a new asset and retains original graph and source (2.1s)
+  ok  3 tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged (1.5s)
+  ok  4 tests\e2e\asset-library.spec.ts:4:1 › T16 player cleanup: hiding active media pauses the detached element and releases its object URL (920ms)
+  ok  5 tests\e2e\asset-library.spec.ts:5:1 › T16 tags and metadata: shared limits reject invalid tags and stale undo instead of overwriting (1.2s)
+  ok  6 tests\e2e\asset-library.spec.ts:6:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state (2.5s)
+  ok  7 tests\e2e\asset-library.spec.ts:7:1 › T16 readonly target: insert is blocked by another writer without creating nodes or media (3.3s)
+  ok  8 tests\e2e\asset-library.spec.ts:10:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active (3.5s)
+  ok  9 tests\e2e\asset-library.spec.ts:11:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible (2.5s)
+  ok 10 tests\e2e\asset-library.spec.ts:12:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently (4.8s)
+  ok 11 tests\e2e\asset-library.spec.ts:13:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display (1.7s)
+  ok 12 tests\e2e\asset-library.spec.ts:14:1 › T16-M03/M08: image fit/original preview and insertion only adds an asset node (1.3s)
+
+  12 passed (31.8s)

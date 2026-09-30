@@ -31,18 +31,24 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
    await assertProjectWriter(tx,input.projectId,lease);
    const fingerprint=JSON.stringify({...input,leaseEpoch:0}),receipt:StoredCommandReceipt|undefined=await requestResult(tx.objectStore('receipts').get(input.id));
    if(receipt){if(receipt.fingerprint!==fingerprint||receipt.projectId!==input.projectId)throw new Error('command_id_reused_with_different_input');return {id:input.id,status:'replayed',revision:receipt.revision};}
-   await context.beforeCreativeCommit?.(tx);
    const project=projectSchema.parse(await requestResult(tx.objectStore('projects').get(input.projectId)));
    if(project.trashedAt!==null)throw new Error('project_in_trash');
    if(project.revision!==input.baseRevision)return {id:input.id,status:'conflict',revision:project.revision,errorCode:'project_revision_conflict'};
    const before=graphSchema.parse(await requestResult(tx.objectStore('graphs').get(input.projectId)));
    if(before.revision!==project.revision)throw new Error('graph_revision_conflict');
+   await context.beforeCreativeCommit?.(tx);
    for(const operation of input.operations)if(operation.type==='select_result'){
     const run=await requestResult(tx.objectStore('runs').get(operation.payload.runId)),asset=await requestResult(tx.objectStore('assets').get(operation.payload.assetId));
     if(!run||!asset||run.projectId!==project.id||run.resultAssetId!==asset.id||asset.sourceRunId!==run.id)throw new Error('result_binding_mismatch');
    }
    const graph=executeGraphOperations(before,input.operations);graph.revision=project.revision+1;
    const assets=(await requestResult<unknown[]>(tx.objectStore('assets').getAll())).map(a=>assetSchema.parse(a));
+   for(const operation of input.operations)if(operation.type==='update_node'&&'data'in operation.payload.patch){
+    const changed=graph.nodes.find(n=>n.id===operation.payload.nodeId)!;
+    if(changed.type==='asset'&&!assets.some(a=>a.id===changed.data.assetId&&!a.trashedAt))throw new Error('asset_reference_missing');
+    if(changed.type==='result')throw new Error('use_explicit_select_result');
+    for(const edge of graph.edges.filter(e=>e.sourceId===changed.id)){const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);}
+   }
    for(const operation of input.operations)if(operation.type==='add_node'){
     const added=graph.nodes.find(n=>n.id===(operation.payload.node as {id:string}).id)!;
     if(added.type==='asset'&&!assets.some(a=>a.id===added.data.assetId&&!a.trashedAt))throw new Error('asset_reference_missing');

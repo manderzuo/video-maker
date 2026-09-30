@@ -1,0 +1,52 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts
+
+[WebServer] (node:12784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:11604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\asset-library.spec.ts:2:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state (1.6s)
+  ok 2 tests\e2e\asset-library.spec.ts:3:1 › T16 readonly target: insert is blocked by another writer without creating nodes or media (1.0s)
+  ok 3 tests\e2e\asset-library.spec.ts:6:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active (926ms)
+  ok 4 tests\e2e\asset-library.spec.ts:7:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible (1.0s)
+  ok 5 tests\e2e\asset-library.spec.ts:8:1 › T16-C04: original download acknowledges browser trigger and preserves bytes and filename (944ms)
+  x  6 tests\e2e\asset-library.spec.ts:9:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently (1.8s)
+(node:27128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 7 tests\e2e\asset-library.spec.ts:10:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display (1.3s)
+  ok 8 tests\e2e\asset-library.spec.ts:11:1 › T16-M03/M08: image fit/original preview and insertion only adds an asset node (1.1s)
+
+
+  1) tests\e2e\asset-library.spec.ts:9:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently 
+
+    Error: browser.newContext: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=E:\trae-studio\tools\temp\playwright_chromiumdev_profile-lYiBMy --remote-debugging-pipe --no-startup-window
+    <launched> pid=12156
+    [pid=12156][err] [12156:34380:0930/224307.750:ERROR:components\edge_ess\vbs_encoder.cc:100] LoadEnclaveImageW failed, error code 577
+    [pid=12156][err] [12156:8580:0930/224307.931:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:165] QQBrowser user data path not found.
+    [pid=12156][err] [12156:8580:0930/224309.483:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:165] QQBrowser user data path not found.
+    [pid=12156][err] [12156:8580:0930/224310.526:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:165] QQBrowser user data path not found.
+    [pid=12156][err] [12156:8580:0930/224311.470:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:165] QQBrowser user data path not found.
+    [pid=12156][err] [12156:8580:0930/224312.500:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:165] QQBrowser user data path not found.
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-library-T16-C03-same-386d1-t-does-not-replace-silently\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-library-T16-C03-same-386d1-t-does-not-replace-silently\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\asset-library.spec.ts:9:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently 
+  7 passed (14.6s)

@@ -1,0 +1,49 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-library-boundary.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/asset-library-boundary.test.ts (3 tests | 2 failed) 35ms
+   × T16 transaction: stale creative revision never commits a prepared blob or asset 19ms
+   × T16 deduplicated import repairs missing local bytes without changing source identity 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/asset-library-boundary.test.ts > T16 transaction: stale creative revision never commits a prepared blob or asset
+AssertionError: expected [ { id: 'prepared', …(1) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "blob": Blob {
++       Symbol(kHandle): Blob {},
++       Symbol(kLength): 5,
++       Symbol(kType): "",
++     },
++     "id": "prepared",
++   },
++ ]
+
+ ❯ tests/unit/asset-library-boundary.test.ts:11:704
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/asset-library-boundary.test.ts > T16 deduplicated import repairs missing local bytes without changing source identity
+AssertionError: expected undefined to be defined
+ ❯ tests/unit/asset-library-boundary.test.ts:12:821
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  22:30:20
+   Duration  569ms (transform 182ms, setup 48ms, import 274ms, tests 35ms, environment 0ms)
+

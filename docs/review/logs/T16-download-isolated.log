@@ -1,0 +1,19 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-library.spec.ts
+
+[WebServer] (node:8) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Cannot use({ launchOptions }) in a describe group, because it forces a new worker.
+Make it top-level in the test file or put in the configuration file.
+
+   at asset-library.spec.ts:13
+
+  11 | test('T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible',async({page})=>{await page.getByRole('combobox',{name:'素材类型',exact:true}).selectOption('image');await expect(page.locator('[data-testid="asset-card"]')).toHaveCount(1);await page.getByLabel('选择 参考.png',{exact:true}).check();await page.getByRole('button',{name:'列表',exact:true}).click();await expect(page.getByLabel('选择 参考.png',{exact:true})).toBeChecked();await page.getByRole('button',{name:'详情 参考.png',exact:true}).focus();await page.keyboard.press('Enter');await page.getByRole('link',{name:'定位 素材项目 / 图片引用',exact:true}).press('Enter');await expect(page.getByLabel('选择 图片引用',{exact:true})).toBeChecked();});
+  12 | test.describe('isolated browser download lifecycle',()=>{
+> 13 |  test.use({launchOptions:{downloadsPath:'E:/trae-studio/tools/temp/playwright-downloads'}});
+     |       ^
+  14 | test('T16-C04: original download acknowledges browser trigger and preserves bytes and filename',async({page})=>{await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const download=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();expect((await download).suggestedFilename()).toBe('参考.png');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载：参考.png'})).toBeVisible();await expect(page.getByText('已保存到下载目录',{exact:true})).toHaveCount(0);});
+  15 | });
+  16 | test('T16-C03: same hash restores original identity; same filename with different content does not replace silently',async({page})=>{const before=await state(page),asset=before.assets.find((a:{title:string})=>a.title==='参考.png')!;await page.evaluate(async id=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const db=await openStudioDb();try{await transact(db,['blobs'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('blobs').delete(id));}finally{db.close();}},asset.blobKey);await page.reload();await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();const bytes=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await(await import(url)).imageFile()).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'改名.png',mimeType:'image/png',buffer:Buffer.from(bytes)});await expect(page.getByText('相同内容已恢复，原素材身份与来源保留。',{exact:true})).toBeVisible();expect((await state(page)).assets).toEqual(before.assets);const other=await page.evaluate(async()=>{const url='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await import(url)).wave(880).arrayBuffer()));});await page.getByLabel('重新关联文件',{exact:true}).setInputFiles({name:'参考.png',mimeType:'audio/wav',buffer:Buffer.from(other)});await expect(page.getByRole('dialog',{name:'确认不同内容'})).toBeVisible();expect((await state(page)).assets).toHaveLength(3);await page.getByRole('dialog',{name:'确认不同内容'}).getByRole('button',{name:'取消',exact:true}).click();expect((await state(page)).graph).toEqual(before.graph);});
+

@@ -1,5 +1,5 @@
 {
-  "currentTask": "T16",
+  "currentTask": "T17",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -118,18 +118,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T15.json",
-      "headCommit": null,
+      "headCommit": "4741f1745f2046dcbf59a2e2bbd1894f29f4ed9e",
       "id": "T15",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "节点菜单、分组、分支与布局"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T16.json",
       "headCommit": null,
       "id": "T16",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "素材库、预览和重新关联"
     },
     {

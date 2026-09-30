@@ -1,0 +1,152 @@
+{
+  "taskId": "T16",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "4741f1745f2046dcbf59a2e2bbd1894f29f4ed9e",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-library.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-red.log",
+      "note": "行为红灯"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/asset-library-boundary.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-boundary-red.log",
+      "note": "冲突预备blob提交、同hash缺失字节未恢复"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/asset-library-boundary.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-replace-red.log",
+      "note": "替换导致既有端口类型不兼容"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-library.spec.ts -g 'canvas files|readonly target'",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-paste-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-library.spec.ts -g 'different content confirmation|input replacement'",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-impact-red.log",
+      "note": "夹具动态import在事务中导致TransactionInactiveError；不算行为红灯"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-library.spec.ts -g 'input replacement'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-impact-behavior-red.log",
+      "note": "修正夹具后，真实影响弹窗缺少下游名称"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/asset-library-boundary.test.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-relink-contract-red.log",
+      "note": "共享结果判别标识不一致，已校正"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-library.spec.ts tests/e2e/asset-download.spec.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-target-isolated-final.log",
+      "note": "下载使用单独浏览器worker，不降断言；重新关联结果标识最后修复前"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 69,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-e2e-delivery.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 92,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T16-unit-delivery.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T16-typecheck-contract.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T16-lint-delivery.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T16-build-delivery.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T16-asset-library.png"
+  ],
+  "businessCalls": 0,
+  "rulings": [
+    "素材筛选/排序/网格列表/选择与属性抽屉接入真实IndexedDB；名称、标签、说明编辑使用元数据CAS和可撤销回执，hash/原来源不改。",
+    "原生本地audio/video默认静音且不自动播；同一模块协调一个播放器；进度键盘±5秒、会话音量。图片按缩略图浏览，完整预览显式读取原件。对象URL释放有实际浏览器断言。",
+    "重新关联按sha256：同hash恢复原blob；不同hash先确认另存，原素材/Run/图保留；替换草稿另选目标与下游影响确认，并由revision/lease和既有端口校验阻断冲突。",
+    "画布文件粘贴复用T07准备引擎，在同一创作事务写blob/asset/node/引用/回执。先检查项目CAS，再运行可信内部预备写回调；配额故障无孤立素材。",
+    "浏览器下载仅报告触发与文件名；依赖下载与业务请求区分，产品没有真实业务请求。历史結果预览保留assetId/runId。"
+  ],
+  "knownLimitations": [
+    "系统Edge在下载后复用测试上下文连续退出；独立下载worker解决测试隔离，原Edge异常未宣称浏览器缺陷已修复。对应日志green/browser-fixed/target-final。",
+    "锁定Playwright1.58.2对应Chromium145.0.7632.6/v1208下载到E盘仍在进行；未计作安装成功或通过证据。后续另记最终状态。",
+    "远端过期/授权下载待T23/T33；没有扫描磁盘、任意URL抓取或音频生成。",
+    "画布文件粘贴用真实File和原生DataTransfer事件；没有读取系统剪贴板。密集编辑/休眠/慢存储/物理IME仍待T45。",
+    "标签复用共享tags的10项/24字符限制；素材文件名称完整保留，超出节点60字符限制时节点名为素材引用、素材正文仍保留原文件名。",
+    "用户视觉、完整T02认可、独立审查与前端标识许可未通过；verify继续保留视觉门槛。"
+  ],
+  "files": [
+    "src/features/assets/AssetsPage.tsx",
+    "src/features/assets/AssetInspector.tsx",
+    "src/features/assets/AssetPreview.tsx",
+    "src/features/assets/asset-service.ts",
+    "src/features/assets/relink-service.ts",
+    "src/features/assets/canvas-import.ts",
+    "src/features/assets/import-service.ts",
+    "src/domain/asset.ts",
+    "src/application/commands/apply-command.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/nodes/AssetNode.tsx",
+    "src/features/canvas/nodes/ResultNode.tsx",
+    "src/app/App.tsx",
+    "src/ui/tokens.css",
+    "tests/e2e/asset-library.spec.ts",
+    "tests/e2e/asset-download.spec.ts",
+    "tests/fixtures/asset-library.ts",
+    "tests/unit/asset-library-boundary.test.ts"
+  ]
+}
