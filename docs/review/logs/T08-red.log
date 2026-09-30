@@ -1,0 +1,105 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-retention.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/asset-retention.test.ts (6 tests | 6 failed) 22ms
+   × T08-C01: deleting a node preserves its asset and run evidence 13ms
+   × T08-C02: referenced asset permanent removal is blocked 2ms
+   × T08-C03: unknown/active run tracking survives soft deletion and blocks permanent deletion 1ms
+   × T08-C04: same blob across projects and historical inputs is retained 1ms
+   × T08 confirmation is bound to displayed counts and impact; concurrent changes force a new confirmation 1ms
+   × T08 permanent project removal preserves historical runs and media instead of cancelling remotely 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > T08-C01: deleting a node preserves its asset and run evidence
+Error: deletion_impact_not_implemented
+ ❯ getDeletionImpact src/features/projects/delete-policy.ts:8:119
+      6| export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      7| export type DeleteResult={success:boolean;id:string;errorCode?:string;…
+      8| export async function getDeletionImpact(_target:DeleteTarget,_options:…
+       |                                                                                                                       ^
+      9| export async function deleteLocalResource(_target:DeleteTarget,_confir…
+     10|
+ ❯ confirm tests/unit/asset-retention.test.ts:10:63
+ ❯ tests/unit/asset-retention.test.ts:21:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > T08-C02: referenced asset permanent removal is blocked
+Error: deletion_impact_not_implemented
+ ❯ getDeletionImpact src/features/projects/delete-policy.ts:8:119
+      6| export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      7| export type DeleteResult={success:boolean;id:string;errorCode?:string;…
+      8| export async function getDeletionImpact(_target:DeleteTarget,_options:…
+       |                                                                                                                       ^
+      9| export async function deleteLocalResource(_target:DeleteTarget,_confir…
+     10|
+ ❯ tests/unit/asset-retention.test.ts:25:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > T08-C03: unknown/active run tracking survives soft deletion and blocks permanent deletion
+Error: deletion_impact_not_implemented
+ ❯ getDeletionImpact src/features/projects/delete-policy.ts:8:119
+      6| export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      7| export type DeleteResult={success:boolean;id:string;errorCode?:string;…
+      8| export async function getDeletionImpact(_target:DeleteTarget,_options:…
+       |                                                                                                                       ^
+      9| export async function deleteLocalResource(_target:DeleteTarget,_confir…
+     10|
+ ❯ confirm tests/unit/asset-retention.test.ts:10:63
+ ❯ tests/unit/asset-retention.test.ts:30:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > T08-C04: same blob across projects and historical inputs is retained
+Error: deletion_impact_not_implemented
+ ❯ getDeletionImpact src/features/projects/delete-policy.ts:8:119
+      6| export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      7| export type DeleteResult={success:boolean;id:string;errorCode?:string;…
+      8| export async function getDeletionImpact(_target:DeleteTarget,_options:…
+       |                                                                                                                       ^
+      9| export async function deleteLocalResource(_target:DeleteTarget,_confir…
+     10|
+ ❯ tests/unit/asset-retention.test.ts:38:84
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > T08 confirmation is bound to displayed counts and impact; concurrent changes force a new confirmation
+Error: deletion_impact_not_implemented
+ ❯ getDeletionImpact src/features/projects/delete-policy.ts:8:119
+      6| export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      7| export type DeleteResult={success:boolean;id:string;errorCode?:string;…
+      8| export async function getDeletionImpact(_target:DeleteTarget,_options:…
+       |                                                                                                                       ^
+      9| export async function deleteLocalResource(_target:DeleteTarget,_confir…
+     10|
+ ❯ confirm tests/unit/asset-retention.test.ts:10:63
+ ❯ tests/unit/asset-retention.test.ts:44:84
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > T08 permanent project removal preserves historical runs and media instead of cancelling remotely
+Error: deletion_impact_not_implemented
+ ❯ getDeletionImpact src/features/projects/delete-policy.ts:8:119
+      6| export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      7| export type DeleteResult={success:boolean;id:string;errorCode?:string;…
+      8| export async function getDeletionImpact(_target:DeleteTarget,_options:…
+       |                                                                                                                       ^
+      9| export async function deleteLocalResource(_target:DeleteTarget,_confir…
+     10|
+ ❯ confirm tests/unit/asset-retention.test.ts:10:63
+ ❯ tests/unit/asset-retention.test.ts:52:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  19:14:08
+   Duration  414ms (transform 104ms, setup 39ms, import 170ms, tests 22ms, environment 0ms)
+

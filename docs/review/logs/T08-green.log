@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-retention.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  19:17:19
+   Duration  430ms (transform 118ms, setup 37ms, import 185ms, tests 37ms, environment 0ms)
+

@@ -1,0 +1,53 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-retention.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/asset-retention.test.ts (9 tests | 2 failed) 53ms
+   × soft-deleted assets remain readable and retain referenced bytes 8ms
+   × project restore retains explicit imported attachments after graph references are rebuilt 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > soft-deleted assets remain readable and retain referenced bytes
+ZodError: [
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "trashedAt"
+    ],
+    "path": [],
+    "message": "Unrecognized key: \"trashedAt\""
+  }
+]
+ ❯ src/features/assets/reference-index.ts:34:135
+
+ ❯ loadResourceSnapshot src/features/assets/reference-index.ts:34:116
+ ❯ src/features/projects/delete-policy.ts:36:128
+ ❯ transact src/infrastructure/storage/database.ts:24:19
+ ❯ src/features/projects/delete-policy.ts:39:59
+ ❯ withDatabase src/infrastructure/storage/database.ts:27:159
+ ❯ tests/unit/asset-retention.test.ts:64:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/asset-retention.test.ts > project restore retains explicit imported attachments after graph references are rebuilt
+AssertionError: expected undefined to be defined
+ ❯ tests/unit/asset-retention.test.ts:70:50
+     68|  await put('graphs',f.graph());await put('projects',f.project({trashed…
+     69|  expect((await restoreProject('p1',{db,lease,expectedRevision:1})).suc…
+     70|  expect(await read('references','import:p1:a1')).toBeDefined();expect(…
+       |                                                  ^
+     71| });
+     72|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 7 passed (9)
+   Start at  19:18:22
+   Duration  538ms (transform 156ms, setup 41ms, import 228ms, tests 53ms, environment 0ms)
+

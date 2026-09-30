@@ -1,0 +1,95 @@
+{
+  "taskId": "T08",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "1082b9943d3ab9c34363277f2aefda93cc00803d",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "independentReviewPerformed": false,
+  "reviewDecision": "待审查",
+  "files": [
+    "src/features/assets/reference-index.ts",
+    "src/features/projects/delete-policy.ts",
+    "src/features/projects/trash-service.ts",
+    "src/domain/asset.ts",
+    "src/infrastructure/storage/project-repository.ts",
+    "tests/unit/asset-retention.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/asset-retention.test.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T08-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/asset-retention.test.ts",
+      "phase": "recovery-red",
+      "exitCode": 1,
+      "passed": 7,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T08-recovery-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/asset-retention.test.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T08-target-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T08-regression.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/storage.spec.ts",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T08-storage-regression.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T08-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T08-lint-initial.log",
+      "note": "移除真正未使用导入"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T08-lint-final.log"
+    }
+  ],
+  "interactionIds": [
+    "M-12",
+    "D-07",
+    "D-08"
+  ],
+  "screenshots": [],
+  "networkMode": "local storage only",
+  "businessCalls": 0,
+  "rulings": [
+    "删除前重算图、显式素材关联、历史Run、PromptDraft、命令回执引用；未知Schema阻止破坏性删除。影响hash在只读事务完成后计算，写事务重新比较同一指纹，避免异步哈希导致IDB事务失活。",
+    "永久删项目移除该项目结构/关联；全局素材库与历史Run证据保留，素材须通过其独立影响检查后显式删除。不默认清回收站，不发远端取消。",
+    "Asset添加可选trashedAt，使软删素材符合严格Schema且历史记录仍可读；项目保存重建图引用时保留显式导入关联，均先复现红灯。"
+  ],
+  "knownLimitations": [
+    "本任务为领域与事务接口；产品回收站/影响确认弹窗由T12/T16接入。",
+    "UI/用户统一验收与独立审查待，未操作真实Core。"
+  ]
+}

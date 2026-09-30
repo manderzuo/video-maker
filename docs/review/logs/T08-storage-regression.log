@@ -1,0 +1,20 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/storage.spec.ts
+
+[WebServer] (node:23420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:23588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks (696ms)
+  ok 2 tests\e2e\storage.spec.ts:11:1 › native request success plus abort rolls back all tables (323ms)
+  ok 3 tests\e2e\storage.spec.ts:18:1 › quota fault preserves visible draft, disables submission and recovers saved title (439ms)
+  ok 4 tests\e2e\storage.spec.ts:23:1 › real old connection blocks native upgrade and yields actionable error (300ms)
+  ok 5 tests\e2e\storage.spec.ts:26:1 › persisted unknown run survives page reopening with original idempotency and state (400ms)
+
+  5 passed (5.0s)
