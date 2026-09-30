@@ -1,0 +1,47 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/group-invariants.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/group-invariants.test.ts (2 tests | 2 failed) 13ms
+   × T15 groups reject self/nested cycles and references to missing children 10ms
+   × T15 each child has one layout parent and no duplicate membership 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/group-invariants.test.ts > T15 groups reject self/nested cycles and references to missing children
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/group-invariants.test.ts:5:240
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/group-invariants.test.ts > T15 each child has one layout parent and no duplicate membership
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/group-invariants.test.ts:6:353
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  21:39:04
+   Duration  367ms (transform 71ms, setup 43ms, import 106ms, tests 13ms, environment 0ms)
+

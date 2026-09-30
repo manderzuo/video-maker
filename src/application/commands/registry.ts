@@ -22,7 +22,7 @@ export type CommandReceipt={id:string;status:'applied'|'replayed'|'conflict'|'re
 export function executeGraphOperations(graph:Graph,operations:GraphOperation[]):Graph{
  const next=structuredClone(graph);
  const requireNode=(nodeId:string)=>{const node=next.nodes.find(n=>n.id===nodeId);if(!node)throw new Error('command_node_missing');return node;};
- const ungroup=(nodeId:string)=>{const group=requireNode(nodeId);if(group.type!=='group')throw new Error('command_not_group');for(const id of group.data.childIds){const child=requireNode(id);child.x+=group.x;child.y+=group.y;}next.nodes=next.nodes.filter(n=>n.id!==nodeId);};
+ const ungroup=(nodeId:string)=>{const group=requireNode(nodeId);if(group.type!=='group')throw new Error('command_not_group');for(const id of group.data.childIds){const child=requireNode(id);child.x+=group.x;child.y+=group.y;}for(const parent of next.nodes)if(parent.type==='group'&&parent.data.childIds.includes(nodeId))parent.data.childIds=parent.data.childIds.flatMap(id=>id===nodeId?group.data.childIds:[id]);next.nodes=next.nodes.filter(n=>n.id!==nodeId);};
  for(const input of operations){
   const operation=operationSchema.parse(input);
   if(operation.type==='add_node'){
@@ -48,7 +48,7 @@ export function executeGraphOperations(graph:Graph,operations:GraphOperation[]):
    }else if(operation.type==='move_node'){node.x=operation.payload.x;node.y=operation.payload.y;}
    else if(operation.type==='update_node'){next.nodes[next.nodes.indexOf(node)]=nodeSchema.parse({...node,...operation.payload.patch});}
    else if(operation.type==='ungroup'){ungroup(node.id);}
-   else if(operation.type==='select_result'){if(node.type!=='result')throw new Error('command_result_node_required');node.data={kind:'result',assetId:operation.payload.assetId,runId:operation.payload.runId};}
+   else if(operation.type==='select_result'){if(node.type!=='result')throw new Error('command_result_node_required');node.data={...node.data,kind:'result',assetId:operation.payload.assetId,runId:operation.payload.runId,selectionRevision:(node.data.selectionRevision??0)+1};}
   }
  }
  const validated=graphSchema.parse(next);

@@ -2,7 +2,7 @@
   "taskId": "T14",
   "status": "五类节点/类型连线/输入检查器自检通过，待统一验收/独立审查",
   "baseCommit": "f02f5b0e0a4b5035f2fdb95c313661364e4ed841",
-  "headCommit": null,
+  "headCommit": "ed40f5d38bb6fd7b4cf3afaea442950dea919461",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reviewDecision": "待审查",
   "independentReviewPerformed": false,

@@ -1,0 +1,44 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-layout.spec.ts -g clipboard routing
+
+[WebServer] (node:29000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:34896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-layout.spec.ts:16:1 › T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard (1.1s)
+
+
+  1) tests\e2e\canvas-layout.spec.ts:16:1 › T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+      14 | test('T15 save acknowledgement: a display read error after commit never reports an unsaved transaction',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.evaluate(()=>{const original=IDBObjectStore.prototype.getAll;let calls=0;IDBObjectStore.prototype.getAll=function(...args:Parameters<IDBObjectStore['getAll']>){if(this.name==='assets'&&++calls===2)throw new DOMException('display read fault','UnknownError');return original.apply(this,args);};});await page.getByTestId('canvas-stage').focus();await page.keyboard.press('Control+d');await expect(page.getByText('已保存 · 展示刷新失败',{exact:true})).toBeVisible();expect((await stored(page)).graph.revision).toBe(2);await page.reload();await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);});
+      15 | test('T15 edit protection: invalid local text is an unsaved draft and cannot silently leave',async({page})=>{await page.getByTestId('node-text-1').getByLabel('节点文本').fill('中'.repeat(21846));await expect(page.getByTestId('node-text-1').getByRole('alert')).toContainText('64KiB');await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='text-1').data.text).toBe('原创镜头');});
+    > 16 | test('T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard',async({page})=>{const allowed=await page.getByTestId('canvas-stage').evaluate(element=>element.dispatchEvent(new KeyboardEvent('keydown',{key:'v',ctrlKey:true,bubbles:true,cancelable:true})));expect(allowed).toBe(true);});
+         |                                                                                                                                                                                                                                                                                                                                        ^
+      17 |
+      18 |
+      19 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:16:328
+
+    Error Context: test-results\canvas-layout-T15-clipboar-28798-ithout-reading-OS-clipboard\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-clipboar-28798-ithout-reading-OS-clipboard\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-clipboar-28798-ithout-reading-OS-clipboard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-layout.spec.ts:16:1 › T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard 

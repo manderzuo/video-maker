@@ -1,0 +1,44 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/canvas-layout.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/canvas-layout.test.ts (6 tests | 2 failed) 40ms
+   × T15 copying an empty layout group still creates a valid new group 7ms
+   × T15 guarded deletion returns its original receipt on retry; new deletion rejects stale impact 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/canvas-layout.test.ts > T15 copying an empty layout group still creates a valid new group
+AssertionError: expected [ { id: 'g', title: '空镜头组', …(5) } ] to have a length of 2 but got 1
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/unit/canvas-layout.test.ts:15:336
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/canvas-layout.test.ts > T15 guarded deletion returns its original receipt on retry; new deletion rejects stale impact
+AssertionError: expected 'rejected' to be 'replayed' // Object.is equality
+
+Expected: "replayed"
+Received: "rejected"
+
+ ❯ tests/unit/canvas-layout.test.ts:19:933
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 passed (6)
+   Start at  21:49:51
+   Duration  533ms (transform 177ms, setup 45ms, import 257ms, tests 40ms, environment 0ms)
+

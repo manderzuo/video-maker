@@ -38,6 +38,13 @@ export async function getDeletionImpact(target:DeleteTarget,options:DeleteOption
  const input=targetSchema.parse(target);
  return withDatabase(options.db,async db=>{const captured=await capture(input,db);return {...deriveImpact(input,captured.snapshot),impactHash:await digest(captured.fingerprint)};});
 }
+export async function prepareNodeDeletionGuard(impacts:DeletionImpact[],options:DeleteOptions={}){
+ return withDatabase(options.db,async db=>{
+  const captured: {target:DeleteTarget;fingerprint:string}[]=[];
+  for(const displayed of impacts){if(displayed.target.kind!=='node')throw new Error('node_guard_only');const current=await capture(displayed.target,db),actual=deriveImpact(displayed.target,current.snapshot);if(!actual.deletable||displayed.impactHash!==await digest(current.fingerprint)||JSON.stringify(displayed.displayedCounts)!==JSON.stringify(actual.displayedCounts))throw new Error('deletion_impact_changed');captured.push({target:displayed.target,fingerprint:current.fingerprint});}
+  return async(tx:IDBTransaction)=>{const snapshot=await loadResourceSnapshot(tx);for(const item of captured)if(fingerprint(item.target,snapshot)!==item.fingerprint)throw new Error('deletion_impact_changed');};
+ });
+}
 export async function deleteLocalResource(target:DeleteTarget,confirmation:DeletionConfirmation,options:DeleteOptions={}):Promise<DeleteResult>{
  const input=targetSchema.safeParse(target);if(!input.success)return {success:false,id:target.id,errorCode:'delete_target_invalid'};
  const intent=structuredClone(confirmation),lease=options.lease?{...options.lease}:undefined;

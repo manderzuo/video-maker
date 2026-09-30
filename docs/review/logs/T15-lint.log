@@ -1,0 +1,11 @@
+
+> aiwork-studio@0.0.1 lint
+> eslint src tests vite.config.ts vitest.config.ts playwright.config.ts
+
+
+E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts
+  7:593  error  'group' is never reassigned. Use 'const' instead  prefer-const
+  7:659  error  'child' is never reassigned. Use 'const' instead  prefer-const
+
+✖ 2 problems (2 errors, 0 warnings)
+

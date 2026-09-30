@@ -7,10 +7,10 @@ import {commandEnvelopeSchema,executeGraphOperations,type CommandEnvelope,type C
 import {validateConnection,getOrderedInputs,type ReferenceLimits} from '../../domain/graph-validation';
 import {unverifiedCapabilities,type CapabilityProfile} from '../../domain/connection';
 import {assetSchema} from '../../domain/asset';
-export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;origin:'ui'|'mcp';authorize?:(envelope:CommandEnvelope)=>void;capability?:CapabilityProfile;referenceLimits?:ReferenceLimits};
+export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;origin:'ui'|'mcp';authorize?:(envelope:CommandEnvelope)=>void;capability?:CapabilityProfile;referenceLimits?:ReferenceLimits;beforeCreativeCommit?:(tx:IDBTransaction)=>Promise<void>};
 export type StoredCommandReceipt={id:string;projectId:string;status:'applied';revision:number;fingerprint:string;beforeGraph:Graph;afterGraph:Graph;origin:'ui'|'mcp';createdAt:number};
 export type HistoryState={id:string;projectId:string;undoStack:string[];redoStack:string[]};
-export const commandTables:TableName[]=['projects','graphs','receipts','references','leases','runs','assets','diagnostics'];
+export const commandTables:TableName[]=['projects','graphs','receipts','references','leases','runs','assets','diagnostics','blobs','promptDrafts'];
 export function emptyHistory(projectId:string):HistoryState{return {id:'history:'+projectId,projectId,undoStack:[],redoStack:[]};}
 export async function putCreativeGraph(tx:IDBTransaction,graph:Graph){
  tx.objectStore('graphs').put(graph);
@@ -31,6 +31,7 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
    await assertProjectWriter(tx,input.projectId,lease);
    const fingerprint=JSON.stringify({...input,leaseEpoch:0}),receipt:StoredCommandReceipt|undefined=await requestResult(tx.objectStore('receipts').get(input.id));
    if(receipt){if(receipt.fingerprint!==fingerprint||receipt.projectId!==input.projectId)throw new Error('command_id_reused_with_different_input');return {id:input.id,status:'replayed',revision:receipt.revision};}
+   await context.beforeCreativeCommit?.(tx);
    const project=projectSchema.parse(await requestResult(tx.objectStore('projects').get(input.projectId)));
    if(project.trashedAt!==null)throw new Error('project_in_trash');
    if(project.revision!==input.baseRevision)return {id:input.id,status:'conflict',revision:project.revision,errorCode:'project_revision_conflict'};
@@ -54,8 +55,8 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
    const changedTargets=new Set(input.operations.flatMap(op=>op.type==='add_edge'?[(op.payload.edge as {targetId:string}).targetId]:op.type==='remove_edge'?before.edges.filter(e=>e.id===op.payload.edgeId).map(e=>e.targetId):op.type==='remove_node'?before.edges.filter(e=>e.sourceId===op.payload.nodeId).map(e=>e.targetId):[]));
    const changedSources=new Set(input.operations.flatMap(op=>op.type==='update_node'&&'data'in op.payload.patch||op.type==='select_result'?[op.payload.nodeId]:[]));
    for(const node of graph.nodes)if(node.type==='video-generation'){
-    if(changedTargets.has(node.id))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true};
-    if(graph.edges.some(e=>e.targetId===node.id&&changedSources.has(e.sourceId)))node.data={...node.data,stale:true};
+    if(changedTargets.has(node.id))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true,missingInputNodeIds:node.data.missingInputNodeIds?.filter(id=>!graph.edges.some(edge=>edge.targetId===node.id&&edge.sourceId===id))};
+    if(graph.edges.some(e=>e.targetId===node.id&&changedSources.has(e.sourceId)))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true};
    }
    await putCreativeGraph(tx,graph);
    tx.objectStore('projects').put({...project,revision:graph.revision,updatedAt:Date.now()});

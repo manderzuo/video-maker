@@ -1,0 +1,35 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-layout.spec.ts tests/e2e/typed-nodes.spec.ts
+
+[WebServer] (node:26376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+
+(node:30544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\canvas-layout.spec.ts:6:1 › T15-C01: duplicate uses new ID and 24px offset, without creating an execution (1.2s)
+  ok  2 tests\e2e\canvas-layout.spec.ts:7:1 › T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies (1.2s)
+  ok  3 tests\e2e\canvas-layout.spec.ts:8:1 › T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes (1.1s)
+  ok  4 tests\e2e\canvas-layout.spec.ts:9:1 › T15-C05: deleting a node preserves shared media and original Run, undo restores placement (1.1s)
+  ok  5 tests\e2e\canvas-layout.spec.ts:10:1 › T15-C06: marking a fixed result changes only selection revision and downstream drafts (966ms)
+  ok  6 tests\e2e\canvas-layout.spec.ts:11:1 › T15 menu: lock rejects movement; branch duplicates draft inputs with no approval (1.0s)
+  ok  7 tests\e2e\canvas-layout.spec.ts:12:1 › T15 clipboard: omitted external inputs remain a persisted warning after refresh (1.3s)
+  ok  8 tests\e2e\canvas-layout.spec.ts:13:1 › T15 outline filters and sort preserve graph/references and indicate empty results (866ms)
+  ok  9 tests\e2e\canvas-layout.spec.ts:14:1 › T15 save acknowledgement: a display read error after commit never reports an unsaved transaction (1.4s)
+  ok 10 tests\e2e\canvas-layout.spec.ts:15:1 › T15 edit protection: invalid local text is an unsaved draft and cannot silently leave (891ms)
+  ok 11 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (860ms)
+  ok 12 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (1.9s)
+  ok 13 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.1s)
+  ok 14 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (873ms)
+  ok 15 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (1.1s)
+  ok 16 tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected (1.0s)
+  ok 17 tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities (1.2s)
+  ok 18 tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer (1.8s)
+  ok 19 tests\e2e\typed-nodes.spec.ts:23:1 › T14 N13: real pointer drag from text output to text input creates one dependency (937ms)
+  ok 20 tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity (1.4s)
+
+  20 passed (26.7s)

@@ -1,0 +1,159 @@
+{
+  "taskId": "T15",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "ed40f5d38bb6fd7b4cf3afaea442950dea919461",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-red.log",
+      "phase": "red"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/group-invariants.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-group-schema-red.log",
+      "phase": "red"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/canvas-layout.test.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-boundary-red.log",
+      "phase": "red"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts -g missing-input",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-missing-input-red.log",
+      "phase": "red; exact test title is in log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts -g read-after-commit",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-read-after-commit-red.log",
+      "phase": "red; exact test title is in log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts -g invalid-draft",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-invalid-draft-red.log",
+      "phase": "red; exact test title is in log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts -g external-paste",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-external-paste-red.log",
+      "phase": "red; exact test title is in log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 55,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-e2e-final.log",
+      "phase": "full-regression before last invalid-draft/paste fixes"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 87,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-unit-complete.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts tests/e2e/typed-nodes.spec.ts",
+      "exitCode": 0,
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-target-final-state.log",
+      "phase": "after invalid draft fix; before final paste fix"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-layout.spec.ts tests/e2e/canvas-viewport.spec.ts",
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T15-target-delivery.log",
+      "phase": "final"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T15-typecheck-delivery-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T15-lint-delivery-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T15-build-delivery-final.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T15-layout-preview.png"
+  ],
+  "businessCalls": 0,
+  "rulings": [
+    "内部复制固定世界坐标、新ID、24px偏移及内部边；外部输入缺失持久提示。分支不复制Run、授权或队列。",
+    "分组/嵌套解组保持世界位置；组成员唯一且无循环；收起不丢依赖。布局预览取消不写，应用一个事务；锁定节点不移动。",
+    "删除影响快照在同一命令事务重新核对；重复receipt先返回，避免已提交重试被新引用状态拒绝。Run和媒体保留；选用结果只改图计数与下游stale。",
+    "已提交后展示读取失败独立显示已保存，可重读展示；无效UTF8草稿仍受离开保护。空内部剪贴板不吞掉外部CtrlV。",
+    "视口UI即时本地缓存并镜像IDB，不改创作revision。分组几何选择性适配固定来源MIT。"
+  ],
+  "knownLimitations": [
+    "用户视觉/独立审查仍待；完整verify保留T02-G02门槛。",
+    "密集跨控件编辑与慢存储竞态、BFCache、物理IME/跨文档beforeunload待T45。",
+    "CtrlV用例只证明处理器保留外部粘贴事件，不宣称读取真实系统剪贴板；文件粘贴与实际媒体预览待T16/T33。"
+  ],
+  "files": [
+    "src/features/canvas/ArrangePreview.tsx",
+    "src/features/canvas/NodeMenu.tsx",
+    "src/features/canvas/branch-command.ts",
+    "src/features/canvas/group-layout.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/NodeOutline.tsx",
+    "src/features/canvas/geometry.ts",
+    "src/features/canvas/nodes/TextNode.tsx",
+    "src/features/canvas/nodes/VideoNode.tsx",
+    "src/domain/graph.ts",
+    "src/application/commands/apply-command.ts",
+    "src/application/commands/registry.ts",
+    "src/features/projects/delete-policy.ts",
+    "src/ui/tokens.css",
+    "tests/e2e/canvas-layout.spec.ts",
+    "tests/unit/canvas-layout.test.ts",
+    "tests/unit/group-invariants.test.ts"
+  ]
+}

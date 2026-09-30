@@ -1,0 +1,210 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-layout.spec.ts
+
+[WebServer] (node:34496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:6388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-layout.spec.ts:6:1 › T15-C01: duplicate uses new ID and 24px offset, without creating an execution (6.2s)
+(node:27800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\canvas-layout.spec.ts:7:1 › T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies (3.8s)
+(node:11092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\canvas-layout.spec.ts:8:1 › T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes (3.7s)
+(node:36060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\canvas-layout.spec.ts:9:1 › T15-C05: deleting a node preserves shared media and original Run, undo restores placement (3.7s)
+(node:19960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\canvas-layout.spec.ts:10:1 › T15-C06: marking a fixed result changes only selection revision and downstream drafts (3.7s)
+(node:26432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  6 tests\e2e\canvas-layout.spec.ts:11:1 › T15 menu: lock rejects movement; branch duplicates draft inputs with no approval (3.7s)
+
+
+  1) tests\e2e\canvas-layout.spec.ts:6:1 › T15-C01: duplicate uses new ID and 24px offset, without creating an execution 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('[data-node-type="text"]')
+    Expected: [32m2[39m
+    Received: [31m1[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-node-type="text"]')[22m
+    [2m    9 × locator resolved to 1 element[22m
+    [2m      - unexpected value "1"[22m
+
+
+      4 | async function stored(page:import('@playwright/test').Page){return page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(path) as typeof import('../../src/infrastructure/storage/database');const db=await openStudioDb();try{return await transact(db,['graphs','runs','assets'],'readonly',async tx=>({graph:await requestResult(tx.objectStore('graphs').get('p1')),runs:await requestResult(tx.objectStore('runs').getAll()),assets:await requestResult(tx.objectStore('assets').getAll())}));}finally{db.close();}});}
+      5 | test.beforeEach(async({page})=>{await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/canvas');});
+    > 6 | test('T15-C01: duplicate uses new ID and 24px offset, without creating an execution',async({page,networkCounter})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByTestId('canvas-stage').focus();await page.keyboard.press('Control+d');await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);const state=await stored(page),copy=state.graph.nodes.find((n:{id:string;type:string})=>n.type==='text'&&n.id!=='text-1');expect(copy).toMatchObject({x:44,y:44});expect(state.runs).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                       ^
+      7 | test('T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'组合选中',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建分组'});await dialog.getByLabel('镜头分组名称',{exact:true}).fill('镜头甲');await dialog.getByRole('button',{name:'创建分组',exact:true}).click();await expect(page.getByLabel('选择 镜头甲',{exact:true})).toBeChecked();let state=await stored(page),group=state.graph.nodes.find((n:{title:string})=>n.title==='镜头甲'),child=state.graph.nodes.find((n:{id:string})=>n.id==='text-1');expect(child.x+group.x).toBe(20);expect(child.y+group.y).toBe(20);await page.getByRole('button',{name:'收起分组',exact:true}).click();await expect(page.getByTestId('node-text-1')).toHaveCount(0);expect((await stored(page)).graph.edges).toEqual(before.graph.edges);await page.getByRole('button',{name:'展开分组',exact:true}).click();await page.getByRole('button',{name:'取消组合',exact:true}).click();state=await stored(page);expect(state.graph.nodes.find((n:{id:string})=>n.id==='text-1')).toMatchObject({x:20,y:20});});
+      8 | test('T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 参考一',{exact:true}).check();await page.getByRole('button',{name:'对齐顶部',exact:true}).click();const dialog=page.getByRole('dialog',{name:'预览布局'});await expect(dialog).toBeVisible();expect((await stored(page)).graph.revision).toBe(1);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).graph.revision).toBe(1);await page.getByRole('button',{name:'对齐顶部',exact:true}).click();await dialog.getByRole('button',{name:'应用布局',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='asset-1').y).toBe(20);expect((await stored(page)).graph.edges).toEqual([]);});
+      9 | test('T15-C05: deleting a node preserves shared media and original Run, undo restores placement',async({page})=>{await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'删除选中节点',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除节点'});await expect(dialog.getByText('任务与素材记录会保留，不取消生成或退款。',{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'确认删除节点',exact:true}).click();await expect(page.getByTestId('node-video-1')).toHaveCount(0);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).assets).toEqual(before.assets);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByTestId('node-video-1')).toBeVisible();});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:6:311
+
+    Error Context: test-results\canvas-layout-T15-C01-dupl-0c9ef-thout-creating-an-execution\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-C01-dupl-0c9ef-thout-creating-an-execution\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-C01-dupl-0c9ef-thout-creating-an-execution\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\canvas-layout.spec.ts:7:1 › T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '组合选中', exact: true })[22m
+
+
+       5 | test.beforeEach(async({page})=>{await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/canvas');});
+       6 | test('T15-C01: duplicate uses new ID and 24px offset, without creating an execution',async({page,networkCounter})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByTestId('canvas-stage').focus();await page.keyboard.press('Control+d');await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);const state=await stored(page),copy=state.graph.nodes.find((n:{id:string;type:string})=>n.type==='text'&&n.id!=='text-1');expect(copy).toMatchObject({x:44,y:44});expect(state.runs).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);});
+    >  7 | test('T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'组合选中',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建分组'});await dialog.getByLabel('镜头分组名称',{exact:true}).fill('镜头甲');await dialog.getByRole('button',{name:'创建分组',exact:true}).click();await expect(page.getByLabel('选择 镜头甲',{exact:true})).toBeChecked();let state=await stored(page),group=state.graph.nodes.find((n:{title:string})=>n.title==='镜头甲'),child=state.graph.nodes.find((n:{id:string})=>n.id==='text-1');expect(child.x+group.x).toBe(20);expect(child.y+group.y).toBe(20);await page.getByRole('button',{name:'收起分组',exact:true}).click();await expect(page.getByTestId('node-text-1')).toHaveCount(0);expect((await stored(page)).graph.edges).toEqual(before.graph.edges);await page.getByRole('button',{name:'展开分组',exact:true}).click();await page.getByRole('button',{name:'取消组合',exact:true}).click();state=await stored(page);expect(state.graph.nodes.find((n:{id:string})=>n.id==='text-1')).toMatchObject({x:20,y:20});});
+         |                                                                                                                                                                                                                                                                                                                        ^
+       8 | test('T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 参考一',{exact:true}).check();await page.getByRole('button',{name:'对齐顶部',exact:true}).click();const dialog=page.getByRole('dialog',{name:'预览布局'});await expect(dialog).toBeVisible();expect((await stored(page)).graph.revision).toBe(1);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).graph.revision).toBe(1);await page.getByRole('button',{name:'对齐顶部',exact:true}).click();await dialog.getByRole('button',{name:'应用布局',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='asset-1').y).toBe(20);expect((await stored(page)).graph.edges).toEqual([]);});
+       9 | test('T15-C05: deleting a node preserves shared media and original Run, undo restores placement',async({page})=>{await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'删除选中节点',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除节点'});await expect(dialog.getByText('任务与素材记录会保留，不取消生成或退款。',{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'确认删除节点',exact:true}).click();await expect(page.getByTestId('node-video-1')).toHaveCount(0);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).assets).toEqual(before.assets);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByTestId('node-video-1')).toBeVisible();});
+      10 | test('T15-C06: marking a fixed result changes only selection revision and downstream drafts',async({page,networkCounter})=>{await page.getByLabel('选择 固定结果',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'选用此结果',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选用固定结果'});await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='result-1').data).toMatchObject({assetId:'a3',runId:'r1',selectionRevision:1});expect(networkCounter.paidRequests).toHaveLength(0);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:7:312
+
+    Error Context: test-results\canvas-layout-T15-C02-C03--84e17-apse-preserves-dependencies\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-C02-C03--84e17-apse-preserves-dependencies\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-C02-C03--84e17-apse-preserves-dependencies\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\canvas-layout.spec.ts:8:1 › T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '对齐顶部', exact: true })[22m
+
+
+       6 | test('T15-C01: duplicate uses new ID and 24px offset, without creating an execution',async({page,networkCounter})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByTestId('canvas-stage').focus();await page.keyboard.press('Control+d');await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);const state=await stored(page),copy=state.graph.nodes.find((n:{id:string;type:string})=>n.type==='text'&&n.id!=='text-1');expect(copy).toMatchObject({x:44,y:44});expect(state.runs).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);});
+       7 | test('T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'组合选中',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建分组'});await dialog.getByLabel('镜头分组名称',{exact:true}).fill('镜头甲');await dialog.getByRole('button',{name:'创建分组',exact:true}).click();await expect(page.getByLabel('选择 镜头甲',{exact:true})).toBeChecked();let state=await stored(page),group=state.graph.nodes.find((n:{title:string})=>n.title==='镜头甲'),child=state.graph.nodes.find((n:{id:string})=>n.id==='text-1');expect(child.x+group.x).toBe(20);expect(child.y+group.y).toBe(20);await page.getByRole('button',{name:'收起分组',exact:true}).click();await expect(page.getByTestId('node-text-1')).toHaveCount(0);expect((await stored(page)).graph.edges).toEqual(before.graph.edges);await page.getByRole('button',{name:'展开分组',exact:true}).click();await page.getByRole('button',{name:'取消组合',exact:true}).click();state=await stored(page);expect(state.graph.nodes.find((n:{id:string})=>n.id==='text-1')).toMatchObject({x:20,y:20});});
+    >  8 | test('T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 参考一',{exact:true}).check();await page.getByRole('button',{name:'对齐顶部',exact:true}).click();const dialog=page.getByRole('dialog',{name:'预览布局'});await expect(dialog).toBeVisible();expect((await stored(page)).graph.revision).toBe(1);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).graph.revision).toBe(1);await page.getByRole('button',{name:'对齐顶部',exact:true}).click();await dialog.getByRole('button',{name:'应用布局',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='asset-1').y).toBe(20);expect((await stored(page)).graph.edges).toEqual([]);});
+         |                                                                                                                                                                                                                                                                                                ^
+       9 | test('T15-C05: deleting a node preserves shared media and original Run, undo restores placement',async({page})=>{await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'删除选中节点',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除节点'});await expect(dialog.getByText('任务与素材记录会保留，不取消生成或退款。',{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'确认删除节点',exact:true}).click();await expect(page.getByTestId('node-video-1')).toHaveCount(0);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).assets).toEqual(before.assets);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByTestId('node-video-1')).toBeVisible();});
+      10 | test('T15-C06: marking a fixed result changes only selection revision and downstream drafts',async({page,networkCounter})=>{await page.getByLabel('选择 固定结果',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'选用此结果',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选用固定结果'});await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='result-1').data).toMatchObject({assetId:'a3',runId:'r1',selectionRevision:1});expect(networkCounter.paidRequests).toHaveLength(0);});
+      11 | test('T15 menu: lock rejects movement; branch duplicates draft inputs with no approval',async({page,networkCounter})=>{await page.getByTestId('node-video-1').getByTestId('node-handle').click({button:'right'});const menu=page.getByRole('dialog',{name:'节点操作'});await menu.getByRole('button',{name:'复制为分支',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(2);expect((await stored(page)).runs).toHaveLength(1);await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByRole('button',{name:'锁定选中',exact:true}).click();await expect(page.getByTestId('node-text-1').getByTestId('node-handle')).toContainText('已锁定');expect(networkCounter.paidRequests).toHaveLength(0);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:8:288
+
+    Error Context: test-results\canvas-layout-T15-C04-layo-87959-ce-without-topology-changes\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-C04-layo-87959-ce-without-topology-changes\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-C04-layo-87959-ce-without-topology-changes\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\canvas-layout.spec.ts:9:1 › T15-C05: deleting a node preserves shared media and original Run, undo restores placement 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '删除选中节点', exact: true })[22m
+
+
+       7 | test('T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'组合选中',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建分组'});await dialog.getByLabel('镜头分组名称',{exact:true}).fill('镜头甲');await dialog.getByRole('button',{name:'创建分组',exact:true}).click();await expect(page.getByLabel('选择 镜头甲',{exact:true})).toBeChecked();let state=await stored(page),group=state.graph.nodes.find((n:{title:string})=>n.title==='镜头甲'),child=state.graph.nodes.find((n:{id:string})=>n.id==='text-1');expect(child.x+group.x).toBe(20);expect(child.y+group.y).toBe(20);await page.getByRole('button',{name:'收起分组',exact:true}).click();await expect(page.getByTestId('node-text-1')).toHaveCount(0);expect((await stored(page)).graph.edges).toEqual(before.graph.edges);await page.getByRole('button',{name:'展开分组',exact:true}).click();await page.getByRole('button',{name:'取消组合',exact:true}).click();state=await stored(page);expect(state.graph.nodes.find((n:{id:string})=>n.id==='text-1')).toMatchObject({x:20,y:20});});
+       8 | test('T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 参考一',{exact:true}).check();await page.getByRole('button',{name:'对齐顶部',exact:true}).click();const dialog=page.getByRole('dialog',{name:'预览布局'});await expect(dialog).toBeVisible();expect((await stored(page)).graph.revision).toBe(1);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).graph.revision).toBe(1);await page.getByRole('button',{name:'对齐顶部',exact:true}).click();await dialog.getByRole('button',{name:'应用布局',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='asset-1').y).toBe(20);expect((await stored(page)).graph.edges).toEqual([]);});
+    >  9 | test('T15-C05: deleting a node preserves shared media and original Run, undo restores placement',async({page})=>{await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'删除选中节点',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除节点'});await expect(dialog.getByText('任务与素材记录会保留，不取消生成或退款。',{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'确认删除节点',exact:true}).click();await expect(page.getByTestId('node-video-1')).toHaveCount(0);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).assets).toEqual(before.assets);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByTestId('node-video-1')).toBeVisible();});
+         |                                                                                                                                                                                                                                                                  ^
+      10 | test('T15-C06: marking a fixed result changes only selection revision and downstream drafts',async({page,networkCounter})=>{await page.getByLabel('选择 固定结果',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'选用此结果',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选用固定结果'});await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='result-1').data).toMatchObject({assetId:'a3',runId:'r1',selectionRevision:1});expect(networkCounter.paidRequests).toHaveLength(0);});
+      11 | test('T15 menu: lock rejects movement; branch duplicates draft inputs with no approval',async({page,networkCounter})=>{await page.getByTestId('node-video-1').getByTestId('node-handle').click({button:'right'});const menu=page.getByRole('dialog',{name:'节点操作'});await menu.getByRole('button',{name:'复制为分支',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(2);expect((await stored(page)).runs).toHaveLength(1);await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByRole('button',{name:'锁定选中',exact:true}).click();await expect(page.getByTestId('node-text-1').getByTestId('node-handle')).toContainText('已锁定');expect(networkCounter.paidRequests).toHaveLength(0);});
+      12 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:9:258
+
+    Error Context: test-results\canvas-layout-T15-C05-dele-ad05d-Run-undo-restores-placement\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-C05-dele-ad05d-Run-undo-restores-placement\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-C05-dele-ad05d-Run-undo-restores-placement\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\canvas-layout.spec.ts:10:1 › T15-C06: marking a fixed result changes only selection revision and downstream drafts 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '选用此结果', exact: true })[22m
+
+
+       8 | test('T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 参考一',{exact:true}).check();await page.getByRole('button',{name:'对齐顶部',exact:true}).click();const dialog=page.getByRole('dialog',{name:'预览布局'});await expect(dialog).toBeVisible();expect((await stored(page)).graph.revision).toBe(1);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).graph.revision).toBe(1);await page.getByRole('button',{name:'对齐顶部',exact:true}).click();await dialog.getByRole('button',{name:'应用布局',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='asset-1').y).toBe(20);expect((await stored(page)).graph.edges).toEqual([]);});
+       9 | test('T15-C05: deleting a node preserves shared media and original Run, undo restores placement',async({page})=>{await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'删除选中节点',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除节点'});await expect(dialog.getByText('任务与素材记录会保留，不取消生成或退款。',{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'确认删除节点',exact:true}).click();await expect(page.getByTestId('node-video-1')).toHaveCount(0);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).assets).toEqual(before.assets);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByTestId('node-video-1')).toBeVisible();});
+    > 10 | test('T15-C06: marking a fixed result changes only selection revision and downstream drafts',async({page,networkCounter})=>{await page.getByLabel('选择 固定结果',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'选用此结果',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选用固定结果'});await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='result-1').data).toMatchObject({assetId:'a3',runId:'r1',selectionRevision:1});expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                            ^
+      11 | test('T15 menu: lock rejects movement; branch duplicates draft inputs with no approval',async({page,networkCounter})=>{await page.getByTestId('node-video-1').getByTestId('node-handle').click({button:'right'});const menu=page.getByRole('dialog',{name:'节点操作'});await menu.getByRole('button',{name:'复制为分支',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(2);expect((await stored(page)).runs).toHaveLength(1);await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByRole('button',{name:'锁定选中',exact:true}).click();await expect(page.getByTestId('node-text-1').getByTestId('node-handle')).toContainText('已锁定');expect(networkCounter.paidRequests).toHaveLength(0);});
+      12 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:10:268
+
+    Error Context: test-results\canvas-layout-T15-C06-mark-25afd-ision-and-downstream-drafts\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-C06-mark-25afd-ision-and-downstream-drafts\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-C06-mark-25afd-ision-and-downstream-drafts\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests\e2e\canvas-layout.spec.ts:11:1 › T15 menu: lock rejects movement; branch duplicates draft inputs with no approval 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '节点操作' }).getByRole('button', { name: '复制为分支', exact: true })[22m
+
+
+       9 | test('T15-C05: deleting a node preserves shared media and original Run, undo restores placement',async({page})=>{await page.getByLabel('选择 视频草稿',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'删除选中节点',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除节点'});await expect(dialog.getByText('任务与素材记录会保留，不取消生成或退款。',{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'确认删除节点',exact:true}).click();await expect(page.getByTestId('node-video-1')).toHaveCount(0);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).assets).toEqual(before.assets);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByTestId('node-video-1')).toBeVisible();});
+      10 | test('T15-C06: marking a fixed result changes only selection revision and downstream drafts',async({page,networkCounter})=>{await page.getByLabel('选择 固定结果',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'选用此结果',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选用固定结果'});await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.revision).toBe(2);expect((await stored(page)).runs).toEqual(before.runs);expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='result-1').data).toMatchObject({assetId:'a3',runId:'r1',selectionRevision:1});expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 11 | test('T15 menu: lock rejects movement; branch duplicates draft inputs with no approval',async({page,networkCounter})=>{await page.getByTestId('node-video-1').getByTestId('node-handle').click({button:'right'});const menu=page.getByRole('dialog',{name:'节点操作'});await menu.getByRole('button',{name:'复制为分支',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(2);expect((await stored(page)).runs).toHaveLength(1);await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByRole('button',{name:'锁定选中',exact:true}).click();await expect(page.getByTestId('node-text-1').getByTestId('node-handle')).toContainText('已锁定');expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                                                                             ^
+      12 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:11:317
+
+    Error Context: test-results\canvas-layout-T15-menu-loc-357a8-aft-inputs-with-no-approval\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-menu-loc-357a8-aft-inputs-with-no-approval\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-menu-loc-357a8-aft-inputs-with-no-approval\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    tests\e2e\canvas-layout.spec.ts:6:1 › T15-C01: duplicate uses new ID and 24px offset, without creating an execution 
+    tests\e2e\canvas-layout.spec.ts:7:1 › T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies 
+    tests\e2e\canvas-layout.spec.ts:8:1 › T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes 
+    tests\e2e\canvas-layout.spec.ts:9:1 › T15-C05: deleting a node preserves shared media and original Run, undo restores placement 
+    tests\e2e\canvas-layout.spec.ts:10:1 › T15-C06: marking a fixed result changes only selection revision and downstream drafts 
+    tests\e2e\canvas-layout.spec.ts:11:1 › T15 menu: lock rejects movement; branch duplicates draft inputs with no approval 

@@ -1,0 +1,51 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-layout.spec.ts -g edit protection
+
+[WebServer] (node:15972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:33512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-layout.spec.ts:15:1 › T15 edit protection: invalid local text is an unsaved draft and cannot silently leave (6.3s)
+
+
+  1) tests\e2e\canvas-layout.spec.ts:15:1 › T15 edit protection: invalid local text is an unsaved draft and cannot silently leave 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '离开前保存' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '离开前保存' })[22m
+
+
+      13 | test('T15 outline filters and sort preserve graph/references and indicate empty results',async({page})=>{const before=await stored(page);await page.getByRole('combobox',{name:'节点类型',exact:true}).selectOption('result');await expect(page.getByLabel('选择 固定结果',{exact:true})).toBeVisible();await expect(page.getByLabel('选择 镜头文字',{exact:true})).toHaveCount(0);await page.getByRole('combobox',{name:'大纲排序',exact:true}).selectOption('title');await page.getByLabel('查找节点',{exact:true}).fill('不存在的镜头');await expect(page.getByText('没有匹配节点',{exact:true})).toBeVisible();expect((await stored(page)).graph).toEqual(before.graph);});
+      14 | test('T15 save acknowledgement: a display read error after commit never reports an unsaved transaction',async({page})=>{await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.evaluate(()=>{const original=IDBObjectStore.prototype.getAll;let calls=0;IDBObjectStore.prototype.getAll=function(...args:Parameters<IDBObjectStore['getAll']>){if(this.name==='assets'&&++calls===2)throw new DOMException('display read fault','UnknownError');return original.apply(this,args);};});await page.getByTestId('canvas-stage').focus();await page.keyboard.press('Control+d');await expect(page.getByText('已保存 · 展示刷新失败',{exact:true})).toBeVisible();expect((await stored(page)).graph.revision).toBe(2);await page.reload();await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);});
+    > 15 | test('T15 edit protection: invalid local text is an unsaved draft and cannot silently leave',async({page})=>{await page.getByTestId('node-text-1').getByLabel('节点文本').fill('中'.repeat(21846));await expect(page.getByTestId('node-text-1').getByRole('alert')).toContainText('64KiB');await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();expect((await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='text-1').data.text).toBe('原创镜头');});
+         |                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      16 |
+      17 |
+      18 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-layout.spec.ts:15:393
+
+    Error Context: test-results\canvas-layout-T15-edit-pro-28243-t-and-cannot-silently-leave\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-layout-T15-edit-pro-28243-t-and-cannot-silently-leave\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-layout-T15-edit-pro-28243-t-and-cannot-silently-leave\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-layout.spec.ts:15:1 › T15 edit protection: invalid local text is an unsaved draft and cannot silently leave 

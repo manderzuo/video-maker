@@ -1,5 +1,5 @@
 {
-  "currentTask": "T15",
+  "currentTask": "T16",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -110,18 +110,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T14.json",
-      "headCommit": null,
+      "headCommit": "ed40f5d38bb6fd7b4cf3afaea442950dea919461",
       "id": "T14",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
       "status": "五类节点/类型连线/输入检查器自检通过，待统一验收",
       "title": "五类节点、类型连线和输入检查器"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T15.json",
       "headCommit": null,
       "id": "T15",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "节点菜单、分组、分支与布局"
     },
     {
