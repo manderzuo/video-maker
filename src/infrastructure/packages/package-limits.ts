@@ -1,0 +1,27 @@
+import {Unzip,UnzipInflate,zipSync,strToU8,strFromU8} from 'fflate';
+export const packageLimits={compressedBytes:256*1024*1024,expandedBytes:512*1024*1024,entryBytes:200*1024*1024,entries:10000,jsonBytes:16*1024*1024} as const;
+export const encodeJson=(value:unknown)=>strToU8(JSON.stringify(value));
+export function decodeJson(bytes:Uint8Array|undefined){if(!bytes||bytes.length>packageLimits.jsonBytes)throw Error('import_unsafe');return JSON.parse(strFromU8(bytes));}
+const crcTable=Array.from({length:256},(_,n)=>{let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
+function crc(bytes:Uint8Array){let value=0xffffffff;for(const byte of bytes)value=crcTable[(value^byte)&255]^(value>>>8);return (value^0xffffffff)>>>0;}
+export function safeEntryPath(path:string){return path.length>0&&path.length<=500&&!/[\\\x00-\x1f:]/.test(path)&&!path.startsWith('/')&&path.split('/').every(p=>p!=='.'&&p!=='..'&&p!=='')&&!['__proto__','constructor','prototype'].includes(path);}
+// Inspect the central and local headers BEFORE allocating expanded entries. ZIP64,
+// encrypted entries, symlinks, directories and ambiguous paths are unsupported.
+export async function readPackageZip(file:Blob):Promise<Record<string,Uint8Array>>{
+ if(file.size>packageLimits.compressedBytes||file.size<22)throw Error('import_unsafe');const bytes=new Uint8Array(await file.arrayBuffer()),view=new DataView(bytes.buffer),u16=(at:number)=>view.getUint16(at,true),u32=(at:number)=>view.getUint32(at,true);let end=bytes.length-22;
+ while(end>=Math.max(0,bytes.length-65558)&&u32(end)!==0x06054b50)end--;if(end<0||end<bytes.length-65558||end+22+u16(end+20)!==bytes.length||u16(end+4)!==0||u16(end+6)!==0)throw Error('import_unsafe');const count=u16(end+10),offset=u32(end+16),size=u32(end+12);if(count!==u16(end+8)||!count||count>packageLimits.entries||offset+size!==end)throw Error('import_unsafe');
+ let position=offset,total=0;const entries=new Map<string,{expanded:number;checksum:number}>(),ranges:{start:number;end:number}[]=[];
+ for(let i=0;i<count;i++){
+  if(position+46>end||u32(position)!==0x02014b50)throw Error('import_unsafe');const flags=u16(position+8),method=u16(position+10),compressed=u32(position+20),expanded=u32(position+24),nameLength=u16(position+28),extra=u16(position+30),comment=u16(position+32),local=u32(position+42),name=strFromU8(bytes.subarray(position+46,position+46+nameLength));
+  if(!safeEntryPath(name)||entries.has(name)||flags&1||![0,8].includes(method)||expanded>packageLimits.entryBytes||expanded===0xffffffff||compressed===0xffffffff||u16(position+34)!==0||(u32(position+38)>>>16&0xf000)===0xa000||position+46+nameLength+extra+comment>end)throw Error('import_unsafe');total+=expanded;if(total>packageLimits.expandedBytes)throw Error('import_unsafe');
+  if(local+30>offset||u32(local)!==0x04034b50||u16(local+6)!==flags||u16(local+8)!==method)throw Error('import_unsafe');const localNameLength=u16(local+26),localExtra=u16(local+28),body=local+30+localNameLength+localExtra;if(body+compressed>offset||strFromU8(bytes.subarray(local+30,local+30+localNameLength))!==name)throw Error('import_unsafe');if(!(flags&8)&&(u32(local+18)!==compressed||u32(local+22)!==expanded))throw Error('import_unsafe');
+  ranges.push({start:local,end:body+compressed});entries.set(name,{expanded,checksum:u32(position+16)});position+=46+nameLength+extra+comment;
+ }
+ if(position!==end)throw Error('import_unsafe');ranges.sort((a,b)=>a.start-b.start);for(let i=1;i<ranges.length;i++)if(ranges[i].start<ranges[i-1].end)throw Error('import_unsafe');
+ const result:Record<string,Uint8Array>=Object.create(null),started=new Set<string>();let actualTotal=0;const unzip=new Unzip(file=>{const expected=entries.get(file.name);if(!expected||started.has(file.name))throw Error('import_unsafe');started.add(file.name);let actual=0;const chunks:Uint8Array[]=[];file.ondata=(error,data,final)=>{if(error)throw Error('import_unsafe');actual+=data.byteLength;actualTotal+=data.byteLength;if(actual>expected.expanded||actual>packageLimits.entryBytes||actualTotal>packageLimits.expandedBytes){file.terminate();throw Error('import_unsafe');}chunks.push(data);if(final){if(actual!==expected.expanded)throw Error('import_unsafe');const combined=new Uint8Array(actual);let offset=0;for(const chunk of chunks){combined.set(chunk,offset);offset+=chunk.length;}result[file.name]=combined;}};file.start();});unzip.register(UnzipInflate);
+ // Small input chunks limit each decoder allocation, while actual output is
+ // counted independently of the attacker's size declarations.
+ for(let i=0;i<bytes.length;i+=4096)unzip.push(bytes.subarray(i,i+4096),i+4096>=bytes.length);
+ if(Object.keys(result).length!==entries.size)throw Error('import_unsafe');for(const [name,entry]of entries)if(!result[name]||result[name].length!==entry.expanded||crc(result[name])!==entry.checksum)throw Error('import_unsafe');return result;
+}
+export function createPackageZip(entries:Record<string,Uint8Array>){let total=0;const paths=Object.keys(entries);if(paths.length>packageLimits.entries)throw Error('package_too_large');for(const path of paths){const data=entries[path];total+=data.byteLength;if(!safeEntryPath(path)||data.byteLength>packageLimits.entryBytes||total>packageLimits.expandedBytes)throw Error('package_too_large');}const zip=zipSync(entries,{level:0});if(zip.length>packageLimits.compressedBytes)throw Error('package_too_large');return new Blob([new Uint8Array(zip).buffer],{type:'application/zip'});}

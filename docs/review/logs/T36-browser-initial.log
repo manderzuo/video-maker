@@ -1,0 +1,17 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-package.spec.ts
+
+[WebServer] (node:9064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:16444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\project-package.spec.ts:7:1 › T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history (3.8s)
+  ok 2 tests\e2e\project-package.spec.ts:8:1 › T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored (2.5s)
+
+  2 passed (9.2s)

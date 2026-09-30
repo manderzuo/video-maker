@@ -1,0 +1,1 @@
+export function triggerLocalDownload(blob:Blob,filename:string){const url=URL.createObjectURL(blob),anchor=document.createElement('a');try{anchor.href=url;anchor.download=filename.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_');anchor.hidden=true;document.body.append(anchor);anchor.click();}finally{anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}}

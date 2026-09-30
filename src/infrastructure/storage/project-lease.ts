@@ -7,7 +7,8 @@ export type ProjectLeaseToken={projectId:string;tabId:string;epoch:number};
 export type LeaseResult={ok:true;epoch:number;expiresAt:number;revision:number;token:ProjectLeaseToken}|{ok:false;errorCode:string};
 export async function acquireProjectLease(projectId:string,tabId:string,now:number,options:{db?:StudioDb;force?:boolean}={}):Promise<LeaseResult>{
  if(!projectId||!tabId||!Number.isSafeInteger(now)||now<0)return {ok:false,errorCode:'lease_input_invalid'};
- return withDatabase(options.db,db=>transact(db,['projects','leases'],'readwrite',async tx=>{
+ return withDatabase(options.db,db=>transact(db,['projects','leases','receipts'],'readwrite',async tx=>{
+  const imported=await requestResult<{unknownNodes?:unknown[]}|undefined>(tx.objectStore('receipts').get('import-history:'+projectId));if(imported?.unknownNodes?.length)return {ok:false,errorCode:'import_unknown_nodes_readonly'};
   const stored:unknown=await requestResult(tx.objectStore('projects').get(projectId));
   const checked=stored===undefined?undefined:validateProject(stored);
   if(checked&&!checked.ok)return {ok:false,errorCode:'stored_project_not_writable'};

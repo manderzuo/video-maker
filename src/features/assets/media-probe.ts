@@ -1,6 +1,6 @@
 export type MediaMetadata={mimeType:string;bytes:number;width?:number;height?:number;durationSeconds?:number};
 const ascii=(bytes:Uint8Array,start:number,end:number)=>String.fromCharCode(...bytes.slice(start,end));
-function detect(bytes:Uint8Array):string|undefined{
+export function detectMediaMime(bytes:Uint8Array):string|undefined{
  if(bytes.length>=24&&bytes.slice(0,8).every((b,i)=>b===[137,80,78,71,13,10,26,10][i]))return 'image/png';
  if(bytes.length>=4&&bytes[0]===255&&bytes[1]===216&&bytes[2]===255)return 'image/jpeg';
  if(['GIF87a','GIF89a'].includes(ascii(bytes,0,6)))return 'image/gif';
@@ -13,7 +13,7 @@ function detect(bytes:Uint8Array):string|undefined{
  return undefined;
 }
 export async function probeMedia(blob:Blob):Promise<MediaMetadata>{
- const bytes=new Uint8Array(await blob.slice(0,128).arrayBuffer()),mimeType=detect(bytes);
+ const bytes=new Uint8Array(await blob.slice(0,128).arrayBuffer()),mimeType=detectMediaMime(bytes);
  if(!mimeType)throw new Error('media_invalid_signature');
  const result:MediaMetadata={mimeType,bytes:blob.size};
  if(mimeType==='image/png'){const view=new DataView(bytes.buffer);const width=view.getUint32(16),height=view.getUint32(20);if(!width||!height)throw new Error('media_invalid_dimensions');Object.assign(result,{width,height});}

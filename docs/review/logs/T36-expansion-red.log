@@ -1,0 +1,52 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-package.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-package.test.ts (8 tests | 1 failed) 134ms
+   × T36: actual streamed expansion cannot exceed forged central/local size even if attacker changes CRC to match truncated prefix 65ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-package.test.ts > T36: actual streamed expansion cannot exceed forged central/local size even if attacker changes CRC to match truncated prefix
+AssertionError: promise resolved "{ 'payload.bin': Uint8Array[ …(-103) ] }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "payload.bin": Uint8Array [
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++     120,
++   ],
+  }
+
+ ❯ tests/unit/project-package.test.ts:21:736
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  07:12:04
+   Duration  628ms (transform 193ms, setup 43ms, import 273ms, tests 134ms, environment 0ms)
+

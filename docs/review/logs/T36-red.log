@@ -1,0 +1,62 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-package.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-package.test.ts (4 tests | 3 failed) 26ms
+   × T36-C03: inspect then atomic new-project import remaps all creative identities without changing original 14ms
+   × T36-C04/C05: unknown node is isolated readonly and newer schema preserves original package 3ms
+   × T36-C06: last-table write failure rolls back new project and graph together 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-package.test.ts > T36-C03: inspect then atomic new-project import remaps all creative identities without changing original
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/project-package.test.ts:9:408
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/unit/project-package.test.ts > T36-C04/C05: unknown node is isolated readonly and newer schema preserves original package
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/project-package.test.ts:11:405
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/unit/project-package.test.ts > T36-C06: last-table write failure rolls back new project and graph together
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/project-package.test.ts:12:238
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 1 passed (4)
+   Start at  06:58:21
+   Duration  323ms (transform 69ms, setup 43ms, import 77ms, tests 26ms, environment 0ms)
+

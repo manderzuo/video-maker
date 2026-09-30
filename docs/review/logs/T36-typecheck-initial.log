@@ -1,0 +1,66 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+src/infrastructure/packages/import-project.ts(25,383): error TS18048: 'asset' is possibly 'undefined'.
+src/infrastructure/packages/import-project.ts(26,267): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+src/infrastructure/packages/import-project.ts(41,151): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+src/infrastructure/packages/legacy-migration.ts(12,624): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+src/infrastructure/packages/package-limits.ts(23,524): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+tests/unit/project-package.test.ts(8,104): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+tests/unit/project-package.test.ts(8,358): error TS2322: Type '{ id: string; type: string; title: string; x: number; y: number; locked: boolean; data: { kind: string; text: string; referenceTokens: never[]; }; }' is not assignable to type '{ type: "text"; data: { kind: "text"; text: string; referenceTokens: { alias: string; mediaType: "audio" | "video" | "image"; role: string; description: string; available: boolean; unbound: boolean; assetId?: string | undefined; originalAlias?: string | undefined; }[]; promptLibrarySource?: { ...; } | undefined; pro...'.
+  Type '{ id: string; type: string; title: string; x: number; y: number; locked: boolean; data: { kind: string; text: string; referenceTokens: never[]; }; }' is not assignable to type '{ type: "group"; data: { kind: "group"; childIds: string[]; collapsed: boolean; shotOrder?: number | undefined; }; id: string; title: string; x: number; y: number; locked: boolean; }'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"group"'.
+tests/unit/project-package.test.ts(10,439): error TS2322: Type '{ id: string; type: string; title: string; x: number; y: number; locked: boolean; data: { kind: string; text: string; referenceTokens: never[]; }; }' is not assignable to type '{ type: "text"; data: { kind: "text"; text: string; referenceTokens: { alias: string; mediaType: "audio" | "video" | "image"; role: string; description: string; available: boolean; unbound: boolean; assetId?: string | undefined; originalAlias?: string | undefined; }[]; promptLibrarySource?: { ...; } | undefined; pro...'.
+  Type '{ id: string; type: string; title: string; x: number; y: number; locked: boolean; data: { kind: string; text: string; referenceTokens: never[]; }; }' is not assignable to type '{ type: "group"; data: { kind: "group"; childIds: string[]; collapsed: boolean; shotOrder?: number | undefined; }; id: string; title: string; x: number; y: number; locked: boolean; }'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"group"'.
+tests/unit/project-package.test.ts(10,444): error TS2322: Type '{ id: string; type: string; title: string; x: number; y: number; locked: boolean; data: { kind: string; text: string; referenceTokens: never[]; }; }' is not assignable to type '{ type: "text"; data: { kind: "text"; text: string; referenceTokens: { alias: string; mediaType: "audio" | "video" | "image"; role: string; description: string; available: boolean; unbound: boolean; assetId?: string | undefined; originalAlias?: string | undefined; }[]; promptLibrarySource?: { ...; } | undefined; pro...'.
+  Type '{ id: string; type: string; title: string; x: number; y: number; locked: boolean; data: { kind: string; text: string; referenceTokens: never[]; }; }' is not assignable to type '{ type: "group"; data: { kind: "group"; childIds: string[]; collapsed: boolean; shotOrder?: number | undefined; }; id: string; title: string; x: number; y: number; locked: boolean; }'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"group"'.
+tests/unit/project-package.test.ts(10,492): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+tests/unit/project-package.test.ts(11,369): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.

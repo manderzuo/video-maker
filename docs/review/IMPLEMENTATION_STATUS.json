@@ -1,5 +1,5 @@
 {
-  "currentTask": "T36",
+  "currentTask": "T37",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -278,18 +278,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T35.json",
-      "headCommit": null,
+      "headCommit": "ba1b1f4fc37dfe7e748d60558b2ef8e981fc8857",
       "id": "T35",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "审片、A/B比较和结果复用"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T36.json",
       "headCommit": null,
       "id": "T36",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "安全项目包、导入迁移与草稿备份"
     },
     {

@@ -1,0 +1,77 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-package.spec.ts
+
+[WebServer] (node:23700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:27792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-package.spec.ts:7:1 › T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history (30.1s)
+(node:20548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\project-package.spec.ts:8:1 › T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored (30.1s)
+
+
+  1) tests\e2e\project-package.spec.ts:7:1 › T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('导出项目', { exact: true })[22m
+
+
+      5 | test.use({launchOptions:{downloadsPath:resolve('E:/trae-studio/tools/temp/playwright-downloads/packages')}});
+      6 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';await(await import(path)).seedResultReview();});});
+    > 7 | test('T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history',async({page,networkCounter})=>{await page.goto('/projects/packages');await page.getByLabel('导出项目',{exact:true}).selectOption('p1');await page.getByRole('button',{name:'导出项目包',exact:true}).click();await page.getByRole('dialog',{name:'导出项目包',exact:true}).getByRole('button',{name:'确认导出',exact:true}).click();const download=await page.waitForEvent('download');const path=await download.path();expect(path).toBeTruthy();const bytes=await readFile(path!),files=unzipSync(bytes);expect(Object.keys(files).filter(path=>path.startsWith('media/'))).toHaveLength(2);expect(strFromU8(files['runs.json'])).not.toContain('idempotencyKey');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载'})).toBeVisible();await page.getByLabel('选择项目包',{exact:true}).setInputFiles({name:'review-backup.zip',mimeType:'application/zip',buffer:bytes});const dialog=page.getByRole('dialog',{name:'检查项目包',exact:true});await expect(dialog).toContainText('2 个素材');await expect(dialog).toContainText('历史任务只读');await page.screenshot({path:'docs/review/screenshots/T36-import-preview.png'});await dialog.getByRole('button',{name:'导入新项目',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'已导入新项目'})).toBeVisible();await page.reload();const counts=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['projects','runs','receipts'],'readonly',async(tx:IDBTransaction)=>({projects:await m.requestResult(tx.objectStore('projects').count()),runs:await m.requestResult(tx.objectStore('runs').count()),history:await m.requestResult(tx.objectStore('receipts').getAll())}));}finally{db.close();}});expect(counts.projects).toBe(2);expect(counts.runs).toBe(2);expect(counts.history.filter((r:{kind?:string})=>r.kind==='readonly-import-history')).toHaveLength(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                                                                          ^
+      8 | test('T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored',async({page,networkCounter})=>{await page.goto('/projects/packages');await page.getByLabel('选择项目包',{exact:true}).setInputFiles({name:'unsafe.zip',mimeType:'application/zip',buffer:Buffer.from(zipSync({'../outside.txt':strToU8('bad')}))});await expect(page.getByRole('alert').filter({hasText:'项目包未通过安全检查'})).toBeVisible();const count=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['projects'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('projects').count()));}finally{db.close();}});expect(count).toBe(1);await page.getByLabel('导出项目',{exact:true}).selectOption('p1');await page.getByRole('button',{name:'导出项目包',exact:true}).click();await page.getByRole('dialog',{name:'导出项目包',exact:true}).getByRole('button',{name:'取消',exact:true}).click();await expect(page.getByRole('button',{name:'导出项目包',exact:true})).toBeFocused();expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      9 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-package.spec.ts:7:234
+
+    Error Context: test-results\project-package-T36-actual-86219-er-restore-runnable-history\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-package-T36-actual-86219-er-restore-runnable-history\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-package-T36-actual-86219-er-restore-runnable-history\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\project-package.spec.ts:8:1 › T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.setInputFiles: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('选择项目包', { exact: true })[22m
+
+
+      6 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';await(await import(path)).seedResultReview();});});
+      7 | test('T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history',async({page,networkCounter})=>{await page.goto('/projects/packages');await page.getByLabel('导出项目',{exact:true}).selectOption('p1');await page.getByRole('button',{name:'导出项目包',exact:true}).click();await page.getByRole('dialog',{name:'导出项目包',exact:true}).getByRole('button',{name:'确认导出',exact:true}).click();const download=await page.waitForEvent('download');const path=await download.path();expect(path).toBeTruthy();const bytes=await readFile(path!),files=unzipSync(bytes);expect(Object.keys(files).filter(path=>path.startsWith('media/'))).toHaveLength(2);expect(strFromU8(files['runs.json'])).not.toContain('idempotencyKey');await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载'})).toBeVisible();await page.getByLabel('选择项目包',{exact:true}).setInputFiles({name:'review-backup.zip',mimeType:'application/zip',buffer:bytes});const dialog=page.getByRole('dialog',{name:'检查项目包',exact:true});await expect(dialog).toContainText('2 个素材');await expect(dialog).toContainText('历史任务只读');await page.screenshot({path:'docs/review/screenshots/T36-import-preview.png'});await dialog.getByRole('button',{name:'导入新项目',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'已导入新项目'})).toBeVisible();await page.reload();const counts=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['projects','runs','receipts'],'readonly',async(tx:IDBTransaction)=>({projects:await m.requestResult(tx.objectStore('projects').count()),runs:await m.requestResult(tx.objectStore('runs').count()),history:await m.requestResult(tx.objectStore('receipts').getAll())}));}finally{db.close();}});expect(counts.projects).toBe(2);expect(counts.runs).toBe(2);expect(counts.history.filter((r:{kind?:string})=>r.kind==='readonly-import-history')).toHaveLength(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+    > 8 | test('T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored',async({page,networkCounter})=>{await page.goto('/projects/packages');await page.getByLabel('选择项目包',{exact:true}).setInputFiles({name:'unsafe.zip',mimeType:'application/zip',buffer:Buffer.from(zipSync({'../outside.txt':strToU8('bad')}))});await expect(page.getByRole('alert').filter({hasText:'项目包未通过安全检查'})).toBeVisible();const count=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['projects'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('projects').count()));}finally{db.close();}});expect(count).toBe(1);await page.getByLabel('导出项目',{exact:true}).selectOption('p1');await page.getByRole('button',{name:'导出项目包',exact:true}).click();await page.getByRole('dialog',{name:'导出项目包',exact:true}).getByRole('button',{name:'取消',exact:true}).click();await expect(page.getByRole('button',{name:'导出项目包',exact:true})).toBeFocused();expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                         ^
+      9 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-package.spec.ts:8:185
+
+    Error Context: test-results\project-package-T36-unsafe-f1d8a-celable-with-focus-restored\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-package-T36-unsafe-f1d8a-celable-with-focus-restored\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-package-T36-unsafe-f1d8a-celable-with-focus-restored\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\project-package.spec.ts:7:1 › T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history 
+    tests\e2e\project-package.spec.ts:8:1 › T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored 

@@ -1,0 +1,19 @@
+
+> aiwork-studio@0.0.1 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 237 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/hash-worker-CwunAZM4.js    0.36 kB
+dist/index.html                        0.42 kB │ gzip:   0.30 kB
+dist/assets/index-YW97bGyI.css        18.63 kB │ gzip:   4.52 kB
+dist/assets/index-CHn9EJ9-.js        600.75 kB │ gzip: 189.17 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.56s

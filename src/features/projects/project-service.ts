@@ -80,7 +80,7 @@ export async function projectDetails(id:string,db?:StudioDb){
   const graph=snapshot.graphs.find(g=>g.projectId===id),assetIds=new Set([...snapshotAssetIds(graph?.nodes),...snapshot.links.filter(l=>l.projectId===id&&l.kind==='project-import').map(l=>l.assetId)]);
   const media=snapshot.assets.filter(a=>assetIds.has(a.id)),knownBlobs=new Set<string>();let actualKnownBytes=0,missing=0;
   for(const asset of media)if(!knownBlobs.has(asset.blobKey)){knownBlobs.add(asset.blobKey);const row=await requestResult<{blob?:Blob}|undefined>(tx.objectStore('blobs').get(asset.blobKey));if(row?.blob)actualKnownBytes+=row.blob.size;else missing++;}
-  return {project,assetCount:media.length,nodeCount:graph?.nodes.length??0,runCount:snapshot.runs.filter(r=>r.projectId===id).length,actualKnownBytes,missing};
+  const backup=snapshot.receipts.filter((value):value is {kind:string;projectId:string;createdAt:number;mode:string}=>!!value&&typeof value==='object'&&'kind'in value&&value.kind==='project-backup-download-triggered'&&'projectId'in value&&value.projectId===id&&'createdAt'in value&&typeof value.createdAt==='number'&&'mode'in value&&typeof value.mode==='string').sort((a,b)=>b.createdAt-a.createdAt)[0];return {project,assetCount:media.length,nodeCount:graph?.nodes.length??0,runCount:snapshot.runs.filter(r=>r.projectId===id).length,actualKnownBytes,missing,lastBackup:backup};
  }));
 }
 export const projectError=(error:unknown)=>{

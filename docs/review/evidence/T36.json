@@ -1,0 +1,229 @@
+{
+  "taskId": "T36",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "ba1b1f4fc37dfe7e748d60558b2ef8e981fc8857",
+  "headCommit": null,
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/infrastructure/packages/export-project.ts",
+    "src/infrastructure/packages/import-project.ts",
+    "src/infrastructure/packages/package-limits.ts",
+    "src/infrastructure/packages/package-model.ts",
+    "src/infrastructure/packages/legacy-migration.ts",
+    "src/features/packages/PackagePage.tsx",
+    "src/ui/local-download.ts",
+    "src/infrastructure/storage/project-lease.ts",
+    "src/features/assets/media-probe.ts",
+    "src/app/App.tsx",
+    "src/app/routes.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/projects/ProjectsPage.tsx",
+    "src/features/projects/ProjectDetails.tsx",
+    "src/features/projects/project-service.ts",
+    "tests/unit/project-package.test.ts",
+    "tests/e2e/project-package.spec.ts",
+    "package.json",
+    "package-lock.json",
+    "third-party/THIRD_PARTY_NOTICES.txt",
+    "third-party/licenses/fflate-0.8.2.LICENSE"
+  ],
+  "dependencies": [
+    {
+      "name": "fflate",
+      "version": "0.8.2",
+      "license": "MIT",
+      "purpose": "本地ZIP编码/流式解码",
+      "installExitCode": 0,
+      "lock": "package-lock.json"
+    }
+  ],
+  "sourceReads": [
+    {
+      "repo": "basketikun/infinite-canvas",
+      "commit": "dab19adc0847e32e39b7fc8ff90cb392561fb826",
+      "path": "web/src/lib/canvas/canvas-export.ts",
+      "sha256": "f339b406977d7c63baf4f367ff22b7e97a1b3567f1ea0107f6305467ff983c48"
+    },
+    {
+      "path": "web/src/types/canvas-export.ts",
+      "sha256": "ba8c5e58769a89039878e2b6701bb1e77e6136f52b34f10e4eeb2ac0f35b8d58"
+    }
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-domain-initial.log",
+      "note": "故障注入遗漏fake-indexeddb的IDBObjectStore导入，此环境失败不算有效行为红灯；补依赖后同一回滚断言通过"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-domain-second.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 0,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-roundtrip.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/project-package.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-browser-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/project-package.spec.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-browser-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 1,
+      "passed": 7,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-expansion-red.log",
+      "note": "实际伪造中央/本地展开大小与截断CRC的压缩样本被错误接受，改流式实际计数修复"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-expansion-verified.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-structure-json.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts",
+      "exitCode": 1,
+      "passed": 9,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-media-mime-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 311,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-unit-final.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-package.test.ts tests/unit/project-lease.test.ts tests/unit/project-library.test.ts",
+      "exitCode": 0,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-target-final.log",
+      "note": "媒体MIME补例之前的目标回归"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/project-package.spec.ts tests/e2e/project-library.spec.ts tests/e2e/result-review.spec.ts",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-browser-verified.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/project-package.spec.ts",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-preview-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-build-final.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T36-security.log",
+      "note": "另公网负例实际退出1，网络守卫验证命令退出0"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T36-import-preview.png"
+  ],
+  "screenshotInspected": true,
+  "behavior": [
+    "ZIP路径/头部/CRC/实际流式展开/条目数/总大小/单文件/重复ID/SHA校验；SVG及伪装媒体拒绝；导入不执行脚本和不出网",
+    "完整ZIP与结构JSON分别下载，缺文件不生成空完整包；下载触发与实际本机保存分开，备份记录只记真实触发",
+    "导入原子新项目，节点/分组/连线/素材/提示词引用重新映射；同plan重复提交返回原项目，配额故障事务回滚",
+    "历史服务/原任务/四维状态只读保留于receipt，不进入可发执行队列；Key/Token/临时链接/执行授权/自动任务排除",
+    "未知节点及关联边以脱敏JSON隔离并可重新导出，获取写者租约含force仍拒绝；新版schema保留原包",
+    "固定源v3格式仅显式离线迁移，兼容文本/媒体/分组，旧配置/聊天/不带类型的连线不恢复执行；不存在自动旧存储读取",
+    "原生下载、导入/取消/重新打开、焦点和导入摘要实页验证，零收费POST"
+  ],
+  "knownLimitations": [
+    "用户统一验收与独立审查待进行",
+    "256MiB包/512MiB展开/200MiB条目/10000条目是防御初值，结构JSON16MiB；浏览器存储估计未知不伪造，已知预算保守计数全部入包媒体",
+    "历史执行保留只读原绑定，不恢复原幂等键、请求body或生成许可；当前活动任务中心仅实际执行表，导入来源可在包检查/报告中查看",
+    "旧格式当前一次迁移一个项目；无类型连线保留用户原包说明，不能推断成可执行连线",
+    "密集输入的内存草稿恢复将在T38/T45接入当前编辑状态；本任务已有无秘密内存草稿导出接口",
+    "脱敏设置导出/选择导入由紧接T37设置接口完成，D09/D10责任跨任务保留",
+    "样式检查曾发现结构JSON改造后未使用的strFromU8导入，已删除未用导入；最终日志为0，早期同名日志被最终检查覆盖，失败原因来自实际工具输出记录",
+    "全视觉/前端许可/真实Core能力门槛保持，主包体积待T46；无真实业务调用、远端推送或发布"
+  ]
+}
