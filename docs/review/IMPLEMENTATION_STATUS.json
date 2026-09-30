@@ -1,5 +1,5 @@
 {
-  "currentTask": "T12",
+  "currentTask": "T13",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -86,18 +86,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T11.json",
-      "headCommit": null,
+      "headCommit": "eda1115e8c8af7c3a4b487bae0927b2d69e8a52c",
       "id": "T11",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
       "status": "应用壳/通用控件自检通过；连接与编辑器集成待后续；待统一验收",
       "title": "应用导航、引导、通用控件与自有品牌"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T12.json",
       "headCommit": null,
       "id": "T12",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
-      "status": "未开始",
+      "status": "项目管理/回收站自检通过；P11导出待T36；待统一验收",
       "title": "项目主页、模板、归档和回收站"
     },
     {

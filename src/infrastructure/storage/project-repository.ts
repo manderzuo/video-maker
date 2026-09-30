@@ -7,10 +7,12 @@ import {validateProject,validateGraph} from '../../domain/validation';
 import {transact,requestResult,withDatabase,storageErrorCode} from './database';
 import {validateFrozenBody,putRunInTransaction} from './run-repository';
 import {assertProjectWriter,type ProjectLeaseToken} from './project-lease';
-export type SaveOptions={db?:StudioDb;graph?:Graph;runs?:Run[];lease?:ProjectLeaseToken};
+export type SaveOptions={db?:StudioDb;graph?:Graph;runs?:Run[];lease?:ProjectLeaseToken;importedAssetIds?:string[]};
 export async function saveProject(project:Project,expectedRevision:number,options:SaveOptions={}):Promise<SaveResult>{
  const valid=validateProject(project);
  if(!valid.ok)return {status:'failed',code:valid.issues[0].code==='schema_too_new'?'schema_too_new':'project_invalid'};
+ if(options.importedAssetIds!==undefined&&(!Array.isArray(options.importedAssetIds)||options.importedAssetIds.some(id=>typeof id!=='string'||!id.trim())))return {status:'failed',code:'imported_reference_invalid'};
+ const importedIds=[...new Set(options.importedAssetIds??[])];
  const input=structuredClone(valid.value),graphInput=options.graph?structuredClone(options.graph):undefined,runs=structuredClone(options.runs??[]),lease=options.lease?{...options.lease}:undefined;
  if(graphInput&&(!validateGraph(graphInput).ok||graphInput.projectId!==input.id||graphInput.revision!==input.revision))return {status:'failed',code:'graph_revision_or_schema_invalid'};
  try{
@@ -29,6 +31,7 @@ export async function saveProject(project:Project,expectedRevision:number,option
    const oldRows=await requestResult<{id:string;kind?:string}[]>(refs.index('projectId').getAll(input.id));for(const row of oldRows)if(row.kind!=='project-import')refs.delete(row.id);
    const ids=new Set<string>();for(const node of graph.nodes){if(node.type==='asset'||node.type==='result')ids.add(node.data.assetId);if(node.type==='text')for(const ref of node.data.referenceTokens)if(ref.assetId)ids.add(ref.assetId);}
    for(const assetId of ids)refs.put({id:`${input.id}:${assetId}`,projectId:input.id,assetId,revision:input.revision});
+   for(const assetId of importedIds)refs.put({id:`import:${input.id}:${assetId}`,projectId:input.id,assetId,revision:input.revision,kind:'project-import'});
    for(const run of runs)await putRunInTransaction(tx,run,{lease,expectedProjectRevision:input.revision});
    tx.objectStore('diagnostics').put({id:crypto.randomUUID(),kind:'project_saved',projectId:input.id,revision:input.revision,at:Date.now()});
    return {status:'saved',revision:input.revision};

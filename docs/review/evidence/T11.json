@@ -2,7 +2,7 @@
   "taskId": "T11",
   "status": "应用壳与通用控件实施完成，自检通过；后续连接/编辑器集成待对应任务，待统一验收/独立审查",
   "baseCommit": "67363b62634d9811e980c5f9199d5727f818621c",
-  "headCommit": null,
+  "headCommit": "eda1115e8c8af7c3a4b487bae0927b2d69e8a52c",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reviewDecision": "待审查",
   "independentReviewPerformed": false,

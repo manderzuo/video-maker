@@ -1,0 +1,171 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-library.spec.ts
+
+[WebServer] (node:20412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:24324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model (3.3s)
+(node:33320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue (3.6s)
+(node:33668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked (3.6s)
+(node:27592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope (3.6s)
+(node:33724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval (3.3s)
+
+
+  1) tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '新建项目', exact: true })[22m
+
+
+      3 | test.use({actionTimeout:2500});test.setTimeout(15000);
+      4 | test('T12-C01/C06: create validates name, survives reload and does not submit a model',async({page,networkCounter})=>{
+    > 5 |  await page.goto('/projects');await page.getByRole('button',{name:'新建项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建项目',exact:true});
+        |                                                                                       ^
+      6 |  await dialog.getByLabel('项目名称').fill('中'.repeat(61));await dialog.getByRole('button',{name:'创建',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');
+      7 |  await dialog.getByLabel('项目名称').fill('原创创作');await dialog.getByRole('button',{name:'创建',exact:true}).click();await expect(page).toHaveURL(/\/projects\/[^/]+\/canvas$/);
+      8 |  await page.goto('/projects');await page.reload();await expect(page.getByRole('heading',{name:'原创创作',exact:true})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:5:87
+
+    Error Context: test-results\project-library-T12-C01-C0-6a708-and-does-not-submit-a-model\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-C01-C0-6a708-and-does-not-submit-a-model\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-C01-C0-6a708-and-does-not-submit-a-model\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('project-p1').getByRole('button', { name: '复制项目' })[22m
+
+
+       9 | });
+      10 | test('T12-C02: clone shares media but copies neither Run nor Key nor queue',async({page,networkCounter})=>{
+    > 11 |  await seedStudio(page,'project-library');await page.goto('/projects');const card=page.getByTestId('project-p1');await card.getByRole('button',{name:'复制项目'}).click();const dialog=page.getByRole('dialog',{name:'复制项目',exact:true});
+         |                                                                                                                                                               ^
+      12 |  await dialog.getByLabel('副本名称').fill('项目甲副本');await dialog.getByRole('button',{name:'创建副本',exact:true}).click();await expect(page.getByRole('heading',{name:'项目甲副本',exact:true})).toBeVisible();
+      13 |  const stored=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(path) as typeof import('../../src/infrastructure/storage/database');const db=await openStudioDb();try{return await transact(db,['projects','graphs','assets','runs'],'readonly',async tx=>({projects:await requestResult(tx.objectStore('projects').getAll()),graphs:await requestResult(tx.objectStore('graphs').getAll()),assets:await requestResult(tx.objectStore('assets').getAll()),runs:await requestResult(tx.objectStore('runs').getAll())}));}finally{db.close();}});
+      14 |  expect(stored.projects).toHaveLength(4);expect(stored.assets).toHaveLength(1);expect(stored.runs).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:11:159
+
+    Error Context: test-results\project-library-T12-C02-cl-75da6-ither-Run-nor-Key-nor-queue\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-C02-cl-75da6-ither-Run-nor-Key-nor-queue\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-C02-cl-75da6-ither-Run-nor-Key-nor-queue\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('project-p1').locator('[data-interaction-id="P-08"]')[22m
+
+
+      16 | });
+      17 | test('T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked',async({page})=>{
+    > 18 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').locator('[data-interaction-id="P-08"]').click();
+         |                                                                                                                                                     ^
+      19 |  const dialog=page.getByRole('dialog',{name:'移入项目回收站',exact:true});await expect(dialog.getByText('远端任务仍可能继续',{exact:false})).toBeVisible();await dialog.getByRole('button',{name:'移入回收站',exact:true}).click();
+      20 |  await page.getByRole('link',{name:'回收站',exact:true}).click();await expect(page.getByTestId('trash-p1')).toBeVisible();await page.getByTestId('trash-p1').getByRole('button',{name:'永久删除本地副本'}).click();await expect(page.getByRole('dialog',{name:'永久删除本地副本'})).toContainText('活动或未知任务');
+      21 |  await page.getByRole('button',{name:'返回',exact:true}).click();await page.getByTestId('trash-p1').getByRole('button',{name:'恢复项目'}).click();await expect(page.getByTestId('trash-p1')).not.toBeVisible();await page.goto('/projects');await expect(page.getByTestId('project-p1')).toBeVisible();
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:18:149
+
+    Error Context: test-results\project-library-T12-C03-C0-ae843-ent-removal-remains-blocked\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-C03-C0-ae843-ent-removal-remains-blocked\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-C03-C0-ae843-ent-removal-remains-blocked\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope 
+
+    TimeoutError: locator.check: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('project-p1').getByRole('checkbox', { name: '选择项目甲' })[22m
+
+
+      22 | });
+      23 | test('T12-C05: search, view changes and multi-select retain exact selection scope',async({page})=>{
+    > 24 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await expect(page.getByText('已选择 2 项',{exact:true})).toBeVisible();
+         |                                                                                                                                                  ^
+      25 |  await page.getByRole('searchbox',{name:'搜索项目'}).fill('项目甲');await expect(page.getByTestId('project-p2')).not.toBeVisible();await expect(page.getByText('已选择 2 项',{exact:true})).toBeVisible();await page.getByRole('button',{name:'列表视图',exact:true}).click();
+      26 |  await page.getByRole('searchbox',{name:'搜索项目'}).fill('');await expect(page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'})).toBeChecked();await page.getByRole('button',{name:'批量归档',exact:true}).click();await page.getByRole('dialog',{name:'批量归档'}).getByRole('button',{name:'归档 2 项',exact:true}).click();await expect(page.getByRole('status')).toContainText('成功 2，失败 0');
+      27 |  await page.screenshot({path:'docs/review/screenshots/T12-project-library.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:24:146
+
+    Error Context: test-results\project-library-T12-C05-se-3dcd7-etain-exact-selection-scope\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-C05-se-3dcd7-etain-exact-selection-scope\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-C05-se-3dcd7-etain-exact-selection-scope\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '使用本地模板', exact: true })[22m
+
+
+      28 | });
+      29 | test('T12 templates are original local structures and never come with execution approval',async({page,networkCounter})=>{
+    > 30 |  await page.goto('/projects');await page.getByRole('button',{name:'使用本地模板',exact:true}).click();await page.getByRole('dialog',{name:'使用本地模板'}).getByRole('button',{name:'创建原创分镜草稿',exact:true}).click();await expect(page).toHaveURL(/\/projects\/[^/]+\/canvas$/);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                         ^
+      31 | });
+      32 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:30:89
+
+    Error Context: test-results\project-library-T12-templa-f60e1-ome-with-execution-approval\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-templa-f60e1-ome-with-execution-approval\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-templa-f60e1-ome-with-execution-approval\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model 
+    tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue 
+    tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked 
+    tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope 
+    tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval 

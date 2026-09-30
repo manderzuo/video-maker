@@ -1,0 +1,50 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-library.spec.ts -g locked project
+
+[WebServer] (node:29364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:35288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-library.spec.ts:43:1 › T12 batch archive: locked project is reported by name and remains unmodified (6.2s)
+
+
+  1) tests\e2e\project-library.spec.ts:43:1 › T12 batch archive: locked project is reported by name and remains unmodified 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('batch-failures')
+    Expected substring: [32m"项目乙"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('batch-failures')[22m
+
+
+      44 |  await seedStudio(page,'project-library');await page.evaluate(async()=>{const path='/src/infrastructure/storage/project-lease.ts';const module=await import(path) as typeof import('../../src/infrastructure/storage/project-lease');const result=await module.acquireProjectLease('p2','different-tab',Date.now());if(!result.ok)throw new Error('test_lock_failed');});await page.goto('/projects');
+      45 |  await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量归档',exact:true}).click();await page.getByRole('dialog',{name:'批量归档'}).getByRole('button',{name:'归档 2 项',exact:true}).click();
+    > 46 |  await expect(page.getByRole('status')).toContainText('成功 1，失败 1');await expect(page.getByTestId('batch-failures')).toContainText('项目乙');await expect(page.getByTestId('batch-failures')).toContainText('其他标签页');await expect(page.getByTestId('project-p2').getByRole('button',{name:'归档',exact:true})).toBeVisible();
+         |                                                                                                                     ^
+      47 | });
+      48 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:46:117
+
+    Error Context: test-results\project-library-T12-batch--e050f-name-and-remains-unmodified\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-batch--e050f-name-and-remains-unmodified\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-batch--e050f-name-and-remains-unmodified\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\project-library.spec.ts:43:1 › T12 batch archive: locked project is reported by name and remains unmodified 

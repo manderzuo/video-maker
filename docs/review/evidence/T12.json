@@ -1,0 +1,29 @@
+{
+  "taskId": "T12",
+  "status": "项目管理与回收站实施自检通过；批量导出待T36，待统一验收/独立审查",
+  "baseCommit": "eda1115e8c8af7c3a4b487bae0927b2d69e8a52c",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": ["src/features/projects/project-service.ts", "src/features/projects/ProjectsPage.tsx", "src/features/projects/TrashPage.tsx", "src/features/projects/ProjectDetails.tsx", "src/domain/project.ts", "src/infrastructure/storage/project-repository.ts", "src/app/App.tsx", "src/ui/tokens.css", "tests/helpers/seed-studio.ts", "tests/fixtures/seed.ts", "tests/e2e/project-library.spec.ts", "tests/unit/project-library.test.ts"],
+  "commands": [
+    {"command":"npm run test:e2e -- tests/e2e/project-library.spec.ts","phase":"red","exitCode":1,"passed":0,"failed":5,"skipped":0,"logPath":"docs/review/logs/T12-red.log"},
+    {"command":"npm run test:e2e -- tests/e2e/project-library.spec.ts","phase":"initial-green","exitCode":0,"passed":5,"failed":0,"skipped":0,"logPath":"docs/review/logs/T12-green.log"},
+    {"command":"npm run test:unit -- tests/unit/project-library.test.ts","phase":"metadata-red","exitCode":1,"passed":1,"failed":2,"skipped":0,"logPath":"docs/review/logs/T12-boundary-red.log"},
+    {"command":"npm run test:e2e -- tests/e2e/project-library.spec.ts -g Z03","phase":"batch-red","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T12-batch-red.log"},
+    {"command":"npm run test:unit -- tests/unit/project-library.test.ts","phase":"attachments-red","exitCode":1,"passed":3,"failed":1,"skipped":0,"logPath":"docs/review/logs/T12-attachments-red.log"},
+    {"command":"npm run test:e2e -- tests/e2e/project-library.spec.ts -g 'batch archive'","phase":"partial-failure-red","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T12-partial-red.log"},
+    {"command":"npm run test:unit -- tests/unit/project-library.test.ts","phase":"description-red","exitCode":1,"passed":4,"failed":1,"skipped":0,"logPath":"docs/review/logs/T12-description-red.log"},
+    {"command":"npm run test:unit","phase":"final","exitCode":0,"passed":68,"failed":0,"skipped":0,"logPath":"docs/review/logs/T12-unit-final.log"},
+    {"command":"npm run test:e2e","phase":"regression-before-final-two-fixes","exitCode":0,"passed":28,"failed":0,"skipped":0,"logPath":"docs/review/logs/T12-e2e-regression.log"},
+    {"command":"npm run test:e2e -- tests/e2e/project-library.spec.ts","phase":"final","exitCode":0,"passed":8,"failed":0,"skipped":0,"logPath":"docs/review/logs/T12-browser-final.log"},
+    {"command":"npm run typecheck","exitCode":0,"logPath":"docs/review/logs/T12-typecheck-complete.log"},
+    {"command":"npm run lint","exitCode":0,"logPath":"docs/review/logs/T12-lint-complete.log"},
+    {"command":"npm run build","exitCode":0,"logPath":"docs/review/logs/T12-build-final.log"}
+  ],
+  "screenshots":["docs/review/screenshots/T12-project-library.png"],
+  "businessCalls":0,
+  "rulings":["复制重新生成项目/节点/连线ID，共享素材身份及显式导入关联，不复制Run、Key、待执行队列或审批。", "归档与永久删除批量操作报告逐项失败；活跃/未知任务永久删除受阻，软删除继续保留任务记录。", "原生IndexedDB真实浏览器验证创建、刷新、重命名Esc、复制、模板、搜索、切换视图、选择保留、回收站恢复和确认。", "项目字段新增可选starred；元数据严格允许列表；显式导入关联与新项目同事务落盘。"],
+  "knownLimitations":["P11批量导出禁用并注明T36安全项目包依赖，须在T36接入并在T44追踪补齐。", "用户统一视觉验收、独立审查待；原T02批准门槛未伪造通过。", "回归运行更新了已有技术/壳截图，作为本任务回归产物保存，不视为旧截图的用户批准。", "无真实Core或收费请求；任务取消和退款不可由项目删除推定。"]
+}

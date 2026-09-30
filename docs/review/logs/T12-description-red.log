@@ -1,0 +1,34 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-library.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-library.test.ts (5 tests | 1 failed) 30ms
+   × clone keeps an explicitly edited description instead of silently replacing it with source metadata 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-library.test.ts > clone keeps an explicitly edited description instead of silently replacing it with source metadata
+AssertionError: expected '原始说明' to be '用户填写的副本说明' // Object.is equality
+
+Expected: "用户填写的副本说明"
+Received: "原始说明"
+
+ ❯ tests/unit/project-library.test.ts:29:114
+     27| it('clone keeps an explicitly edited description instead of silently r…
+     28|  await transact(db,['projects','graphs'],'readwrite',tx=>{tx.objectSto…
+     29|  const options={db,description:'用户填写的副本说明'};const copy=await cloneProj…
+       |                                                                                                                  ^
+     30| });
+     31|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  20:23:51
+   Duration  531ms (transform 168ms, setup 43ms, import 254ms, tests 30ms, environment 0ms)
+

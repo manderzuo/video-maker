@@ -1,0 +1,44 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-library.spec.ts -g Z03
+
+[WebServer] (node:22776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:23428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking (3.5s)
+
+
+  1) tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking 
+
+    TimeoutError: locator.check: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('trash-p1').getByRole('checkbox', { name: '选择项目甲' })[22m
+
+
+      32 | test('T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking',async({page})=>{
+      33 |  await seedStudio(page,'project-library');await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(path) as typeof import('../../src/infrastructure/storage/database');const db=await openStudioDb();try{await transact(db,['projects'],'readwrite',async tx=>{for(const id of ['p1','p2']){const project=await requestResult(tx.objectStore('projects').get(id));tx.objectStore('projects').put({...project,trashedAt:1000});}});}finally{db.close();}});
+    > 34 |  await page.goto('/trash');await page.getByTestId('trash-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('trash-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量永久删除',exact:true}).click();
+         |                                                                                                    ^
+      35 |  const dialog=page.getByRole('dialog',{name:'批量永久删除本地副本'});await expect(dialog).toContainText('可删除 1，阻止 1');await expect(dialog.getByRole('button',{name:'永久删除 1 项',exact:true})).toBeDisabled();await dialog.getByLabel('确认项目乙名称').fill('项目乙');await dialog.getByRole('button',{name:'永久删除 1 项',exact:true}).click();
+      36 |  await expect(page.getByRole('status')).toContainText('成功 1，失败 1');await expect(page.getByTestId('trash-p1')).toBeVisible();await expect(page.getByTestId('trash-p2')).not.toBeVisible();
+      37 | });
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-library.spec.ts:34:100
+
+    Error Context: test-results\project-library-T12-Z03-ba-fb6c7-nd-reports-blocked-tracking\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-library-T12-Z03-ba-fb6c7-nd-reports-blocked-tracking\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-library-T12-Z03-ba-fb6c7-nd-reports-blocked-tracking\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking 

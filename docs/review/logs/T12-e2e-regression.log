@@ -1,0 +1,43 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test
+
+[WebServer] (node:33424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:35116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (843ms)
+  ok  2 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (615ms)
+  ok  3 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (950ms)
+  ok  4 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (535ms)
+  ok  5 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (745ms)
+  ok  6 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (544ms)
+  ok  7 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (564ms)
+  ok  8 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (902ms)
+  ok  9 tests\e2e\asset-import.spec.ts:2:1 › T07 browser: worker hash, decoded metadata, thumbnail and individual corruption reporting without upload (511ms)
+  ok 10 tests\e2e\credential-boundary.spec.ts:2:1 › T09 actual browser: refresh and second tab have no credential; storage, URL and console remain clean (618ms)
+  ok 11 tests\e2e\harness.spec.ts:2:1 › T03-C03: credential-free app bootstrap and local mock counting (512ms)
+  ok 12 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (669ms)
+  ok 13 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (665ms)
+  ok 14 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (518ms)
+  ok 15 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (566ms)
+  ok 16 tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model (1.1s)
+  ok 17 tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue (934ms)
+  ok 18 tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked (1.2s)
+  ok 19 tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope (1.1s)
+  ok 20 tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval (561ms)
+  ok 21 tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking (833ms)
+  ok 22 tests\e2e\project-library.spec.ts:38:1 › T12 / W06: welcome opens the real new-project dialog; rename Escape preserves the stored name (901ms)
+  ok 23 tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks (522ms)
+  ok 24 tests\e2e\storage.spec.ts:11:1 › native request success plus abort rolls back all tables (330ms)
+  ok 25 tests\e2e\storage.spec.ts:18:1 › quota fault preserves visible draft, disables submission and recovers saved title (432ms)
+  ok 26 tests\e2e\storage.spec.ts:23:1 › real old connection blocks native upgrade and yields actionable error (342ms)
+  ok 27 tests\e2e\storage.spec.ts:26:1 › persisted unknown run survives page reopening with original idempotency and state (461ms)
+  ok 28 tests\e2e\ui-controls.spec.ts:2:1 › T11 buttons: busy is single flight, disabled reason remains accessible and error notification persists (436ms)
+
+  28 passed (22.9s)

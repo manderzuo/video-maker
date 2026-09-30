@@ -1,0 +1,21 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-library.spec.ts
+
+[WebServer] (node:34936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:29088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model (1.5s)
+  ok 2 tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue (1.0s)
+  ok 3 tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked (1.2s)
+  ok 4 tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope (1.2s)
+  ok 5 tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval (551ms)
+  ok 6 tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking (913ms)
+
+  6 passed (9.6s)

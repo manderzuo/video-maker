@@ -1,0 +1,66 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-library.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-library.test.ts (3 tests | 2 failed) 30ms
+   × cloning preserves safe metadata and asset identities while refreshing node identities 9ms
+   × metadata updates reject undeclared immutable/system fields rather than overwriting them 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-library.test.ts > cloning preserves safe metadata and asset identities while refreshing node identities
+AssertionError: expected [] to deeply equal [ '品牌' ]
+
+- Expected
++ Received
+
+- [
+-   "品牌",
+- ]
++ []
+
+ ❯ tests/unit/project-library.test.ts:15:61
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/project-library.test.ts > metadata updates reject undeclared immutable/system fields rather than overwriting them
+AssertionError: promise resolved "{ …(10) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "archived": false,
++   "createdAt": 0,
++   "description": "",
++   "id": "da88d0c2-79e6-434a-a0ae-940904cf3cbd",
++   "revision": 2,
++   "schemaVersion": 1,
++   "tags": [],
++   "title": "新名称",
++   "trashedAt": null,
++   "updatedAt": 1790770451107,
+  }
+
+ ❯ tests/unit/project-library.test.ts:20:59
+     18|  const created=await createProject({title:'原创'},{db});
+     19|  const patch={title:'新名称',createdAt:0};
+     20|  await expect(updateProjectMetadata(created.id,1,patch,db)).rejects.to…
+       |                                                           ^
+     21| });
+     22|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  20:14:10
+   Duration  552ms (transform 168ms, setup 46ms, import 261ms, tests 30ms, environment 0ms)
+
