@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-commands.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-commands.test.ts (9 tests | 1 failed) 44ms
+   × a new valid writer can recover the original command receipt without creating a second change 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-commands.test.ts > a new valid writer can recover the original command receipt without creating a second change
+AssertionError: expected 'rejected' to be 'replayed' // Object.is equality
+
+Expected: "replayed"
+Received: "rejected"
+
+ ❯ tests/unit/project-commands.test.ts:67:130
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  19:36:09
+   Duration  511ms (transform 137ms, setup 39ms, import 210ms, tests 44ms, environment 0ms)
+

@@ -1,0 +1,77 @@
+{
+  "taskId": "T10",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "7031041c6fa275b7cc20499d60e09a63a9ad5bce",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/application/commands/registry.ts",
+    "src/application/commands/apply-command.ts",
+    "src/application/commands/history.ts",
+    "tests/unit/project-commands.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/project-commands.test.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 8,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T10-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-commands.test.ts",
+      "phase": "replay-red",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T10-replay-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/project-commands.test.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T10-target-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 63,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T10-regression.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T10-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T10-lint.log"
+    }
+  ],
+  "interactionIds": [],
+  "screenshots": [],
+  "networkMode": "local domain only",
+  "businessCalls": 0,
+  "rulings": [
+    "UI、快捷键、PG与Agent共用严格语义命令注册表；origin必须与可信本地上下文匹配，mcp还需可信授权回调；没有提供网络入口或默认Agent执行授权。",
+    "图、Project revision、引用、receipt与history同事务提交；先检查当前租约，原始命令内容指纹排除易变leaseEpoch，接管者可读取同内容原回执但旧写者仍拒绝。已先复现接管恢复红灯。",
+    "撤销/重做以新revision提交，只改创作结构、保留当前项目元数据及所有Run；图内容与历史基线不符时拒绝覆盖，新的编辑清除redo游标。历史回执保留用于引用保护。",
+    "未知HTML/Shell操作或额外HTML字段拒绝；纯文本内容按普通文本处理，不作为可执行HTML。select_result只能修改明确结果节点并验证asset/run绑定，不替换既有运行快照。"
+  ],
+  "knownLimitations": [
+    "完整Canvas键盘与按钮由T13–T17接入，Agent授权回调由T40提供；本任务领域接口已自检，不宣称这些UI/Agent流程完成。",
+    "正式连接类型与数量校验由T14消费已核验能力；当前基础检查拒绝重复、自连、悬空及有向环。",
+    "统一验收及独立审查待，真实执行授权和业务网络未调用。"
+  ]
+}

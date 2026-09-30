@@ -1,0 +1,121 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-commands.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-commands.test.ts (8 tests | 8 failed) 22ms
+   × T10-C01: unknown executable operations, HTML payload and secret fields are rejected atomically 12ms
+   × T10-C02: UI and authorized Agent use the same commit path; Agent cannot spoof UI origin 2ms
+   × T10-C03: undo/redo commits new revisions without sending any request 2ms
+   × T10-C04: duplicate commandId, including concurrent calls, returns receipt without duplicate nodes 1ms
+   × T10-C05: disconnect changes creative graph but never rewrites immutable run input snapshot 1ms
+   × stale epoch and stale revision cannot commit, and partial operation validation rolls back everything 1ms
+   × receipt write failure rolls back graph and revision, instead of leaving applied-but-unrecorded change 1ms
+   × redo is cleared by a new edit and undo does not overwrite out-of-band graph changes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-commands.test.ts > T10-C01: unknown executable operations, HTML payload and secret fields are rejected atomically
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:17:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > T10-C02: UI and authorized Agent use the same commit path; Agent cannot spoof UI origin
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:22:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > T10-C03: undo/redo commits new revisions without sending any request
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:29:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > T10-C04: duplicate commandId, including concurrent calls, returns receipt without duplicate nodes
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:35:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > T10-C05: disconnect changes creative graph but never rewrites immutable run input snapshot
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:46:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > stale epoch and stale revision cannot commit, and partial operation validation rolls back everything
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:49:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > receipt write failure rolls back graph and revision, instead of leaving applied-but-unrecorded change
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:56:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/unit/project-commands.test.ts > redo is cleared by a new edit and undo does not overwrite out-of-band graph changes
+Error: command_commit_not_implemented
+ ❯ applyCommand src/application/commands/apply-command.ts:5:109
+      3| import type {CommandEnvelope,CommandReceipt} from './registry';
+      4| export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;orig…
+      5| export async function applyCommand(_envelope:unknown,_context:CommandC…
+       |                                                                                                             ^
+      6|
+ ❯ tests/unit/project-commands.test.ts:59:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  19:31:17
+   Duration  419ms (transform 102ms, setup 37ms, import 167ms, tests 22ms, environment 0ms)
+
