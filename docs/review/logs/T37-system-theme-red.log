@@ -1,0 +1,47 @@
+[WebServer] (node:27028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate (7.7s)
+
+
+  1) tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('button', { name: '切换到浅色主题', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: '切换到浅色主题', exact: true })[22m
+
+
+      4 | test.use({launchOptions:{downloadsPath:resolve('E:/trae-studio/tools/temp/playwright-downloads/settings')}});
+      5 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';await(await import(path)).seedResultReview();const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{await m.transact(db,['assets','blobs'],'readwrite',async(tx:IDBTransaction)=>{tx.objectStore('blobs').put({id:'thumbnail:rebuildable',blob:new Blob(['small thumb'])});const asset=await m.requestResult(tx.objectStore('assets').get('result-asset-1')),record=await m.requestResult(tx.objectStore('blobs').get(asset.blobKey));asset.blobKey='thumbnail:sole-original';tx.objectStore('assets').put(asset);tx.objectStore('blobs').put({id:asset.blobKey,blob:record.blob});});}finally{db.close();}});});
+    > 6 | test('T37 system theme follows the actual browser preference and topbar action stays accurate',async({page})=>{await page.goto('/settings/appearance');await page.getByLabel('主题',{exact:true}).selectOption('system');await page.emulateMedia({colorScheme:'dark'});await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await expect(page.getByRole('button',{name:'切换到浅色主题',exact:true})).toBeVisible();await page.emulateMedia({colorScheme:'light'});await expect(page.locator('html')).toHaveAttribute('data-theme','light');await expect(page.getByRole('button',{name:'切换到深色主题',exact:true})).toBeVisible();});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      7 | test('T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access',async({page,networkCounter})=>{await page.evaluate(()=>{Object.defineProperty(navigator.storage,'estimate',{value:async()=>({}),configurable:true});Object.defineProperty(navigator.storage,'persist',{value:async()=>false,configurable:true});});await page.goto('/settings/storage');await page.evaluate(()=>{Object.defineProperty(navigator.storage,'estimate',{value:async()=>({}),configurable:true});Object.defineProperty(navigator.storage,'persist',{value:async()=>false,configurable:true});});await page.getByRole('button',{name:'刷新存储统计',exact:true}).click();await expect(page.getByText('剩余容量未知',{exact:true})).toBeVisible();await page.locator('[data-interaction-id="D-02"]').click();await expect(page.getByRole('status').filter({hasText:'浏览器未批准持久存储'})).toBeVisible();await expect(page.getByRole('link',{name:'导出项目备份',exact:true})).toBeEnabled();expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      8 | test('T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history',async({page,networkCounter})=>{await page.goto('/settings/storage');await page.getByRole('button',{name:'清理可重建缩略图',exact:true}).click();const dialog=page.getByRole('dialog',{name:'清理缩略图缓存',exact:true});await expect(dialog).toContainText('保留原文件');await dialog.getByRole('button',{name:'确认清理缩略图',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'已清理 1 项'})).toBeVisible();const rows=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['blobs','runs','projects'],'readonly',async(tx:IDBTransaction)=>({original:!!await m.requestResult(tx.objectStore('blobs').get('thumbnail:sole-original')),thumb:!!await m.requestResult(tx.objectStore('blobs').get('thumbnail:rebuildable')),runs:await m.requestResult(tx.objectStore('runs').count()),projects:await m.requestResult(tx.objectStore('projects').count())}));}finally{db.close();}});expect(rows).toEqual({original:true,thumb:false,runs:2,projects:1});await page.screenshot({path:'docs/review/screenshots/T37-storage.png'});expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      9 | test('T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography',async({page,networkCounter})=>{await page.goto('/settings/appearance');await page.getByLabel('主题',{exact:true}).selectOption('light');await expect(page.locator('html')).toHaveAttribute('data-theme','light');await page.getByLabel('界面密度',{exact:true}).selectOption('compact');await expect(page.locator('html')).toHaveAttribute('data-density','compact');expect(await page.locator('body').evaluate(e=>getComputedStyle(e).fontSize)).toBe('16px');await page.getByRole('button',{name:'重置操作偏好',exact:true}).click();await page.getByRole('dialog',{name:'重置操作偏好',exact:true}).getByRole('button',{name:'确认重置偏好',exact:true}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await page.getByRole('button',{name:'恢复重置前偏好',exact:true}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','light');const count=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['projects'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('projects').count()));}finally{db.close();}});expect(count).toBe(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\storage-settings.spec.ts:6:401
+
+    Error Context: test-results\storage-settings-T37-syste-68056-opbar-action-stays-accurate\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\storage-settings-T37-syste-68056-opbar-action-stays-accurate\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\storage-settings-T37-syste-68056-opbar-action-stays-accurate\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate 

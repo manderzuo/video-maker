@@ -1,0 +1,16 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+src/app/App.tsx(75,857): error TS2322: Type '() => { persisted: boolean; }' is not assignable to type '(event: MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>'.
+  Type '{ persisted: boolean; }' is not assignable to type 'void | Promise<void>'.
+src/features/settings/storage-service.ts(5,822): error TS2339: Property 'usage' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,865): error TS2339: Property 'usage' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,889): error TS2339: Property 'quota' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,932): error TS2339: Property 'quota' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,949): error TS2339: Property 'usage' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,968): error TS2339: Property 'quota' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,1006): error TS2339: Property 'usage' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,1043): error TS2339: Property 'quota' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,1095): error TS2339: Property 'quota' does not exist on type '{}'.
+src/features/settings/storage-service.ts(5,1111): error TS2339: Property 'usage' does not exist on type '{}'.

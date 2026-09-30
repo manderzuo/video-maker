@@ -1,0 +1,134 @@
+{
+  "taskId": "T37",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "8499f0863f3cb9a3788604be4ed7a066ec62d396",
+  "headCommit": null,
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/app/App.tsx",
+    "src/features/assets/AssetInspector.tsx",
+    "src/features/assets/AssetPreview.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/prompt-generation/AIOptimizeDialog.tsx",
+    "src/features/prompt-generation/workspace-service.ts",
+    "src/features/review/review-components.tsx",
+    "src/ui/tokens.css",
+    "public/studio-deployment.json",
+    "src/features/settings/",
+    "src/infrastructure/deployment/",
+    "tests/e2e/storage-settings.spec.ts",
+    "tests/unit/settings-boundaries.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/storage-settings.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 5,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-red.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-typecheck-initial.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/storage-settings.spec.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-browser-initial.log"
+    },
+    {
+      "command": "Playwright settings export/import behavior before implementation",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-settings-transfer-red.log"
+    },
+    {
+      "command": "Playwright system theme before correction",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-system-theme-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 314,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-unit-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-build-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/storage-settings.spec.ts tests/e2e/result-review.spec.ts tests/e2e/prompt-response-attachment.spec.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-browser-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/storage-settings.spec.ts tests/e2e/prompt-result-parser.spec.ts tests/e2e/canvas-viewport.spec.ts",
+      "exitCode": 0,
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T37-browser-related.log"
+    }
+  ],
+  "notes": [
+    "初始11类型错误已修复，无忽略；初始模型旧值仅隐藏option，补可见状态并保留原默认值断言。系统主题实际行为红灯后修复按钮状态。",
+    "browser-final命令第三个文件名不存在，Playwright匹配其余两个共12真实用例；不声称未运行的文件覆盖。browser-related使用实际现有文件22用例通过。",
+    "注册连接为本地HTTP Mock、假Key、GET健康/模型；动态目录失效值保留，新画布视频草稿采用验证后的默认规格，旧节点/Run不改写，所有设置用例零POST。",
+    "存储清理仅可重建缩略图，唯一原文件按实际引用保护，配额注入整事务回滚。未知容量不虚构，持久存储被拒绝仍允许手动备份。",
+    "D09/D10公开设置导出、选择性导入/撤销不恢复Key、执行授权或脚本；普通Key仅标签内存。"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T37-storage.png",
+    "docs/review/screenshots/T37-connection.png"
+  ],
+  "screenshotsVisuallyInspected": true,
+  "limitations": [
+    "用户统一验收及独立审查待进行；字号认可不等于全视觉认可。",
+    "真实服务、收费接口、WebDAV、远端取消、生图/音频未核验且未开放。",
+    "自动播放受浏览器策略控制；设置导入IDB与localStorage跨机制不作原子保证，失败如实显示当前会话效果。",
+    "连接异步切换/存储慢操作、全流程密集编辑与键盘回归继续T45–T47；许可证/前端标识授权为发布门槛。"
+  ]
+}

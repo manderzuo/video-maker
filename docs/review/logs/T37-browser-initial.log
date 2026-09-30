@@ -1,0 +1,56 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/storage-settings.spec.ts
+
+[WebServer] (node:5268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:28740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\storage-settings.spec.ts:3:1 › T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access (2.7s)
+  ok 2 tests\e2e\storage-settings.spec.ts:4:1 › T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history (2.6s)
+  ok 3 tests\e2e\storage-settings.spec.ts:5:1 › T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography (2.6s)
+  ok 4 tests\e2e\storage-settings.spec.ts:6:1 › T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity (2.5s)
+  x  5 tests\e2e\storage-settings.spec.ts:7:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe (7.5s)
+
+
+  1) tests\e2e\storage-settings.spec.ts:7:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  getByText('retired-video（已失效，需手动选择）', { exact: true })
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('retired-video（已失效，需手动选择）', { exact: true })[22m
+    [2m    9 × locator resolved to <option value="retired-video">retired-video（已失效，需手动选择）</option>[22m
+    [2m      - unexpected value "hidden"[22m
+
+
+      5 | test('T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography',async({page,networkCounter})=>{await page.goto('/settings/appearance');await page.getByLabel('主题',{exact:true}).selectOption('light');await expect(page.locator('html')).toHaveAttribute('data-theme','light');await page.getByLabel('界面密度',{exact:true}).selectOption('compact');await expect(page.locator('html')).toHaveAttribute('data-density','compact');expect(await page.locator('body').evaluate(e=>getComputedStyle(e).fontSize)).toBe('16px');await page.getByRole('button',{name:'重置操作偏好',exact:true}).click();await page.getByRole('dialog',{name:'重置操作偏好',exact:true}).getByRole('button',{name:'确认重置偏好',exact:true}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await page.getByRole('button',{name:'恢复重置前偏好',exact:true}).click();await expect(page.locator('html')).toHaveAttribute('data-theme','light');const count=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['projects'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('projects').count()));}finally{db.close();}});expect(count).toBe(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      6 | test('T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity',async({page,networkCounter})=>{await page.goto('/settings/connections');await page.getByLabel('连接名称',{exact:true}).fill('我的服务');await page.getByLabel('Core 服务地址',{exact:true}).fill('https://unregistered.invalid');await page.getByRole('button',{name:'保存连接地址',exact:true}).click();await page.getByLabel('普通用户 Key',{exact:true}).fill('fake-never-store-key');await expect(page.getByRole('button',{name:'测试连接',exact:true})).toBeDisabled();await expect(page.getByText('地址尚未在当前部署登记，不能测试或生成。',{exact:true})).toBeVisible();const saved=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['connections'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('connections').getAll()));}finally{db.close();}});expect(saved).toHaveLength(1);expect(JSON.stringify(saved)).not.toContain('fake-never-store-key');await page.getByLabel('Core 服务地址',{exact:true}).fill('https://second-unregistered.invalid');await page.getByRole('button',{name:'保存连接地址',exact:true}).click();const after=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['connections'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('connections').getAll()));}finally{db.close();}});expect(after).toHaveLength(2);expect(after[0].id).not.toBe(after[1].id);expect(JSON.stringify(await page.evaluate(()=>({...localStorage,...sessionStorage})))).not.toContain('fake-never-store-key');expect(networkCounter.requests.filter(r=>r.url.includes('/core-api'))).toHaveLength(0);});
+    > 7 | test('T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe',async({page,networkCounter})=>{await page.evaluate(()=>localStorage.setItem('aiwork-studio:preferences',JSON.stringify({theme:'dark',density:'comfortable',animation:'system',autoPlay:false,muted:true,volume:1,showUnavailable:true,defaultTextModel:'retired-text',defaultVideoModel:'retired-video',defaultDuration:null,defaultRatio:''})));await page.goto('/settings/capabilities');await expect(page.getByText('retired-video（已失效，需手动选择）',{exact:true})).toBeVisible();await expect(page.getByText('retired-text（已失效，需手动选择）',{exact:true})).toBeVisible();await expect(page.getByLabel('默认视频模型',{exact:true})).toHaveValue('retired-video');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      8 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\storage-settings.spec.ts:7:561
+
+    Error Context: test-results\storage-settings-T37-C02-o-4176a-placement-or-billable-probe\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\storage-settings-T37-C02-o-4176a-placement-or-billable-probe\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\storage-settings-T37-C02-o-4176a-placement-or-billable-probe\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\storage-settings.spec.ts:7:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe 
+  4 passed (20.8s)

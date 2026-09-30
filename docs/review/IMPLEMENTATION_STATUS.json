@@ -1,5 +1,5 @@
 {
-  "currentTask": "T37",
+  "currentTask": "T38",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -286,18 +286,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T36.json",
-      "headCommit": null,
+      "headCommit": "8499f0863f3cb9a3788604be4ed7a066ec62d396",
       "id": "T36",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "安全项目包、导入迁移与草稿备份"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T37.json",
       "headCommit": null,
       "id": "T37",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "设置、存储占用与缓存清理"
     },
     {

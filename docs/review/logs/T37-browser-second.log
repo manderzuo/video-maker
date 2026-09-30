@@ -1,0 +1,21 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/storage-settings.spec.ts
+
+[WebServer] (node:28888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:19384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\storage-settings.spec.ts:6:1 › T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access (2.7s)
+  ok 2 tests\e2e\storage-settings.spec.ts:7:1 › T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history (2.6s)
+  ok 3 tests\e2e\storage-settings.spec.ts:8:1 › T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography (2.6s)
+  ok 4 tests\e2e\storage-settings.spec.ts:9:1 › T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity (2.6s)
+  ok 5 tests\e2e\storage-settings.spec.ts:10:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe (2.4s)
+  ok 6 tests\e2e\storage-settings.spec.ts:11:1 › T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection (2.8s)
+
+  6 passed (18.8s)
