@@ -1,0 +1,17 @@
+{
+  "tool": "playwright 1.58.2 / existing Edge / isolated temporary context",
+  "artifactType": "static-document-review-only",
+  "businessRequests": [],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "storageWrites": [],
+  "captureCount": 0,
+  "allBusinessButtonsDisabled": true,
+  "layoutFailures": [],
+  "reviewControlChecks": [],
+  "zoomVerification": "not performed; no device scaling substituted for browser zoom",
+  "screenshots": [],
+  "typographyChecks": [],
+  "failure": "Reading text must be at least 16px; got 14px (review-navigation)"
+}

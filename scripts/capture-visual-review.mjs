@@ -8,6 +8,7 @@ mkdirSync('docs/design/captures',{recursive:true});
 const browser=await chromium.launch({channel:'msedge',headless:true});
 const context=await browser.newContext({viewport:{width:1440,height:900}});
 const report={tool:'playwright 1.58.2 / existing Edge / isolated temporary context',artifactType:'static-document-review-only',businessRequests:[],blockedRequests:[],pageErrors:[],consoleErrors:[],storageWrites:[],captureCount:0,allBusinessButtonsDisabled:true,layoutFailures:[],reviewControlChecks:[],zoomVerification:'not performed; no device scaling substituted for browser zoom',screenshots:[]};
+report.typographyChecks=[];
 await context.route('**/*',async route=>{
  const url=new URL(route.request().url());
  if(url.origin==='http://127.0.0.1:4178' && url.pathname.startsWith('/docs/design/') && route.request().method()==='GET'){await route.continue();}
@@ -31,6 +32,7 @@ async function capture(entry){
  if(entry.dialogId)query.set('dialog',entry.dialogId);
  await page.goto('http://127.0.0.1:4178/docs/design/visual-review.html?'+query,{waitUntil:'load'});
  await page.locator('body[data-page]').waitFor();
+ await checkTypography(entry.capturePath);
  const checks=await page.evaluate(()=>({allDisabled:[...document.querySelectorAll('[data-business]')].every(button=>button.disabled),writes:window.__reviewStorageWrites,overflow:document.documentElement.scrollWidth>innerWidth,dialogFooter:(()=>{const footer=document.querySelector('.dialog-footer');if(!footer)return true;const rect=footer.getBoundingClientRect();return rect.top>=0 && rect.bottom<=innerHeight;})()}));
  report.allBusinessButtonsDisabled&&=checks.allDisabled;
  report.storageWrites.push(...checks.writes);
@@ -39,9 +41,21 @@ async function capture(entry){
  report.captureCount++;report.screenshots.push(entry.capturePath);
  if(report.captureCount%25===0)console.log(`Captured ${report.captureCount} static review states`);
 }
+async function checkTypography(path){
+ const sizes=await page.evaluate(()=>{
+  const size=element=>parseFloat(getComputedStyle(element).fontSize);
+  const visible=selector=>[...document.querySelectorAll(selector)].filter(element=>element.getClientRects().length);
+  return {body:size(document.body),secondary:visible('small,.muted').map(size),controls:visible('button,input,select,textarea').map(size)};
+ });
+ assert.ok(sizes.body>=16,`Reading text must be at least 16px; got ${sizes.body}px (${path})`);
+ assert.ok(sizes.secondary.every(size=>size>=14),`Secondary text must be at least 14px (${path})`);
+ assert.ok(sizes.controls.every(size=>size>=16),`Form controls must be at least 16px (${path})`);
+ report.typographyChecks.push({path,...sizes});
+}
 try{
  // Controls are review navigation only; business operations remain disabled.
  await page.goto('http://127.0.0.1:4178/docs/design/visual-review.html');
+ await checkTypography('review-navigation');
  await page.getByLabel('页面',{exact:true}).selectOption('P21');
  assert.equal(await page.locator('body').getAttribute('data-page'),'P21');
  await page.getByLabel('主题',{exact:true}).selectOption('light');

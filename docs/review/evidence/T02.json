@@ -130,5 +130,66 @@
     "Node24 host used for planning checks, not verified against T03 Node22 baseline"
   ],
   "reviewDecision": "待审查",
-  "independentReviewPerformed": false
+  "independentReviewPerformed": false,
+  "fontFeedbackRevision": {
+    "feedback": "字体稍微有点小，可以稍微大点",
+    "baseCommit": "c1d0cc4270943532aeda228e7869d2a7a7221d9b",
+    "bodyAndForms": "14px -> 16px",
+    "secondary": "12px -> 14px",
+    "headings": "24/20/16px -> 26/22/18px",
+    "compactText": "水印和节点底栏13px，表格正文15px",
+    "reviewDecision": "待视觉认可与独立审查",
+    "commands": [
+      {
+        "phase": "font-red",
+        "exitCode": 1,
+        "command": "node scripts/capture-visual-review.mjs",
+        "logPath": "docs/review/logs/T02-font-browser-red.log",
+        "reason": "实际页面正文字号14px，小于本次16px阅读目标"
+      },
+      {
+        "phase": "font-controls-failure",
+        "exitCode": 1,
+        "command": "node scripts/capture-visual-review.mjs",
+        "logPath": "docs/review/logs/T02-font-controls-failure.log",
+        "reason": "任务表格按钮继承15px字号，修复为明确16px"
+      },
+      {
+        "typographyViewsChecked": 172,
+        "businessRequests": 0,
+        "exitCode": 0,
+        "reviewNavigationChecks": 6,
+        "captureCount": 171,
+        "command": "node scripts/capture-visual-review.mjs",
+        "phase": "font-green",
+        "storageWrites": 0,
+        "logPath": "docs/review/logs/T02-font-browser-green.log",
+        "layoutFailures": 0,
+        "reportPath": "docs/review/logs/T02-browser-check.json"
+      },
+      {
+        "exitCode": 1,
+        "failed": 1,
+        "reason": "T02-G02仍等待真实视觉认可与独立审查",
+        "passed": 4,
+        "logPath": "docs/review/logs/T02-font-baseline-pending.log",
+        "command": "node --test tests/planning/visual-baseline.test.mjs",
+        "skipped": 0
+      },
+      {
+        "command": "git diff --check",
+        "exitCode": 0
+      }
+    ],
+    "modifiedFiles": [
+      "docs/design/visual-review.css",
+      "scripts/capture-visual-review.mjs",
+      "docs/design/captures/",
+      "docs/review/logs/T02-browser-check.json",
+      "docs/review/logs/T02-font-*",
+      "docs/review/evidence/T02.json",
+      "docs/review/visual-signoff.md",
+      "docs/review/EXECUTION_PROGRESS.md"
+    ]
+  }
 }

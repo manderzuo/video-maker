@@ -1,0 +1,17 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Form controls must be at least 16px (docs/design/captures/P06-normal-1440-dark.png)
+    at checkTypography (file:///E:/trae-studio/TRAEWORK/aiwork-studio/scripts/capture-visual-review.mjs:52:9)
+    at async capture (file:///E:/trae-studio/TRAEWORK/aiwork-studio/scripts/capture-visual-review.mjs:35:2)
+    at async file:///E:/trae-studio/TRAEWORK/aiwork-studio/scripts/capture-visual-review.mjs:73:56 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.13.0

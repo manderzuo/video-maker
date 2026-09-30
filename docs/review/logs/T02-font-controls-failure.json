@@ -1,0 +1,481 @@
+{
+  "tool": "playwright 1.58.2 / existing Edge / isolated temporary context",
+  "artifactType": "static-document-review-only",
+  "businessRequests": [],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "storageWrites": [],
+  "captureCount": 22,
+  "allBusinessButtonsDisabled": true,
+  "layoutFailures": [],
+  "reviewControlChecks": [
+    "page selection",
+    "theme selection",
+    "dialog open",
+    "dialog close",
+    "focus return",
+    "Escape close"
+  ],
+  "zoomVerification": "not performed; no device scaling substituted for browser zoom",
+  "screenshots": [
+    "docs/design/captures/P01-empty-1440-dark.png",
+    "docs/design/captures/P01-loading-1440-dark.png",
+    "docs/design/captures/P01-normal-1440-dark.png",
+    "docs/design/captures/P01-error-1440-dark.png",
+    "docs/design/captures/P02-empty-1440-dark.png",
+    "docs/design/captures/P02-loading-1440-dark.png",
+    "docs/design/captures/P02-normal-1440-dark.png",
+    "docs/design/captures/P02-error-1440-dark.png",
+    "docs/design/captures/P03-empty-1440-dark.png",
+    "docs/design/captures/P03-loading-1440-dark.png",
+    "docs/design/captures/P03-normal-1440-dark.png",
+    "docs/design/captures/P03-error-1440-dark.png",
+    "docs/design/captures/P04-empty-1440-dark.png",
+    "docs/design/captures/P04-loading-1440-dark.png",
+    "docs/design/captures/P04-normal-1440-dark.png",
+    "docs/design/captures/P04-error-1440-dark.png",
+    "docs/design/captures/P05-empty-1440-dark.png",
+    "docs/design/captures/P05-loading-1440-dark.png",
+    "docs/design/captures/P05-normal-1440-dark.png",
+    "docs/design/captures/P05-error-1440-dark.png",
+    "docs/design/captures/P06-empty-1440-dark.png",
+    "docs/design/captures/P06-loading-1440-dark.png"
+  ],
+  "typographyChecks": [
+    {
+      "path": "review-navigation",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P01-empty-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P01-loading-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P01-normal-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P01-error-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P02-empty-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P02-loading-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P02-normal-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P02-error-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P03-empty-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P03-loading-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P03-normal-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P03-error-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P04-empty-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P04-loading-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P04-normal-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P04-error-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P05-empty-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P05-loading-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P05-normal-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P05-error-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P06-empty-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14,
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "path": "docs/design/captures/P06-loading-1440-dark.png",
+      "body": 16,
+      "secondary": [
+        14
+      ],
+      "controls": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "failure": "Form controls must be at least 16px (docs/design/captures/P06-normal-1440-dark.png)"
+}
