@@ -4,7 +4,7 @@ import {registerTestMockOrigin} from '../helpers/mock-network';
 import accepted from '../fixtures/core-v2/video-accepted.json';
 import completed from '../fixtures/core-v2/video-completed.json';
 export type MockRequest={method:string;path:string;credentialPresent:boolean;idempotencyKey?:string;body?:unknown};
-export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;statusErrorOnce?:number;statusRetryAfter?:string;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean};
+export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;loseChatResponse?:boolean;chatDelayMs?:number;chatContent?:string;statusErrorOnce?:number;statusRetryAfter?:string;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean};
 export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
  const requests:MockRequest[]=[],faults:MockFaults={},tasks=new Map<string,{fingerprint:string;taskId:string}>(),taskOwners=new Map<string,string>();let counter=0;
  const server=createServer(async(req,res)=>{
@@ -32,7 +32,7 @@ export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
      if(faults.loseSubmitResponse){faults.loseSubmitResponse=false;req.socket.destroy();return;}
      json(202,faults.malformedTask?{status:'queued',request_id:taskId}:{...accepted,task:{...accepted.task,id:taskId},request_id:taskId,...(prior?{core_replay:true}:{})});return;
     }
-    if(path==='/v1/chat/completions'){json(200,{id:'mock-chat-'+(++counter),object:'chat.completion',model:'fake-text-only',choices:[{index:0,message:{role:'assistant',content:'本地模拟文字结果，非真实模型输出'}}]});return;}
+    if(path==='/v1/chat/completions'){if(faults.loseChatResponse){faults.loseChatResponse=false;req.socket.destroy();return;}if(faults.chatDelayMs)await new Promise(resolve=>setTimeout(resolve,faults.chatDelayMs));json(200,{id:'mock-chat-'+(++counter),object:'chat.completion',model:'fake-text-only',choices:[{index:0,message:{role:'assistant',content:faults.chatContent??'本地模拟文字结果，非真实模型输出'}}]});return;}
    }
    const match=path.match(/^\/v1\/videos\/(mock-core-\d+)(\/content)?$/);
    if(method==='GET'&&match&&taskOwners.get(match[1])===identity){

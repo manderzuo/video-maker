@@ -1,0 +1,82 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/text-optimization.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/text-optimization.test.ts (6 tests | 6 failed) 134ms
+   × T30-C01: only positively verified text models pass, Seedance and case-insensitive video aliases never pass 71ms
+   × T30-C02/C04: preview sends nothing and contains only explicit text plus checked descriptions, no asset IDs or binary 15ms
+   × T30-C03: actual outgoing chat observes durable sending PromptRun, original body/key and no new video Run 11ms
+   × T30-C06: the same confirmation is consumed once; double invocation never sends twice 11ms
+   × T30: changed persisted draft invalidates preview without a chat 12ms
+   × T30: request tampering is refused before persistence or network 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/text-optimization.test.ts > T30-C01: only positively verified text models pass, Seedance and case-insensitive video aliases never pass
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/text-optimization.test.ts:14:198
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/text-optimization.test.ts > T30-C02/C04: preview sends nothing and contains only explicit text plus checked descriptions, no asset IDs or binary
+Error: prompt_optimization_not_implemented
+ ❯ preparePromptOptimization src/application/prompts/optimize-text.ts:8:238
+
+ ❯ preview tests/unit/text-optimization.test.ts:13:19
+ ❯ tests/unit/text-optimization.test.ts:15:147
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/text-optimization.test.ts > T30-C03: actual outgoing chat observes durable sending PromptRun, original body/key and no new video Run
+Error: prompt_optimization_not_implemented
+ ❯ preparePromptOptimization src/application/prompts/optimize-text.ts:8:238
+
+ ❯ preview tests/unit/text-optimization.test.ts:13:19
+ ❯ tests/unit/text-optimization.test.ts:16:135
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/text-optimization.test.ts > T30-C06: the same confirmation is consumed once; double invocation never sends twice
+Error: prompt_optimization_not_implemented
+ ❯ preparePromptOptimization src/application/prompts/optimize-text.ts:8:238
+
+ ❯ preview tests/unit/text-optimization.test.ts:13:19
+ ❯ tests/unit/text-optimization.test.ts:17:115
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/text-optimization.test.ts > T30: changed persisted draft invalidates preview without a chat
+Error: prompt_optimization_not_implemented
+ ❯ preparePromptOptimization src/application/prompts/optimize-text.ts:8:238
+
+ ❯ preview tests/unit/text-optimization.test.ts:13:19
+ ❯ tests/unit/text-optimization.test.ts:18:94
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/text-optimization.test.ts > T30: request tampering is refused before persistence or network
+Error: prompt_optimization_not_implemented
+ ❯ preparePromptOptimization src/application/prompts/optimize-text.ts:8:238
+
+ ❯ preview tests/unit/text-optimization.test.ts:13:19
+ ❯ tests/unit/text-optimization.test.ts:19:94
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  05:07:00
+   Duration  698ms (transform 234ms, setup 43ms, import 339ms, tests 134ms, environment 0ms)
+

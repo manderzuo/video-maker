@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/text-optimization.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  05:09:50
+   Duration  859ms (transform 323ms, setup 47ms, import 457ms, tests 168ms, environment 0ms)
+
