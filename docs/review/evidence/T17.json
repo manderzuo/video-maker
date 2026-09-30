@@ -2,7 +2,7 @@
   "taskId": "T17",
   "status": "实施完成，自检通过，待统一验收/独立审查",
   "baseCommit": "fa52669a25146d2823cf64ce253c6a3a6ae9ecf7",
-  "headCommit": null,
+  "headCommit": "bcd78c4fb3904b831bf558b3d24968f2800fc5f1",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reviewDecision": "待审查",
   "independentReviewPerformed": false,

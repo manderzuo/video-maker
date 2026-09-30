@@ -1,0 +1,138 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-prompt-compiler.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-prompt-compiler.test.ts (17 tests | 16 failed) 24ms
+   × T18-C01: all eleven frozen writing directions are selectively available 8ms
+   × T18 rule text preserves Chinese identity and requested specification 2ms
+   × T18 rule consistency preserves Chinese identity and requested specification 1ms
+   × T18 rule camera preserves Chinese identity and requested specification 1ms
+   × T18 rule transition preserves Chinese identity and requested specification 1ms
+   × T18 rule story preserves Chinese identity and requested specification 1ms
+   × T18 rule extension preserves Chinese identity and requested specification 1ms
+   × T18 rule sound preserves Chinese identity and requested specification 1ms
+   × T18 rule one-take preserves Chinese identity and requested specification 1ms
+   × T18 rule edit preserves Chinese identity and requested specification 1ms
+   × T18 rule beat preserves Chinese identity and requested specification 0ms
+   × T18 rule product preserves Chinese identity and requested specification 0ms
+   × T18-C02: empty/whitespace requests fail without claiming a compiled result 1ms
+   × T18-C05: unspecified duration/ratio remain unspecified and no legacy max is invented 1ms
+   × T18: invalid scene is explicit rather than silently falling back to another direction 0ms
+   × T18: unsupported creative ratio is preserved for later capability checks; oversized compiled output is rejected 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18-C01: all eleven frozen writing directions are selectively available
+AssertionError: expected [] to deeply equal [ 'text', 'consistency', …(9) ]
+
+- Expected
++ Received
+
+- [
+-   "text",
+-   "consistency",
+-   "camera",
+-   "transition",
+-   "story",
+-   "extension",
+-   "sound",
+-   "one-take",
+-   "edit",
+-   "beat",
+-   "product",
+- ]
++ []
+
+ ❯ tests/unit/video-prompt-compiler.test.ts:7:125
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule text preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule consistency preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule camera preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule transition preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule story preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule extension preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule sound preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule one-take preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule edit preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule beat preserves Chinese identity and requested specification
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18 rule product preserves Chinese identity and requested specification
+AssertionError: expected {} to deeply equal { durationSeconds: 5, ratio: '9:16' }
+
+- Expected
++ Received
+
+- {
+-   "durationSeconds": 5,
+-   "ratio": "9:16",
+- }
++ {}
+
+ ❯ tests/unit/video-prompt-compiler.test.ts:8:401
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18-C02: empty/whitespace requests fail without claiming a compiled result
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/video-prompt-compiler.test.ts:9:170
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18-C05: unspecified duration/ratio remain unspecified and no legacy max is invented
+AssertionError: expected [] to include '时长或画幅未指定；本地写作不证明 Core 可执行。'
+ ❯ tests/unit/video-prompt-compiler.test.ts:11:279
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18: invalid scene is explicit rather than silently falling back to another direction
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/video-prompt-compiler.test.ts:12:168
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  tests/unit/video-prompt-compiler.test.ts > T18: unsupported creative ratio is preserved for later capability checks; oversized compiled output is rejected
+AssertionError: expected {} to deeply equal { Object (durationSeconds, ratio) }
+
+- Expected
++ Received
+
+- {
+-   "durationSeconds": 30,
+-   "ratio": "2.35:1",
+- }
++ {}
+
+ ❯ tests/unit/video-prompt-compiler.test.ts:13:267
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  16 failed | 1 passed (17)
+   Start at  00:09:18
+   Duration  339ms (transform 56ms, setup 39ms, import 38ms, tests 24ms, environment 0ms)
+

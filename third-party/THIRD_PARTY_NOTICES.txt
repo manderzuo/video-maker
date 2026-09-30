@@ -296,3 +296,5 @@ SOFTWARE.
 
 T13 migrated adaptation: src/features/canvas/geometry.ts uses nodeBounds from the frozen basketikun snapshot, Copyright (c) 2026 basketikun, MIT (licenses/infinite-canvas.LICENSE). Other original UI and provider code is excluded. Frontend-mark authorization remains an unresolved release gate.
 T15 migrated adaptation: src/features/canvas/group-layout.ts adapts GROUP_WRAP_PADDING/TOP and group selection geometry from the same frozen basketikun snapshot, Copyright (c) 2026 basketikun, MIT. Group operations, clipboard boundaries and Studio command receipts are organized locally. Frontend-mark authorization remains pending.
+
+T18 migrated adaptation: src/domain/prompt-engine/video-scenes.ts and compile-video.ts selectively adapt eleven writing directions and chapter structure from the frozen manderzuo videoRules.js snapshot above. MIT LICENSE is preserved verbatim above. Fixed 15-second timelines, unverified limits, Electron and remote calls are excluded.

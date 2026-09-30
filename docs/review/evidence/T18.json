@@ -1,0 +1,86 @@
+{
+  "taskId": "T18",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "bcd78c4fb3904b831bf558b3d24968f2800fc5f1",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/domain/prompt-engine/video-scenes.ts",
+    "src/domain/prompt-engine/compile-video.ts",
+    "src/domain/prompt-engine/legacy-adapter.ts",
+    "tests/fixtures/prompt-rules.json",
+    "tests/unit/video-prompt-compiler.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "node work/record-video-rules-baseline.mjs",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T18-source-baseline.log",
+      "sceneCount": 11,
+      "businessCalls": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-prompt-compiler.test.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T18-red.log",
+      "passed": 1,
+      "failed": 16,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-prompt-compiler.test.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T18-adapter-red.log",
+      "passed": 1,
+      "failed": 17,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-prompt-compiler.test.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T18-green.log",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T18-unit.log",
+      "passed": 116,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T18-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T18-lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T18-build.log"
+    }
+  ],
+  "source": {
+    "repository": "manderzuo/prompt-for-seedance-gptimage2.5",
+    "commit": "d8ba7c104ba7c24e3d28b0c3bede8764544bea8b",
+    "path": "src/optimizer/videoRules.js",
+    "sha256": "88a146976fb7a6d1e30c0887ff3ab2598eaa57cad01931c09fa7440cab05700b",
+    "license": "MIT"
+  },
+  "screenshots": [],
+  "limitations": [
+    "纯领域任务，无新增界面截图。",
+    "T19负责显式冲突检测和已验证上限分段；本任务仅产出写作草稿。",
+    "本地目标规格不代表Core可执行或收费授权。",
+    "统一验收/独立审查及T02视觉门槛尚未通过。"
+  ]
+}

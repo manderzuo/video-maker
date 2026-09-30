@@ -1,5 +1,5 @@
 {
-  "currentTask": "T18",
+  "currentTask": "T19",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -134,18 +134,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T17.json",
-      "headCommit": null,
+      "headCommit": "bcd78c4fb3904b831bf558b3d24968f2800fc5f1",
       "id": "T17",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp02-02-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "提示词库、模板变量与本地搜索"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T18.json",
       "headCommit": null,
       "id": "T18",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "抽取本地视频提示词规则"
     },
     {
@@ -153,7 +153,7 @@
       "headCommit": null,
       "id": "T19",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "约束冲突、引用和分镜总时长校验"
     },
     {
@@ -407,6 +407,6 @@
   ],
   "projectRoot": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
   "authorizationFile": "docs/review/IMPLEMENTATION_AUTHORIZATION.md",
-  "branch": "feat/aiwork-studio",
+  "branch": "feat/prompt-generation",
   "userAcceptancePerformed": false
 }
