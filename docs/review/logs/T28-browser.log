@@ -1,0 +1,21 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/video-submit.spec.ts tests/e2e/core-transport.spec.ts
+
+[WebServer] (node:27884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:28836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\core-transport.spec.ts:2:1 › T24 actual browser: readonly connection test uses same-origin health/catalog with no POST, URL Key or cookies (639ms)
+  ok 2 tests\e2e\core-transport.spec.ts:3:1 › T24 actual browser: an external redirect becomes an opaque denied response and never receives a second request (534ms)
+  ok 3 tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable (1.3s)
+  ok 4 tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay (1.3s)
+  ok 5 tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment (1.3s)
+  ok 6 tests\e2e\video-submit.spec.ts:12:1 › T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission (1.4s)
+
+  6 passed (9.7s)

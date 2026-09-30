@@ -8,7 +8,7 @@ import {allowedCorePath,requiresCoreIdempotency} from './route-policy';
 import {normalizeCoreBase} from './url';
 export type CredentialSession={binding:AuthBinding;withCredential:typeof withCredential};
 export type CoreReply<T>={ok:true;value:T}|{ok:false;error:CoreFailure};
-export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:()=>Promise<CoreReply<CoreModel[]>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string)=>Promise<CoreReply<CoreTaskView>>};
+export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:()=>Promise<CoreReply<CoreModel[]>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string,options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreTaskView>>};
 export type TransportOptions={browserOrigin?:string;registry?:readonly ConnectionProfile[];fetch?:typeof fetch};
 export function createCoreClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{
  const copied=connectionSchema.parse(structuredClone(raw)),binding=Object.freeze(authBindingSchema.parse(structuredClone(session.binding))),base=normalizeCoreBase(copied.proxyBase),upstream=normalizeCoreBase(copied.originSnapshot);
@@ -36,7 +36,7 @@ export function createCoreClient(raw:ConnectionProfile,session:CredentialSession
   });}catch{return failure('session_credential_required','authentication','not_sent');}
  };
  const testConnection:CoreClient['testConnection']=async()=>{const health=await requestJson('GET','/healthz');if(!health.ok)return health;const catalog=await requestJson('GET','/v1/models');if(!catalog.ok)return catalog;try{return {ok:true,value:parseCoreModels(catalog.value)};}catch{return failure('core_models_protocol_invalid','protocol');}};
- const queryVideo:CoreClient['queryVideo']=async taskId=>{const reply=await requestJson('GET','/v1/videos/'+encodeURIComponent(taskId));if(!reply.ok)return reply;try{const value=parseVideoTask(reply.value);if(value.taskId!==taskId)return failure('core_task_identity_mismatch','protocol');return {ok:true,value};}catch{return failure('core_task_protocol_invalid','protocol');}};
+ const queryVideo:CoreClient['queryVideo']=async(taskId,queryOptions)=>{const reply=await requestJson('GET','/v1/videos/'+encodeURIComponent(taskId),undefined,queryOptions);if(!reply.ok)return reply;try{const value=parseVideoTask(reply.value);if(value.taskId!==taskId)return failure('core_task_identity_mismatch','protocol');return {ok:true,value};}catch{return failure('core_task_protocol_invalid','protocol');}};
  return Object.freeze({profile,binding,requestJson,testConnection,queryVideo});
 }
 async function readJsonBounded(response:Response){

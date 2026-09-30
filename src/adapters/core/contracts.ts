@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {parseRetryAfter} from './retry-policy';
 export type CoreModel={id:string};
 export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;contentAvailable:boolean;billingState:'not_provided'};
 export type CoreFailure={httpStatus:number;category:'quota'|'forbidden'|'conflict'|'rate_limited'|'unavailable'|'invalid_request'|'authentication'|'not_found'|'protocol'|'unknown';errorCode:string;requestId?:string;retryAfterMs?:number;submissionOutcome:'not_sent'|'unknown'};
@@ -20,6 +21,6 @@ export function classifyCoreError(status:number,body:unknown,retryAfter?:string)
  const categories:Record<number,CoreFailure['category']>={400:'invalid_request',401:'authentication',402:'quota',403:'forbidden',404:'not_found',409:'conflict',413:'invalid_request',422:'invalid_request',429:'rate_limited',500:'unavailable',502:'unavailable',503:'unavailable',504:'unavailable'};
  // An HTTP class alone is insufficient to prove a paid send never happened.
  const preAdmission=new Set(['insufficient_scope','quota_insufficient','idempotency_conflict','video_billing_paused','invalid_request_error','budget_policy_unconfigured','budget_preparation_busy']);
- const seconds=retryAfter&&/^\d+(?:\.\d+)?$/.test(retryAfter)?Number(retryAfter):undefined;
- return {httpStatus:status,category:categories[status]??'unknown',errorCode:code,...(requestId?{requestId}:{}),...(status===429&&seconds!==undefined&&Number.isFinite(seconds)?{retryAfterMs:Math.min(seconds*1000,86400000)}:{}),submissionOutcome:preAdmission.has(code)?'not_sent':'unknown'};
+ const retryAfterMs=status===429?parseRetryAfter(retryAfter):undefined;
+ return {httpStatus:status,category:categories[status]??'unknown',errorCode:code,...(requestId?{requestId}:{}),...(retryAfterMs===undefined?{}:{retryAfterMs}),submissionOutcome:preAdmission.has(code)?'not_sent':'unknown'};
 }

@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-polling.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  04:27:06
+   Duration  869ms (transform 315ms, setup 49ms, import 437ms, tests 193ms, environment 0ms)
+

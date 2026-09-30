@@ -1,0 +1,131 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-polling.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-polling.test.ts (8 tests | 8 failed) 154ms
+   × T28-C01: persistent pause only stops queries, preserving execution, delivery, billing and original key 72ms
+   × T28-C02: 401 requires original authorization while the remote execution stays accepted 15ms
+   × T28-C03: 404 means inaccessible query, never free/cancelled/deleted generation 10ms
+   × T28-C04: Retry-After accepts seconds and HTTP-date; invalid and past values are bounded 13ms
+   × T28-C05/C06: a 5xx query cannot erase previously confirmed success or imply billing settlement 13ms
+   × T28: normal 3s polling, 2/4/8/16/30s jittered backoff, Retry-After priority and hidden throttling 10ms
+   × T28: explicit resume saves polling intent without a video POST; next query is only GET 8ms
+   × T28: unfamiliar upstream state cannot regress a confirmed running execution 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28-C01: persistent pause only stops queries, preserving execution, delivery, billing and original key
+Error: polling_not_implemented
+ ❯ pausePolling src/application/runs/poll-video.ts:5:117
+      3| export type PollOptions=SubmitOptions&{signal?:AbortSignal};
+      4| export async function pollVideoOnce(runId:string,options:PollOptions={…
+      5| export async function pausePolling(runId:string,options:PollOptions={}…
+       |                                                                                                                     ^
+      6| export async function resumePolling(runId:string,options:PollOptions={…
+      7|
+ ❯ tests/unit/video-polling.test.ts:11:125
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28-C02: 401 requires original authorization while the remote execution stays accepted
+Error: polling_not_implemented
+ ❯ pollVideoOnce src/application/runs/poll-video.ts:4:117
+      2| import type {SubmitOptions} from './submit-video';
+      3| export type PollOptions=SubmitOptions&{signal?:AbortSignal};
+      4| export async function pollVideoOnce(runId:string,options:PollOptions={…
+       |                                                                                                                     ^
+      5| export async function pausePolling(runId:string,options:PollOptions={}…
+      6| export async function resumePolling(runId:string,options:PollOptions={…
+ ❯ tests/unit/video-polling.test.ts:12:153
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28-C03: 404 means inaccessible query, never free/cancelled/deleted generation
+Error: polling_not_implemented
+ ❯ pollVideoOnce src/application/runs/poll-video.ts:4:117
+      2| import type {SubmitOptions} from './submit-video';
+      3| export type PollOptions=SubmitOptions&{signal?:AbortSignal};
+      4| export async function pollVideoOnce(runId:string,options:PollOptions={…
+       |                                                                                                                     ^
+      5| export async function pausePolling(runId:string,options:PollOptions={}…
+      6| export async function resumePolling(runId:string,options:PollOptions={…
+ ❯ tests/unit/video-polling.test.ts:13:145
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28-C04: Retry-After accepts seconds and HTTP-date; invalid and past values are bounded
+AssertionError: expected undefined to be 2500 // Object.is equality
+
+- Expected:
+2500
+
++ Received:
+undefined
+
+ ❯ tests/unit/video-polling.test.ts:14:169
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28-C05/C06: a 5xx query cannot erase previously confirmed success or imply billing settlement
+Error: polling_not_implemented
+ ❯ pollVideoOnce src/application/runs/poll-video.ts:4:117
+      2| import type {SubmitOptions} from './submit-video';
+      3| export type PollOptions=SubmitOptions&{signal?:AbortSignal};
+      4| export async function pollVideoOnce(runId:string,options:PollOptions={…
+       |                                                                                                                     ^
+      5| export async function pausePolling(runId:string,options:PollOptions={}…
+      6| export async function resumePolling(runId:string,options:PollOptions={…
+ ❯ tests/unit/video-polling.test.ts:15:133
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28: normal 3s polling, 2/4/8/16/30s jittered backoff, Retry-After priority and hidden throttling
+AssertionError: expected +0 to be 3000 // Object.is equality
+
+- Expected
++ Received
+
+- 3000
++ 0
+
+ ❯ tests/unit/video-polling.test.ts:16:144
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28: explicit resume saves polling intent without a video POST; next query is only GET
+Error: polling_not_implemented
+ ❯ pausePolling src/application/runs/poll-video.ts:5:117
+      3| export type PollOptions=SubmitOptions&{signal?:AbortSignal};
+      4| export async function pollVideoOnce(runId:string,options:PollOptions={…
+      5| export async function pausePolling(runId:string,options:PollOptions={}…
+       |                                                                                                                     ^
+      6| export async function resumePolling(runId:string,options:PollOptions={…
+      7|
+ ❯ tests/unit/video-polling.test.ts:17:109
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28: unfamiliar upstream state cannot regress a confirmed running execution
+Error: polling_not_implemented
+ ❯ pollVideoOnce src/application/runs/poll-video.ts:4:117
+      2| import type {SubmitOptions} from './submit-video';
+      3| export type PollOptions=SubmitOptions&{signal?:AbortSignal};
+      4| export async function pollVideoOnce(runId:string,options:PollOptions={…
+       |                                                                                                                     ^
+      5| export async function pausePolling(runId:string,options:PollOptions={}…
+      6| export async function resumePolling(runId:string,options:PollOptions={…
+ ❯ tests/unit/video-polling.test.ts:18:333
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  04:24:34
+   Duration  724ms (transform 231ms, setup 46ms, import 333ms, tests 154ms, environment 0ms)
+

@@ -1,5 +1,5 @@
 {
-  "currentTask": "T28",
+  "currentTask": "T29",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -214,18 +214,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T27.json",
-      "headCommit": null,
+      "headCommit": "30d750d8f9afafa2ee410d8da168c840984479cb",
       "id": "T27",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "视频提交、持久幂等与未知结果"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T28.json",
       "headCommit": null,
       "id": "T28",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "任务轮询、退避和查询状态"
     },
     {

@@ -1,0 +1,43 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-polling.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-polling.test.ts (10 tests | 2 failed) 186ms
+   × T28: a real polling loop changes hidden frequency and stops on persistent pause without new POST 12ms
+   × T28: completed polling terminates rather than scheduling another GET 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28: a real polling loop changes hidden frequency and stops on persistent pause without new POST
+Error: poll_loop_not_implemented
+ ❯ startVideoPolling src/application/runs/poll-video.ts:52:122
+     50| export type PollScheduler={set:(action:()=>Promise<void>,delay:number)…
+     51| export type PollLoopOptions=PollOptions&{scheduler?:PollScheduler;isFo…
+     52| export function startVideoPolling(runId:string,options:PollLoopOptions…
+       |                                                                                                                          ^
+     53|
+ ❯ tests/unit/video-polling.test.ts:19:396
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/video-polling.test.ts > T28: completed polling terminates rather than scheduling another GET
+Error: poll_loop_not_implemented
+ ❯ startVideoPolling src/application/runs/poll-video.ts:52:122
+     50| export type PollScheduler={set:(action:()=>Promise<void>,delay:number)…
+     51| export type PollLoopOptions=PollOptions&{scheduler?:PollScheduler;isFo…
+     52| export function startVideoPolling(runId:string,options:PollLoopOptions…
+       |                                                                                                                          ^
+     53|
+ ❯ tests/unit/video-polling.test.ts:20:294
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+   Start at  04:28:59
+   Duration  821ms (transform 287ms, setup 49ms, import 403ms, tests 186ms, environment 0ms)
+

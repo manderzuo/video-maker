@@ -4,7 +4,8 @@ import {withDatabase,transact,requestResult,storageErrorCode,type StudioDb} from
 import {readRun,saveRun,putRunInTransaction,validateFrozenBody} from '../../infrastructure/storage/run-repository';
 import {assertAssetBinding} from '../../adapters/core/assets';
 import {acquireRunTrackingLease,assertRunWriter,type RunLeaseRecord} from '../../infrastructure/storage/run-lease';
-import {applySubmissionOutcome,observeVideoTask} from '../../domain/video-run-machine';
+import {applySubmissionOutcome} from '../../domain/video-run-machine';
+import {applyQueryObservation} from '../../domain/run-status';
 import {z} from 'zod';
 import {bindingSchema} from '../../domain/common';
 import {hasSessionCredential,sanitizeKnownSecrets} from '../../security/credential-session';
@@ -45,7 +46,7 @@ export async function recoverSubmission(runId:string,decision:RecoveryDecision,o
   if(decision.action==='query_original'||run.taskId){
    if(!run.taskId)return {status:'manual_check',run,reason:'no_verified_identity_lookup_endpoint'};
    const reply=await client.queryVideo(run.taskId);
-   const next=reply.ok&&allowedCorePath('/v1/videos/'+reply.value.taskId,'GET')&&sanitizeKnownSecrets(reply.value.taskId)===reply.value.taskId?observeVideoTask(run,reply.value):{...run,queryState:!reply.ok&&reply.error.category==='authentication'?'auth_required' as const:'interrupted' as const,updatedAt:Date.now()};
+   const next=reply.ok&&allowedCorePath('/v1/videos/'+reply.value.taskId,'GET')&&sanitizeKnownSecrets(reply.value.taskId)===reply.value.taskId?applyQueryObservation(run,reply):{...run,queryState:!reply.ok&&reply.error.category==='authentication'?'auth_required' as const:'interrupted' as const,updatedAt:Date.now()};
    await saveRun(next,{db,runToken:claim.token});return {status:'queried',run:next};
   }
   const token=claim.token;

@@ -1,0 +1,6 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+src/application/runs/poll-video.ts(33,162): error TS18048: 'lock' is possibly 'undefined'.
+src/application/runs/poll-video.ts(39,329): error TS18048: 'row' is possibly 'undefined'.
