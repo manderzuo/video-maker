@@ -1,7 +1,7 @@
 
 Running 1 test using 1 worker
 
-  x  1 tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught (633ms)
+  x  1 tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught (776ms)
 
 
   1) tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught 
@@ -45,9 +45,9 @@ Running 1 test using 1 worker
 
   1 failed
     tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught 
-[2m[WebServer] [22m(node:23388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(node:25352) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 [2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
-(node:22580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:3192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:22580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:3192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)

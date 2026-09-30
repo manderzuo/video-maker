@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-transport.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  02:32:12
+   Duration  436ms (transform 111ms, setup 48ms, import 153ms, tests 51ms, environment 0ms)
+

@@ -1,5 +1,5 @@
 {
-  "currentTask": "T24",
+  "currentTask": "T25",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -182,18 +182,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T23.json",
-      "headCommit": null,
+      "headCommit": "907457659f88e6e58e89aba68e996b5981e0868e",
       "id": "T23",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
       "status": "自检通过，真实部署未核验，待审查",
       "title": "固定Core公开契约、能力证据与Mock"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T24.json",
       "headCommit": null,
       "id": "T24",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "执行中",
+      "status": "自检通过，实际部署待验证，待审查",
       "title": "同源HTTP通道、地址规范与请求鉴权"
     },
     {
@@ -201,7 +201,7 @@
       "headCommit": null,
       "id": "T25",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "上传素材映射与最终请求冻结"
     },
     {

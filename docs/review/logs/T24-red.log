@@ -1,0 +1,176 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-transport.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/core-transport.test.ts (8 tests | 8 failed) 34ms
+   × T24-C01/C02: only explicit public business method/path pairs are allowed 7ms
+   × T24-C03: base normalizes one terminal v1 and preserves exact registered proxy 3ms
+   × T24: wrong binding or unregistered connection cannot obtain a transport client 3ms
+   × T24-C06: readonly connection test performs health then catalog with Bearer only, no POST 2ms
+   × T24-C04: cross-origin redirects are never followed with the Key 2ms
+   × T24-C05: frozen client profile/binding survive external mutation and new connection without rebinding old requests 1ms
+   × T24: disallowed routes make zero calls; HTTP business failure keeps its status/code and no automatic POST retry 1ms
+   × T24: actual loopback Mock receives fixed routed authenticated request, while a dropped response stays unknown 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24-C01/C02: only explicit public business method/path pairs are allowed
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/core-transport.test.ts:11:122
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24-C03: base normalizes one terminal v1 and preserves exact registered proxy
+AssertionError: expected { ok: false, issues: [ { …(3) } ] } to deeply equal { ok: true, value: '/core-api' }
+
+- Expected
++ Received
+
+  {
+-   "ok": true,
+-   "value": "/core-api",
++   "issues": [
++     {
++       "code": "core_base_unimplemented",
++       "message": "地址未实现",
++       "path": "base",
++     },
++   ],
++   "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:12:132
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24: wrong binding or unregistered connection cannot obtain a transport client
+AssertionError: expected [Function] to throw an error
+ ❯ tests/unit/core-transport.test.ts:13:308
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24-C06: readonly connection test performs health then catalog with Bearer only, no POST
+AssertionError: expected { ok: false, error: { …(4) } } to deeply equal { ok: true, …(1) }
+
+- Expected
++ Received
+
+  {
+-   "ok": true,
+-   "value": [
+-     {
+-       "id": "fake-text-only",
++   "error": {
++     "category": "unknown",
++     "errorCode": "unimplemented",
++     "httpStatus": 0,
++     "submissionOutcome": "unknown",
+    },
+-   ],
++   "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:14:614
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24-C04: cross-origin redirects are never followed with the Key
+AssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, …(1) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "error": {
+-     "errorCode": "core_redirect_denied",
++     "errorCode": "unimplemented",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:15:537
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24-C05: frozen client profile/binding survive external mutation and new connection without rebinding old requests
+AssertionError: expected { ok: false, error: { …(4) } } to match object { ok: true }
+(5 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "ok": true,
++   "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:16:694
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24: disallowed routes make zero calls; HTTP business failure keeps its status/code and no automatic POST retry
+AssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(2) } }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "error": {
+-     "errorCode": "quota_insufficient",
+-     "httpStatus": 402,
++     "errorCode": "unimplemented",
++     "httpStatus": 0,
+    },
+    "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:17:730
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24: actual loopback Mock receives fixed routed authenticated request, while a dropped response stays unknown
+AssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(2) } }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "error": {
+-     "errorCode": "core_transport_unknown",
++     "errorCode": "unimplemented",
+      "submissionOutcome": "unknown",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:18:756
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  02:28:32
+   Duration  413ms (transform 100ms, setup 43ms, import 144ms, tests 34ms, environment 0ms)
+

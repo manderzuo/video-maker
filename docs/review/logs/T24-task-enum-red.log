@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-contract.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/core-contract.test.ts (16 tests | 1 failed) 91ms
+   × T24 adapter boundary: task states normalize to the shared concrete enum while a failed task keeps its public error code 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T24 adapter boundary: task states normalize to the shared concrete enum while a failed task keeps its public error code
+AssertionError: expected 'pending' to be 'queued' // Object.is equality
+
+Expected: "queued"
+Received: "pending"
+
+ ❯ tests/unit/core-contract.test.ts:13:195
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 passed (16)
+   Start at  02:38:21
+   Duration  463ms (transform 98ms, setup 49ms, import 140ms, tests 91ms, environment 0ms)
+

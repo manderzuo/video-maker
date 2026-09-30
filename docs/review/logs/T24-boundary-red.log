@@ -1,0 +1,59 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-transport.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/core-transport.test.ts (10 tests | 2 failed) 58ms
+   × T24: an empty Core 404/403 response preserves the HTTP class and never means a task was deleted 13ms
+   × T24: final frozen JSON is sent byte-for-byte without parse/stringify rewriting or replacement idempotency 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24: an empty Core 404/403 response preserves the HTTP class and never means a task was deleted
+AssertionError: expected { ok: false, error: { …(4) } } to match object { ok: false, error: { …(3) } }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "error": {
+-     "category": "not_found",
+-     "httpStatus": 404,
++     "category": "protocol",
++     "httpStatus": 0,
+      "submissionOutcome": "unknown",
+    },
+    "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:11:449
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24: final frozen JSON is sent byte-for-byte without parse/stringify rewriting or replacement idempotency
+AssertionError: expected { ok: false, error: { …(4) } } to match object { ok: true }
+(5 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "ok": true,
++   "ok": false,
+  }
+
+ ❯ tests/unit/core-transport.test.ts:12:704
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+   Start at  02:34:26
+   Duration  434ms (transform 111ms, setup 43ms, import 156ms, tests 58ms, environment 0ms)
+

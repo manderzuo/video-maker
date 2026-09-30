@@ -1,17 +1,17 @@
 import {z} from 'zod';
 export type CoreModel={id:string};
-export type CoreTaskView={taskId:string;requestId?:string;status:string;contentAvailable:boolean;billingState:'not_provided'};
+export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;contentAvailable:boolean;billingState:'not_provided'};
 export type CoreFailure={httpStatus:number;category:'quota'|'forbidden'|'conflict'|'rate_limited'|'unavailable'|'invalid_request'|'authentication'|'not_found'|'protocol'|'unknown';errorCode:string;requestId?:string;retryAfterMs?:number;submissionOutcome:'not_sent'|'unknown'};
 const nonempty=z.string().trim().min(1).max(256);
-const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),content_url:z.string().nullable().optional()});
+const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional()}).optional()});
 const replySchema=z.object({task:taskShape.optional(),video_task:taskShape.optional(),data:z.object({task:taskShape.optional()}).optional(),id:nonempty.optional(),status:z.string().optional(),request_id:nonempty.optional(),content_url:z.string().nullable().optional()});
 export function parseVideoTask(input:unknown):CoreTaskView{
  const parsed=replySchema.safeParse(input);if(!parsed.success)throw new Error('core_task_protocol_invalid');const reply=parsed.data;
- const candidates=[reply.video_task,reply.task,reply.data?.task,...(reply.id?[{id:reply.id,status:reply.status??'unknown',content_url:reply.content_url}]:[])].filter(t=>t!==undefined);
+ const candidates=[reply.video_task,reply.task,reply.data?.task,...(reply.id?[{id:reply.id,status:reply.status??'unknown',content_url:reply.content_url,error:undefined}]:[])].filter(t=>t!==undefined);
  const task=candidates[0];if(!task||new Set(candidates.map(t=>t.id)).size!==1)throw new Error('core_task_identity_invalid');
- const status=['queued','pending','processing','running','completed','failed','canceled','cancelled'].includes(task.status.toLowerCase())?task.status.toLowerCase():'unknown';
+ const states:Record<string,CoreTaskView['status']>={queued:'queued',pending:'queued',processing:'processing',running:'processing',completed:'completed',failed:'failed',canceled:'failed',cancelled:'failed'},state=task.status.toLowerCase(),status=Object.hasOwn(states,state)?states[state]:'unknown',code=task.error?.code??task.error?.type;
  // Content is an observation, never proof of download success or settled billing.
- return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,contentAvailable:status==='completed'&&!!task.content_url,billingState:'not_provided'};
+ return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState:'not_provided'};
 }
 export function parseCoreModels(input:unknown):CoreModel[]{const reply=z.object({data:z.array(z.object({id:nonempty}))}).parse(input);if(new Set(reply.data.map(m=>m.id)).size!==reply.data.length)throw new Error('core_model_duplicate');return reply.data.map(({id})=>({id}));}
 export function classifyCoreError(status:number,body:unknown,retryAfter?:string):CoreFailure{

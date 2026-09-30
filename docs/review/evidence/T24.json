@@ -1,0 +1,153 @@
+{
+  "taskId": "T24",
+  "status": "同源受控传输自检通过；实际代理/TLS待部署验证；待审查",
+  "baseCommit": "907457659f88e6e58e89aba68e996b5981e0868e",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reasoningMode": "用户宿主指定high，工具不可核验",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/adapters/core/http-client.ts",
+    "src/adapters/core/route-policy.ts",
+    "src/adapters/core/url.ts",
+    "src/adapters/core/contracts.ts",
+    "deploy/nginx-canvas.conf",
+    "deploy/TRANSPORT_BOUNDARY.md",
+    "tests/unit/core-transport.test.ts",
+    "tests/unit/core-contract.test.ts",
+    "tests/e2e/core-transport.spec.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/core-transport.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 8,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-transport.test.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-green-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-transport.test.ts",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-boundary-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-transport.test.ts",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-boundary-green.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-contract.test.ts",
+      "exitCode": 1,
+      "passed": 15,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-task-enum-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-contract.test.ts",
+      "exitCode": 1,
+      "passed": 16,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-status-boundary-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 177,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-unit.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 178,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-unit-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 179,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-unit-verified.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/core-transport.spec.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-browser.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T24-build.log"
+    }
+  ],
+  "interactionIds": [
+    "K-07",
+    "PG16"
+  ],
+  "screenshots": [],
+  "networkMode": "本地假Key、精确端口Mock、真实Chromium本地路由拦截；无真实Core请求",
+  "behavior": [
+    "只接受已部署登记且逐字段匹配的同源代理档案；客户端与普通授权身份创建时冻结",
+    "拒绝凭据URL/查询/片段/编码穿越/admin/internal/bridge/余额/取消等不存在或越界路由；严格方法白名单",
+    "末尾v1只规范一次；HTTP仅回环，生产HTTPS，注册代理地址仍同源",
+    "Bearer短期注入，credentials omit/referrer no-referrer/no-store；URL与序列化客户端不含Key",
+    "浏览器redirect manual，实际opaque redirect返回拒绝，观察到零外部第二请求",
+    "只读连接测试仅healthz/models两次GET；不把目录可读当全部scope开放",
+    "POST无自动重发且付费路由需要原幂等键；冻结JSON字符串按原字节传送",
+    "JSON边界/最大响应8MiB/上传传输46MiB源约束检查；空错误响应保留真实HTTP类，网络丢失为unknown",
+    "任务状态按共享具体枚举归一；上游原型名称回归真实失败后改为own-key查表，保留已知失败业务码，未推断退款",
+    "Nginx模板固定目标/同源路径/拒绝原始穿越/不转Cookie或Referer/关闭自动上游重试；静态规则比对通过"
+  ],
+  "knownLimitations": [
+    "没有真实部署核验单或注册目标；默认开发Vite不代理Core，客户端无registry时拒绝创建",
+    "Get-Command nginx未找到命令；没有运行nginx -t，模板静态验证不等于实际Nginx/TLS/联通通过",
+    "模板保留.invalid域名和证书占位，不能宣称可生产使用；额外连接需要固定目标部署配置",
+    "本任务无新产品页面；实际浏览器测试验证传输，截图为空；完整设置UI等待T38",
+    "收费提交审批在T26/T27实现；本轮所有POST只发本地Mock，不授权真实收费",
+    "T23安全脚本更新了既有T03-network-negative.log，作为真实重跑产物保留；不改规划视觉批准门槛"
+  ]
+}

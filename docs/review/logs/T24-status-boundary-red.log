@@ -1,0 +1,32 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-contract.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/core-contract.test.ts (17 tests | 1 failed) 82ms
+   × T24 adapter boundary: prototype-like upstream status never escapes the declared enum 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T24 adapter boundary: prototype-like upstream status never escapes the declared enum
+AssertionError: expected [Function Object] to be 'unknown' // Object.is equality
+
+- Expected:
+"unknown"
+
++ Received:
+[Function Object]
+
+ ❯ tests/unit/core-contract.test.ts:14:209
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 passed (17)
+   Start at  02:41:49
+   Duration  445ms (transform 96ms, setup 46ms, import 134ms, tests 82ms, environment 0ms)
+
