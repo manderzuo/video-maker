@@ -1,25 +1,179 @@
 {
- "taskId":"T34","status":"实施完成，自检通过，待统一验收/独立审查","baseCommit":"7a25eb599053d5645a2a7472785b0cf9b3dba7fb","headCommit":null,"branch":"feat/aiwork-studio","actualProjectPath":"E:/trae-studio/TRAEWORK/aiwork-studio","actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
- "files":["src/features/tasks/TasksPage.tsx","src/features/tasks/TaskDrawer.tsx","src/features/tasks/TaskDetail.tsx","src/features/tasks/TaskTracking.tsx","src/features/tasks/task-filters.ts","src/app/App.tsx","src/features/canvas/CanvasPage.tsx","src/ui/tokens.css","tests/e2e/task-center.spec.ts","tests/fixtures/task-history.ts","tests/unit/task-records.test.ts"],
- "commands":[
-  {"command":"npm run test:e2e -- tests/e2e/task-center.spec.ts","exitCode":1,"passed":0,"failed":6,"skipped":0,"logPath":"docs/review/logs/T34-red.log"},
-  {"command":"npm run test:e2e -- tests/e2e/task-center.spec.ts","exitCode":1,"passed":5,"failed":1,"skipped":0,"logPath":"docs/review/logs/T34-browser-initial.log","note":"select的隐式label包含全部option正文，补明确aria-label；保留精确标签断言"},
-  {"command":"npm run test:e2e -- tests/e2e/task-center.spec.ts","exitCode":0,"passed":6,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-browser-verified.log"},
-  {"command":"npm run test:unit -- tests/unit/task-records.test.ts","exitCode":0,"passed":4,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-domain-initial.log","note":"后续自检发现其中查询用例只命中默认数据库的失败路径，不能作为实际GET证明；改为注入实际测试DB并强化成功/GET断言"},
-  {"command":"npm run test:unit -- tests/unit/task-records.test.ts","exitCode":1,"passed":3,"failed":1,"skipped":0,"logPath":"docs/review/logs/T34-domain-retry-red.log"},
-  {"command":"npm run test:unit -- tests/unit/task-records.test.ts","exitCode":0,"passed":4,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-domain-verified.log"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/task-center.spec.ts --grep 'keeps polling'","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T34-tracking-red.log"},
-  {"command":"npm run test:e2e -- tests/e2e/task-center.spec.ts","exitCode":0,"passed":7,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-browser-tracking.log"},
-  {"command":"npm run test:unit","exitCode":0,"passed":298,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-unit.log"},
-  {"command":"npm run test:e2e -- tests/e2e/task-center.spec.ts tests/e2e/media-delivery.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/run-queue.spec.ts","exitCode":0,"passed":18,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-browser-final.log"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/task-center.spec.ts --grep 'unknown recovery'","exitCode":0,"passed":1,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-unknown-focus-check.log"},
-  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/task-center.spec.ts --grep 'C01/C02|drawer:'","exitCode":0,"passed":2,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-screenshot-final.log"},
-  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-typecheck-final.log"},
-  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-lint-final.log"},
-  {"command":"npm run test:security","exitCode":0,"passed":3,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-security.log","note":"另实际观察公网负例在网络守卫退出1，守卫验证命令整体退出0"},
-  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T34-build-final.log"}
- ],
- "screenshots":["docs/review/screenshots/T34-task-center.png","docs/review/screenshots/T34-task-detail.png","docs/review/screenshots/T34-task-drawer.png"],"screenshotInspected":true,"networkMode":"真实Chromium本地页面/IndexedDB与同源假Key GET、原生CSV下载；领域另实际回环HTTP Mock；无真实Core",
- "behavior":["视频/文字本地记录区分，执行/查询/交付/账务独立筛选；原连接/授权分组，不称全部Core历史","TaskDrawer和页面读取同一持久记录，文字项目归属优先原输入修订receipt，不随当前草稿迁移；项目归档和UI筛选不停止原授权已知视频追踪","批量只刷新已知原授权身份、逐项串行/短间隔/最多50；未知提交和明确生成失败跳过，查询失败只重试原GET，不新提交、不换Key或幂等键","详情双层、原ID可复制、历史节点不存在禁用定位且不重建、文字无伪异步通道；未知结果复用T27受控D21，关闭恢复原行焦点","本地完成归档只写可逆显示receipt，未明状态不能归档；Run/PromptRun和账务原样保留","CSV原生下载仅摘要，正文/Key/临时内容地址不导出，含空白前缀的公式、引号和换行正确转义；媒体内容重用T33仅GET/缓存下载"],
- "knownLimitations":["仅实施者自检，没有独立或用户最终验收","暂不提供未授权真实服务的全部历史同步或任务迁移，恢复原Key的设置界面在T42阶段实现","默认DB轮询读记录每1.5秒，实际视频查询沿T28的3秒/退避/隐藏降频；数据量性能与慢存储在T45/T46回归","长中文/用户标题在旧节点大纲可能水平溢出，已记录T46收口；字体保持用户已认可大小","主包约547.73kB警告待T46分包，未提高阈值掩盖；完整视觉/许可/真实接口门槛继续保留"]
+  "taskId": "T34",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "7a25eb599053d5645a2a7472785b0cf9b3dba7fb",
+  "headCommit": "d706448041813a54f902d462307367fe58db0228",
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/tasks/TasksPage.tsx",
+    "src/features/tasks/TaskDrawer.tsx",
+    "src/features/tasks/TaskDetail.tsx",
+    "src/features/tasks/TaskTracking.tsx",
+    "src/features/tasks/task-filters.ts",
+    "src/app/App.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/ui/tokens.css",
+    "tests/e2e/task-center.spec.ts",
+    "tests/fixtures/task-history.ts",
+    "tests/unit/task-records.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/task-center.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/task-center.spec.ts",
+      "exitCode": 1,
+      "passed": 5,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-browser-initial.log",
+      "note": "select的隐式label包含全部option正文，补明确aria-label；保留精确标签断言"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/task-center.spec.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-browser-verified.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/task-records.test.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-domain-initial.log",
+      "note": "后续自检发现其中查询用例只命中默认数据库的失败路径，不能作为实际GET证明；改为注入实际测试DB并强化成功/GET断言"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/task-records.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-domain-retry-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/task-records.test.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-domain-verified.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/task-center.spec.ts --grep 'keeps polling'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-tracking-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/task-center.spec.ts",
+      "exitCode": 0,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-browser-tracking.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 298,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-unit.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/task-center.spec.ts tests/e2e/media-delivery.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/run-queue.spec.ts",
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-browser-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/task-center.spec.ts --grep 'unknown recovery'",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-unknown-focus-check.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/task-center.spec.ts --grep 'C01/C02|drawer:'",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-screenshot-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-lint-final.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-security.log",
+      "note": "另实际观察公网负例在网络守卫退出1，守卫验证命令整体退出0"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T34-build-final.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T34-task-center.png",
+    "docs/review/screenshots/T34-task-detail.png",
+    "docs/review/screenshots/T34-task-drawer.png"
+  ],
+  "screenshotInspected": true,
+  "networkMode": "真实Chromium本地页面/IndexedDB与同源假Key GET、原生CSV下载；领域另实际回环HTTP Mock；无真实Core",
+  "behavior": [
+    "视频/文字本地记录区分，执行/查询/交付/账务独立筛选；原连接/授权分组，不称全部Core历史",
+    "TaskDrawer和页面读取同一持久记录，文字项目归属优先原输入修订receipt，不随当前草稿迁移；项目归档和UI筛选不停止原授权已知视频追踪",
+    "批量只刷新已知原授权身份、逐项串行/短间隔/最多50；未知提交和明确生成失败跳过，查询失败只重试原GET，不新提交、不换Key或幂等键",
+    "详情双层、原ID可复制、历史节点不存在禁用定位且不重建、文字无伪异步通道；未知结果复用T27受控D21，关闭恢复原行焦点",
+    "本地完成归档只写可逆显示receipt，未明状态不能归档；Run/PromptRun和账务原样保留",
+    "CSV原生下载仅摘要，正文/Key/临时内容地址不导出，含空白前缀的公式、引号和换行正确转义；媒体内容重用T33仅GET/缓存下载"
+  ],
+  "knownLimitations": [
+    "仅实施者自检，没有独立或用户最终验收",
+    "暂不提供未授权真实服务的全部历史同步或任务迁移，恢复原Key的设置界面在T42阶段实现",
+    "默认DB轮询读记录每1.5秒，实际视频查询沿T28的3秒/退避/隐藏降频；数据量性能与慢存储在T45/T46回归",
+    "长中文/用户标题在旧节点大纲可能水平溢出，已记录T46收口；字体保持用户已认可大小",
+    "主包约547.73kB警告待T46分包，未提高阈值掩盖；完整视觉/许可/真实接口门槛继续保留"
+  ]
 }

@@ -1,0 +1,51 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/result-review.spec.ts
+
+[WebServer] (node:25364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:2472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\result-review.spec.ts:4:1 › T35-C01/C03: exactly two local versions; swapping only presentation preserves fixed original runs and assets (3.1s)
+  ok 2 tests\e2e\result-review.spec.ts:5:1 › T35-C02: real native clips play together, shorter ending pauses both and warns approximate synchronization (3.3s)
+  x  3 tests\e2e\result-review.spec.ts:6:1 › T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores (2.7s)
+(node:28312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\result-review.spec.ts:7:1 › T35-C06: native keyboard playback and fullscreen can exit without playing other preview (2.7s)
+
+
+  1) tests\e2e\result-review.spec.ts:6:1 › T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"r[7m1[27m"[39m
+    Received: [31m"r[7m2[27m"[39m
+
+      4 | test('T35-C01/C03: exactly two local versions; swapping only presentation preserves fixed original runs and assets',async({page,networkCounter})=>{await page.goto('/projects/p1/compare?runs=r1,r2');await page.locator('[data-interaction-id="R-10"]').click();await expect(page.getByTestId('comparison-left')).toHaveAttribute('data-run-id','r2');await expect(page.getByTestId('comparison-right')).toHaveAttribute('data-run-id','r1');await expect(page.getByTestId('comparison-left')).toContainText('人物走入庭院');await page.screenshot({path:'docs/review/screenshots/T35-comparison.png'});const state=await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';return(await import(path)).reviewStoredState();});expect(state.runs.find((r:{id:string})=>r.id==='r1').resultAssetId).toBe('result-asset-1');expect(state.runs.find((r:{id:string})=>r.id==='r2').resultAssetId).toBe('result-asset-2');expect(state.graph.revision).toBe(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.goto('/projects/p1/compare?runs=r1,r2,r3');await expect(page.getByText('请选择且仅选择两个不同的已完成视频版本。',{exact:true})).toBeVisible();await expect(page.locator('video')).toHaveCount(0);});
+      5 | test('T35-C02: real native clips play together, shorter ending pauses both and warns approximate synchronization',async({page,networkCounter})=>{await page.goto('/projects/p1/compare?runs=r1,r2');await expect(page.getByText('按共同时间近似同步，不是帧级同步。',{exact:true})).toBeVisible();await expect.poll(()=>page.locator('video').evaluateAll(elements=>elements.every(e=>(e as HTMLVideoElement).readyState>=2))).toBe(true);await page.getByRole('button',{name:'同步播放',exact:true}).click();await expect.poll(()=>page.locator('video').evaluateAll(elements=>elements.every(e=>!(e as HTMLVideoElement).paused))).toBe(true);await expect(page.getByRole('status').filter({hasText:'短片已结束，两侧已暂停'})).toBeVisible();expect(await page.locator('video').evaluateAll(elements=>elements.every(e=>(e as HTMLVideoElement).paused))).toBe(true);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+    > 6 | test('T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores',async({page,networkCounter})=>{await page.goto('/projects/p1/results?runId=r2');await page.getByRole('button',{name:'选为后续输入',exact:true}).click();const dialog=page.getByRole('dialog',{name:'确认选用结果',exact:true});await dialog.getByLabel('结果引用节点',{exact:true}).selectOption('result-ref');await expect(dialog).toContainText('后续镜头');await expect(dialog).toContainText('不会自动重跑');await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'草稿结果引用已更新'})).toBeVisible();const changed=await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';return(await import(path)).reviewStoredState();});expect(changed.graph.nodes.find((n:{id:string})=>n.id==='result-ref').data).toMatchObject({runId:'r2',assetId:'result-asset-2'});expect(changed.graph.nodes.find((n:{id:string})=>n.id==='downstream').data.stale).toBe(true);expect(changed.runs).toHaveLength(2);expect(changed.runs.find((r:{id:string})=>r.id==='r1').resultAssetId).toBe('result-asset-1');await page.getByRole('button',{name:'撤销本次选用',exact:true}).click();const restored=await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';return(await import(path)).reviewStoredState();});expect(restored.graph.nodes.find((n:{id:string})=>n.id==='result-ref').data.runId).toBe('r1');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      7 | test('T35-C06: native keyboard playback and fullscreen can exit without playing other preview',async({page,networkCounter})=>{await page.goto('/projects/p1/results?runId=r1');const preview=page.getByRole('region',{name:'视频审片预览',exact:true});await expect.poll(()=>preview.locator('video').evaluate(e=>(e as HTMLVideoElement).readyState)).toBeGreaterThanOrEqual(2);await preview.focus();await page.keyboard.press('Space');await expect.poll(()=>preview.locator('video').evaluate(e=>(e as HTMLVideoElement).paused)).toBe(false);await page.getByRole('button',{name:'全屏预览',exact:true}).click();await expect.poll(()=>page.evaluate(()=>!!document.fullscreenElement)).toBe(true);await page.keyboard.press('Escape');await expect.poll(()=>page.evaluate(()=>document.fullscreenElement)).toBe(null);await page.screenshot({path:'docs/review/screenshots/T35-result-review.png'});expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      8 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\result-review.spec.ts:6:1435
+
+    Error Context: test-results\result-review-T35-C04-C05--c1412-history-fixed-undo-restores\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\result-review-T35-C04-C05--c1412-history-fixed-undo-restores\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\result-review-T35-C04-C05--c1412-history-fixed-undo-restores\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\result-review.spec.ts:6:1 › T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores 
+  3 passed (16.0s)

@@ -1,0 +1,7 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+src/features/review/result-selection.ts(20,620): error TS2353: Object literal may only specify known properties, and 'db' does not exist in type 'StudioDb'.
+src/features/review/result-selection.ts(23,253): error TS2353: Object literal may only specify known properties, and 'db' does not exist in type 'StudioDb'.
+src/features/review/result-selection.ts(24,702): error TS2353: Object literal may only specify known properties, and 'db' does not exist in type 'StudioDb'.

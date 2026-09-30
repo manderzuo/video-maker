@@ -1,0 +1,36 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/result-selection.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/result-selection.test.ts (3 tests | 1 failed) 40ms
+   × T35: selection can be undone through native history after downstream bindings are recalculated 28ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/result-selection.test.ts > T35: selection can be undone through native history after downstream bindings are recalculated
+AssertionError: expected { …(3) } to match object { status: 'applied', revision: 3 }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "revision": 3,
+-   "status": "applied",
++   "status": "rejected",
+  }
+
+ ❯ tests/unit/result-selection.test.ts:9:277
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  06:52:40
+   Duration  547ms (transform 202ms, setup 47ms, import 281ms, tests 40ms, environment 0ms)
+

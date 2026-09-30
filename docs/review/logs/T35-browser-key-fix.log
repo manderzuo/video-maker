@@ -1,0 +1,19 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/result-review.spec.ts
+
+[WebServer] (node:27444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:25832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\result-review.spec.ts:4:1 › T35-C01/C03: exactly two local versions; swapping only presentation preserves fixed original runs and assets (3.0s)
+  ok 2 tests\e2e\result-review.spec.ts:5:1 › T35-C02: real native clips play together, shorter ending pauses both and warns approximate synchronization (3.4s)
+  ok 3 tests\e2e\result-review.spec.ts:6:1 › T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores (2.6s)
+  ok 4 tests\e2e\result-review.spec.ts:7:1 › T35-C06: native keyboard playback and fullscreen can exit without playing other preview (2.6s)
+
+  4 passed (14.4s)

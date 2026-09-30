@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/result-selection.test.ts tests/unit/project-commands.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  2 passed (2)
+      Tests  12 passed (12)
+   Start at  06:56:37
+   Duration  505ms (transform 307ms, setup 62ms, import 483ms, tests 78ms, environment 0ms)
+

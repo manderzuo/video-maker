@@ -1,0 +1,160 @@
+{
+  "taskId": "T35",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "d706448041813a54f902d462307367fe58db0228",
+  "headCommit": null,
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/review/ResultPage.tsx",
+    "src/features/review/ComparePage.tsx",
+    "src/features/review/result-selection.ts",
+    "src/features/review/review-components.tsx",
+    "src/features/assets/AssetPreview.tsx",
+    "src/features/assets/playback-coordinator.ts",
+    "src/features/review/RunMediaActions.tsx",
+    "src/application/commands/history.ts",
+    "src/app/App.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/ui/tokens.css",
+    "tests/e2e/result-review.spec.ts",
+    "tests/fixtures/result-review.ts",
+    "tests/unit/result-selection.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/result-review.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/result-review.spec.ts",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-browser-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/result-selection.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-selection-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/result-selection.test.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-selection-verified.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/result-review.spec.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-browser-verified.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/result-selection.test.ts",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-undo-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 301,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-unit.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-build.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/result-review.spec.ts tests/e2e/media-delivery.spec.ts tests/e2e/canvas-viewport.spec.ts",
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-browser-final.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/result-review.spec.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-screenshot-verified.log",
+      "note": "截图自检强化精确原素材和两个原生video断言，发现交换后同级React key重复造成4播放器，修复标识而未放宽断言"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/result-review.spec.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-browser-key-fix.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/result-selection.test.ts tests/unit/project-commands.test.ts",
+      "exitCode": 0,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T35-selection-final.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T35-comparison.png",
+    "docs/review/screenshots/T35-result-review.png"
+  ],
+  "screenshotInspected": true,
+  "behavior": [
+    "实际本地审片、键盘空格、原生全屏和Esc退出；复用播放器与独占协调，无默认播放或内容GET",
+    "恰好两个版本，近似共同时间播放，短片结束暂停两侧；交换只影响展示",
+    "原快照与原服务绑定只读；D11明确下游影响，结果来源/缓存SHA/写者租约/revision重检，原Run与原Asset保持不可覆写",
+    "选用语义命令可撤销、同commandID幂等；补修历史比较中字段排列不同被误判外部修改的缺陷",
+    "移除画布摆放保留历史和文件，收费POST为零"
+  ],
+  "knownLimitations": [
+    "实施者自检，用户统一验收和独立审查待进行",
+    "浏览器近似同步，不声称帧级同步；原生WebM fixture是原创本地测试视频，不是Core生成结果",
+    "真实规格/能力/许可尚未核验，费用及续写门控保持",
+    "截图等待原生播放器就绪，设计图不代替运行截图；构建大小警告待T46"
+  ]
+}

@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/result-selection.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/result-selection.test.ts (2 tests | 1 failed) 29ms
+   × T35: same confirmed command replays once, preserves immutable Runs and marks only downstream draft stale 24ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/result-selection.test.ts > T35: same confirmed command replays once, preserves immutable Runs and marks only downstream draft stale
+AssertionError: expected 'rejected' to be 'replayed' // Object.is equality
+
+Expected: "replayed"
+Received: "rejected"
+
+ ❯ tests/unit/result-selection.test.ts:9:446
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  06:45:15
+   Duration  504ms (transform 186ms, setup 44ms, import 261ms, tests 29ms, environment 0ms)
+

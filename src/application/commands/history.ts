@@ -4,7 +4,7 @@ import {transact,requestResult,withDatabase,storageErrorCode} from '../../infras
 import {assertProjectWriter} from '../../infrastructure/storage/project-lease';
 import {commandTables,putCreativeGraph,emptyHistory,type CommandContext,type StoredCommandReceipt,type HistoryState} from './apply-command';
 import type {CommandReceipt} from './registry';
-const graphContents=(graph:Graph)=>JSON.stringify({...graph,revision:0});
+const graphContents=(graph:Graph)=>JSON.stringify({...graphSchema.parse(graph),revision:0});
 async function moveHistory(projectId:string,expectedRevision:number,context:CommandContext,action:'undo'|'redo'):Promise<CommandReceipt>{
  const id=crypto.randomUUID(),lease=context.lease?{...context.lease}:undefined;
  if(context.origin!=='ui')return {id,status:'rejected',errorCode:'agent_history_requires_browser_confirmation'};
