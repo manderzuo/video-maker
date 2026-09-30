@@ -1,0 +1,78 @@
+{
+  "taskId": "T19",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "3093f612f3e8b02bf51fa993cd89e2553ce38306",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/domain/prompt-engine/constraints.ts",
+    "src/domain/prompt-engine/reference-alias.ts",
+    "src/domain/prompt-engine/shot-plan.ts",
+    "src/domain/prompt-engine/validate-result.ts",
+    "tests/unit/prompt-validation.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-validation.test.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T19-red.log",
+      "passed": 2,
+      "failed": 8,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-validation.test.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T19-green.log",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-validation.test.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T19-boundary-red.log",
+      "passed": 10,
+      "failed": 3,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-validation.test.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T19-green-final.log",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "note": "本测试退出0；同一终端随后读取错误的src/infra路径退出1，不计为测试失败。"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T19-unit.log",
+      "passed": 129,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T19-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T19-lint.log"
+    }
+  ],
+  "screenshots": [],
+  "limitations": [
+    "纯领域任务，无新增界面截图。",
+    "自然语言检测限显式数字时长、比例、标注品牌/对白/人数；不保证理解隐含语义。",
+    "分镜仅草案，按传入已审阅契约的模型时长组合规划；未调用真实Core。",
+    "毫秒精度/3600秒/200镜头/10万搜索状态为本地规划资源限制，不是Core能力。",
+    "实际模型选择与付费执行预检由T23/T26处理。",
+    "独立审查/统一验收待。"
+  ]
+}

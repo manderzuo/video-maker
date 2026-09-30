@@ -1,0 +1,167 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-validation.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-validation.test.ts (10 tests | 8 failed) 17ms
+   × T19-C01: original 5 seconds 9:16 conflicts with form 15 seconds 16:9 7ms
+   × T19: missing form values can adopt explicit natural-language targets; ambiguity never becomes a guessed default 1ms
+   × T19-C02: Chinese brand, person count, dialogue and prohibited cuts modified by AI raise issues 1ms
+   × T19-C03: thirty-second plan totals thirty and each shot fits this verified model limit 1ms
+   × T19: total mismatch, oversized shot and unsupported creative target are separate issues 1ms
+   × T19-C04: no asset cannot become bound; duplicate alias and duplicate asset are rejected 1ms
+   × T19: reordering uses stable asset IDs and simultaneous token rewrite avoids alias swap corruption 1ms
+   × T19: dangling tokens and unbound assets block an executable flow; audio unknown remains writing only 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19-C01: original 5 seconds 9:16 conflicts with form 15 seconds 16:9
+AssertionError: expected [] to deeply equal [ 'durationSeconds', 'ratio' ]
+
+- Expected
++ Received
+
+- [
+-   "durationSeconds",
+-   "ratio",
+- ]
++ []
+
+ ❯ tests/unit/prompt-validation.test.ts:12:231
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: missing form values can adopt explicit natural-language targets; ambiguity never becomes a guessed default
+AssertionError: expected {} to deeply equal { durationSeconds: 5, ratio: '9:16' }
+
+- Expected
++ Received
+
+- {
+-   "durationSeconds": 5,
+-   "ratio": "9:16",
+- }
++ {}
+
+ ❯ tests/unit/prompt-validation.test.ts:14:229
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19-C02: Chinese brand, person count, dialogue and prohibited cuts modified by AI raise issues
+AssertionError: expected [] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   "locked_brand_changed",
+-   "locked_personCount_changed",
+-   "locked_dialogue_changed",
+-   "locked_noCuts_changed",
+- ]
++ []
+
+ ❯ tests/unit/prompt-validation.test.ts:15:537
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19-C03: thirty-second plan totals thirty and each shot fits this verified model limit
+AssertionError: expected [] to have a length of 3 but got +0
+
+- Expected
++ Received
+
+- 3
++ 0
+
+ ❯ tests/unit/prompt-validation.test.ts:17:171
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: total mismatch, oversized shot and unsupported creative target are separate issues
+AssertionError: expected [] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   "shot_total_mismatch",
+-   "shot_duration_unsupported",
+-   "execution_spec_unsupported",
+- ]
++ []
+
+ ❯ tests/unit/prompt-validation.test.ts:18:378
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19-C04: no asset cannot become bound; duplicate alias and duplicate asset are rejected
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/prompt-validation.test.ts:19:332
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: reordering uses stable asset IDs and simultaneous token rewrite avoids alias swap corruption
+AssertionError: expected [ [ 'a2', '@图片2' ], [ 'a1', '@图片1' ] ] to deeply equal [ [ 'a2', '@图片1' ], [ 'a1', '@图片2' ] ]
+
+- Expected
++ Received
+
+  [
+    [
+      "a2",
+-     "@图片1",
++     "@图片2",
+    ],
+    [
+      "a1",
+-     "@图片2",
++     "@图片1",
+    ],
+  ]
+
+ ❯ tests/unit/prompt-validation.test.ts:20:261
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: dangling tokens and unbound assets block an executable flow; audio unknown remains writing only
+AssertionError: expected [] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   "capabilities_unverified",
+-   "reference_unbound",
+-   "reference_dangling",
+-   "reference_role_unverified",
+- ]
++ []
+
+ ❯ tests/unit/prompt-validation.test.ts:21:319
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 2 passed (10)
+   Start at  00:22:38
+   Duration  296ms (transform 62ms, setup 36ms, import 45ms, tests 17ms, environment 0ms)
+

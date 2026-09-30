@@ -1,5 +1,5 @@
 {
-  "currentTask": "T19",
+  "currentTask": "T20",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -142,18 +142,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T18.json",
-      "headCommit": null,
+      "headCommit": "3093f612f3e8b02bf51fa993cd89e2553ce38306",
       "id": "T18",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "抽取本地视频提示词规则"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T19.json",
       "headCommit": null,
       "id": "T19",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "执行中",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "约束冲突、引用和分镜总时长校验"
     },
     {
@@ -161,7 +161,7 @@
       "headCommit": null,
       "id": "T20",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "提示词草稿、PromptRun与不可变历史"
     },
     {

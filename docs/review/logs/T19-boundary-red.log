@@ -1,0 +1,53 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-validation.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-validation.test.ts (13 tests | 3 failed) 22ms
+   × T19: removing a reference cannot silently redirect its text token to another asset 9ms
+   × T19: verified durations use a representable split instead of a greedy dead end 1ms
+   × T19: locked literal disagreement with original natural-language requirement is surfaced 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: removing a reference cannot silently redirect its text token to another asset
+AssertionError: expected '人物@图片1，场景@图片1' to be '人物[未绑定引用：图片1]，场景@图片1' // Object.is equality
+
+Expected: "人物[未绑定引用：图片1]，场景@图片1"
+Received: "人物@图片1，场景@图片1"
+
+ ❯ tests/unit/prompt-validation.test.ts:12:256
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: verified durations use a representable split instead of a greedy dead end
+Error: shot_duration_unrepresentable
+ ❯ planShots src/domain/prompt-engine/shot-plan.ts:8:95
+
+ ❯ tests/unit/prompt-validation.test.ts:13:220
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T19: locked literal disagreement with original natural-language requirement is surfaced
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/prompt-validation.test.ts:14:327
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 10 passed (13)
+   Start at  00:26:22
+   Duration  371ms (transform 97ms, setup 36ms, import 132ms, tests 22ms, environment 0ms)
+

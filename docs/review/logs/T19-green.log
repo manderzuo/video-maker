@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-validation.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  00:25:31
+   Duration  369ms (transform 101ms, setup 38ms, import 139ms, tests 15ms, environment 0ms)
+
