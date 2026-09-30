@@ -81,3 +81,9 @@ T04：8目标用例通过，相关回归10通过；typecheck/lint通过。6有�
 T05：9目标单测/19相关回归通过；Edge原生IndexedDB5用例通过，保存/刷新恢复、request成功后abort回滚、quota草稿保留及禁用、原生blocked、未知Run原身份恢复。typecheck/lint通过。DB结构版本2、数据schema1；新增references原子表。事件监听注册顺序的技术观察器误差已定位修复。截图T05-native-storage.png为技术夹具，不宣称产品UI完成。待独立审查，继续T06。
 
 T06：11目标/30全单位通过；4跨标签原生浏览器目标通过，完整浏览器10通过。类型/lint/build通过；verify退出1仅T02-G02批准pending（规划14通过/1失败）。30秒租约、前台5秒续租、epoch接管、revision CAS、广播丢失、模拟休眠、ABA、单飞及持久提交意图都已验证。Run跟踪lease不依赖项目UI写锁，不允许重新dispatch。完整产品D24与独立审查待。停止T06检查点，不进入T07。
+
+## 最终交付落盘
+
+本批实际实施提交：T03=0eee5909fb812b3662fce9390645cee87aca7c9f，T04=92a4248db3bcee4f956e077332b316d5c1aafd45，T05=f921d3e0c84a539ec4737e51d9b8f48a225af529，T06=ac3ed3c6c3ec1daf69862cc96ec5c800005cfe83。
+
+batch-status.json、BATCH_REPORT.md、NEXT_STEPS.md、REVIEW_CHECKPOINT.md 已按本批真实结果更新，替代早期未实施/等待授权的恢复点；历史进度保留。最新 verify exit1 仅 T02-G02 视觉批准门槛，单位30/0/0、浏览器10/0/0、安全2/0/0、规划14/1/0，build 单独 exit0、audit0漏洞。独立审查与真实高缩放仍待，不进入 T07，不推送、不发布、不做真实业务调用。

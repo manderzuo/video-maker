@@ -1,57 +1,149 @@
 {
   "batch": "T01-T06",
   "complete": false,
+  "implementationScopeFinished": false,
+  "formalAcceptanceComplete": false,
   "projectRoot": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
   "branch": "feat/aiwork-studio",
   "baseCommit": "f811447b6867984b66e027de3b6326f479bb0f08",
-  "implementationHeadCommit": "66ceb20400c2b9027383902392b7993d2d99a182",
-  "implementationHeadExplanation": "Known implementation commit before the separately committed evidence handoff; final repository HEAD is obtained by git rev-parse HEAD",
+  "implementationHeadCommit": "ac3ed3c6c3ec1daf69862cc96ec5c800005cfe83",
+  "implementationHeadExplanation": "T06 implementation commit; final evidence handoff has its own local commit. Obtain final HEAD using git rev-parse HEAD.",
   "taskCommits": {
     "T01": "66ceb20400c2b9027383902392b7993d2d99a182",
-    "T02": "31a6a6f62f8a316256844e877a9f6f6f83766af3"
+    "T02": "31a6a6f62f8a316256844e877a9f6f6f83766af3",
+    "T02Typography": "162068ad9292f0865abf65d92531a7dbe97b7ec7",
+    "T03": "0eee5909fb812b3662fce9390645cee87aca7c9f",
+    "T04": "92a4248db3bcee4f956e077332b316d5c1aafd45",
+    "T05": "f921d3e0c84a539ec4737e51d9b8f48a225af529",
+    "T06": "ac3ed3c6c3ec1daf69862cc96ec5c800005cfe83"
   },
   "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "requestedModel": "GPT6.1 sol",
+  "requestedReasoning": "high",
   "remoteConfigured": false,
-  "productCodeImplemented": false,
+  "productCodeImplemented": true,
+  "productScope": "基础启动工程、领域、存储及租约；产品创作页面未实施",
   "sourceSnapshotsVerified": 5,
-  "screenshotCount": 171,
+  "documentScreenshotCount": 171,
+  "runtimeScreenshotCount": 3,
+  "reviewTimingAuthorization": {
+    "userText": "允许实施，开始吧。",
+    "scope": "T03-T06本地实施，独立审查保留到批次检查点"
+  },
+  "typographyApproval": "用户已认可字号；完整关键状态视觉结论仍pending",
+  "independentReviewPerformed": false,
   "tasks": [
     {
       "id": "T01",
-      "status": "自检通过，待审查"
+      "status": "来源与目录冻结，自检通过，待审查"
     },
     {
       "id": "T02",
-      "status": "具体材料已提供，待视觉认可与独立审查；未完成"
+      "status": "材料已提供，字号获认可；完整视觉/独立审查待进行，真实高缩放证据未补齐"
     },
     {
       "id": "T03",
-      "status": "受阻，未开始"
+      "status": "实施完成，自检通过，待独立审查"
     },
     {
       "id": "T04",
-      "status": "受阻，未开始"
+      "status": "实施完成，自检通过，待独立审查"
     },
     {
       "id": "T05",
-      "status": "受阻，未开始"
+      "status": "实施完成，自检通过，待独立审查"
     },
     {
       "id": "T06",
-      "status": "受阻，未开始"
+      "status": "实施完成，自检通过，待独立审查"
     }
   ],
-  "regression": {
-    "command": "node --test tests/planning/*.test.mjs",
-    "exitCode": 1,
-    "passed": 9,
-    "failed": 1,
-    "skipped": 0,
-    "failure": "T02-G02: human/independent approval pending"
-  },
+  "verification": [
+    {
+      "command": "npm ci",
+      "exitCode": 0,
+      "log": "docs/review/logs/T03-ci-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/review/logs/T06-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": "docs/review/logs/T06-lint-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/review/logs/T06-regression-final.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "within": "npm run verify",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/review/logs/BATCH-verify.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "within": "npm run verify",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "negativeProbe": "expected guarded child exit1, verified by outer exit0",
+      "log": "docs/review/logs/BATCH-verify.log"
+    },
+    {
+      "command": "npm run test:trace",
+      "exitCode": 1,
+      "within": "npm run verify",
+      "passed": 14,
+      "failed": 1,
+      "skipped": 0,
+      "failure": "T02-G02: critical-state human visual approval pending",
+      "log": "docs/review/logs/BATCH-verify.log"
+    },
+    {
+      "command": "npm run verify",
+      "exitCode": 1,
+      "failure": "T02-G02 approval pending; build after gate not executed by this chain",
+      "log": "docs/review/logs/BATCH-verify.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "note": "executed separately after verify",
+      "log": "docs/review/logs/BATCH-build.log"
+    },
+    {
+      "command": "npm audit --json",
+      "exitCode": 0,
+      "knownVulnerabilities": 0,
+      "log": "docs/review/logs/BATCH-audit.json"
+    },
+    {
+      "command": "npm run test:live",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 1,
+      "note": "真实接口未验证",
+      "log": "docs/review/logs/T03-live-unverified.log"
+    }
+  ],
   "businessCalls": 0,
   "liveAuthorized": false,
   "pushPerformed": false,
-  "nextTask": "T03 after actual gate release",
-  "resumeDocument": "docs/review/NEXT_STEPS.md"
+  "deployed": false,
+  "nextTask": "等待本批真实审查和用户下一批决定，未进入T07",
+  "resumeDocument": "docs/review/NEXT_STEPS.md",
+  "localFoundationImplementationFinished": true
 }
