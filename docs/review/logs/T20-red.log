@@ -1,0 +1,115 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-drafts.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-drafts.test.ts (7 tests | 7 failed) 25ms
+   × T20-C01: video and image placeholder drafts persist separately, standalone has no fabricated project 13ms
+   × T20: stale revision rejects input overwrite and save cannot erase appended results 2ms
+   × T20-C02/C03: delayed AI output belongs to its original revision, preserving current inputs and prior results 1ms
+   × T20-C04: restoring old result creates manual history, leaves current input and excludes any Key field 1ms
+   × T20-C05: real transaction abort retains prior body and result; no premature saved receipt 2ms
+   × T20: result IDs are immutable and same payload replay is harmless; future revision denied 1ms
+   × T20: PromptRun persists independently with frozen identity and state CAS, never a video Run 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20-C01: video and image placeholder drafts persist separately, standalone has no fabricated project
+AssertionError: expected { status: 'failed', …(1) } to deeply equal { status: 'saved', revision: 1 }
+
+- Expected
++ Received
+
+  {
+-   "revision": 1,
+-   "status": "saved",
++   "code": "not_implemented",
++   "status": "failed",
+  }
+
+ ❯ tests/unit/prompt-drafts.test.ts:14:157
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20: stale revision rejects input overwrite and save cannot erase appended results
+AssertionError: expected { status: 'failed', …(1) } to deeply equal { status: 'saved', revision: 2 }
+
+- Expected
++ Received
+
+  {
+-   "revision": 2,
+-   "status": "saved",
++   "code": "not_implemented",
++   "status": "failed",
+  }
+
+ ❯ tests/unit/prompt-drafts.test.ts:15:280
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20-C02/C03: delayed AI output belongs to its original revision, preserving current inputs and prior results
+TypeError: Cannot read properties of undefined (reading 'userRequest')
+ ❯ tests/unit/prompt-drafts.test.ts:16:692
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20-C04: restoring old result creates manual history, leaves current input and excludes any Key field
+Error: not_implemented
+ ❯ restorePromptResult src/features/prompt-generation/result-versions.ts:4:222
+
+ ❯ tests/unit/prompt-drafts.test.ts:17:285
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20-C05: real transaction abort retains prior body and result; no premature saved receipt
+AssertionError: expected { status: 'failed', …(1) } to deeply equal { status: 'failed', …(1) }
+
+- Expected
++ Received
+
+  {
+-   "code": "storage_quota_exceeded",
++   "code": "not_implemented",
+    "status": "failed",
+  }
+
+ ❯ tests/unit/prompt-drafts.test.ts:18:586
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20: result IDs are immutable and same payload replay is harmless; future revision denied
+AssertionError: Target cannot be null or undefined.
+ ❯ tests/unit/prompt-drafts.test.ts:19:285
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/unit/prompt-drafts.test.ts > T20: PromptRun persists independently with frozen identity and state CAS, never a video Run
+AssertionError: promise resolved "undefined" instead of rejecting
+
+- Expected:
+Error {
+  "message": "rejected promise",
+}
+
++ Received:
+undefined
+
+ ❯ tests/unit/prompt-drafts.test.ts:20:346
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  00:32:17
+   Duration  324ms (transform 71ms, setup 38ms, import 81ms, tests 25ms, environment 0ms)
+

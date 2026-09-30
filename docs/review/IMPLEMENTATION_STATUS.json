@@ -1,5 +1,5 @@
 {
-  "currentTask": "T20",
+  "currentTask": "T21",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -150,18 +150,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T19.json",
-      "headCommit": null,
+      "headCommit": "71dfa607008da39a97cf4cbf4dc05f849eac6fe1",
       "id": "T19",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "约束冲突、引用和分镜总时长校验"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T20.json",
       "headCommit": null,
       "id": "T20",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "执行中",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "提示词草稿、PromptRun与不可变历史"
     },
     {
@@ -169,7 +169,7 @@
       "headCommit": null,
       "id": "T21",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "提示词工作台、侧栏和历史面板"
     },
     {

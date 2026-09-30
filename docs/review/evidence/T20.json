@@ -1,0 +1,59 @@
+{
+  "taskId": "T20",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "71dfa607008da39a97cf4cbf4dc05f849eac6fe1",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/prompt-generation/draft-repository.ts",
+    "src/features/prompt-generation/result-versions.ts",
+    "src/features/prompt-generation/prompt-run-repository.ts",
+    "tests/unit/prompt-drafts.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-drafts.test.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T20-red.log",
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-drafts.test.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T20-green.log",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T20-unit.log",
+      "passed": 136,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T20-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T20-lint.log"
+    }
+  ],
+  "screenshots": [],
+  "limitations": [
+    "单位测试使用fake-indexeddb；真实页面刷新保存/恢复由T21浏览器验收继续验证。",
+    "图片仅保存独立占位草稿，不激活图片编译/生成。",
+    "未进行AI或真实Core调用，PromptRun测试均假绑定和假模型。",
+    "素材引用扫描已有draft与receipt保护；本任务没有绕过它。",
+    "独立审查/统一验收待。"
+  ]
+}

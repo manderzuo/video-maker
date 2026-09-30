@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-drafts.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  00:35:14
+   Duration  406ms (transform 102ms, setup 37ms, import 163ms, tests 34ms, environment 0ms)
+
