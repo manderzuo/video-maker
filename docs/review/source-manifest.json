@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "target": {
+    "relativePath": "TRAEWORK/aiwork-studio",
+    "absolutePath": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+    "authorizedParent": "E:\\trae-studio",
+    "resolvedPathEvidence": "docs/review/workspace-check.md",
+    "writable": true
+  },
+  "model": {
+    "requested": "GPT6.1 sol high",
+    "actual": "由用户在宿主选择，当前工具不可验证",
+    "verified": false
+  },
+  "networkPolicy": "public source downloads only; no Core/gateway/model business calls",
+  "remote": null,
+  "sources": [
+    {
+      "repository": "basketikun/infinite-canvas",
+      "url": "https://github.com/basketikun/infinite-canvas/tree/dab19adc0847e32e39b7fc8ff90cb392561fb826",
+      "commit": "dab19adc0847e32e39b7fc8ff90cb392561fb826",
+      "actualCommit": "dab19adc0847e32e39b7fc8ff90cb392561fb826",
+      "snapshotPath": "E:\\trae-studio\\sources\\infinite-canvas-dab19ad",
+      "snapshotRelativePath": "../../sources/infinite-canvas-dab19ad",
+      "snapshotStatus": "verified",
+      "workingTreeClean": true,
+      "readOnlyAccessPolicy": true,
+      "productCodeMigrated": false,
+      "reuseDisposition": "canvas algorithms only; UI/providers/storage/remote plugins excluded",
+      "license": {
+        "status": "license-text-retained",
+        "evidencePaths": [
+          "E:\\trae-studio\\sources\\infinite-canvas-dab19ad\\README.md",
+          "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\third-party\\licenses\\infinite-canvas..agents_skills_frontend-design_LICENSE.txt",
+          "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\third-party\\licenses\\infinite-canvas.LICENSE",
+          "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\third-party\\licenses\\infinite-canvas.docs_content_docs_business_license.mdx",
+          "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\third-party\\licenses\\infinite-canvas.docs_content_docs_business_license.zh-CN.mdx"
+        ],
+        "frontendMarkReleaseGate": "unresolved"
+      },
+      "trackedFileCount": 502,
+      "pathInventory": "docs/review/sources/infinite-canvas.paths.txt",
+      "fullStaticScan": "not performed",
+      "upstreamBuild": "not performed",
+      "upstreamTests": "not performed"
+    },
+    {
+      "repository": "manderzuo/Trae-core",
+      "url": "https://github.com/manderzuo/Trae-core/tree/c056dffc41c701fb1b78a84c18c2ec139d3d708b",
+      "commit": "c056dffc41c701fb1b78a84c18c2ec139d3d708b",
+      "actualCommit": "c056dffc41c701fb1b78a84c18c2ec139d3d708b",
+      "snapshotPath": "E:\\trae-studio\\sources\\Trae-core-c056dff",
+      "snapshotRelativePath": "../../sources/Trae-core-c056dff",
+      "snapshotStatus": "verified",
+      "workingTreeClean": true,
+      "readOnlyAccessPolicy": true,
+      "productCodeMigrated": false,
+      "reuseDisposition": "public contract reference only; finance/admin/internal bridge excluded",
+      "license": {
+        "status": "not-found-permission-unresolved",
+        "evidencePaths": [
+          "E:\\trae-studio\\sources\\Trae-core-c056dff\\README.md"
+        ],
+        "frontendMarkReleaseGate": "not-applicable"
+      },
+      "trackedFileCount": 191,
+      "pathInventory": "docs/review/sources/Trae-core.paths.txt",
+      "fullStaticScan": "not performed",
+      "upstreamBuild": "not performed",
+      "upstreamTests": "not performed"
+    },
+    {
+      "repository": "manderzuo/trae-maker",
+      "url": "https://github.com/manderzuo/trae-maker/tree/d97904db990485072d50a9065ed9dca58e222b0c",
+      "commit": "d97904db990485072d50a9065ed9dca58e222b0c",
+      "actualCommit": "d97904db990485072d50a9065ed9dca58e222b0c",
+      "snapshotPath": "E:\\trae-studio\\sources\\trae-maker-d97904d",
+      "snapshotRelativePath": "../../sources/trae-maker-d97904d",
+      "snapshotStatus": "verified",
+      "workingTreeClean": true,
+      "readOnlyAccessPolicy": true,
+      "productCodeMigrated": false,
+      "reuseDisposition": "execution boundary reference only; no Electron/Tauri/account/UI migration",
+      "license": {
+        "status": "not-found-permission-unresolved",
+        "evidencePaths": [
+          "E:\\trae-studio\\sources\\trae-maker-d97904d\\README.md"
+        ],
+        "frontendMarkReleaseGate": "not-applicable"
+      },
+      "trackedFileCount": 422,
+      "pathInventory": "docs/review/sources/trae-maker.paths.txt",
+      "fullStaticScan": "not performed",
+      "upstreamBuild": "not performed",
+      "upstreamTests": "not performed"
+    },
+    {
+      "repository": "manderzuo/trae-maker-MCP",
+      "url": "https://github.com/manderzuo/trae-maker-MCP/tree/9e7d5c8f249bfc65265c9f90260cd1e350280557",
+      "commit": "9e7d5c8f249bfc65265c9f90260cd1e350280557",
+      "actualCommit": "9e7d5c8f249bfc65265c9f90260cd1e350280557",
+      "snapshotPath": "E:\\trae-studio\\sources\\trae-maker-MCP-9e7d5c8",
+      "snapshotRelativePath": "../../sources/trae-maker-MCP-9e7d5c8",
+      "snapshotStatus": "verified",
+      "workingTreeClean": true,
+      "readOnlyAccessPolicy": true,
+      "productCodeMigrated": false,
+      "reuseDisposition": "protocol semantics reference only; no DPAPI configuration or credential access",
+      "license": {
+        "status": "not-found-permission-unresolved",
+        "evidencePaths": [
+          "E:\\trae-studio\\sources\\trae-maker-MCP-9e7d5c8\\README.md"
+        ],
+        "frontendMarkReleaseGate": "not-applicable"
+      },
+      "trackedFileCount": 16,
+      "pathInventory": "docs/review/sources/trae-maker-MCP.paths.txt",
+      "fullStaticScan": "not performed",
+      "upstreamBuild": "not performed",
+      "upstreamTests": "not performed"
+    },
+    {
+      "repository": "manderzuo/prompt-for-seedance-gptimage2.5",
+      "url": "https://github.com/manderzuo/prompt-for-seedance-gptimage2.5/tree/d8ba7c104ba7c24e3d28b0c3bede8764544bea8b",
+      "commit": "d8ba7c104ba7c24e3d28b0c3bede8764544bea8b",
+      "actualCommit": "d8ba7c104ba7c24e3d28b0c3bede8764544bea8b",
+      "snapshotPath": "E:\\trae-studio\\sources\\prompt-for-seedance-gptimage2.5-d8ba7c1",
+      "snapshotRelativePath": "../../sources/prompt-for-seedance-gptimage2.5-d8ba7c1",
+      "snapshotStatus": "verified",
+      "workingTreeClean": true,
+      "readOnlyAccessPolicy": true,
+      "productCodeMigrated": false,
+      "reuseDisposition": "video pure rules candidate; no Electron IPC/http/gallery/payment/image compiler",
+      "license": {
+        "status": "license-text-retained",
+        "evidencePaths": [
+          "E:\\trae-studio\\sources\\prompt-for-seedance-gptimage2.5-d8ba7c1\\README.md",
+          "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\third-party\\licenses\\prompt-for-seedance-gptimage2.5.LICENSE"
+        ],
+        "frontendMarkReleaseGate": "not-applicable"
+      },
+      "trackedFileCount": 723,
+      "pathInventory": "docs/review/sources/prompt-for-seedance-gptimage2.5.paths.txt",
+      "fullStaticScan": "not performed",
+      "upstreamBuild": "not performed",
+      "upstreamTests": "not performed"
+    }
+  ]
+}

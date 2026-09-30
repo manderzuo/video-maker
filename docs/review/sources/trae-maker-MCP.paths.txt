@@ -1,0 +1,16 @@
+.gitignore
+README.md
+skills/aiwork-seedance/SKILL.md
+skills/aiwork-seedance/install.cmd
+skills/aiwork-seedance/mcp/README.md
+skills/aiwork-seedance/mcp/fake-gateway.mjs
+skills/aiwork-seedance/mcp/gateway-config-test.mjs
+skills/aiwork-seedance/mcp/integration-test.mjs
+skills/aiwork-seedance/mcp/server.mjs
+skills/aiwork-seedance/mcp/smoke-test.mjs
+skills/aiwork-seedance/references/api.md
+skills/aiwork-seedance/references/setup.md
+skills/aiwork-seedance/scripts/aiwork-seedance.ps1
+skills/aiwork-seedance/scripts/gateway-config.ps1
+skills/aiwork-seedance/scripts/install.ps1
+tests/test_download.py
