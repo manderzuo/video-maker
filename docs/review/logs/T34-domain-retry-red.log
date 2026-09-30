@@ -1,0 +1,37 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/task-records.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/task-records.test.ts (4 tests | 1 failed) 238ms
+   × T34: retrying query failures uses original real HTTP task identity; no text, unknown submit, or confirmed-generation failure is resubmitted 137ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/task-records.test.ts > T34: retrying query failures uses original real HTTP task identity; no text, unknown submit, or confirmed-generation failure is resubmitted
+AssertionError: expected { Object (completed, skipped, ...) } to deeply equal { Object (completed, skipped, ...) }
+
+- Expected
++ Received
+
+  {
+-   "completed": 1,
+-   "failed": 0,
++   "completed": 0,
++   "failed": 1,
+    "skipped": 2,
+  }
+
+ ❯ tests/unit/task-records.test.ts:9:698
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  06:23:34
+   Duration  869ms (transform 297ms, setup 44ms, import 409ms, tests 238ms, environment 0ms)
+

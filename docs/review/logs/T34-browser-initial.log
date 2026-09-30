@@ -1,0 +1,54 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/task-center.spec.ts
+
+[WebServer] (node:3268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\task-center.spec.ts:5:1 › T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering (3.7s)
+(node:9276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\task-center.spec.ts:6:1 › T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus (1.3s)
+  ok 3 tests\e2e\task-center.spec.ts:7:1 › T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry (1.2s)
+  ok 4 tests\e2e\task-center.spec.ts:8:1 › T34-C06: local completed archive hides presentation but never removes Run or unknown history (986ms)
+  ok 5 tests\e2e\task-center.spec.ts:9:1 › T34 CSV: actual native export prevents title formula injection and omits request body and ordinary Key (1.0s)
+  ok 6 tests\e2e\task-center.spec.ts:10:1 › T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh (1.9s)
+
+
+  1) tests\e2e\task-center.spec.ts:5:1 › T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering 
+
+    TimeoutError: locator.selectOption: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('执行状态筛选', { exact: true })[22m
+
+
+      3 | test.use({actionTimeout:2500,launchOptions:{downloadsPath:resolve('E:/trae-studio/tools/temp/playwright-downloads/tasks')}});
+      4 | test.beforeEach(async({page})=>{await page.goto('/tasks');await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';await(await import(path)).seedTaskHistory();});await page.reload();});
+    > 5 | test('T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering',async({page,networkCounter})=>{await expect(page.getByText('仅此浏览器创建或导入的任务记录，范围不包含全部 Core 历史。',{exact:true})).toBeVisible();await expect(page.getByTestId('video-run-1')).toBeVisible();await page.getByRole('button',{name:'文字优化',exact:true}).click();await expect(page.getByTestId('prompt-run-1')).toBeVisible();await expect(page.getByTestId('video-run-1')).toHaveCount(0);await page.getByRole('button',{name:'视频任务',exact:true}).click();await page.getByLabel('执行状态筛选',{exact:true}).selectOption('submit_unknown');await expect(page.getByTestId('video-run-unknown')).toBeVisible();await expect(page.getByTestId('video-run-1')).toHaveCount(0);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+      6 | test('T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus',async({page,networkCounter})=>{const trigger=page.getByTestId('video-run-completed').getByRole('button',{name:'详情',exact:true});await trigger.click();const dialog=page.getByRole('dialog',{name:'任务详情',exact:true});await expect(dialog).toContainText('视频已完成');await expect(dialog).toContainText('账务未提供');await expect(dialog.getByRole('button',{name:'定位原节点',exact:true})).toBeDisabled();await expect(dialog).toContainText('mock-core-1');await expect(dialog).toContainText('core-original-1');await dialog.getByText('技术详情',{exact:true}).click();await expect(dialog).toContainText('cached_local');await page.screenshot({path:'docs/review/screenshots/T34-task-detail.png'});await page.keyboard.press('Escape');await expect(trigger).toBeFocused();expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      7 | test('T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry',async({page,networkCounter})=>{await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';(await import(path)).connectTaskHistory();});await page.route('**/core-api/v1/videos/mock-core-1',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({task:{id:'mock-core-1',status:'completed'},request_id:'different-query-request'})}));for(const id of ['video-run-1','video-run-foreign','video-run-unknown'])await page.getByTestId(id).getByRole('checkbox').check();await page.getByRole('button',{name:'刷新所选已知任务',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'查询完成 1，跳过 2'})).toBeVisible();const state=await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';return(await import(path)).taskHistoryState();});expect(state.runs.find((r:{id:string})=>r.id==='video-run-1')).toMatchObject({executionState:'succeeded',coreRequestId:'core-original-1',billingState:'not_provided'});expect(state.runs.find((r:{id:string})=>r.id==='video-run-unknown').executionState).toBe('submit_unknown');expect(networkCounter.requests.filter(r=>r.url.endsWith('/v1/videos/mock-core-1'))).toHaveLength(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      8 | test('T34-C06: local completed archive hides presentation but never removes Run or unknown history',async({page,networkCounter})=>{await page.getByTestId('video-run-completed').getByRole('button',{name:'归档记录',exact:true}).click();await expect(page.getByTestId('video-run-completed')).toHaveCount(0);await page.getByLabel('显示归档记录',{exact:true}).check();await expect(page.getByTestId('video-run-completed')).toBeVisible();await expect(page.getByTestId('video-run-unknown').getByRole('button',{name:'归档记录',exact:true})).toBeDisabled();const state=await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';return(await import(path)).taskHistoryState();});expect(state.runs).toHaveLength(4);expect(state.runs.find((r:{id:string})=>r.id==='video-run-foreign').executionState).toBe('running');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\task-center.spec.ts:5:596
+
+    Error Context: test-results\task-center-T34-C01-C02-lo-bcaef-aim-or-request-on-filtering\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\task-center-T34-C01-C02-lo-bcaef-aim-or-request-on-filtering\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\task-center-T34-C01-C02-lo-bcaef-aim-or-request-on-filtering\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\task-center.spec.ts:5:1 › T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering 
+  5 passed (14.4s)

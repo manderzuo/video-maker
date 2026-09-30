@@ -1,0 +1,13 @@
+[WebServer] (node:23464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:20288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\task-center.spec.ts:5:1 › T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering (1.2s)
+  ok 2 tests\e2e\task-center.spec.ts:10:1 › T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh (1.9s)
+
+  2 passed (5.9s)

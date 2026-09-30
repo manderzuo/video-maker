@@ -27,6 +27,7 @@ import {AssetNode} from './nodes/AssetNode';
 import {VideoNode} from './nodes/VideoNode';
 import {ResultNode} from './nodes/ResultNode';
 import {GroupNode} from './nodes/GroupNode';
+import {TaskDrawer} from '../tasks/TaskDrawer';
 import {validateConnection} from '../../domain/graph-validation';
 import {NodeMenu,type NodeMenuHandle,type CreativeCommandOptions} from './NodeMenu';
 import {prepareCanvasFiles,assetNodeTitle} from '../assets/canvas-import';
@@ -144,7 +145,7 @@ export function CanvasPage({projectId}:{projectId:string}){
  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
  <Dialog open={!!preflightIssues.length} title="输入无效清单" onClose={()=>setPreflightIssues([])} footer={<Button onClick={()=>setPreflightIssues([])}>关闭</Button>}><p>以下问题解决前无法生成；预检不会上传或收费。</p><ul>{preflightIssues.map((issue,index)=><li key={index}>{issue.message}{graph.nodes.some(n=>n.id===issue.path)?<Button onClick={()=>{locate([issue.path]);setSelected([issue.path]);setPreflightIssues([]);}}>定位问题节点</Button>:null}</li>)}</ul></Dialog>
  {generatorDraftId?<PromptGeneratorPanel draftId={generatorDraftId} source={generatorSource} onCanvasCommit={async input=>{if(input.targetProjectId!==projectId)return applyPromptToCanvas(input);if(dirty.current||busy.current||!leaseRef.current)return {id:input.commandId,status:'rejected',errorCode:'project_writer_or_unsaved_changes'};busy.current=true;try{const receipt=await applyPromptToCanvas(input,{lease:leaseRef.current,capability});await finish(receipt);return receipt;}finally{busy.current=false;}}} onClose={()=>setGeneratorDraftId(undefined)}/>:null}
- </section>;
+ <TaskDrawer projectId={projectId}/></section>;
 }
 
 
