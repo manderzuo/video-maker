@@ -1,0 +1,182 @@
+{
+  "taskId": "T17",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "fa52669a25146d2823cf64ce253c6a3a6ae9ecf7",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/prompts/PromptsPage.tsx",
+    "src/features/prompts/PromptEditor.tsx",
+    "src/features/prompts/prompt-library.ts",
+    "src/features/prompts/TemplateVariables.tsx",
+    "src/features/prompts/prompt-search.ts",
+    "src/domain/graph.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/nodes/TextNode.tsx",
+    "src/app/App.tsx",
+    "src/app/routes.tsx",
+    "src/ui/tokens.css",
+    "tests/e2e/prompt-library.spec.ts",
+    "tests/e2e/prompt-download.spec.ts",
+    "tests/unit/prompt-library.test.ts",
+    "tests/fixtures/prompt-library.ts",
+    "tests/e2e/asset-download.spec.ts",
+    "tests/e2e/lease.spec.ts",
+    "tests/helpers/network-policy.mjs",
+    "tests/security/network-policy.test.ts",
+    "playwright.config.ts",
+    "scripts/use-local-toolchain.ps1",
+    "scripts/report-test-browser.mjs"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-library.spec.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T17-red.log",
+      "note": "语法错误未运行，不算行为红灯"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-library.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-behavior-red.log",
+      "note": "真实行为红灯"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-library.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-boundary-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-library.spec.ts -g 'nested navigation|source preferences|editor:'",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-guards-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-library.spec.ts -g 'delete impact'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-delete-impact-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-library.spec.ts -g 'P05:'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-inspector-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/security/network-policy.test.ts",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-local-blob-red.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 1,
+      "passed": 81,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-e2e-final.log",
+      "note": "Chromium，实际JSON下载取消；非绿灯"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 1,
+      "passed": 81,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-e2e-delivery-final.log",
+      "note": "下载已修复，旧租约夹具未等待异步window初始化；修复等待真实writer epoch，不降断言"
+    },
+    {
+      "command": "STUDIO_TEST_BROWSER=chromium npm run test:e2e -- tests/e2e/prompt-library.spec.ts tests/e2e/prompt-download.spec.ts tests/e2e/lease.spec.ts",
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-inspector-and-lease-final.log"
+    },
+    {
+      "command": "STUDIO_TEST_BROWSER=chromium npm run test:e2e",
+      "exitCode": 0,
+      "passed": 83,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-e2e-complete.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-unit-final.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T17-security-final.log",
+      "note": "额外真实公网负例被guard拒绝，内层exit1由外层核验后exit0"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T17-typecheck-inspector.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T17-lint-inspector.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T17-build-inspector.log"
+    },
+    {
+      "command": "STUDIO_TEST_BROWSER=chromium node scripts/report-test-browser.mjs",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T17-browser-version.log",
+      "note": "Node22.23.3/Playwright1.58.2/Chromium145.0.7632.6真实启动核验"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T17-prompt-library.png",
+    "docs/review/screenshots/T17-prompt-inspector.png"
+  ],
+  "businessCalls": 0,
+  "rulings": [
+    "P05分类200px/中部本地卡片/420px详情；编辑走D09。300ms本地搜索、标签、收藏、修订保存、软删除恢复、来源管理与导入预览均接入真实存储。",
+    "模板填值缺失/重复/空正文/超64KiB阻断，值按字面文本插入；同名JSON导入新ID，保留来源许可，不执行HTML/脚本。JSON传输16MiB预算；每条文本64KiB。",
+    "提示词revision CAS保留版本，原插入节点保存entryId/revision/source/license快照；插入/差异确认应用都走统一命令，不创建Run/授权。软删除显示已插入副本位置并保留正文。",
+    "T05当前文本入库不清除画布保存状态，T06只转PG入口。嵌套编辑器通过组合navigation guard恢复画布保护；来源停用在刷新后读取实际记录。",
+    "Windows测试下载路径经node:path.resolve规范化；实际JSON文件与PNG原字节验证通过，app只报告浏览器触发。诊断曾证明所有mime取消，规范化后全部failure:null；临时诊断源已移除、日志保留，不计入验收用例。",
+    "测试网络只新增允许当前精确来源的blob资源；跨来源blob/公网/外端口仍拒绝。测试浏览器缓存全在E；默认Edge仍可用，显式环境参数选择已核验Chromium。"
+  ],
+  "knownLimitations": [
+    "源码中PG入口已指向单一未来生成页；规则和生成页从T18继续，本任务没有第二套AI润色逻辑。",
+    "当前来源缓存管理仅本地记录；没有自动远端源下载、Core读取或费用调用。来源与许可保留不代表已核验合法权利。",
+    "用户视觉、物理IME/跨文档关闭/密集编辑与BFCache、独立审查继续待T45及统一验收。",
+    "原安装命令退出码因会话进程回执丢失未知；日志证明主Chromium与FFmpeg下载成功，headless-shell停在40%。主Chromium已真实启动并通过83回归，未把全安装命令宣称完成。",
+    "完整verify仍保留T02-G02未审批门槛；没有解除许可或真实Core验证门槛。"
+  ]
+}

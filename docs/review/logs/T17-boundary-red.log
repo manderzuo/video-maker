@@ -1,0 +1,47 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-library.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-library.test.ts (5 tests | 2 failed) 26ms
+   × T17 empty template bodies are rejected before copy or insertion 7ms
+   × T17 duplicate variable declarations are invalid rather than silently collapsed 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-library.test.ts > T17 empty template bodies are rejected before copy or insertion
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/prompt-library.test.ts:10:133
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/prompt-library.test.ts > T17 duplicate variable declarations are invalid rather than silently collapsed
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/prompt-library.test.ts:11:158
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 3 passed (5)
+   Start at  23:32:17
+   Duration  607ms (transform 208ms, setup 49ms, import 321ms, tests 26ms, environment 0ms)
+

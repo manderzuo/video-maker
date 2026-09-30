@@ -1,0 +1,95 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-library.spec.ts -g nested navigation|source preferences|editor:
+
+[WebServer] (node:5452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:21200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-library.spec.ts:2:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard (6.5s)
+(node:22336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\prompt-library.spec.ts:3:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries (6.4s)
+(node:21968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\prompt-library.spec.ts:4:1 › T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard (1.3s)
+
+
+  1) tests\e2e\prompt-library.spec.ts:2:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '离开前保存' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '离开前保存' })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard',async({page})=>{await page.goto('/projects/p1/canvas');await page.getByTestId('node-text-1').getByRole('button',{name:'保存为提示词',exact:true}).click();await page.getByRole('dialog',{name:'编辑提示词'}).getByRole('button',{name:'取消',exact:true}).click();await page.getByTestId('node-text-1').getByLabel('节点文本',{exact:true}).fill('中'.repeat(21846));await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      3 | test('T17 source preferences: disable survives refresh and removing source cache preserves user entries',async({page})=>{await page.getByRole('button',{name:'来源管理',exact:true}).click();const dialog=page.getByRole('dialog',{name:'提示词来源'});await dialog.getByRole('button',{name:'停用来源',exact:true}).first().click();await expect(dialog.getByText('来源已停用',{exact:true})).toBeVisible();await page.reload();await page.getByRole('button',{name:'来源管理',exact:true}).click();await expect(page.getByRole('dialog',{name:'提示词来源'}).getByText('来源已停用',{exact:true})).toBeVisible();const before=await stored(page);await page.getByRole('dialog',{name:'提示词来源'}).getByRole('button',{name:'移除来源缓存',exact:true}).first().click();expect((await stored(page)).prompts).toEqual(before.prompts);});
+      4 | test('T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard',async({page})=>{await page.getByRole('button',{name:'新建提示词',exact:true}).click();const editor=page.getByRole('dialog',{name:'编辑提示词'});await editor.getByLabel('提示词正文',{exact:true}).fill('还没有保存');await editor.getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('dialog',{name:'放弃未保存提示词修改'}).getByRole('button',{name:'继续编辑',exact:true}).click();await expect(editor.getByLabel('提示词正文',{exact:true})).toHaveValue('还没有保存');await editor.getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('dialog',{name:'放弃未保存提示词修改'}).getByRole('button',{name:'确认放弃修改',exact:true}).click();await page.getByRole('button',{name:'复制 品牌模板',exact:true}).click();const template=page.getByRole('dialog',{name:'填写模板变量'});await template.getByLabel('变量 人物',{exact:true}).fill('<script>不执行</script>');await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw new DOMException('denied','NotAllowedError');}}});});await template.getByRole('button',{name:'复制最终提示词',exact:true}).click();await expect(template.getByRole('status')).toContainText('权限被拒绝');await expect(template.getByLabel('最终提示词',{exact:true})).toHaveValue('<script>不执行</script>展示康济健葆，保持不切镜。');expect((await stored(page)).prompts).toHaveLength(2);});
+      5 | const stored=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const url='/tests/fixtures/prompt-library.ts';return(await import(url)).promptState();});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:2:555
+
+    Error Context: test-results\prompt-library-T17-nested--1cc5c-s-invalid-draft-leave-guard\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-nested--1cc5c-s-invalid-draft-leave-guard\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-nested--1cc5c-s-invalid-draft-leave-guard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\prompt-library.spec.ts:3:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '提示词来源' }).getByText('来源已停用', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '提示词来源' }).getByText('来源已停用', { exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test('T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard',async({page})=>{await page.goto('/projects/p1/canvas');await page.getByTestId('node-text-1').getByRole('button',{name:'保存为提示词',exact:true}).click();await page.getByRole('dialog',{name:'编辑提示词'}).getByRole('button',{name:'取消',exact:true}).click();await page.getByTestId('node-text-1').getByLabel('节点文本',{exact:true}).fill('中'.repeat(21846));await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');});
+    > 3 | test('T17 source preferences: disable survives refresh and removing source cache preserves user entries',async({page})=>{await page.getByRole('button',{name:'来源管理',exact:true}).click();const dialog=page.getByRole('dialog',{name:'提示词来源'});await dialog.getByRole('button',{name:'停用来源',exact:true}).first().click();await expect(dialog.getByText('来源已停用',{exact:true})).toBeVisible();await page.reload();await page.getByRole('button',{name:'来源管理',exact:true}).click();await expect(page.getByRole('dialog',{name:'提示词来源'}).getByText('来源已停用',{exact:true})).toBeVisible();const before=await stored(page);await page.getByRole('dialog',{name:'提示词来源'}).getByRole('button',{name:'移除来源缓存',exact:true}).first().click();expect((await stored(page)).prompts).toEqual(before.prompts);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^
+      4 | test('T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard',async({page})=>{await page.getByRole('button',{name:'新建提示词',exact:true}).click();const editor=page.getByRole('dialog',{name:'编辑提示词'});await editor.getByLabel('提示词正文',{exact:true}).fill('还没有保存');await editor.getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('dialog',{name:'放弃未保存提示词修改'}).getByRole('button',{name:'继续编辑',exact:true}).click();await expect(editor.getByLabel('提示词正文',{exact:true})).toHaveValue('还没有保存');await editor.getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('dialog',{name:'放弃未保存提示词修改'}).getByRole('button',{name:'确认放弃修改',exact:true}).click();await page.getByRole('button',{name:'复制 品牌模板',exact:true}).click();const template=page.getByRole('dialog',{name:'填写模板变量'});await template.getByLabel('变量 人物',{exact:true}).fill('<script>不执行</script>');await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw new DOMException('denied','NotAllowedError');}}});});await template.getByRole('button',{name:'复制最终提示词',exact:true}).click();await expect(template.getByRole('status')).toContainText('权限被拒绝');await expect(template.getByLabel('最终提示词',{exact:true})).toHaveValue('<script>不执行</script>展示康济健葆，保持不切镜。');expect((await stored(page)).prompts).toHaveLength(2);});
+      5 | const stored=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const url='/tests/fixtures/prompt-library.ts';return(await import(url)).promptState();});
+      6 | test.beforeEach(async({page})=>{await page.goto('/prompts');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-library.ts';await(await import(url)).seedPromptLibrary();});await page.reload();});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:3:550
+
+    Error Context: test-results\prompt-library-T17-source--6667b-ache-preserves-user-entries\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-source--6667b-ache-preserves-user-entries\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-source--6667b-ache-preserves-user-entries\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\prompt-library.spec.ts:2:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard 
+    tests\e2e\prompt-library.spec.ts:3:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries 
+  1 passed (20.4s)

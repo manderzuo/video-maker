@@ -1,0 +1,32 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/security/network-policy.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/security/network-policy.test.ts (3 tests | 1 failed) 11ms
+   × permits current-origin local blob resources while rejecting foreign or disguised blob origins 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/security/network-policy.test.ts > permits current-origin local blob resources while rejecting foreign or disguised blob origins
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/security/network-policy.test.ts:4:219
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  23:52:24
+   Duration  418ms (transform 50ms, setup 51ms, import 22ms, tests 11ms, environment 0ms)
+

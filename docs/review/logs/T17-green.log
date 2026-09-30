@@ -1,0 +1,127 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-library.spec.ts
+
+[WebServer] (node:10048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:20640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-library.spec.ts:4:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node (6.0s)
+(node:5608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\prompt-library.spec.ts:5:1 › T17-C04: create validates tag lengths/count and persists only after explicit save (1.5s)
+  ok 3 tests\e2e\prompt-library.spec.ts:6:1 › T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source (827ms)
+  ok 4 tests\e2e\prompt-library.spec.ts:7:1 › T17-C06/L05: local debounced search and source management do not automatically load remote sources (1.3s)
+  x  5 tests\e2e\prompt-library.spec.ts:8:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data (30.1s)
+(node:8712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  6 tests\e2e\prompt-library.spec.ts:9:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating (6.4s)
+
+
+  1) tests\e2e\prompt-library.spec.ts:4:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveValue[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '填写模板变量' }).getByLabel('最终提示词', { exact: true })
+    Expected: [32m"1位人物展示康济健葆，保持不切镜。"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveValue" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '填写模板变量' }).getByLabel('最终提示词', { exact: true })[22m
+
+
+      2 | const stored=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const url='/tests/fixtures/prompt-library.ts';return(await import(url)).promptState();});
+      3 | test.beforeEach(async({page})=>{await page.goto('/prompts');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-library.ts';await(await import(url)).seedPromptLibrary();});await page.reload();});
+    > 4 | test('T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node',async({page,networkCounter})=>{await page.getByRole('button',{name:'复制 品牌模板',exact:true}).click();const dialog=page.getByRole('dialog',{name:'填写模板变量'});await expect(dialog.getByRole('button',{name:'复制最终提示词',exact:true})).toBeDisabled();await dialog.getByLabel('变量 人物',{exact:true}).fill('1位人物');await expect(dialog.getByLabel('最终提示词',{exact:true})).toHaveValue('1位人物展示康济健葆，保持不切镜。');await dialog.getByRole('button',{name:'插入画布',exact:true}).click();await page.getByRole('dialog',{name:'选择提示词目标'}).getByRole('button',{name:'插入 提示词项目',exact:true}).click();await expect.poll(async()=>(await stored(page)).graph.nodes.length).toBe(2);const state=await stored(page),node=state.graph.nodes.find((n:{id:string})=>n.id!=='text-1');expect(node.data.text).toBe('1位人物展示康济健葆，保持不切镜。');expect(node.data.promptLibrarySource).toMatchObject({entryId:'template',revision:1,source:'用户提供的测试来源',license:'测试授权说明'});expect(state.runs).toEqual([]);expect(state.prompts.find((p:{id:string})=>p.id==='template').body).toContain('{{人物}}');expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^
+      5 | test('T17-C04: create validates tag lengths/count and persists only after explicit save',async({page})=>{await page.getByRole('button',{name:'新建提示词',exact:true}).click();const dialog=page.getByRole('dialog',{name:'编辑提示词'});await dialog.getByLabel('提示词名称',{exact:true}).fill('新提示词');await dialog.getByLabel('提示词正文',{exact:true}).fill('中文原稿');await dialog.getByLabel('提示词标签',{exact:true}).fill('x'.repeat(25));await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect(dialog.getByRole('alert')).toBeVisible();expect((await stored(page)).prompts).toHaveLength(2);await dialog.getByLabel('提示词标签',{exact:true}).fill(Array.from({length:11},(_,i)=>'标签'+i).join(','));await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();expect((await stored(page)).prompts).toHaveLength(2);await dialog.getByLabel('提示词标签',{exact:true}).fill('中文,视频');await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect(page.getByRole('button',{name:'详情 新提示词',exact:true})).toBeVisible();await page.reload();await expect(page.getByRole('button',{name:'详情 新提示词',exact:true})).toBeVisible();});
+      6 | test('T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source',async({page})=>{const before=await stored(page),entry={title:'品牌模板',body:'导入的新原稿',tags:['导入'],variables:[],source:'https://source.invalid/example',license:'原许可'};await page.getByLabel('导入提示词JSON',{exact:true}).setInputFiles({name:'提示词.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,entries:[entry]}))});const dialog=page.getByRole('dialog',{name:'确认导入提示词'});await expect(dialog).toContainText('https://source.invalid/example');expect((await stored(page)).prompts).toHaveLength(2);await dialog.getByRole('button',{name:'另存导入条目',exact:true}).click();await expect.poll(async()=>(await stored(page)).prompts.length).toBe(3);const after=await stored(page);expect(after.prompts.filter((p:{title:string})=>p.title==='品牌模板')).toHaveLength(2);expect(after.prompts.find((p:{body:string})=>p.body==='导入的新原稿')).toMatchObject({source:entry.source,license:entry.license,revision:1});expect(after.prompts.find((p:{id:string})=>p.id==='template')).toEqual(before.prompts.find((p:{id:string})=>p.id==='template'));});
+      7 | test('T17-C06/L05: local debounced search and source management do not automatically load remote sources',async({page,networkCounter})=>{await page.getByLabel('搜索提示词',{exact:true}).fill('康济健葆');await expect(page.locator('[data-testid="prompt-entry"]')).toHaveCount(1);await page.getByRole('button',{name:'来源管理',exact:true}).click();await expect(page.getByRole('dialog',{name:'提示词来源'})).toContainText('没有自动加载远端来源');expect(networkCounter.requests.filter(r=>r.url.includes('source.invalid'))).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T17-prompt-library.png',fullPage:true});});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:4:466
+
+    Error Context: test-results\prompt-library-T17-C01-C02-51827-source-attributed-text-node\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-C01-C02-51827-source-attributed-text-node\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-C01-C02-51827-source-attributed-text-node\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\prompt-library.spec.ts:8:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '编辑提示词' }).getByLabel('提示词正文', { exact: true })[22m
+
+
+       6 | test('T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source',async({page})=>{const before=await stored(page),entry={title:'品牌模板',body:'导入的新原稿',tags:['导入'],variables:[],source:'https://source.invalid/example',license:'原许可'};await page.getByLabel('导入提示词JSON',{exact:true}).setInputFiles({name:'提示词.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,entries:[entry]}))});const dialog=page.getByRole('dialog',{name:'确认导入提示词'});await expect(dialog).toContainText('https://source.invalid/example');expect((await stored(page)).prompts).toHaveLength(2);await dialog.getByRole('button',{name:'另存导入条目',exact:true}).click();await expect.poll(async()=>(await stored(page)).prompts.length).toBe(3);const after=await stored(page);expect(after.prompts.filter((p:{title:string})=>p.title==='品牌模板')).toHaveLength(2);expect(after.prompts.find((p:{body:string})=>p.body==='导入的新原稿')).toMatchObject({source:entry.source,license:entry.license,revision:1});expect(after.prompts.find((p:{id:string})=>p.id==='template')).toEqual(before.prompts.find((p:{id:string})=>p.id==='template'));});
+       7 | test('T17-C06/L05: local debounced search and source management do not automatically load remote sources',async({page,networkCounter})=>{await page.getByLabel('搜索提示词',{exact:true}).fill('康济健葆');await expect(page.locator('[data-testid="prompt-entry"]')).toHaveCount(1);await page.getByRole('button',{name:'来源管理',exact:true}).click();await expect(page.getByRole('dialog',{name:'提示词来源'})).toContainText('没有自动加载远端来源');expect(networkCounter.requests.filter(r=>r.url.includes('source.invalid'))).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T17-prompt-library.png',fullPage:true});});
+    >  8 | test('T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data',async({page})=>{await page.getByRole('button',{name:'收藏 本地示例',exact:true}).click();await expect(page.getByRole('button',{name:'取消收藏 本地示例',exact:true})).toBeVisible();await page.getByRole('button',{name:'编辑 本地示例',exact:true}).click();const dialog=page.getByRole('dialog',{name:'编辑提示词'});await dialog.getByLabel('提示词正文',{exact:true}).fill('新正文');await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect.poll(async()=>(await stored(page)).prompts.find((p:{id:string})=>p.id==='plain').body).toBe('新正文');await page.getByRole('button',{name:'删除 本地示例',exact:true}).click();await page.getByRole('dialog',{name:'删除提示词'}).getByRole('button',{name:'确认软删除',exact:true}).click();await page.getByRole('combobox',{name:'提示词范围',exact:true}).selectOption('trash');await page.getByRole('button',{name:'恢复 本地示例',exact:true}).click();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');expect((await stored(page)).prompts.find((p:{id:string})=>p.id==='plain').trashed).toBe(false);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+       9 | test('T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByTestId('node-text-1').getByRole('button',{name:'保存为提示词',exact:true}).click();const dialog=page.getByRole('dialog',{name:'编辑提示词'});await expect(dialog.getByLabel('提示词正文',{exact:true})).toHaveValue('原稿未改');await dialog.getByLabel('提示词名称',{exact:true}).fill('来自画布');await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect.poll(async()=>(await stored(page)).prompts.length).toBe(3);expect((await stored(page)).graph.revision).toBe(1);expect(networkCounter.paidRequests).toHaveLength(0);});
+      10 |
+      11 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:8:428
+
+    Error Context: test-results\prompt-library-T17-L02-L03-44cc7-estore-retain-inserted-data\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-L02-L03-44cc7-estore-retain-inserted-data\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-L02-L03-44cc7-estore-retain-inserted-data\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\prompt-library.spec.ts:9:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveValue[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '编辑提示词' }).getByLabel('提示词正文', { exact: true })
+    Expected: [32m"原稿未改"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveValue" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '编辑提示词' }).getByLabel('提示词正文', { exact: true })[22m
+
+
+       7 | test('T17-C06/L05: local debounced search and source management do not automatically load remote sources',async({page,networkCounter})=>{await page.getByLabel('搜索提示词',{exact:true}).fill('康济健葆');await expect(page.locator('[data-testid="prompt-entry"]')).toHaveCount(1);await page.getByRole('button',{name:'来源管理',exact:true}).click();await expect(page.getByRole('dialog',{name:'提示词来源'})).toContainText('没有自动加载远端来源');expect(networkCounter.requests.filter(r=>r.url.includes('source.invalid'))).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T17-prompt-library.png',fullPage:true});});
+       8 | test('T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data',async({page})=>{await page.getByRole('button',{name:'收藏 本地示例',exact:true}).click();await expect(page.getByRole('button',{name:'取消收藏 本地示例',exact:true})).toBeVisible();await page.getByRole('button',{name:'编辑 本地示例',exact:true}).click();const dialog=page.getByRole('dialog',{name:'编辑提示词'});await dialog.getByLabel('提示词正文',{exact:true}).fill('新正文');await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect.poll(async()=>(await stored(page)).prompts.find((p:{id:string})=>p.id==='plain').body).toBe('新正文');await page.getByRole('button',{name:'删除 本地示例',exact:true}).click();await page.getByRole('dialog',{name:'删除提示词'}).getByRole('button',{name:'确认软删除',exact:true}).click();await page.getByRole('combobox',{name:'提示词范围',exact:true}).selectOption('trash');await page.getByRole('button',{name:'恢复 本地示例',exact:true}).click();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');expect((await stored(page)).prompts.find((p:{id:string})=>p.id==='plain').trashed).toBe(false);});
+    >  9 | test('T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByTestId('node-text-1').getByRole('button',{name:'保存为提示词',exact:true}).click();const dialog=page.getByRole('dialog',{name:'编辑提示词'});await expect(dialog.getByLabel('提示词正文',{exact:true})).toHaveValue('原稿未改');await dialog.getByLabel('提示词名称',{exact:true}).fill('来自画布');await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect.poll(async()=>(await stored(page)).prompts.length).toBe(3);expect((await stored(page)).graph.revision).toBe(1);expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                       ^
+      10 |
+      11 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:9:391
+
+    Error Context: test-results\prompt-library-T17-T05-can-d4de4-canvas-status-or-generating\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-T05-can-d4de4-canvas-status-or-generating\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-T05-can-d4de4-canvas-status-or-generating\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\prompt-library.spec.ts:4:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node 
+    tests\e2e\prompt-library.spec.ts:8:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data 
+    tests\e2e\prompt-library.spec.ts:9:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating 
+  3 passed (52.0s)

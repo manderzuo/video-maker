@@ -1,0 +1,50 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-library.spec.ts -g P05:
+
+[WebServer] (node:22096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:22444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-library.spec.ts:2:1 › T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable (5.9s)
+
+
+  1) tests\e2e\prompt-library.spec.ts:2:1 › T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('complementary', { name: '提示词详情', exact: true })
+    Expected substring: [32m"用户提供的测试来源"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('complementary', { name: '提示词详情', exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable',async({page})=>{await page.getByRole('button',{name:'详情 品牌模板',exact:true}).click();const inspector=page.getByRole('complementary',{name:'提示词详情',exact:true});await expect(inspector).toContainText('用户提供的测试来源');await expect(inspector).toContainText('测试授权说明');await page.getByRole('complementary',{name:'提示词分类',exact:true}).getByRole('button',{name:'广告',exact:true}).focus();await page.keyboard.press('Enter');await expect(page.locator('[data-testid="prompt-entry"]')).toHaveCount(1);await page.screenshot({path:'docs/review/screenshots/T17-prompt-inspector.png',fullPage:true});});
+        |                                                                                                                                                                                                                                                                                                                ^
+      3 | test('T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion',async({page})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const graph=await requestResult(tx.objectStore('graphs').get('p1'));graph.nodes[0].data.promptLibrarySource={entryId:'plain',revision:1,source:'本地原创测试夹具',license:'测试夹具许可'};tx.objectStore('graphs').put(graph);});}finally{db.close();}});await page.getByRole('button',{name:'删除 本地示例',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除提示词'});await expect(dialog).toContainText('已插入副本：1');await expect(dialog).toContainText('提示词项目 / 旧文字');await dialog.getByRole('button',{name:'确认软删除',exact:true}).click();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');});
+      4 | test('T17 L09: apply requires old/new diff and refuses a stale project revision',async({page})=>{await page.getByRole('button',{name:'复制 本地示例',exact:true}).click();const template=page.getByRole('dialog',{name:'填写模板变量'});await template.getByRole('button',{name:'应用到文本节点',exact:true}).click();await page.getByRole('dialog',{name:'选择提示词目标'}).getByRole('button',{name:'应用 提示词项目 / 旧文字',exact:true}).click();const dialog=page.getByRole('dialog',{name:'确认替换文本'});await expect(dialog).toContainText('原稿未改');await expect(dialog).toContainText('雨后的街道。');await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{const project=await requestResult(tx.objectStore('projects').get('p1')),graph=await requestResult(tx.objectStore('graphs').get('p1'));tx.objectStore('projects').put({...project,revision:2});tx.objectStore('graphs').put({...graph,revision:2,nodes:graph.nodes.map((node:{id:string;data:object})=>node.id==='text-1'?{...node,data:{...node.data,text:'另一次保存的新原稿'}}:node)});});}finally{db.close();}});await dialog.getByRole('button',{name:'确认替换文本',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('版本');expect((await stored(page)).graph.nodes[0].data.text).toBe('另一次保存的新原稿');expect((await stored(page)).runs).toEqual([]);});
+      5 | test('T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview',async({page,networkCounter})=>{const before=await stored(page),entry={title:'恶意文本',body:'<img src="https://source.invalid/pixel"><script>window.pwned=true</script>',tags:[],variables:[],source:'用户导入',license:'未核验'};await page.getByLabel('导入提示词JSON',{exact:true}).setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,entries:[{...entry,apiKey:'fake-test'}]}))});await expect(page.getByRole('alert')).toBeVisible();expect((await stored(page)).prompts).toEqual(before.prompts);await page.getByLabel('导入提示词JSON',{exact:true}).setInputFiles({name:'text.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,entries:[entry]}))});const dialog=page.getByRole('dialog',{name:'确认导入提示词'});await expect(dialog).toContainText('<img src=');expect(await page.evaluate(()=>Object.hasOwn(window,'pwned'))).toBe(false);expect(networkCounter.requests.filter(r=>r.url.includes('source.invalid'))).toEqual([]);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).prompts).toEqual(before.prompts);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:2:304
+
+    Error Context: test-results\prompt-library-T17-P05-pro-8fa60-on-stays-keyboard-reachable\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-P05-pro-8fa60-on-stays-keyboard-reachable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-P05-pro-8fa60-on-stays-keyboard-reachable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-library.spec.ts:2:1 › T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable 

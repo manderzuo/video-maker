@@ -1,0 +1,39 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-download.spec.ts
+
+[WebServer] (node:4932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:21768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-download.spec.ts:3:1 › T17 L11: actual prompt export download contains only transfer fields and retains template/source (1.0s)
+
+
+  1) tests\e2e\prompt-download.spec.ts:3:1 › T17 L11: actual prompt export download contains only transfer fields and retains template/source 
+
+    Error: download.createReadStream: canceled
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test.use({launchOptions:{downloadsPath:'E:/trae-studio/tools/temp/playwright-downloads/prompts'}});
+    > 3 | test('T17 L11: actual prompt export download contains only transfer fields and retains template/source',async({page})=>{await page.goto('/prompts');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-library.ts';await(await import(url)).seedPromptLibrary();});await page.reload();await page.getByLabel('选择 品牌模板',{exact:true}).check();const waiting=page.waitForEvent('download');await page.getByRole('button',{name:'导出所选提示词',exact:true}).click();const file=await waiting;expect(file.suggestedFilename()).toBe('AIWORK-prompts.json');const stream=await file.createReadStream();if(!stream)throw new Error('download stream unavailable');const chunks:Buffer[]=[];for await(const chunk of stream)chunks.push(Buffer.from(chunk));const parsed=JSON.parse(Buffer.concat(chunks).toString('utf8'));expect(parsed.version).toBe(1);expect(Object.keys(parsed.entries[0]).sort()).toEqual(['body','license','source','tags','title','variables']);expect(parsed.entries[0]).toMatchObject({body:'{{人物}}展示康济健葆，保持不切镜。',source:'用户提供的测试来源',license:'测试授权说明'});await expect(page.getByRole('status').filter({hasText:'已触发浏览器下载'})).toBeVisible();});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+      4 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-download.spec.ts:3:568
+
+    Error Context: test-results\prompt-download-T17-L11-ac-27bb7-and-retains-template-source\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-download-T17-L11-ac-27bb7-and-retains-template-source\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-download-T17-L11-ac-27bb7-and-retains-template-source\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-download.spec.ts:3:1 › T17 L11: actual prompt export download contains only transfer fields and retains template/source 

@@ -1,0 +1,6 @@
+{
+  "node": "v22.23.3",
+  "playwright": "1.58.2",
+  "channel": "chromium",
+  "browserVersion": "145.0.7632.6"
+}

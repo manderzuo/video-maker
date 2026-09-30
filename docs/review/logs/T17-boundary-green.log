@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-library.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  23:35:33
+   Duration  480ms (transform 177ms, setup 36ms, import 260ms, tests 21ms, environment 0ms)
+

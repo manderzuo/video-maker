@@ -1,0 +1,13 @@
+import {beforeEach,afterEach,it,expect} from 'vitest';
+import {IDBFactory} from 'fake-indexeddb';
+import {openStudioDb,transact,requestResult,type StudioDb} from '../../src/infrastructure/storage/database';
+import {fillTemplate,savePrompt,previewPromptImport,exportPrompts} from '../../src/features/prompts/prompt-library';
+import type {PromptLibraryEntry} from '../../src/domain/prompt';
+let db:StudioDb;
+const entry=(patch:Partial<PromptLibraryEntry>={}):PromptLibraryEntry=>({id:'e1',title:'模板',body:'{{人物}}保持品牌汉字。',tags:[],variables:['人物'],source:'用户来源',license:'待核验',revision:0,starred:false,trashed:false,...patch});
+beforeEach(async()=>{db=await openStudioDb({factory:new IDBFactory(),name:'prompt-library'});});afterEach(()=>db.close());
+it('T17 pure templates preserve literal values and reject missing or oversized UTF8 output',()=>{expect(fillTemplate(entry(),{}).ok).toBe(false);expect(fillTemplate(entry(),{'人物':'$&<script>不执行</script>'})).toEqual({ok:true,value:'$&<script>不执行</script>保持品牌汉字。'});expect(fillTemplate(entry(),{'人物':'中'.repeat(21846)}).ok).toBe(false);});
+it('T17 empty template bodies are rejected before copy or insertion',()=>{expect(fillTemplate(entry({body:'',variables:[]}),{}).ok).toBe(false);});
+it('T17 duplicate variable declarations are invalid rather than silently collapsed',()=>{expect(fillTemplate(entry({variables:['人物','人物']}),{'人物':'1人'}).ok).toBe(false);});
+it('T17 revision CAS retains previous version and rejects stale overwrite',async()=>{const first=await savePrompt(entry(),0,{db});expect(first.revision).toBe(1);const second=await savePrompt({...first,body:'新正文'},1,{db});expect(second.revision).toBe(2);await expect(savePrompt({...first,body:'旧标签覆盖'},1,{db})).rejects.toThrow('prompt_revision_conflict');const stored=await transact(db,['prompts','receipts'],'readonly',async tx=>({entry:await requestResult(tx.objectStore('prompts').get('e1')),versions:await requestResult(tx.objectStore('receipts').getAll())}));expect(stored.entry.body).toBe('新正文');expect(stored.versions).toHaveLength(2);expect(stored.versions[1].kind).toBe('prompt-version');});
+it('T17 strict import/export preserves attribution and rejects hidden credentials or executable object fields',()=>{const text=exportPrompts([entry()]);const rows=previewPromptImport(text);expect(rows[0]).toMatchObject({source:'用户来源',license:'待核验'});expect(text).not.toContain('revision');const parsed=JSON.parse(text);parsed.entries[0].apiKey='fake-never-real';expect(()=>previewPromptImport(JSON.stringify(parsed))).toThrow();expect(()=>previewPromptImport('{"version":1,"entries":[{"__proto__":{"polluted":true}}]}')).toThrow();});

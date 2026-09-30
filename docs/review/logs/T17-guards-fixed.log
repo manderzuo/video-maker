@@ -1,0 +1,24 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-library.spec.ts
+
+[WebServer] (node:10228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:21864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-library.spec.ts:2:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard (1.4s)
+  ok 2 tests\e2e\prompt-library.spec.ts:3:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries (1.2s)
+  ok 3 tests\e2e\prompt-library.spec.ts:4:1 › T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard (1.0s)
+  ok 4 tests\e2e\prompt-library.spec.ts:7:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node (919ms)
+  ok 5 tests\e2e\prompt-library.spec.ts:8:1 › T17-C04: create validates tag lengths/count and persists only after explicit save (1.2s)
+  ok 6 tests\e2e\prompt-library.spec.ts:9:1 › T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source (902ms)
+  ok 7 tests\e2e\prompt-library.spec.ts:10:1 › T17-C06/L05: local debounced search and source management do not automatically load remote sources (1.3s)
+  ok 8 tests\e2e\prompt-library.spec.ts:11:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data (991ms)
+  ok 9 tests\e2e\prompt-library.spec.ts:12:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating (1.1s)
+
+  9 passed (12.9s)

@@ -3,6 +3,7 @@ let navigationGuard:((path:string)=>boolean)|undefined;
 let currentPath=location.pathname+location.search;
 window.addEventListener('popstate',event=>{const next=location.pathname+location.search;if(next!==currentPath&&navigationGuard&&!navigationGuard(next)){history.pushState(null,'',currentPath);event.stopImmediatePropagation();return;}currentPath=next;},{capture:true});
 export function setNavigationGuard(guard:((path:string)=>boolean)|undefined){navigationGuard=guard;}
+export function addNavigationGuard(guard:(path:string)=>boolean){const previous=navigationGuard,composed=(path:string)=>guard(path)&&(!previous||previous(path));navigationGuard=composed;return()=>{if(navigationGuard===composed)navigationGuard=previous;};}
 export function navigate(path:string){if(!path.startsWith('/')||path.startsWith('//'))throw new Error('local_navigation_required');if(navigationGuard&&!navigationGuard(path))return;currentPath=path;history.pushState(null,'',path);window.dispatchEvent(new PopStateEvent('popstate'));}
 const subscribe=(callback:()=>void)=>{window.addEventListener('popstate',callback);return()=>window.removeEventListener('popstate',callback);};
 export const useRoute=()=>useSyncExternalStore(subscribe,()=>location.pathname+location.search);

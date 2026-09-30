@@ -20,7 +20,7 @@ test('lost broadcasts and paused heartbeat cannot bypass epoch guard with stale 
 test('simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch',async({page,context})=>{
  const start=Date.parse('2026-09-30T00:00:00Z');await page.clock.install({time:new Date(start)});await page.goto('/tests/fixtures/storage.html');await seedStudio(page,'minimal-project');await page.evaluate(()=>window.studioFixture.stopCoordination());
  const oldEpoch=await page.evaluate(()=>window.studioFixture.writer()?.epoch);await page.clock.setFixedTime(start+31001);expect(await page.evaluate(()=>window.studioFixture.staleWrite())).toEqual({status:'failed',code:'lease_expired_writer_denied'});
- const other=await context.newPage();await other.clock.install({time:new Date(start+31001)});await other.goto('/tests/fixtures/storage.html');expect(await other.evaluate(()=>window.studioFixture.writer()?.epoch)).toBeGreaterThan(oldEpoch??0);expect(await other.evaluate(async()=>(await window.studioFixture.readProject())?.revision)).toBe(1);
+ const other=await context.newPage();await other.clock.install({time:new Date(start+31001)});await other.goto('/tests/fixtures/storage.html');await expect.poll(()=>other.evaluate(()=>window.studioFixture?.writer()?.epoch??0)).toBeGreaterThan(oldEpoch??0);expect(await other.evaluate(async()=>(await window.studioFixture.readProject())?.revision)).toBe(1);
 });
 test('one native dispatch claim; committed intent survives project takeover and clock advance',async({page,context,networkCounter})=>{
  await page.goto('/tests/fixtures/storage.html');await seedStudio(page,'minimal-project');await page.evaluate(()=>window.studioFixture.prepareRun());

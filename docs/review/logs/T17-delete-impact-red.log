@@ -1,0 +1,52 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-library.spec.ts -g delete impact
+
+[WebServer] (node:7236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:2500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-library.spec.ts:2:1 › T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion (5.9s)
+
+
+  1) tests\e2e\prompt-library.spec.ts:2:1 › T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '删除提示词' })
+    Expected substring: [32m"已插入副本：1"[39m
+    Received string:    [31m"删除提示词×只软删除库条目，可以恢复。已插入节点保存各自副本与原修订，不会跟随删除。本地示例取消确认软删除"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '删除提示词' })[22m
+    [2m    9 × locator resolved to <dialog open="" aria-modal="true" aria-labelledby="_r_c_" class="dialog dialog-640">…</dialog>[22m
+    [2m      - unexpected value "删除提示词×只软删除库条目，可以恢复。已插入节点保存各自副本与原修订，不会跟随删除。本地示例取消确认软删除"[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion',async({page})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const graph=await requestResult(tx.objectStore('graphs').get('p1'));graph.nodes[0].data.promptLibrarySource={entryId:'plain',revision:1,source:'本地原创测试夹具',license:'测试夹具许可'};tx.objectStore('graphs').put(graph);});}finally{db.close();}});await page.getByRole('button',{name:'删除 本地示例',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除提示词'});await expect(dialog).toContainText('已插入副本：1');await expect(dialog).toContainText('提示词项目 / 旧文字');await dialog.getByRole('button',{name:'确认软删除',exact:true}).click();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      3 | test('T17 L09: apply requires old/new diff and refuses a stale project revision',async({page})=>{await page.getByRole('button',{name:'复制 本地示例',exact:true}).click();const template=page.getByRole('dialog',{name:'填写模板变量'});await template.getByRole('button',{name:'应用到文本节点',exact:true}).click();await page.getByRole('dialog',{name:'选择提示词目标'}).getByRole('button',{name:'应用 提示词项目 / 旧文字',exact:true}).click();const dialog=page.getByRole('dialog',{name:'确认替换文本'});await expect(dialog).toContainText('原稿未改');await expect(dialog).toContainText('雨后的街道。');await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{const project=await requestResult(tx.objectStore('projects').get('p1')),graph=await requestResult(tx.objectStore('graphs').get('p1'));tx.objectStore('projects').put({...project,revision:2});tx.objectStore('graphs').put({...graph,revision:2,nodes:graph.nodes.map((node:{id:string;data:object})=>node.id==='text-1'?{...node,data:{...node.data,text:'另一次保存的新原稿'}}:node)});});}finally{db.close();}});await dialog.getByRole('button',{name:'确认替换文本',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('版本');expect((await stored(page)).graph.nodes[0].data.text).toBe('另一次保存的新原稿');expect((await stored(page)).runs).toEqual([]);});
+      4 | test('T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview',async({page,networkCounter})=>{const before=await stored(page),entry={title:'恶意文本',body:'<img src="https://source.invalid/pixel"><script>window.pwned=true</script>',tags:[],variables:[],source:'用户导入',license:'未核验'};await page.getByLabel('导入提示词JSON',{exact:true}).setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,entries:[{...entry,apiKey:'fake-test'}]}))});await expect(page.getByRole('alert')).toBeVisible();expect((await stored(page)).prompts).toEqual(before.prompts);await page.getByLabel('导入提示词JSON',{exact:true}).setInputFiles({name:'text.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,entries:[entry]}))});const dialog=page.getByRole('dialog',{name:'确认导入提示词'});await expect(dialog).toContainText('<img src=');expect(await page.evaluate(()=>Object.hasOwn(window,'pwned'))).toBe(false);expect(networkCounter.requests.filter(r=>r.url.includes('source.invalid'))).toEqual([]);await dialog.getByRole('button',{name:'取消',exact:true}).click();expect((await stored(page)).prompts).toEqual(before.prompts);});
+      5 | test('T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard',async({page})=>{await page.goto('/projects/p1/canvas');await page.getByTestId('node-text-1').getByRole('button',{name:'保存为提示词',exact:true}).click();await page.getByRole('dialog',{name:'编辑提示词'}).getByRole('button',{name:'取消',exact:true}).click();await page.getByTestId('node-text-1').getByLabel('节点文本',{exact:true}).fill('中'.repeat(21846));await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();expect((await stored(page)).graph.nodes[0].data.text).toBe('原稿未改');});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library.spec.ts:2:745
+
+    Error Context: test-results\prompt-library-T17-delete--1a762-rvive-library-soft-deletion\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-T17-delete--1a762-rvive-library-soft-deletion\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-T17-delete--1a762-rvive-library-soft-deletion\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-library.spec.ts:2:1 › T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion 
