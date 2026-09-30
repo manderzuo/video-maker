@@ -1,0 +1,53 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-canvas.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-canvas.test.ts (10 tests | 2 failed) 67ms
+   × T22: video parameter edits require an explicit accepted, reviewed complete spec 19ms
+   × T22: applying to a video source replaces explicit prompt links and preserves video parameters unless accepted 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-canvas.test.ts > T22: video parameter edits require an explicit accepted, reviewed complete spec
+AssertionError: expected { Object (id, status, ...) } to match object { status: 'applied' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "status": "applied",
++   "status": "rejected",
+  }
+
+ ❯ tests/unit/prompt-canvas.test.ts:15:549
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/prompt-canvas.test.ts > T22: applying to a video source replaces explicit prompt links and preserves video parameters unless accepted
+AssertionError: expected { Object (id, status, ...) } to match object { status: 'applied' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "status": "applied",
++   "status": "rejected",
+  }
+
+ ❯ tests/unit/prompt-canvas.test.ts:16:673
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+   Start at  01:45:58
+   Duration  578ms (transform 211ms, setup 37ms, import 297ms, tests 67ms, environment 0ms)
+

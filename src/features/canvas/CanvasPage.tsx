@@ -32,6 +32,7 @@ import {NodeMenu,type NodeMenuHandle,type CreativeCommandOptions} from './NodeMe
 import {prepareCanvasFiles,assetNodeTitle} from '../assets/canvas-import';
 import {PromptEditor,newPrompt} from '../prompts/PromptEditor';
 import type {PromptLibraryEntry} from '../../domain/prompt';
+import {applyPromptToCanvas} from '../../application/commands/prompt-to-canvas';
 import {PromptGeneratorPanel} from '../prompt-generation/PromptGeneratorPanel';
 import {ensurePromptDraft,type PromptSource} from '../prompt-generation/workspace-service';
 type Prefs={id:string;view:Viewport;background:'dots'|'grid'|'plain';minimap:boolean};
@@ -99,7 +100,7 @@ export function CanvasPage({projectId}:{projectId:string}){
  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
  <Dialog open={takeoverOpen} title="接管编辑" onClose={()=>setTakeoverOpen(false)} footer={<><Button onClick={()=>setTakeoverOpen(false)}>取消</Button><Button onClick={async()=>{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，请重试。');}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button onClick={()=>setLeavePath('')}>继续编辑</Button><Button disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button disabled={busy.current||!lease||!pendingOperations.current.length} onClick={async()=>{await commit(pendingOperations.current,pendingOptions.current);if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
- {generatorDraftId?<PromptGeneratorPanel draftId={generatorDraftId} source={generatorSource} onClose={()=>setGeneratorDraftId(undefined)}/>:null}
+ {generatorDraftId?<PromptGeneratorPanel draftId={generatorDraftId} source={generatorSource} onCanvasCommit={async input=>{if(input.targetProjectId!==projectId)return applyPromptToCanvas(input);if(dirty.current||busy.current||!leaseRef.current)return {id:input.commandId,status:'rejected',errorCode:'project_writer_or_unsaved_changes'};busy.current=true;try{const receipt=await applyPromptToCanvas(input,{lease:leaseRef.current,capability});await finish(receipt);return receipt;}finally{busy.current=false;}}} onClose={()=>setGeneratorDraftId(undefined)}/>:null}
  </section>;
 }
 

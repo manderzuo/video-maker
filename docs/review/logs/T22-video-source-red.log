@@ -1,0 +1,35 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-canvas.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-canvas.test.ts (9 tests | 1 failed) 64ms
+   × T22: applying to a video source replaces explicit prompt links and preserves video parameters unless accepted 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-canvas.test.ts > T22: applying to a video source replaces explicit prompt links and preserves video parameters unless accepted
+AssertionError: expected { Object (id, status, ...) } to match object { status: 'applied' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "status": "applied",
++   "status": "rejected",
+  }
+
+ ❯ tests/unit/prompt-canvas.test.ts:15:673
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  01:45:07
+   Duration  606ms (transform 223ms, setup 40ms, import 320ms, tests 64ms, environment 0ms)
+

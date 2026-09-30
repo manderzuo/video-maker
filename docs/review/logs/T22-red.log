@@ -1,0 +1,164 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-canvas-commands.spec.ts
+
+[WebServer] (node:23128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:27448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-canvas-commands.spec.ts:6:1 › T22-C01: insertion requires an explicit project and previews position before committing (15.1s)
+(node:2468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\prompt-canvas-commands.spec.ts:7:1 › T22-C02: applying previews old/new text and rejects a revision changed after preview (15.1s)
+(node:312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\prompt-canvas-commands.spec.ts:8:1 › T22-C04: reviewed local mock capability builds one atomic group with no POST or Run (15.1s)
+(node:5496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\prompt-canvas-commands.spec.ts:9:1 › T22-C05: unknown capabilities and unbound references cannot become executable flows (6.1s)
+
+
+  1) tests\e2e\prompt-canvas-commands.spec.ts:6:1 › T22-C01: insertion requires an explicit project and previews position before committing 
+
+    [31mTest timeout of 15000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 15000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '插入画布', exact: true })[22m
+    [2m    - locator resolved to <button disabled aria-busy="false" class="button secondary " aria-describedby="_r_1c_">插入画布</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    27 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not enabled[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      4 | async function state(page:Page){return page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{return await transact(db,['graphs','runs','promptRuns','receipts'],'readonly',async(tx:IDBTransaction)=>({graph:await requestResult(tx.objectStore('graphs').get('p1')),runs:await requestResult(tx.objectStore('runs').getAll()),promptRuns:await requestResult(tx.objectStore('promptRuns').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll())}));}finally{db.close();}});}
+      5 | test.beforeEach(async({page})=>{await page.goto('/');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';await(await import(url)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');await page.getByRole('button',{name:'本地整理',exact:true}).click();await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue(/康济健葆/);});
+    > 6 | test('T22-C01: insertion requires an explicit project and previews position before committing',async({page,networkCounter})=>{await page.getByRole('button',{name:'插入画布',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await expect(d.getByRole('button',{name:'确认插入文本',exact:true})).toBeDisabled();await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await expect(d.getByText('提示词源项目',{exact:false}).first()).toBeVisible();await d.getByRole('button',{name:'确认插入文本',exact:true}).click();await expect(page).toHaveURL(/projects\/p1\/canvas\?node=/);await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-text-insert.png'});});
+        |                                                                                                                                                                                       ^
+      7 | test('T22-C02: applying previews old/new text and rejects a revision changed after preview',async({page})=>{await page.getByRole('button',{name:'应用到源节点',exact:true}).click();const d=page.getByRole('dialog',{name:'应用提示词到节点'});await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('康济健葆，1位人物，不切镜，5秒、9:16');await expect(d.getByLabel('将应用的文字',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{for(const table of ['projects','graphs']){const item=await requestResult(tx.objectStore(table).get('p1'));item.revision++;if(table==='graphs')item.nodes[0].data.text='另一标签已保存的文字';tx.objectStore(table).put(item);}});}finally{db.close();}});await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(d.getByRole('alert')).toContainText('版本已变化');expect((await state(page)).graph.nodes[0].data.text).toBe('另一标签已保存的文字');await d.getByRole('button',{name:'重新比较',exact:true}).click();await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('另一标签已保存的文字');await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=text-1/);expect((await state(page)).graph.nodes).toHaveLength(1);});
+      8 | test('T22-C04: reviewed local mock capability builds one atomic group with no POST or Run',async({page,networkCounter})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const fixtures='/tests/helpers/fixtures.ts';const {f}=await import(fixtures);const db=await openStudioDb();try{await transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:f.caps({videoSpecs:[{modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'}]})}));}finally{db.close();}});await page.reload();await page.getByRole('button',{name:'仅建流程',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await d.getByLabel('流程视频规格',{exact:true}).selectOption('0');await expect(d.getByText('流程预览',{exact:false})).toBeVisible();await d.getByRole('button',{name:'确认仅建流程',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.locator('[data-node-type="group"]')).toHaveCount(1);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.graph.edges).toHaveLength(1);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-flow.png'});});
+      9 | test('T22-C05: unknown capabilities and unbound references cannot become executable flows',async({page})=>{await expect(page.getByRole('button',{name:'仅建流程',exact:true})).toBeDisabled();await page.getByRole('button',{name:'插入画布',exact:true}).click();await expect(page.getByRole('dialog',{name:'选择插入目标'})).toBeVisible();await page.getByRole('button',{name:'关闭选择插入目标',exact:true}).click();expect((await state(page)).graph.revision).toBe(1);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-canvas-commands.spec.ts:6:183
+
+    Error Context: test-results\prompt-canvas-commands-T22-3ae3e--position-before-committing\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-canvas-commands-T22-3ae3e--position-before-committing\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-canvas-commands-T22-3ae3e--position-before-committing\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\prompt-canvas-commands.spec.ts:7:1 › T22-C02: applying previews old/new text and rejects a revision changed after preview 
+
+    [31mTest timeout of 15000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 15000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '应用到源节点', exact: true })[22m
+
+
+       5 | test.beforeEach(async({page})=>{await page.goto('/');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';await(await import(url)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');await page.getByRole('button',{name:'本地整理',exact:true}).click();await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue(/康济健葆/);});
+       6 | test('T22-C01: insertion requires an explicit project and previews position before committing',async({page,networkCounter})=>{await page.getByRole('button',{name:'插入画布',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await expect(d.getByRole('button',{name:'确认插入文本',exact:true})).toBeDisabled();await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await expect(d.getByText('提示词源项目',{exact:false}).first()).toBeVisible();await d.getByRole('button',{name:'确认插入文本',exact:true}).click();await expect(page).toHaveURL(/projects\/p1\/canvas\?node=/);await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-text-insert.png'});});
+    >  7 | test('T22-C02: applying previews old/new text and rejects a revision changed after preview',async({page})=>{await page.getByRole('button',{name:'应用到源节点',exact:true}).click();const d=page.getByRole('dialog',{name:'应用提示词到节点'});await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('康济健葆，1位人物，不切镜，5秒、9:16');await expect(d.getByLabel('将应用的文字',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{for(const table of ['projects','graphs']){const item=await requestResult(tx.objectStore(table).get('p1'));item.revision++;if(table==='graphs')item.nodes[0].data.text='另一标签已保存的文字';tx.objectStore(table).put(item);}});}finally{db.close();}});await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(d.getByRole('alert')).toContainText('版本已变化');expect((await state(page)).graph.nodes[0].data.text).toBe('另一标签已保存的文字');await d.getByRole('button',{name:'重新比较',exact:true}).click();await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('另一标签已保存的文字');await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=text-1/);expect((await state(page)).graph.nodes).toHaveLength(1);});
+         |                                                                                                                                                                       ^
+       8 | test('T22-C04: reviewed local mock capability builds one atomic group with no POST or Run',async({page,networkCounter})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const fixtures='/tests/helpers/fixtures.ts';const {f}=await import(fixtures);const db=await openStudioDb();try{await transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:f.caps({videoSpecs:[{modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'}]})}));}finally{db.close();}});await page.reload();await page.getByRole('button',{name:'仅建流程',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await d.getByLabel('流程视频规格',{exact:true}).selectOption('0');await expect(d.getByText('流程预览',{exact:false})).toBeVisible();await d.getByRole('button',{name:'确认仅建流程',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.locator('[data-node-type="group"]')).toHaveCount(1);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.graph.edges).toHaveLength(1);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-flow.png'});});
+       9 | test('T22-C05: unknown capabilities and unbound references cannot become executable flows',async({page})=>{await expect(page.getByRole('button',{name:'仅建流程',exact:true})).toBeDisabled();await page.getByRole('button',{name:'插入画布',exact:true}).click();await expect(page.getByRole('dialog',{name:'选择插入目标'})).toBeVisible();await page.getByRole('button',{name:'关闭选择插入目标',exact:true}).click();expect((await state(page)).graph.revision).toBe(1);});
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-canvas-commands.spec.ts:7:167
+
+    Error Context: test-results\prompt-canvas-commands-T22-1000b-ision-changed-after-preview\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-canvas-commands-T22-1000b-ision-changed-after-preview\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-canvas-commands-T22-1000b-ision-changed-after-preview\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\prompt-canvas-commands.spec.ts:8:1 › T22-C04: reviewed local mock capability builds one atomic group with no POST or Run 
+
+    [31mTest timeout of 15000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 15000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '仅建流程', exact: true })[22m
+
+
+       6 | test('T22-C01: insertion requires an explicit project and previews position before committing',async({page,networkCounter})=>{await page.getByRole('button',{name:'插入画布',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await expect(d.getByRole('button',{name:'确认插入文本',exact:true})).toBeDisabled();await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await expect(d.getByText('提示词源项目',{exact:false}).first()).toBeVisible();await d.getByRole('button',{name:'确认插入文本',exact:true}).click();await expect(page).toHaveURL(/projects\/p1\/canvas\?node=/);await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-text-insert.png'});});
+       7 | test('T22-C02: applying previews old/new text and rejects a revision changed after preview',async({page})=>{await page.getByRole('button',{name:'应用到源节点',exact:true}).click();const d=page.getByRole('dialog',{name:'应用提示词到节点'});await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('康济健葆，1位人物，不切镜，5秒、9:16');await expect(d.getByLabel('将应用的文字',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{for(const table of ['projects','graphs']){const item=await requestResult(tx.objectStore(table).get('p1'));item.revision++;if(table==='graphs')item.nodes[0].data.text='另一标签已保存的文字';tx.objectStore(table).put(item);}});}finally{db.close();}});await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(d.getByRole('alert')).toContainText('版本已变化');expect((await state(page)).graph.nodes[0].data.text).toBe('另一标签已保存的文字');await d.getByRole('button',{name:'重新比较',exact:true}).click();await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('另一标签已保存的文字');await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=text-1/);expect((await state(page)).graph.nodes).toHaveLength(1);});
+    >  8 | test('T22-C04: reviewed local mock capability builds one atomic group with no POST or Run',async({page,networkCounter})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const fixtures='/tests/helpers/fixtures.ts';const {f}=await import(fixtures);const db=await openStudioDb();try{await transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:f.caps({videoSpecs:[{modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'}]})}));}finally{db.close();}});await page.reload();await page.getByRole('button',{name:'仅建流程',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await d.getByLabel('流程视频规格',{exact:true}).selectOption('0');await expect(d.getByText('流程预览',{exact:false})).toBeVisible();await d.getByRole('button',{name:'确认仅建流程',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.locator('[data-node-type="group"]')).toHaveCount(1);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.graph.edges).toHaveLength(1);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-flow.png'});});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+       9 | test('T22-C05: unknown capabilities and unbound references cannot become executable flows',async({page})=>{await expect(page.getByRole('button',{name:'仅建流程',exact:true})).toBeDisabled();await page.getByRole('button',{name:'插入画布',exact:true}).click();await expect(page.getByRole('dialog',{name:'选择插入目标'})).toBeVisible();await page.getByRole('button',{name:'关闭选择插入目标',exact:true}).click();expect((await state(page)).graph.revision).toBe(1);});
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-canvas-commands.spec.ts:8:686
+
+    Error Context: test-results\prompt-canvas-commands-T22-fa98b-c-group-with-no-POST-or-Run\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-canvas-commands-T22-fa98b-c-group-with-no-POST-or-Run\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-canvas-commands-T22-fa98b-c-group-with-no-POST-or-Run\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\prompt-canvas-commands.spec.ts:9:1 › T22-C05: unknown capabilities and unbound references cannot become executable flows 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator: getByRole('button', { name: '仅建流程', exact: true })
+    Expected: disabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: '仅建流程', exact: true })[22m
+
+
+       7 | test('T22-C02: applying previews old/new text and rejects a revision changed after preview',async({page})=>{await page.getByRole('button',{name:'应用到源节点',exact:true}).click();const d=page.getByRole('dialog',{name:'应用提示词到节点'});await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('康济健葆，1位人物，不切镜，5秒、9:16');await expect(d.getByLabel('将应用的文字',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['projects','graphs'],'readwrite',async(tx:IDBTransaction)=>{for(const table of ['projects','graphs']){const item=await requestResult(tx.objectStore(table).get('p1'));item.revision++;if(table==='graphs')item.nodes[0].data.text='另一标签已保存的文字';tx.objectStore(table).put(item);}});}finally{db.close();}});await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(d.getByRole('alert')).toContainText('版本已变化');expect((await state(page)).graph.nodes[0].data.text).toBe('另一标签已保存的文字');await d.getByRole('button',{name:'重新比较',exact:true}).click();await expect(d.getByLabel('原节点文字',{exact:true})).toHaveValue('另一标签已保存的文字');await d.getByRole('button',{name:'接受并应用',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=text-1/);expect((await state(page)).graph.nodes).toHaveLength(1);});
+       8 | test('T22-C04: reviewed local mock capability builds one atomic group with no POST or Run',async({page,networkCounter})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const fixtures='/tests/helpers/fixtures.ts';const {f}=await import(fixtures);const db=await openStudioDb();try{await transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:f.caps({videoSpecs:[{modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'}]})}));}finally{db.close();}});await page.reload();await page.getByRole('button',{name:'仅建流程',exact:true}).click();const d=page.getByRole('dialog',{name:'选择插入目标'});await d.getByLabel('目标项目',{exact:true}).selectOption('p1');await d.getByLabel('流程视频规格',{exact:true}).selectOption('0');await expect(d.getByText('流程预览',{exact:false})).toBeVisible();await d.getByRole('button',{name:'确认仅建流程',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.locator('[data-node-type="group"]')).toHaveCount(1);const s=await state(page);expect(s.graph.revision).toBe(2);expect(s.graph.edges).toHaveLength(1);expect(s.runs).toEqual([]);expect(s.promptRuns).toEqual([]);expect(networkCounter.requests.filter(r=>r.method==='POST')).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T22-flow.png'});});
+    >  9 | test('T22-C05: unknown capabilities and unbound references cannot become executable flows',async({page})=>{await expect(page.getByRole('button',{name:'仅建流程',exact:true})).toBeDisabled();await page.getByRole('button',{name:'插入画布',exact:true}).click();await expect(page.getByRole('dialog',{name:'选择插入目标'})).toBeVisible();await page.getByRole('button',{name:'关闭选择插入目标',exact:true}).click();expect((await state(page)).graph.revision).toBe(1);});
+         |                                                                                                                                                                            ^
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-canvas-commands.spec.ts:9:172
+
+    Error Context: test-results\prompt-canvas-commands-T22-05d33-not-become-executable-flows\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-canvas-commands-T22-05d33-not-become-executable-flows\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-canvas-commands-T22-05d33-not-become-executable-flows\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\e2e\prompt-canvas-commands.spec.ts:6:1 › T22-C01: insertion requires an explicit project and previews position before committing 
+    tests\e2e\prompt-canvas-commands.spec.ts:7:1 › T22-C02: applying previews old/new text and rejects a revision changed after preview 
+    tests\e2e\prompt-canvas-commands.spec.ts:8:1 › T22-C04: reviewed local mock capability builds one atomic group with no POST or Run 
+    tests\e2e\prompt-canvas-commands.spec.ts:9:1 › T22-C05: unknown capabilities and unbound references cannot become executable flows 

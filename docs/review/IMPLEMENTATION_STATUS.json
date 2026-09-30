@@ -1,5 +1,5 @@
 {
-  "currentTask": "T22",
+  "currentTask": "T23",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -166,18 +166,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T21.json",
-      "headCommit": null,
+      "headCommit": "9c539db277cc6e257cfdac70b8ce89e7f733e948",
       "id": "T21",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
       "status": "本地工作台/侧栏/历史自检通过；AI待T30/T31；待统一验收/独立审查",
       "title": "提示词工作台、侧栏和历史面板"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T22.json",
       "headCommit": null,
       "id": "T22",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "执行中",
+      "status": "自检通过，待统一验收/独立审查",
       "title": "草稿到画布的原子插入、应用和建流程"
     },
     {
@@ -185,7 +185,7 @@
       "headCommit": null,
       "id": "T23",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "固定Core公开契约、能力证据与Mock"
     },
     {

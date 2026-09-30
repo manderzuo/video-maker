@@ -2,7 +2,7 @@
   "taskId": "T21",
   "status": "本地工作台/侧栏/历史自检通过；AI待T30/T31；待统一验收/独立审查",
   "baseCommit": "c3280441a672dae8d87746a58eebfd95b3072383",
-  "headCommit": null,
+  "headCommit": "9c539db277cc6e257cfdac70b8ce89e7f733e948",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reviewDecision": "待审查",
   "independentReviewPerformed": false,

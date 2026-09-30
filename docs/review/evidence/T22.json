@@ -1,0 +1,176 @@
+{
+  "taskId": "T22",
+  "status": "原子插入/应用/流程创建自检通过；待统一验收/独立审查",
+  "baseCommit": "9c539db277cc6e257cfdac70b8ce89e7f733e948",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reasoningMode": "用户在宿主指定 high，当前工具不可核验",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/application/commands/prompt-to-canvas.ts",
+    "src/features/prompt-generation/ApplyPromptDialog.tsx",
+    "src/features/prompt-generation/InsertTargetDialog.tsx",
+    "src/features/prompt-generation/PromptGeneratorPanel.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/domain/graph.ts",
+    "tests/e2e/prompt-canvas-commands.spec.ts",
+    "tests/unit/prompt-canvas.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-canvas.test.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-unit-initial.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-green-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-canvas.test.ts",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-video-source-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-canvas.test.ts",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-video-parameters-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-canvas.test.ts",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-unit-green.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-green-second.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 1,
+      "passed": 6,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-boundary-initial.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 0,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-browser-green.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-draft-download.spec.ts",
+      "exitCode": 0,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-related-browser.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-full-browser.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 147,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-unit-regression.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T22-build-final.log"
+    }
+  ],
+  "interactionIds": [
+    "T-08",
+    "PG26",
+    "PG28",
+    "PG29",
+    "PG30",
+    "PGD04",
+    "PGD05"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T22-apply-diff.png",
+    "docs/review/screenshots/T22-flow.png",
+    "docs/review/screenshots/T22-text-insert.png"
+  ],
+  "networkMode": "本地 IndexedDB 与模拟能力，无真实Core或上游请求",
+  "behavior": [
+    "默认另建文本节点，先选择项目/坐标并预览；成功定位节点或流程组",
+    "结果ID取当前选定版本；引用从该结果的不可变输入快照读取，历史检查也取选中结果",
+    "文本应用前比较原/新文、来源/目标revision；冲突拒绝，可明确重新比较或另存",
+    "视频应用保留原文本节点，仅替换明确展示的文本连线；只有显式接受的已审阅规格才能更新参数",
+    "流程构造稳定ID，文本/素材/连线/分组一次创作命令提交；故障全部回滚",
+    "完整输入签名与操作在同事务留存；同commandId重放不重复，修改输入则拒绝",
+    "画布面板复用现有写者租约；存在未保存画布内容时阻止应用，避免释放当前画布写权",
+    "流程能力和素材blob在提交事务内重新校验；未绑定/音频/首尾帧等未核验角色仅可写作",
+    "未知能力或规格不一致阻止可执行流程，不截短全局时长；不创建Run/PromptRun或POST"
+  ],
+  "knownLimitations": [
+    "用户/独立审查未发生；T02全视觉及许可门槛保留",
+    "当前流程需完整单任务规格；长目标保留写作/镜头草案，等待用户明确拆分，不自动截短或批量执行",
+    "能力来自本地模拟/审阅契约，不等于真实部署核验；收费调用未授权",
+    "composition/bfcache/慢存储密集编辑等边界继续在T45总回归处理",
+    "初轮浏览器失败包含缺失功能与精确标签问题；边界初轮另有测试错误按钮名称，已纠正为真实查看结果按钮，未删除或降低业务断言",
+    "typecheck初轮新增测试参数声明缺少id，曾exit2，已修复；最终记录另附"
+  ]
+}

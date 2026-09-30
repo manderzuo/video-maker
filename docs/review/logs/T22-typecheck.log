@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/unit/prompt-canvas.test.ts(20,519): error TS2339: Property 'id' does not exist on type '{ type: string; }'.
