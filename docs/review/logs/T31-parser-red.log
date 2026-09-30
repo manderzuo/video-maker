@@ -1,0 +1,78 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-result-parser.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-result-parser.test.ts (4 tests | 3 failed) 14ms
+   × T31-C01: exact structured JSON produces a typed candidate without inventing fields 9ms
+   × T31-C02: frozen-source FINAL_PROMPT/IMPROVEMENTS/PARAMETERS sections stay compatible but need review 2ms
+   × T31-C03: malformed JSON retains raw text and does not silently call it a valid result 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-result-parser.test.ts > T31-C01: exact structured JSON produces a typed candidate without inventing fields
+AssertionError: expected { status: 'invalid', …(3) } to match object { status: 'parsed', …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "format": "json",
+-   "result": {
+-     "finalPrompt": "原创本地草稿",
+-     "improvements": [],
+-     "shotPlan": [],
+-     "suggestedSpec": {
+-       "durationSeconds": 5,
+-       "ratio": "4:5",
+-     },
+-     "warnings": [],
+-   },
+-   "status": "parsed",
++   "format": "text",
++   "status": "invalid",
+  }
+
+ ❯ tests/unit/prompt-result-parser.test.ts:4:176
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/unit/prompt-result-parser.test.ts > T31-C02: frozen-source FINAL_PROMPT/IMPROVEMENTS/PARAMETERS sections stay compatible but need review
+AssertionError: expected 'invalid' to be 'needs_review' // Object.is equality
+
+Expected: "needs_review"
+Received: "invalid"
+
+ ❯ tests/unit/prompt-result-parser.test.ts:5:237
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/unit/prompt-result-parser.test.ts > T31-C03: malformed JSON retains raw text and does not silently call it a valid result
+AssertionError: expected { status: 'invalid', …(3) } to match object { status: 'invalid', …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "raw": "{bad <img src=x onerror=alert(1)>",
+-   "result": undefined,
+    "status": "invalid",
+  }
+
+ ❯ tests/unit/prompt-result-parser.test.ts:6:176
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 1 passed (4)
+   Start at  05:19:11
+   Duration  276ms (transform 49ms, setup 43ms, import 24ms, tests 14ms, environment 0ms)
+

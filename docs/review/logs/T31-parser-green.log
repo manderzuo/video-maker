@@ -1,0 +1,36 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-result-parser.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-result-parser.test.ts (4 tests | 1 failed) 14ms
+   × T31-C03: malformed JSON retains raw text and does not silently call it a valid result 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-result-parser.test.ts > T31-C03: malformed JSON retains raw text and does not silently call it a valid result
+AssertionError: expected { status: 'invalid', …(3) } to match object { status: 'invalid', …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "raw": "{bad <img src=x onerror=alert(1)>",
+-   "result": undefined,
+    "status": "invalid",
+  }
+
+ ❯ tests/unit/prompt-result-parser.test.ts:6:176
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  05:21:42
+   Duration  451ms (transform 173ms, setup 44ms, import 218ms, tests 14ms, environment 0ms)
+

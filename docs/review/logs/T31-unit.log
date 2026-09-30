@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  30 passed (30)
+      Tests  276 passed (276)
+   Start at  05:36:10
+   Duration  7.89s (transform 4.59s, setup 1.18s, import 10.38s, tests 10.78s, environment 4ms)
+

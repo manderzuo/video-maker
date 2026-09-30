@@ -1,0 +1,34 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-response-attachment.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-response-attachment.test.ts (4 tests | 1 failed) 146ms
+   × T31: result storage quota is atomic and retrying local parsing sends no new chat 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-response-attachment.test.ts > T31: result storage quota is atomic and retrying local parsing sends no new chat
+Error: prompt_result_immutable
+ ❯ putPromptResultInTransaction src/features/prompt-generation/result-versions.ts:5:136
+      3| export async function putPromptResultInTransaction(tx:IDBTransaction,d…
+      4|  if(result.sourceRevision!==sourceRevision||sourceRevision<1||sourceRe…
+      5|  const previous=draft.resultVersions.find(v=>v.id===result.id);if(prev…
+       |                                                                                                                                        ^
+      6|  if(result.origin==='ai'){
+      7|   if(!result.promptRunId)throw new Error('prompt_result_run_required');
+ ❯ src/adapters/core/prompt-result-parser.ts:37:129
+ ❯ transact src/infrastructure/storage/database.ts:24:19
+ ❯ withDatabase src/infrastructure/storage/database.ts:27:159
+ ❯ tests/unit/prompt-response-attachment.test.ts:15:812
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  05:31:46
+   Duration  795ms (transform 310ms, setup 42ms, import 430ms, tests 146ms, environment 0ms)
+

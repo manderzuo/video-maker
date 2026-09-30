@@ -1,6 +1,7 @@
 import {promptDraftSchema,promptResultVersionSchema,promptRunSchema,type PromptResultVersion,type PromptDraft} from '../../domain/prompt';
 import {transact,requestResult,withDatabase,type StudioDb} from '../../infrastructure/storage/database';
-async function insertResult(tx:IDBTransaction,draft:PromptDraft,sourceRevision:number,result:PromptResultVersion){
+export async function putPromptResultInTransaction(tx:IDBTransaction,draft:PromptDraft,sourceRevision:number,raw:PromptResultVersion){
+ const result=promptResultVersionSchema.parse(raw);
  if(result.sourceRevision!==sourceRevision||sourceRevision<1||sourceRevision>draft.revision)throw new Error('prompt_result_revision_invalid');
  const previous=draft.resultVersions.find(v=>v.id===result.id);if(previous){if(JSON.stringify(previous)!==JSON.stringify(result))throw new Error('prompt_result_immutable');return;}
  if(result.origin==='ai'){
@@ -14,12 +15,12 @@ async function insertResult(tx:IDBTransaction,draft:PromptDraft,sourceRevision:n
 }
 export async function appendPromptResult(draftId:string,sourceRevision:number,raw:PromptResultVersion,options:{db?:StudioDb}={}):Promise<void>{
  const result=promptResultVersionSchema.parse(raw);
- await withDatabase(options.db,db=>transact(db,['promptDrafts','promptRuns','receipts'],'readwrite',async tx=>{const raw:unknown=await requestResult(tx.objectStore('promptDrafts').get(draftId));if(raw===undefined)throw new Error('prompt_draft_missing');await insertResult(tx,promptDraftSchema.parse(raw),sourceRevision,result);}));
+ await withDatabase(options.db,db=>transact(db,['promptDrafts','promptRuns','receipts'],'readwrite',async tx=>{const raw:unknown=await requestResult(tx.objectStore('promptDrafts').get(draftId));if(raw===undefined)throw new Error('prompt_draft_missing');await putPromptResultInTransaction(tx,promptDraftSchema.parse(raw),sourceRevision,result);}));
 }
 export async function restorePromptResult(draftId:string,resultId:string,expectedRevision:number,options:{db?:StudioDb}={}):Promise<PromptResultVersion>{return withDatabase(options.db,db=>transact(db,['promptDrafts','promptRuns','receipts'],'readwrite',async tx=>{
  const raw:unknown=await requestResult(tx.objectStore('promptDrafts').get(draftId));if(raw===undefined)throw new Error('prompt_draft_missing');const draft=promptDraftSchema.parse(raw);
  if(draft.revision!==expectedRevision)throw new Error('prompt_draft_revision_conflict');const source=draft.resultVersions.find(v=>v.id===resultId);if(!source)throw new Error('prompt_result_missing');
  const {promptRunId:oldRun,...copy}=source;void oldRun;
  const restored=promptResultVersionSchema.parse({...copy,id:crypto.randomUUID(),sourceRevision:draft.revision,origin:'manual',validationState:'unchecked',createdAt:Date.now()});
- await insertResult(tx,draft,draft.revision,restored);tx.objectStore('receipts').put({id:`prompt-restore:${restored.id}`,kind:'prompt-result-restored',draftId,sourceResultId:source.id,resultId:restored.id});return restored;
+ await putPromptResultInTransaction(tx,draft,draft.revision,restored);tx.objectStore('receipts').put({id:`prompt-restore:${restored.id}`,kind:'prompt-result-restored',draftId,sourceResultId:source.id,resultId:restored.id});return restored;
 }));}

@@ -1,0 +1,20 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-result-parser.spec.ts
+
+[WebServer] (node:25404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:19804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-result-parser.spec.ts:6:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns (1.4s)
+  ok 2 tests\e2e\prompt-result-parser.spec.ts:7:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video (1.4s)
+  ok 3 tests\e2e\prompt-result-parser.spec.ts:8:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request (1.3s)
+  ok 4 tests\e2e\prompt-result-parser.spec.ts:9:1 › T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact (1.4s)
+  ok 5 tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request (1.4s)
+
+  5 passed (9.7s)

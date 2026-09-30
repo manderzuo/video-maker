@@ -1,21 +1,138 @@
 {
- "taskId":"T30","status":"领域实施完成，自检通过；PGD02联通待紧接T31；待统一验收/独立审查","baseCommit":"c539d257f0ab44d4f39a9764996fb25292ca28d5","headCommit":null,"branch":"feat/prompt-generation","actualProjectPath":"E:/trae-studio/TRAEWORK/aiwork-studio","actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
- "files":["src/adapters/core/text.ts","src/application/prompts/optimize-text.ts","src/application/prompts/text-model-policy.ts","src/features/prompt-generation/prompt-run-repository.ts","tests/unit/text-optimization.test.ts","tests/mock-core/server.ts"],
- "commands":[
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts","exitCode":1,"passed":0,"failed":6,"skipped":0,"logPath":"docs/review/logs/T30-red.log"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts","exitCode":1,"passed":3,"failed":3,"skipped":0,"logPath":"docs/review/logs/T30-green-initial.log","note":"预览SHA受Schema重排字段顺序影响，修成固定字段值顺序，未降低批准比较"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts","exitCode":0,"passed":6,"failed":0,"skipped":0,"logPath":"docs/review/logs/T30-green-initial-verified.log"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts","exitCode":1,"passed":10,"failed":1,"skipped":0,"logPath":"docs/review/logs/T30-boundaries.log","note":"测试查询断言误匹配合法POST/chat/completions；改为检查不存在的GET查询，不删断言"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts -t 'combined selected'","exitCode":1,"passed":0,"failed":1,"skipped":11,"logPath":"docs/review/logs/T30-input-limit-red.log"},
-  {"command":"npm run test:unit -- tests/unit/text-optimization.test.ts -t 'extra credential'","exitCode":1,"passed":0,"failed":1,"skipped":12,"logPath":"docs/review/logs/T30-decision-red.log"},
-  {"command":"npm run test:unit","exitCode":0,"passed":267,"failed":0,"skipped":0,"logPath":"docs/review/logs/T30-unit.log"},
-  {"command":"npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-canvas-commands.spec.ts","exitCode":0,"passed":23,"failed":0,"skipped":0,"logPath":"docs/review/logs/T30-browser.log"},
-  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T30-typecheck-final.log"},
-  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T30-lint.log"},
-  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T30-build.log"}
- ],
- "interactionIds":["T-06","B-01","PG15","PG17","PG18","PG19","PG20"],"screenshots":[],"networkMode":"13项领域行为使用原生事务等价fake-indexeddb和实际回环HTTP，23项Chromium回归覆盖共享草稿/画布；无真实Core",
- "behavior":["正面文字模型清单+契约版本+验证状态，拒绝trim/case Seedance和视频模型/别名，普通Key只经已有内存会话发同源Core chat路径","预览零网络，仅原始文字/已选择规则/锁定要求/明确勾选的参考说明；无资产ID、二进制、隐式媒体分析","有界输入、明确冲突门控、固定顺序SHA批准/2分钟有效期、草稿输入CAS；确认与persisted PromptRun同一事务，sending落盘后才POST","原请求体/幂等键/服务授权身份冻结；重复确认单个原生事务消费只POST一次；不新增视频Run","实际断线/超时响应未知，停止等待waiting_stopped，账务保留not_provided，不造异步查询地址，不重试或取消/退款","白名单响应只保留正文和安全请求ID，Key回显先脱敏；响应日志保留精确请求SHA和原输入修订，后续T31本地解析不再次调用AI","存储配额事务回滚Run/确认，零网络；确认对象额外Key字段拒入库；结果旧版输入不会覆盖当前草稿"],
- "sourceVersion":"只读Trae-core c056dffc41c701fb1b78a84c18c2ec139d3d708b，starlink-dimension-router/src/user_routes.rs:45 is_seedance_model trim+ASCII不区分大小写；版本未升级，未修改业务仓库",
- "knownLimitations":["PGD02与文字等待/解析界面由计划T31的AIOptimizeDialog和PromptResultDiff紧接联通；本任务不宣称AI按钮已经开放","文字响应日志默认不导出全文的最终导出过滤待T43，CoreKey已在响应入库前脱敏","真实文字模型/权限/结算没有联调或付费，未把Mock称为真实服务核验","Vite主包505.63kB警告延续，待T46；完整视觉、许可、统一用户验收和独立审查待进行"]
+  "taskId": "T30",
+  "status": "实施完成，自检通过；PGD02由T31联通，见T31证据；待统一验收/独立审查",
+  "baseCommit": "c539d257f0ab44d4f39a9764996fb25292ca28d5",
+  "headCommit": "4eb7503a2b085d64d4b484376182d7ea4b165fbd",
+  "branch": "feat/prompt-generation",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/adapters/core/text.ts",
+    "src/application/prompts/optimize-text.ts",
+    "src/application/prompts/text-model-policy.ts",
+    "src/features/prompt-generation/prompt-run-repository.ts",
+    "tests/unit/text-optimization.test.ts",
+    "tests/mock-core/server.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-green-initial.log",
+      "note": "预览SHA受Schema重排字段顺序影响，修成固定字段值顺序，未降低批准比较"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-green-initial-verified.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts",
+      "exitCode": 1,
+      "passed": 10,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-boundaries.log",
+      "note": "测试查询断言误匹配合法POST/chat/completions；改为检查不存在的GET查询，不删断言"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts -t 'combined selected'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 11,
+      "logPath": "docs/review/logs/T30-input-limit-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-optimization.test.ts -t 'extra credential'",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 12,
+      "logPath": "docs/review/logs/T30-decision-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 267,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-unit.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 0,
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-browser.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T30-build.log"
+    }
+  ],
+  "interactionIds": [
+    "T-06",
+    "B-01",
+    "PG15",
+    "PG17",
+    "PG18",
+    "PG19",
+    "PG20"
+  ],
+  "screenshots": [],
+  "networkMode": "13项领域行为使用原生事务等价fake-indexeddb和实际回环HTTP，23项Chromium回归覆盖共享草稿/画布；无真实Core",
+  "behavior": [
+    "正面文字模型清单+契约版本+验证状态，拒绝trim/case Seedance和视频模型/别名，普通Key只经已有内存会话发同源Core chat路径",
+    "预览零网络，仅原始文字/已选择规则/锁定要求/明确勾选的参考说明；无资产ID、二进制、隐式媒体分析",
+    "有界输入、明确冲突门控、固定顺序SHA批准/2分钟有效期、草稿输入CAS；确认与persisted PromptRun同一事务，sending落盘后才POST",
+    "原请求体/幂等键/服务授权身份冻结；重复确认单个原生事务消费只POST一次；不新增视频Run",
+    "实际断线/超时响应未知，停止等待waiting_stopped，账务保留not_provided，不造异步查询地址，不重试或取消/退款",
+    "白名单响应只保留正文和安全请求ID，Key回显先脱敏；响应日志保留精确请求SHA和原输入修订，后续T31本地解析不再次调用AI",
+    "存储配额事务回滚Run/确认，零网络；确认对象额外Key字段拒入库；结果旧版输入不会覆盖当前草稿"
+  ],
+  "sourceVersion": "只读Trae-core c056dffc41c701fb1b78a84c18c2ec139d3d708b，starlink-dimension-router/src/user_routes.rs:45 is_seedance_model trim+ASCII不区分大小写；版本未升级，未修改业务仓库",
+  "knownLimitations": [
+    "PGD02与文字等待/解析界面已由计划T31的AIOptimizeDialog和PromptResultDiff联通；浏览器证据见T31，历史T30命令未改写",
+    "文字响应日志默认不导出全文的最终导出过滤待T43，CoreKey已在响应入库前脱敏",
+    "真实文字模型/权限/结算没有联调或付费，未把Mock称为真实服务核验",
+    "Vite主包505.63kB警告延续，待T46；完整视觉、许可、统一用户验收和独立审查待进行"
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "currentTask": "T31",
+  "currentTask": "T32",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -238,18 +238,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T30.json",
-      "headCommit": null,
+      "headCommit": "4eb7503a2b085d64d4b484376182d7ea4b165fbd",
       "id": "T30",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "领域实施完成，自检通过；PGD02联通待T31；待统一验收/独立审查",
+      "status": "实施完成，自检通过，PGD02已由T31联通；待统一验收/独立审查",
       "title": "Core文字优化与独立PromptRun"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T31.json",
       "headCommit": null,
       "id": "T31",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "AI结果解析、差异与提示词模式联通"
     },
     {

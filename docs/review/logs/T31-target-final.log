@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/text-optimization.test.ts tests/unit/prompt-result-parser.test.ts tests/unit/prompt-response-attachment.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  05:40:50
+   Duration  7.04s (transform 658ms, setup 99ms, import 1.15s, tests 6.55s, environment 0ms)
+

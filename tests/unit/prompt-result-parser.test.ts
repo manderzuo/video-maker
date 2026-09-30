@@ -1,0 +1,7 @@
+import {it,expect} from 'vitest';
+import {parsePromptResponse} from '../../src/adapters/core/prompt-result-parser';
+import {f} from '../helpers/fixtures';
+it('T31-C01: exact structured JSON produces a typed candidate without inventing fields',()=>{const result=f.promptResult();expect(parsePromptResponse(JSON.stringify(result))).toMatchObject({status:'parsed',format:'json',result});});
+it('T31-C02: frozen-source FINAL_PROMPT/IMPROVEMENTS/PARAMETERS sections stay compatible but need review',()=>{const parsed=parsePromptResponse('[FINAL_PROMPT]\n原始品牌康济健葆\n[IMPROVEMENTS]\n改善运镜\n[PARAMETERS]\n时长5秒');expect(parsed.status).toBe('needs_review');expect(parsed.result?.finalPrompt).toBe('原始品牌康济健葆');expect(parsed.result?.improvements).toContain('改善运镜');expect(parsed.result?.warnings.join(' ')).toContain('时长5秒');});
+it('T31-C03: malformed JSON retains raw text and does not silently call it a valid result',()=>{const raw='{bad <img src=x onerror=alert(1)>',parsed=parsePromptResponse(raw);expect(parsed).toMatchObject({status:'invalid',raw});expect(parsed.result).toBeUndefined();});
+it('T31: unknown command fields and duplicate legacy markers are rejected as candidate protocol errors',()=>{expect(parsePromptResponse(JSON.stringify({...f.promptResult(),commands:[{type:'run_video'}]})).status).toBe('invalid');expect(parsePromptResponse('[FINAL_PROMPT]a[FINAL_PROMPT]b[IMPROVEMENTS]c[PARAMETERS]d').status).toBe('invalid');});

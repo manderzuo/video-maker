@@ -1,0 +1,159 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-result-parser.spec.ts
+
+[WebServer] (node:25036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:21324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-result-parser.spec.ts:6:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns (30.1s)
+(node:23144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\prompt-result-parser.spec.ts:7:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video (30.1s)
+(node:28868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\prompt-result-parser.spec.ts:8:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request (30.1s)
+
+
+  1) tests\e2e\prompt-result-parser.spec.ts:6:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'AI优化', exact: true })[22m
+    [2m    - locator resolved to <button disabled aria-busy="false" class="button secondary " aria-describedby="_r_18_" data-interaction-id="PG15">AI优化</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    56 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not enabled[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      2 | import type {Page} from '@playwright/test';
+      3 | async function boot(page:Page){await page.goto('/projects');await page.evaluate(async()=>{const fixture='/tests/fixtures/prompt-workspace.ts';await(await import(fixture)).seedPromptWorkspace();const generation='/tests/fixtures/generation.ts',database='/src/infrastructure/storage/database.ts',g=await import(generation),d=await import(database);await d.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>d.transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:g.generationCaps})));});await page.goto('/prompt-generator?type=video&draftId=d1');await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const generation='/tests/fixtures/generation.ts';(await import(generation)).connectGeneration();});}
+    > 4 | async function confirm(page:Page){await page.getByRole('button',{name:'AI优化',exact:true}).click();const dialog=page.getByRole('dialog',{name:'AI文字优化确认',exact:true});await dialog.getByLabel('文字模型',{exact:true}).selectOption('fake-text-only');await dialog.getByRole('button',{name:'预览文字请求',exact:true}).click();await dialog.getByLabel('我确认文字请求，并知悉可能产生费用且金额未知').check();return dialog;}
+        |                                                                                           ^
+      5 | test.beforeEach(async({page})=>boot(page));
+      6 | test('T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns',async({page,networkCounter})=>{const dialog=await confirm(page);await expect(dialog).toContainText('康济健葆');await expect(dialog).toContainText('fake-text-only');expect(networkCounter.paidRequests).toHaveLength(0);await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'AI优化',exact:true})).toBeFocused();expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-confirm-cancelled.png'});});
+      7 | test('T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video',async({page,networkCounter})=>{await page.getByLabel('品牌原文',{exact:true}).fill('康济健葆');await page.getByLabel('对白原文',{exact:true}).fill('你好世界');await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-text-parser',choices:[{message:{content:JSON.stringify({finalPrompt:'另一品牌，1位人物，一镜到底',shotPlan:[],improvements:['改写'],warnings:[],suggestedSpec:{durationSeconds:5,ratio:'9:16'}})}}]})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText('康济健葆');await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText('你好世界');expect(networkCounter.paidRequests.filter(r=>r.path.endsWith('/chat/completions'))).toHaveLength(1);expect(networkCounter.paidRequests.filter(r=>r.path.endsWith('/videos/generations'))).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-candidate-diff.png'});});
+        at confirm (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:4:91)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:6:161
+
+    Error Context: test-results\prompt-result-parser-T31-P-00756--and-leaves-zero-PromptRuns\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-result-parser-T31-P-00756--and-leaves-zero-PromptRuns\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-result-parser-T31-P-00756--and-leaves-zero-PromptRuns\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\prompt-result-parser.spec.ts:7:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'AI优化', exact: true })[22m
+    [2m    - locator resolved to <button disabled aria-busy="false" class="button secondary " aria-describedby="_r_18_" data-interaction-id="PG15">AI优化</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    56 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not enabled[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      2 | import type {Page} from '@playwright/test';
+      3 | async function boot(page:Page){await page.goto('/projects');await page.evaluate(async()=>{const fixture='/tests/fixtures/prompt-workspace.ts';await(await import(fixture)).seedPromptWorkspace();const generation='/tests/fixtures/generation.ts',database='/src/infrastructure/storage/database.ts',g=await import(generation),d=await import(database);await d.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>d.transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:g.generationCaps})));});await page.goto('/prompt-generator?type=video&draftId=d1');await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const generation='/tests/fixtures/generation.ts';(await import(generation)).connectGeneration();});}
+    > 4 | async function confirm(page:Page){await page.getByRole('button',{name:'AI优化',exact:true}).click();const dialog=page.getByRole('dialog',{name:'AI文字优化确认',exact:true});await dialog.getByLabel('文字模型',{exact:true}).selectOption('fake-text-only');await dialog.getByRole('button',{name:'预览文字请求',exact:true}).click();await dialog.getByLabel('我确认文字请求，并知悉可能产生费用且金额未知').check();return dialog;}
+        |                                                                                           ^
+      5 | test.beforeEach(async({page})=>boot(page));
+      6 | test('T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns',async({page,networkCounter})=>{const dialog=await confirm(page);await expect(dialog).toContainText('康济健葆');await expect(dialog).toContainText('fake-text-only');expect(networkCounter.paidRequests).toHaveLength(0);await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'AI优化',exact:true})).toBeFocused();expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-confirm-cancelled.png'});});
+      7 | test('T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video',async({page,networkCounter})=>{await page.getByLabel('品牌原文',{exact:true}).fill('康济健葆');await page.getByLabel('对白原文',{exact:true}).fill('你好世界');await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-text-parser',choices:[{message:{content:JSON.stringify({finalPrompt:'另一品牌，1位人物，一镜到底',shotPlan:[],improvements:['改写'],warnings:[],suggestedSpec:{durationSeconds:5,ratio:'9:16'}})}}]})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText('康济健葆');await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText('你好世界');expect(networkCounter.paidRequests.filter(r=>r.path.endsWith('/chat/completions'))).toHaveLength(1);expect(networkCounter.paidRequests.filter(r=>r.path.endsWith('/videos/generations'))).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-candidate-diff.png'});});
+        at confirm (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:4:91)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:7:594
+
+    Error Context: test-results\prompt-result-parser-T31-C-fdab4-e-and-never-submits-a-video\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-result-parser-T31-C-fdab4-e-and-never-submits-a-video\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-result-parser-T31-C-fdab4-e-and-never-submits-a-video\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\prompt-result-parser.spec.ts:8:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'AI优化', exact: true })[22m
+    [2m    - locator resolved to <button disabled aria-busy="false" class="button secondary " aria-describedby="_r_18_" data-interaction-id="PG15">AI优化</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not enabled[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    56 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not enabled[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      2 | import type {Page} from '@playwright/test';
+      3 | async function boot(page:Page){await page.goto('/projects');await page.evaluate(async()=>{const fixture='/tests/fixtures/prompt-workspace.ts';await(await import(fixture)).seedPromptWorkspace();const generation='/tests/fixtures/generation.ts',database='/src/infrastructure/storage/database.ts',g=await import(generation),d=await import(database);await d.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>d.transact(db,['diagnostics'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('diagnostics').put({id:'capability:current',capability:g.generationCaps})));});await page.goto('/prompt-generator?type=video&draftId=d1');await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);await page.evaluate(async()=>{const generation='/tests/fixtures/generation.ts';(await import(generation)).connectGeneration();});}
+    > 4 | async function confirm(page:Page){await page.getByRole('button',{name:'AI优化',exact:true}).click();const dialog=page.getByRole('dialog',{name:'AI文字优化确认',exact:true});await dialog.getByLabel('文字模型',{exact:true}).selectOption('fake-text-only');await dialog.getByRole('button',{name:'预览文字请求',exact:true}).click();await dialog.getByLabel('我确认文字请求，并知悉可能产生费用且金额未知').check();return dialog;}
+        |                                                                                           ^
+      5 | test.beforeEach(async({page})=>boot(page));
+      6 | test('T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns',async({page,networkCounter})=>{const dialog=await confirm(page);await expect(dialog).toContainText('康济健葆');await expect(dialog).toContainText('fake-text-only');expect(networkCounter.paidRequests).toHaveLength(0);await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'AI优化',exact:true})).toBeFocused();expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-confirm-cancelled.png'});});
+      7 | test('T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video',async({page,networkCounter})=>{await page.getByLabel('品牌原文',{exact:true}).fill('康济健葆');await page.getByLabel('对白原文',{exact:true}).fill('你好世界');await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-text-parser',choices:[{message:{content:JSON.stringify({finalPrompt:'另一品牌，1位人物，一镜到底',shotPlan:[],improvements:['改写'],warnings:[],suggestedSpec:{durationSeconds:5,ratio:'9:16'}})}}]})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText('康济健葆');await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText('你好世界');expect(networkCounter.paidRequests.filter(r=>r.path.endsWith('/chat/completions'))).toHaveLength(1);expect(networkCounter.paidRequests.filter(r=>r.path.endsWith('/videos/generations'))).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-candidate-diff.png'});});
+        at confirm (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:4:91)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:8:403
+
+    Error Context: test-results\prompt-result-parser-T31-C-0e751-no-automatic-repair-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-result-parser-T31-C-0e751-no-automatic-repair-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-result-parser-T31-C-0e751-no-automatic-repair-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\prompt-result-parser.spec.ts:6:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns 
+    tests\e2e\prompt-result-parser.spec.ts:7:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video 
+    tests\e2e\prompt-result-parser.spec.ts:8:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request 

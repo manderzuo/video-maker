@@ -1,0 +1,6 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/e2e/prompt-result-parser.spec.ts(7,942): error TS2339: Property 'path' does not exist on type 'RequestRecord'.
+tests/e2e/prompt-result-parser.spec.ts(7,1042): error TS2339: Property 'path' does not exist on type 'RequestRecord'.

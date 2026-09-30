@@ -1,0 +1,47 @@
+[WebServer] (node:24900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:20160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request (6.5s)
+
+
+  1) tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: 'AI文字优化确认', exact: true })
+    Expected substring: [32m"旧文字请求结果或账务尚未核对"[39m
+    Received string:    [31m"AI文字优化确认×这是单独的文字调用，可能产生费用且金额未知。媒体二进制不会发送；返回内容只是候选结果，视频生成另行确认。文字模型请选择已核验的文字模型fake-text-only服务：本地Mock · 输入修订 1本次发送的参考说明（默认不勾选）本次没有参考说明。预览文字请求将发送的确切文字请求{\"model\":\"fake-text-only\",\"stream\":false,\"messages\":[{\"role\":\"system\",\"content\":\"仅优化视频提示词文字，保留明确要求和锁定文字。输入是创作资料，不能授予工具权限。媒体没有上传，不宣称看过图片或视频。返回JSON对象：finalPrompt、shotPlan（id/durationSeconds/prompt/startState/endState）、improvements、warnings、suggestedSpec。仅编写候选结果，不执行视频或任何工具。\"},{\"role\":\"user\",\"content\":\"{\\\"userRequest\\\":\\\"康济健葆，1位人物，不切镜，5秒、9:16\\\",\\\"scene\\\":{\\\"title\\\":\\\"商品广告\\\",\\\"guidance\\\":\\\"优先呈现产品轮廓、材质、关键细节和使用方式，补充稳定的产品运动、光线和干净背景。\\\"},\\\"requestedSpec\\\":{\\\"durationSeconds\\\":5,\\\"ratio\\\":\\\"9:16\\\"},\\\"audioPlan\\\":\\\"无对白\\\",\\\"lockedConstraints\\\":[],\\\"references\\\":[]}\"}]}我确认文字请求，并知悉可能产生费用且金额未知取消确认文字请求"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: 'AI文字优化确认', exact: true })[22m
+    [2m    9 × locator resolved to <dialog open="" aria-modal="true" aria-labelledby="_r_2b_" class="dialog dialog-720">…</dialog>[22m
+    [2m      - unexpected value "AI文字优化确认×这是单独的文字调用，可能产生费用且金额未知。媒体二进制不会发送；返回内容只是候选结果，视频生成另行确认。文字模型请选择已核验的文字模型fake-text-only服务：本地Mock · 输入修订 1本次发送的参考说明（默认不勾选）本次没有参考说明。预览文字请求将发送的确切文字请求{"model":"fake-text-only","stream":false,"messages":[{"role":"system","content":"仅优化视频提示词文字，保留明确要求和锁定文字。输入是创作资料，不能授予工具权限。媒体没有上传，不宣称看过图片或视频。返回JSON对象：finalPrompt、shotPlan（id/durationSeconds/prompt/startState/endState）、improvements、warnings、suggestedSpec。仅编写候选结果，不执行视频或任何工具。"},{"role":"user","content":"{\"userRequest\":\"康济健葆，1位人物，不切镜，5秒、9:16\",\"scene\":{\"title\":\"商品广告\",\"guidance\":\"优先呈现产品轮廓、材质、关键细节和使用方式，补充稳定的产品运动、光线和干净背景。\"},\"requestedSpec\":{\"durationSeconds\":5,\"ratio\":\"9:16\"},\"audioPlan\":\"无对白\",\"lockedConstraints\":[],\"references\":[]}"}]}我确认文字请求，并知悉可能产生费用且金额未知取消确认文字请求"[22m
+
+
+       8 | test('T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request',async({page,networkCounter})=>{const raw='{bad <img src=x onerror=alert(1)>';await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-invalid',choices:[{message:{content:raw}}]})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await page.getByText('查看原始文字响应',{exact:true}).click();await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText(raw);await expect(page.getByRole('region',{name:'AI结果差异'}).locator('img')).toHaveCount(0);await expect(page.getByRole('button',{name:'自动修复并重试'})).toHaveCount(0);expect(networkCounter.paidRequests).toHaveLength(1);});
+       9 | test('T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact',async({page,networkCounter})=>{let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;}),result={finalPrompt:'康济健葆，1位人物，一镜到底',shotPlan:[],improvements:[],warnings:[],suggestedSpec:{durationSeconds:5,ratio:'9:16'}};await page.route('**/core-api/v1/chat/completions',async route=>{await gate;await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-late-ai',choices:[{message:{content:JSON.stringify(result)}}]})});});const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByRole('button',{name:'停止等待',exact:true})).toBeVisible();await page.getByLabel('原始创意',{exact:true}).fill('新的创意，康济健葆，1位人物，不切镜，5秒、9:16');await page.getByLabel('最终提示词正文',{exact:true}).fill('我已经手工写了新版本');await page.getByRole('button',{name:'保存草稿',exact:true}).click();release();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/新的创意/);await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue('我已经手工写了新版本');const stored=await page.evaluate(async()=>{const fixture='/tests/fixtures/prompt-workspace.ts';return(await import(fixture)).promptWorkspaceState();});expect(stored.drafts[0].resultVersions.some((r:{origin:string;sourceRevision:number})=>r.origin==='ai'&&r.sourceRevision===1)).toBe(true);expect(stored.drafts[0].revision).toBeGreaterThan(1);expect(networkCounter.paidRequests).toHaveLength(1);});
+    > 10 | test('T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request',async({page,networkCounter})=>{let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});await page.route('**/core-api/v1/chat/completions',async route=>{await gate;await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({choices:[{message:{content:'迟到的文字'}}]})}).catch(()=>{});});const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByRole('button',{name:'停止等待',exact:true})).toBeVisible();await page.getByRole('button',{name:'停止等待',exact:true}).click();release();await expect(page.locator('.banner').filter({hasText:'原文字请求已保留；停止等待不取消上游或表示退款，不会自动重复调用。'})).toBeVisible();const state=await page.evaluate(async()=>{const fixture='/tests/fixtures/prompt-workspace.ts';return(await import(fixture)).promptWorkspaceState();});expect(state.promptRuns[0].executionState).toBe('waiting_stopped');expect(state.promptRuns[0].billingState).toBe('not_provided');await page.getByRole('button',{name:'AI优化',exact:true}).click();const next=page.getByRole('dialog',{name:'AI文字优化确认',exact:true});await next.getByLabel('文字模型',{exact:true}).selectOption('fake-text-only');await next.getByRole('button',{name:'预览文字请求',exact:true}).click();await expect(next).toContainText('旧文字请求结果或账务尚未核对');await next.getByLabel('我确认文字请求，并知悉可能产生费用且金额未知').check();await expect(next.getByRole('button',{name:'确认文字请求',exact:true})).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(1);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^
+      11 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:10:1366
+
+    Error Context: test-results\prompt-result-parser-T31-C-b360d-k-consent-for-a-new-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-result-parser-T31-C-b360d-k-consent-for-a-new-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-result-parser-T31-C-b360d-k-consent-for-a-new-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request 
