@@ -1,0 +1,65 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test
+
+[WebServer] (node:30048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:30604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\harness.spec.ts:2:1 › T03-C03: credential-free app bootstrap and local mock counting (718ms)
+  ok  2 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (762ms)
+  ok  3 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (752ms)
+  ok  4 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (518ms)
+  ok  5 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (593ms)
+  x   6 tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks (376ms)
+(node:27456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 tests\e2e\storage.spec.ts:11:1 › native request success plus abort rolls back all tables (624ms)
+  ok  8 tests\e2e\storage.spec.ts:18:1 › quota fault preserves visible draft, disables submission and recovers saved title (436ms)
+  ok  9 tests\e2e\storage.spec.ts:23:1 › real old connection blocks native upgrade and yields actionable error (335ms)
+  ok 10 tests\e2e\storage.spec.ts:26:1 › persisted unknown run survives page reopening with original idempotency and state (442ms)
+
+
+  1) tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks ──
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 0[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Array [[22m
+    [31m+   "transaction-complete",[39m
+    [2m    "request-success",[22m
+    [2m    "transaction-complete",[22m
+    [2m    "reported-saved",[22m
+    [2m  ][22m
+
+      4 | test('native commit ordering and refresh recovery with real clicks',async({page,networkCounter})=>{
+      5 |  await page.getByLabel('项目名称').fill('真实浏览器中文保存');await page.getByRole('button',{name:'事务保存',exact:true}).click();await expect(page.getByRole('status')).toHaveText('已保存');
+    > 6 |  expect(await page.evaluate(()=>window.studioFixture.events())).toEqual(['request-success','transaction-complete','reported-saved']);
+        |                                                                 ^
+      7 |  await expect(page.getByRole('button',{name:'检查提交门槛（不发请求）'})).toBeEnabled();
+      8 |  await page.reload();await expect(page.getByRole('status')).toHaveText('已恢复已保存版本');await expect(page.getByLabel('项目名称')).toHaveValue('真实浏览器中文保存');
+      9 |  expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T05-native-storage.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\storage.spec.ts:6:65
+
+    Error Context: test-results\storage-native-commit-orde-37ba0-h-recovery-with-real-clicks\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\storage-native-commit-orde-37ba0-h-recovery-with-real-clicks\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\storage-native-commit-orde-37ba0-h-recovery-with-real-clicks\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks ───
+  9 passed (12.6s)

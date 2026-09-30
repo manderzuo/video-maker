@@ -1,0 +1,190 @@
+
+> aiwork-studio@0.0.1 verify
+> npm run typecheck && npm run lint && npm run test:unit && npm run test:e2e && npm run test:security && npm run test:trace && npm run build
+
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+
+> aiwork-studio@0.0.1 lint
+> eslint src tests vite.config.ts vitest.config.ts playwright.config.ts
+
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  4 passed (4)
+      Tests  30 passed (30)
+   Start at  18:37:50
+   Duration  538ms (transform 229ms, setup 94ms, import 506ms, tests 153ms, environment 0ms)
+
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test
+
+[WebServer] (node:25368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:30168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\harness.spec.ts:2:1 › T03-C03: credential-free app bootstrap and local mock counting (507ms)
+  ok  2 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (765ms)
+  ok  3 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (623ms)
+  ok  4 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (539ms)
+  ok  5 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (648ms)
+  ok  6 tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks (512ms)
+  ok  7 tests\e2e\storage.spec.ts:11:1 › native request success plus abort rolls back all tables (319ms)
+  ok  8 tests\e2e\storage.spec.ts:18:1 › quota fault preserves visible draft, disables submission and recovers saved title (434ms)
+  ok  9 tests\e2e\storage.spec.ts:23:1 › real old connection blocks native upgrade and yields actionable error (350ms)
+  ok 10 tests\e2e\storage.spec.ts:26:1 › persisted unknown run survives page reopening with original idempotency and state (445ms)
+
+  10 passed (8.4s)
+
+> aiwork-studio@0.0.1 test:security
+> vitest run tests/security && node scripts/check-network-negative.mjs
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:38:02
+   Duration  269ms (transform 41ms, setup 43ms, import 18ms, tests 5ms, environment 0ms)
+
+Observed negative browser test exit 1 at network guard, then verified the harness assertion.
+
+> aiwork-studio@0.0.1 test:trace
+> node --test tests/planning/*.test.mjs
+
+TAP version 13
+# Subtest: T01-C01: resolved project belongs to the authorized TRAEWORK root
+ok 1 - T01-C01: resolved project belongs to the authorized TRAEWORK root
+  ---
+  duration_ms: 1.1019
+  type: 'test'
+  ...
+# Subtest: T01-C02: all five pinned revisions have independently verified snapshots
+ok 2 - T01-C02: all five pinned revisions have independently verified snapshots
+  ---
+  duration_ms: 1.8261
+  type: 'test'
+  ...
+# Subtest: T01-C03: every source has a license disposition and evidence
+ok 3 - T01-C03: every source has a license disposition and evidence
+  ---
+  duration_ms: 0.9529
+  type: 'test'
+  ...
+# Subtest: T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence
+ok 4 - T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence
+  ---
+  duration_ms: 0.6633
+  type: 'test'
+  ...
+# Subtest: T01-C05: write policy denies external/source paths, traversal and symlinks
+ok 5 - T01-C05: write policy denies external/source paths, traversal and symlinks
+  ---
+  duration_ms: 102.273
+  type: 'test'
+  ...
+# Subtest: T03-C01: public and foreign-loopback requests fail closed
+ok 6 - T03-C01: public and foreign-loopback requests fail closed
+  ---
+  duration_ms: 0.9817
+  type: 'test'
+  ...
+# Subtest: T03-C02: server reuse is disabled
+ok 7 - T03-C02: server reuse is disabled
+  ---
+  duration_ms: 0.3694
+  type: 'test'
+  ...
+# Subtest: T03-C03: isolated mock tooling exposes all commands without credentials
+ok 8 - T03-C03: isolated mock tooling exposes all commands without credentials
+  ---
+  duration_ms: 0.8834
+  type: 'test'
+  ...
+# Subtest: T03-C04: empty suites and missing dependencies cannot pass
+ok 9 - T03-C04: empty suites and missing dependencies cannot pass
+  ---
+  duration_ms: 0.3322
+  type: 'test'
+  ...
+# Subtest: T03-C05: one npm lock contains exact declared dependencies
+ok 10 - T03-C05: one npm lock contains exact declared dependencies
+  ---
+  duration_ms: 2.1696
+  type: 'test'
+  ...
+# Subtest: T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs
+ok 11 - T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs
+  ---
+  duration_ms: 6.8797
+  type: 'test'
+  ...
+# Subtest: T02-C02: critical states have real captures at 1440/1280/1024 in both themes
+ok 12 - T02-C02: critical states have real captures at 1440/1280/1024 in both themes
+  ---
+  duration_ms: 2.3401
+  type: 'test'
+  ...
+# Subtest: T02-C03: payment and PG conflict material explicitly preserves constraints and gating
+ok 13 - T02-C03: payment and PG conflict material explicitly preserves constraints and gating
+  ---
+  duration_ms: 1.3013
+  type: 'test'
+  ...
+# Subtest: T02-C04: real browser review generated no business requests or storage writes
+ok 14 - T02-C04: real browser review generated no business requests or storage writes
+  ---
+  duration_ms: 0.5069
+  type: 'test'
+  ...
+# Subtest: T02-G02: human approval is required before the visual baseline is accepted
+not ok 15 - T02-G02: human approval is required before the visual baseline is accepted
+  ---
+  duration_ms: 1.361
+  type: 'test'
+  location: 'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\planning\\visual-baseline.test.mjs:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    canvas-save-failed: human visual review pending
+    + actual - expected
+    
+    + 'pending'
+    - 'approved'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'approved'
+  actual: 'pending'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:42:46)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 14
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 219.283

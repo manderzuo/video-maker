@@ -6,15 +6,17 @@ import type {SaveResult} from '../../domain/common';
 import {validateProject,validateGraph} from '../../domain/validation';
 import {transact,requestResult,withDatabase,storageErrorCode} from './database';
 import {validateFrozenBody,putRunInTransaction} from './run-repository';
-export type SaveOptions={db?:StudioDb;graph?:Graph;runs?:Run[]};
+import {assertProjectWriter,type ProjectLeaseToken} from './project-lease';
+export type SaveOptions={db?:StudioDb;graph?:Graph;runs?:Run[];lease?:ProjectLeaseToken};
 export async function saveProject(project:Project,expectedRevision:number,options:SaveOptions={}):Promise<SaveResult>{
  const valid=validateProject(project);
  if(!valid.ok)return {status:'failed',code:valid.issues[0].code==='schema_too_new'?'schema_too_new':'project_invalid'};
- const input=structuredClone(valid.value),graphInput=options.graph?structuredClone(options.graph):undefined,runs=structuredClone(options.runs??[]);
+ const input=structuredClone(valid.value),graphInput=options.graph?structuredClone(options.graph):undefined,runs=structuredClone(options.runs??[]),lease=options.lease?{...options.lease}:undefined;
  if(graphInput&&(!validateGraph(graphInput).ok||graphInput.projectId!==input.id||graphInput.revision!==input.revision))return {status:'failed',code:'graph_revision_or_schema_invalid'};
  try{
   for(const run of runs){if(run.projectId!==input.id)throw new Error('run_project_mismatch');await validateFrozenBody(run);}
-  return await withDatabase(options.db,db=>transact(db,['projects','graphs','references','runs','diagnostics'],'readwrite',async tx=>{
+  return await withDatabase(options.db,db=>transact(db,['projects','graphs','references','runs','diagnostics','leases'],'readwrite',async tx=>{
+   await assertProjectWriter(tx,input.id,lease);
    const previous:unknown=await requestResult(tx.objectStore('projects').get(input.id));
    if(previous!==undefined){const check=validateProject(previous);if(!check.ok)throw new Error('stored_project_not_writable');if(check.value.revision!==expectedRevision)return {status:'conflict',currentRevision:check.value.revision};}
    else if(expectedRevision!==0)return {status:'conflict',currentRevision:0};
@@ -27,7 +29,7 @@ export async function saveProject(project:Project,expectedRevision:number,option
    const oldKeys=await requestResult(refs.index('projectId').getAllKeys(input.id));for(const key of oldKeys)refs.delete(key);
    const ids=new Set<string>();for(const node of graph.nodes){if(node.type==='asset'||node.type==='result')ids.add(node.data.assetId);if(node.type==='text')for(const ref of node.data.referenceTokens)if(ref.assetId)ids.add(ref.assetId);}
    for(const assetId of ids)refs.put({id:`${input.id}:${assetId}`,projectId:input.id,assetId,revision:input.revision});
-   for(const run of runs)await putRunInTransaction(tx,run);
+   for(const run of runs)await putRunInTransaction(tx,run,{lease,expectedProjectRevision:input.revision});
    tx.objectStore('diagnostics').put({id:crypto.randomUUID(),kind:'project_saved',projectId:input.id,revision:input.revision,at:Date.now()});
    return {status:'saved',revision:input.revision};
   }));
@@ -36,14 +38,16 @@ export async function saveProject(project:Project,expectedRevision:number,option
 export async function readProject(id:string,db?:StudioDb):Promise<Project|undefined>{return withDatabase(db,c=>transact(c,['projects'],'readonly',async tx=>{const value:unknown=await requestResult(tx.objectStore('projects').get(id));if(value===undefined)return undefined;const checked=validateProject(value);if(!checked.ok)throw new Error('stored_project_not_writable');return checked.value;}));}
 export async function readGraph(id:string,db?:StudioDb):Promise<Graph|undefined>{return withDatabase(db,c=>transact(c,['graphs'],'readonly',async tx=>{const value:unknown=await requestResult(tx.objectStore('graphs').get(id));if(value===undefined)return undefined;const checked=validateGraph(value);if(!checked.ok)throw new Error('stored_graph_not_writable');return checked.value;}));}
 export class ProjectSaveSession{
+ private writeAccess=false;
  private savedSnapshot:string|null=null;
  state:'dirty'|'saving'|'saved'|'failed'='dirty';
  constructor(public draft:Project){}
- canSubmit(){return this.state==='saved'&&this.savedSnapshot===JSON.stringify(this.draft);}
+ setWriteAccess(value:boolean){this.writeAccess=value;}
+ canSubmit(){return this.writeAccess&&this.state==='saved'&&this.savedSnapshot===JSON.stringify(this.draft);}
  async save(expectedRevision:number,options:SaveOptions={}){
   this.state='saving';const snapshot=structuredClone(this.draft);
   const result=await saveProject(snapshot,expectedRevision,options);
-  if(result.status==='saved'){this.savedSnapshot=JSON.stringify(snapshot);this.state=JSON.stringify(this.draft)===this.savedSnapshot?'saved':'dirty';}else this.state='failed';
+  if(result.status==='saved'){this.writeAccess=true;this.savedSnapshot=JSON.stringify(snapshot);this.state=JSON.stringify(this.draft)===this.savedSnapshot?'saved':'dirty';}else {this.state='failed';if(result.status==='failed'&&/lease|writer/.test(result.code))this.writeAccess=false;}
   return result;
  }
 }

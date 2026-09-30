@@ -1,20 +1,144 @@
 {
   "taskId": "T06",
-  "title": "多标签写者租约与运行单飞锁",
-  "status": "受阻，未开始",
-  "baseCommit": null,
+  "status": "实施完成，自检通过，待独立审查",
+  "baseCommit": "f921d3e0c84a539ec4737e51d9b8f48a225af529",
   "headCommit": null,
   "actualModel": "由用户在宿主选择，当前工具不可验证",
-  "reasoningMode": "用户指定high，工具不可验证",
-  "files": [],
-  "commands": [],
-  "interactionIds": [],
-  "screenshots": [],
-  "networkMode": "not-executed",
-  "knownLimitations": [
-    "T01主审与T02视觉/独立审查尚未完成；按原交接依赖门槛暂停",
-    "未执行测试，不作通过或跳过声明"
+  "files": [
+    "src/infrastructure/storage/project-lease.ts",
+    "src/infrastructure/storage/run-lease.ts",
+    "src/infrastructure/storage/tab-channel.ts",
+    "src/infrastructure/storage/project-repository.ts",
+    "src/infrastructure/storage/run-repository.ts",
+    "tests/unit/project-lease.test.ts",
+    "tests/unit/project-store.test.ts",
+    "tests/e2e/lease.spec.ts",
+    "tests/fixtures/storage-fixture.ts",
+    "tests/fixtures/storage.html",
+    "tests/fixtures/storage.css"
   ],
-  "reviewDecision": "未实施，待前置审查",
-  "independentReviewPerformed": false
+  "commands": [
+    {
+      "logPath": "docs/review/logs/T06-red.log",
+      "command": "npm run test:unit -- tests/unit/project-lease.test.ts",
+      "phase": "red",
+      "failed": 7,
+      "skipped": 0,
+      "passed": 0,
+      "exitCode": 1
+    },
+    {
+      "logPath": "docs/review/logs/T06-time-red.log",
+      "command": "npm run test:unit -- tests/unit/project-lease.test.ts",
+      "phase": "invalid-time-red",
+      "failed": 1,
+      "skipped": 0,
+      "passed": 10,
+      "exitCode": 1
+    },
+    {
+      "logPath": "docs/review/logs/T06-target-final.log",
+      "command": "npm run test:unit -- tests/unit/project-lease.test.ts",
+      "phase": "green",
+      "failed": 0,
+      "skipped": 0,
+      "passed": 11,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:unit",
+      "logPath": "docs/review/logs/T06-regression-final.log",
+      "failed": 0,
+      "skipped": 0,
+      "passed": 30,
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/lease.spec.ts",
+      "logPath": "docs/review/logs/T06-browser.log",
+      "failed": 0,
+      "skipped": 0,
+      "passed": 4,
+      "exitCode": 0
+    },
+    {
+      "passed": 9,
+      "logPath": "docs/review/logs/T06-e2e-regression.log",
+      "command": "npm run test:e2e",
+      "skipped": 0,
+      "exitCode": 1,
+      "note": "夹具把仅写leases的事务complete也记为项目保存；改为实际project put事务观察，保留精确顺序断言",
+      "phase": "project-write-observer-scope-failure",
+      "failed": 1
+    },
+    {
+      "logPath": "docs/review/logs/BATCH-verify.log",
+      "command": "npm run verify",
+      "reason": "仅T02-G02真实用户完整视觉/独立审查批准仍pending；未跳过或放宽该断言",
+      "planning": {
+        "skipped": 0,
+        "passed": 14,
+        "failed": 1
+      },
+      "unit": {
+        "skipped": 0,
+        "passed": 30,
+        "failed": 0
+      },
+      "exitCode": 1,
+      "e2e": {
+        "skipped": 0,
+        "passed": 10,
+        "failed": 0
+      },
+      "security": {
+        "skipped": 0,
+        "passed": 2,
+        "failed": 0
+      }
+    },
+    {
+      "command": "npm run typecheck",
+      "logPath": "docs/review/logs/T06-typecheck-final.log",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "logPath": "docs/review/logs/T06-lint-final.log",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "logPath": "docs/review/logs/BATCH-build.log",
+      "exitCode": 0
+    },
+    {
+      "command": "npm audit --json",
+      "logPath": "docs/review/logs/BATCH-audit.json",
+      "exitCode": 0,
+      "knownVulnerabilities": 0
+    }
+  ],
+  "interactionIds": [
+    "F-01",
+    "F-02"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T06-takeover-dialog.png"
+  ],
+  "networkMode": "local browser mock/technical fixture; no Core calls",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "rulings": [
+    "项目/图/引用/Run创建在同一事务检查项目lease epoch与Project revision；上下文捕获后复制，防止异步等待期间令牌被改写",
+    "Run状态写入使用独立run epoch与revision CAS，追踪接管保留不可重发标记；不依赖UI项目锁，跟踪接管不等于新的视频授权",
+    "markRunDispatched提交的是网络前的持久提交意图，函数不发网络；不声称真实请求已发出",
+    "PromptRun存储表和领域schema已提供，写入接口待T20草稿CAS；移除T05未测试的临时savePromptRun入口，不留下无租约写入路径"
+  ],
+  "knownLimitations": [
+    "模拟休眠通过推进浏览器时钟和停止续租；不是实际等待设备休眠",
+    "D24点击/禁用/焦点/关闭在技术夹具验证；完整产品弹窗由后续UI任务接入",
+    "本批无Core提交、付费、远端取消或退款验证",
+    "CI工作流未远端运行；规划来源审计依赖当前真实E盘快照，迁出本机需要重新提供真实路径与来源证据，不可复用本机认可冒充跨环境验证"
+  ]
 }

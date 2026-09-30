@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-lease.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  18:24:57
+   Duration  1.01s (transform 210ms, setup 66ms, import 342ms, tests 66ms, environment 0ms)
+

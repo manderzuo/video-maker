@@ -79,3 +79,5 @@ T03：用户明确允许实施、独立审查移至批次检查点。工具链No
 T04：8目标用例通过，相关回归10通过；typecheck/lint通过。6有效红灯后实现，另有快照秘密字段1红灯后修复。字符按Unicode码点，所有字节限额UTF-8；存UTC毫秒；四维状态独立；规格不静默修改；绑定别名仅显式导入迁移。独立审查待。进入T05原生IndexedDB事务验收。
 
 T05：9目标单测/19相关回归通过；Edge原生IndexedDB5用例通过，保存/刷新恢复、request成功后abort回滚、quota草稿保留及禁用、原生blocked、未知Run原身份恢复。typecheck/lint通过。DB结构版本2、数据schema1；新增references原子表。事件监听注册顺序的技术观察器误差已定位修复。截图T05-native-storage.png为技术夹具，不宣称产品UI完成。待独立审查，继续T06。
+
+T06：11目标/30全单位通过；4跨标签原生浏览器目标通过，完整浏览器10通过。类型/lint/build通过；verify退出1仅T02-G02批准pending（规划14通过/1失败）。30秒租约、前台5秒续租、epoch接管、revision CAS、广播丢失、模拟休眠、ABA、单飞及持久提交意图都已验证。Run跟踪lease不依赖项目UI写锁，不允许重新dispatch。完整产品D24与独立审查待。停止T06检查点，不进入T07。

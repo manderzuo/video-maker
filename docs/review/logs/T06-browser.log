@@ -1,0 +1,19 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/lease.spec.ts
+
+[WebServer] (node:27076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:26956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (912ms)
+  ok 2 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (686ms)
+  ok 3 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (580ms)
+  ok 4 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (613ms)
+
+  4 passed (6.0s)

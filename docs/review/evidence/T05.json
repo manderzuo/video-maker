@@ -2,7 +2,7 @@
   "taskId": "T05",
   "status": "实施完成，自检通过，待独立审查",
   "baseCommit": "92a4248db3bcee4f956e077332b316d5c1aafd45",
-  "headCommit": null,
+  "headCommit": "f921d3e0c84a539ec4737e51d9b8f48a225af529",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "files": [
     "src/infrastructure/storage/database.ts",
