@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/fixtures/storage-fixture.ts(13,34): error TS2339: Property 'includes' does not exist on type 'Iterable<string>'.

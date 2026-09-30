@@ -1,0 +1,105 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-store.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-store.test.ts (6 tests | 5 failed) 31ms
+   × T05-C01: saved result follows transaction complete, not request success 14ms
+   × T05-C02: successful put followed by abort rolls back project, graph and run 5ms
+   × T05-C03: CAS rejects stale revision without replacing any data 5ms
+   × T05-C04: quota failure keeps draft and denies new paid submissions 2ms
+   × atomic graph/run recovery journal persists together and survives reopen 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-store.test.ts > T05-C01: saved result follows transaction complete, not request success
+AssertionError: expected [ 'saved' ] to deeply equal [ 'request', 'complete', 'saved' ]
+
+- Expected
++ Received
+
+  [
+-   "request",
+-   "complete",
+    "saved",
+  ]
+
+ ❯ tests/unit/project-store.test.ts:17:101
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/unit/project-store.test.ts > T05-C02: successful put followed by abort rolls back project, graph and run
+AssertionError: expected 'saved' to be 'failed' // Object.is equality
+
+Expected: "failed"
+Received: "saved"
+
+ ❯ tests/unit/project-store.test.ts:23:24
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/unit/project-store.test.ts > T05-C03: CAS rejects stale revision without replacing any data
+AssertionError: expected { status: 'saved', revision: 2 } to deeply equal { status: 'conflict', …(1) }
+
+- Expected
++ Received
+
+  {
+-   "currentRevision": 1,
+-   "status": "conflict",
++   "revision": 2,
++   "status": "saved",
+  }
+
+ ❯ tests/unit/project-store.test.ts:26:73
+     24| });
+     25| it('T05-C03: CAS rejects stale revision without replacing any data',as…
+     26|  expect(await saveProject(f.project({revision:2,title:'不能覆盖'}),0,{db})…
+       |                                                                         ^
+     27| });
+     28| it('T05-C04: quota failure keeps draft and denies new paid submissions…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/unit/project-store.test.ts > T05-C04: quota failure keeps draft and denies new paid submissions
+AssertionError: expected { status: 'saved', revision: 2 } to deeply equal { status: 'failed', …(1) }
+
+- Expected
++ Received
+
+  {
+-   "code": "storage_quota_exceeded",
+-   "status": "failed",
++   "revision": 2,
++   "status": "saved",
+  }
+
+ ❯ tests/unit/project-store.test.ts:31:57
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  tests/unit/project-store.test.ts > atomic graph/run recovery journal persists together and survives reopen
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/unit/project-store.test.ts:40:36
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 1 passed (6)
+   Start at  18:00:16
+   Duration  375ms (transform 75ms, setup 46ms, import 86ms, tests 31ms, environment 0ms)
+

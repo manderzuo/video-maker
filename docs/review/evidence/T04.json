@@ -2,7 +2,7 @@
   "taskId": "T04",
   "status": "实施完成，自检通过，待独立审查",
   "baseCommit": "0eee5909fb812b3662fce9390645cee87aca7c9f",
-  "headCommit": null,
+  "headCommit": "92a4248db3bcee4f956e077332b316d5c1aafd45",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "files": [
     "src/domain/common.ts",

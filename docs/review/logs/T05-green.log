@@ -1,0 +1,41 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/project-store.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/project-store.test.ts (6 tests | 1 failed) 33ms
+   × T05-C03: CAS rejects stale revision without replacing any data 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/project-store.test.ts > T05-C03: CAS rejects stale revision without replacing any data
+AssertionError: expected { status: 'failed', …(1) } to deeply equal { status: 'conflict', …(1) }
+
+- Expected
++ Received
+
+  {
+-   "currentRevision": 1,
+-   "status": "conflict",
++   "code": "revision_increment_required",
++   "status": "failed",
+  }
+
+ ❯ tests/unit/project-store.test.ts:26:73
+     24| });
+     25| it('T05-C03: CAS rejects stale revision without replacing any data',as…
+     26|  expect(await saveProject(f.project({revision:2,title:'不能覆盖'}),0,{db})…
+       |                                                                         ^
+     27| });
+     28| it('T05-C04: quota failure keeps draft and denies new paid submissions…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  18:03:49
+   Duration  447ms (transform 113ms, setup 39ms, import 178ms, tests 33ms, environment 0ms)
+

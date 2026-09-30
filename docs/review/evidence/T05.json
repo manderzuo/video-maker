@@ -1,20 +1,109 @@
 {
   "taskId": "T05",
-  "title": "IndexedDB事务保存与可恢复日志",
-  "status": "受阻，未开始",
-  "baseCommit": null,
+  "status": "实施完成，自检通过，待独立审查",
+  "baseCommit": "92a4248db3bcee4f956e077332b316d5c1aafd45",
   "headCommit": null,
   "actualModel": "由用户在宿主选择，当前工具不可验证",
-  "reasoningMode": "用户指定high，工具不可验证",
-  "files": [],
-  "commands": [],
-  "interactionIds": [],
-  "screenshots": [],
-  "networkMode": "not-executed",
-  "knownLimitations": [
-    "T01主审与T02视觉/独立审查尚未完成；按原交接依赖门槛暂停",
-    "未执行测试，不作通过或跳过声明"
+  "files": [
+    "src/infrastructure/storage/database.ts",
+    "src/infrastructure/storage/migrations.ts",
+    "src/infrastructure/storage/project-repository.ts",
+    "src/infrastructure/storage/run-repository.ts",
+    "tests/unit/project-store.test.ts",
+    "tests/helpers/seed-studio.ts",
+    "tests/fixtures/storage.html",
+    "tests/fixtures/storage.css",
+    "tests/fixtures/storage-fixture.ts",
+    "tests/e2e/storage.spec.ts"
   ],
-  "reviewDecision": "未实施，待前置审查",
-  "independentReviewPerformed": false
+  "commands": [
+    {
+      "logPath": "docs/review/logs/T05-red.log",
+      "command": "npm run test:unit -- tests/unit/project-store.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 5,
+      "phase": "red",
+      "skipped": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-green.log",
+      "command": "npm run test:unit -- tests/unit/project-store.test.ts",
+      "exitCode": 1,
+      "passed": 5,
+      "failed": 1,
+      "phase": "CAS-precedence-failure",
+      "skipped": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-target-final.log",
+      "command": "npm run test:unit -- tests/unit/project-store.test.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "phase": "green",
+      "skipped": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-regression.log",
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-browser.log",
+      "command": "npm run test:e2e -- tests/e2e/storage.spec.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "phase": "observer-order-failure",
+      "skipped": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-browser-final.log",
+      "command": "npm run test:e2e -- tests/e2e/storage.spec.ts",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "phase": "browser-green",
+      "skipped": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-typecheck-regression.log",
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "phase": "fixture-Iterable-type-failure"
+    },
+    {
+      "logPath": "docs/review/logs/T05-typecheck-fixed.log",
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "logPath": "docs/review/logs/T05-lint.log",
+      "command": "npm run lint",
+      "exitCode": 0
+    }
+  ],
+  "rulings": [
+    "产品数据schema1与IndexedDB结构版本2独立；namespace仍为aiwork-studio:v1；保留迁移旧表，DB新版拒绝降低版本",
+    "共享契约表清单为最小结构，新增references表参与项目/图/run/诊断同一原子事务",
+    "Project不含Graph，saveProject第三参数为可选图/run事务输入，保持原两参数接口；T06补写者身份",
+    "真实浏览器IDB complete事件监听器之间可穿插Promise微任务；观察器改在transaction创建时先注册，不降低顺序断言"
+  ],
+  "interactionIds": [],
+  "screenshots": [
+    "docs/review/screenshots/T05-native-storage.png"
+  ],
+  "networkMode": "local technical fixture, zero business requests",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "knownLimitations": [
+    "fake-indexeddb仅用于单测，另有Edge原生IndexedDB5用例证据",
+    "QuotaExceeded是精确native put故障注入，不声称填满真实磁盘或浏览器配额",
+    "恢复草稿及准入在技术夹具验证，产品D20完整界面在后续UI任务",
+    "本任务没有Core调用、退款、财务数据库访问"
+  ]
 }
