@@ -7,9 +7,10 @@ import type {ValidationIssue} from '../../domain/common';
 import {validateConnection} from '../../domain/graph-validation';
 import {videoRunSnapshotSchema} from './prepare-request';
 import {fingerprintText} from './fingerprint';
-export type RunDraftInput={graph:Graph;nodeIds:string[];assets:Asset[];readableAssetIds:string[];capability:CapabilityProfile;connection?:ConnectionProfile;binding?:AuthBinding;canWrite:boolean;dirty?:boolean;credentialAvailable:boolean};
+import type {Run} from '../../domain/run';
+export type RunDraftInput={graph:Graph;nodeIds:string[];assets:Asset[];readableAssetIds:string[];capability:CapabilityProfile;connection?:ConnectionProfile;binding?:AuthBinding;canWrite:boolean;dirty?:boolean;credentialAvailable:boolean;priorRuns?:Run[]};
 export type PlannedVideo={nodeId:string;title:string;inputSnapshot:VideoRunSnapshot;assets:{assetId:string;sha256:string;bytes:number;mimeType:string;title:string}[];dependencies:string[]};
-export type RunPlan={approvalId:string;projectId:string;revision:number;connection:ConnectionProfile;binding:AuthBinding;capability:CapabilityProfile;nodes:PlannedVideo[];planHash:string;expiresAt:number};
+export type RunPlan={approvalId:string;projectId:string;revision:number;connection:ConnectionProfile;binding:AuthBinding;capability:CapabilityProfile;nodes:PlannedVideo[];priorUnknownRunIds:string[];planHash:string;expiresAt:number};
 export type UnsealedRunPlan=Omit<RunPlan,'approvalId'|'planHash'|'expiresAt'>;
 export type PreflightResult={status:'blocked';issues:ValidationIssue[]}|{status:'ready';issues:[];plan:UnsealedRunPlan};
 export function preflightRun(input:RunDraftInput):PreflightResult{
@@ -57,8 +58,9 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
   else nodes.push({nodeId,title:node.title,inputSnapshot:snapshot.data,assets:plannedAssets,dependencies:graph.edges.filter(e=>e.sourceId===nodeId).map(e=>e.targetId)});
  }
  if(issues.length||!connection||!binding)return {status:'blocked',issues};
- return {status:'ready',issues:[],plan:structuredClone({projectId:graph.projectId,revision:graph.revision,connection,binding,capability:cap,nodes})};
+ const priorUnknownRunIds=(input.priorRuns??[]).filter(r=>r.projectId===graph.projectId&&input.nodeIds.includes(r.nodeId)&&['submitting','submit_unknown'].includes(r.executionState)).map(r=>r.id).sort();
+ return {status:'ready',issues:[],plan:structuredClone({projectId:graph.projectId,revision:graph.revision,connection,binding,capability:cap,nodes,priorUnknownRunIds})};
 }
-export function planPayload(plan:UnsealedRunPlan){return JSON.stringify({projectId:plan.projectId,revision:plan.revision,connection:plan.connection,binding:plan.binding,capability:plan.capability,nodes:plan.nodes});}
+export function planPayload(plan:UnsealedRunPlan){return JSON.stringify({projectId:plan.projectId,revision:plan.revision,connection:plan.connection,binding:plan.binding,capability:plan.capability,nodes:plan.nodes,priorUnknownRunIds:plan.priorUnknownRunIds});}
 export async function planFingerprint(plan:Omit<RunPlan,'planHash'>){return fingerprintText(JSON.stringify({payload:planPayload(plan),approvalId:plan.approvalId,expiresAt:plan.expiresAt}));}
 export async function sealRunPlan(plan:UnsealedRunPlan):Promise<RunPlan>{const snapshot={...structuredClone(plan),approvalId:crypto.randomUUID(),expiresAt:Date.now()+120000};return {...snapshot,planHash:await planFingerprint(snapshot)};}

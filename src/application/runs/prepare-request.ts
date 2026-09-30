@@ -12,6 +12,7 @@ import {claimPreparation,assertPreparation,releasePreparation} from './preparati
 import {fingerprintText} from './fingerprint';
 export const videoRunSnapshotSchema=z.strictObject({prompt:localText.refine(v=>!!v.trim(),'prompt_empty'),spec:videoSpecSchema,references:z.array(z.strictObject({assetId:id,mediaType:z.enum(['image','video']),role:z.literal('参考'),alias:id,nodeId:id.optional(),runId:id.optional(),sha256:z.string().regex(/^[a-f0-9]{64}$/).optional(),bytes:z.number().int().positive().optional()}))});
 export type VideoRunSnapshot=z.infer<typeof videoRunSnapshotSchema>;
+export function buildVideoRequestBody(input:VideoRunSnapshot,assetMappings:CoreAssetRef[]){const spec=input.spec;return JSON.stringify({model:spec.modelId,prompt:input.prompt,duration:spec.durationSeconds,ratio:spec.ratio,...(spec.resolution?{resolution:spec.resolution}:{}),...(input.references.some(r=>r.mediaType==='image')?{image_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='image').map(a=>a.coreAssetId)}:{}),...(input.references.some(r=>r.mediaType==='video')?{video_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='video').map(a=>a.coreAssetId)}:{})});}
 export type PreparedVideoRequest={runId:string;binding:RunBinding;finalBody:string;bodyHash:string;idempotencyKey:string;assetMappings:CoreAssetRef[]};
 export type PrepareOptions={client?:CoreClient;capability?:CapabilityProfile;db?:StudioDb;lease?:ProjectLeaseToken};
 export async function prepareVideoRequest(runId:string,options:PrepareOptions={}):Promise<PreparedVideoRequest>{
@@ -35,8 +36,7 @@ export async function prepareVideoRequest(runId:string,options:PrepareOptions={}
    for(const value of assets)await validateUploadAsset(value.asset,value.blob,cap);
    const assetMappings:CoreAssetRef[]=[];
    for(const value of assets)assetMappings.push(await uploadCoreAsset({runId,...value,binding,client,capability:cap,db,lease:options.lease,preparation:token}));
-   const body={model:spec.modelId,prompt:input.prompt,duration:spec.durationSeconds,ratio:spec.ratio,...(spec.resolution?{resolution:spec.resolution}:{}),...(input.references.some(r=>r.mediaType==='image')?{image_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='image').map(a=>a.coreAssetId)}:{}),...(input.references.some(r=>r.mediaType==='video')?{video_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='video').map(a=>a.coreAssetId)}:{})};
-   const finalBody=JSON.stringify(body),bodyHash=await fingerprintText(finalBody);
+   const finalBody=buildVideoRequestBody(input,assetMappings),bodyHash=await fingerprintText(finalBody);
    await transact(db,['projects','runs','leases','receipts'],'readwrite',async tx=>{
     await assertPreparation(tx,token);
     await putRunInTransaction(tx,{...run,executionState:'persisted',finalBody,finalBodyHash:bodyHash,updatedAt:Date.now()},{lease:options.lease,expectedProjectRevision:run.graphRevision});

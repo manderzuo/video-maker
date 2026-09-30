@@ -1,6 +1,6 @@
 import {z} from 'zod';
 import {assetSchema,type Asset} from '../../domain/asset';
-import type {RunBinding} from '../../domain/common';
+import {bindingSchema,id,timestamp,type RunBinding} from '../../domain/common';
 import type {CapabilityProfile} from '../../domain/connection';
 import {transact,requestResult,withDatabase,type StudioDb} from '../../infrastructure/storage/database';
 import {assertProjectWriter,type ProjectLeaseToken} from '../../infrastructure/storage/project-lease';
@@ -11,6 +11,7 @@ import {probeMedia} from '../../features/assets/media-probe';
 import type {Run} from '../../domain/run';
 import {fingerprintText} from '../../application/runs/fingerprint';
 export type CoreAssetRef=RunBinding&{assetId:string;sha256:string;coreAssetId:string;expiresAt:number;createdAt:number};
+export const coreAssetRefSchema=bindingSchema.extend({assetId:id,sha256:z.string().regex(/^[a-f0-9]{64}$/),coreAssetId:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),expiresAt:timestamp,createdAt:timestamp});
 export type AssetUploadInput={runId:string;asset:Asset;blob:Blob;binding:RunBinding;client:CoreClient;capability:CapabilityProfile;db?:StudioDb;lease?:ProjectLeaseToken;preparation?:PreparationToken};
 const supported=new Map([['image/png','png'],['image/jpeg','jpg'],['image/gif','gif'],['image/webp','webp'],['video/mp4','mp4'],['video/webm','webm']]);
 const responseSchema=z.object({object:z.literal('asset'),id:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),mime_type:z.string(),bytes:z.number().int().positive(),sha256:z.string().regex(/^[a-f0-9]{64}$/),created_at:z.number().int().nonnegative(),expires_at:z.number().int().positive()});

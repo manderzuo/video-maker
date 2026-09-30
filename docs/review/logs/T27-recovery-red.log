@@ -1,0 +1,39 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-submit.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-submit.test.ts (11 tests | 2 failed) 167ms
+   × T27: explicitly verified replay sends only identical original bytes/key and recovers the one existing task 11ms
+   × T27: known response journal recovers task identity after a Run-save fault without a second POST 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-submit.test.ts > T27: explicitly verified replay sends only identical original bytes/key and recovers the one existing task
+Error: idempotency_replay_unverified
+ ❯ src/application/runs/recover-submit.ts:8:560
+
+ ❯ withDatabase src/infrastructure/storage/database.ts:27:159
+ ❯ tests/unit/video-submit.test.ts:33:387
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/video-submit.test.ts > T27: known response journal recovers task identity after a Run-save fault without a second POST
+AssertionError: expected 'manual_check' to be 'queried' // Object.is equality
+
+Expected: "queried"
+Received: "manual_check"
+
+ ❯ tests/unit/video-submit.test.ts:34:776
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 9 passed (11)
+   Start at  03:53:23
+   Duration  709ms (transform 219ms, setup 43ms, import 314ms, tests 167ms, environment 0ms)
+

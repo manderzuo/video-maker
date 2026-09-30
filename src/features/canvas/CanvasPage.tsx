@@ -40,9 +40,13 @@ import {preflightRun,sealRunPlan,type RunPlan,type PreflightResult} from '../../
 import {approveRun,storedRunDraft} from '../../application/runs/approval';
 import {assertProjectWriter} from '../../infrastructure/storage/project-lease';
 import {GenerationConfirmDialog} from './GenerationConfirmDialog';
+import {submitVideo} from '../../application/runs/submit-video';
+import {UnknownSubmissionDialog} from './UnknownSubmissionDialog';
+import type {ConfirmDecision,ApprovedRun} from '../../application/runs/approval';
 type Prefs={id:string;view:Viewport;background:'dots'|'grid'|'plain';minimap:boolean};
 type Gesture={type:'pan'|'box'|'move';startX:number;startY:number;lastX:number;lastY:number;view:Viewport;graph:Graph;ids:string[];shift:boolean};
 export function CanvasPage({projectId}:{projectId:string}){
+ const [unknownSubmission,setUnknownSubmission]=useState<Run>();
  const [runPlan,setRunPlan]=useState<RunPlan>(),[preflightIssues,setPreflightIssues]=useState<Extract<PreflightResult,{status:'blocked'}>['issues']>([]),preflightPending=useRef(false);
  const [generatorDraftId,setGeneratorDraftId]=useState<string>(),[generatorSource,setGeneratorSource]=useState<PromptSource>();
  const [promptSeed,setPromptSeed]=useState<PromptLibraryEntry>(),[promptMessage,setPromptMessage]=useState('');
@@ -86,13 +90,25 @@ export function CanvasPage({projectId}:{projectId:string}){
   try{
    let result:PreflightResult;
    if(!active)result=preflightRun({graph:g,nodeIds,assets,readableAssetIds:[],capability,canWrite:!!token,dirty:dirty.current||busy.current,credentialAvailable:false});
-   else result=await withDatabase(undefined,db=>transact(db,['projects','graphs','assets','blobs','diagnostics','leases'],'readonly',async tx=>{
+   else result=await withDatabase(undefined,db=>transact(db,['projects','graphs','assets','blobs','diagnostics','leases','runs'],'readonly',async tx=>{
     await assertProjectWriter(tx,projectId,token);
     const project:{archived:boolean;trashedAt:number|null}|undefined=await requestResult(tx.objectStore('projects').get(projectId));if(!project||project.archived||project.trashedAt!=null)throw Error('project_not_runnable');
     return preflightRun(await storedRunDraft(tx,projectId,nodeIds,active,!!token,dirty.current||busy.current));
    }));
    if(result.status==='blocked')setPreflightIssues(result.issues);else setRunPlan(await sealRunPlan(result.plan));
   }catch{setPreflightIssues([{code:'preflight_storage_or_session',path:'graph',message:'预检无法读取当前输入、能力或写权；请保留草稿，重新连接或保存后再试。'}]);}finally{preflightPending.current=false;}
+ }
+ async function confirmGeneration(decision:ConfirmDecision):Promise<ApprovedRun>{
+  const active=getActiveCore(),plan=runPlan,token=leaseRef.current;if(!active||!plan)throw Error('session_credential_required');
+  const approved=await approveRun(plan,decision,{...active,lease:token,isCurrent:()=>!dirty.current&&!busy.current&&graphRef.current?.revision===plan.revision});
+  setRunPlan(undefined);busy.current=true;setStatus('正在提交已确认输入');let count=0;
+  try{for(const runId of approved.runIds){
+   const result=await submitVideo(runId,{...active,lease:token,tabId:studioTabId});
+   if(result.executionState==='submit_unknown'){setUnknownSubmission(result);setStatus('提交结果不明 · 原记录保留');break;}
+   if(result.executionState==='failed_confirmed'){setStatus('提交被明确拒绝 · 账务尚未核验');break;}count++;
+  }if(count===approved.runIds.length)setStatus('已提交 '+count+' 项 · 追踪中');}
+  catch{setStatus('提交尚未完成 · 原记录保留');try{const rows=await withDatabase(undefined,db=>transact(db,['runs'],'readonly',tx=>requestResult<Run[]>(tx.objectStore('runs').getAll())));const uncertain=rows.find(r=>approved.runIds.includes(r.id)&&['submitting','submit_unknown'].includes(r.executionState));if(uncertain)setUnknownSubmission(uncertain);else setError('已确认输入保留，提交准备或存储失败；请检查任务记录，勿重复创建新尝试。');}catch{setError('提交结果记录读取失败，请保留当前页并核对原请求。');}}
+  finally{busy.current=false;await reload().catch(()=>setError('任务记录展示读取失败，请稍后重新读取。'));}return approved;
  }
  function editNodeTitle(node:CanvasNode){if(!canWrite||node.locked)return;setEditTitle(node);setNodeTitle(node.title);setTitleError('');}
  function updateData(nodeId:string,data:CanvasNode['data']){void commit([{id:crypto.randomUUID(),type:'update_node',payload:{nodeId,patch:{data}}}]);}
@@ -119,7 +135,8 @@ export function CanvasPage({projectId}:{projectId:string}){
  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
  <Dialog open={takeoverOpen} title="接管编辑" onClose={()=>setTakeoverOpen(false)} footer={<><Button onClick={()=>setTakeoverOpen(false)}>取消</Button><Button onClick={async()=>{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，请重试。');}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button onClick={()=>setLeavePath('')}>继续编辑</Button><Button disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button disabled={busy.current||!lease||!pendingOperations.current.length} onClick={async()=>{await commit(pendingOperations.current,pendingOptions.current);if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
- {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>setRunPlan(undefined)} onConfirm={async decision=>{const active=getActiveCore();if(!active)throw Error('session_credential_required');const approved=await approveRun(runPlan,decision,{...active,lease:leaseRef.current,isCurrent:()=>!dirty.current&&!busy.current&&graphRef.current?.revision===runPlan.revision});setRunPlan(undefined);await reload();setStatus('已确认 '+approved.runIds.length+' 项 · 等待执行');return approved;}}/>:null}
+ {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>setRunPlan(undefined)} onConfirm={confirmGeneration}/>:null}
+ {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
  <Dialog open={!!preflightIssues.length} title="输入无效清单" onClose={()=>setPreflightIssues([])} footer={<Button onClick={()=>setPreflightIssues([])}>关闭</Button>}><p>以下问题解决前无法生成；预检不会上传或收费。</p><ul>{preflightIssues.map((issue,index)=><li key={index}>{issue.message}{graph.nodes.some(n=>n.id===issue.path)?<Button onClick={()=>{locate([issue.path]);setSelected([issue.path]);setPreflightIssues([]);}}>定位问题节点</Button>:null}</li>)}</ul></Dialog>
  {generatorDraftId?<PromptGeneratorPanel draftId={generatorDraftId} source={generatorSource} onCanvasCommit={async input=>{if(input.targetProjectId!==projectId)return applyPromptToCanvas(input);if(dirty.current||busy.current||!leaseRef.current)return {id:input.commandId,status:'rejected',errorCode:'project_writer_or_unsaved_changes'};busy.current=true;try{const receipt=await applyPromptToCanvas(input,{lease:leaseRef.current,capability});await finish(receipt);return receipt;}finally{busy.current=false;}}} onClose={()=>setGeneratorDraftId(undefined)}/>:null}
  </section>;

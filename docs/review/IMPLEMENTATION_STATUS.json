@@ -1,5 +1,5 @@
 {
-  "currentTask": "T27",
+  "currentTask": "T28",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -206,18 +206,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T26.json",
-      "headCommit": null,
+      "headCommit": "1647b52aebb8c8b15712882f0eb7dd5547cb92bb",
       "id": "T26",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "预检、费用确认和一次性执行批准"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T27.json",
       "headCommit": null,
       "id": "T27",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "视频提交、持久幂等与未知结果"
     },
     {

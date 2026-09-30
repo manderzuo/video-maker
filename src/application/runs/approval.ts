@@ -9,7 +9,7 @@ import {capabilitySchema,type CapabilityProfile} from '../../domain/connection';
 import {hasSessionCredential} from '../../security/credential-session';
 import {assertAssetBinding} from '../../adapters/core/assets';
 import {putRunInTransaction} from '../../infrastructure/storage/run-repository';
-export type ConfirmDecision={confirmed:true;kind:'video';planHash:string;nodeCount:number;acknowledgeUnknownFee:true};
+export type ConfirmDecision={confirmed:true;kind:'video';planHash:string;nodeCount:number;acknowledgeUnknownFee:true;acknowledgePriorUnknown?:true};
 export type ApprovedRun={approvalId:string;planHash:string;projectId:string;revision:number;runIds:string[]};
 export type ApprovalOptions={db?:StudioDb;lease?:ProjectLeaseToken;client:CoreClient;capability:CapabilityProfile;isCurrent?:()=>boolean};
 export async function storedRunDraft(tx:IDBTransaction,projectId:string,nodeIds:string[],options:Pick<ApprovalOptions,'client'|'capability'>,canWrite:boolean,dirty=false):Promise<RunDraftInput>{
@@ -18,11 +18,13 @@ export async function storedRunDraft(tx:IDBTransaction,projectId:string,nodeIds:
  for(const asset of assets){const row:{blob:Blob}|undefined=await requestResult(tx.objectStore('blobs').get(asset.blobKey));if(row?.blob instanceof Blob&&row.blob.size===asset.bytes)readableAssetIds.push(asset.id);}
  const stored:{capability?:unknown}|undefined=await requestResult(tx.objectStore('diagnostics').get('capability:current')),checked=capabilitySchema.safeParse(stored?.capability);
  if(!checked.success||JSON.stringify(checked.data)!==JSON.stringify(capabilitySchema.parse(options.capability)))throw Error('capability_changed');
- return {graph,nodeIds,assets,readableAssetIds,capability:options.capability,connection:options.client.profile,binding:options.client.binding,canWrite,dirty,credentialAvailable:hasSessionCredential(options.client.binding.id)};
+ const priorRuns=(await requestResult<unknown[]>(tx.objectStore('runs').getAll())).map(run=>runSchema.parse(run));
+ return {graph,nodeIds,assets,readableAssetIds,priorRuns,capability:options.capability,connection:options.client.profile,binding:options.client.binding,canWrite,dirty,credentialAvailable:hasSessionCredential(options.client.binding.id)};
 }
 export async function approveRun(raw:RunPlan,userDecision:ConfirmDecision,options:ApprovalOptions):Promise<ApprovedRun>{
  const plan=structuredClone(raw),decision=structuredClone(userDecision),snapshotOptions={...options,lease:options.lease?{...options.lease}:undefined,capability:structuredClone(options.capability)};
  if(decision.confirmed!==true||decision.kind!=='video'||decision.acknowledgeUnknownFee!==true||decision.planHash!==plan.planHash||decision.nodeCount!==plan.nodes.length||!plan.nodes.length)throw Error('confirmation_mismatch');
+ if(plan.priorUnknownRunIds.length&&decision.acknowledgePriorUnknown!==true)throw Error('prior_unknown_risk_confirmation_required');
  if(await planFingerprint(plan)!==plan.planHash)throw Error('plan_hash_mismatch');
  assertAssetBinding({connectionId:plan.connection.id,authBindingId:plan.binding.id,originSnapshot:plan.binding.originSnapshot},options.client);
  if(!hasSessionCredential(plan.binding.id))throw Error('session_credential_required');

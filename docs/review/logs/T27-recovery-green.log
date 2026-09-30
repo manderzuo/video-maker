@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-submit.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  03:57:23
+   Duration  805ms (transform 254ms, setup 51ms, import 361ms, tests 187ms, environment 0ms)
+

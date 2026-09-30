@@ -1,0 +1,30 @@
+{
+ "taskId":"T27","status":"实施完成，自检通过，待统一验收/独立审查",
+ "baseCommit":"1647b52aebb8c8b15712882f0eb7dd5547cb92bb","headCommit":null,
+ "actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
+ "files":["src/application/runs/submit-video.ts","src/application/runs/recover-submit.ts","src/domain/video-run-machine.ts","src/infrastructure/storage/run-lease.ts","src/adapters/core/assets.ts","src/adapters/core/capabilities.ts","src/domain/connection.ts","src/application/runs/prepare-request.ts","src/application/runs/preflight.ts","src/application/runs/approval.ts","src/features/canvas/CanvasPage.tsx","src/features/canvas/GenerationConfirmDialog.tsx","src/features/canvas/UnknownSubmissionDialog.tsx","tests/unit/video-submit.test.ts","tests/unit/core-contract.test.ts","tests/e2e/video-submit.spec.ts","tests/e2e/generation-preflight.spec.ts"],
+ "commands":[
+  {"command":"npm run test:unit -- tests/unit/video-submit.test.ts","exitCode":1,"passed":0,"failed":9,"skipped":0,"logPath":"docs/review/logs/T27-red.log"},
+  {"command":"npm run test:unit -- tests/unit/video-submit.test.ts","exitCode":0,"passed":9,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-green-initial.log"},
+  {"command":"npm run test:unit -- tests/unit/video-submit.test.ts","exitCode":1,"passed":9,"failed":2,"skipped":0,"logPath":"docs/review/logs/T27-recovery-red.log"},
+  {"command":"npm run test:unit -- tests/unit/video-submit.test.ts","exitCode":0,"passed":11,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-recovery-green.log"},
+  {"command":"npm run typecheck","exitCode":2,"passed":null,"failed":1,"skipped":0,"logPath":"docs/review/logs/T27-typecheck.log","note":"可能缺失的Run显式校验，未屏蔽类型错误"},
+  {"command":"npm run test:e2e -- tests/e2e/video-submit.spec.ts","exitCode":1,"passed":0,"failed":3,"skipped":0,"logPath":"docs/review/logs/T27-ui-red.log"},
+  {"command":"npm run test:e2e -- tests/e2e/video-submit.spec.ts","exitCode":0,"passed":3,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-ui-green-initial.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":221,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-unit-initial.log"},
+  {"command":"npm run test:unit -- tests/unit/video-submit.test.ts","exitCode":1,"passed":12,"failed":1,"skipped":0,"logPath":"docs/review/logs/T27-body-binding-red.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":223,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-unit-body-verified.log"},
+  {"command":"npm run test:e2e -- tests/e2e/generation-preflight.spec.ts tests/e2e/video-submit.spec.ts tests/e2e/lease.spec.ts","exitCode":0,"passed":16,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-browser-final.log"},
+  {"command":"node node_modules/@playwright/test/cli.js test tests/e2e/video-submit.spec.ts --grep journal","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T27-journal-ui-red.log"},
+  {"command":"npm run test:e2e -- tests/e2e/video-submit.spec.ts","exitCode":0,"passed":4,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-journal-ui-green.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":227,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-unit-verified.log"},
+  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-typecheck-last.log"},
+  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-lint-last.log"},
+  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-build-last.log"},
+  {"command":"npm run test:security","exitCode":0,"passed":3,"failed":0,"skipped":0,"logPath":"docs/review/logs/T27-security.log","note":"另观察公网浏览器负例退出1，守卫实际阻断"}
+ ],
+ "interactionIds":["V-09","V-14","J-10"],"screenshots":["docs/review/screenshots/T27-submit-unknown.png"],
+ "networkMode":"真实浏览器同源假接口与精确回环端口HTTP Mock；无真实Core或付费调用",
+ "behavior":["原持久批准必须存在且SHA/输入/数量/版本/服务身份匹配，先准备完整请求，再持久提交意图后唯一POST","发送前同事务检查最新图、能力、写权和批准，冻结body还必须与批准输入及隔离素材映射一致；仅哈希正确不够","并发提交/并发原请求重放均单飞，发送前quota失败零POST；新明确确认产生新Run新键，旧Run保留","网络丢失或成功响应缺ID为submit_unknown，不自动重发，不从失败推断退款；明确预准入错误保存原体原键","白名单小型响应日志先保存身份，Run写失败可恢复原任务ID查询且不再POST；没有身份时不编造按键GET接口","恢复仅原连接/授权/最终字节/幂等键；部署显式核验重放才开放，固定源码或模型目录不能自动授予","实际D21展示原记录/任务/请求/幂等键/指纹，缺身份或未核验时给禁用原因；本地响应日志可安全启用原任务查询","旧任务仍未知时，新D05额外风险勾选，记录原未知Run IDs，默认阻止新收费尝试","响应回显普通Key不会落入Run、诊断或响应日志；未保留原始响应/下载URL"],
+ "knownLimitations":["生产部署重放支持仍未知，默认禁用；Mock只证明本地实现边界","持久意图后发送或存储失败都保留记录，实际取消/退款能力未核验且未开放","T26双击界面断言随真实提交接入更新为确认前零请求、确认后严格一次；批准API仍只保存、无网络，未降低单飞或禁用断言","队列、自动轮询、任务中心与结果页面依次T28/T29/T32-T35接入；当前提交成功仅记录并显示追踪中，不冒充已经完成生成","T26截图和T03网络负例日志为本轮真实回归更新，保留实际产物","完整视觉认可/标识许可/真实Core联调/用户统一验收/独立审查均待；无发布或远端操作"]
+}

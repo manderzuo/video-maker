@@ -1,0 +1,71 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/video-submit.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/video-submit.test.ts (13 tests | 1 failed) 215ms
+   × T27: a hash-valid final body that does not match the approved input is denied before POST 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/video-submit.test.ts > T27: a hash-valid final body that does not match the approved input is denied before POST
+AssertionError: promise resolved "{ connectionId: 'c1', …(20) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "authBindingId": "c9d9f6c6-deda-47a1-b205-ab05bd7c2859",
++   "billingState": "not_provided",
++   "connectionId": "c1",
++   "coreRequestId": "mock-core-1",
++   "createdAt": 1790798895563,
++   "deliveryState": "not_ready",
++   "executionSpec": {
++     "durationSeconds": 5,
++     "modelId": "fake-video-only",
++     "ratio": "9:16",
++   },
++   "executionState": "accepted",
++   "finalBody": "{\"model\":\"fake-video-only\",\"prompt\":\"未确认的另一正文\",\"duration\":5,\"ratio\":\"9:16\"}",
++   "finalBodyHash": "b4d521c585f561bfb7e317ec1f02e74d0e329a95ed4529dfbc7398b2d206a880",
++   "graphRevision": 1,
++   "id": "acb678c0-9245-444f-acb3-a8c3cf616700",
++   "idempotencyKey": "studio-video-c74be239-3705-45ac-adef-3436d98445a6",
++   "inputSnapshot": {
++     "prompt": "原创提交正文",
++     "references": [],
++     "spec": {
++       "durationSeconds": 5,
++       "modelId": "fake-video-only",
++       "ratio": "9:16",
++     },
++   },
++   "nodeId": "v1",
++   "originSnapshot": "https://core.invalid",
++   "projectId": "p1",
++   "queryState": "polling",
++   "requestedSpec": {
++     "durationSeconds": 5,
++     "modelId": "fake-video-only",
++     "ratio": "9:16",
++   },
++   "taskId": "mock-core-1",
++   "updatedAt": 1790798895571,
+  }
+
+ ❯ tests/unit/video-submit.test.ts:36:464
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  04:08:14
+   Duration  760ms (transform 229ms, setup 44ms, import 330ms, tests 215ms, environment 0ms)
+

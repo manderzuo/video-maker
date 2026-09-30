@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+src/application/runs/submit-video.ts(55,123): error TS18048: 'now' is possibly 'undefined'.

@@ -1,4 +1,4 @@
-import {withDatabase,transact,requestResult,type StudioDb} from './database';
+import {withDatabase,transact,requestResult,storageErrorCode,type StudioDb} from './database';
 import {runSchema,type Run} from '../../domain/run';
 import {leaseDurationMs} from './project-lease';
 export type RunLeaseRecord={id:string;projectId:string;runId:string;tabId:string;epoch:number;revision:number;expiresAt:number;dispatchCommitted:boolean};
@@ -28,17 +28,18 @@ export async function assertRunWriter(tx:IDBTransaction,runId:string,token:RunWr
  return row;
 }
 // Commit intent before any future network call; this function itself sends nothing.
-export async function markRunDispatched(token:RunWriteToken,options:{db?:StudioDb;now?:number}={}):Promise<ClaimResult>{
- try{return await withDatabase(options.db,db=>transact(db,['runs','leases','diagnostics'],'readwrite',async tx=>{
+export async function markRunDispatched(token:RunWriteToken,options:{db?:StudioDb;now?:number;beforeDispatch?:(tx:IDBTransaction)=>Promise<void>}={}):Promise<ClaimResult>{
+ try{return await withDatabase(options.db,db=>transact(db,['runs','leases','diagnostics','projects','graphs','assets','blobs','receipts'],'readwrite',async tx=>{
   const row=await assertRunWriter(tx,token.runId,token,options.now??Date.now());
   if(row.dispatchCommitted)throw new Error('dispatch_already_committed');
   const run:Run=runSchema.parse(await requestResult(tx.objectStore('runs').get(token.runId)));
   if(run.executionState!=='persisted')throw new Error('run_not_prepared');
+  await options.beforeDispatch?.(tx);
   row.dispatchCommitted=true;row.revision++;tx.objectStore('leases').put(row);
   tx.objectStore('runs').put({...run,executionState:'submitting',updatedAt:options.now??Date.now()});
   tx.objectStore('diagnostics').put({id:crypto.randomUUID(),projectId:run.projectId,runId:run.id,kind:'dispatch_intent_committed',at:options.now??Date.now()});
   return result(row);
- }));}catch(error){return {ok:false,errorCode:error instanceof Error?error.message:'run_dispatch_commit_failed'};}
+ }));}catch(error){return {ok:false,errorCode:storageErrorCode(error)};}
 }
 export async function acquireRunTrackingLease(runId:string,tabId:string,now:number,db?:StudioDb):Promise<ClaimResult>{
  if(!runId||!tabId||!Number.isSafeInteger(now)||now<0)return {ok:false,errorCode:'run_claim_input_invalid'};

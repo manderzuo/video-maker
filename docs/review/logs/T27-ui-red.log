@@ -1,0 +1,119 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/video-submit.spec.ts
+
+[WebServer] (node:22468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:28436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable (6.3s)
+(node:22624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay (6.3s)
+(node:28008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment (3.8s)
+
+
+  1) tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('已提交 1 项 · 追踪中', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('已提交 1 项 · 追踪中', { exact: true })[22m
+
+
+       6 |  let dispatchState:string|undefined,body:string|undefined;
+       7 |  await page.route('**/core-api/v1/videos/generations',async route=>{body=route.request().postData()??undefined;dispatchState=await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',m=await import(path);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs'],'readonly',async(tx:IDBTransaction)=>(await m.requestResult(tx.objectStore('runs').getAll()))[0].executionState));});await route.fulfill({status:202,contentType:'application/json',body:JSON.stringify({task:{id:'mock-ui-video-1',status:'queued'},request_id:'mock-ui-request-1'})});});
+    >  8 |  await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'生成确认单'});expect(networkCounter.paidRequests).toHaveLength(0);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(page.getByText('已提交 1 项 · 追踪中',{exact:true})).toBeVisible();expect(dispatchState).toBe('submitting');expect(JSON.parse(body!)).toEqual({model:'fake-video-only',prompt:'原创确认正文',duration:5,ratio:'9:16'});expect(networkCounter.paidRequests).toHaveLength(1);
+         |                                                                                                                                                                                                                                                                                                                                                                                             ^
+       9 | });
+      10 | test('T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay',async({page,networkCounter})=>{await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'生成确认单'});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();const unknown=page.getByRole('dialog',{name:'任务未知结果'});await expect(unknown).toBeVisible();await expect(unknown).toContainText('原请求');await expect(unknown.getByRole('button',{name:'重放原请求',exact:true})).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(1);await page.screenshot({path:'docs/review/screenshots/T27-submit-unknown.png'});await unknown.getByRole('button',{name:'暂存待核对',exact:true}).click();expect(networkCounter.paidRequests).toHaveLength(1);});
+      11 | test('T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment',async({page,networkCounter})=>{await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));const open=()=>page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();await open();let dialog=page.getByRole('dialog',{name:'生成确认单'});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await page.getByRole('dialog',{name:'任务未知结果'}).getByRole('button',{name:'暂存待核对',exact:true}).click();await open();dialog=page.getByRole('dialog',{name:'生成确认单'});await expect(dialog).toContainText('原任务结果仍不明');await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeDisabled();await dialog.getByLabel('我明确要创建新尝试，已知原任务可能仍在执行且可能再次计费').check();await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeEnabled();await dialog.getByRole('button',{name:'返回编辑',exact:true}).click();expect(networkCounter.paidRequests).toHaveLength(1);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\video-submit.spec.ts:8:381
+
+    Error Context: test-results\video-submit-T27-actual-UI-224da-est-after-intent-is-durable\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\video-submit-T27-actual-UI-224da-est-after-intent-is-durable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\video-submit-T27-actual-UI-224da-est-after-intent-is-durable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '任务未知结果' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '任务未知结果' })[22m
+
+
+       8 |  await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'生成确认单'});expect(networkCounter.paidRequests).toHaveLength(0);await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(page.getByText('已提交 1 项 · 追踪中',{exact:true})).toBeVisible();expect(dispatchState).toBe('submitting');expect(JSON.parse(body!)).toEqual({model:'fake-video-only',prompt:'原创确认正文',duration:5,ratio:'9:16'});expect(networkCounter.paidRequests).toHaveLength(1);
+       9 | });
+    > 10 | test('T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay',async({page,networkCounter})=>{await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'生成确认单'});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();const unknown=page.getByRole('dialog',{name:'任务未知结果'});await expect(unknown).toBeVisible();await expect(unknown).toContainText('原请求');await expect(unknown.getByRole('button',{name:'重放原请求',exact:true})).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(1);await page.screenshot({path:'docs/review/screenshots/T27-submit-unknown.png'});await unknown.getByRole('button',{name:'暂存待核对',exact:true}).click();expect(networkCounter.paidRequests).toHaveLength(1);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      11 | test('T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment',async({page,networkCounter})=>{await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));const open=()=>page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();await open();let dialog=page.getByRole('dialog',{name:'生成确认单'});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await page.getByRole('dialog',{name:'任务未知结果'}).getByRole('button',{name:'暂存待核对',exact:true}).click();await open();dialog=page.getByRole('dialog',{name:'生成确认单'});await expect(dialog).toContainText('原任务结果仍不明');await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeDisabled();await dialog.getByLabel('我明确要创建新尝试，已知原任务可能仍在执行且可能再次计费').check();await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeEnabled();await dialog.getByRole('button',{name:'返回编辑',exact:true}).click();expect(networkCounter.paidRequests).toHaveLength(1);});
+      12 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\video-submit.spec.ts:10:589
+
+    Error Context: test-results\video-submit-T27-D21-lost--ac69e--disabled-unverified-replay\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\video-submit-T27-D21-lost--ac69e--disabled-unverified-replay\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\video-submit-T27-D21-lost--ac69e--disabled-unverified-replay\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '任务未知结果' }).getByRole('button', { name: '暂存待核对', exact: true })[22m
+
+
+       9 | });
+      10 | test('T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay',async({page,networkCounter})=>{await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'生成确认单'});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();const unknown=page.getByRole('dialog',{name:'任务未知结果'});await expect(unknown).toBeVisible();await expect(unknown).toContainText('原请求');await expect(unknown.getByRole('button',{name:'重放原请求',exact:true})).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(1);await page.screenshot({path:'docs/review/screenshots/T27-submit-unknown.png'});await unknown.getByRole('button',{name:'暂存待核对',exact:true}).click();expect(networkCounter.paidRequests).toHaveLength(1);});
+    > 11 | test('T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment',async({page,networkCounter})=>{await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));const open=()=>page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();await open();let dialog=page.getByRole('dialog',{name:'生成确认单'});await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await page.getByRole('dialog',{name:'任务未知结果'}).getByRole('button',{name:'暂存待核对',exact:true}).click();await open();dialog=page.getByRole('dialog',{name:'生成确认单'});await expect(dialog).toContainText('原任务结果仍不明');await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeDisabled();await dialog.getByLabel('我明确要创建新尝试，已知原任务可能仍在执行且可能再次计费').check();await expect(dialog.getByRole('button',{name:'确认提交 1 项',exact:true})).toBeEnabled();await dialog.getByRole('button',{name:'返回编辑',exact:true}).click();expect(networkCounter.paidRequests).toHaveLength(1);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      12 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\video-submit.spec.ts:11:627
+
+    Error Context: test-results\video-submit-T27-V-14-a-de-51a9c-eparate-risk-acknowledgment\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\video-submit-T27-V-14-a-de-51a9c-eparate-risk-acknowledgment\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\video-submit-T27-V-14-a-de-51a9c-eparate-risk-acknowledgment\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable 
+    tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay 
+    tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment 
