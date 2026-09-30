@@ -1,0 +1,21 @@
+{
+ "taskId":"T33","status":"实施完成，自检通过，待统一验收/独立审查","baseCommit":"ccb01d5dae15be6be964cab3ae6f29682a4ff967","headCommit":null,"branch":"feat/aiwork-studio","actualProjectPath":"E:/trae-studio/TRAEWORK/aiwork-studio","actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
+ "files":["src/adapters/core/http-client.ts","src/adapters/core/content.ts","src/features/review/media-delivery.ts","src/features/review/object-url-pool.ts","src/features/review/RunMediaActions.tsx","src/features/canvas/nodes/ResultNode.tsx","tests/mock-core/server.ts","tests/unit/media-delivery.test.ts","tests/e2e/media-delivery.spec.ts","tests/fixtures/media-delivery.html","tests/fixtures/media-delivery.tsx"],
+ "commands":[
+  {"command":"npm run test:unit -- tests/unit/media-delivery.test.ts","exitCode":1,"passed":0,"failed":7,"skipped":0,"logPath":"docs/review/logs/T33-red.log"},
+  {"command":"npm run test:unit -- tests/unit/media-delivery.test.ts","exitCode":0,"passed":7,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-target.log"},
+  {"command":"npm run test:e2e -- tests/e2e/media-delivery.spec.ts","exitCode":1,"passed":0,"failed":2,"skipped":0,"logPath":"docs/review/logs/T33-ui-red.log"},
+  {"command":"npm run test:e2e -- tests/e2e/media-delivery.spec.ts","exitCode":0,"passed":2,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-browser.log"},
+  {"command":"npm run test:e2e -- tests/e2e/media-delivery.spec.ts","exitCode":1,"passed":1,"failed":1,"skipped":0,"logPath":"docs/review/logs/T33-browser-final.log","note":"清理测试在真实计时器创建后安装虚拟时钟，无法推进旧计时器；改为先安装时钟，保留全部URL释放断言"},
+  {"command":"npm run test:e2e -- tests/e2e/media-delivery.spec.ts","exitCode":0,"passed":2,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-browser-verified.log"},
+  {"command":"npm run test:e2e -- tests/e2e/video-work-context.spec.ts tests/e2e/video-submit.spec.ts tests/e2e/asset-download.spec.ts","exitCode":0,"passed":6,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-browser-regression.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":293,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-unit.log"},
+  {"command":"npm run test:unit -- tests/unit/media-delivery.test.ts tests/unit/core-transport.test.ts","exitCode":0,"passed":22,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-target-final.log"},
+  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-typecheck-final.log"},
+  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-lint-final.log"},
+  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T33-build.log"}
+ ],
+ "screenshots":["docs/review/screenshots/T33-local-video.png"],"screenshotInspected":true,"networkMode":"实际回环HTTP内容/重定向/未知长度流、原生IndexedDB事务和Chromium同源假Key；无真实Core",
+ "behavior":["CoreClient共享注册通道/内存凭据，专用GET blob，manual redirect且不把Key或外部content_url放进video标签","默认200MiB自动缓存预算，header与实际流量双检查，缓存提交事务再次核验总空间；SHA在事务外计算，原Run/素材/hash/Blob同事务保存，配额失败零孤立记录","独立media owner/epoch与30秒租约、5秒续租，两个实际并发争用只一个GET；失败只改变deliveryState，保留execution/query/billing原状态","缓存先核对原sourceRun/字节/hash，无Key离线复用；损坏缓存拒绝且不静默重新请求","真实浏览器Canvas/MediaRecorder原创64×32视频，实际解码与播放通过，下载字节逐字节一致；清除连接后零第二个GET、零POST","预览卸载与延迟下载URL释放实测全部回收；下载反馈只triggered/failed，没有Downloads保存承诺，复用到ResultNode并将继续由任务中心/审片消费"],
+ "knownLimitations":["截图来自实际运行的底层交付控件测试页面，非设计图；完整审片页面在T35实施","领域12字节容器样本只验证传输、字节与存储边界，不当作真实可解码MP4；浏览器另用原创可播放WebM实测","未经部署核验的外部重定向全部阻止；无超预算无鉴权直链回退，超过预算提示限制，未读取或清理用户唯一原文件","预算保守计入所有本地Blob/缩略图，避免扩大自动占用；动态设置待后续存储页收口","主包529.97kB警告待T46；真实服务/完整视觉/许可/统一验收/独立审查仍待"]
+}

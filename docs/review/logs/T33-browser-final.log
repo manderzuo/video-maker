@@ -1,0 +1,51 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/media-delivery.spec.ts
+
+[WebServer] (node:26712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:9368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\media-delivery.spec.ts:4:1 › T33 actual native video: authenticated blob preview, local cache offline, original-byte download and cleanup; zero paid POST (6.2s)
+(node:23092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\media-delivery.spec.ts:13:1 › T33 actual transport: redirected media is blocked without any generation change or remote redirect request (487ms)
+
+
+  1) tests\e2e\media-delivery.spec.ts:4:1 › T33 actual native video: authenticated blob preview, local cache offline, original-byte download and cleanup; zero paid POST 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m0[39m
+    Received: [31m1[39m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       9 |  await page.getByRole('button',{name:/^播放 视频-/}).click();await expect.poll(()=>video.evaluate(e=>(e as HTMLVideoElement).paused)).toBe(false);await page.screenshot({path:'docs/review/screenshots/T33-local-video.png'});
+      10 |  await page.evaluate(async()=>{const path='/src/adapters/core/current-connection.ts';(await import(path)).clearActiveCore();});const downloading=page.waitForEvent('download');await page.getByRole('button',{name:'下载结果',exact:true}).click();const download=await downloading,stream=await download.createReadStream();if(!stream)throw Error('download stream unavailable');const chunks:Buffer[]=[];for await(const chunk of stream)chunks.push(Buffer.from(chunk));expect(Array.from(Buffer.concat(chunks))).toEqual(bytes);await expect(page.getByRole('status')).toContainText('已触发浏览器下载');await expect(page.getByText('已保存到下载目录',{exact:true})).toHaveCount(0);expect(networkCounter.requests.filter(r=>r.url.endsWith('/content'))).toHaveLength(1);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);
+    > 11 |  await page.clock.install();await page.clock.fastForward(60001);await page.evaluate(async()=>{const path='/tests/fixtures/media-delivery.tsx';(await import(path)).unmountMediaFixture();});await expect.poll(()=>page.evaluate(()=>Reflect.get(window,'mediaLiveUrls').size)).toBe(0);
+         |                                                                                                                                                                                             ^
+      12 | });
+      13 | test('T33 actual transport: redirected media is blocked without any generation change or remote redirect request',async({page,networkCounter})=>{await page.goto('/tests/fixtures/media-delivery.html');await page.route('**/core-api/v1/videos/mock-core-1/content',route=>route.fulfill({status:302,headers:{Location:'https://untrusted.invalid/video'}}));await page.getByRole('button',{name:'获取并缓存结果',exact:true}).click();await expect(page.getByRole('status')).toContainText('未核验的下载跳转已阻止');const stored=await page.evaluate(async()=>{const path='/src/infrastructure/storage/run-repository.ts';return(await import(path)).readRun('media-original-run');});expect(stored).toMatchObject({executionState:'succeeded',billingState:'not_provided',deliveryState:'download_failed'});expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      14 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\media-delivery.spec.ts:11:189
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\media-delivery-T33-actual--ab095--and-cleanup-zero-paid-POST\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\media-delivery-T33-actual--ab095--and-cleanup-zero-paid-POST\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\media-delivery.spec.ts:4:1 › T33 actual native video: authenticated blob preview, local cache offline, original-byte download and cleanup; zero paid POST 
+  1 passed (11.0s)

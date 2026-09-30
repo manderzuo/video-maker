@@ -1,20 +1,129 @@
 {
- "taskId":"T32","status":"基础版受限功能已实施，自检通过；改版/续写执行受父版本规格与部署核验门槛限制，待统一验收/独立审查","baseCommit":"4985e04a017bdced6428fa81d6c3a1de7c834724","headCommit":null,"branch":"feat/aiwork-studio","actualProjectPath":"E:/trae-studio/TRAEWORK/aiwork-studio","actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
- "files":["src/adapters/core/video-works.ts","src/application/runs/work-context.ts","src/features/canvas/WorkBranchDialog.tsx","src/features/canvas/nodes/ResultNode.tsx","src/adapters/core/contracts.ts","src/domain/run.ts","src/domain/video-run-machine.ts","src/infrastructure/storage/run-repository.ts","tests/mock-core/server.ts","tests/unit/video-work-context.test.ts","tests/e2e/video-work-context.spec.ts"],
- "commands":[
-  {"command":"npm run test:unit -- tests/unit/video-work-context.test.ts","exitCode":1,"passed":8,"failed":1,"skipped":0,"logPath":"docs/review/logs/T32-query-red.log"},
-  {"command":"npm run test:unit -- tests/unit/video-work-context.test.ts tests/unit/video-polling.test.ts","exitCode":0,"passed":24,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-query-verified.log"},
-  {"command":"npm run test:unit -- tests/unit/video-work-context.test.ts","exitCode":1,"passed":0,"failed":6,"skipped":0,"logPath":"docs/review/logs/T32-red.log"},
-  {"command":"npm run test:unit -- tests/unit/video-work-context.test.ts","exitCode":1,"passed":6,"failed":1,"skipped":0,"logPath":"docs/review/logs/T32-identity-red.log"},
-  {"command":"npm run test:unit","exitCode":0,"passed":283,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-unit.log"},
-  {"command":"npm run test:unit -- tests/unit/video-work-context.test.ts","exitCode":0,"passed":8,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-target.log"},
-  {"command":"npm run test:e2e -- tests/e2e/video-work-context.spec.ts tests/e2e/video-submit.spec.ts","exitCode":0,"passed":5,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-browser.log"},
-  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-typecheck.log"},
-  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-lint.log"},
-  {"command":"npm run build","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T32-build.log"}
- ],
- "screenshots":["docs/review/screenshots/T32-work-limited.png"],"screenshotInspected":true,"networkMode":"实际回环HTTP父版本fixture/404与Chromium禁用弹窗；无真实Core",
- "behavior":["GET仅原连接和原普通Key；404/禁用不回退生成，原素材与Run/operation_request_id严格固定","版本白名单投影不保留Core所有者、密文、句柄或URL；同一作业重复/交叉版本拒绝","已完成响应的作业版本身份单独保存，不替代taskId/requestId，不改历史授权；发送阶段可能为父版本的base_version_id不冒充新结果版本","D08展示本地记录规格并明确不是Core父规格证明，改版/续写执行禁用；新增片段时长、原片保留、不自动拼接、无严格首帧保证","ESC/关闭恢复焦点，未知能力没有GET或POST"],
- "source":{"commit":"c056dffc41c701fb1b78a84c18c2ec139d3d708b","workRoutesSha256":"175a746560e423ae20206011143ee2d73695d48a7fd89b2b9204e1c356720ec8","videoWorkSha256":"8927684e5cf04f2c3821acf81994902e4515a25653a9dbb764d944c5c7b192ac","finding":"public work GET序列化VideoWorkVersion，sealed_snapshot被skip_serializing，因此查询不提供继承的duration/ratio/resolution；不凭本地请求猜执行规格"},
- "knownLimitations":["按T32步骤3允许基础发布隐藏执行、保留明确受限说明；prepareWorkRevision不能返回虚构可执行RunPlan，必须先验证部署与完整父版本规格，尚未实测改版或续写收费接口","Mock父版本只验证固定来源响应身份，不冒充部署父版本证明或独立审查","单包522.18kB警告待T46；真实Core/许可/全面视觉/统一验收仍待"]
+  "taskId": "T32",
+  "status": "基础版受限功能已实施，自检通过；改版/续写执行受父版本规格与部署核验门槛限制，待统一验收/独立审查",
+  "baseCommit": "4985e04a017bdced6428fa81d6c3a1de7c834724",
+  "headCommit": "ccb01d5dae15be6be964cab3ae6f29682a4ff967",
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/adapters/core/video-works.ts",
+    "src/application/runs/work-context.ts",
+    "src/features/canvas/WorkBranchDialog.tsx",
+    "src/features/canvas/nodes/ResultNode.tsx",
+    "src/adapters/core/contracts.ts",
+    "src/domain/run.ts",
+    "src/domain/video-run-machine.ts",
+    "src/infrastructure/storage/run-repository.ts",
+    "tests/mock-core/server.ts",
+    "tests/unit/video-work-context.test.ts",
+    "tests/e2e/video-work-context.spec.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/video-work-context.test.ts",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-query-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-work-context.test.ts tests/unit/video-polling.test.ts",
+      "exitCode": 0,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-query-verified.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-work-context.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-work-context.test.ts",
+      "exitCode": 1,
+      "passed": 6,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-identity-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 283,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-unit.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-work-context.test.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-target.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/video-work-context.spec.ts tests/e2e/video-submit.spec.ts",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-browser.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T32-build.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T32-work-limited.png"
+  ],
+  "screenshotInspected": true,
+  "networkMode": "实际回环HTTP父版本fixture/404与Chromium禁用弹窗；无真实Core",
+  "behavior": [
+    "GET仅原连接和原普通Key；404/禁用不回退生成，原素材与Run/operation_request_id严格固定",
+    "版本白名单投影不保留Core所有者、密文、句柄或URL；同一作业重复/交叉版本拒绝",
+    "已完成响应的作业版本身份单独保存，不替代taskId/requestId，不改历史授权；发送阶段可能为父版本的base_version_id不冒充新结果版本",
+    "D08展示本地记录规格并明确不是Core父规格证明，改版/续写执行禁用；新增片段时长、原片保留、不自动拼接、无严格首帧保证",
+    "ESC/关闭恢复焦点，未知能力没有GET或POST"
+  ],
+  "source": {
+    "commit": "c056dffc41c701fb1b78a84c18c2ec139d3d708b",
+    "workRoutesSha256": "175a746560e423ae20206011143ee2d73695d48a7fd89b2b9204e1c356720ec8",
+    "videoWorkSha256": "8927684e5cf04f2c3821acf81994902e4515a25653a9dbb764d944c5c7b192ac",
+    "finding": "public work GET序列化VideoWorkVersion，sealed_snapshot被skip_serializing，因此查询不提供继承的duration/ratio/resolution；不凭本地请求猜执行规格"
+  },
+  "knownLimitations": [
+    "按T32步骤3允许基础发布隐藏执行、保留明确受限说明；prepareWorkRevision不能返回虚构可执行RunPlan，必须先验证部署与完整父版本规格，尚未实测改版或续写收费接口",
+    "Mock父版本只验证固定来源响应身份，不冒充部署父版本证明或独立审查",
+    "单包522.18kB警告待T46；真实Core/许可/全面视觉/统一验收仍待"
+  ]
 }

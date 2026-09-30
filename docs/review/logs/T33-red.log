@@ -1,0 +1,109 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/media-delivery.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/media-delivery.test.ts (7 tests | 7 failed) 149ms
+   × T33-C02: actual authenticated GET becomes atomic original-Run cache without a new video POST 72ms
+   × T33-C03/C04: unverified redirect is blocked, generation stays completed and retry only GETs content 22ms
+   × T33-C05: verified local bytes remain usable offline without the original Key; cache reuse makes no HTTP request 14ms
+   × T33: other authorization and nonterminal generation are refused before content fetch 10ms
+   × T33: bounded response rejects over-budget header/stream and atomic quota failure leaves no orphan asset 13ms
+   × T33-C06: object URL explicitly released once, even when the owning component cleans up twice 2ms
+   × T33-C07: missing local file is a failed download trigger, never a saved-to-Downloads state 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33-C02: actual authenticated GET becomes atomic original-Run cache without a new video POST
+Error: not_implemented
+ ❯ fetchRunMedia src/features/review/media-delivery.ts:6:140
+      4| export type MediaDeliveryOptions={db?:StudioDb;client?:CoreClient;cach…
+      5| export type MediaDeliveryResult={assetId:string;blobKey:string;deliver…
+      6| export async function fetchRunMedia(_runId:string,_intent:MediaIntent,…
+       |                                                                                                                                            ^
+      7| export async function triggerBrowserDownload(_assetId:string,_options:…
+      8|
+ ❯ tests/unit/media-delivery.test.ts:9:158
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33-C03/C04: unverified redirect is blocked, generation stays completed and retry only GETs content
+AssertionError: expected [Function] to throw error including 'redirect_blocked' but got 'not_implemented'
+
+Expected: "redirect_blocked"
+Received: "not_implemented"
+
+ ❯ tests/unit/media-delivery.test.ts:10:269
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33-C05: verified local bytes remain usable offline without the original Key; cache reuse makes no HTTP request
+Error: not_implemented
+ ❯ fetchRunMedia src/features/review/media-delivery.ts:6:140
+      4| export type MediaDeliveryOptions={db?:StudioDb;client?:CoreClient;cach…
+      5| export type MediaDeliveryResult={assetId:string;blobKey:string;deliver…
+      6| export async function fetchRunMedia(_runId:string,_intent:MediaIntent,…
+       |                                                                                                                                            ^
+      7| export async function triggerBrowserDownload(_assetId:string,_options:…
+      8|
+ ❯ tests/unit/media-delivery.test.ts:11:174
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33: other authorization and nonterminal generation are refused before content fetch
+AssertionError: expected [Function] to throw error including 'media_not_ready' but got 'not_implemented'
+
+Expected: "media_not_ready"
+Received: "not_implemented"
+
+ ❯ tests/unit/media-delivery.test.ts:12:187
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33: bounded response rejects over-budget header/stream and atomic quota failure leaves no orphan asset
+AssertionError: expected [Function] to throw error including 'media_cache_budget_exceeded' but got 'not_implemented'
+
+Expected: "media_cache_budget_exceeded"
+Received: "not_implemented"
+
+ ❯ tests/unit/media-delivery.test.ts:13:227
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33-C06: object URL explicitly released once, even when the owning component cleans up twice
+AssertionError: expected '' to match /^blob:/
+
+- Expected:
+/^blob:/
+
++ Received:
+""
+
+ ❯ tests/unit/media-delivery.test.ts:14:217
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/unit/media-delivery.test.ts > T33-C07: missing local file is a failed download trigger, never a saved-to-Downloads state
+Error: not_implemented
+ ❯ triggerBrowserDownload src/features/review/media-delivery.ts:7:135
+      5| export type MediaDeliveryResult={assetId:string;blobKey:string;deliver…
+      6| export async function fetchRunMedia(_runId:string,_intent:MediaIntent,…
+      7| export async function triggerBrowserDownload(_assetId:string,_options:…
+       |                                                                                                                                       ^
+      8|
+ ❯ tests/unit/media-delivery.test.ts:15:150
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  06:00:44
+   Duration  757ms (transform 271ms, setup 43ms, import 380ms, tests 149ms, environment 0ms)
+

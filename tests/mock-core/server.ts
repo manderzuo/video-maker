@@ -4,7 +4,7 @@ import {registerTestMockOrigin} from '../helpers/mock-network';
 import accepted from '../fixtures/core-v2/video-accepted.json';
 import completed from '../fixtures/core-v2/video-completed.json';
 export type MockRequest={method:string;path:string;credentialPresent:boolean;idempotencyKey?:string;body?:unknown};
-export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;loseChatResponse?:boolean;chatDelayMs?:number;chatContent?:string;statusErrorOnce?:number;statusRetryAfter?:string;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean;workResponse?:unknown};
+export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;loseChatResponse?:boolean;chatDelayMs?:number;chatContent?:string;statusErrorOnce?:number;statusRetryAfter?:string;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean;workResponse?:unknown;streamContent?:boolean};
 export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
  const requests:MockRequest[]=[],faults:MockFaults={},tasks=new Map<string,{fingerprint:string;taskId:string}>(),taskOwners=new Map<string,string>();let counter=0;
  const server=createServer(async(req,res)=>{
@@ -37,7 +37,7 @@ export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
    if(method==='GET'&&path==='/v1/video-works/work-1'&&faults.workResponse&&[...taskOwners.values()].includes(identity)){json(200,faults.workResponse);return;}
    const match=path.match(/^\/v1\/videos\/(mock-core-\d+)(\/content)?$/);
    if(method==='GET'&&match&&taskOwners.get(match[1])===identity){
-    if(match[2]){if(faults.contentRedirect){res.writeHead(302,{Location:faults.contentRedirect});res.end();return;}res.writeHead(200,{'Content-Type':'video/mp4','X-Studio-Mock':'true'});res.end(options.contentBytes??new Uint8Array([0,0,0,12,102,116,121,112,105,115,111,109]));return;}
+    if(match[2]){if(faults.contentRedirect){res.writeHead(302,{Location:faults.contentRedirect});res.end();return;}res.writeHead(200,{'Content-Type':'video/mp4','X-Studio-Mock':'true'});const bytes=options.contentBytes??new Uint8Array([0,0,0,12,102,116,121,112,105,115,111,109]);if(faults.streamContent){res.write(bytes.subarray(0,4));res.end(bytes.subarray(4));}else res.end(bytes);return;}
     if(faults.statusErrorOnce){const status=faults.statusErrorOnce;faults.statusErrorOnce=undefined;if(faults.statusRetryAfter)res.setHeader('Retry-After',faults.statusRetryAfter);json(status,{error:{code:status===429?'bridge_workers_busy':'budget_result_unavailable'}});return;}
     json(200,{...completed,task:{...completed.task,id:match[1],status:faults.queryStatus??'completed',content_url:'/v1/videos/'+match[1]+'/content'},request_id:match[1]});return;
    }

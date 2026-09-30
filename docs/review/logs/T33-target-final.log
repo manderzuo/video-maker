@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/media-delivery.test.ts tests/unit/core-transport.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  2 passed (2)
+      Tests  22 passed (22)
+   Start at  06:08:52
+   Duration  823ms (transform 413ms, setup 63ms, import 623ms, tests 263ms, environment 0ms)
+

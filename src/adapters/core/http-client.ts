@@ -8,7 +8,7 @@ import {allowedCorePath,requiresCoreIdempotency} from './route-policy';
 import {normalizeCoreBase} from './url';
 export type CredentialSession={binding:AuthBinding;withCredential:typeof withCredential};
 export type CoreReply<T>={ok:true;value:T}|{ok:false;error:CoreFailure};
-export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:()=>Promise<CoreReply<CoreModel[]>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string,options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreTaskView>>};
+export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:()=>Promise<CoreReply<CoreModel[]>>;requestContent:(taskId:string,options:{maxBytes:number;signal?:AbortSignal})=>Promise<CoreReply<Blob>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string,options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreTaskView>>};
 export type TransportOptions={browserOrigin?:string;registry?:readonly ConnectionProfile[];fetch?:typeof fetch};
 export function createCoreClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{
  const copied=connectionSchema.parse(structuredClone(raw)),binding=Object.freeze(authBindingSchema.parse(structuredClone(session.binding))),base=normalizeCoreBase(copied.proxyBase),upstream=normalizeCoreBase(copied.originSnapshot);
@@ -37,7 +37,20 @@ export function createCoreClient(raw:ConnectionProfile,session:CredentialSession
  };
  const testConnection:CoreClient['testConnection']=async()=>{const health=await requestJson('GET','/healthz');if(!health.ok)return health;const catalog=await requestJson('GET','/v1/models');if(!catalog.ok)return catalog;try{return {ok:true,value:parseCoreModels(catalog.value)};}catch{return failure('core_models_protocol_invalid','protocol');}};
  const queryVideo:CoreClient['queryVideo']=async(taskId,queryOptions)=>{const reply=await requestJson('GET','/v1/videos/'+encodeURIComponent(taskId),undefined,queryOptions);if(!reply.ok)return reply;try{const value=parseVideoTask(reply.value);if(value.taskId!==taskId)return failure('core_task_identity_mismatch','protocol');return {ok:true,value};}catch{return failure('core_task_protocol_invalid','protocol');}};
- return Object.freeze({profile,binding,requestJson,testConnection,queryVideo});
+ const requestContent:CoreClient['requestContent']=async(taskId,contentOptions)=>{
+  const path='/v1/videos/'+taskId+'/content';if(!allowedCorePath(path,'GET'))return failure('core_route_denied','forbidden','not_sent');
+  if(!Number.isSafeInteger(contentOptions.maxBytes)||contentOptions.maxBytes<=0||contentOptions.maxBytes>1024*1024*1024)return failure('media_budget_invalid','invalid_request','not_sent');
+  try{return await credential(binding.id,async key=>{
+   let response:Response;try{response=await send(origin+base.value+path,{method:'GET',headers:{Accept:'video/mp4,video/webm',Authorization:'Bearer '+key},redirect:'manual',credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',signal:contentOptions.signal});}catch{return failure('media_transport_failed');}
+   if(response.type==='opaqueredirect'||response.status>=300&&response.status<400)return failure('redirect_blocked','forbidden');
+   if(!response.ok){let value:unknown;try{value=await readJsonBounded(response);}catch{/* status remains available */}return {ok:false,error:classifyCoreError(response.status,value)};}
+   const mime=response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();if(mime!=='video/mp4'&&mime!=='video/webm'&&mime!=='application/octet-stream')return failure('media_content_type_invalid','protocol');
+   const length=response.headers.get('content-length');if(length&&/^\d+$/.test(length)&&Number(length)>contentOptions.maxBytes){await response.body?.cancel();return failure('media_cache_budget_exceeded','invalid_request');}
+   const reader=response.body?.getReader();if(!reader)return failure('media_empty','protocol');let bytes=0;const parts:BlobPart[]=[];
+   try{while(true){const part=await reader.read();if(part.done)break;bytes+=part.value.byteLength;if(bytes>contentOptions.maxBytes){await reader.cancel();return failure('media_cache_budget_exceeded','invalid_request');}parts.push(new Uint8Array(part.value));}if(!bytes)return failure('media_empty','protocol');return {ok:true,value:new Blob(parts,{type:mime})};}catch{return failure('media_transport_failed');}finally{reader.releaseLock();}
+  });}catch{return failure('session_credential_required','authentication','not_sent');}
+ };
+ return Object.freeze({profile,binding,requestJson,testConnection,queryVideo,requestContent});
 }
 async function readJsonBounded(response:Response){
  const max=8*1024*1024,reader=response.body?.getReader();if(!reader)throw new Error('core_response_invalid');const decoder=new TextDecoder('utf-8',{fatal:true});let size=0,text='';

@@ -4,7 +4,7 @@
 
 真实项目：E:\trae-studio\TRAEWORK\aiwork-studio。模型由用户在宿主选择，当前工具不可验证。恢复时读取 IMPLEMENTATION_AUTHORIZATION.md、IMPLEMENTATION_STATUS.json、EXECUTION_PROGRESS.md、当前任务原分计划及对应证据，再核验Git状态；保留现有更改。
 
-- 已实施到T32基础受限版，当前分支feat/aiwork-studio。T32真实执行仍要求部署与完整父版本规格证明，固定Core公开GET未返回加密规格快照，禁止以本地requestedSpec替代或回退普通生成。下一顺序执行T33内容交付与受控下载、T34任务中心。Agent分支仅到对应T39阶段创建。逐项最新证据以IMPLEMENTATION_STATUS.json为准。
+- 已实施到T33，当前分支feat/aiwork-studio。T32真实执行仍要求部署与完整父版本规格证明，固定Core公开GET未返回加密规格快照，禁止以本地requestedSpec替代或回退普通生成。下一顺序执行T34任务中心、T35审片比较。Agent分支仅到对应T39阶段创建。逐项最新证据以IMPLEMENTATION_STATUS.json为准。
 - 每任务先实际行为红灯，再实现/目标及相关回归，记录退出码、数量、日志和实际截图；用户统一验收放在末尾，独立审查仍待用户或安排者。
 - T02仅字号认可，全视觉/125%与150%真实缩放/前端标识许可待核验；verify中的规划批准门槛不应改成已通过。
 - 真实Core、上游、付费联调、生产迁移、远端推送、main合并、部署均未授权。T48条件live应记未验证/待授权，继续其余可做的本地收尾；不得把Mock称为真实回执。
