@@ -96,6 +96,15 @@
       "skipped": 0,
       "logPath": "docs/review/logs/T01-cli-guard-red.log",
       "reason": "freeze CLI did not invoke the path guard; fixed before any write"
+    },
+    {
+      "phase": "continuation-check",
+      "skipped": 0,
+      "passed": 5,
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T01-resume-check.log",
+      "command": "node --test tests/planning/source-policy.test.mjs",
+      "failed": 0
     }
   ],
   "behaviorIds": [

@@ -1,0 +1,13 @@
+✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (1.4613ms)
+✔ T01-C02: all five pinned revisions have independently verified snapshots (2.1725ms)
+✔ T01-C03: every source has a license disposition and evidence (1.5404ms)
+✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.7061ms)
+✔ T01-C05: write policy denies external/source paths, traversal and symlinks (140.2532ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 290.4645

@@ -191,5 +191,12 @@
       "docs/review/visual-signoff.md",
       "docs/review/EXECUTION_PROGRESS.md"
     ]
+  },
+  "typographyApproval": {
+    "bodyAndFormsPx": 16,
+    "approvedBy": "用户",
+    "scope": "字号大小；不推定全部关键状态视觉认可或独立审查通过",
+    "secondaryPx": 14,
+    "decision": "approved"
   }
 }

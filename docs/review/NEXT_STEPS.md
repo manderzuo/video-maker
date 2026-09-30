@@ -29,3 +29,7 @@ node --test tests/planning/visual-baseline.test.mjs
 视觉基线批准用例当前应当失败，除非已有真实审阅记录并据此更新manifest；不要为了绿色删掉这个门槛。
 
 恢复时先读 `docs/review/EXECUTION_PROGRESS.md`、`batch-status.json`与T01/T02证据，再看Git日志。原批准文件与导入校验和保持冻结。
+
+## 最近继续指令
+
+用户已认可当前字号，要求继续。审查时点确认正在等待：原“主审检查后才进入依赖任务”是否允许调整为先实施T03–T06本地底座、批次检查点保留独立审查。当前没有独立审查通过记录；具体材料见REVIEW_CHECKPOINT.md、continuation-authorization.json。T03版本元数据已核对并落盘到toolchain/T03-preflight.json，尚未安装/锁定/实施。

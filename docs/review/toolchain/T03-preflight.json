@@ -1,0 +1,334 @@
+{
+  "checkedAt": "2026-09-30T09:24:35.017Z",
+  "phase": "metadata-only",
+  "installed": false,
+  "lockCreated": false,
+  "runtimeExecuted": false,
+  "auditExecuted": false,
+  "compatibilityTestsExecuted": false,
+  "sourceSnapshot": "dab19adc0847e32e39b7fc8ff90cb392561fb826:web/package.json",
+  "nodeSource": "https://nodejs.org/dist/index.json",
+  "node22Candidates": [
+    {
+      "version": "v22.23.3",
+      "date": "2026-09-23",
+      "npm": "10.9.9",
+      "lts": "Jod",
+      "security": false
+    },
+    {
+      "version": "v22.23.2",
+      "date": "2026-07-28",
+      "npm": "10.9.8",
+      "lts": "Jod",
+      "security": true
+    },
+    {
+      "version": "v22.23.1",
+      "date": "2026-06-22",
+      "npm": "10.9.8",
+      "lts": "Jod",
+      "security": false
+    }
+  ],
+  "viteSource": "https://registry.npmjs.org/vite",
+  "vite7CompatibilityDocs": "https://v7.vite.dev/guide/",
+  "vite7Candidates": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "packages": [
+    {
+      "package": "react",
+      "source": "https://registry.npmjs.org/react",
+      "candidates": [
+        {
+          "version": "19.0.8",
+          "engines": {
+            "node": ">=0.10.0"
+          },
+          "published": "2026-07-21T15:43:22.261Z"
+        },
+        {
+          "version": "19.3.0",
+          "engines": {
+            "node": ">=0.10.0"
+          },
+          "published": "2026-09-09T17:21:30.071Z"
+        }
+      ]
+    },
+    {
+      "package": "react-dom",
+      "source": "https://registry.npmjs.org/react-dom",
+      "candidates": [
+        {
+          "version": "19.0.8",
+          "peerDependencies": {
+            "react": "^19.0.8"
+          },
+          "published": "2026-07-21T15:43:34.326Z"
+        },
+        {
+          "version": "19.3.0",
+          "peerDependencies": {
+            "react": "^19.3.0"
+          },
+          "published": "2026-09-09T17:17:39.744Z"
+        }
+      ]
+    },
+    {
+      "package": "zustand",
+      "source": "https://registry.npmjs.org/zustand",
+      "candidates": [
+        {
+          "version": "5.0.14",
+          "engines": {
+            "node": ">=12.20.0"
+          },
+          "peerDependencies": {
+            "immer": ">=9.0.6",
+            "react": ">=18.0.0",
+            "@types/react": ">=18.0.0",
+            "use-sync-external-store": ">=1.2.0"
+          },
+          "published": "2026-05-28T10:17:58.249Z"
+        },
+        {
+          "version": "5.0.15",
+          "engines": {
+            "node": ">=12.20.0"
+          },
+          "peerDependencies": {
+            "immer": ">=9.0.6",
+            "react": ">=18.0.0",
+            "@types/react": ">=18.0.0",
+            "use-sync-external-store": ">=1.2.0"
+          },
+          "published": "2026-08-13T00:39:55.466Z"
+        }
+      ]
+    },
+    {
+      "package": "typescript",
+      "source": "https://registry.npmjs.org/typescript",
+      "candidates": [
+        {
+          "version": "5.9.2",
+          "engines": {
+            "node": ">=14.17"
+          },
+          "published": "2025-07-31T17:54:06.216Z"
+        },
+        {
+          "version": "5.9.3",
+          "engines": {
+            "node": ">=14.17"
+          },
+          "published": "2025-09-30T21:19:38.784Z"
+        }
+      ]
+    },
+    {
+      "package": "vitest",
+      "source": "https://registry.npmjs.org/vitest",
+      "candidates": [
+        {
+          "version": "4.1.10",
+          "engines": {
+            "node": "^20.0.0 || ^22.0.0 || >=24.0.0"
+          },
+          "peerDependencies": {
+            "vite": "^6.0.0 || ^7.0.0 || ^8.0.0",
+            "jsdom": "*",
+            "happy-dom": "*",
+            "@vitest/ui": "4.1.10",
+            "@types/node": "^20.0.0 || ^22.0.0 || >=24.0.0",
+            "@edge-runtime/vm": "*",
+            "@opentelemetry/api": "^1.9.0",
+            "@vitest/coverage-v8": "4.1.10",
+            "@vitest/browser-preview": "4.1.10",
+            "@vitest/coverage-istanbul": "4.1.10",
+            "@vitest/browser-playwright": "4.1.10",
+            "@vitest/browser-webdriverio": "4.1.10"
+          },
+          "published": "2026-07-06T06:44:42.684Z"
+        },
+        {
+          "version": "4.1.11",
+          "engines": {
+            "node": "^20.0.0 || ^22.0.0 || >=24.0.0"
+          },
+          "peerDependencies": {
+            "vite": "^6.0.0 || ^7.0.0 || ^8.0.0",
+            "jsdom": "*",
+            "happy-dom": "*",
+            "@vitest/ui": "4.1.11",
+            "@types/node": "^20.0.0 || ^22.0.0 || >=24.0.0",
+            "@edge-runtime/vm": "*",
+            "@opentelemetry/api": "^1.9.0",
+            "@vitest/coverage-v8": "4.1.11",
+            "@vitest/browser-preview": "4.1.11",
+            "@vitest/coverage-istanbul": "4.1.11",
+            "@vitest/browser-playwright": "4.1.11",
+            "@vitest/browser-webdriverio": "4.1.11"
+          },
+          "published": "2026-08-18T14:27:07.240Z"
+        }
+      ]
+    },
+    {
+      "package": "@vitejs/plugin-react",
+      "source": "https://registry.npmjs.org/@vitejs/plugin-react",
+      "candidates": [
+        {
+          "version": "5.1.4",
+          "engines": {
+            "node": "^20.19.0 || >=22.12.0"
+          },
+          "peerDependencies": {
+            "vite": "^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
+          },
+          "published": "2026-02-10T04:58:30.957Z"
+        },
+        {
+          "version": "5.2.0",
+          "engines": {
+            "node": "^20.19.0 || >=22.12.0"
+          },
+          "peerDependencies": {
+            "vite": "^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
+          },
+          "published": "2026-03-12T14:27:45.817Z"
+        }
+      ]
+    },
+    {
+      "package": "@playwright/test",
+      "source": "https://registry.npmjs.org/@playwright/test",
+      "candidates": [
+        {
+          "version": "1.58.1",
+          "engines": {
+            "node": ">=18"
+          },
+          "published": "2026-01-30T18:25:04.659Z"
+        },
+        {
+          "version": "1.58.2",
+          "engines": {
+            "node": ">=18"
+          },
+          "published": "2026-02-06T16:42:52.725Z"
+        }
+      ]
+    },
+    {
+      "package": "eslint",
+      "source": "https://registry.npmjs.org/eslint",
+      "candidates": [
+        {
+          "version": "9.39.4",
+          "engines": {
+            "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+          },
+          "peerDependencies": {
+            "jiti": "*"
+          },
+          "published": "2026-03-06T21:46:46.521Z"
+        },
+        {
+          "version": "9.39.5",
+          "engines": {
+            "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+          },
+          "peerDependencies": {
+            "jiti": "*"
+          },
+          "published": "2026-07-10T20:41:47.507Z"
+        }
+      ]
+    },
+    {
+      "package": "typescript-eslint",
+      "source": "https://registry.npmjs.org/typescript-eslint",
+      "candidates": [
+        {
+          "version": "8.70.1",
+          "engines": {
+            "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+          },
+          "peerDependencies": {
+            "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+            "typescript": ">=4.8.4 <6.1.0"
+          },
+          "published": "2026-09-21T17:07:55.524Z"
+        },
+        {
+          "version": "8.71.0",
+          "engines": {
+            "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+          },
+          "peerDependencies": {
+            "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+            "typescript": ">=4.8.4 <6.1.0"
+          },
+          "published": "2026-09-28T17:12:00.356Z"
+        }
+      ]
+    },
+    {
+      "package": "@types/react",
+      "source": "https://registry.npmjs.org/@types/react",
+      "candidates": [
+        {
+          "version": "19.2.18",
+          "peerDependencies": {},
+          "published": "2026-07-30T21:54:03.456Z"
+        },
+        {
+          "version": "19.3.0",
+          "peerDependencies": {},
+          "published": "2026-09-09T18:08:49.750Z"
+        }
+      ]
+    },
+    {
+      "package": "@types/react-dom",
+      "source": "https://registry.npmjs.org/@types/react-dom",
+      "candidates": [
+        {
+          "version": "19.2.7",
+          "peerDependencies": {
+            "@types/react": "^19.2.0"
+          },
+          "published": "2026-09-03T11:04:47.516Z"
+        },
+        {
+          "version": "19.3.0",
+          "peerDependencies": {
+            "@types/react": "^19.3.0"
+          },
+          "published": "2026-09-09T18:07:51.886Z"
+        }
+      ]
+    },
+    {
+      "package": "@types/node",
+      "source": "https://registry.npmjs.org/@types/node",
+      "candidates": [
+        {
+          "version": "22.20.3",
+          "peerDependencies": {},
+          "published": "2026-09-15T20:36:23.991Z"
+        },
+        {
+          "version": "22.20.4",
+          "peerDependencies": {},
+          "published": "2026-09-19T00:12:01.551Z"
+        }
+      ]
+    }
+  ],
+  "note": "Exact installation choices will be fixed and audited in T03; candidate listing is not a build, lock or security approval."
+}
