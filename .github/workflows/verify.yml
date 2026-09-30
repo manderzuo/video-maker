@@ -1,0 +1,15 @@
+name: verify
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.3'
+          cache: npm
+      - run: npm install --global npm@11.6.2
+      - run: npm ci
+      - run: npx --no-install playwright install chromium
+      - run: npm run verify

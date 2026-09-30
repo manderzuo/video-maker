@@ -12,8 +12,8 @@
     "decision": "approved"
   },
   "continuation": {
-    "currentBlockedAction": "依赖任务代码实现；暂不改变原审查时点",
-    "reviewTimingClarification": "已提交；等待用户明确是否调整为批次检查点审查",
+    "currentBlockedAction": "无本地实施阻塞；正式验收及后续批次仍受检查点审查约束",
+    "reviewTimingClarification": "用户明确回复：允许实施，开始吧。允许T03–T06本地基础开发，独立审查保留到批次检查点",
     "independentReviewPerformed": false,
     "requestedBatch": "T03-T06"
   },

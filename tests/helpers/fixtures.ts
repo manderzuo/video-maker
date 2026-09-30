@@ -1,0 +1,1 @@
+export const f={project:(patch:Record<string,unknown>={})=>({id:'p1',schemaVersion:1,title:'测试项目',description:'',revision:1,createdAt:1000,updatedAt:1000,archived:false,trashedAt:null,tags:[],...patch})};

@@ -1,20 +1,184 @@
 {
   "taskId": "T03",
-  "title": "建立隔离工程与可阻断回归工具链",
-  "status": "受阻，未开始",
-  "baseCommit": null,
+  "status": "实施完成，自检通过，待独立审查",
+  "baseCommit": "ebd7e0318379d345c7d94a9b56c2bfb1afbda126",
   "headCommit": null,
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reasoningMode": "用户指定high，工具不可验证",
-  "files": [],
-  "commands": [],
-  "interactionIds": [],
-  "screenshots": [],
-  "networkMode": "not-executed",
-  "knownLimitations": [
-    "T01主审与T02视觉/独立审查尚未完成；按原交接依赖门槛暂停",
-    "未执行测试，不作通过或跳过声明"
+  "files": [
+    "docs/review/continuation-authorization.json",
+    ".github/workflows/verify.yml",
+    ".node-version",
+    ".npmrc",
+    "docs/review/logs/T03-audit-initial.json",
+    "docs/review/logs/T03-build.log",
+    "docs/review/logs/T03-ci-final.log",
+    "docs/review/logs/T03-ci.log",
+    "docs/review/logs/T03-e2e-final.log",
+    "docs/review/logs/T03-e2e.log",
+    "docs/review/logs/T03-green-final.log",
+    "docs/review/logs/T03-green.log",
+    "docs/review/logs/T03-install-compatible.log",
+    "docs/review/logs/T03-install-npm11.log",
+    "docs/review/logs/T03-install-patched-vitest.log",
+    "docs/review/logs/T03-install-retry.log",
+    "docs/review/logs/T03-install.log",
+    "docs/review/logs/T03-lint-final.log",
+    "docs/review/logs/T03-lint-initial.log",
+    "docs/review/logs/T03-lint.log",
+    "docs/review/logs/T03-live-unverified.log",
+    "docs/review/logs/T03-lock-refresh.log",
+    "docs/review/logs/T03-maintained-lint-install.log",
+    "docs/review/logs/T03-network-negative.log",
+    "docs/review/logs/T03-red.log",
+    "docs/review/logs/T03-security.log",
+    "docs/review/logs/T03-typecheck-final.log",
+    "docs/review/logs/T03-typecheck-initial.log",
+    "docs/review/logs/T03-typecheck.log",
+    "docs/review/logs/T03-unit.log",
+    "docs/review/screenshots/T03-bootstrap.png",
+    "eslint.config.mjs",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "playwright.config.ts",
+    "scripts/check-network-negative.mjs",
+    "scripts/use-local-toolchain.ps1",
+    "src/main.tsx",
+    "tests/e2e/harness.spec.ts",
+    "tests/fixtures/negative.config.ts",
+    "tests/fixtures/public-request.spec.ts",
+    "tests/helpers/fixtures.ts",
+    "tests/helpers/live-approval.ts",
+    "tests/helpers/network-counter.ts",
+    "tests/helpers/network-guard.ts",
+    "tests/helpers/network-policy.mjs",
+    "tests/helpers/unit-setup.ts",
+    "tests/live/approval.test.mjs",
+    "tests/planning/test-harness.test.mjs",
+    "tests/security/network-policy.test.ts",
+    "tsconfig.json",
+    "vite.config.ts",
+    "vitest.config.ts"
   ],
-  "reviewDecision": "未实施，待前置审查",
-  "independentReviewPerformed": false
+  "toolchain": {
+    "root": "E:\\trae-studio",
+    "node": "22.23.3",
+    "dependencyVersions": {
+      "@playwright/test": "1.58.2",
+      "@types/node": "22.20.4",
+      "@types/react": "19.2.18",
+      "@types/react-dom": "19.2.7",
+      "@vitejs/plugin-react": "5.2.0",
+      "eslint": "10.11.0",
+      "fake-indexeddb": "6.2.4",
+      "typescript": "5.9.3",
+      "typescript-eslint": "8.71.0",
+      "vite": "7.3.6",
+      "vitest": "4.1.11"
+    },
+    "npm": "11.6.2"
+  },
+  "commands": [
+    {
+      "phase": "red",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T03-red.log",
+      "failed": 4,
+      "skipped": 0,
+      "command": "node --test tests/planning/test-harness.test.mjs",
+      "note": "C01/C02/C03有效行为失败；C05当时lock未生成，不算运行环境红灯",
+      "passed": 1
+    },
+    {
+      "command": "npm install (npm10.9.9, Vitest4.1.11)",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T03-install.log",
+      "reason": "arborist optional-peer edgesOut crash"
+    },
+    {
+      "command": "npm install (npm11.6.2, Vitest4.1.11)",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-install-npm11.log",
+      "note": "4.0.18的兼容诊断安装发现漏洞，已移除并恢复修补4.1.11"
+    },
+    {
+      "command": "npm ci",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-ci-final.log",
+      "note": "npm audit报告0个已知漏洞，不代表完整安全审查"
+    },
+    {
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-green-final.log",
+      "command": "node --test tests/planning/test-harness.test.mjs",
+      "skipped": 0,
+      "failed": 0,
+      "phase": "green",
+      "passed": 5
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-lint-final.log"
+    },
+    {
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-unit.log",
+      "command": "npm run test:unit",
+      "skipped": 0,
+      "failed": 0,
+      "passed": 2
+    },
+    {
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-e2e-final.log",
+      "command": "npm run test:e2e",
+      "skipped": 0,
+      "failed": 0,
+      "passed": 1
+    },
+    {
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-security.log",
+      "command": "npm run test:security",
+      "skipped": 0,
+      "failed": 0,
+      "note": "另有故意负例子进程exit1，在network guard处失败；外层验证该失败原因",
+      "passed": 2
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-build.log"
+    },
+    {
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T03-live-unverified.log",
+      "command": "npm run test:live",
+      "skipped": 1,
+      "failed": 0,
+      "note": "未验证真实接口，未执行业务请求",
+      "passed": 0
+    }
+  ],
+  "interactionIds": [],
+  "screenshots": [
+    "docs/review/screenshots/T03-bootstrap.png"
+  ],
+  "networkMode": "local mock only",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "knownLimitations": [
+    "CI工作流已编写，远端未运行",
+    "T02完整视觉/独立审查门槛仍待检查点；用户已允许本批基础实施",
+    "基础启动页不是T11产品界面",
+    "上游bun测试未执行",
+    "外部依赖下载与业务网络阻断分开，未访问真实Core"
+  ]
 }

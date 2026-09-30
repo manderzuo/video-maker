@@ -1,0 +1,122 @@
+TAP version 13
+# Subtest: T03-C01: public and foreign-loopback requests fail closed
+not ok 1 - T03-C01: public and foreign-loopback requests fail closed
+  ---
+  duration_ms: 1.2726
+  type: 'test'
+  location: 'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\planning\\test-harness.test.mjs:6:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/test-harness.test.mjs:7:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: T03-C02: server reuse is disabled
+not ok 2 - T03-C02: server reuse is disabled
+  ---
+  duration_ms: 0.5467
+  type: 'test'
+  location: 'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\planning\\test-harness.test.mjs:11:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /reuseExistingServer:\s*false/. Input:
+    
+    'export default {webServer:{reuseExistingServer:true}};\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    export default {webServer:{reuseExistingServer:true}};
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/test-harness.test.mjs:11:53)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: T03-C03: isolated mock tooling exposes all commands without credentials
+not ok 3 - T03-C03: isolated mock tooling exposes all commands without credentials
+  ---
+  duration_ms: 0.9398
+  type: 'test'
+  location: 'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\planning\\test-harness.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    dev
+    + actual - expected
+    
+    + 'undefined'
+    - 'string'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'string'
+  actual: 'undefined'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/test-harness.test.mjs:13:132)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: T03-C04: empty suites and missing dependencies cannot pass
+ok 4 - T03-C04: empty suites and missing dependencies cannot pass
+  ---
+  duration_ms: 0.3441
+  type: 'test'
+  ...
+# Subtest: T03-C05: one npm lock contains exact declared dependencies
+not ok 5 - T03-C05: one npm lock contains exact declared dependencies
+  ---
+  duration_ms: 3.5814
+  type: 'test'
+  location: 'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\planning\\test-harness.test.mjs:20:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(existsSync('package-lock.json'))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/test-harness.test.mjs:21:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 1
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 110.2614
