@@ -2,30 +2,133 @@
   "taskId": "T02",
   "status": "具体文档材料已准备，待视觉认可与独立审查；未完成",
   "baseCommit": "cef8116438d88eafae612863670ab208cdc01fc9",
-  "headCommit": null,
+  "headCommit": "31a6a6f62f8a316256844e877a9f6f6f83766af3",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reasoningMode": "用户指定 high，工具不可验证",
   "artifactType": "static-document-review-only",
   "productUIImplemented": false,
-  "files": ["docs/design/visual-review.html", "docs/design/visual-review.css", "docs/design/visual-review.js", "docs/design/review-data.js", "docs/design/review-data.json", "docs/design/visual-manifest.json", "docs/design/captures/", "docs/review/visual-signoff.md", "tests/planning/visual-baseline.test.mjs", "scripts/build-visual-review.mjs", "scripts/serve-review.mjs", "scripts/capture-visual-review.mjs"],
-  "commands": [
-    {"command": "node --test tests/planning/visual-baseline.test.mjs", "phase": "red", "exitCode": 1, "passed": 0, "failed": 5, "skipped": 0, "logPath": "docs/review/logs/T02-red.log"},
-    {"command": "npm install --prefix E:/trae-studio/tools/visual-review --cache E:/trae-studio/tools/npm-cache --registry https://registry.npmjs.org --proxy=null --https-proxy=null --save-exact playwright@1.58.2", "exitCode": 0, "passed": null, "failed": null, "skipped": 0, "logPath": "docs/review/logs/T02-review-tool-install.log", "note": "E-drive document review tooling only, not the T03 application toolchain"},
-    {"command": "node scripts/build-visual-review.mjs", "exitCode": 0, "passed": null, "failed": null, "skipped": 0, "result": "23 source-grounded pages and 30 dialogs; no approval fabricated"},
-    {"command": "node scripts/serve-review.mjs", "exitCode": null, "result": "loopback document-only server opened; process retained for review"},
-    {"command": "node scripts/capture-visual-review.mjs", "phase": "browser-red", "exitCode": 1, "passed": null, "failed": null, "skipped": 0, "logPath": "docs/review/logs/T02-browser-red.log", "reportPath": "docs/review/logs/T02-browser-initial-failure.json", "reason": "precise select accessible name missing; inline style blocked by CSP"},
-    {"command": "node scripts/capture-visual-review.mjs", "phase": "browser-green", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "countMeaning": "six explicitly asserted review-navigation checks, not six product E2E cases", "captureCount": 171, "logPath": "docs/review/logs/T02-browser-green.log", "reportPath": "docs/review/logs/T02-browser-check.json"},
-    {"command": "node --test tests/planning/visual-baseline.test.mjs", "phase": "pending-human-gate", "exitCode": 1, "passed": 4, "failed": 1, "skipped": 0, "logPath": "docs/review/logs/T02-baseline-pending.log", "reason": "T02-G02 actual human/independent approval is pending"},
-    {"command": "node --test tests/planning/*.test.mjs", "phase": "related-regression", "exitCode": 1, "passed": 9, "failed": 1, "skipped": 0, "logPath": "docs/review/logs/T01-T02-regression.log", "reason": "only the approval gate remains red"},
-    {"command": "npm run typecheck", "executed": false, "exitCode": null, "reason": "T03 not started; approval dependency pending"}
+  "files": [
+    "docs/design/visual-review.html",
+    "docs/design/visual-review.css",
+    "docs/design/visual-review.js",
+    "docs/design/review-data.js",
+    "docs/design/review-data.json",
+    "docs/design/visual-manifest.json",
+    "docs/design/captures/",
+    "docs/review/visual-signoff.md",
+    "tests/planning/visual-baseline.test.mjs",
+    "scripts/build-visual-review.mjs",
+    "scripts/serve-review.mjs",
+    "scripts/capture-visual-review.mjs"
   ],
-  "behaviorIds": ["T02-C01", "T02-C02", "T02-C03", "T02-C04", "T02-G02"],
+  "commands": [
+    {
+      "command": "node --test tests/planning/visual-baseline.test.mjs",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 5,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T02-red.log"
+    },
+    {
+      "command": "npm install --prefix E:/trae-studio/tools/visual-review --cache E:/trae-studio/tools/npm-cache --registry https://registry.npmjs.org --proxy=null --https-proxy=null --save-exact playwright@1.58.2",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T02-review-tool-install.log",
+      "note": "E-drive document review tooling only, not the T03 application toolchain"
+    },
+    {
+      "command": "node scripts/build-visual-review.mjs",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": 0,
+      "result": "23 source-grounded pages and 30 dialogs; no approval fabricated"
+    },
+    {
+      "command": "node scripts/serve-review.mjs",
+      "exitCode": null,
+      "result": "loopback document-only server opened; process retained for review"
+    },
+    {
+      "command": "node scripts/capture-visual-review.mjs",
+      "phase": "browser-red",
+      "exitCode": 1,
+      "passed": null,
+      "failed": null,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T02-browser-red.log",
+      "reportPath": "docs/review/logs/T02-browser-initial-failure.json",
+      "reason": "precise select accessible name missing; inline style blocked by CSP"
+    },
+    {
+      "command": "node scripts/capture-visual-review.mjs",
+      "phase": "browser-green",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "countMeaning": "six explicitly asserted review-navigation checks, not six product E2E cases",
+      "captureCount": 171,
+      "logPath": "docs/review/logs/T02-browser-green.log",
+      "reportPath": "docs/review/logs/T02-browser-check.json"
+    },
+    {
+      "command": "node --test tests/planning/visual-baseline.test.mjs",
+      "phase": "pending-human-gate",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T02-baseline-pending.log",
+      "reason": "T02-G02 actual human/independent approval is pending"
+    },
+    {
+      "command": "node --test tests/planning/*.test.mjs",
+      "phase": "related-regression",
+      "exitCode": 1,
+      "passed": 9,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-T02-regression.log",
+      "reason": "only the approval gate remains red"
+    },
+    {
+      "command": "npm run typecheck",
+      "executed": false,
+      "exitCode": null,
+      "reason": "T03 not started; approval dependency pending"
+    }
+  ],
+  "behaviorIds": [
+    "T02-C01",
+    "T02-C02",
+    "T02-C03",
+    "T02-C04",
+    "T02-G02"
+  ],
   "interactionIds": [],
-  "screenshots": {"manifest": "docs/design/visual-manifest.json", "inventory": "docs/review/logs/T02-browser-check.json", "directory": "docs/design/captures", "count": 171, "kind": "actual browser captures of design documents; no product UI screenshots"},
+  "screenshots": {
+    "manifest": "docs/design/visual-manifest.json",
+    "inventory": "docs/review/logs/T02-browser-check.json",
+    "directory": "docs/design/captures",
+    "count": 171,
+    "kind": "actual browser captures of design documents; no product UI screenshots"
+  },
   "networkMode": "loopback static document; business network blocked",
   "businessRequests": 0,
   "storageWrites": 0,
-  "knownLimitations": ["T01 independent review still pending; this is document preparation permitted by G02", "Human visual approval and independent audit not performed", "Actual browser 125%/150% zoom not tested", "No product UI, save/restore/lease behavior or product accessibility acceptance", "No genuine media or model output; all samples labeled static", "Node24 host used for planning checks, not verified against T03 Node22 baseline"],
+  "knownLimitations": [
+    "T01 independent review still pending; this is document preparation permitted by G02",
+    "Human visual approval and independent audit not performed",
+    "Actual browser 125%/150% zoom not tested",
+    "No product UI, save/restore/lease behavior or product accessibility acceptance",
+    "No genuine media or model output; all samples labeled static",
+    "Node24 host used for planning checks, not verified against T03 Node22 baseline"
+  ],
   "reviewDecision": "待审查",
   "independentReviewPerformed": false
 }

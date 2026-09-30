@@ -1,0 +1,57 @@
+{
+  "batch": "T01-T06",
+  "complete": false,
+  "projectRoot": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "f811447b6867984b66e027de3b6326f479bb0f08",
+  "implementationHeadCommit": "66ceb20400c2b9027383902392b7993d2d99a182",
+  "implementationHeadExplanation": "Known implementation commit before the separately committed evidence handoff; final repository HEAD is obtained by git rev-parse HEAD",
+  "taskCommits": {
+    "T01": "66ceb20400c2b9027383902392b7993d2d99a182",
+    "T02": "31a6a6f62f8a316256844e877a9f6f6f83766af3"
+  },
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "remoteConfigured": false,
+  "productCodeImplemented": false,
+  "sourceSnapshotsVerified": 5,
+  "screenshotCount": 171,
+  "tasks": [
+    {
+      "id": "T01",
+      "status": "自检通过，待审查"
+    },
+    {
+      "id": "T02",
+      "status": "具体材料已提供，待视觉认可与独立审查；未完成"
+    },
+    {
+      "id": "T03",
+      "status": "受阻，未开始"
+    },
+    {
+      "id": "T04",
+      "status": "受阻，未开始"
+    },
+    {
+      "id": "T05",
+      "status": "受阻，未开始"
+    },
+    {
+      "id": "T06",
+      "status": "受阻，未开始"
+    }
+  ],
+  "regression": {
+    "command": "node --test tests/planning/*.test.mjs",
+    "exitCode": 1,
+    "passed": 9,
+    "failed": 1,
+    "skipped": 0,
+    "failure": "T02-G02: human/independent approval pending"
+  },
+  "businessCalls": 0,
+  "liveAuthorized": false,
+  "pushPerformed": false,
+  "nextTask": "T03 after actual gate release",
+  "resumeDocument": "docs/review/NEXT_STEPS.md"
+}

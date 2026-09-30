@@ -2,25 +2,130 @@
   "taskId": "T01",
   "status": "自检通过，待审查",
   "baseCommit": "f811447b6867984b66e027de3b6326f479bb0f08",
-  "headCommit": null,
+  "headCommit": "66ceb20400c2b9027383902392b7993d2d99a182",
   "headCommitResolution": "任务提交完成后由 docs/review/batch-status.json 记录，避免自引用提交哈希",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reasoningMode": "用户指定 high，工具不可验证",
-  "files": ["scripts/source-policy.mjs", "tests/planning/source-policy.test.mjs", "docs/review/source-manifest.json", "docs/review/reuse-ledger.csv", "docs/review/workspace-check.md", "docs/review/sources/", "third-party/THIRD_PARTY_NOTICES.txt", "third-party/licenses/", ".gitignore"],
-  "commands": [
-    {"command": "node --test tests/planning/source-policy.test.mjs", "phase": "red", "exitCode": 1, "passed": 0, "failed": 5, "skipped": 0, "logPath": "docs/review/logs/T01-red.log"},
-    {"command": "git fetch --depth 1 <public-source-url> <fixed-sha> (five sources)", "phase": "initial-download", "exitCode": 128, "passed": null, "failed": null, "skipped": 0, "logPath": "docs/review/logs/T01-fetch-*.log", "reason": "unreachable local proxy; not a TDD red result"},
-    {"command": "git -c http.proxy= -c credential.helper= -c core.askPass= fetch --depth 1 <public-source-url> <fixed-sha> (five sources)", "phase": "download", "exitCode": 0, "passed": null, "failed": null, "skipped": 0, "logPath": "docs/review/logs/T01-fetch-direct-*.log"},
-    {"command": "node work/freeze-sources.mjs", "exitCode": 0, "passed": null, "failed": null, "skipped": 0, "result": "five SHA verified; tracked filename inventories and ten module hashes recorded"},
-    {"command": "node --test tests/planning/source-policy.test.mjs", "phase": "green", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "logPath": "docs/review/logs/T01-green.log"},
-    {"command": "git diff --check", "exitCode": 0, "passed": null, "failed": null, "skipped": 0},
-    {"command": "npm run typecheck", "exitCode": null, "executed": false, "reason": "T03 toolchain not established; must run after gate release"}
+  "files": [
+    "scripts/source-policy.mjs",
+    "tests/planning/source-policy.test.mjs",
+    "docs/review/source-manifest.json",
+    "docs/review/reuse-ledger.csv",
+    "docs/review/workspace-check.md",
+    "docs/review/sources/",
+    "third-party/THIRD_PARTY_NOTICES.txt",
+    "third-party/licenses/",
+    ".gitignore",
+    "scripts/freeze-sources.mjs"
   ],
-  "behaviorIds": ["T01-C01", "T01-C02", "T01-C03", "T01-C04", "T01-C05"],
+  "commands": [
+    {
+      "command": "node --test tests/planning/source-policy.test.mjs",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 5,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-red.log"
+    },
+    {
+      "command": "git fetch --depth 1 <public-source-url> <fixed-sha> (five sources)",
+      "phase": "initial-download",
+      "exitCode": 128,
+      "passed": null,
+      "failed": null,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-fetch-*.log",
+      "reason": "unreachable local proxy; not a TDD red result"
+    },
+    {
+      "command": "git -c http.proxy= -c credential.helper= -c core.askPass= fetch --depth 1 <public-source-url> <fixed-sha> (five sources)",
+      "phase": "download",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-fetch-direct-*.log"
+    },
+    {
+      "command": "node work/freeze-sources.mjs",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": 0,
+      "result": "five SHA verified; tracked filename inventories and ten module hashes recorded"
+    },
+    {
+      "command": "node --test tests/planning/source-policy.test.mjs",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-green.log"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": null,
+      "executed": false,
+      "reason": "T03 toolchain not established; must run after gate release"
+    },
+    {
+      "command": "node --test tests/planning/source-policy.test.mjs",
+      "phase": "root-rebinding-red",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-root-guard-red.log",
+      "reason": "Caller-controlled root could permit external writes; now bound to actual script project root"
+    },
+    {
+      "command": "node --test tests/planning/source-policy.test.mjs",
+      "phase": "cli-working-directory-red",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T01-cli-guard-red.log",
+      "reason": "freeze CLI did not invoke the path guard; fixed before any write"
+    }
+  ],
+  "behaviorIds": [
+    "T01-C01",
+    "T01-C02",
+    "T01-C03",
+    "T01-C04",
+    "T01-C05"
+  ],
   "interactionIds": [],
   "screenshots": [],
   "networkMode": "public source downloads only; zero business calls",
-  "knownLimitations": ["No upstream build, bun tests or complete security scan", "Frontend-mark permission unresolved", "Core/maker/MCP copying permission unresolved; used as contract references only", "Path guard is a project-tool policy, not OS ACL isolation", "Model host selection cannot be verified with current tools", "Typecheck deferred until T03"],
+  "knownLimitations": [
+    "No upstream build, bun tests or complete security scan",
+    "Frontend-mark permission unresolved",
+    "Core/maker/MCP copying permission unresolved; used as contract references only",
+    "Path guard is a project-tool policy, not OS ACL isolation",
+    "Model host selection cannot be verified with current tools",
+    "Typecheck deferred until T03"
+  ],
   "reviewDecision": "待审查",
-  "independentReviewPerformed": false
+  "independentReviewPerformed": false,
+  "intermediateFailure": {
+    "command": "node --test tests/planning/source-policy.test.mjs",
+    "exitCode": 1,
+    "passed": 4,
+    "failed": 1,
+    "skipped": 0,
+    "reason": "Windows test-junction cleanup ERR_FS_EISDIR; corrected with guarded nonrecursive rmdir",
+    "logPath": null,
+    "note": "Observed in this session; first green-attempt log was overwritten by corrected green run. Not presented as a passing run."
+  }
 }

@@ -1,0 +1,20 @@
+{
+  "taskId": "T04",
+  "title": "统一领域类型、Schema与输入限制",
+  "status": "受阻，未开始",
+  "baseCommit": null,
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reasoningMode": "用户指定high，工具不可验证",
+  "files": [],
+  "commands": [],
+  "interactionIds": [],
+  "screenshots": [],
+  "networkMode": "not-executed",
+  "knownLimitations": [
+    "T01主审与T02视觉/独立审查尚未完成；按原交接依赖门槛暂停",
+    "未执行测试，不作通过或跳过声明"
+  ],
+  "reviewDecision": "未实施，待前置审查",
+  "independentReviewPerformed": false
+}

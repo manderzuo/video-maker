@@ -1,13 +1,13 @@
-✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (0.9154ms)
-✔ T01-C02: all five pinned revisions have independently verified snapshots (1.397ms)
-✔ T01-C03: every source has a license disposition and evidence (0.9012ms)
-✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.5086ms)
-✔ T01-C05: write policy denies external/source paths, traversal and symlinks (4.2202ms)
-✔ T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs (5.7103ms)
-✔ T02-C02: critical states have real captures at 1440/1280/1024 in both themes (1.7884ms)
-✔ T02-C03: payment and PG conflict material explicitly preserves constraints and gating (1.0609ms)
-✔ T02-C04: real browser review generated no business requests or storage writes (0.2651ms)
-✖ T02-G02: human approval is required before the visual baseline is accepted (1.1809ms)
+✔ T01-C01: resolved project belongs to the authorized TRAEWORK root (0.8912ms)
+✔ T01-C02: all five pinned revisions have independently verified snapshots (1.2263ms)
+✔ T01-C03: every source has a license disposition and evidence (0.6876ms)
+✔ T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence (0.65ms)
+✔ T01-C05: write policy denies external/source paths, traversal and symlinks (79.945ms)
+✔ T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs (7.3457ms)
+✔ T02-C02: critical states have real captures at 1440/1280/1024 in both themes (1.8807ms)
+✔ T02-C03: payment and PG conflict material explicitly preserves constraints and gating (1.1029ms)
+✔ T02-C04: real browser review generated no business requests or storage writes (0.4517ms)
+✖ T02-G02: human approval is required before the visual baseline is accepted (1.2457ms)
 ℹ tests 10
 ℹ suites 0
 ℹ pass 9
@@ -15,12 +15,12 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 139.8941
+ℹ duration_ms 178.1346
 
 ✖ failing tests:
 
 test at tests\planning\visual-baseline.test.mjs:40:1
-✖ T02-G02: human approval is required before the visual baseline is accepted (1.1809ms)
+✖ T02-G02: human approval is required before the visual baseline is accepted (1.2457ms)
   AssertionError [ERR_ASSERTION]: canvas-save-failed: human visual review pending
   + actual - expected
   
