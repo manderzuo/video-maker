@@ -1,0 +1,88 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/typed-nodes.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/typed-title-diagnostic.spec.ts
+
+[WebServer] (node:26504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 13 tests using 1 worker
+
+(node:10316) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10316) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (1.3s)
+  ok  2 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (913ms)
+  ok  3 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (823ms)
+  ok  4 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (923ms)
+  ok  5 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (927ms)
+  ok  6 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (1.3s)
+  ok  7 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (979ms)
+  ok  8 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (759ms)
+  ok  9 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (1.8s)
+  ok 10 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.0s)
+  ok 11 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (820ms)
+  x  12 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (798ms)
+(node:34580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  events: [
+    [32m'pointerdown:HEADER:node-handle'[39m,
+    [32m'pointerup:HEADER:node-handle'[39m,
+    [32m'click:HEADER:node-handle'[39m,
+    [32m'pointerdown:HEADER:node-handle'[39m,
+    [32m'pointerup:HEADER:node-handle'[39m,
+    [32m'click:HEADER:node-handle'[39m,
+    [32m'dblclick:HEADER:node-handle'[39m
+  ],
+  dialogs: [
+    { title: [32m'命令面板'[39m, open: [33mfalse[39m },
+    { title: [32m'快捷键说明'[39m, open: [33mfalse[39m },
+    { title: [32m'连接详情'[39m, open: [33mfalse[39m },
+    { title: [32m'当前区域帮助'[39m, open: [33mfalse[39m },
+    { title: [32m'通知消息'[39m, open: [33mfalse[39m },
+    { title: [32m'选择输入'[39m, open: [33mfalse[39m },
+    { title: [32m'输入快照'[39m, open: [33mfalse[39m },
+    { title: [32m'编辑节点标题'[39m, open: [33mtrue[39m },
+    { title: [32m'添加节点'[39m, open: [33mfalse[39m },
+    { title: [32m'接管编辑'[39m, open: [33mfalse[39m },
+    { title: [32m'离开前保存'[39m, open: [33mfalse[39m }
+  ],
+  canAdd: [33mtrue[39m
+}
+  ok 13 tests\e2e\typed-title-diagnostic.spec.ts:3:1 › title native event observation (1.1s)
+
+
+  1) tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content 
+
+    Error: locator.fill: Error: strict mode violation: getByRole('dialog', { name: '编辑节点标题' }).getByLabel('节点标题') resolved to 2 elements:
+        1) <button aria-busy="false" aria-label="关闭编辑节点标题" class="button secondary ">×</button> aka getByRole('button', { name: '关闭编辑节点标题' })
+        2) <input value="镜头文字"/> aka getByRole('textbox', { name: '节点标题' })
+
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '编辑节点标题' }).getByLabel('节点标题')[22m
+
+
+      16 | });
+      17 | test('T14 N02/T02: title validates Unicode length and display font does not edit content',async({page})=>{
+    > 18 |  const node=page.getByTestId('node-text-1');await node.getByTestId('node-handle').dblclick();const dialog=page.getByRole('dialog',{name:'编辑节点标题'});await dialog.getByLabel('节点标题').fill('中'.repeat(61));await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');await dialog.getByLabel('节点标题').fill('镜头正文');await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(node.getByTestId('node-handle')).toContainText('镜头正文');await node.getByLabel('文本字号').selectOption('20');await expect(node.getByLabel('节点文本')).toHaveCSS('font-size','20px');await expect(node.getByLabel('节点文本')).toHaveValue('原创镜头');
+         |                                                                                                                                                                                    ^
+      19 | });
+      20 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:18:180
+
+    Error Context: test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content 
+  12 passed (18.1s)

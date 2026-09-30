@@ -1,0 +1,49 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/typed-nodes.spec.ts -g identity fallback
+
+[WebServer] (node:19288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:30272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity (6.5s)
+
+
+  1) tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('只读 · 另一标签持有写权')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('只读 · 另一标签持有写权')[22m
+
+
+      22 | test('T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer',async({page,context})=>{await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();const firstId=await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'));const other=await context.newPage();await other.addInitScript(id=>sessionStorage.setItem('aiwork-studio:tab-id',id!),firstId);await other.goto('/projects/p1/canvas');await expect(other.getByText('只读 · 另一标签持有写权')).toBeVisible();expect(await other.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).not.toBe(firstId);await page.reload();await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();expect(await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).toBe(firstId);await other.close();});
+      23 | test('T14 N13: real pointer drag from text output to text input creates one dependency',async({page})=>{const from=await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).boundingBox(),to=await page.getByTestId('node-video-1').getByRole('button',{name:'接收文本',exact:true}).boundingBox();await page.mouse.move(from!.x+from!.width/2,from!.y+from!.height/2);await page.mouse.down();await page.mouse.move(to!.x+to!.width/2,to!.y+to!.height/2,{steps:6});await page.mouse.up();await expect(page.getByTestId('node-video-1').getByTestId('input-list').locator('li')).toHaveCount(1);});
+    > 24 | test('T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity',async({page,context})=>{await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();const firstId=await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'));const other=await context.newPage();await other.addInitScript(id=>{sessionStorage.setItem('aiwork-studio:tab-id',id!);Object.defineProperty(navigator,'locks',{value:undefined,configurable:true});},firstId);await other.goto('/projects/p1/canvas');await expect(other.getByText('只读 · 另一标签持有写权')).toBeVisible();expect(await other.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).not.toBe(firstId);await other.close();});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+      25 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:24:586
+
+    Error Context: test-results\typed-nodes-T14-identity-f-7ba12-use-another-writer-identity\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-identity-f-7ba12-use-another-writer-identity\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-identity-f-7ba12-use-another-writer-identity\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity 

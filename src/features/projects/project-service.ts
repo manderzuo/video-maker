@@ -6,8 +6,26 @@ import {acquireProjectLease,releaseProjectLease,type ProjectLeaseToken} from '..
 import {snapshotAssetIds,loadResourceSnapshot} from '../assets/reference-index';
 import {deletionTables} from './delete-policy';
 export type NewProjectInput={title:string;description?:string;template?:'original-shot-draft'};
-export const studioTabId=crypto.randomUUID();
+// UI coordination identity only, never a credential. Session survives reload.
+let storedTabId:string|undefined;
+try{if(typeof sessionStorage!=='undefined')storedTabId=sessionStorage.getItem('aiwork-studio:tab-id')??undefined;}catch{/* Storage may be disabled. */}
+export let studioTabId=storedTabId??crypto.randomUUID();
+let identityReady:Promise<void>|undefined;
+export function ensureStudioTabIdentity(){
+ return identityReady??= (async()=>{
+  if(typeof navigator!=='undefined'&&navigator.locks){
+   // A duplicated tab may inherit sessionStorage; only one live document can own it.
+   let owned=false;while(!owned){owned=await new Promise<boolean>((resolve,reject)=>{void navigator.locks.request('aiwork-studio:tab:'+studioTabId,{ifAvailable:true},async lock=>{if(!lock){resolve(false);return;}resolve(true);await new Promise<void>(release=>window.addEventListener('pagehide',()=>release(),{once:true}));}).catch(reject);});if(!owned)studioTabId=crypto.randomUUID();}
+  }else if(storedTabId){
+   // No live-document arbiter: use a fresh identity and let the persisted lease fence writes.
+   // Refresh may wait for expiry or require an explicit takeover; never share the writer id.
+   studioTabId=crypto.randomUUID();
+  }
+  try{if(typeof sessionStorage!=='undefined')sessionStorage.setItem('aiwork-studio:tab-id',studioTabId);}catch{/* Lease fencing remains authoritative. */}
+ })();
+}
 export async function getProjectWriter(projectId:string,db?:StudioDb):Promise<ProjectLeaseToken>{
+ await ensureStudioTabIdentity();
  const result=await acquireProjectLease(projectId,studioTabId,Date.now(),{db});
  if(!result.ok)throw new Error(result.errorCode);
  return result.token;

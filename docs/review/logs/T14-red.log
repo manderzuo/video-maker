@@ -1,0 +1,185 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/typed-nodes.spec.ts
+
+[WebServer] (node:33308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:31212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (6.1s)
+(node:19660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (3.4s)
+(node:33140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (3.7s)
+(node:34024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (5.9s)
+(node:35356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (3.6s)
+
+
+  1) tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('尚未验证此功能是否可用', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('尚未验证此功能是否可用', { exact: true })[22m
+
+
+      4 | test.beforeEach(async({page})=>{await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/canvas');});
+      5 | test('T14-C04: unknown capabilities keep video drafts editable without an execution button',async({page,networkCounter})=>{
+    > 6 |  await page.getByTestId('node-video-1').click();await expect(page.getByText('尚未验证此功能是否可用',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'确认生成',exact:true})).toHaveCount(0);await expect(page.getByLabel('视频模型')).toBeDisabled();await expect(page.getByTestId('node-video-1')).toHaveCSS('width','360px');await expect(page.getByTestId('node-text-1')).toHaveCSS('width','320px');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                          ^
+      7 | });
+      8 | test('T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact',async({page,networkCounter})=>{
+      9 |  const node=page.getByTestId('node-text-1'),field=node.getByLabel('节点文本');await field.fill('新的原创镜头');await expect(page.getByText('已保存',{exact:true})).toBeVisible();await page.reload();await expect(field).toHaveValue('新的原创镜头');await field.fill('中'.repeat(21846));await expect(node.getByRole('alert')).toContainText('64KiB');await page.reload();await expect(field).toHaveValue('新的原创镜头');expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:6:106
+
+    Error Context: test-results\typed-nodes-T14-C04-unknow-15057-without-an-execution-button\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-C04-unknow-15057-without-an-execution-button\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-C04-unknow-15057-without-an-execution-button\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact 
+
+    TimeoutError: locator.fill: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-text-1').getByLabel('节点文本')[22m
+
+
+       7 | });
+       8 | test('T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact',async({page,networkCounter})=>{
+    >  9 |  const node=page.getByTestId('node-text-1'),field=node.getByLabel('节点文本');await field.fill('新的原创镜头');await expect(page.getByText('已保存',{exact:true})).toBeVisible();await page.reload();await expect(field).toHaveValue('新的原创镜头');await field.fill('中'.repeat(21846));await expect(node.getByRole('alert')).toContainText('64KiB');await page.reload();await expect(field).toHaveValue('新的原创镜头');expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                       ^
+      10 | });
+      11 | test('T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run',async({page,networkCounter})=>{
+      12 |  const node=page.getByTestId('node-video-1');await node.getByRole('button',{name:'选择输入',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选择输入'});await dialog.getByRole('button',{name:'连接 参考一',exact:true}).click();await node.getByRole('button',{name:'选择输入',exact:true}).click();await dialog.getByRole('button',{name:'连接 参考二',exact:true}).click();await node.getByRole('button',{name:'查看输入快照',exact:true}).click();const snapshot=page.getByRole('dialog',{name:'输入快照'});await expect(snapshot.getByTestId('input-order')).toHaveText(/1.*参考一.*2.*参考二/s);await snapshot.getByRole('button',{name:'关闭',exact:true}).click();await node.getByRole('button',{name:'上移 参考二'}).click();await expect(node.getByTestId('input-list').locator('li').first()).toContainText('参考二');await node.getByRole('button',{name:'断开 参考一'}).click();await expect(node.getByTestId('input-list').locator('li')).toHaveCount(1);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:9:87
+
+    Error Context: test-results\typed-nodes-T14-C05-deboun-c1d4e-keeps-persisted-text-intact\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-C05-deboun-c1d4e-keeps-persisted-text-intact\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-C05-deboun-c1d4e-keeps-persisted-text-intact\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-video-1').getByRole('button', { name: '选择输入', exact: true })[22m
+
+
+      10 | });
+      11 | test('T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run',async({page,networkCounter})=>{
+    > 12 |  const node=page.getByTestId('node-video-1');await node.getByRole('button',{name:'选择输入',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选择输入'});await dialog.getByRole('button',{name:'连接 参考一',exact:true}).click();await node.getByRole('button',{name:'选择输入',exact:true}).click();await dialog.getByRole('button',{name:'连接 参考二',exact:true}).click();await node.getByRole('button',{name:'查看输入快照',exact:true}).click();const snapshot=page.getByRole('dialog',{name:'输入快照'});await expect(snapshot.getByTestId('input-order')).toHaveText(/1.*参考一.*2.*参考二/s);await snapshot.getByRole('button',{name:'关闭',exact:true}).click();await node.getByRole('button',{name:'上移 参考二'}).click();await expect(node.getByTestId('input-list').locator('li').first()).toContainText('参考二');await node.getByRole('button',{name:'断开 参考一'}).click();await expect(node.getByTestId('input-list').locator('li')).toHaveCount(1);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                      ^
+      13 | });
+      14 | test('T14-C03: result node displays fixed asset and run; preview does not replace history',async({page})=>{
+      15 |  const result=page.getByTestId('node-result-1');await expect(result.getByText('素材 a3',{exact:true})).toBeVisible();await expect(result.getByText('任务 r1',{exact:true})).toBeVisible();await expect(result.getByRole('button',{name:'生成'})).toHaveCount(0);await page.screenshot({path:'docs/review/screenshots/T14-typed-nodes.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:12:102
+
+    Error Context: test-results\typed-nodes-T14-C01-C02-ex-55859-sconnect-never-rewrites-Run\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-C01-C02-ex-55859-sconnect-never-rewrites-Run\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-C01-C02-ex-55859-sconnect-never-rewrites-Run\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByTestId('node-result-1').getByText('素材 a3', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('node-result-1').getByText('素材 a3', { exact: true })[22m
+
+
+      13 | });
+      14 | test('T14-C03: result node displays fixed asset and run; preview does not replace history',async({page})=>{
+    > 15 |  const result=page.getByTestId('node-result-1');await expect(result.getByText('素材 a3',{exact:true})).toBeVisible();await expect(result.getByText('任务 r1',{exact:true})).toBeVisible();await expect(result.getByRole('button',{name:'生成'})).toHaveCount(0);await page.screenshot({path:'docs/review/screenshots/T14-typed-nodes.png'});
+         |                                                                                                      ^
+      16 | });
+      17 | test('T14 N02/T02: title validates Unicode length and display font does not edit content',async({page})=>{
+      18 |  const node=page.getByTestId('node-text-1');await node.getByTestId('node-handle').dblclick();const dialog=page.getByRole('dialog',{name:'编辑节点标题'});await dialog.getByLabel('节点标题').fill('中'.repeat(61));await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');await dialog.getByLabel('节点标题').fill('镜头正文');await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(node.getByTestId('node-handle')).toContainText('镜头正文');await node.getByLabel('文本字号').selectOption('20');await expect(node.getByLabel('节点文本')).toHaveCSS('font-size','20px');await expect(node.getByLabel('节点文本')).toHaveValue('原创镜头');
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:15:102
+
+    Error Context: test-results\typed-nodes-T14-C03-result-3aac4-ew-does-not-replace-history\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-C03-result-3aac4-ew-does-not-replace-history\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-C03-result-3aac4-ew-does-not-replace-history\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content 
+
+    TimeoutError: locator.fill: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '编辑节点标题' }).getByLabel('节点标题')[22m
+
+
+      16 | });
+      17 | test('T14 N02/T02: title validates Unicode length and display font does not edit content',async({page})=>{
+    > 18 |  const node=page.getByTestId('node-text-1');await node.getByTestId('node-handle').dblclick();const dialog=page.getByRole('dialog',{name:'编辑节点标题'});await dialog.getByLabel('节点标题').fill('中'.repeat(61));await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');await dialog.getByLabel('节点标题').fill('镜头正文');await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(node.getByTestId('node-handle')).toContainText('镜头正文');await node.getByLabel('文本字号').selectOption('20');await expect(node.getByLabel('节点文本')).toHaveCSS('font-size','20px');await expect(node.getByLabel('节点文本')).toHaveValue('原创镜头');
+         |                                                                                                                                                                                    ^
+      19 | });
+      20 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:18:180
+
+    Error Context: test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button 
+    tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact 
+    tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run 
+    tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history 
+    tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content 

@@ -4,7 +4,10 @@ import {requestResult,transact,withDatabase,storageErrorCode,type StudioDb,type 
 import {assertProjectWriter,type ProjectLeaseToken} from '../../infrastructure/storage/project-lease';
 import {snapshotAssetIds} from '../../features/assets/reference-index';
 import {commandEnvelopeSchema,executeGraphOperations,type CommandEnvelope,type CommandReceipt} from './registry';
-export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;origin:'ui'|'mcp';authorize?:(envelope:CommandEnvelope)=>void};
+import {validateConnection,getOrderedInputs,type ReferenceLimits} from '../../domain/graph-validation';
+import {unverifiedCapabilities,type CapabilityProfile} from '../../domain/connection';
+import {assetSchema} from '../../domain/asset';
+export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;origin:'ui'|'mcp';authorize?:(envelope:CommandEnvelope)=>void;capability?:CapabilityProfile;referenceLimits?:ReferenceLimits};
 export type StoredCommandReceipt={id:string;projectId:string;status:'applied';revision:number;fingerprint:string;beforeGraph:Graph;afterGraph:Graph;origin:'ui'|'mcp';createdAt:number};
 export type HistoryState={id:string;projectId:string;undoStack:string[];redoStack:string[]};
 export const commandTables:TableName[]=['projects','graphs','receipts','references','leases','runs','assets','diagnostics'];
@@ -38,6 +41,22 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
     if(!run||!asset||run.projectId!==project.id||run.resultAssetId!==asset.id||asset.sourceRunId!==run.id)throw new Error('result_binding_mismatch');
    }
    const graph=executeGraphOperations(before,input.operations);graph.revision=project.revision+1;
+   const assets=(await requestResult<unknown[]>(tx.objectStore('assets').getAll())).map(a=>assetSchema.parse(a));
+   for(const operation of input.operations)if(operation.type==='add_node'){
+    const added=graph.nodes.find(n=>n.id===(operation.payload.node as {id:string}).id)!;
+    if(added.type==='asset'&&!assets.some(a=>a.id===added.data.assetId&&!a.trashedAt))throw new Error('asset_reference_missing');
+    if(added.type==='result'){const asset=assets.find(a=>a.id===added.data.assetId),run=await requestResult(tx.objectStore('runs').get(added.data.runId));if(!asset||!run||asset.sourceRunId!==run.id||run.resultAssetId!==asset.id)throw new Error('result_binding_mismatch');}
+   }
+   for(const operation of input.operations)if(operation.type==='add_edge'){
+    const edge=graph.edges.find(e=>e.id===(operation.payload.edge as {id:string}).id)!;
+    const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);
+   }
+   const changedTargets=new Set(input.operations.flatMap(op=>op.type==='add_edge'?[(op.payload.edge as {targetId:string}).targetId]:op.type==='remove_edge'?before.edges.filter(e=>e.id===op.payload.edgeId).map(e=>e.targetId):op.type==='remove_node'?before.edges.filter(e=>e.sourceId===op.payload.nodeId).map(e=>e.targetId):[]));
+   const changedSources=new Set(input.operations.flatMap(op=>op.type==='update_node'&&'data'in op.payload.patch||op.type==='select_result'?[op.payload.nodeId]:[]));
+   for(const node of graph.nodes)if(node.type==='video-generation'){
+    if(changedTargets.has(node.id))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true};
+    if(graph.edges.some(e=>e.targetId===node.id&&changedSources.has(e.sourceId)))node.data={...node.data,stale:true};
+   }
    await putCreativeGraph(tx,graph);
    tx.objectStore('projects').put({...project,revision:graph.revision,updatedAt:Date.now()});
    const record:StoredCommandReceipt={id:input.id,projectId:project.id,status:'applied',revision:graph.revision,fingerprint,beforeGraph:before,afterGraph:graph,origin:context.origin,createdAt:Date.now()};

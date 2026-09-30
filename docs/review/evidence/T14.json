@@ -1,0 +1,177 @@
+{
+  "taskId": "T14",
+  "status": "五类节点/类型连线/输入检查器自检通过，待统一验收/独立审查",
+  "baseCommit": "f02f5b0e0a4b5035f2fdb95c313661364e4ed841",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/canvas/nodes/TextNode.tsx",
+    "src/features/canvas/nodes/AssetNode.tsx",
+    "src/features/canvas/nodes/VideoNode.tsx",
+    "src/features/canvas/nodes/ResultNode.tsx",
+    "src/features/canvas/nodes/GroupNode.tsx",
+    "src/features/canvas/InputInspector.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/geometry.ts",
+    "src/domain/graph-validation.ts",
+    "src/domain/graph.ts",
+    "src/domain/connection.ts",
+    "src/application/commands/apply-command.ts",
+    "src/features/projects/project-service.ts",
+    "src/ui/tokens.css",
+    "tests/e2e/typed-nodes.spec.ts",
+    "tests/unit/typed-nodes.test.ts",
+    "tests/unit/canvas-viewport.test.ts",
+    "tests/helpers/seed-studio.ts",
+    "tests/fixtures/seed.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-nodes.spec.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 5,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-nodes.spec.ts",
+      "phase": "first-implementation",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-green.log",
+      "note": "刷新身份变化被旧租约挡住；标题双击未收到，后续原生事件定位自动滚动与捕获"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "logPath": "docs/review/logs/T14-typecheck.log",
+      "note": "filter/map未保留联合类型收窄，改flatMap显式条件"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-title-diagnostic.spec.ts",
+      "phase": "diagnostic-only",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-title-diagnostic.log",
+      "note": "原生事件观测，无验收断言，不算自检通过数；临时诊断源已删除，日志保留"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-nodes.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/typed-title-diagnostic.spec.ts",
+      "phase": "intermediate",
+      "exitCode": 1,
+      "passed": 12,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-browser-regression.log",
+      "note": "双击已修复；测试getByLabel模糊匹配关闭按钮，改exact:true，不降低行为断言"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-nodes.spec.ts -g 'ports support|node creation'",
+      "phase": "ports-red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-ports-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/typed-nodes.test.ts",
+      "phase": "title-schema-red",
+      "exitCode": 1,
+      "passed": 5,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-title-schema-red.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "phase": "full-regression-before-last-fallback-fix",
+      "exitCode": 0,
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-e2e-final.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-nodes.spec.ts -g 'identity fallback'",
+      "phase": "fallback-red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-fallback-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/typed-nodes.spec.ts",
+      "phase": "final",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-target-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 79,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-unit-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T14-typecheck-final-state.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T14-lint-final-state.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T14-security.log",
+      "note": "额外网络负例实际在guard失败后由外层验证，外层退出0"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T14-build-final.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T14-typed-nodes.png"
+  ],
+  "businessCalls": 0,
+  "rulings": [
+    "结构、端口、缺失、重复、顺序、循环与明确已核验上限由同一validateConnection检查，并在真实命令事务强制；未核验数量不照搬上游且执行仍关闭。",
+    "getOrderedInputs按显式order，不读布局坐标；素材/结果保留assetId/runId。新增结果绑定核对真实持久Run/Asset，编辑不覆写Run。",
+    "标准节点320px，视频360px；内容高按可编辑表单调整，T13边界测试更新对应真实高度并保留全部断言。",
+    "文本300ms保存、64KiB UTF8限制、字号仅UI记录、标题共享Schema Unicode1–60且非空；双击和F2走同一标题对话框。",
+    "输入菜单、键盘端口与真实鼠标拉线同契约，断开与排序只改草稿并标待更新；重置须显示原值与用户明确所选已核验规格，不将列表首项宣称默认值。",
+    "sessionStorage仅保存UI标签ID，无Key。Web Locks排除复制标签的重复ID；不支持时使用新ID并由旧租约阻断写入。"
+  ],
+  "knownLimitations": [
+    "模型/规格/参考上限的真实Core契约与请求待T23/T24；本任务未把本地Mock reviewed配置宣称真实Core验证。",
+    "素材与结果实际媒体预览/缺失blob恢复待T16/T33；结果当前显示固定身份与记录。",
+    "分组创建/菜单/收起及派生布局待T15；文件粘贴待T16。",
+    "Web Locks缺失或sessionStorage不可用时刷新可能等30秒租约到期或需用户明确接管，优先保证写者隔离。BFCache恢复尚需T45额外故障回归。",
+    "输入法组合事件已接入，物理IME组合尚未人工验收；密集跨控件编辑与慢存储竞态需T45补测。",
+    "旧不合法空标题图需显式恢复，不静默改写。用户视觉/高倍率/独立审查均待。"
+  ],
+  "regressionArtifacts": [
+    "docs/review/logs/T03-network-negative.log"
+  ]
+}

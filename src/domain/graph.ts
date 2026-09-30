@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {id,revision,localText,videoSpecSchema} from './common';
+import {id,revision,localText,videoSpecSchema,boundedText} from './common';
 export const referenceTokenSchema=z.strictObject({assetId:id.optional(),alias:id,mediaType:z.enum(['image','video','audio']),role:z.string(),description:localText,available:z.boolean(),unbound:z.boolean()});
 export type ReferenceToken=z.infer<typeof referenceTokenSchema>;
 export const inputBindingSchema=z.strictObject({nodeId:id,assetId:id.optional(),runId:id.optional(),order:z.number().int().nonnegative(),role:z.string()});
@@ -9,7 +9,7 @@ const assetData=z.strictObject({kind:z.literal('asset'),assetId:id});
 const generationData=z.strictObject({kind:z.literal('video-generation'),draft:videoSpecSchema,inputBindings:z.array(inputBindingSchema),stale:z.boolean()});
 const resultData=z.strictObject({kind:z.literal('result'),assetId:id,runId:id});
 const groupData=z.strictObject({kind:z.literal('group'),childIds:z.array(id),collapsed:z.boolean()});
-const nodeBase={id,title:z.string(),x:z.number(),y:z.number(),locked:z.boolean()};
+const nodeBase={id,title:boundedText(1,60).refine(title=>!!title.trim(),'标题不能为空'),x:z.number(),y:z.number(),locked:z.boolean()};
 export const nodeSchema=z.discriminatedUnion('type',[
  z.strictObject({...nodeBase,type:z.literal('text'),data:textData}),z.strictObject({...nodeBase,type:z.literal('asset'),data:assetData}),z.strictObject({...nodeBase,type:z.literal('video-generation'),data:generationData}),z.strictObject({...nodeBase,type:z.literal('result'),data:resultData}),z.strictObject({...nodeBase,type:z.literal('group'),data:groupData}),
 ]);

@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 150 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.42 kB │ gzip:   0.30 kB
+dist/assets/index-TDcDa46H.css   11.36 kB │ gzip:   3.19 kB
+dist/assets/index-BJeWiIB9.js   361.52 kB │ gzip: 111.20 kB
+✓ built in 1.06s

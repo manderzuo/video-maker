@@ -1,0 +1,41 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/typed-title-diagnostic.spec.ts
+
+[WebServer] (node:10712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:2656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  events: [
+    [32m'pointerdown:HEADER:node-handle'[39m,
+    [32m'pointerup:TEXTAREA:undefined'[39m,
+    [32m'click:ARTICLE:node-text-1'[39m,
+    [32m'pointerdown:TEXTAREA:undefined'[39m,
+    [32m'pointerup:TEXTAREA:undefined'[39m,
+    [32m'click:TEXTAREA:undefined'[39m,
+    [32m'dblclick:TEXTAREA:undefined'[39m
+  ],
+  dialogs: [
+    { title: [32m'命令面板'[39m, open: [33mfalse[39m },
+    { title: [32m'快捷键说明'[39m, open: [33mfalse[39m },
+    { title: [32m'连接详情'[39m, open: [33mfalse[39m },
+    { title: [32m'当前区域帮助'[39m, open: [33mfalse[39m },
+    { title: [32m'通知消息'[39m, open: [33mfalse[39m },
+    { title: [32m'选择输入'[39m, open: [33mfalse[39m },
+    { title: [32m'输入快照'[39m, open: [33mfalse[39m },
+    { title: [32m'编辑节点标题'[39m, open: [33mfalse[39m },
+    { title: [32m'添加节点'[39m, open: [33mfalse[39m },
+    { title: [32m'接管编辑'[39m, open: [33mfalse[39m },
+    { title: [32m'离开前保存'[39m, open: [33mfalse[39m }
+  ],
+  canAdd: [33mtrue[39m
+}
+  ok 1 tests\e2e\typed-title-diagnostic.spec.ts:3:1 › title native event observation (1.1s)
+
+  1 passed (4.0s)

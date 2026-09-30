@@ -1,0 +1,73 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/typed-nodes.spec.ts -g ports support|node creation
+
+[WebServer] (node:35016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:35572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:35572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected (3.4s)
+(node:14388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities (3.6s)
+
+
+  1) tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-text-1').getByRole('button', { name: '输出文本', exact: true })[22m
+
+
+      18 |  const node=page.getByTestId('node-text-1');await node.getByTestId('node-handle').dblclick();const dialog=page.getByRole('dialog',{name:'编辑节点标题'});await dialog.getByLabel('节点标题',{exact:true}).fill('中'.repeat(61));await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');await dialog.getByLabel('节点标题',{exact:true}).fill('镜头正文');await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(node.getByTestId('node-handle')).toContainText('镜头正文');await node.getByLabel('文本字号').selectOption('20');await expect(node.getByLabel('节点文本')).toHaveCSS('font-size','20px');await expect(node.getByLabel('节点文本')).toHaveValue('原创镜头');
+      19 | });
+    > 20 | test('T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected',async({page})=>{await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).click();const video=page.getByTestId('node-video-1');await video.getByRole('button',{name:'接收图片',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'类型不匹配'})).toBeVisible();await expect(video.getByTestId('input-list').locator('li')).toHaveCount(0);await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).click();await video.getByRole('button',{name:'接收文本',exact:true}).click();await expect(video.getByTestId('input-list').locator('li')).toHaveCount(1);});
+         |                                                                                                                                                                                                   ^
+      21 | test('T14 node creation: local asset and fixed result references use existing identities',async({page,networkCounter})=>{await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('button',{name:'素材节点',exact:true}).click();await page.getByRole('dialog',{name:'选择素材节点'}).getByRole('button',{name:'插入 参考一',exact:true}).click();await expect(page.locator('[data-node-type="asset"]')).toHaveCount(3);await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('button',{name:'结果引用节点',exact:true}).click();await page.getByRole('dialog',{name:'选择结果引用'}).getByRole('button',{name:'引用 固定结果素材',exact:true}).click();await expect(page.locator('[data-node-type="result"]')).toHaveCount(2);expect(networkCounter.paidRequests).toHaveLength(0);});
+      22 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:20:195
+
+    Error Context: test-results\typed-nodes-T14-N13-ports--9a317-alid-type-stays-unconnected\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-N13-ports--9a317-alid-type-stays-unconnected\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-N13-ports--9a317-alid-type-stays-unconnected\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '素材节点', exact: true })[22m
+
+
+      19 | });
+      20 | test('T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected',async({page})=>{await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).click();const video=page.getByTestId('node-video-1');await video.getByRole('button',{name:'接收图片',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'类型不匹配'})).toBeVisible();await expect(video.getByTestId('input-list').locator('li')).toHaveCount(0);await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).click();await video.getByRole('button',{name:'接收文本',exact:true}).click();await expect(video.getByTestId('input-list').locator('li')).toHaveCount(1);});
+    > 21 | test('T14 node creation: local asset and fixed result references use existing identities',async({page,networkCounter})=>{await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('button',{name:'素材节点',exact:true}).click();await page.getByRole('dialog',{name:'选择素材节点'}).getByRole('button',{name:'插入 参考一',exact:true}).click();await expect(page.locator('[data-node-type="asset"]')).toHaveCount(3);await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('button',{name:'结果引用节点',exact:true}).click();await page.getByRole('dialog',{name:'选择结果引用'}).getByRole('button',{name:'引用 固定结果素材',exact:true}).click();await expect(page.locator('[data-node-type="result"]')).toHaveCount(2);expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                  ^
+      22 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:21:242
+
+    Error Context: test-results\typed-nodes-T14-node-creat-a4483-ces-use-existing-identities\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-node-creat-a4483-ces-use-existing-identities\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-node-creat-a4483-ces-use-existing-identities\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected 
+    tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities 

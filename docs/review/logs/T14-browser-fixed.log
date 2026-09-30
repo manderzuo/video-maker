@@ -1,0 +1,48 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/typed-nodes.spec.ts
+
+[WebServer] (node:25148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:20456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (1.1s)
+  ok 2 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (1.8s)
+  ok 3 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.1s)
+  ok 4 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (794ms)
+  x  5 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (3.3s)
+
+
+  1) tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content 
+
+    TimeoutError: locator.fill: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '编辑节点标题' }).getByLabel('节点标题')[22m
+
+
+      16 | });
+      17 | test('T14 N02/T02: title validates Unicode length and display font does not edit content',async({page})=>{
+    > 18 |  const node=page.getByTestId('node-text-1');await node.getByTestId('node-handle').dblclick();const dialog=page.getByRole('dialog',{name:'编辑节点标题'});await dialog.getByLabel('节点标题').fill('中'.repeat(61));await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');await dialog.getByLabel('节点标题').fill('镜头正文');await dialog.getByRole('button',{name:'保存',exact:true}).click();await expect(node.getByTestId('node-handle')).toContainText('镜头正文');await node.getByLabel('文本字号').selectOption('20');await expect(node.getByLabel('节点文本')).toHaveCSS('font-size','20px');await expect(node.getByLabel('节点文本')).toHaveValue('原创镜头');
+         |                                                                                                                                                                                    ^
+      19 | });
+      20 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:18:180
+
+    Error Context: test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-N02-T02-ti-89940--font-does-not-edit-content\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content 
+  4 passed (11.2s)
