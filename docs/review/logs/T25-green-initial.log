@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prepared-request.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  03:10:20
+   Duration  672ms (transform 212ms, setup 47ms, import 316ms, tests 125ms, environment 0ms)
+

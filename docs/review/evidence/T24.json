@@ -2,7 +2,7 @@
   "taskId": "T24",
   "status": "同源受控传输自检通过；实际代理/TLS待部署验证；待审查",
   "baseCommit": "907457659f88e6e58e89aba68e996b5981e0868e",
-  "headCommit": null,
+  "headCommit": "3ecae2fc8fdf44f51d0183413e9812b0842658e0",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reasoningMode": "用户宿主指定high，工具不可核验",
   "reviewDecision": "待审查",

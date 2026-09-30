@@ -4,7 +4,7 @@ import {registerTestMockOrigin} from '../helpers/mock-network';
 import accepted from '../fixtures/core-v2/video-accepted.json';
 import completed from '../fixtures/core-v2/video-completed.json';
 export type MockRequest={method:string;path:string;credentialPresent:boolean;idempotencyKey?:string;body?:unknown};
-export type MockFaults={loseSubmitResponse?:boolean;statusErrorOnce?:number;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean};
+export type MockFaults={loseAssetResponse?:boolean;malformedAsset?:boolean;loseSubmitResponse?:boolean;statusErrorOnce?:number;submitError?:{status:number;code:string};contentRedirect?:string;queryStatus?:string;malformedTask?:boolean};
 export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
  const requests:MockRequest[]=[],faults:MockFaults={},tasks=new Map<string,{fingerprint:string;taskId:string}>(),taskOwners=new Map<string,string>();let counter=0;
  const server=createServer(async(req,res)=>{
@@ -15,8 +15,14 @@ export async function startMockCore(options:{contentBytes?:Uint8Array}={}){
   try{
    if(method==='GET'&&path==='/v1/models'){json(200,{object:'list',data:[{id:'fake-text-only',object:'model'},{id:'fake-video-only',object:'model'}]});return;}
    if(method==='POST'){
-    let body='';for await(const chunk of req){body+=chunk.toString();if(Buffer.byteLength(body)>8*1024*1024){json(413,{error:{code:'request_too_large'}});return;}}
+    let body='';for await(const chunk of req){body+=chunk.toString();if(Buffer.byteLength(body)>(path==='/v1/assets'?46:8)*1024*1024){json(413,{error:{code:'request_too_large'}});return;}}
     const value=JSON.parse(body) as Record<string,unknown>;record.body=value;
+    if(path==='/v1/assets'){
+     const bytes=Buffer.from(String(value.data_base64??''),'base64');if(!bytes.length){json(400,{error:{code:'asset_empty'}});return;}
+     const now=Math.floor(Date.now()/1000),asset={object:'asset',id:'mock-asset-'+(++counter),filename:value.filename,mime_type:value.mime_type,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),created_at:now,expires_at:now+1800,content_url:'https://not-followed.invalid/temp-secret'};
+     if(faults.loseAssetResponse){faults.loseAssetResponse=false;req.socket.destroy();return;}
+     json(200,faults.malformedAsset?{...asset,sha256:'0'.repeat(64)}:asset);return;
+    }
     if(path==='/v1/videos/generations'){
      if(faults.submitError){json(faults.submitError.status,{error:{code:faults.submitError.code}});return;}
      if(!key){json(400,{error:{code:'mock_idempotency_required'}});return;}

@@ -1,0 +1,18 @@
+{
+ "taskId":"T25","status":"实施完成，自检通过，待统一验收/独立审查",
+ "baseCommit":"3ecae2fc8fdf44f51d0183413e9812b0842658e0","headCommit":null,
+ "actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
+ "files":["src/adapters/core/assets.ts","src/application/runs/prepare-request.ts","src/application/runs/preparation-lock.ts","src/application/runs/fingerprint.ts","tests/unit/prepared-request.test.ts","tests/mock-core/server.ts"],
+ "commands":[
+  {"command":"npm run test:unit -- tests/unit/prepared-request.test.ts","exitCode":1,"passed":0,"failed":7,"skipped":0,"logPath":"docs/review/logs/T25-red.log"},
+  {"command":"npm run test:unit -- tests/unit/prepared-request.test.ts","exitCode":0,"passed":7,"failed":0,"skipped":0,"logPath":"docs/review/logs/T25-green-initial.log"},
+  {"command":"npm run test:unit -- tests/unit/prepared-request.test.ts","exitCode":1,"passed":13,"failed":2,"skipped":0,"logPath":"docs/review/logs/T25-boundary-red.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":194,"failed":0,"skipped":0,"logPath":"docs/review/logs/T25-unit.log"},
+  {"command":"npm run test:unit","exitCode":0,"passed":197,"failed":0,"skipped":0,"logPath":"docs/review/logs/T25-unit-final.log"},
+  {"command":"npm run typecheck","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T25-typecheck-verified.log"},
+  {"command":"npm run lint","exitCode":0,"passed":null,"failed":0,"skipped":0,"logPath":"docs/review/logs/T25-lint-verified.log"}
+ ],
+ "screenshots":[],"networkMode":"精确回环端口HTTP Mock、假Key；无真实Core业务调用",
+ "behavior":["持久Run先于任何上传，所有引用的存在/类型/字节/签名/SHA先校验；任一失败拒绝所有上传","图revision/项目状态/写者及持久准备锁在副作用前检查；同Run并发单飞","连接+原授权+服务+本地SHA隔离映射与过期时间，不存临时URL或Key","上传先存意图，未知响应/校验不一致阻止自动重传；已知映射可复用，过期映射仅新Run可刷新","最终body/hash和映射收据同事务落盘；quota失败完整回滚，无视频POST","已冻结请求按原字节/原幂等键恢复，不重读已删本地素材、不重传","上传后失锁保留已知远端身份但拒绝最终body写入","规格逐字段严格匹配，不夹取时长或依赖对象属性顺序"],
+ "knownLimitations":["本任务是领域接口，无新UI或运行截图；确认页由T26接入","准备锁30秒到期安全拒绝；超时上传的pending收据禁止自动重试，不宣称远端取消或退款","真实Core资产有效期/模型能力/权限均未联调；本地模拟不等于部署验证","公开直接上传接口需要持久Run、项目写者和准备令牌，不提供任意临时素材上传入口","未取得统一用户验收、独立审查、完整视觉认可或前端标识许可；保留发布门槛"]
+}

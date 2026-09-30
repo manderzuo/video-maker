@@ -1,0 +1,107 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prepared-request.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prepared-request.test.ts (7 tests | 7 failed) 59ms
+   × T25-C01: no persisted Run means no asset upload or video request 37ms
+   × T25-C02: all references must pass before the first upload; missing last blob cannot become text-only 6ms
+   × T25-C04: final body/hash and scoped asset mappings are durable before any video POST 3ms
+   × T25-C04: final-body save quota abort denies preparation and leaves immutable input; no video POST 3ms
+   × T25-C05: frozen unknown submission returns original bytes and key without new uploads or body reconstruction 2ms
+   × T25-C03: changed authorization cannot reuse or reinterpret an old Run or remote asset mapping 2ms
+   × T25: simultaneous preparation is single flight and never uploads the same Run twice 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25-C01: no persisted Run means no asset upload or video request
+AssertionError: expected [Function] to throw error including 'run_missing' but got 'request_not_implemented'
+
+Expected: "run_missing"
+Received: "request_not_implemented"
+
+ ❯ tests/unit/prepared-request.test.ts:22:134
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25-C02: all references must pass before the first upload; missing last blob cannot become text-only
+AssertionError: expected [Function] to throw error including 'reference_asset_missing' but got 'request_not_implemented'
+
+Expected: "reference_asset_missing"
+Received: "request_not_implemented"
+
+ ❯ tests/unit/prepared-request.test.ts:23:435
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25-C04: final body/hash and scoped asset mappings are durable before any video POST
+Error: request_not_implemented
+ ❯ prepareVideoRequest src/application/runs/prepare-request.ts:9:147
+      7| export type PreparedVideoRequest={runId:string;binding:RunBinding;fina…
+      8| export type PrepareOptions={client?:CoreClient;capability?:CapabilityP…
+      9| export async function prepareVideoRequest(_runId:string,_options:Prepa…
+       |                                                                                                                                                   ^
+     10|
+ ❯ tests/unit/prepared-request.test.ts:24:122
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25-C04: final-body save quota abort denies preparation and leaves immutable input; no video POST
+AssertionError: expected [Function] to throw error including 'storage_quota_exceeded' but got 'request_not_implemented'
+
+Expected: "storage_quota_exceeded"
+Received: "request_not_implemented"
+
+ ❯ tests/unit/prepared-request.test.ts:25:490
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25-C05: frozen unknown submission returns original bytes and key without new uploads or body reconstruction
+Error: request_not_implemented
+ ❯ prepareVideoRequest src/application/runs/prepare-request.ts:9:147
+      7| export type PreparedVideoRequest={runId:string;binding:RunBinding;fina…
+      8| export type PrepareOptions={client?:CoreClient;capability?:CapabilityP…
+      9| export async function prepareVideoRequest(_runId:string,_options:Prepa…
+       |                                                                                                                                                   ^
+     10|
+ ❯ tests/unit/prepared-request.test.ts:26:146
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25-C03: changed authorization cannot reuse or reinterpret an old Run or remote asset mapping
+Error: request_not_implemented
+ ❯ prepareVideoRequest src/application/runs/prepare-request.ts:9:147
+      7| export type PreparedVideoRequest={runId:string;binding:RunBinding;fina…
+      8| export type PrepareOptions={client?:CoreClient;capability?:CapabilityP…
+      9| export async function prepareVideoRequest(_runId:string,_options:Prepa…
+       |                                                                                                                                                   ^
+     10|
+ ❯ tests/unit/prepared-request.test.ts:27:116
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25: simultaneous preparation is single flight and never uploads the same Run twice
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/unit/prepared-request.test.ts:28:264
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  02:55:59
+   Duration  550ms (transform 162ms, setup 47ms, import 248ms, tests 59ms, environment 0ms)
+

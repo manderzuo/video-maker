@@ -1,0 +1,55 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prepared-request.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prepared-request.test.ts (15 tests | 2 failed) 168ms
+   × T25: capability property order does not change the reviewed video specification 4ms
+   × T25: stale approved graph revision denies upload before any side effect 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25: capability property order does not change the reviewed video specification
+AssertionError: promise rejected "Error: video_spec_unsupported" instead of resolving
+ ❯ tests/unit/prepared-request.test.ts:35:242
+
+
+Caused by: Error: video_spec_unsupported
+ ❯ prepareVideoRequest src/application/runs/prepare-request.ts:46:25
+ ❯ tests/unit/prepared-request.test.ts:35:96
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/prepared-request.test.ts > T25: stale approved graph revision denies upload before any side effect
+AssertionError: expected [ { method: 'POST', …(3) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "body": {
++       "data_base64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aPQ0AAAAASUVORK5CYII=",
++       "filename": "4f2cb9ad1bf296b656a6b810258485a0f3544b241155e844f25aaec535e9f341.png",
++       "mime_type": "image/png",
++     },
++     "credentialPresent": true,
++     "method": "POST",
++     "path": "/v1/assets",
++   },
++ ]
+
+ ❯ tests/unit/prepared-request.test.ts:36:303
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 13 passed (15)
+   Start at  03:12:07
+   Duration  686ms (transform 189ms, setup 47ms, import 283ms, tests 168ms, environment 0ms)
+
