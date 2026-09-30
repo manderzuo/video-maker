@@ -1,0 +1,6 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/e2e/asset-import.spec.ts(11,60): error TS2307: Cannot find module '/src/infrastructure/storage/database.ts' or its corresponding type declarations.
+tests/e2e/asset-import.spec.ts(13,68): error TS7006: Parameter 'tx' implicitly has an 'any' type.

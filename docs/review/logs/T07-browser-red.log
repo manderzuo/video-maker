@@ -1,0 +1,53 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/asset-import.spec.ts
+
+[WebServer] (node:22860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:27288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\asset-import.spec.ts:2:1 › T07 browser: worker hash, decoded metadata, thumbnail and individual corruption reporting without upload (5.5s)
+
+
+  1) tests\e2e\asset-import.spec.ts:2:1 › T07 browser: worker hash, decoded metadata, thumbnail and individual corruption reporting without upload 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  getByRole('status')
+    Expected: [32m"成功 1，失败 1"[39m
+    Received: [31m"等待选择"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status')[22m
+    [2m    9 × locator resolved to <p id="status" role="status">等待选择</p>[22m
+    [2m      - unexpected value "等待选择"[22m
+
+
+      4 |  const bytes=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=32;canvas.height=16;canvas.getContext('2d')!.fillRect(0,0,32,16);return Array.from(atob(canvas.toDataURL('image/png').split(',')[1]),c=>c.charCodeAt(0));});
+      5 |  await page.getByLabel('选择素材').setInputFiles([{name:'本地.png',mimeType:'image/png',buffer:Buffer.from(bytes)},{name:'损坏.png',mimeType:'image/png',buffer:Buffer.from([1,2,3])}]);
+    > 6 |  await expect(page.getByRole('status')).toHaveText('成功 1，失败 1');
+        |                                         ^
+      7 |  const report=JSON.parse(await page.locator('#result').innerText());
+      8 |  expect(report.successes[0].asset.width).toBe(32);expect(report.successes[0].asset.height).toBe(16);
+      9 |  expect(report.successes[0].asset.sha256).toMatch(/^[a-f0-9]{64}$/);expect(report.failures[0].errorCode).toBe('media_invalid_signature');
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-import.spec.ts:6:41
+
+    Error Context: test-results\asset-import-T07-browser-w-faa49-on-reporting-without-upload\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-import-T07-browser-w-faa49-on-reporting-without-upload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-import-T07-browser-w-faa49-on-reporting-without-upload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\asset-import.spec.ts:2:1 › T07 browser: worker hash, decoded metadata, thumbnail and individual corruption reporting without upload 

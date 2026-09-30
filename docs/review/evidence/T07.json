@@ -1,0 +1,99 @@
+{
+  "taskId": "T07",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "b1f9fde7db124af56712fe7a7226d5df9ef882b1",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/assets/import-service.ts",
+    "src/features/assets/media-probe.ts",
+    "src/features/assets/hash-worker.ts",
+    "src/features/assets/thumbnail-service.ts",
+    "tests/unit/asset-import.test.ts",
+    "tests/e2e/asset-import.spec.ts",
+    "tests/fixtures/import.html",
+    "tests/fixtures/import-fixture.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/asset-import.test.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 6,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T07-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/asset-import.test.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T07-green.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-import.spec.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T07-browser-red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-import.spec.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T07-browser-green.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "logPath": "docs/review/logs/T07-typecheck-final.log",
+      "note": "浏览器动态导入URL不能作为TS静态模块名；改为URL变量和真实模块类型引用，无忽略类型错误"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T07-typecheck-fixed.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T07-lint.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T07-regression.log"
+    }
+  ],
+  "interactionIds": [
+    "M-01",
+    "M-02"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T07-local-import.png"
+  ],
+  "networkMode": "local only",
+  "businessCalls": 0,
+  "rulings": [
+    "全局素材库导入不改项目图；关联项目时必须提供真实租约和预期revision，在同事务检查。项目关联作为显式references记录，后续引用/删除重新计算。",
+    "浏览器SHA256在专用Worker计算；Node单位测试直接同一digest函数，不冒充浏览器Worker已测试。浏览器用例已实际验证Worker与thumbnail blob保存。"
+  ],
+  "knownLimitations": [
+    "单位探测验证文件签名/头部；浏览器才进行原生完整解码，损坏文件逐项失败。音视频无法读取有限时长时字段缺省，UI显示待检查。",
+    "完整产品素材页在T16实现；T07截图是实际运行技术夹具。",
+    "统一用户验收和独立审查尚未发生，真实Core未调用。"
+  ]
+}

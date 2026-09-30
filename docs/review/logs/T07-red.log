@@ -1,0 +1,95 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-import.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/asset-import.test.ts (6 tests | 6 failed) 22ms
+   × T07-C01/C02: product batch limit 50 is enforced before any persistence or upload 14ms
+   × T07-C03: damaged files fail individually without losing other imports 3ms
+   × T07-C04: content hash deduplicates, different same-name files remain distinct 1ms
+   × T07-C05/C06: unreadable duration remains absent, selection has no network side effect 1ms
+   × blob failure aborts asset association atomically and reports the item failure 1ms
+   × concurrent imports cannot create two asset identities for one hash 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/asset-import.test.ts > T07-C01/C02: product batch limit 50 is enforced before any persistence or upload
+Error: asset_import_not_implemented
+ ❯ importAssets src/features/assets/import-service.ts:6:124
+      4| export type ImportReport={successes:{fileName:string;asset:Asset;dedup…
+      5| export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      6| export async function importAssets(_files:File[],_projectId?:string,_o…
+       |                                                                                                                            ^
+      7|
+ ❯ tests/unit/asset-import.test.ts:12:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/asset-import.test.ts > T07-C03: damaged files fail individually without losing other imports
+Error: asset_import_not_implemented
+ ❯ importAssets src/features/assets/import-service.ts:6:124
+      4| export type ImportReport={successes:{fileName:string;asset:Asset;dedup…
+      5| export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      6| export async function importAssets(_files:File[],_projectId?:string,_o…
+       |                                                                                                                            ^
+      7|
+ ❯ tests/unit/asset-import.test.ts:17:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/asset-import.test.ts > T07-C04: content hash deduplicates, different same-name files remain distinct
+Error: asset_import_not_implemented
+ ❯ importAssets src/features/assets/import-service.ts:6:124
+      4| export type ImportReport={successes:{fileName:string;asset:Asset;dedup…
+      5| export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      6| export async function importAssets(_files:File[],_projectId?:string,_o…
+       |                                                                                                                            ^
+      7|
+ ❯ tests/unit/asset-import.test.ts:22:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/asset-import.test.ts > T07-C05/C06: unreadable duration remains absent, selection has no network side effect
+Error: asset_import_not_implemented
+ ❯ importAssets src/features/assets/import-service.ts:6:124
+      4| export type ImportReport={successes:{fileName:string;asset:Asset;dedup…
+      5| export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      6| export async function importAssets(_files:File[],_projectId?:string,_o…
+       |                                                                                                                            ^
+      7|
+ ❯ tests/unit/asset-import.test.ts:29:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/asset-import.test.ts > blob failure aborts asset association atomically and reports the item failure
+Error: asset_import_not_implemented
+ ❯ importAssets src/features/assets/import-service.ts:6:124
+      4| export type ImportReport={successes:{fileName:string;asset:Asset;dedup…
+      5| export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      6| export async function importAssets(_files:File[],_projectId?:string,_o…
+       |                                                                                                                            ^
+      7|
+ ❯ tests/unit/asset-import.test.ts:35:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/asset-import.test.ts > concurrent imports cannot create two asset identities for one hash
+Error: asset_import_not_implemented
+ ❯ importAssets src/features/assets/import-service.ts:6:124
+      4| export type ImportReport={successes:{fileName:string;asset:Asset;dedup…
+      5| export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expec…
+      6| export async function importAssets(_files:File[],_projectId?:string,_o…
+       |                                                                                                                            ^
+      7|
+ ❯ tests/unit/asset-import.test.ts:38:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  19:05:42
+   Duration  315ms (transform 58ms, setup 37ms, import 65ms, tests 22ms, environment 0ms)
+

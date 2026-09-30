@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/asset-import.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  19:07:46
+   Duration  417ms (transform 111ms, setup 37ms, import 178ms, tests 28ms, environment 0ms)
+
