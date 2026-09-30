@@ -1,0 +1,138 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-contract.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/core-contract.test.ts (11 tests | 10 failed) 49ms
+   × T23-C01: nested task identity and request identity remain separate; content does not imply settled billing 5ms
+   × T23-C02: missing/empty task id is protocol failure; a replay may omit request_id without inventing it 1ms
+   × T23-C03: reading models never grants video/chat routes or chooses a model from its name 4ms
+   × T23-C05: preserve 402 and public error code quota_insufficient 2ms
+   × T23-C05: preserve 403 and public error code insufficient_scope 1ms
+   × T23-C05: preserve 409 and public error code idempotency_conflict 1ms
+   × T23-C05: preserve 429 and public error code budget_preparation_busy 1ms
+   × T23-C05: preserve 503 and public error code budget_policy_unconfigured 1ms
+   × T23: uncertain post-dispatch error never becomes a proven failure or refund 0ms
+   × T23: local HTTP Mock returns only labelled fake catalog/task data and records actual side effects 33ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C01: nested task identity and request identity remain separate; content does not imply settled billing
+Error: core_protocol_not_implemented
+ ❯ parseVideoTask src/adapters/core/contracts.ts:4:79
+
+ ❯ tests/unit/core-contract.test.ts:6:125
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C02: missing/empty task id is protocol failure; a replay may omit request_id without inventing it
+Error: core_protocol_not_implemented
+ ❯ parseVideoTask src/adapters/core/contracts.ts:4:79
+
+ ❯ tests/unit/core-contract.test.ts:7:266
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C03: reading models never grants video/chat routes or chooses a model from its name
+AssertionError: expected [] to deeply equal [ 'fake-text-only', …(2) ]
+
+- Expected
++ Received
+
+- [
+-   "fake-text-only",
+-   "fake-video-only",
+-   "looks-like-video",
+- ]
++ []
+
+ ❯ tests/unit/core-contract.test.ts:8:264
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C05: preserve 402 and public error code quota_insufficient
+AssertionError: expected 'unknown' to be 'quota_insufficient' // Object.is equality
+
+Expected: "quota_insufficient"
+Received: "unknown"
+
+ ❯ tests/unit/core-contract.test.ts:10:450
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C05: preserve 403 and public error code insufficient_scope
+AssertionError: expected 'unknown' to be 'insufficient_scope' // Object.is equality
+
+Expected: "insufficient_scope"
+Received: "unknown"
+
+ ❯ tests/unit/core-contract.test.ts:10:450
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C05: preserve 409 and public error code idempotency_conflict
+AssertionError: expected 'unknown' to be 'idempotency_conflict' // Object.is equality
+
+Expected: "idempotency_conflict"
+Received: "unknown"
+
+ ❯ tests/unit/core-contract.test.ts:10:450
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C05: preserve 429 and public error code budget_preparation_busy
+AssertionError: expected 'unknown' to be 'budget_preparation_busy' // Object.is equality
+
+Expected: "budget_preparation_busy"
+Received: "unknown"
+
+ ❯ tests/unit/core-contract.test.ts:10:450
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23-C05: preserve 503 and public error code budget_policy_unconfigured
+AssertionError: expected 'unknown' to be 'budget_policy_unconfigured' // Object.is equality
+
+Expected: "budget_policy_unconfigured"
+Received: "unknown"
+
+ ❯ tests/unit/core-contract.test.ts:10:450
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23: uncertain post-dispatch error never becomes a proven failure or refund
+Error: core_protocol_not_implemented
+ ❯ parseVideoTask src/adapters/core/contracts.ts:4:79
+
+ ❯ tests/unit/core-contract.test.ts:11:200
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL  tests/unit/core-contract.test.ts > T23: local HTTP Mock returns only labelled fake catalog/task data and records actual side effects
+AssertionError: expected 404 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 404
+
+ ❯ tests/unit/core-contract.test.ts:12:355
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  10 failed | 1 passed (11)
+   Start at  02:05:35
+   Duration  393ms (transform 66ms, setup 38ms, import 107ms, tests 49ms, environment 0ms)
+

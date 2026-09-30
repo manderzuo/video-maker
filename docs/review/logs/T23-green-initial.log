@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/core-contract.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  02:14:20
+   Duration  400ms (transform 86ms, setup 43ms, import 129ms, tests 54ms, environment 0ms)
+

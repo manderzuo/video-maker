@@ -1,5 +1,5 @@
 {
-  "currentTask": "T23",
+  "currentTask": "T24",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -174,18 +174,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T22.json",
-      "headCommit": null,
+      "headCommit": "cad8640e3d9ad7d5a0410baf57b5c39a0dcafd3e",
       "id": "T22",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
       "status": "自检通过，待统一验收/独立审查",
       "title": "草稿到画布的原子插入、应用和建流程"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T23.json",
       "headCommit": null,
       "id": "T23",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "执行中",
+      "status": "自检通过，真实部署未核验，待审查",
       "title": "固定Core公开契约、能力证据与Mock"
     },
     {
@@ -193,7 +193,7 @@
       "headCommit": null,
       "id": "T24",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp04-04-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "同源HTTP通道、地址规范与请求鉴权"
     },
     {

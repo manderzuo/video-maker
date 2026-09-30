@@ -1,0 +1,15 @@
+{
+  "fixtureKind": "local_simulation_from_fixed_source",
+  "realDeploymentVerified": false,
+  "realResponseCaptured": false,
+  "coreCommit": "c056dffc41c701fb1b78a84c18c2ec139d3d708b",
+  "mcpCommit": "9e7d5c8f249bfc65265c9f90260cd1e350280557",
+  "files": [
+    {"path":"starlink-dimension-router/src/server.rs","sha256":"08a5c6d278f232d6fd21b553abbc938a0b16f226921c22a76e9e4a7dd3247bf7","evidence":"公开路由，行15–23；没有公开余额或视频取消路由"},
+    {"path":"starlink-dimension-router/src/user_routes.rs","sha256":"fca8c5a85148e0b17a58bc47f6e18f41e905c867074f52b9231f0697b8a3e7a4","evidence":"模型转发1064；素材返回328–361；文字入口1862；视频提交/状态2222–2380；ID解析2391"},
+    {"path":"starlink-dimension-router/src/budget_flow.rs","sha256":"4daf94bdbc1b24cc31a37f70542638f1c0967a784ffb680b9531e561697f5a3a","evidence":"错误分类14–33；接受返回90–100；公开任务状态135–169；dispatch之后不明不得重发"},
+    {"path":"skills/aiwork-seedance/references/api.md","sha256":"4e3365581b5b790a72d1d942760cbde96fe7522d3905696f4da8be40a506afce","evidence":"MCP公开用户API映射，上传限制说明32MiB，仅作为固定源码证据"}
+  ],
+  "mockModels":["fake-text-only","fake-video-only"],
+  "notes":["fixture不含真实Key/账号/账务/数据库或上游ID","没有部署核验单，因此默认能力未知；固定源码边界不证明实际部署支持","Core输入检查2–15整数秒、比例枚举及最多10参考不是上游已核验模型规格，不能自动作为产品默认选项","完成的公开状态未提供结算证明，billingState仍为not_provided","模拟内容路由默认仅返回测试字节，不声称真实视频播放成功"]
+}

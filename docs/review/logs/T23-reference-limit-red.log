@@ -1,0 +1,36 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-canvas.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-canvas.test.ts (11 tests | 1 failed) 73ms
+   × T23 capability integration: unknown reference limits block executable flow even if the blob is present 34ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-canvas.test.ts > T23 capability integration: unknown reference limits block executable flow even if the blob is present
+AssertionError: expected { id: 'cmd1', status: 'applied', …(1) } to match object { status: 'rejected', …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "errorCode": "prompt_flow_reference_limit_unverified",
+-   "status": "rejected",
++   "status": "applied",
+  }
+
+ ❯ tests/unit/prompt-canvas.test.ts:15:797
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  02:17:27
+   Duration  600ms (transform 222ms, setup 44ms, import 302ms, tests 73ms, environment 0ms)
+

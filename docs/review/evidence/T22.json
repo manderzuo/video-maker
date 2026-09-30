@@ -2,7 +2,7 @@
   "taskId": "T22",
   "status": "原子插入/应用/流程创建自检通过；待统一验收/独立审查",
   "baseCommit": "9c539db277cc6e257cfdac70b8ce89e7f733e948",
-  "headCommit": null,
+  "headCommit": "cad8640e3d9ad7d5a0410baf57b5c39a0dcafd3e",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reasoningMode": "用户在宿主指定 high，当前工具不可核验",
   "reviewDecision": "待审查",

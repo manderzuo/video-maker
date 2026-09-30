@@ -1,0 +1,149 @@
+{
+  "taskId": "T23",
+  "status": "固定来源协议/能力/本地Mock自检通过；真实部署未核验；待审查",
+  "baseCommit": "cad8640e3d9ad7d5a0410baf57b5c39a0dcafd3e",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reasoningMode": "由用户在宿主指定high，工具不可核验",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/adapters/core/contracts.ts",
+    "src/adapters/core/capabilities.ts",
+    "src/domain/connection.ts",
+    "src/application/commands/prompt-to-canvas.ts",
+    "tests/fixtures/core-v2/manifest.json",
+    "tests/fixtures/core-v2/video-accepted.json",
+    "tests/fixtures/core-v2/video-completed.json",
+    "tests/mock-core/server.ts",
+    "tests/helpers/mock-network.ts",
+    "tests/helpers/unit-setup.ts",
+    "tests/unit/core-contract.test.ts",
+    "tests/unit/prompt-canvas.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/core-contract.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 10,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-contract.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 10,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-behavior-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/core-contract.test.ts",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-green-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-canvas.test.ts",
+      "exitCode": 1,
+      "passed": 10,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-reference-limit-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 162,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-unit.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 163,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-unit-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 164,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-unit-verified.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-flow-browser.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 1,
+      "passed": null,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-lint.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-lint-final.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T23-security.log"
+    }
+  ],
+  "interactionIds": [
+    "K-08",
+    "B-03",
+    "B-05"
+  ],
+  "screenshots": [],
+  "networkMode": "仅已绑定精确回环端口的HTTP Mock和本地浏览器；无真实业务请求",
+  "sourceManifest": "tests/fixtures/core-v2/manifest.json",
+  "behavior": [
+    "CoreTaskView严格识别嵌套/兼容任务ID，拒绝缺失或冲突身份，request_id缺失不伪造",
+    "完成/内容与结算分离；公开状态未给结算证据则not_provided",
+    "模型目录仅映射明确契约分类；文字与视频/别名不重叠",
+    "固定源码证据不证明部署；缺部署核验单或路由/模型/证据保持未知并门控",
+    "保留402/403/409/429/503及业务码；未知派发结果不标失败或退款",
+    "本地模拟源码返回并明确fakeID/模型，不充当真实回执；支持丢失提交响应/幂等冲突/权限归属/查询故障/媒体重定向故障",
+    "网络守卫仅登记Mock实际监听端口，结束撤销；请求默认redirect error，外链仍禁止",
+    "参考上限未知阻止流程，显式已审阅上限0/1实测阻断/一次原子连线保存"
+  ],
+  "knownLimitations": [
+    "没有实际部署核验单；默认真实能力unknown，未连接Core/admin/internal/bridge/生产数据库",
+    "Core校验2–15整数秒与参考<=10为源码输入边界，不能宣称上游模型实际支持，未转为默认UI规格",
+    "取消、图片/音频生成均关闭；未新造余额或充值路由",
+    "无新UI页面，领域任务以测试日志/模拟故障样本计数为证；T22相关UI回归8通过",
+    "最初HTTP测试被原单元守卫阻断，属测试环境问题不算该用例有效红灯；精确登记Mock后重跑10失败/1通过来自实际行为",
+    "初次lint有Mock close表达式错误exit1，已改为明确if并通过，未屏蔽规则",
+    "安全检查3单元通过并实际观察故意公网浏览器用例exit1于守卫，脚本最终exit0；真实live不在本轮授权"
+  ]
+}
