@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/credential-session.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  19:24:38
+   Duration  321ms (transform 70ms, setup 37ms, import 79ms, tests 17ms, environment 0ms)
+

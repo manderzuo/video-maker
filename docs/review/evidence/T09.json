@@ -1,0 +1,89 @@
+{
+  "taskId": "T09",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "b7c1d97975808514afc33b5ad4c6957c68e5dc04",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "independentReviewPerformed": false,
+  "reviewDecision": "待审查",
+  "files": [
+    "src/security/credential-session.ts",
+    "src/security/redaction.ts",
+    "src/domain/authorization.ts",
+    "tests/unit/credential-session.test.ts",
+    "tests/e2e/credential-boundary.spec.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/credential-session.test.ts",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T09-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/credential-session.test.ts",
+      "phase": "signed-url-red",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T09-url-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/credential-session.test.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T09-target-final.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/credential-boundary.spec.ts",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T09-browser.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 54,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T09-regression.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T09-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T09-lint.log"
+    }
+  ],
+  "interactionIds": [
+    "J-11",
+    "K-04",
+    "K-05"
+  ],
+  "screenshots": [],
+  "networkMode": "local fake credentials only",
+  "businessCalls": 0,
+  "rulings": [
+    "凭据与防泄漏匹配集仅模块内存；退出移除可用凭据，刷新/新标签不恢复。当前标签保留已见秘密的内存脱敏匹配信息，避免退出后错误回调泄漏；不宣称JavaScript字符串可安全物理擦除。",
+    "同bindingId不能替换为不同Key，包括退出后；换Key创建新普通用户绑定。该标识只防本地误用，最终作用域和归属仍由Core确认。",
+    "诊断固定字段白名单，删除未知/正文/提示词/上游原文，不触发getter；嵌入消息中的signed URL也去除用户名、查询和片段，已先复现红灯。",
+    "Bridge/admin绑定Schema拒绝，配置复制严格排除秘密；withCredential仅供可信适配器内部短期注入，无导出秘密getter。"
+  ],
+  "knownLimitations": [
+    "Key输入显隐/失焦隐藏由T37产品连接设置接入；本任务已验证内存与真实浏览器刷新/标签/持久化边界。",
+    "无真实Key、Core请求或Cookie/JWT/历史配置读取；统一验收和独立审查待。"
+  ]
+}

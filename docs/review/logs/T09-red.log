@@ -1,0 +1,105 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/credential-session.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/credential-session.test.ts (7 tests | 7 failed) 18ms
+   × T09-C01: credentials remain in module memory, never IndexedDB or browser persistence 11ms
+   × T09-C02: reloading the credential module does not recover a key 1ms
+   × T09-C03: changing Key requires a new binding and leaves old binding identity intact 1ms
+   × T09-C04: diagnostics use a field whitelist, known-secret scrub and signed-link removal 0ms
+   × T09-C05: secrets are not accepted from credential-bearing URL or header injection 4ms
+   × withCredential errors cannot leak a registered secret, including after forget 0ms
+   × redaction handles cycles and unrecognized fields without evaluating them 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/credential-session.test.ts > T09-C01: credentials remain in module memory, never IndexedDB or browser persistence
+Error: credential_session_not_implemented
+ ❯ setSessionCredential src/security/credential-session.ts:1:83
+      1| export function setSessionCredential(_bindingId:string,_secret:string)…
+       |                                                                                   ^
+      2| export async function withCredential<T>(_bindingId:string,_action:(sec…
+      3| export function forgetSessionCredential(_bindingId:string):void{throw …
+ ❯ tests/unit/credential-session.test.ts:12:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/unit/credential-session.test.ts > T09-C02: reloading the credential module does not recover a key
+Error: credential_session_not_implemented
+ ❯ setSessionCredential src/security/credential-session.ts:1:83
+      1| export function setSessionCredential(_bindingId:string,_secret:string)…
+       |                                                                                   ^
+      2| export async function withCredential<T>(_bindingId:string,_action:(sec…
+      3| export function forgetSessionCredential(_bindingId:string):void{throw …
+ ❯ tests/unit/credential-session.test.ts:17:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/unit/credential-session.test.ts > T09-C03: changing Key requires a new binding and leaves old binding identity intact
+Error: credential_session_not_implemented
+ ❯ setSessionCredential src/security/credential-session.ts:1:83
+      1| export function setSessionCredential(_bindingId:string,_secret:string)…
+       |                                                                                   ^
+      2| export async function withCredential<T>(_bindingId:string,_action:(sec…
+      3| export function forgetSessionCredential(_bindingId:string):void{throw …
+ ❯ tests/unit/credential-session.test.ts:23:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/unit/credential-session.test.ts > T09-C04: diagnostics use a field whitelist, known-secret scrub and signed-link removal
+Error: credential_session_not_implemented
+ ❯ setSessionCredential src/security/credential-session.ts:1:83
+      1| export function setSessionCredential(_bindingId:string,_secret:string)…
+       |                                                                                   ^
+      2| export async function withCredential<T>(_bindingId:string,_action:(sec…
+      3| export function forgetSessionCredential(_bindingId:string):void{throw …
+ ❯ tests/unit/credential-session.test.ts:28:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/unit/credential-session.test.ts > T09-C05: secrets are not accepted from credential-bearing URL or header injection
+AssertionError: expected [Function] to throw error including 'credential_input_invalid' but got 'credential_session_not_implemented'
+
+Expected: "credential_input_invalid"
+Received: "credential_session_not_implemented"
+
+ ❯ tests/unit/credential-session.test.ts:33:81
+     31| });
+     32| it('T09-C05: secrets are not accepted from credential-bearing URL or h…
+     33|  expect(()=>setSessionCredential('bad','https://host.invalid/?api_key=…
+       |                                                                                 ^
+     34|  expect(()=>setSessionCredential('bad','fake\r\nAuthorization: exploit…
+     35| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/unit/credential-session.test.ts > withCredential errors cannot leak a registered secret, including after forget
+Error: credential_session_not_implemented
+ ❯ setSessionCredential src/security/credential-session.ts:1:83
+      1| export function setSessionCredential(_bindingId:string,_secret:string)…
+       |                                                                                   ^
+      2| export async function withCredential<T>(_bindingId:string,_action:(sec…
+      3| export function forgetSessionCredential(_bindingId:string):void{throw …
+ ❯ tests/unit/credential-session.test.ts:37:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/unit/credential-session.test.ts > redaction handles cycles and unrecognized fields without evaluating them
+Error: redaction_not_implemented
+ ❯ redact src/security/redaction.ts:1:54
+      1| export function redact(_input:unknown):unknown{throw new Error('redact…
+       |                                                      ^
+      2|
+ ❯ tests/unit/credential-session.test.ts:43:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  19:23:26
+   Duration  322ms (transform 63ms, setup 36ms, import 72ms, tests 18ms, environment 0ms)
+

@@ -2,7 +2,7 @@
   "taskId": "T08",
   "status": "实施完成，自检通过，待统一验收/独立审查",
   "baseCommit": "1082b9943d3ab9c34363277f2aefda93cc00803d",
-  "headCommit": null,
+  "headCommit": "b7c1d97975808514afc33b5ad4c6957c68e5dc04",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "independentReviewPerformed": false,
   "reviewDecision": "待审查",
