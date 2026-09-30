@@ -1,0 +1,10 @@
+
+> aiwork-studio@0.0.1 lint
+> eslint src tests vite.config.ts vitest.config.ts playwright.config.ts
+
+
+E:\trae-studio\TRAEWORK\aiwork-studio\src\features\prompt-generation\PromptGeneratorPanel.tsx
+  2:9  error  'promptDraftSchema' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (1 error, 0 warnings)
+

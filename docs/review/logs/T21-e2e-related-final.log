@@ -1,0 +1,57 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-draft-download.spec.ts tests/e2e/typed-nodes.spec.ts tests/e2e/prompt-library.spec.ts
+
+[WebServer] (node:4872) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 38 tests using 1 worker
+
+(node:25308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\prompt-draft-download.spec.ts:4:1 › T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records (1.2s)
+(node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 tests\e2e\prompt-library.spec.ts:2:1 › T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable (1.0s)
+  ok  3 tests\e2e\prompt-library.spec.ts:3:1 › T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion (889ms)
+  ok  4 tests\e2e\prompt-library.spec.ts:4:1 › T17 L09: apply requires old/new diff and refuses a stale project revision (1.0s)
+  ok  5 tests\e2e\prompt-library.spec.ts:5:1 › T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview (839ms)
+  ok  6 tests\e2e\prompt-library.spec.ts:6:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard (1.2s)
+  ok  7 tests\e2e\prompt-library.spec.ts:7:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries (1.2s)
+  ok  8 tests\e2e\prompt-library.spec.ts:8:1 › T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard (1.0s)
+  ok  9 tests\e2e\prompt-library.spec.ts:11:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node (870ms)
+  ok 10 tests\e2e\prompt-library.spec.ts:12:1 › T17-C04: create validates tag lengths/count and persists only after explicit save (1.2s)
+  ok 11 tests\e2e\prompt-library.spec.ts:13:1 › T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source (805ms)
+  ok 12 tests\e2e\prompt-library.spec.ts:14:1 › T17-C06/L05: local debounced search and source management do not automatically load remote sources (1.2s)
+  ok 13 tests\e2e\prompt-library.spec.ts:15:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data (1.0s)
+  ok 14 tests\e2e\prompt-library.spec.ts:16:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating (1.1s)
+  ok 15 tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text (1.3s)
+  ok 16 tests\e2e\prompt-workspace.spec.ts:5:1 › T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly (1.2s)
+  ok 17 tests\e2e\prompt-workspace.spec.ts:6:1 › T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound (1.1s)
+  ok 18 tests\e2e\prompt-workspace.spec.ts:7:1 › T21 PG05: composition input does not persist before composition ends (1.9s)
+  ok 19 tests\e2e\prompt-workspace.spec.ts:8:1 › T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice (992ms)
+  ok 20 tests\e2e\prompt-workspace.spec.ts:9:1 › T21 P23: original input snapshot is shown independently of current edited input (930ms)
+  ok 21 tests\e2e\prompt-workspace.spec.ts:10:1 › T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages (1.2s)
+  ok 22 tests\e2e\prompt-workspace.spec.ts:12:1 › T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh (1.3s)
+  ok 23 tests\e2e\prompt-workspace.spec.ts:13:1 › T21-C01: canvas panel expands the same saved draft identity without duplication (1.1s)
+  ok 24 tests\e2e\prompt-workspace.spec.ts:14:1 › T21-C04: editing output persists a new manual result and invalidates previous checks (1.6s)
+  ok 25 tests\e2e\prompt-workspace.spec.ts:15:1 › T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version (1.0s)
+  ok 26 tests\e2e\prompt-workspace.spec.ts:16:1 › T21-C06: unavailable AI cannot claim success or create either paid record type (839ms)
+  ok 27 tests\e2e\prompt-workspace.spec.ts:17:1 › T21: original/form conflict has no preselected resolution and confirmed choices stay explicit (922ms)
+  ok 28 tests\e2e\prompt-workspace.spec.ts:18:1 › T21: image placeholder saves independently and never activates video rules or image generation (862ms)
+  ok 29 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (850ms)
+  ok 30 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (2.0s)
+  ok 31 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.1s)
+  ok 32 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (894ms)
+  ok 33 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (1.1s)
+  ok 34 tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected (976ms)
+  ok 35 tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities (1.0s)
+  ok 36 tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer (1.7s)
+  ok 37 tests\e2e\typed-nodes.spec.ts:23:1 › T14 N13: real pointer drag from text output to text input creates one dependency (900ms)
+  ok 38 tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity (1.3s)
+
+  38 passed (47.6s)

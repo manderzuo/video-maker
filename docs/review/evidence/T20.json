@@ -2,7 +2,7 @@
   "taskId": "T20",
   "status": "实施完成，自检通过，待统一验收/独立审查",
   "baseCommit": "71dfa607008da39a97cf4cbf4dc05f849eac6fe1",
-  "headCommit": null,
+  "headCommit": "c3280441a672dae8d87746a58eebfd95b3072383",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reviewDecision": "待审查",
   "independentReviewPerformed": false,

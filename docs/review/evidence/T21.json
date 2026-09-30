@@ -1,0 +1,199 @@
+{
+  "taskId": "T21",
+  "status": "本地工作台/侧栏/历史自检通过；AI待T30/T31；待统一验收/独立审查",
+  "baseCommit": "c3280441a672dae8d87746a58eebfd95b3072383",
+  "headCommit": null,
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/prompt-generation/PromptGeneratorPage.tsx",
+    "src/features/prompt-generation/PromptGeneratorPanel.tsx",
+    "src/features/prompt-generation/PromptResultHistory.tsx",
+    "src/features/prompt-generation/PromptForm.tsx",
+    "src/features/prompt-generation/workspace-service.ts",
+    "src/app/App.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/nodes/TextNode.tsx",
+    "src/features/canvas/nodes/VideoNode.tsx",
+    "src/domain/graph.ts",
+    "src/domain/prompt-engine/reference-alias.ts",
+    "src/ui/tokens.css",
+    "tests/e2e/prompt-workspace.spec.ts",
+    "tests/e2e/prompt-draft-download.spec.ts",
+    "tests/fixtures/prompt-workspace.ts",
+    "tests/unit/prompt-validation.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-red.log",
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-green-initial.log",
+      "passed": 3,
+      "failed": 4,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-green-second.log",
+      "passed": 5,
+      "failed": 2,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-green-third.log",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- ... -g composition|P23|PG32|responsive",
+      "exitCode": 255,
+      "logPath": "docs/review/logs/T21-boundary-red.log",
+      "note": "Windows npm.cmd解析管道错误，未运行，不算行为红灯"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-workspace.spec.ts --grep composition|P23|PG32|responsive",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-boundary-behavior-red.log",
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-workspace.spec.ts --grep PG06",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-context-red.log",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/prompt-validation.test.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-unbound-alias-red.log",
+      "passed": 13,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-target-final.log",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-workspace.spec.ts --grep video config|current unsaved",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-node-entries-red.log",
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-target-latest.log",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-draft-download.spec.ts",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-export-red.log",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-draft-download.spec.ts tests/e2e/typed-nodes.spec.ts tests/e2e/prompt-library.spec.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-e2e-related-final.log",
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/prompt-workspace.spec.ts --grep currently active",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-active-draft-red.log",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts tests/e2e/prompt-draft-download.spec.ts",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-final-ui.log",
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-e2e-all.log",
+      "passed": 95,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-unit-final.log",
+      "passed": 137,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 1,
+      "logPath": "docs/review/logs/T21-lint-initial.log",
+      "note": "一个未使用import，删除无用import后通过，不屏蔽规则"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-typecheck-verified.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-lint-verified.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T21-build-verified.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T21-prompt-workspace.png",
+    "docs/review/screenshots/T21-prompt-light.png",
+    "docs/review/screenshots/T21-prompt-narrow.png",
+    "docs/review/screenshots/T21-prompt-panel.png"
+  ],
+  "limitations": [
+    "95全浏览器通过在最后节点入口/导出/活动草稿修复前；最终相关38通过、最后16目标通过，未把95写成最终全套回执。",
+    "真实Chromium145.0.7632.6与原生IndexedDB；Core/AI均未调用。",
+    "输入法测试使用浏览器composition事件，未声明人工操作Windows输入法通过。",
+    "导出真实下载字节通过；产品仅显示触发浏览器下载，不宣称写入用户磁盘成功。",
+    "当前输出检查按规则执行，不承诺语义完整理解或生成质量；密集编辑竞态继续在T45检验。",
+    "T22接画布插入/应用/建流程；T30/T31接经核验的AI文字通道，当前禁用。",
+    "视觉统一验收、独立审查、实际业务接口/许可证发行门槛尚未通过。"
+  ]
+}

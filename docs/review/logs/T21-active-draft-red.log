@@ -1,0 +1,46 @@
+[WebServer] (node:11112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one (6.0s)
+
+
+  1) tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/draftId=d1/[39m
+    Received string:  [31m"http://127.0.0.1:4179/prompt-generator?type=video&draftId=03bc1acf-793b-4d29-9e0b-b4ba9e3ea103"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    9 × unexpected value "http://127.0.0.1:4179/prompt-generator?type=video&draftId=03bc1acf-793b-4d29-9e0b-b4ba9e3ea103"[22m
+
+
+      2 | import type {Page} from '@playwright/test';
+      3 | const stored=(page:Page)=>page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';return (await import(url)).promptWorkspaceState();});
+    > 4 | test('T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one',async({page})=>{await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);await page.getByRole('link',{name:'提示词库',exact:true}).click();await page.getByRole('link',{name:'提示词生成',exact:true}).click();await expect(page).toHaveURL(/draftId=d1/);await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);expect((await stored(page)).drafts).toHaveLength(1);});
+        |                                                                                                                                                                                                                                                                                                                                                        ^
+      5 | test('T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text',async({page})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact,requestResult}=await import(url);const db=await openStudioDb();try{await transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const graph=await requestResult(tx.objectStore('graphs').get('p1'));graph.nodes.push({id:'video-1',title:'视频配置',type:'video-generation',x:400,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'unverified-only',durationSeconds:5,ratio:'9:16'},inputBindings:[],stale:true}});graph.edges.push({id:'edge1',sourceId:'text-1',targetId:'video-1',port:'text',order:0});tx.objectStore('graphs').put(graph);});}finally{db.close();}});await page.goto('/projects/p1/canvas');await page.getByTestId('node-video-1').getByRole('button',{name:'提示词生成',exact:true}).click();const panel=page.getByRole('complementary',{name:'提示词生成面板',exact:true});await expect(panel.getByLabel('时长目标（秒）',{exact:true})).toHaveValue('5');await expect(panel.getByLabel('原始创意',{exact:true})).toHaveValue('');await panel.getByText('本地参考素材与用途',{exact:true}).click();await panel.getByRole('button',{name:'读取上游文字 原始需求',exact:true}).click();await expect(panel.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);expect((await stored(page)).runs).toEqual([]);});
+      6 | test('T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly',async({page})=>{await page.goto('/projects/p1/canvas');const node=page.getByTestId('node-text-1');await node.getByLabel('节点文本',{exact:true}).fill('尚未保存的新创意');await node.getByRole('button',{name:'提示词生成',exact:true}).click();const panel=page.getByRole('complementary',{name:'提示词生成面板',exact:true});await expect(panel.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);await panel.getByRole('button',{name:'读取源节点当前文字',exact:true}).click();await expect(panel.getByLabel('原始创意',{exact:true})).toHaveValue('尚未保存的新创意');});
+      7 | test('T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound',async({page})=>{await page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts';const {openStudioDb,transact}=await import(url);const db=await openStudioDb();try{await transact(db,['assets'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('assets').put({id:'unrelated',sha256:'c'.repeat(64),mediaType:'image',mimeType:'image/png',bytes:0,blobKey:'missing-unrelated',title:'无关素材',createdAt:1000}));}finally{db.close();}});await page.reload();await page.getByText('本地参考素材与用途',{exact:true}).click();await expect(page.getByText('无关素材',{exact:true})).toBeHidden();await page.getByRole('button',{name:'选择本地素材',exact:true}).click();await expect(page.getByText('无关素材',{exact:true})).toBeVisible();await page.getByLabel('外部参考说明',{exact:true}).fill('人物参考尚待提供素材');await page.getByRole('button',{name:'新增未绑定参考说明',exact:true}).click();await page.getByRole('button',{name:'保存草稿',exact:true}).click();const refs=(await stored(page)).drafts[0].references;expect(refs).toHaveLength(1);expect(refs[0]).toMatchObject({description:'人物参考尚待提供素材',unbound:true,available:false});expect(refs[0].assetId).toBeUndefined();});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-workspace.spec.ts:4:344
+
+    Error Context: test-results\prompt-workspace-T21-PG01--21329-lently-creating-a-blank-one\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-workspace-T21-PG01--21329-lently-creating-a-blank-one\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-workspace-T21-PG01--21329-lently-creating-a-blank-one\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one 

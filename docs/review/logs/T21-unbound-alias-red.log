@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/prompt-validation.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/prompt-validation.test.ts (14 tests | 1 failed) 20ms
+   × T21 integration: unbound placeholders retain their original identity across alias reorder 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/prompt-validation.test.ts > T21 integration: unbound placeholders retain their original identity across alias reorder
+AssertionError: expected '待提供[未绑定引用：图片1]，已选@图片1' to be '待提供@图片2，已选@图片1' // Object.is equality
+
+Expected: "待提供@图片2，已选@图片1"
+Received: "待提供[未绑定引用：图片1]，已选@图片1"
+
+ ❯ tests/unit/prompt-validation.test.ts:12:263
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  01:01:18
+   Duration  364ms (transform 97ms, setup 37ms, import 132ms, tests 20ms, environment 0ms)
+

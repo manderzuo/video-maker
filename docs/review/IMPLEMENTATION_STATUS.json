@@ -1,5 +1,5 @@
 {
-  "currentTask": "T21",
+  "currentTask": "T22",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -158,18 +158,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T20.json",
-      "headCommit": null,
+      "headCommit": "c3280441a672dae8d87746a58eebfd95b3072383",
       "id": "T20",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "提示词草稿、PromptRun与不可变历史"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T21.json",
       "headCommit": null,
       "id": "T21",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "执行中",
+      "status": "本地工作台/侧栏/历史自检通过；AI待T30/T31；待统一验收/独立审查",
       "title": "提示词工作台、侧栏和历史面板"
     },
     {
@@ -177,7 +177,7 @@
       "headCommit": null,
       "id": "T22",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp03-03-tasks.md",
-      "status": "未开始",
+      "status": "执行中",
       "title": "草稿到画布的原子插入、应用和建流程"
     },
     {

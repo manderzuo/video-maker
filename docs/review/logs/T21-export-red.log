@@ -1,0 +1,56 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-draft-download.spec.ts
+
+[WebServer] (node:22264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:27760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-draft-download.spec.ts:4:1 › T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records (30.1s)
+
+
+  1) tests\e2e\prompt-draft-download.spec.ts:4:1 › T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.waitForEvent: Test timeout of 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for event "download"
+    ============================================================
+
+      2 | import {test,expect} from '../helpers/network-guard';
+      3 | test.use({launchOptions:{downloadsPath:resolve('E:/trae-studio/tools/temp/playwright-downloads/prompt-drafts')}});
+    > 4 | test('T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records',async({page,networkCounter})=>{await page.goto('/prompt-generator?type=video');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';await(await import(url)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');const raw='中'.repeat(21846);await page.getByLabel('原始创意',{exact:true}).fill(raw);await page.getByRole('button',{name:'保存草稿',exact:true}).click();await page.getByRole('link',{name:'项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'离开未保存提示词草稿'});const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'导出当前内存草稿',exact:true}).click();const download=await pending;expect(await download.failure()).toBeNull();const stream=await download.createReadStream();if(!stream)throw new Error('download_stream_missing');const chunks:Buffer[]=[];for await(const chunk of stream)chunks.push(Buffer.from(chunk));const data=JSON.parse(Buffer.concat(chunks).toString('utf8'));expect(data.kind).toBe('aiwork.prompt-writing-draft');expect(data.validationState).toBe('unvalidated');expect(data.draft.userRequest).toBe(raw);expect(data.draft.references).toEqual([]);expect(Object.hasOwn(data,'promptRuns')).toBe(false);expect(JSON.stringify(data)).not.toContain('apiKey');await expect(dialog.getByRole('status')).toContainText('已触发浏览器下载');expect(networkCounter.paidRequests).toEqual([]);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-draft-download.spec.ts:4:665
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '离开未保存提示词草稿' }).getByRole('button', { name: '导出当前内存草稿', exact: true })[22m
+
+
+      2 | import {test,expect} from '../helpers/network-guard';
+      3 | test.use({launchOptions:{downloadsPath:resolve('E:/trae-studio/tools/temp/playwright-downloads/prompt-drafts')}});
+    > 4 | test('T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records',async({page,networkCounter})=>{await page.goto('/prompt-generator?type=video');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';await(await import(url)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');const raw='中'.repeat(21846);await page.getByLabel('原始创意',{exact:true}).fill(raw);await page.getByRole('button',{name:'保存草稿',exact:true}).click();await page.getByRole('link',{name:'项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'离开未保存提示词草稿'});const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'导出当前内存草稿',exact:true}).click();const download=await pending;expect(await download.failure()).toBeNull();const stream=await download.createReadStream();if(!stream)throw new Error('download_stream_missing');const chunks:Buffer[]=[];for await(const chunk of stream)chunks.push(Buffer.from(chunk));const data=JSON.parse(Buffer.concat(chunks).toString('utf8'));expect(data.kind).toBe('aiwork.prompt-writing-draft');expect(data.validationState).toBe('unvalidated');expect(data.draft.userRequest).toBe(raw);expect(data.draft.references).toEqual([]);expect(Object.hasOwn(data,'promptRuns')).toBe(false);expect(JSON.stringify(data)).not.toContain('apiKey');await expect(dialog.getByRole('status')).toContainText('已触发浏览器下载');expect(networkCounter.paidRequests).toEqual([]);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-draft-download.spec.ts:4:752
+
+    Error Context: test-results\prompt-draft-download-T21--629dc-credentials-or-paid-records\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-draft-download-T21--629dc-credentials-or-paid-records\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-draft-download-T21--629dc-credentials-or-paid-records\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-draft-download.spec.ts:4:1 › T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records 

@@ -1,6 +1,6 @@
 import {z} from 'zod';
 import {id,revision,localText,videoSpecSchema,boundedText} from './common';
-export const referenceTokenSchema=z.strictObject({assetId:id.optional(),alias:id,mediaType:z.enum(['image','video','audio']),role:z.string(),description:localText,available:z.boolean(),unbound:z.boolean()});
+export const referenceTokenSchema=z.strictObject({assetId:id.optional(),alias:id,originalAlias:id.optional(),mediaType:z.enum(['image','video','audio']),role:z.string(),description:localText,available:z.boolean(),unbound:z.boolean()});
 export type ReferenceToken=z.infer<typeof referenceTokenSchema>;
 export const inputBindingSchema=z.strictObject({nodeId:id,assetId:id.optional(),runId:id.optional(),order:z.number().int().nonnegative(),role:z.string()});
 export type InputBinding=z.infer<typeof inputBindingSchema>;

@@ -1,0 +1,22 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-workspace.spec.ts
+
+[WebServer] (node:21472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:17568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-workspace.spec.ts:5:1 › T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh (1.4s)
+  ok 2 tests\e2e\prompt-workspace.spec.ts:6:1 › T21-C01: canvas panel expands the same saved draft identity without duplication (1.2s)
+  ok 3 tests\e2e\prompt-workspace.spec.ts:7:1 › T21-C04: editing output persists a new manual result and invalidates previous checks (1.6s)
+  ok 4 tests\e2e\prompt-workspace.spec.ts:8:1 › T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version (1.0s)
+  ok 5 tests\e2e\prompt-workspace.spec.ts:9:1 › T21-C06: unavailable AI cannot claim success or create either paid record type (871ms)
+  ok 6 tests\e2e\prompt-workspace.spec.ts:10:1 › T21: original/form conflict has no preselected resolution and confirmed choices stay explicit (904ms)
+  ok 7 tests\e2e\prompt-workspace.spec.ts:11:1 › T21: image placeholder saves independently and never activates video rules or image generation (873ms)
+
+  7 passed (10.6s)

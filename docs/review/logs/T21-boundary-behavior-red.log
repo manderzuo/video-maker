@@ -1,0 +1,81 @@
+[WebServer] (node:24764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:27984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG05: composition input does not persist before composition ends (1.6s)
+(node:12400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\prompt-workspace.spec.ts:5:1 › T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice (1.2s)
+  x  3 tests\e2e\prompt-workspace.spec.ts:6:1 › T21 P23: original input snapshot is shown independently of current edited input (30.1s)
+(node:23936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\prompt-workspace.spec.ts:7:1 › T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages (1.3s)
+
+
+  1) tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG05: composition input does not persist before composition ends 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m1[39m
+    Received: [31m2[39m
+
+      2 | import type {Page} from '@playwright/test';
+      3 | const stored=(page:Page)=>page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';return (await import(url)).promptWorkspaceState();});
+    > 4 | test('T21 PG05: composition input does not persist before composition ends',async({page})=>{const field=page.getByLabel('原始创意',{exact:true});await field.dispatchEvent('compositionstart');await field.fill('输入法组合中的品牌汉字');await page.waitForTimeout(650);expect((await stored(page)).drafts[0].revision).toBe(1);await field.dispatchEvent('compositionend');await expect.poll(async()=>(await stored(page)).drafts[0].userRequest).toBe('输入法组合中的品牌汉字');});
+        |                                                                                                                                                                                                                                                                                                           ^
+      5 | test('T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice',async({page})=>{await page.getByLabel('原始创意',{exact:true}).fill('中'.repeat(21846));await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('alert')).toContainText('保存失败');expect((await stored(page)).drafts[0].userRequest).toContain('康济健葆');await page.getByRole('link',{name:'提示词库',exact:true}).click();const dialog=page.getByRole('dialog',{name:'离开未保存提示词草稿'});await dialog.getByRole('button',{name:'继续编辑',exact:true}).click();await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue('中'.repeat(21846));await page.getByRole('link',{name:'提示词库',exact:true}).click();await page.getByRole('dialog',{name:'离开未保存提示词草稿'}).getByRole('button',{name:'放弃未保存修改',exact:true}).click();await expect(page).toHaveURL(/\/prompts/);expect((await stored(page)).drafts[0].revision).toBe(1);});
+      6 | test('T21 P23: original input snapshot is shown independently of current edited input',async({page})=>{await page.getByRole('button',{name:'本地整理',exact:true}).click();await page.getByLabel('原始创意',{exact:true}).fill('新的创意');await page.getByRole('button',{name:'保存草稿',exact:true}).click();await page.getByRole('button',{name:'查看历史',exact:true}).click();await page.getByRole('dialog',{name:'提示词结果历史'}).getByRole('button',{name:'查看输入快照',exact:true}).first().click();await expect(page.getByRole('dialog',{name:'历史输入快照'})).toContainText('康济健葆');await expect(page.getByRole('dialog',{name:'历史输入快照'})).toContainText('输入修订 1');});
+      7 | test('T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages',async({page})=>{await page.setViewportSize({width:1440,height:1000});await page.getByRole('button',{name:'本地整理',exact:true}).click();await page.getByRole('button',{name:'切换到浅色主题',exact:true}).click();await expect(page.getByRole('complementary',{name:'参数与检查',exact:true})).toBeVisible();expect(await page.getByLabel('最终提示词正文',{exact:true}).evaluate(e=>getComputedStyle(e).fontSize)).toBe('16px');await page.screenshot({path:'docs/review/screenshots/T21-prompt-light.png',fullPage:true});await page.setViewportSize({width:720,height:900});await expect(page.getByRole('complementary',{name:'参数与检查',exact:true})).toBeHidden();await page.getByRole('button',{name:'查看参数与检查',exact:true}).click();await expect(page.getByRole('dialog',{name:'参数与检查',exact:true})).toBeVisible();await page.getByRole('dialog',{name:'参数与检查',exact:true}).getByRole('button',{name:'关闭参数与检查',exact:true}).click();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:'docs/review/screenshots/T21-prompt-narrow.png',fullPage:true});});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-workspace.spec.ts:4:299
+
+    Error Context: test-results\prompt-workspace-T21-PG05--ff24b-ist-before-composition-ends\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-workspace-T21-PG05--ff24b-ist-before-composition-ends\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-workspace-T21-PG05--ff24b-ist-before-composition-ends\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\prompt-workspace.spec.ts:6:1 › T21 P23: original input snapshot is shown independently of current edited input 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '提示词结果历史' }).getByRole('button', { name: '查看输入快照', exact: true }).first()[22m
+
+
+      4 | test('T21 PG05: composition input does not persist before composition ends',async({page})=>{const field=page.getByLabel('原始创意',{exact:true});await field.dispatchEvent('compositionstart');await field.fill('输入法组合中的品牌汉字');await page.waitForTimeout(650);expect((await stored(page)).drafts[0].revision).toBe(1);await field.dispatchEvent('compositionend');await expect.poll(async()=>(await stored(page)).drafts[0].userRequest).toBe('输入法组合中的品牌汉字');});
+      5 | test('T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice',async({page})=>{await page.getByLabel('原始创意',{exact:true}).fill('中'.repeat(21846));await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('alert')).toContainText('保存失败');expect((await stored(page)).drafts[0].userRequest).toContain('康济健葆');await page.getByRole('link',{name:'提示词库',exact:true}).click();const dialog=page.getByRole('dialog',{name:'离开未保存提示词草稿'});await dialog.getByRole('button',{name:'继续编辑',exact:true}).click();await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue('中'.repeat(21846));await page.getByRole('link',{name:'提示词库',exact:true}).click();await page.getByRole('dialog',{name:'离开未保存提示词草稿'}).getByRole('button',{name:'放弃未保存修改',exact:true}).click();await expect(page).toHaveURL(/\/prompts/);expect((await stored(page)).drafts[0].revision).toBe(1);});
+    > 6 | test('T21 P23: original input snapshot is shown independently of current edited input',async({page})=>{await page.getByRole('button',{name:'本地整理',exact:true}).click();await page.getByLabel('原始创意',{exact:true}).fill('新的创意');await page.getByRole('button',{name:'保存草稿',exact:true}).click();await page.getByRole('button',{name:'查看历史',exact:true}).click();await page.getByRole('dialog',{name:'提示词结果历史'}).getByRole('button',{name:'查看输入快照',exact:true}).first().click();await expect(page.getByRole('dialog',{name:'历史输入快照'})).toContainText('康济健葆');await expect(page.getByRole('dialog',{name:'历史输入快照'})).toContainText('输入修订 1');});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^
+      7 | test('T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages',async({page})=>{await page.setViewportSize({width:1440,height:1000});await page.getByRole('button',{name:'本地整理',exact:true}).click();await page.getByRole('button',{name:'切换到浅色主题',exact:true}).click();await expect(page.getByRole('complementary',{name:'参数与检查',exact:true})).toBeVisible();expect(await page.getByLabel('最终提示词正文',{exact:true}).evaluate(e=>getComputedStyle(e).fontSize)).toBe('16px');await page.screenshot({path:'docs/review/screenshots/T21-prompt-light.png',fullPage:true});await page.setViewportSize({width:720,height:900});await expect(page.getByRole('complementary',{name:'参数与检查',exact:true})).toBeHidden();await page.getByRole('button',{name:'查看参数与检查',exact:true}).click();await expect(page.getByRole('dialog',{name:'参数与检查',exact:true})).toBeVisible();await page.getByRole('dialog',{name:'参数与检查',exact:true}).getByRole('button',{name:'关闭参数与检查',exact:true}).click();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:'docs/review/screenshots/T21-prompt-narrow.png',fullPage:true});});
+      8 | test.beforeEach(async({page})=>{await page.goto('/prompt-generator?type=video');await page.evaluate(async()=>{const url='/tests/fixtures/prompt-workspace.ts';await(await import(url)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');});
+      9 | test('T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh',async({page,context,networkCounter})=>{await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);await page.getByLabel('创作方向',{exact:true}).focus();await expect(page.getByLabel('创作方向',{exact:true})).toBeFocused();await context.setOffline(true);await page.getByRole('button',{name:'本地整理',exact:true}).click();await expect(page.getByText('规则整理草稿',{exact:true})).toBeVisible();await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue(/康济健葆/);await context.setOffline(false);await page.reload();await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue(/康济健葆/);expect((await stored(page)).drafts[0].resultVersions).toHaveLength(1);expect(networkCounter.paidRequests).toEqual([]);await page.screenshot({path:'docs/review/screenshots/T21-prompt-workspace.png',fullPage:true});});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-workspace.spec.ts:6:455
+
+    Error Context: test-results\prompt-workspace-T21-P23-o-198a0-tly-of-current-edited-input\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-workspace-T21-P23-o-198a0-tly-of-current-edited-input\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-workspace-T21-P23-o-198a0-tly-of-current-edited-input\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG05: composition input does not persist before composition ends 
+    tests\e2e\prompt-workspace.spec.ts:6:1 › T21 P23: original input snapshot is shown independently of current edited input 
+  2 passed (40.0s)
