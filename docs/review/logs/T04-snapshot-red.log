@@ -1,0 +1,32 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/domain-schema.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/domain-schema.test.ts (8 tests | 1 failed) 21ms
+   × strict prompt and graph discriminators reject secret fields and unknown node kinds 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > strict prompt and graph discriminators reject secret fields and unknown node kinds
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:24:340
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  17:53:04
+   Duration  393ms (transform 92ms, setup 40ms, import 139ms, tests 21ms, environment 0ms)
+

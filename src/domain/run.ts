@@ -1,0 +1,12 @@
+import {z} from 'zod';
+import {id,timestamp,revision,bindingSchema,snapshotSchema,videoSpecSchema,jsonSnapshotText} from './common';
+export const executionStateSchema=z.enum(['draft','preflight_blocked','awaiting_confirmation','persisted','uploading','submitting','submit_unknown','accepted','running','succeeded','failed_confirmed']);
+export const queryStateSchema=z.enum(['idle','polling','paused_by_user','interrupted','auth_required']);
+export const deliveryStateSchema=z.enum(['not_ready','fetching','available_for_preview','cached_local','browser_download_triggered','download_failed']);
+export const billingStateSchema=z.enum(['not_provided','reserved','pending_reconciliation','settled','released']);
+export type ExecutionState=z.infer<typeof executionStateSchema>;
+export type QueryState=z.infer<typeof queryStateSchema>;
+export type DeliveryState=z.infer<typeof deliveryStateSchema>;
+export type BillingState=z.infer<typeof billingStateSchema>;
+export const runSchema=bindingSchema.extend({id,projectId:id,nodeId:id,graphRevision:revision,idempotencyKey:id,inputSnapshot:snapshotSchema,finalBody:jsonSnapshotText.optional(),finalBodyHash:z.string().regex(/^[a-f0-9]{64}$/).optional(),requestedSpec:videoSpecSchema.optional(),executionSpec:videoSpecSchema.optional(),executionState:executionStateSchema,queryState:queryStateSchema,deliveryState:deliveryStateSchema,billingState:billingStateSchema,taskId:id.optional(),coreRequestId:id.optional(),resultAssetId:id.optional(),createdAt:timestamp,updatedAt:timestamp});
+export type Run=z.infer<typeof runSchema>;

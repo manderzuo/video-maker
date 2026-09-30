@@ -1,0 +1,132 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/domain-schema.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/domain-schema.test.ts (6 tests | 6 failed) 14ms
+   × T04-C01: project names use Unicode characters, preserve text, reject 0/61 8ms
+   × T04-C02: tag count and Unicode length limits 1ms
+   × T04-C03: 64KiB local limit counts UTF-8 bytes independently 1ms
+   × T04-C04: confirmed outbound byte limits never truncate 1ms
+   × T04-C05: newer schema and secrets cannot become writable project data 1ms
+   × four-dimensional run state and requested/execution specs stay separate 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > T04-C01: project names use Unicode characters, preserve text, reject 0/61
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:6:108
+      4| it('T04-C01: project names use Unicode characters, preserve text, reje…
+      5|  for(const title of ['中','中'.repeat(60),'😀'.repeat(60)])expect(valida…
+      6|  for(const title of ['',' ','中'.repeat(61),'😀'.repeat(61)])expect(val…
+       |                                                                                                            ^
+      7|  expect(validateProject(f.project({description:'中'.repeat(500)})).ok).…
+      8|  expect(validateProject(f.project({description:'中'.repeat(501)})).ok).…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > T04-C02: tag count and Unicode length limits
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:12:130
+     10| it('T04-C02: tag count and Unicode length limits',()=>{
+     11|  expect(validateProject(f.project({tags:['中'.repeat(24)]})).ok).toBe(t…
+     12|  for(const tags of [[''],['中'.repeat(25)],Array.from({length:11},(_,i)…
+       |                                                                                                                                  ^
+     13| });
+     14| it('T04-C03: 64KiB local limit counts UTF-8 bytes independently',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > T04-C03: 64KiB local limit counts UTF-8 bytes independently
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:16:50
+     14| it('T04-C03: 64KiB local limit counts UTF-8 bytes independently',()=>{
+     15|  expect(validateLocalText('a'.repeat(65536)).ok).toBe(true);
+     16|  expect(validateLocalText('a'.repeat(65537)).ok).toBe(false);
+       |                                                  ^
+     17|  expect(validateLocalText('中'.repeat(21845)).ok).toBe(true);
+     18|  expect(validateLocalText('中'.repeat(21846)).ok).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > T04-C04: confirmed outbound byte limits never truncate
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:22:42
+     20| it('T04-C04: confirmed outbound byte limits never truncate',()=>{
+     21|  expect(validateOutboundText('😀',4).ok).toBe(true);
+     22|  expect(validateOutboundText('😀',3).ok).toBe(false);
+       |                                          ^
+     23|  expect(validateOutboundText('中',undefined).ok).toBe(false);
+     24| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > T04-C05: newer schema and secrets cannot become writable project data
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:26:77
+     24| });
+     25| it('T04-C05: newer schema and secrets cannot become writable project d…
+     26|  const newer=f.project({schemaVersion:2});expect(validateProject(newer…
+       |                                                                             ^
+     27|  expect(validateProject(f.project({apiKey:'fake-key-only'})).ok).toBe(…
+     28|  expect(validateProject(f.project({revision:-1})).ok).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/unit/domain-schema.test.ts > four-dimensional run state and requested/execution specs stay separate
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/domain-schema.test.ts:33:62
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  17:48:10
+   Duration  308ms (transform 51ms, setup 46ms, import 27ms, tests 14ms, environment 0ms)
+

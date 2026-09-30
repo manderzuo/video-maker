@@ -2,7 +2,7 @@
   "taskId": "T03",
   "status": "实施完成，自检通过，待独立审查",
   "baseCommit": "ebd7e0318379d345c7d94a9b56c2bfb1afbda126",
-  "headCommit": null,
+  "headCommit": "0eee5909fb812b3662fce9390645cee87aca7c9f",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
   "reasoningMode": "用户指定high，工具不可验证",
   "files": [

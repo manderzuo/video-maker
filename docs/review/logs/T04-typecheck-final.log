@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/unit/domain-schema.test.ts(42,25): error TS2322: Type '2' is not assignable to type '1'.

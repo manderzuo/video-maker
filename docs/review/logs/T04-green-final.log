@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/domain-schema.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  17:55:32
+   Duration  380ms (transform 94ms, setup 45ms, import 130ms, tests 15ms, environment 0ms)
+
