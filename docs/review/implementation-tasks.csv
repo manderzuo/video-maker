@@ -1,0 +1,51 @@
+﻿id,wp,title,deps,branch,testpath,command,status,gate
+T01,WP00,冻结来源、目录与重构范围,,feat/aiwork-studio,tests/planning/source-policy.test.mjs,node --test tests/planning/source-policy.test.mjs,未开始,执行入口必须确认工作区；读取来源失败可继续原创规格核对，不把失败称为已克隆。
+T02,WP00,关键视觉与交互状态收口,T01,feat/aiwork-studio,tests/planning/visual-baseline.test.mjs,node --test tests/planning/visual-baseline.test.mjs,未开始,未完成关键状态评审的模块不能迁入产品界面；不因此回退到重新讨论已批准的产品范围。
+T03,WP00,建立隔离工程与可阻断回归工具链,"T01, T02",feat/aiwork-studio,tests/planning/test-harness.test.mjs,node --test tests/planning/test-harness.test.mjs,未开始,只建新项目，不升级或改动三个业务仓库依赖。
+T04,WP01,统一领域类型、Schema与输入限制,T03,feat/aiwork-studio,tests/unit/domain-schema.test.ts,npm run test:unit -- tests/unit/domain-schema.test.ts,未开始,类型及签名冻结后下游使用同名契约。
+T05,WP01,IndexedDB事务保存与可恢复日志,T04,feat/aiwork-studio,tests/unit/project-store.test.ts,npm run test:unit -- tests/unit/project-store.test.ts,未开始,依赖任务验收通过。
+T06,WP01,多标签写者租约与运行单飞锁,T05,feat/aiwork-studio,tests/unit/project-lease.test.ts,npm run test:unit -- tests/unit/project-lease.test.ts,未开始,依赖任务验收通过。
+T07,WP01,本地素材导入、元数据和缩略图,T05,feat/aiwork-studio,tests/unit/asset-import.test.ts,npm run test:unit -- tests/unit/asset-import.test.ts,未开始,依赖任务验收通过。
+T08,WP01,引用计数、软删除与任务证据保留,"T05, T07",feat/aiwork-studio,tests/unit/asset-retention.test.ts,npm run test:unit -- tests/unit/asset-retention.test.ts,未开始,依赖任务验收通过。
+T09,WP01,Core凭据会话与脱敏边界,"T04, T05",feat/aiwork-studio,tests/unit/credential-session.test.ts,npm run test:unit -- tests/unit/credential-session.test.ts,未开始,依赖任务验收通过。
+T10,WP01,统一命令、修订与撤销重做,"T04, T05, T06, T08",feat/aiwork-studio,tests/unit/project-commands.test.ts,npm run test:unit -- tests/unit/project-commands.test.ts,未开始,依赖任务验收通过。
+T11,WP02,应用导航、引导、通用控件与自有品牌,"T02, T03, T09, T10",feat/aiwork-studio,tests/e2e/app-shell.spec.ts,npm run test:e2e -- tests/e2e/app-shell.spec.ts,未开始,依赖任务验收通过。
+T12,WP02,项目主页、模板、归档和回收站,"T08, T11",feat/aiwork-studio,tests/e2e/project-library.spec.ts,npm run test:e2e -- tests/e2e/project-library.spec.ts,未开始,依赖任务验收通过。
+T13,WP02,画布选择、平移、缩放与键盘等价操作,"T10, T11, T12",feat/aiwork-studio,tests/e2e/canvas-viewport.spec.ts,npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts,未开始,依赖任务验收通过。
+T14,WP02,五类节点、类型连线和输入检查器,"T04, T07, T10, T13",feat/aiwork-studio,tests/e2e/typed-nodes.spec.ts,npm run test:e2e -- tests/e2e/typed-nodes.spec.ts,未开始,依赖任务验收通过。
+T15,WP02,节点菜单、分组、分支与布局,"T10, T13, T14",feat/aiwork-studio,tests/e2e/canvas-layout.spec.ts,npm run test:e2e -- tests/e2e/canvas-layout.spec.ts,未开始,依赖任务验收通过。
+T16,WP02,素材库、预览和重新关联,"T07, T08, T11, T14",feat/aiwork-studio,tests/e2e/asset-library.spec.ts,npm run test:e2e -- tests/e2e/asset-library.spec.ts,未开始,依赖任务验收通过。
+T17,WP02,提示词库、模板变量与本地搜索,"T05, T10, T11, T14",feat/aiwork-studio,tests/e2e/prompt-library.spec.ts,npm run test:e2e -- tests/e2e/prompt-library.spec.ts,未开始,依赖任务验收通过。
+T18,WP03,抽取本地视频提示词规则,"T03, T04, T17",feat/prompt-generation,tests/unit/video-prompt-compiler.test.ts,npm run test:unit -- tests/unit/video-prompt-compiler.test.ts,未开始,依赖任务验收通过。
+T19,WP03,约束冲突、引用和分镜总时长校验,"T04, T18",feat/prompt-generation,tests/unit/prompt-validation.test.ts,npm run test:unit -- tests/unit/prompt-validation.test.ts,未开始,依赖任务验收通过。
+T20,WP03,提示词草稿、PromptRun与不可变历史,"T05, T09, T18, T19",feat/prompt-generation,tests/unit/prompt-drafts.test.ts,npm run test:unit -- tests/unit/prompt-drafts.test.ts,未开始,依赖任务验收通过。
+T21,WP03,提示词工作台、侧栏和历史面板,"T11, T16, T18, T19, T20",feat/prompt-generation,tests/e2e/prompt-workspace.spec.ts,npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts,未开始,依赖任务验收通过。
+T22,WP03,草稿到画布的原子插入、应用和建流程,"T10, T14, T17, T19, T20, T21",feat/prompt-generation,tests/e2e/prompt-canvas-commands.spec.ts,npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts,未开始,依赖任务验收通过。
+T23,WP04,固定Core公开契约、能力证据与Mock,"T03, T04, T09",feat/aiwork-studio,tests/unit/core-contract.test.ts,npm run test:unit -- tests/unit/core-contract.test.ts,未开始,依赖任务验收通过。
+T24,WP04,同源HTTP通道、地址规范与请求鉴权,"T09, T23",feat/aiwork-studio,tests/unit/core-transport.test.ts,npm run test:unit -- tests/unit/core-transport.test.ts,未开始,依赖任务验收通过。
+T25,WP04,上传素材映射与最终请求冻结,"T05, T07, T09, T23, T24",feat/aiwork-studio,tests/unit/prepared-request.test.ts,npm run test:unit -- tests/unit/prepared-request.test.ts,未开始,依赖任务验收通过。
+T26,WP04,预检、费用确认和一次性执行批准,"T10, T14, T23, T25",feat/aiwork-studio,tests/e2e/generation-preflight.spec.ts,npm run test:e2e -- tests/e2e/generation-preflight.spec.ts,未开始,依赖任务验收通过。
+T27,WP04,视频提交、持久幂等与未知结果,"T05, T06, T23, T24, T25, T26",feat/aiwork-studio,tests/unit/video-submit.test.ts,npm run test:unit -- tests/unit/video-submit.test.ts,未开始,依赖任务验收通过。
+T28,WP04,任务轮询、退避和查询状态,"T23, T24, T27",feat/aiwork-studio,tests/unit/video-polling.test.ts,npm run test:unit -- tests/unit/video-polling.test.ts,未开始,依赖任务验收通过。
+T29,WP04,依赖执行队列与刷新恢复,"T06, T10, T26, T27, T28",feat/aiwork-studio,tests/unit/run-queue.test.ts,npm run test:unit -- tests/unit/run-queue.test.ts,未开始,依赖任务验收通过。
+T30,WP04,Core文字优化与独立PromptRun,"T09, T19, T20, T23, T24, T26",feat/prompt-generation,tests/unit/text-optimization.test.ts,npm run test:unit -- tests/unit/text-optimization.test.ts,未开始,依赖任务验收通过。
+T31,WP04,AI结果解析、差异与提示词模式联通,"T19, T20, T21, T30",feat/prompt-generation,tests/e2e/prompt-result-parser.spec.ts,npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts,未开始,依赖任务验收通过。
+T32,WP04,作业版本、改版和续写,"T23, T24, T27, T28",feat/aiwork-studio,tests/unit/video-work-context.test.ts,npm run test:unit -- tests/unit/video-work-context.test.ts,未开始,必须具备已验证work_context/continuation及父版本fixture；否则功能受限但基础版不绕过。
+T33,WP05,鉴权媒体内容、缓存与浏览器下载,"T07, T09, T24, T28",feat/aiwork-studio,tests/unit/media-delivery.test.ts,npm run test:unit -- tests/unit/media-delivery.test.ts,未开始,依赖任务验收通过。
+T34,WP05,任务中心与底部抽屉共享记录,"T28, T29, T31, T33",feat/aiwork-studio,tests/e2e/task-center.spec.ts,npm run test:e2e -- tests/e2e/task-center.spec.ts,未开始,依赖任务验收通过。
+T35,WP05,审片、A/B比较和结果复用,"T14, T15, T16, T33, T34",feat/aiwork-studio,tests/e2e/result-review.spec.ts,npm run test:e2e -- tests/e2e/result-review.spec.ts,未开始,依赖任务验收通过。
+T36,WP05,安全项目包、导入迁移与草稿备份,"T04, T05, T08, T10, T20, T33",feat/aiwork-studio,tests/unit/project-package.test.ts,npm run test:unit -- tests/unit/project-package.test.ts,未开始,上述数值是本次实施计划确定的初值，不是Core或浏览器真实容量上限。
+T37,WP05,设置、存储占用与缓存清理,"T09, T11, T23, T24, T36",feat/aiwork-studio,tests/e2e/storage-settings.spec.ts,npm run test:e2e -- tests/e2e/storage-settings.spec.ts,未开始,依赖任务验收通过。
+T38,WP05,恢复中心、活动记录与帮助,"T06, T08, T28, T34, T36, T37",feat/aiwork-studio,tests/e2e/recovery-diagnostics.spec.ts,npm run test:e2e -- tests/e2e/recovery-diagnostics.spec.ts,未开始,依赖任务验收通过。
+T39,WP06,本机Agent连接与最小授权通道,"T09, T10, T24, T38",feat/canvas-agent,tests/unit/agent-relay.test.ts,npm run test:unit -- tests/unit/agent-relay.test.ts,未开始,连接器/模型实际可用后再进入此包；不改动原MCP既有视频工具。
+T40,WP06,结构化提案与revision冲突处理,"T10, T39",feat/canvas-agent,tests/unit/agent-proposals.test.ts,npm run test:unit -- tests/unit/agent-proposals.test.ts,未开始,依赖任务验收通过。
+T41,WP06,画布MCP工具与唯一执行入口,"T22, T27, T29, T30, T39, T40",feat/canvas-agent,tests/unit/canvas-mcp.test.ts,npm run test:unit -- tests/unit/canvas-mcp.test.ts,未开始,依赖任务验收通过。
+T42,WP06,Agent面板、上下文预览与停止行为,"T11, T34, T39, T40, T41",feat/canvas-agent,tests/e2e/agent-panel.spec.ts,npm run test:e2e -- tests/e2e/agent-panel.spec.ts,未开始,依赖任务验收通过。
+T43,WP07,条件能力与原功能处置完整性,"T17, T23, T32, T37, T42",feat/aiwork-studio,tests/unit/optional-capabilities.test.ts,npm run test:unit -- tests/unit/optional-capabilities.test.ts,未开始,依赖任务验收通过。
+T44,WP07,260项交互与30弹窗追踪回归,"T12, T13, T14, T15, T16, T17, T21, T22, T26, T31, T34, T35, T37, T38, T42, T43",feat/aiwork-studio,tests/e2e/interaction-coverage.spec.ts,npm run test:e2e -- tests/e2e/interaction-coverage.spec.ts,未开始,依赖任务验收通过。
+T45,WP07,安全与故障注入整链路测试,"T27, T28, T29, T30, T33, T36, T38, T41",feat/aiwork-studio,tests/unit/failure-injection.test.ts,npm run test:unit -- tests/unit/failure-injection.test.ts,未开始,依赖任务验收通过。
+T46,WP07,视觉、可访问性与性能验收,"T02, T44, T45",feat/aiwork-studio,tests/e2e/visual-a11y-performance.spec.ts,npm run test:e2e -- tests/e2e/visual-a11y-performance.spec.ts,未开始,依赖任务验收通过。
+T47,WP08,独立启动、部署与发行包扫描,"T24, T36, T43, T44, T45, T46",feat/aiwork-studio,tests/e2e/distribution.spec.ts,npm run test:e2e -- tests/e2e/distribution.spec.ts,未开始,原README前端标识要求尚需澄清；未获适用授权不得标记完全去标识发布通过。
+T48,WP08,经授权的真实Core联调,"T27, T28, T30, T32, T33, T47",feat/aiwork-studio,tests/live/authorized-live.spec.ts,npm run test:live -- tests/live/authorized-live.spec.ts,未开始,设计/计划批准不等于收费授权；尚未获得授权时本任务保持待授权，其他本地工作可交付。
+T49,WP08,升级、备份与回滚演练,"T36, T45, T47",feat/aiwork-studio,tests/e2e/migration-release.spec.ts,npm run test:e2e -- tests/e2e/migration-release.spec.ts,未开始,依赖任务验收通过。
+T50,WP08,整分支独立审查与最终交接,"T01, T02, T44, T45, T46, T47, T48, T49",feat/aiwork-studio,tests/planning/final-review.test.mjs,node --test tests/planning/final-review.test.mjs,未开始,涉及真实联调/来源授权未完成，可交离线构建但发布结论保持受限。

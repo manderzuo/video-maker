@@ -1,0 +1,17 @@
+{
+  "render_method": "set_content; file navigation blocked by host policy; static relative file links not browser-tested",
+  "browser": "system Chromium",
+  "wide": {
+    "title": "AI WORK Studio · 全面实施计划",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "details": 11,
+    "buttons": 2
+  },
+  "page_errors": [],
+  "external_requests": [],
+  "compact": {
+    "width": 1024,
+    "scrollWidth": 1024
+  }
+}

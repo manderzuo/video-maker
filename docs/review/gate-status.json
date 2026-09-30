@@ -1,0 +1,98 @@
+[
+  {
+    "id": "G00",
+    "title": "工作区与代理身份",
+    "condition": "TRAEWORK实际根路径、可写性、执行模型id与high档位须由真实工具回执确认",
+    "tasks": "T01/T03",
+    "status": "待执行核验",
+    "blocked_action": "未确认则不改其他目录、不替换模型；文档可交付"
+  },
+  {
+    "id": "G01",
+    "title": "来源许可与产品品牌",
+    "condition": "产品UI自有品牌；复用许可和版权保留；README附加前端标识要求发布前澄清",
+    "tasks": "T01/T47",
+    "status": "发布前待核验",
+    "blocked_action": "阻止不合规发布；不妨碍原创界面设计"
+  },
+  {
+    "id": "G02",
+    "title": "视觉设计收口",
+    "condition": "关键页面状态像素级评审和深浅/窄屏记录齐全",
+    "tasks": "T02",
+    "status": "待证据",
+    "blocked_action": "只阻止对应产品UI实现，不重开已批准范围"
+  },
+  {
+    "id": "G03",
+    "title": "持久化与单飞",
+    "condition": "存储失败不发收费请求；CAS和run dispatch claim有效",
+    "tasks": "T05/T06/T27",
+    "status": "待实现",
+    "blocked_action": "禁止接真实收费"
+  },
+  {
+    "id": "G04",
+    "title": "Core部署能力",
+    "condition": "路由、模型、scope、参数、幂等重放和内容下载以测试契约为准",
+    "tasks": "T23/T24/T48",
+    "status": "待联调",
+    "blocked_action": "未知项只展示说明；不调admin、不绕Core"
+  },
+  {
+    "id": "G05",
+    "title": "提示词与视频分离",
+    "condition": "文字模型强制textOnly；本地整理和建流程无视频POST",
+    "tasks": "T18/T22/T30/T31",
+    "status": "待实现",
+    "blocked_action": "拒绝视频别名进入文字优化"
+  },
+  {
+    "id": "G06",
+    "title": "未知与账务",
+    "condition": "提交不明/内容已就绪/账务待核对分别记录",
+    "tasks": "T27/T28/T34",
+    "status": "待实现",
+    "blocked_action": "不得自动重新计费或称已退款"
+  },
+  {
+    "id": "G07",
+    "title": "条件能力",
+    "condition": "生图/音频/远端取消/WebDAV无已验证用户契约不开放",
+    "tasks": "T32/T43",
+    "status": "条件受限",
+    "blocked_action": "仅门控/说明已设计；不计作真实执行通过"
+  },
+  {
+    "id": "G08",
+    "title": "真实调用授权",
+    "condition": "独立测试环境、场景/调用次数/消费边界明确",
+    "tasks": "T48",
+    "status": "待授权",
+    "blocked_action": "默认零真实调用；不自动转生产"
+  },
+  {
+    "id": "G09",
+    "title": "全部交互追踪",
+    "condition": "260行映射且可执行项有实际行为测试；30弹窗焦点和关闭规则验证",
+    "tasks": "T44",
+    "status": "计划已映射，执行未验收",
+    "blocked_action": "映射数不是通过数"
+  },
+  {
+    "id": "G10",
+    "title": "发布安全",
+    "condition": "包扫描、同源代理允许列表、无出网推广、密钥零泄漏、许可齐全",
+    "tasks": "T45/T47",
+    "status": "待执行",
+    "blocked_action": "拒绝发布；不以跳过测试绕过"
+  },
+  {
+    "id": "G11",
+    "title": "版本与回滚",
+    "condition": "本地schema兼容、未知run保留；不修改Core财务数据库",
+    "tasks": "T49/T50",
+    "status": "待执行",
+    "blocked_action": "仅回退兼容前端，禁止抹掉新收费追踪"
+  }
+]

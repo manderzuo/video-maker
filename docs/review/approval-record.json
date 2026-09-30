@@ -1,0 +1,29 @@
+{
+  "recordVersion": 1,
+  "designs": [
+    {
+      "file": "AIWORK_Studio_Design_v1.md",
+      "sha256": "78d729195494edfe7af5936f89f19eaf00ac82f4f5d9a76283ee60b50f41c1f4",
+      "userDirection": "2026-09-30T06:36:10Z 已表示OK并要求代理执行；作为设计认可记录，不等同产品测试通过"
+    },
+    {
+      "file": "AIWORK_Studio_Prompt_Generation_Design_v1.1.md",
+      "sha256": "3cc3f508ce38ca589d70387637679cb19f024a543773b30f2459caf4cae0500a",
+      "approvedAt": "2026-09-30T06:41:08Z",
+      "userText": "这个增补没问题，可以使用。下面开始正式的全面实施计划。"
+    }
+  ],
+  "executionPreference": {
+    "workerCount": 1,
+    "requestedDisplayName": "GPT6.1 sol high",
+    "reasoning": "high",
+    "fallbackAllowed": false,
+    "targetRelativePath": "TRAEWORK/aiwork-studio",
+    "actualWorkspaceResolved": false,
+    "agentStarted": false
+  },
+  "planStatus": "待计划评审",
+  "paidCallsAuthorized": false,
+  "productImplementationStarted": false,
+  "remoteWritesPerformedThisTurn": false
+}

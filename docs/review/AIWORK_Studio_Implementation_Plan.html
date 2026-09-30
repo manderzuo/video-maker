@@ -1,0 +1,3969 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI WORK Studio · 全面实施计划</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f3f5f7;color:#1b2833;font:15px/1.75 system-ui,"Microsoft YaHei",sans-serif}header{background:#13232a;color:#f5fbf8;padding:32px 5vw}header h1{margin:0;font-size:28px}header p{color:#c5d9d4;max-width:1050px;margin:8px 0}.badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.badges span{background:#253940;padding:7px 14px;border-radius:8px}nav{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid #ccd9db;padding:12px 5vw;display:flex;gap:12px;align-items:center;flex-wrap:wrap}nav a{font-size:13px;color:#096b57;text-decoration:none}button{border:1px solid #acbcc1;background:#fff;padding:7px 12px;border-radius:6px;font:inherit;font-size:13px;cursor:pointer}main{max-width:1360px;padding:28px 24px;margin:auto}section{background:#fff;padding:30px;border:1px solid #d9e0e5;border-radius:10px;overflow-wrap:anywhere}details{margin:20px 0;scroll-margin-top:120px}summary{font-size:18px;font-weight:700;background:#e7efed;padding:18px 24px;border:1px solid #c6d6d1;border-radius:8px;cursor:pointer}details[open] summary{border-radius:8px 8px 0 0}details section{border-radius:0 0 10px 10px}h1,h2,h3{line-height:1.4}h2{margin-top:36px;padding-top:18px;border-top:1px solid #e3e7eb;font-size:22px}h3{font-size:18px;margin-top:26px}pre{background:#15262c;color:#dbeae5;border-radius:7px;padding:16px;overflow-x:auto;line-height:1.55;font-size:12.5px}code{font-family:ui-monospace,Consolas,monospace;font-size:.91em}p code,li code,td code{background:#f0f4f5;padding:1px 4px;border-radius:4px}table{width:100%;border-collapse:collapse;font-size:13px;display:block;overflow-x:auto;margin:18px 0}th{background:#e8efef;text-align:left}th,td{border:1px solid #d6dfe3;padding:9px 12px;vertical-align:top;min-width:95px}blockquote{border-left:4px solid #149879;margin:16px 0;padding:8px 16px;background:#f0f7f5}a{color:#076e5b}footer{text-align:center;padding:30px;color:#5e6d77;font-size:13px}@media(max-width:800px){header{padding:22px}main{padding:12px}section{padding:18px}nav{position:static}h1{font-size:23px}}@media print{nav,button{display:none}body{background:white}section{border:0}pre{white-space:pre-wrap;color:#111;background:#eee}summary{break-after:avoid}}</style></head><body>
+<header><h1>AI WORK Studio · 全面实施计划</h1><p>独立网页画布＋提示词生成＋Core受控执行。Plan 1.0 / 2026-09-30。只读计划阅读器，不是产品实现。</p>
+<div class="badges"><span>9个实施阶段</span><span>50项任务</span><span>260项交互追踪</span><span>23个页面／面板</span><span>30类弹窗</span><span>实施完成：0</span></div></header>
+<nav><a href="#overview">总计划</a><a href="#WP00">WP00</a><a href="#WP01">WP01</a><a href="#WP02">WP02</a><a href="#WP03">WP03</a><a href="#WP04">WP04</a><a href="#WP05">WP05</a><a href="#WP06">WP06</a><a href="#WP07">WP07</a><a href="#WP08">WP08</a><a href="#contracts">共享契约</a><a href="#handoff">代理交接</a><button id="expand">展开任务</button><button id="collapse">折叠任务</button></nav>
+<main><section id="overview"><h1>AI WORK Studio 全面实施计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 按任务使用 <code>superpowers:executing-plans</code>；若改为多实施代理须另获用户同意。本项目用户已指定一名 <code>GPT6.1 sol high</code> 执行代理；调度入口和实际模型必须核验。以下 <code>- [ ]</code> 均为未来执行步骤，不是已通过记录。</p>
+</blockquote>
+<p><strong>目标：</strong> 在 <code>TRAEWORK/aiwork-studio</code> 建立独立、自有UI的网页创作工作台，集成视频提示词生成，经现有Core完成可恢复的视频任务，并让已授权Agent操作同一项目。</p>
+<p><strong>架构：</strong> 独立前端＋同源受控Core通道；Core负责身份、作用域、准入、任务归属与账务，AI Work负责下游执行。画布的创作数据与执行快照保存在独立IndexedDB；Agent通过本机连接服务提交受控命令，不获得Core密钥。</p>
+<p><strong>技术栈：</strong> React19、TypeScript5、Vite7、Zustand5、IndexedDB、Vitest、Playwright；本地静态启动器可用Node22.x，线上用HTTPS静态服务和固定目标反代。具体补丁版本由T03兼容与安全核对后固定到lock。</p>
+<p><strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。</p>
+<p><strong>状态：</strong> Plan 1.0 · 2026-09-30。用户已批准设计增补并要求正式计划。本轮只创建文档、任务/交互台账和计划包；未修改产品代码、未启动指定代理、未发收费请求、未创建远端分支。</p>
+<hr />
+<h2>全局约束</h2>
+<ul>
+<li>“独立网页而非嵌入现有助手；复用合适的开源画布；通过现有Core接入AI Work；所有界面和按钮先设计后实施；重构为自有产品；本轮暂不处理拼接。”</li>
+<li>“默认浏览器本地项目；Core普通Key仅在当前标签页内存中保存；无需Agent即可执行生成。”</li>
+<li>“标准节点宽320px、生成节点360px、文本最小240px；标题32px、状态栏24px。”</li>
+<li>“项目名称1–60字符，说明0–500；提示词标签每条1–24字符、最多10个；本地提示词文本保存上限64KiB。”</li>
+<li>“素材单次导入50个为产品初始限制，不是Core上限。”</li>
+<li>“画布缩放25%–200%；它与浏览器页面缩放是不同功能。”</li>
+<li>“默认仅1个本地待发提交并行准备，用户可配置1–3；这是节流上限，不替代Core并发准入。”</li>
+<li>“项目包包含manifest、版本化JSON、资源hash、媒体文件与脱敏来源。排除所有Key/Token、临时访问链接、执行授权、自动任务、可执行脚本。”</li>
+<li>“首个协作版本只支持同机已打开的画布。”</li>
+<li>“文字模型id不写入视频模型字段”；“模型不支持严格结构模式时先输出文本，再由本地适配器解析并标记待校验。”</li>
+<li>“素材参考说明不表示模型看过视频；本地规则不读取任意目录、不调用网络或生成模型。”</li>
+<li>上述引文保留设计约束原意；实现数值补充详见T06/T28/T33/T36/T39/T40/T46，不解释成后端真实限制。</li>
+</ul>
+<h2>审查焦点与对应回归</h2>
+<table>
+<thead>
+<tr>
+  <th>输入/故障</th>
+  <th>必须行为</th>
+  <th>责任任务与具体回归</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>浏览器休眠导致租约失效，旧标签在恢复后提交</td>
+  <td>DB epoch拒绝旧写者；run单飞独立保护，不能因接管双扣</td>
+  <td>T06 <code>lease_expired_writer_denied</code>、T27 <code>double_tab_single_dispatch</code></td>
+</tr>
+<tr>
+  <td>已发送成功但响应丢失，重开时参考远端ID又过期</td>
+  <td>保留原finalBody/Key，不用新上传ID重组旧body；缺安全恢复时只保留unknown</td>
+  <td>T25 <code>frozen_body_after_dispatch</code>、T27 <code>accepted_reply_lost</code></td>
+</tr>
+<tr>
+  <td>中文输入法、emoji、品牌字样、4:5与9:16/时长冲突</td>
+  <td>按UTF-8校验，原文保留，显式冲突无自动修正或发请求</td>
+  <td>T04 <code>utf8_limits</code>、T19 <code>explicit_constraints_conflict</code>、T46 <code>ime_focus</code></td>
+</tr>
+<tr>
+  <td>生成就绪但账单未结，下载失败，Core Key已撤销</td>
+  <td>分离三种结果；只能重试读/下载且用原授权，不能新生成</td>
+  <td>T28 <code>terminal_not_overwritten</code>、T33 <code>download_failed_no_new_post</code>、T45故障链</td>
+</tr>
+<tr>
+  <td>Agent提案落后于人工编辑或提案夹带未知操作</td>
+  <td>原子CAS与权限检查，拒绝无声覆盖；应用不包含收费授权</td>
+  <td>T40 <code>stale_proposal_rejected</code>、T41 <code>run_requires_browser_confirmation</code></td>
+</tr>
+</tbody>
+</table>
+<h2>统一实现决策与歧义收口</h2>
+<p>这些是本实施计划的明确设计选择；在计划评审后作为执行基线。未验证的服务端能力不因写入计划而成立。</p>
+<ol>
+<li><strong>独立Web项目</strong>：目标相对目录为 <code>TRAEWORK/aiwork-studio</code>。浏览器界面与AI Work助手分开；不修改 <code>trae-maker/src/App.tsx</code>，不把原画布整个iframe嵌入。归档中同名目录仅为交付结构，不证明已经写入用户机器。</li>
+<li><strong>一名实施代理</strong>：保留用户本轮指定的显示名 <code>GPT6.1 sol high</code>。启动时真实调度器必须返回实际model id和推理档位；不臆造API model字符串，不静默改用旧Luna或其他模型。此计划未启动代理。</li>
+<li><strong>单项目工程</strong>：React19、TypeScript5、Vite7、Zustand5；新持久层原生IndexedDB事务，UI状态可用Zustand但不持久化凭据；模板压缩可复用fflate。Node选择22.x中兼容且修补过的版本，最低22.12。T03记录精确依赖和lock，不使用<code>@latest</code>构建发布。</li>
+<li><strong>并非全盘复制</strong>：自有app/UI和Core协议重写；合法复用上游交互算法与纯规则，逐模块迁移，留下来源。原支付、账号、Electron窗口、任意脚本、远程插件和自动提示词源不迁入。无需第二套画布引擎。</li>
+<li><strong>账务和生成权威</strong>：所有用户生成通过Core公开API；AI Work内部bridge仅供Core。新静态服务器/部署反代只是传输层，不提供新账号、预算、账本或生成后端。</li>
+<li><strong>统一命令</strong>：UI、快捷键、PG插入和Agent提案使用同一领域命令；生成批准与修改批准分开。<code>T-06/T-07</code>旧润色入口重定向到PG，不另造润色器。</li>
+<li><strong>术语统一</strong>：Run执行字段统一<code>executionState</code>，查询<code>queryState</code>，交付<code>deliveryState</code>，账务<code>billingState</code>；PG增补中的<code>credentialBindingId</code>在新schema统一写为<code>authBindingId</code>，只在显式导入器读取旧别名。</li>
+<li><strong>提示词配置节点</strong>：第一版不新增第六种“提示词生成配置”执行节点；P21独立页、P22右栏、P23历史共用同draftId，输出普通文本节点。增补把该节点列为可选，所以这个决定不削掉已承诺主功能。</li>
+<li><strong>图片提示词</strong>：PG03保留独立图片草稿和切换不丢数据；首版只实现视频规则引擎。图片编译器/图片生成不因切换类型自动开放，界面明确未启用，仍可手写与导出。</li>
+<li><strong>短期恢复与批量</strong>：已发送的最终请求体和幂等键不可变；不能重上传参考改body再复用原键。批量批准只覆盖已明确的输入；依赖尚未生成的上游结果时，暂停下游等待素材可见后确认，不把连线当任意未来付费授权。</li>
+<li><strong>Key策略</strong>：普通Core Key仅当前标签页内存；重新打开先授权再查询旧任务。初次只读models成功不代表全部scope可用。授权绑定仅本地防误用，最终归属由Core检查。</li>
+<li><strong>原稿状态不覆盖</strong>：两份已批准的设计原件仍保留其生成时“待评审”字样，单独approval-record记录用户本轮同意；本计划尚未成为“实施已完成”证明。</li>
+</ol>
+<h2>范围与最终交付口径</h2>
+<p>主线完整覆盖23个页面/面板、260项交互、30类弹窗的<strong>实现责任与处置</strong>。这并不表示260项都在初版可执行：X/Y组9项是设计里已经规定的条件能力；work改版/续写受部署开关控制；Agent包依赖本机连接实际可用。PG图片草稿可保存但图片规则编译不在本轮主线。</p>
+<p>交付以四个可独立判定的层级发布：</p>
+<ul>
+<li><strong>离线可用版</strong>：自有UI、项目/素材/画布、提示词库、本地提示词生成、保存/备份，零真实模型调用。</li>
+<li><strong>Core联调版</strong>：前项＋视频/文字独立确认、身份绑定、幂等、任务查询、结果下载、改版条件门控；模拟验收与授权live分开。</li>
+<li><strong>Agent协作版</strong>：前项＋只读/提案/执行审批，限同机已打开画布。</li>
+<li><strong>发布候选版</strong>：安全、视觉、全量交互、性能、启动包、升级演练及来源许可门槛全部通过。live待授权或许可未澄清时只能标受限交付，不称全面上线完成。</li>
+</ul>
+<h2>目标目录与文件责任</h2>
+<pre><code class="language-text">TRAEWORK/
+└── aiwork-studio/                    新项目，真实绝对路径由执行宿主核验
+    ├── src/
+    │   ├── app/                     自有导航、路由、功能门控
+    │   ├── ui/                      设计令牌、表单、对话框、中文文案
+    │   ├── domain/                  Project/Graph/Run/Prompt/纯规则/状态机
+    │   ├── application/             项目命令、预检、确认、任务与提案
+    │   ├── adapters/core/           普通Core API协议、状态解析和内容下载
+    │   ├── infrastructure/          IndexedDB、租约、导入导出
+    │   ├── security/                内存凭据、Origin/路径策略、脱敏
+    │   └── features/                各页面，含prompt-generation
+    ├── companion/                   后期本机Agent通道，不是生成后端
+    ├── tests/{unit,e2e,security,live,fixtures,helpers,planning}/
+    ├── deploy/                      静态站/反代/非秘密配置示例
+    ├── scripts/                     校验、打包、本地启动
+    ├── third-party/                 必要版权与许可
+    └── docs/
+        ├── superpowers/{specs,plans}/
+        ├── design/                  高保真状态评审
+        ├── agent/                   代理交接
+        └── review/                  任务证据、覆盖、风险与来源
+</code></pre>
+<p>本计划包只建立<code>docs/</code>及其内容，以上其他目录是未来实施目标，不是假称已生成的工程。
+<code>src/domain</code>为领域层，<strong>不是</strong>用户<code>Trae-core</code>仓库；禁止以名字相近为由复制/改写财务schema。</p>
+<h2>分支与集成规则</h2>
+<p>主开发分支规划为 <code>feat/aiwork-studio</code>；T18–T22进入<code>feat/prompt-generation</code>，完成后合回主开发分支；T30/T31继续该分支时先从最新主开发基线更新并通过回归。T39–T42用<code>feat/canvas-agent</code>。只用一名实施代理，不在几个分支并发修改公共types/store。</p>
+<p>原用户提示词仓库保持只读来源，之前<code>design/prompt-generation</code>创建返回403的事实不变；本计划没有重试写入或声称分支已存在。<code>origin</code>未配置前仅在已确认目标目录建立本地版本历史，不猜远端仓库。不得对现有三个业务仓库的main直接提交。</p>
+<p>独立审查由主审核对差异与实际测试证据；审查回合与实施上下文分开。没有指定模型的调用能力时报告实际限制，不悄悄把“交给代理”改成另一个模型。</p>
+<h2>九个实施包与依赖</h2>
+<h3>WP00 · 基线、来源与设计收口</h3>
+<p>任务：T01–T03。设计证据、来源清单和测试工具链确定；未通过关键视觉评审不迁入产品UI。</p>
+<p><a href="#WP00">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T01</td>
+  <td>冻结来源、目录与重构范围</td>
+  <td>无</td>
+</tr>
+<tr>
+  <td>T02</td>
+  <td>关键视觉与交互状态收口</td>
+  <td>T01</td>
+</tr>
+<tr>
+  <td>T03</td>
+  <td>建立隔离工程与可阻断回归工具链</td>
+  <td>T01, T02</td>
+</tr>
+</tbody>
+</table>
+<h3>WP01 · 领域模型、存储与安全底座</h3>
+<p>任务：T04–T10。原子保存、跨标签写锁、素材引用和凭据隔离先于收费接口。</p>
+<p><a href="#WP01">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T04</td>
+  <td>统一领域类型、Schema与输入限制</td>
+  <td>T03</td>
+</tr>
+<tr>
+  <td>T05</td>
+  <td>IndexedDB事务保存与可恢复日志</td>
+  <td>T04</td>
+</tr>
+<tr>
+  <td>T06</td>
+  <td>多标签写者租约与运行单飞锁</td>
+  <td>T05</td>
+</tr>
+<tr>
+  <td>T07</td>
+  <td>本地素材导入、元数据和缩略图</td>
+  <td>T05</td>
+</tr>
+<tr>
+  <td>T08</td>
+  <td>引用计数、软删除与任务证据保留</td>
+  <td>T05, T07</td>
+</tr>
+<tr>
+  <td>T09</td>
+  <td>Core凭据会话与脱敏边界</td>
+  <td>T04, T05</td>
+</tr>
+<tr>
+  <td>T10</td>
+  <td>统一命令、修订与撤销重做</td>
+  <td>T04, T05, T06, T08</td>
+</tr>
+</tbody>
+</table>
+<h3>WP02 · 独立工作台与画布</h3>
+<p>任务：T11–T17。真正可编辑、可保存的本地创作闭环，不依赖Agent或真实网关。</p>
+<p><a href="#WP02">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T11</td>
+  <td>应用导航、引导、通用控件与自有品牌</td>
+  <td>T02, T03, T09, T10</td>
+</tr>
+<tr>
+  <td>T12</td>
+  <td>项目主页、模板、归档和回收站</td>
+  <td>T08, T11</td>
+</tr>
+<tr>
+  <td>T13</td>
+  <td>画布选择、平移、缩放与键盘等价操作</td>
+  <td>T10, T11, T12</td>
+</tr>
+<tr>
+  <td>T14</td>
+  <td>五类节点、类型连线和输入检查器</td>
+  <td>T04, T07, T10, T13</td>
+</tr>
+<tr>
+  <td>T15</td>
+  <td>节点菜单、分组、分支与布局</td>
+  <td>T10, T13, T14</td>
+</tr>
+<tr>
+  <td>T16</td>
+  <td>素材库、预览和重新关联</td>
+  <td>T07, T08, T11, T14</td>
+</tr>
+<tr>
+  <td>T17</td>
+  <td>提示词库、模板变量与本地搜索</td>
+  <td>T05, T10, T11, T14</td>
+</tr>
+</tbody>
+</table>
+<h3>WP03 · 本地提示词生成</h3>
+<p>任务：T18–T22。将原规则提炼为独立引擎，页面和侧栏共用草稿与命令。</p>
+<p><a href="#WP03">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T18</td>
+  <td>抽取本地视频提示词规则</td>
+  <td>T03, T04, T17</td>
+</tr>
+<tr>
+  <td>T19</td>
+  <td>约束冲突、引用和分镜总时长校验</td>
+  <td>T04, T18</td>
+</tr>
+<tr>
+  <td>T20</td>
+  <td>提示词草稿、PromptRun与不可变历史</td>
+  <td>T05, T09, T18, T19</td>
+</tr>
+<tr>
+  <td>T21</td>
+  <td>提示词工作台、侧栏和历史面板</td>
+  <td>T11, T16, T18, T19, T20</td>
+</tr>
+<tr>
+  <td>T22</td>
+  <td>草稿到画布的原子插入、应用和建流程</td>
+  <td>T10, T14, T17, T19, T20, T21</td>
+</tr>
+</tbody>
+</table>
+<h3>WP04 · Core 协议与受控执行</h3>
+<p>任务：T23–T32。视频与文字两条独立调用链，确认、幂等、恢复和能力门控。</p>
+<p><a href="#WP04">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T23</td>
+  <td>固定Core公开契约、能力证据与Mock</td>
+  <td>T03, T04, T09</td>
+</tr>
+<tr>
+  <td>T24</td>
+  <td>同源HTTP通道、地址规范与请求鉴权</td>
+  <td>T09, T23</td>
+</tr>
+<tr>
+  <td>T25</td>
+  <td>上传素材映射与最终请求冻结</td>
+  <td>T05, T07, T09, T23, T24</td>
+</tr>
+<tr>
+  <td>T26</td>
+  <td>预检、费用确认和一次性执行批准</td>
+  <td>T10, T14, T23, T25</td>
+</tr>
+<tr>
+  <td>T27</td>
+  <td>视频提交、持久幂等与未知结果</td>
+  <td>T05, T06, T23, T24, T25, T26</td>
+</tr>
+<tr>
+  <td>T28</td>
+  <td>任务轮询、退避和查询状态</td>
+  <td>T23, T24, T27</td>
+</tr>
+<tr>
+  <td>T29</td>
+  <td>依赖执行队列与刷新恢复</td>
+  <td>T06, T10, T26, T27, T28</td>
+</tr>
+<tr>
+  <td>T30</td>
+  <td>Core文字优化与独立PromptRun</td>
+  <td>T09, T19, T20, T23, T24, T26</td>
+</tr>
+<tr>
+  <td>T31</td>
+  <td>AI结果解析、差异与提示词模式联通</td>
+  <td>T19, T20, T21, T30</td>
+</tr>
+<tr>
+  <td>T32</td>
+  <td>作业版本、改版和续写</td>
+  <td>T23, T24, T27, T28</td>
+</tr>
+</tbody>
+</table>
+<h3>WP05 · 结果、备份与恢复</h3>
+<p>任务：T33–T38。任务中心、审片、导入导出及异常恢复形成可长期使用的工作台。</p>
+<p><a href="#WP05">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T33</td>
+  <td>鉴权媒体内容、缓存与浏览器下载</td>
+  <td>T07, T09, T24, T28</td>
+</tr>
+<tr>
+  <td>T34</td>
+  <td>任务中心与底部抽屉共享记录</td>
+  <td>T28, T29, T31, T33</td>
+</tr>
+<tr>
+  <td>T35</td>
+  <td>审片、A/B比较和结果复用</td>
+  <td>T14, T15, T16, T33, T34</td>
+</tr>
+<tr>
+  <td>T36</td>
+  <td>安全项目包、导入迁移与草稿备份</td>
+  <td>T04, T05, T08, T10, T20, T33</td>
+</tr>
+<tr>
+  <td>T37</td>
+  <td>设置、存储占用与缓存清理</td>
+  <td>T09, T11, T23, T24, T36</td>
+</tr>
+<tr>
+  <td>T38</td>
+  <td>恢复中心、活动记录与帮助</td>
+  <td>T06, T08, T28, T34, T36, T37</td>
+</tr>
+</tbody>
+</table>
+<h3>WP06 · Agent 协作</h3>
+<p>任务：T39–T42。仅同机已打开画布；只读、提案、运行三种权限分开。</p>
+<p><a href="#WP06">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T39</td>
+  <td>本机Agent连接与最小授权通道</td>
+  <td>T09, T10, T24, T38</td>
+</tr>
+<tr>
+  <td>T40</td>
+  <td>结构化提案与revision冲突处理</td>
+  <td>T10, T39</td>
+</tr>
+<tr>
+  <td>T41</td>
+  <td>画布MCP工具与唯一执行入口</td>
+  <td>T22, T27, T29, T30, T39, T40</td>
+</tr>
+<tr>
+  <td>T42</td>
+  <td>Agent面板、上下文预览与停止行为</td>
+  <td>T11, T34, T39, T40, T41</td>
+</tr>
+</tbody>
+</table>
+<h3>WP07 · 全量验收与安全加固</h3>
+<p>任务：T43–T46。交互追踪、故障注入、可访问性和性能证据齐备。</p>
+<p><a href="#WP07">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T43</td>
+  <td>条件能力与原功能处置完整性</td>
+  <td>T17, T23, T32, T37, T42</td>
+</tr>
+<tr>
+  <td>T44</td>
+  <td>260项交互与30弹窗追踪回归</td>
+  <td>T12, T13, T14, T15, T16, T17, T21, T22, T26, T31, T34, T35, T37, T38, T42, T43</td>
+</tr>
+<tr>
+  <td>T45</td>
+  <td>安全与故障注入整链路测试</td>
+  <td>T27, T28, T29, T30, T33, T36, T38, T41</td>
+</tr>
+<tr>
+  <td>T46</td>
+  <td>视觉、可访问性与性能验收</td>
+  <td>T02, T44, T45</td>
+</tr>
+</tbody>
+</table>
+<h3>WP08 · 发布、实测与交接</h3>
+<p>任务：T47–T50。独立启动、授权实测、版本迁移和整分支审查，禁止以Mock冒充生产验证。</p>
+<p><a href="#WP08">逐任务步骤与测试</a></p>
+<table>
+<thead>
+<tr>
+  <th>任务</th>
+  <th>独立交付</th>
+  <th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>T47</td>
+  <td>独立启动、部署与发行包扫描</td>
+  <td>T24, T36, T43, T44, T45, T46</td>
+</tr>
+<tr>
+  <td>T48</td>
+  <td>经授权的真实Core联调</td>
+  <td>T27, T28, T30, T32, T33, T47</td>
+</tr>
+<tr>
+  <td>T49</td>
+  <td>升级、备份与回滚演练</td>
+  <td>T36, T45, T47</td>
+</tr>
+<tr>
+  <td>T50</td>
+  <td>整分支独立审查与最终交接</td>
+  <td>T01, T02, T44, T45, T46, T47, T48, T49</td>
+</tr>
+</tbody>
+</table>
+<h2>统一执行流程与证据</h2>
+<p>每任务：先写准确失败用例，运行确认是行为失败而不是环境未配置，再最小实现、测试通过、模块回归、保存日志与截图、范围内提交，最后独立核对。任何bug先复现定位原因，不用屏蔽报错/放宽断言让CI变绿。</p>
+<p>每任务证据文件为 <code>docs/review/evidence/Txx.json</code>，至少包含：base/head commit、实际模型回执、文件清单、测试命令、exit code、测试数与跳过数、截图/trace路径、行为覆盖IDs、真实/模拟标记、已知限制和审查结果。所有状态初始“未开始/待实施”。</p>
+<ul>
+<li>不以Mock完成推断真实视频或账务验证。</li>
+<li>不以构建成功推断按钮正确；不以截图推断交互正确。</li>
+<li>不以“代码有重试”推断幂等有效；必须注入accepted-but-response-lost。</li>
+<li>不以清空数据库解决冲突；本地run尤其未知执行不得丢弃。</li>
+<li>不以复制前端名称冒充全重构；出网/存储/manifest/发行包与版权分别检查。</li>
+<li>只有适配层能执行Core业务；UI组件禁止直接fetch任意供应商。</li>
+<li>禁止从默认工具环境、用户历史配置或MCP DPAPI中搜集秘密；测试仅用显式授权测试Key。</li>
+<li>任何被标“条件受限”的交互有隐藏和无副作用证据，但不计作远端能力验证。</li>
+</ul>
+<h2>命令契约（未来由T03/T47建立）</h2>
+<pre><code class="language-text">npm ci
+npm run typecheck
+npm run lint
+npm run test:unit
+npm run test:e2e
+npm run test:security
+npm run test:trace
+npm run build
+npm run verify
+npm run package:release
+</code></pre>
+<p><code>test:unit</code>为Vitest非watch；<code>test:e2e</code>为Playwright隔离webServer；<code>test:trace</code>验证ID映射及实际用例登记；<code>verify</code>不得包含live或自动下载未经锁定依赖。<code>package:release</code>由T47增加。命令尚未在产品工程运行。</p>
+<p>真实调用只有<code>test:live</code>，同时要求<code>AIWORK_ALLOW_LIVE</code>与本地审批文件；无授权正常跳过并在验收报告明确“未验证”，不能写通过。只读连接测试是health/models，不自动发文字或视频。</p>
+<h2>验收与上线阻塞项</h2>
+<table>
+<thead>
+<tr>
+  <th>门槛</th>
+  <th>通过条件</th>
+  <th>责任</th>
+  <th>当前状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>G00 工作区与代理身份</td>
+  <td>TRAEWORK实际根路径、可写性、执行模型id与high档位须由真实工具回执确认</td>
+  <td>T01/T03</td>
+  <td>待执行核验</td>
+</tr>
+<tr>
+  <td>G01 来源许可与产品品牌</td>
+  <td>产品UI自有品牌；复用许可和版权保留；README附加前端标识要求发布前澄清</td>
+  <td>T01/T47</td>
+  <td>发布前待核验</td>
+</tr>
+<tr>
+  <td>G02 视觉设计收口</td>
+  <td>关键页面状态像素级评审和深浅/窄屏记录齐全</td>
+  <td>T02</td>
+  <td>待证据</td>
+</tr>
+<tr>
+  <td>G03 持久化与单飞</td>
+  <td>存储失败不发收费请求；CAS和run dispatch claim有效</td>
+  <td>T05/T06/T27</td>
+  <td>待实现</td>
+</tr>
+<tr>
+  <td>G04 Core部署能力</td>
+  <td>路由、模型、scope、参数、幂等重放和内容下载以测试契约为准</td>
+  <td>T23/T24/T48</td>
+  <td>待联调</td>
+</tr>
+<tr>
+  <td>G05 提示词与视频分离</td>
+  <td>文字模型强制textOnly；本地整理和建流程无视频POST</td>
+  <td>T18/T22/T30/T31</td>
+  <td>待实现</td>
+</tr>
+<tr>
+  <td>G06 未知与账务</td>
+  <td>提交不明/内容已就绪/账务待核对分别记录</td>
+  <td>T27/T28/T34</td>
+  <td>待实现</td>
+</tr>
+<tr>
+  <td>G07 条件能力</td>
+  <td>生图/音频/远端取消/WebDAV无已验证用户契约不开放</td>
+  <td>T32/T43</td>
+  <td>条件受限</td>
+</tr>
+<tr>
+  <td>G08 真实调用授权</td>
+  <td>独立测试环境、场景/调用次数/消费边界明确</td>
+  <td>T48</td>
+  <td>待授权</td>
+</tr>
+<tr>
+  <td>G09 全部交互追踪</td>
+  <td>260行映射且可执行项有实际行为测试；30弹窗焦点和关闭规则验证</td>
+  <td>T44</td>
+  <td>计划已映射，执行未验收</td>
+</tr>
+<tr>
+  <td>G10 发布安全</td>
+  <td>包扫描、同源代理允许列表、无出网推广、密钥零泄漏、许可齐全</td>
+  <td>T45/T47</td>
+  <td>待执行</td>
+</tr>
+<tr>
+  <td>G11 版本与回滚</td>
+  <td>本地schema兼容、未知run保留；不修改Core财务数据库</td>
+  <td>T49/T50</td>
+  <td>待执行</td>
+</tr>
+</tbody>
+</table>
+<h2>首个执行批次</h2>
+<p>仅启动T01→T02→T03→T04→T05→T06。在TRAEWORK真实位置和执行身份明确、原设计关键视觉证据收口后，完成工作区隔离、基线锁定、工具链、领域模型、事务保存和单飞锁。随后开始T07–T17的本地素材与可用画布。不要先发真实视频来证明接口“能通”。</p>
+<p>本地画布具备可靠保存后，再实施T18–T22提示词纯本地模块。接入Core阶段必须有稳定run、快照、确认和受控请求边界，再开放任何收费入口。</p>
+<h2>计划自检与未完成事实</h2>
+<p>本轮检查的是文档ID、任务依赖、来源副本、文件链接、台账公式与交付结构；不是产品测试。50任务均保持未开始，260交互均待实施，live未授权，发布未验收。</p>
+<p>已批准的设计无需重复审批；关键视觉状态、来源许可适用性、实际工作区访问和live授权仍按各自门槛补证据。本计划作为下一次执行的评审基线；计划范围的认可不自动授权生产部署或真实费用。</p>
+<h2>来源与复核边界</h2>
+<ul>
+<li><p>[S01] 画布设计基线1.0：已批准设计，原文冻结保留旧状态文字。基线：<code>docs/superpowers/specs/AIWORK_Studio_Design_v1.md</code>。来源：会话附件：AIWORK_Studio_Design_v1.md。文件SHA256：<code>78d729195494edfe7af5936f89f19eaf00ac82f4f5d9a76283ee60b50f41c1f4</code>。</p>
+</li>
+<li><p>[S02] 提示词设计增补1.1：2026-09-30T06:41:08Z用户明确认可。基线：<code>docs/superpowers/specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。来源：会话附件：AIWORK_Studio_Prompt_Generation_Design_v1.1.md。文件SHA256：<code>3cc3f508ce38ca589d70387637679cb19f024a543773b30f2459caf4cae0500a</code>。</p>
+</li>
+<li><p>[S03] Infinite Canvas：固定来源，不是已跑过构建。基线：<code>dab19adc0847e32e39b7fc8ff90cb392561fb826</code>。来源：https://github.com/basketikun/infinite-canvas/tree/dab19adc0847e32e39b7fc8ff90cb392561fb826。</p>
+</li>
+<li><p>[S04] Core：公开路由本轮重读；部署状态未验证。基线：<code>c056dffc41c701fb1b78a84c18c2ec139d3d708b</code>。来源：https://github.com/manderzuo/Trae-core/blob/c056dffc41c701fb1b78a84c18c2ec139d3d708b/starlink-dimension-router/src/server.rs。</p>
+</li>
+<li><p>[S05] AI Work助手：沿用设计中的固定基线，不修改。基线：<code>d97904db990485072d50a9065ed9dca58e222b0c</code>。来源：https://github.com/manderzuo/trae-maker/tree/d97904db990485072d50a9065ed9dca58e222b0c。</p>
+</li>
+<li><p>[S06] 既有MCP：沿用设计基线，不假称新分支写入成功。基线：<code>9e7d5c8f249bfc65265c9f90260cd1e350280557</code>。来源：https://github.com/manderzuo/trae-maker-MCP/tree/9e7d5c8f249bfc65265c9f90260cd1e350280557。</p>
+</li>
+<li><p>[S07] 用户提示词规则：增补中已读源码；本轮不执行。基线：<code>d8ba7c104ba7c24e3d28b0c3bede8764544bea8b</code>。来源：https://github.com/manderzuo/prompt-for-seedance-gptimage2.5/blob/d8ba7c104ba7c24e3d28b0c3bede8764544bea8b/src/optimizer/videoRules.js。</p>
+</li>
+<li><p>[S08] Vite官方：工具要求核对，不追随latest。基线：``。来源：https://vite.dev/guide/。</p>
+</li>
+<li><p>[S09] Vitest官方：test:unit采用run非watch。基线：``。来源：https://vitest.dev/guide/。</p>
+</li>
+<li><p>[S10] Playwright官方：隔离webServer配置。基线：``。来源：https://playwright.dev/docs/test-webserver。</p>
+</li>
+</ul>
+</section>
+<details class="workpackage" id="WP00" data-title="WP00 基线、来源与设计收口"><summary>WP00 · 基线、来源与设计收口</summary><section><h1>WP00 · 基线、来源与设计收口 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 设计证据、来源清单和测试工具链确定；未通过关键视觉评审不迁入产品UI。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T01 · 冻结来源、目录与重构范围</h2>
+<p><strong>依赖：</strong> 无。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>docs/review/source-manifest.json</code></li>
+<li><code>docs/review/reuse-ledger.csv</code></li>
+<li><code>docs/review/workspace-check.md</code></li>
+<li><code>third-party/THIRD_PARTY_NOTICES.txt</code></li>
+<li>验收测试：<code>tests/planning/source-policy.test.mjs</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：用户确认的 Design 1.0、Design 1.1 与五个固定来源提交；宿主真实工作区路径。</li>
+<li>产出：readSourceManifest(): SourceManifest；只读来源副本与相对路径清单；remote 默认不创建。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 执行入口必须确认工作区；读取来源失败可继续原创规格核对，不把失败称为已克隆。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-js">import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+test(&quot;T01 冻结来源、目录与重构范围：关键回归&quot;, () =&gt; {
+  const manifest = JSON.parse(readFileSync('docs/review/source-manifest.json', 'utf8'));
+  assert.equal(manifest.target.relativePath, 'TRAEWORK/aiwork-studio');
+  assert.equal(manifest.sources.length, 5);
+  assert.equal(manifest.sources.every(s =&gt; /^[a-f0-9]{40}$/.test(s.commit)), true);
+});
+</code></pre>
+<ul>
+<li><p><code>T01-C01</code>：工作区末级为TRAEWORK下的aiwork-studio。</p>
+</li>
+<li><p><code>T01-C02</code>：五个SHA均完整。</p>
+</li>
+<li><p><code>T01-C03</code>：存在来源许可记录。</p>
+</li>
+<li><p><code>T01-C04</code>：没有把许可作者改成自己。</p>
+</li>
+<li><p><code>T01-C05</code>：外部工作区不可写。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>node --test tests/planning/source-policy.test.mjs</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 先解析宿主TRAEWORK真实位置并记录，不猜C/D盘；已有目录先检查git status，不覆盖。只读抓取固定快照；记录完整扫描/构建尚未做的事项。第三方许可是品牌扫描例外；发布前澄清README额外标识要求。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>node --test tests/planning/source-policy.test.mjs</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T01.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;docs/review/source-manifest.json&quot; &quot;docs/review/reuse-ledger.csv&quot; &quot;docs/review/workspace-check.md&quot; &quot;third-party/THIRD_PARTY_NOTICES.txt&quot; &quot;tests/planning/source-policy.test.mjs&quot; &quot;docs/review/evidence/T01.json&quot;
+git commit -m &quot;feat(t01): source-policy&quot;
+</code></pre>
+<h2>T02 · 关键视觉与交互状态收口</h2>
+<p><strong>依赖：</strong> T01。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>docs/design/visual-review.html</code></li>
+<li><code>docs/design/visual-manifest.json</code></li>
+<li><code>docs/review/visual-signoff.md</code></li>
+<li>验收测试：<code>tests/planning/visual-baseline.test.mjs</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：23页、30弹窗、Design1.0设计令牌和增补P21–P23。</li>
+<li>产出：VisualManifest：pageId、state、viewport、theme、capturePath、reviewDecision。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 未完成关键状态评审的模块不能迁入产品界面；不因此回退到重新讨论已批准的产品范围。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-js">import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+test(&quot;T02 关键视觉与交互状态收口：关键回归&quot;, () =&gt; {
+  const v = JSON.parse(readFileSync('docs/design/visual-manifest.json', 'utf8'));
+  assert.equal(new Set(v.pages.map(p =&gt; p.id)).size, 23);
+  assert.equal(v.criticalStates.every(s =&gt; s.capturePath &amp;&amp; s.reviewDecision === 'approved'), true);
+});
+</code></pre>
+<ul>
+<li><p><code>T02-C01</code>：每页至少空/加载/正常/错误或不适用说明。</p>
+</li>
+<li><p><code>T02-C02</code>：1440/1280/1024宽及深浅主题有关键状态。</p>
+</li>
+<li><p><code>T02-C03</code>：付费确认和PG冲突页无缺图。</p>
+</li>
+<li><p><code>T02-C04</code>：静态页面零业务请求。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>node --test tests/planning/visual-baseline.test.mjs</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 在文档域完成高保真状态稿；继承已有设计而不重新选风格。静态控件仅作评审；需要人的视觉判断写入决策，不用截图存在替代认可。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>node --test tests/planning/visual-baseline.test.mjs</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T02.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;docs/design/visual-review.html&quot; &quot;docs/design/visual-manifest.json&quot; &quot;docs/review/visual-signoff.md&quot; &quot;tests/planning/visual-baseline.test.mjs&quot; &quot;docs/review/evidence/T02.json&quot;
+git commit -m &quot;feat(t02): visual-baseline&quot;
+</code></pre>
+<h2>T03 · 建立隔离工程与可阻断回归工具链</h2>
+<p><strong>依赖：</strong> T01, T02。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>package.json</code></li>
+<li><code>package-lock.json</code></li>
+<li><code>tsconfig.json</code></li>
+<li><code>vite.config.ts</code></li>
+<li><code>vitest.config.ts</code></li>
+<li><code>playwright.config.ts</code></li>
+<li><code>.github/workflows/verify.yml</code></li>
+<li><code>tests/helpers/fixtures.ts</code></li>
+<li><code>tests/helpers/network-guard.ts</code></li>
+<li><code>tests/helpers/network-counter.ts</code></li>
+<li><code>tests/helpers/live-approval.ts</code></li>
+<li>验收测试：<code>tests/planning/test-harness.test.mjs</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：批准的目录/来源/视觉基线；执行宿主核验后的工具版本。</li>
+<li>产出：npm脚本：dev、build、typecheck、lint、test:unit、test:e2e、test:security、test:trace、test:live、verify；fixtures与网络阻断夹具。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 只建新项目，不升级或改动三个业务仓库依赖。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-js">import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+test(&quot;T03 建立隔离工程与可阻断回归工具链：关键回归&quot;, () =&gt; {
+  const p = JSON.parse(readFileSync('package.json', 'utf8'));
+  for (const s of ['build','typecheck','lint','test:unit','test:e2e','test:security','test:trace','test:live','verify']) {
+    assert.equal(typeof p.scripts[s], 'string');
+  }
+  assert.equal(p.scripts['test:unit'].includes('vitest run'), true);
+});
+</code></pre>
+<ul>
+<li><p><code>T03-C01</code>：CI遇公网业务请求立即失败。</p>
+</li>
+<li><p><code>T03-C02</code>：reuseExistingServer=false。</p>
+</li>
+<li><p><code>T03-C03</code>：不存在凭据的Mock测试可运行。</p>
+</li>
+<li><p><code>T03-C04</code>：缺依赖不是允许跳过测试的理由。</p>
+</li>
+<li><p><code>T03-C05</code>：npm ci可复现。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>node --test tests/planning/test-harness.test.mjs</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 选择单一npm锁文件；Node22.x且&gt;=22.12，React19/TS5/Vite7/Zustand5按固定源与兼容测试锁精确版本。Vitest用于新领域测试，Playwright用于浏览器；上游bun测试单独记录，不当成新测试同名替代。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>node --test tests/planning/test-harness.test.mjs</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T03.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;package.json&quot; &quot;package-lock.json&quot; &quot;tsconfig.json&quot; &quot;vite.config.ts&quot; &quot;vitest.config.ts&quot; &quot;playwright.config.ts&quot; &quot;.github/workflows/verify.yml&quot; &quot;tests/helpers/fixtures.ts&quot; &quot;tests/helpers/network-guard.ts&quot; &quot;tests/helpers/network-counter.ts&quot; &quot;tests/helpers/live-approval.ts&quot; &quot;tests/planning/test-harness.test.mjs&quot; &quot;docs/review/evidence/T03.json&quot;
+git commit -m &quot;feat(t03): test-harness&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP01" data-title="WP01 领域模型、存储与安全底座"><summary>WP01 · 领域模型、存储与安全底座</summary><section><h1>WP01 · 领域模型、存储与安全底座 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 原子保存、跨标签写锁、素材引用和凭据隔离先于收费接口。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T04 · 统一领域类型、Schema与输入限制</h2>
+<p><strong>依赖：</strong> T03。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/domain/project.ts</code></li>
+<li><code>src/domain/graph.ts</code></li>
+<li><code>src/domain/asset.ts</code></li>
+<li><code>src/domain/run.ts</code></li>
+<li><code>src/domain/prompt.ts</code></li>
+<li><code>src/domain/connection.ts</code></li>
+<li><code>src/domain/proposal.ts</code></li>
+<li><code>src/domain/validation.ts</code></li>
+<li>验收测试：<code>tests/unit/domain-schema.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Design1.0第6–9节与Design1.1数据契约。</li>
+<li>产出：validateProject(input: unknown): ValidationResult&lt;Project&gt;；Project、Graph、Asset、Run、PromptDraft、PromptRun、Proposal、ConnectionProfile、CapabilityProfile。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 类型及签名冻结后下游使用同名契约。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { validateProject } from '../../src/domain/validation';
+it(&quot;T04 统一领域类型、Schema与输入限制：关键回归&quot;, async () =&gt; {
+  expect(validateProject(f.project({ title: '' })).ok).toBe(false);
+  expect(validateProject(f.project({ title: '中'.repeat(60) })).ok).toBe(true);
+  expect(validateProject(f.project({ title: '中'.repeat(61) })).ok).toBe(false);
+});
+</code></pre>
+<ul>
+<li><p><code>T04-C01</code>：项目名1/60字符通过，0/61拒绝。</p>
+</li>
+<li><p><code>T04-C02</code>：标签1–24字符最多10。</p>
+</li>
+<li><p><code>T04-C03</code>：本地文本64KiB。</p>
+</li>
+<li><p><code>T04-C04</code>：UTF-8发送限制独立。</p>
+</li>
+<li><p><code>T04-C05</code>：未知schema不降级覆写。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/domain-schema.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 类型不依赖React；所有时间存UTC毫秒；requestedSpec与executionSpec分开；authBindingId与增补credentialBindingId统一为本地非秘密绑定，导入显式迁移别名。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/domain-schema.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T04.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/domain/project.ts&quot; &quot;src/domain/graph.ts&quot; &quot;src/domain/asset.ts&quot; &quot;src/domain/run.ts&quot; &quot;src/domain/prompt.ts&quot; &quot;src/domain/connection.ts&quot; &quot;src/domain/proposal.ts&quot; &quot;src/domain/validation.ts&quot; &quot;tests/unit/domain-schema.test.ts&quot; &quot;docs/review/evidence/T04.json&quot;
+git commit -m &quot;feat(t04): domain-schema&quot;
+</code></pre>
+<h2>T05 · IndexedDB事务保存与可恢复日志</h2>
+<p><strong>依赖：</strong> T04。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/infrastructure/storage/database.ts</code></li>
+<li><code>src/infrastructure/storage/project-repository.ts</code></li>
+<li><code>src/infrastructure/storage/run-repository.ts</code></li>
+<li><code>src/infrastructure/storage/migrations.ts</code></li>
+<li><code>tests/helpers/seed-studio.ts</code></li>
+<li>验收测试：<code>tests/unit/project-store.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Project/Run/PromptRun与统一schema。</li>
+<li>产出：openStudioDb(): Promise&lt;StudioDb&gt;；saveProject(project: Project, expectedRevision: number): Promise&lt;SaveResult&gt;；saveRun(run: Run): Promise&lt;void&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { saveProject } from '../../src/infrastructure/storage/project-repository';
+it(&quot;T05 IndexedDB事务保存与可恢复日志：关键回归&quot;, async () =&gt; {
+  await f.persistProject(f.project({ id:'p1', revision:1 }));
+  const saved = await saveProject(f.project({ id:'p1', revision:2 }), 0);
+  expect(saved.status).toBe('conflict');
+  expect((await f.readProject('p1')).revision).toBe(1);
+});
+</code></pre>
+<ul>
+<li><p><code>T05-C01</code>：只有事务complete后显示已保存。</p>
+</li>
+<li><p><code>T05-C02</code>：request成功但事务abort不算成功。</p>
+</li>
+<li><p><code>T05-C03</code>：CAS冲突不覆盖。</p>
+</li>
+<li><p><code>T05-C04</code>：QuotaExceeded保留内存草稿并阻止收费。</p>
+</li>
+<li><p><code>T05-C05</code>：DB blocked提示关闭旧页。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/project-store.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 使用独立aiwork-studio:v1命名空间；原子保存图/引用和run；索引任务、项目、授权绑定；不把localForage多次写入当跨表事务。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/project-store.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T05.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/infrastructure/storage/database.ts&quot; &quot;src/infrastructure/storage/project-repository.ts&quot; &quot;src/infrastructure/storage/run-repository.ts&quot; &quot;src/infrastructure/storage/migrations.ts&quot; &quot;tests/helpers/seed-studio.ts&quot; &quot;tests/unit/project-store.test.ts&quot; &quot;docs/review/evidence/T05.json&quot;
+git commit -m &quot;feat(t05): project-store&quot;
+</code></pre>
+<h2>T06 · 多标签写者租约与运行单飞锁</h2>
+<p><strong>依赖：</strong> T05。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/infrastructure/storage/project-lease.ts</code></li>
+<li><code>src/infrastructure/storage/run-lease.ts</code></li>
+<li><code>src/infrastructure/storage/tab-channel.ts</code></li>
+<li>验收测试：<code>tests/unit/project-lease.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：StudioDb事务、Project.revision与Run持久状态。</li>
+<li>产出：acquireProjectLease(projectId: string, tabId: string, now: number): Promise&lt;LeaseResult&gt;；claimRunDispatch(runId: string, tabId: string): Promise&lt;ClaimResult&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> F-01, F-02。</p>
+<p><strong>页面/弹窗主责：</strong> D24。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { acquireProjectLease } from '../../src/infrastructure/storage/project-lease';
+it(&quot;T06 多标签写者租约与运行单飞锁：关键回归&quot;, async () =&gt; {
+  const a = await acquireProjectLease('p1','tab-a',1000);
+  const b = await acquireProjectLease('p1','tab-b',1001);
+  expect(a.ok).toBe(true);
+  expect(b.ok).toBe(false);
+});
+</code></pre>
+<ul>
+<li><p><code>T06-C01</code>：两个标签同revision只一人写入。</p>
+</li>
+<li><p><code>T06-C02</code>：强制接管使旧epoch失效。</p>
+</li>
+<li><p><code>T06-C03</code>：休眠标签不能凭旧租约提交。</p>
+</li>
+<li><p><code>T06-C04</code>：同run只有一个dispatch claim。</p>
+</li>
+<li><p><code>T06-C05</code>：广播丢失仍由数据库阻止覆盖。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/project-lease.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 租约30秒、前台5秒续租作为实现初值；所有写入检查lease epoch与revision；接管后重新加载。run锁须跨标签独立于UI项目锁，网络发出后不得因租约过期自动再发。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/project-lease.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T06.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/infrastructure/storage/project-lease.ts&quot; &quot;src/infrastructure/storage/run-lease.ts&quot; &quot;src/infrastructure/storage/tab-channel.ts&quot; &quot;tests/unit/project-lease.test.ts&quot; &quot;docs/review/evidence/T06.json&quot;
+git commit -m &quot;feat(t06): project-lease&quot;
+</code></pre>
+<h2>T07 · 本地素材导入、元数据和缩略图</h2>
+<p><strong>依赖：</strong> T05。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/assets/import-service.ts</code></li>
+<li><code>src/features/assets/media-probe.ts</code></li>
+<li><code>src/features/assets/hash-worker.ts</code></li>
+<li><code>src/features/assets/thumbnail-service.ts</code></li>
+<li>验收测试：<code>tests/unit/asset-import.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Asset模型与StudioDb。</li>
+<li>产出：importAssets(files: File[], projectId?: string): Promise&lt;ImportReport&gt;；probeMedia(blob: Blob): Promise&lt;MediaMetadata&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> M-01, M-02。</p>
+<p><strong>页面/弹窗主责：</strong> D04。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { importAssets } from '../../src/features/assets/import-service';
+it(&quot;T07 本地素材导入、元数据和缩略图：关键回归&quot;, async () =&gt; {
+  const report = await importAssets(f.validFiles(51));
+  expect(report.errorCode).toBe('import_file_count_exceeded');
+  expect(f.networkRequests()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T07-C01</code>：最多50个文件。</p>
+</li>
+<li><p><code>T07-C02</code>：第51个显示产品上限。</p>
+</li>
+<li><p><code>T07-C03</code>：损坏文件逐项失败。</p>
+</li>
+<li><p><code>T07-C04</code>：hash相同去重而不同同名保留。</p>
+</li>
+<li><p><code>T07-C05</code>：媒体时长不可读显示未知。</p>
+</li>
+<li><p><code>T07-C06</code>：文件选择零上传。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/asset-import.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 哈希和大文件处理移出主线程；blob写成功后关联asset；先导入再生成时才Core上传；首版图片/视频/音频本地预览均不要求Key。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/asset-import.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T07.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/assets/import-service.ts&quot; &quot;src/features/assets/media-probe.ts&quot; &quot;src/features/assets/hash-worker.ts&quot; &quot;src/features/assets/thumbnail-service.ts&quot; &quot;tests/unit/asset-import.test.ts&quot; &quot;docs/review/evidence/T07.json&quot;
+git commit -m &quot;feat(t07): asset-import&quot;
+</code></pre>
+<h2>T08 · 引用计数、软删除与任务证据保留</h2>
+<p><strong>依赖：</strong> T05, T07。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/assets/reference-index.ts</code></li>
+<li><code>src/features/projects/delete-policy.ts</code></li>
+<li><code>src/features/projects/trash-service.ts</code></li>
+<li>验收测试：<code>tests/unit/asset-retention.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Project/Asset/Run与源文件引用。</li>
+<li>产出：getDeletionImpact(target: DeleteTarget): Promise&lt;DeletionImpact&gt;；deleteLocalResource(target: DeleteTarget, confirmation: DeletionConfirmation): Promise&lt;DeleteResult&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> M-12, D-07, D-08。</p>
+<p><strong>页面/弹窗主责：</strong> D03, D19。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { getDeletionImpact } from '../../src/features/projects/delete-policy';
+it(&quot;T08 引用计数、软删除与任务证据保留：关键回归&quot;, async () =&gt; {
+  await f.persistActiveRun({ projectId:'p1', executionState:'submit_unknown' });
+  const impact = await getDeletionImpact({kind:'project', id:'p1', mode:'permanent'});
+  expect(impact.blockers).toContain('active_or_unknown_tracking');
+  expect(f.networkRequests()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T08-C01</code>：删除节点不删asset/run。</p>
+</li>
+<li><p><code>T08-C02</code>：引用素材禁止永久删。</p>
+</li>
+<li><p><code>T08-C03</code>：活动/未知run唯一追踪不可删。</p>
+</li>
+<li><p><code>T08-C04</code>：同一blob跨项目引用不误清。</p>
+</li>
+<li><p><code>T08-C05</code>：批量部分失败准确报告。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/asset-retention.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 用事务维护或在删除前重算引用，历史run输入也算引用；无默认定时清回收站；仅缩略图可无损重建。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/asset-retention.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T08.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/assets/reference-index.ts&quot; &quot;src/features/projects/delete-policy.ts&quot; &quot;src/features/projects/trash-service.ts&quot; &quot;tests/unit/asset-retention.test.ts&quot; &quot;docs/review/evidence/T08.json&quot;
+git commit -m &quot;feat(t08): asset-retention&quot;
+</code></pre>
+<h2>T09 · Core凭据会话与脱敏边界</h2>
+<p><strong>依赖：</strong> T04, T05。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/security/credential-session.ts</code></li>
+<li><code>src/security/redaction.ts</code></li>
+<li><code>src/domain/authorization.ts</code></li>
+<li>验收测试：<code>tests/unit/credential-session.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：ConnectionProfile、AuthBinding与内存会话。</li>
+<li>产出：setSessionCredential(bindingId: string, secret: string): void；withCredential&lt;T&gt;(bindingId: string, action: (secret: string)=&gt;Promise&lt;T&gt;): Promise&lt;T&gt;；redact(input: unknown): unknown。</li>
+</ul>
+<p><strong>交互主责：</strong> J-11, K-04, K-05。</p>
+<p><strong>页面/弹窗主责：</strong> D12。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { setSessionCredential } from '../../src/security/credential-session';
+import { redact } from '../../src/security/redaction';
+it(&quot;T09 Core凭据会话与脱敏边界：关键回归&quot;, async () =&gt; {
+  setSessionCredential('binding-a','test-secret-not-a-real-key');
+  expect(await f.persistedText()).not.toContain('test-secret-not-a-real-key');
+  expect(JSON.stringify(redact({authorization:'Bearer test-secret-not-a-real-key'})))
+   .not.toContain('test-secret-not-a-real-key');
+});
+</code></pre>
+<ul>
+<li><p><code>T09-C01</code>：Key不进入IndexedDB/localStorage/URL/日志/导出/Agent。</p>
+</li>
+<li><p><code>T09-C02</code>：刷新清空凭据。</p>
+</li>
+<li><p><code>T09-C03</code>：不同Key不得更新旧run绑定。</p>
+</li>
+<li><p><code>T09-C04</code>：复制配置不含秘密。</p>
+</li>
+<li><p><code>T09-C05</code>：管理员或bridge凭据不作为解决方案。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/credential-session.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> Key不写Zustand持久化Store；本地绑定只是防误用标识，不替代Core鉴权；输入显隐失焦隐藏；诊断采用字段白名单而非只靠正则。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/credential-session.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T09.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/security/credential-session.ts&quot; &quot;src/security/redaction.ts&quot; &quot;src/domain/authorization.ts&quot; &quot;tests/unit/credential-session.test.ts&quot; &quot;docs/review/evidence/T09.json&quot;
+git commit -m &quot;feat(t09): credential-session&quot;
+</code></pre>
+<h2>T10 · 统一命令、修订与撤销重做</h2>
+<p><strong>依赖：</strong> T04, T05, T06, T08。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/commands/registry.ts</code></li>
+<li><code>src/application/commands/apply-command.ts</code></li>
+<li><code>src/application/commands/history.ts</code></li>
+<li>验收测试：<code>tests/unit/project-commands.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Graph、Proposal、lease、CAS存储。</li>
+<li>产出：applyCommand(envelope: CommandEnvelope): Promise&lt;CommandReceipt&gt;；undoProject(projectId: string, expectedRevision: number): Promise&lt;CommandReceipt&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { applyCommand } from '../../src/application/commands/apply-command';
+it(&quot;T10 统一命令、修订与撤销重做：关键回归&quot;, async () =&gt; {
+  const command = f.addTextCommand({id:'cmd-1',projectId:'p1',baseRevision:1});
+  await applyCommand(command);
+  await applyCommand(command);
+  expect((await f.readGraph('p1')).nodes).toHaveLength(1);
+  expect(f.networkRequests()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T10-C01</code>：未知命令/HTML/Shell拒绝。</p>
+</li>
+<li><p><code>T10-C02</code>：UI和Agent走同命令。</p>
+</li>
+<li><p><code>T10-C03</code>：撤销产生新revision不重发任务。</p>
+</li>
+<li><p><code>T10-C04</code>：重复commandId返回receipt不双加节点。</p>
+</li>
+<li><p><code>T10-C05</code>：断开输入不改运行快照。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/project-commands.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 命令包含id/origin/projectId/baseRevision/operations；origin由可信入口赋值，不能由Agent伪装ui；事务提交语义操作；收费执行独立命令且必须有确认凭据。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/project-commands.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T10.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/commands/registry.ts&quot; &quot;src/application/commands/apply-command.ts&quot; &quot;src/application/commands/history.ts&quot; &quot;tests/unit/project-commands.test.ts&quot; &quot;docs/review/evidence/T10.json&quot;
+git commit -m &quot;feat(t10): project-commands&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP02" data-title="WP02 独立工作台与画布"><summary>WP02 · 独立工作台与画布</summary><section><h1>WP02 · 独立工作台与画布 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 真正可编辑、可保存的本地创作闭环，不依赖Agent或真实网关。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T11 · 应用导航、引导、通用控件与自有品牌</h2>
+<p><strong>依赖：</strong> T02, T03, T09, T10。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/app/App.tsx</code></li>
+<li><code>src/app/routes.tsx</code></li>
+<li><code>src/app/navigation.ts</code></li>
+<li><code>src/ui/tokens.css</code></li>
+<li><code>src/ui/Button.tsx</code></li>
+<li><code>src/ui/Dialog.tsx</code></li>
+<li><code>src/ui/Toast.tsx</code></li>
+<li><code>src/ui/copy.zh-CN.ts</code></li>
+<li><code>public/favicon.svg</code></li>
+<li>验收测试：<code>tests/e2e/app-shell.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：视觉基线、连接会话、统一命令。</li>
+<li>产出：App(): ReactElement；导航配置；Dialog焦点管理；通用按钮默认/hover/focus/pressed/disabled/busy。</li>
+</ul>
+<p><strong>交互主责：</strong> G-01, G-02, G-03, G-04, G-05, G-07, G-08, G-09, G-10, W-01, W-02, W-03, W-04, W-05, W-06。</p>
+<p><strong>页面/弹窗主责：</strong> P01, D23。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T11 应用导航、引导、通用控件与自有品牌：关键回归&quot;, async ({ page }) =&gt; {
+  await page.goto('/welcome');
+  await page.getByRole('button',{name:'进入本地模式'}).click();
+  await expect(page).toHaveURL(/\/projects/);
+  await expect(page.getByRole('link',{name:'提示词生成',exact:true})).toBeVisible();
+});
+</code></pre>
+<ul>
+<li><p><code>T11-C01</code>：本地模式可进入项目。</p>
+</li>
+<li><p><code>T11-C02</code>：八个导航含提示词生成与提示词库。</p>
+</li>
+<li><p><code>T11-C03</code>：未知路由自有404。</p>
+</li>
+<li><p><code>T11-C04</code>：Esc逐层关闭。</p>
+</li>
+<li><p><code>T11-C05</code>：IME输入不触发快捷键。</p>
+</li>
+<li><p><code>T11-C06</code>：所有外链显式触发。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/app-shell.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 纯字标AI WORK Studio；1440基准，保存失败常驻；系统时间显示浏览器时区和UTC来源，非硬编码首尔；不显示假积分。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/app-shell.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T11.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/app/App.tsx&quot; &quot;src/app/routes.tsx&quot; &quot;src/app/navigation.ts&quot; &quot;src/ui/tokens.css&quot; &quot;src/ui/Button.tsx&quot; &quot;src/ui/Dialog.tsx&quot; &quot;src/ui/Toast.tsx&quot; &quot;src/ui/copy.zh-CN.ts&quot; &quot;public/favicon.svg&quot; &quot;tests/e2e/app-shell.spec.ts&quot; &quot;docs/review/evidence/T11.json&quot;
+git commit -m &quot;feat(t11): app-shell&quot;
+</code></pre>
+<h2>T12 · 项目主页、模板、归档和回收站</h2>
+<p><strong>依赖：</strong> T08, T11。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/projects/ProjectsPage.tsx</code></li>
+<li><code>src/features/projects/ProjectDetails.tsx</code></li>
+<li><code>src/features/projects/TrashPage.tsx</code></li>
+<li><code>src/features/projects/project-service.ts</code></li>
+<li>验收测试：<code>tests/e2e/project-library.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：ProjectRepository、DeletePolicy、命令。</li>
+<li>产出：createProject(input: NewProjectInput): Promise&lt;Project&gt;；cloneProject(id: string): Promise&lt;Project&gt;；ProjectsPage/TrashPage。</li>
+</ul>
+<p><strong>交互主责：</strong> P-01, P-02, P-03, P-04, P-05, P-06, P-07, P-08, P-09, P-10, P-11, P-12, P-13, P-14, Z-01, Z-02, Z-03。</p>
+<p><strong>页面/弹窗主责：</strong> P02, P17, D01, D02。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T12 项目主页、模板、归档和回收站：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'project-library');
+  await page.goto('/projects');
+  await page.locator('[data-interaction-id=&quot;P-08&quot;]').first().click();
+  await expect(page.getByText('远端任务仍可能继续')).toBeVisible();
+  await page.getByRole('button',{name:'返回',exact:true}).click();
+});
+</code></pre>
+<ul>
+<li><p><code>T12-C01</code>：创建重开不自动提交。</p>
+</li>
+<li><p><code>T12-C02</code>：复制无队列/Key。</p>
+</li>
+<li><p><code>T12-C03</code>：软删仍能追踪原任务。</p>
+</li>
+<li><p><code>T12-C04</code>：共享媒体安全。</p>
+</li>
+<li><p><code>T12-C05</code>：搜索排序与多选无丢项。</p>
+</li>
+<li><p><code>T12-C06</code>：1–60字符校验。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/project-library.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 支持项目卡/列表、收藏、归档、详情和批量结果；内置模板只含原创静态结构，无模型执行授权。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/project-library.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T12.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/projects/ProjectsPage.tsx&quot; &quot;src/features/projects/ProjectDetails.tsx&quot; &quot;src/features/projects/TrashPage.tsx&quot; &quot;src/features/projects/project-service.ts&quot; &quot;tests/e2e/project-library.spec.ts&quot; &quot;docs/review/evidence/T12.json&quot;
+git commit -m &quot;feat(t12): project-library&quot;
+</code></pre>
+<h2>T13 · 画布选择、平移、缩放与键盘等价操作</h2>
+<p><strong>依赖：</strong> T10, T11, T12。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/canvas/CanvasPage.tsx</code></li>
+<li><code>src/features/canvas/viewport.ts</code></li>
+<li><code>src/features/canvas/selection.ts</code></li>
+<li><code>src/features/canvas/CanvasToolbar.tsx</code></li>
+<li><code>src/features/canvas/NodeOutline.tsx</code></li>
+<li>验收测试：<code>tests/e2e/canvas-viewport.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Graph与项目命令；上游交互算法的合规复用清单。</li>
+<li>产出：updateViewport(view: Viewport, action: ViewAction): Viewport；selectNodes(graph: Graph, query: SelectionQuery): string[]。</li>
+</ul>
+<p><strong>交互主责：</strong> C-01, C-02, C-03, C-04, C-05, C-06, C-07, C-08, C-09, C-10, C-11, C-12, C-13, C-14, N-01。</p>
+<p><strong>页面/弹窗主责：</strong> P03。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T13 画布选择、平移、缩放与键盘等价操作：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'minimal-project');
+  await page.goto('/projects/p1/canvas');
+  await page.locator('[data-interaction-id=&quot;C-05&quot;]').fill('201');
+  await page.locator('[data-interaction-id=&quot;C-05&quot;]').press('Enter');
+  await expect(page.getByText('缩放范围为25%–200%')).toBeVisible();
+});
+</code></pre>
+<ul>
+<li><p><code>T13-C01</code>：25%–200%缩放边界。</p>
+</li>
+<li><p><code>T13-C02</code>：适配全图留48px。</p>
+</li>
+<li><p><code>T13-C03</code>：框选和大纲等价。</p>
+</li>
+<li><p><code>T13-C04</code>：空格不拦截输入。</p>
+</li>
+<li><p><code>T13-C05</code>：拖动松手一次记录。</p>
+</li>
+<li><p><code>T13-C06</code>：只读项目不能移动。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 复用审核过的命中/选区计算，不叠加第二套画布引擎。菜单、快捷键、拖动使用同命令；视口偏好与业务图修改区分。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T13.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/canvas/CanvasPage.tsx&quot; &quot;src/features/canvas/viewport.ts&quot; &quot;src/features/canvas/selection.ts&quot; &quot;src/features/canvas/CanvasToolbar.tsx&quot; &quot;src/features/canvas/NodeOutline.tsx&quot; &quot;tests/e2e/canvas-viewport.spec.ts&quot; &quot;docs/review/evidence/T13.json&quot;
+git commit -m &quot;feat(t13): canvas-viewport&quot;
+</code></pre>
+<h2>T14 · 五类节点、类型连线和输入检查器</h2>
+<p><strong>依赖：</strong> T04, T07, T10, T13。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/canvas/nodes/TextNode.tsx</code></li>
+<li><code>src/features/canvas/nodes/AssetNode.tsx</code></li>
+<li><code>src/features/canvas/nodes/VideoNode.tsx</code></li>
+<li><code>src/features/canvas/nodes/ResultNode.tsx</code></li>
+<li><code>src/features/canvas/nodes/GroupNode.tsx</code></li>
+<li><code>src/domain/graph-validation.ts</code></li>
+<li><code>src/features/canvas/InputInspector.tsx</code></li>
+<li>验收测试：<code>tests/e2e/typed-nodes.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Graph/CapabilityProfile/Asset/Run。</li>
+<li>产出：validateConnection(graph: Graph, edge: Edge, caps: CapabilityProfile): ValidationResult&lt;Edge&gt;；getOrderedInputs(graph: Graph, nodeId: string): InputBinding[]。</li>
+</ul>
+<p><strong>交互主责：</strong> N-02, N-13, N-14, N-15, N-16, T-01, T-02, T-03, T-04, V-01, V-02, V-03, V-04, V-05, V-06, V-07。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T14 五类节点、类型连线和输入检查器：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'unverified-capability');
+  await page.goto('/projects/p1/canvas');
+  await page.getByTestId('node-video-1').click();
+  await expect(page.getByRole('button',{name:'确认生成',exact:true})).toHaveCount(0);
+  await expect(page.getByText('尚未验证此功能是否可用')).toBeVisible();
+});
+</code></pre>
+<ul>
+<li><p><code>T14-C01</code>：自连/循环/悬空/类型不匹配/超量拒绝。</p>
+</li>
+<li><p><code>T14-C02</code>：参考顺序不随布局改变。</p>
+</li>
+<li><p><code>T14-C03</code>：结果固定asset/run。</p>
+</li>
+<li><p><code>T14-C04</code>：未知能力能存草稿不能执行。</p>
+</li>
+<li><p><code>T14-C05</code>：提示词UTF-8限长。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/typed-nodes.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 标准节点320px、视频360px、文本最小240px；字段变化只标待更新；组没有自动发送全部成员的输入口；复杂字段按schema渲染。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/typed-nodes.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T14.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/canvas/nodes/TextNode.tsx&quot; &quot;src/features/canvas/nodes/AssetNode.tsx&quot; &quot;src/features/canvas/nodes/VideoNode.tsx&quot; &quot;src/features/canvas/nodes/ResultNode.tsx&quot; &quot;src/features/canvas/nodes/GroupNode.tsx&quot; &quot;src/domain/graph-validation.ts&quot; &quot;src/features/canvas/InputInspector.tsx&quot; &quot;tests/e2e/typed-nodes.spec.ts&quot; &quot;docs/review/evidence/T14.json&quot;
+git commit -m &quot;feat(t14): typed-nodes&quot;
+</code></pre>
+<h2>T15 · 节点菜单、分组、分支与布局</h2>
+<p><strong>依赖：</strong> T10, T13, T14。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/canvas/NodeMenu.tsx</code></li>
+<li><code>src/features/canvas/group-layout.ts</code></li>
+<li><code>src/features/canvas/branch-command.ts</code></li>
+<li><code>src/features/canvas/ArrangePreview.tsx</code></li>
+<li>验收测试：<code>tests/e2e/canvas-layout.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：applyCommand与validateConnection。</li>
+<li>产出：createBranch(graph: Graph, sourceId: string): GraphOperation[]；arrangeNodes(graph: Graph, ids: string[]): PositionPatch[]。</li>
+</ul>
+<p><strong>交互主责：</strong> C-20, N-03, N-04, N-05, N-06, N-07, N-08, N-09, N-10, N-11, N-12, N-17, N-18, N-19。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T15 节点菜单、分组、分支与布局：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'minimal-project');
+  await page.goto('/projects/p1/canvas');
+  await page.getByTestId('node-text-1').click();
+  await page.keyboard.press('Control+d');
+  await expect(page.locator('[data-node-type=&quot;text&quot;]')).toHaveCount(2);
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T15-C01</code>：复制偏移24px并重建节点ID。</p>
+</li>
+<li><p><code>T15-C02</code>：分组/解组坐标不跳。</p>
+</li>
+<li><p><code>T15-C03</code>：收起不改变依赖。</p>
+</li>
+<li><p><code>T15-C04</code>：对齐只改布局。</p>
+</li>
+<li><p><code>T15-C05</code>：删除保留run。</p>
+</li>
+<li><p><code>T15-C06</code>：选结果不自动替换已有执行。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/canvas-layout.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 布局先预览后一次提交；分支复制配置和明确引用，不携带审批；全图整理以镜头组为单位，禁止改变输入序号。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/canvas-layout.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T15.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/canvas/NodeMenu.tsx&quot; &quot;src/features/canvas/group-layout.ts&quot; &quot;src/features/canvas/branch-command.ts&quot; &quot;src/features/canvas/ArrangePreview.tsx&quot; &quot;tests/e2e/canvas-layout.spec.ts&quot; &quot;docs/review/evidence/T15.json&quot;
+git commit -m &quot;feat(t15): canvas-layout&quot;
+</code></pre>
+<h2>T16 · 素材库、预览和重新关联</h2>
+<p><strong>依赖：</strong> T07, T08, T11, T14。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/assets/AssetsPage.tsx</code></li>
+<li><code>src/features/assets/AssetInspector.tsx</code></li>
+<li><code>src/features/assets/AssetPreview.tsx</code></li>
+<li><code>src/features/assets/relink-service.ts</code></li>
+<li>验收测试：<code>tests/e2e/asset-library.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：importAssets、DeletePolicy、metadata与assetId。</li>
+<li>产出：relinkAsset(assetId: string, file: File): Promise&lt;RelinkResult&gt;；AssetPreview({assetId}: {assetId:string}): ReactElement。</li>
+</ul>
+<p><strong>交互主责：</strong> M-03, M-04, M-05, M-06, M-07, M-08, M-09, M-10, M-11, M-13, M-14, M-15。</p>
+<p><strong>页面/弹窗主责：</strong> P04, D07, D10。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T16 素材库、预览和重新关联：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'asset-library');
+  await page.goto('/assets');
+  await page.locator('[data-interaction-id=&quot;M-04&quot;]').first().click();
+  expect(await page.locator('video,audio').evaluateAll(xs =&gt; xs.filter(x =&gt; !x.paused).length)).toBe(1);
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T16-C01</code>：仅一个播放器活动。</p>
+</li>
+<li><p><code>T16-C02</code>：初始静音不自动播。</p>
+</li>
+<li><p><code>T16-C03</code>：相同hash恢复，不同hash须新素材确认。</p>
+</li>
+<li><p><code>T16-C04</code>：下载只能报告浏览器触发。</p>
+</li>
+<li><p><code>T16-C05</code>：筛选/标签/引用定位可键盘操作。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/asset-library.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 音频只导入/播放；媒体对象URL不用时释放；受控缺文件恢复，不扫描磁盘；上下游变更显示影响范围。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/asset-library.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T16.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/assets/AssetsPage.tsx&quot; &quot;src/features/assets/AssetInspector.tsx&quot; &quot;src/features/assets/AssetPreview.tsx&quot; &quot;src/features/assets/relink-service.ts&quot; &quot;tests/e2e/asset-library.spec.ts&quot; &quot;docs/review/evidence/T16.json&quot;
+git commit -m &quot;feat(t16): asset-library&quot;
+</code></pre>
+<h2>T17 · 提示词库、模板变量与本地搜索</h2>
+<p><strong>依赖：</strong> T05, T10, T11, T14。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/prompts/PromptsPage.tsx</code></li>
+<li><code>src/features/prompts/prompt-library.ts</code></li>
+<li><code>src/features/prompts/TemplateVariables.tsx</code></li>
+<li><code>src/features/prompts/prompt-search.ts</code></li>
+<li>验收测试：<code>tests/e2e/prompt-library.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Project/文本命令与本地存储。</li>
+<li>产出：savePrompt(entry: PromptLibraryEntry, expectedRevision?: number): Promise&lt;PromptLibraryEntry&gt;；fillTemplate(entry: PromptLibraryEntry, values: Record&lt;string,string&gt;): ValidationResult&lt;string&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> T-05, L-01, L-02, L-03, L-04, L-05, L-06, L-07, L-08, L-09, L-10, L-11, L-12。</p>
+<p><strong>页面/弹窗主责：</strong> P05, D09。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T17 提示词库、模板变量与本地搜索：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'template-with-required-variable');
+  await page.goto('/prompts');
+  await page.locator('[data-interaction-id=&quot;L-07&quot;]').first().click();
+  await expect(page.getByRole('button',{name:'复制最终提示词'})).toBeDisabled();
+});
+</code></pre>
+<ul>
+<li><p><code>T17-C01</code>：变量缺失不能复制最终文案。</p>
+</li>
+<li><p><code>T17-C02</code>：插入仅建节点。</p>
+</li>
+<li><p><code>T17-C03</code>：同名导入另存。</p>
+</li>
+<li><p><code>T17-C04</code>：标签长度/数量限值。</p>
+</li>
+<li><p><code>T17-C05</code>：来源保留。</p>
+</li>
+<li><p><code>T17-C06</code>：远端七个源不自动加载。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/prompt-library.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 300ms搜索去抖；本地保存/收藏/详情/导入导出；T-06润色统一转PG入口，不再做第二套AI逻辑。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/prompt-library.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T17.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/prompts/PromptsPage.tsx&quot; &quot;src/features/prompts/prompt-library.ts&quot; &quot;src/features/prompts/TemplateVariables.tsx&quot; &quot;src/features/prompts/prompt-search.ts&quot; &quot;tests/e2e/prompt-library.spec.ts&quot; &quot;docs/review/evidence/T17.json&quot;
+git commit -m &quot;feat(t17): prompt-library&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP03" data-title="WP03 本地提示词生成"><summary>WP03 · 本地提示词生成</summary><section><h1>WP03 · 本地提示词生成 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 将原规则提炼为独立引擎，页面和侧栏共用草稿与命令。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T18 · 抽取本地视频提示词规则</h2>
+<p><strong>依赖：</strong> T03, T04, T17。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/domain/prompt-engine/video-scenes.ts</code></li>
+<li><code>src/domain/prompt-engine/compile-video.ts</code></li>
+<li><code>src/domain/prompt-engine/legacy-adapter.ts</code></li>
+<li><code>tests/fixtures/prompt-rules.json</code></li>
+<li>验收测试：<code>tests/unit/video-prompt-compiler.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：原仓库videoRules.js固定快照；PromptDraft输入模型。</li>
+<li>产出：compileVideoPrompt(input: PromptCompileInput): PromptCompileResult；VIDEO_SCENES: readonly VideoScene[]。</li>
+</ul>
+<p><strong>交互主责：</strong> PG04, PG11, PG13, PG14。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { compileVideoPrompt } from '../../src/domain/prompt-engine/compile-video';
+it(&quot;T18 抽取本地视频提示词规则：关键回归&quot;, async () =&gt; {
+  const out=compileVideoPrompt(f.promptInput({ userRequest:'康济健葆，1位人物，不切镜', sceneId:'product' }));
+  expect(out.finalPrompt).toContain('康济健葆');
+  expect(out.finalPrompt).toContain('不切镜');
+  expect(f.networkRequests()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T18-C01</code>：11类方向均有回归样本。</p>
+</li>
+<li><p><code>T18-C02</code>：输入为空拒绝。</p>
+</li>
+<li><p><code>T18-C03</code>：显式主体/品牌汉字不改。</p>
+</li>
+<li><p><code>T18-C04</code>：规则函数零网络/DOM/文件IO。</p>
+</li>
+<li><p><code>T18-C05</code>：原15秒固定默认冲突不照搬。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/video-prompt-compiler.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 先记录原函数行为，再以新规格编译目标回归；迁移纯规则不复制Electron、支付、全局CSS或全部图库。规则输出标规则整理草稿。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/video-prompt-compiler.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T18.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/domain/prompt-engine/video-scenes.ts&quot; &quot;src/domain/prompt-engine/compile-video.ts&quot; &quot;src/domain/prompt-engine/legacy-adapter.ts&quot; &quot;tests/fixtures/prompt-rules.json&quot; &quot;tests/unit/video-prompt-compiler.test.ts&quot; &quot;docs/review/evidence/T18.json&quot;
+git commit -m &quot;feat(t18): video-prompt-compiler&quot;
+</code></pre>
+<h2>T19 · 约束冲突、引用和分镜总时长校验</h2>
+<p><strong>依赖：</strong> T04, T18。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/domain/prompt-engine/constraints.ts</code></li>
+<li><code>src/domain/prompt-engine/reference-alias.ts</code></li>
+<li><code>src/domain/prompt-engine/shot-plan.ts</code></li>
+<li><code>src/domain/prompt-engine/validate-result.ts</code></li>
+<li>验收测试：<code>tests/unit/prompt-validation.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：PromptCompileInput/Result与CapabilityProfile。</li>
+<li>产出：resolveConstraints(input: PromptCompileInput): ConstraintResolution；validatePromptResult(result: PromptResultVersion, input: PromptCompileInput, caps: CapabilityProfile): ValidationIssue[]。</li>
+</ul>
+<p><strong>交互主责：</strong> PG07, PG08, PG09, PG10, PG12, PG24。</p>
+<p><strong>页面/弹窗主责：</strong> PGD03。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { resolveConstraints } from '../../src/domain/prompt-engine/constraints';
+it(&quot;T19 约束冲突、引用和分镜总时长校验：关键回归&quot;, async () =&gt; {
+  const r=resolveConstraints(f.promptInput({
+   userRequest:'5秒，9:16', requestedSpec:{durationSeconds:15,ratio:'16:9'}
+  }));
+  expect(r.conflicts.map(x=&gt;x.field)).toEqual(expect.arrayContaining(['durationSeconds','ratio']));
+  expect(r.readyForAI).toBe(false);
+});
+</code></pre>
+<ul>
+<li><p><code>T19-C01</code>：需求5秒9:16与表单15秒16:9必须显式冲突。</p>
+</li>
+<li><p><code>T19-C02</code>：品牌原文/人数/对白被改报警。</p>
+</li>
+<li><p><code>T19-C03</code>：30秒拆镜合计=30且每镜不超已验证上限。</p>
+</li>
+<li><p><code>T19-C04</code>：无asset不产生已绑定引用。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/prompt-validation.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 用户解决冲突后的结构化字段为权威；自然语言检测仅为可解释提示，不保证理解所有隐含约束；别名映射稳定assetId；音频/首尾帧未知时仅写作可用。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/prompt-validation.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T19.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/domain/prompt-engine/constraints.ts&quot; &quot;src/domain/prompt-engine/reference-alias.ts&quot; &quot;src/domain/prompt-engine/shot-plan.ts&quot; &quot;src/domain/prompt-engine/validate-result.ts&quot; &quot;tests/unit/prompt-validation.test.ts&quot; &quot;docs/review/evidence/T19.json&quot;
+git commit -m &quot;feat(t19): prompt-validation&quot;
+</code></pre>
+<h2>T20 · 提示词草稿、PromptRun与不可变历史</h2>
+<p><strong>依赖：</strong> T05, T09, T18, T19。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/prompt-generation/draft-repository.ts</code></li>
+<li><code>src/features/prompt-generation/result-versions.ts</code></li>
+<li><code>src/features/prompt-generation/prompt-run-repository.ts</code></li>
+<li>验收测试：<code>tests/unit/prompt-drafts.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：PromptDraft/PromptRun/PromptResultVersion与StudioDb。</li>
+<li>产出：saveDraft(draft: PromptDraft, expectedRevision: number): Promise&lt;SaveResult&gt;；appendPromptResult(draftId: string, sourceRevision: number, result: PromptResultVersion): Promise&lt;void&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> PG03, PG05, PG22, PG27, PG31。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { appendPromptResult } from '../../src/features/prompt-generation/result-versions';
+it(&quot;T20 提示词草稿、PromptRun与不可变历史：关键回归&quot;, async () =&gt; {
+  await f.persistDraft(f.draft({id:'d1',revision:2,userRequest:'新要求'}));
+  await appendPromptResult('d1',1,f.promptResult({origin:'ai'}));
+  expect((await f.readDraft('d1')).userRequest).toBe('新要求');
+  expect((await f.readDraft('d1')).resultVersions[0].sourceRevision).toBe(1);
+});
+</code></pre>
+<ul>
+<li><p><code>T20-C01</code>：视频/图片占位草稿分别保存。</p>
+</li>
+<li><p><code>T20-C02</code>：local/ai/manual来源可追溯。</p>
+</li>
+<li><p><code>T20-C03</code>：旧AI结果归原revision不覆写当前草稿。</p>
+</li>
+<li><p><code>T20-C04</code>：恢复历史不恢复Key。</p>
+</li>
+<li><p><code>T20-C05</code>：失败保留旧正文。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/prompt-drafts.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 图像提示词首版仅保留独立草稿与明确未开放说明，不激活图片编译器/生成API；独立页面无来源不伪造projectId。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/prompt-drafts.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T20.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/prompt-generation/draft-repository.ts&quot; &quot;src/features/prompt-generation/result-versions.ts&quot; &quot;src/features/prompt-generation/prompt-run-repository.ts&quot; &quot;tests/unit/prompt-drafts.test.ts&quot; &quot;docs/review/evidence/T20.json&quot;
+git commit -m &quot;feat(t20): prompt-drafts&quot;
+</code></pre>
+<h2>T21 · 提示词工作台、侧栏和历史面板</h2>
+<p><strong>依赖：</strong> T11, T16, T18, T19, T20。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/prompt-generation/PromptGeneratorPage.tsx</code></li>
+<li><code>src/features/prompt-generation/PromptGeneratorPanel.tsx</code></li>
+<li><code>src/features/prompt-generation/PromptResultHistory.tsx</code></li>
+<li><code>src/features/prompt-generation/PromptForm.tsx</code></li>
+<li>验收测试：<code>tests/e2e/prompt-workspace.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：草稿仓库与纯编译器；Core AI入口由T30/T31接上。</li>
+<li>产出：P21/P22/P23使用同draftId；PromptGeneratorPanel({draftId,source}: PromptPanelProps): ReactElement。</li>
+</ul>
+<p><strong>交互主责：</strong> PG01, PG02, PG06, PG23, PG25, PG32。</p>
+<p><strong>页面/弹窗主责：</strong> P21, P22, P23, PGD01。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T21 提示词工作台、侧栏和历史面板：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'prompt-draft');
+  await page.goto('/prompt-generator?type=video');
+  await page.getByRole('button',{name:'本地整理',exact:true}).click();
+  await expect(page.getByText('规则整理草稿',exact:true)).toBeVisible();
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T21-C01</code>：展开页面不复制第二草稿。</p>
+</li>
+<li><p><code>T21-C02</code>：本地整理离线可用。</p>
+</li>
+<li><p><code>T21-C03</code>：pg关键字段label/焦点完整。</p>
+</li>
+<li><p><code>T21-C04</code>：结果编辑后检查失效。</p>
+</li>
+<li><p><code>T21-C05</code>：清空需确认且历史保留。</p>
+</li>
+<li><p><code>T21-C06</code>：AI未接入前不能假成功。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 360px输入＋弹性编辑＋300px检查，1280以下折叠；复制仅正文；所有PGD01–06弹窗使用统一Dialog；11类方向是写作类别不是能力承诺。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/prompt-workspace.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T21.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/prompt-generation/PromptGeneratorPage.tsx&quot; &quot;src/features/prompt-generation/PromptGeneratorPanel.tsx&quot; &quot;src/features/prompt-generation/PromptResultHistory.tsx&quot; &quot;src/features/prompt-generation/PromptForm.tsx&quot; &quot;tests/e2e/prompt-workspace.spec.ts&quot; &quot;docs/review/evidence/T21.json&quot;
+git commit -m &quot;feat(t21): prompt-workspace&quot;
+</code></pre>
+<h2>T22 · 草稿到画布的原子插入、应用和建流程</h2>
+<p><strong>依赖：</strong> T10, T14, T17, T19, T20, T21。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/commands/prompt-to-canvas.ts</code></li>
+<li><code>src/features/prompt-generation/ApplyPromptDialog.tsx</code></li>
+<li><code>src/features/prompt-generation/InsertTargetDialog.tsx</code></li>
+<li>验收测试：<code>tests/e2e/prompt-canvas-commands.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：applyCommand、PromptResultVersion、GraphRevision与引用校验。</li>
+<li>产出：applyPromptToCanvas(input: ApplyPromptInput): Promise&lt;CommandReceipt&gt;；buildVideoFlow(input: FlowDraftInput): GraphOperation[]。</li>
+</ul>
+<p><strong>交互主责：</strong> T-08, PG26, PG28, PG29, PG30。</p>
+<p><strong>页面/弹窗主责：</strong> PGD04, PGD05。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T22 草稿到画布的原子插入、应用和建流程：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'prompt-result-ready');
+  await page.goto('/prompt-generator?type=video');
+  await page.locator('[data-interaction-id=&quot;PG30&quot;]').click();
+  await page.getByRole('button',{name:'仅建流程',exact:true}).click();
+  await expect(page.locator('[data-node-type=&quot;video-generation&quot;]')).toHaveCount(1);
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T22-C01</code>：无项目先选择。</p>
+</li>
+<li><p><code>T22-C02</code>：应用时revision冲突阻止。</p>
+</li>
+<li><p><code>T22-C03</code>：插入失败零半成品。</p>
+</li>
+<li><p><code>T22-C04</code>：创建流程零POST。</p>
+</li>
+<li><p><code>T22-C05</code>：未绑定引用只能插文本不可直接建可执行流。</p>
+</li>
+<li><p><code>T22-C06</code>：同commandId不重复插入。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 默认另建提示词节点；创建流程先预览，再一次事务提交文本/素材连线/视频配置；现有节点的参数只有显式接受才修改。创建流程成功后返回目标画布并定位新增节点组。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/prompt-canvas-commands.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T22.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/commands/prompt-to-canvas.ts&quot; &quot;src/features/prompt-generation/ApplyPromptDialog.tsx&quot; &quot;src/features/prompt-generation/InsertTargetDialog.tsx&quot; &quot;tests/e2e/prompt-canvas-commands.spec.ts&quot; &quot;docs/review/evidence/T22.json&quot;
+git commit -m &quot;feat(t22): prompt-canvas-commands&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP04" data-title="WP04 Core 协议与受控执行"><summary>WP04 · Core 协议与受控执行</summary><section><h1>WP04 · Core 协议与受控执行 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 视频与文字两条独立调用链，确认、幂等、恢复和能力门控。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T23 · 固定Core公开契约、能力证据与Mock</h2>
+<p><strong>依赖：</strong> T03, T04, T09。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/contracts.ts</code></li>
+<li><code>src/adapters/core/capabilities.ts</code></li>
+<li><code>tests/fixtures/core-v2/manifest.json</code></li>
+<li><code>tests/fixtures/core-v2/video-accepted.json</code></li>
+<li><code>tests/fixtures/core-v2/video-completed.json</code></li>
+<li><code>tests/mock-core/server.ts</code></li>
+<li>验收测试：<code>tests/unit/core-contract.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Core固定SHA的server.rs/user_routes.rs/budget_flow.rs；MCP契约；实际部署核验单。</li>
+<li>产出：parseVideoTask(input: unknown): CoreTaskView；resolveCapabilities(profile: DeploymentContract, models: CoreModel[]): CapabilityProfile。</li>
+</ul>
+<p><strong>交互主责：</strong> K-08, B-03, B-05。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { parseVideoTask } from '../../src/adapters/core/contracts';
+it(&quot;T23 固定Core公开契约、能力证据与Mock：关键回归&quot;, async () =&gt; {
+  const task=parseVideoTask({task:{id:'core-1',status:'queued'},request_id:'core-1'});
+  expect(task.taskId).toBe('core-1');
+  expect(task.requestId).toBe('core-1');
+  expect(()=&gt;parseVideoTask({status:'queued'})).toThrow();
+});
+</code></pre>
+<ul>
+<li><p><code>T23-C01</code>：嵌套task.id/request_id解析正确。</p>
+</li>
+<li><p><code>T23-C02</code>：没有id必须报协议错。</p>
+</li>
+<li><p><code>T23-C03</code>：models可读不等于videos/chat可用。</p>
+</li>
+<li><p><code>T23-C04</code>：core未知能力fail closed。</p>
+</li>
+<li><p><code>T23-C05</code>：402/403/409/429/503分类保留。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/core-contract.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 从固定源码构造注明模拟的fixture，不伪造真实回执；public capability缺失时用版本化已审阅部署契约而非admin接口。禁止给前端增加不存在的余额/取消路由。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/core-contract.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T23.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/contracts.ts&quot; &quot;src/adapters/core/capabilities.ts&quot; &quot;tests/fixtures/core-v2/manifest.json&quot; &quot;tests/fixtures/core-v2/video-accepted.json&quot; &quot;tests/fixtures/core-v2/video-completed.json&quot; &quot;tests/mock-core/server.ts&quot; &quot;tests/unit/core-contract.test.ts&quot; &quot;docs/review/evidence/T23.json&quot;
+git commit -m &quot;feat(t23): core-contract&quot;
+</code></pre>
+<h2>T24 · 同源HTTP通道、地址规范与请求鉴权</h2>
+<p><strong>依赖：</strong> T09, T23。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/http-client.ts</code></li>
+<li><code>src/adapters/core/route-policy.ts</code></li>
+<li><code>src/adapters/core/url.ts</code></li>
+<li><code>deploy/nginx-canvas.conf</code></li>
+<li>验收测试：<code>tests/unit/core-transport.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：CredentialSession与DeploymentContract。</li>
+<li>产出：createCoreClient(profile: ConnectionProfile, credentials: CredentialSession): CoreClient；normalizeCoreBase(value: string): ValidationResult&lt;string&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> K-07, PG16。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { normalizeCoreBase } from '../../src/adapters/core/url';
+it(&quot;T24 同源HTTP通道、地址规范与请求鉴权：关键回归&quot;, async () =&gt; {
+  expect(normalizeCoreBase('https://user:pass@example.invalid/v1').ok).toBe(false);
+  const normalized = normalizeCoreBase('/core-api/v1/');
+  expect(normalized.ok).toBe(true);
+  if (!normalized.ok) throw new Error('expected valid Core base');
+  expect(normalized.value).toBe('/core-api');
+  expect(f.allowedCorePath('/admin/v1/api-keys')).toBe(false);
+});
+</code></pre>
+<ul>
+<li><p><code>T24-C01</code>：只代理允许业务路径。</p>
+</li>
+<li><p><code>T24-C02</code>：阻止/admin/internal/bridge/编码穿越/URL凭据。</p>
+</li>
+<li><p><code>T24-C03</code>：base只追加一次v1。</p>
+</li>
+<li><p><code>T24-C04</code>：跨源重定向无Key。</p>
+</li>
+<li><p><code>T24-C05</code>：切换连接不污染旧任务。</p>
+</li>
+<li><p><code>T24-C06</code>：readonly test零POST。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/core-transport.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 浏览器经/core-api访问固定部署目标；支持注册连接但禁止任意URL代理。只发送Bearer，不把Key放query；生产HTTPS，本地回环可HTTP；部署配置不是修改Core程序。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/core-transport.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T24.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/http-client.ts&quot; &quot;src/adapters/core/route-policy.ts&quot; &quot;src/adapters/core/url.ts&quot; &quot;deploy/nginx-canvas.conf&quot; &quot;tests/unit/core-transport.test.ts&quot; &quot;docs/review/evidence/T24.json&quot;
+git commit -m &quot;feat(t24): core-transport&quot;
+</code></pre>
+<h2>T25 · 上传素材映射与最终请求冻结</h2>
+<p><strong>依赖：</strong> T05, T07, T09, T23, T24。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/assets.ts</code></li>
+<li><code>src/application/runs/prepare-request.ts</code></li>
+<li><code>src/application/runs/fingerprint.ts</code></li>
+<li>验收测试：<code>tests/unit/prepared-request.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Asset、Run、授权绑定、CoreClient。</li>
+<li>产出：prepareVideoRequest(runId: string): Promise&lt;PreparedVideoRequest&gt;；uploadCoreAsset(input: AssetUploadInput): Promise&lt;CoreAssetRef&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { prepareVideoRequest } from '../../src/application/runs/prepare-request';
+it(&quot;T25 上传素材映射与最终请求冻结：关键回归&quot;, async () =&gt; {
+  await f.persistRun(f.run({id:'r1',executionState:'persisted'}));
+  f.failFinalBodySave();
+  await expect(prepareVideoRequest('r1')).rejects.toThrow('save_failed');
+  expect(f.videoPosts()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T25-C01</code>：先存run再上传。</p>
+</li>
+<li><p><code>T25-C02</code>：全部引用校验完才能上传。</p>
+</li>
+<li><p><code>T25-C03</code>：远端ID按连接+授权隔离。</p>
+</li>
+<li><p><code>T25-C04</code>：请求提交前最终body落盘。</p>
+</li>
+<li><p><code>T25-C05</code>：提交后恢复不能重上传改body并沿用旧幂等键。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/prepared-request.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 保存本地hash→Core asset映射与expiresAt；新任务过期素材可重传，未知原任务不可变更已提交快照；任何引用失败不得降为纯文本生成。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/prepared-request.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T25.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/assets.ts&quot; &quot;src/application/runs/prepare-request.ts&quot; &quot;src/application/runs/fingerprint.ts&quot; &quot;tests/unit/prepared-request.test.ts&quot; &quot;docs/review/evidence/T25.json&quot;
+git commit -m &quot;feat(t25): prepared-request&quot;
+</code></pre>
+<h2>T26 · 预检、费用确认和一次性执行批准</h2>
+<p><strong>依赖：</strong> T10, T14, T23, T25。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/runs/preflight.ts</code></li>
+<li><code>src/application/runs/approval.ts</code></li>
+<li><code>src/features/canvas/GenerationConfirmDialog.tsx</code></li>
+<li>验收测试：<code>tests/e2e/generation-preflight.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Graph、Capabilities、Asset可读性、写锁及输入快照。</li>
+<li>产出：preflightRun(input: RunDraftInput): PreflightResult；approveRun(plan: RunPlan, userDecision: ConfirmDecision): Promise&lt;ApprovedRun&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> C-15, C-16, V-08, V-10。</p>
+<p><strong>页面/弹窗主责：</strong> D05, D06。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T26 预检、费用确认和一次性执行批准：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'runnable-video');
+  await page.goto('/projects/p1/canvas');
+  await page.locator('[data-interaction-id=&quot;V-08&quot;]').click();
+  await expect(page.getByRole('dialog',{name:'生成确认单'})).toBeVisible();
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T26-C01</code>：预检零上传/收费。</p>
+</li>
+<li><p><code>T26-C02</code>：一次确认绑定revision/节点数/请求hash。</p>
+</li>
+<li><p><code>T26-C03</code>：不支持时长不夹取。</p>
+</li>
+<li><p><code>T26-C04</code>：图或输入改变使批准过期。</p>
+</li>
+<li><p><code>T26-C05</code>：双击只一批准。</p>
+</li>
+<li><p><code>T26-C06</code>：无价显示未知。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/generation-preflight.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> PG文字确认与视频确认对象分开；本地校验成功不等于Core准入；批量列出依赖及计划输入，尚未产生的上游输出必须在可见后确认，不给未见素材的无限授权。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/generation-preflight.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T26.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/runs/preflight.ts&quot; &quot;src/application/runs/approval.ts&quot; &quot;src/features/canvas/GenerationConfirmDialog.tsx&quot; &quot;tests/e2e/generation-preflight.spec.ts&quot; &quot;docs/review/evidence/T26.json&quot;
+git commit -m &quot;feat(t26): generation-preflight&quot;
+</code></pre>
+<h2>T27 · 视频提交、持久幂等与未知结果</h2>
+<p><strong>依赖：</strong> T05, T06, T23, T24, T25, T26。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/runs/submit-video.ts</code></li>
+<li><code>src/domain/video-run-machine.ts</code></li>
+<li><code>src/application/runs/recover-submit.ts</code></li>
+<li>验收测试：<code>tests/unit/video-submit.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：ApprovedRun、PreparedVideoRequest、CoreClient与run claim。</li>
+<li>产出：submitVideo(runId: string): Promise&lt;Run&gt;；recoverSubmission(runId: string, decision: RecoveryDecision): Promise&lt;RecoveryResult&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> V-09, V-14, J-10。</p>
+<p><strong>页面/弹窗主责：</strong> D21。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { submitVideo } from '../../src/application/runs/submit-video';
+it(&quot;T27 视频提交、持久幂等与未知结果：关键回归&quot;, async () =&gt; {
+  await f.persistApprovedRun('r1');
+  await Promise.allSettled([submitVideo('r1'),submitVideo('r1')]);
+  expect(f.videoPosts()).toHaveLength(1);
+  expect((await f.readRun('r1')).idempotencyKey).toBe(f.originalIdempotencyKey('r1'));
+});
+</code></pre>
+<ul>
+<li><p><code>T27-C01</code>：快速双击/双标签只一POST。</p>
+</li>
+<li><p><code>T27-C02</code>：发送前事务失败0POST。</p>
+</li>
+<li><p><code>T27-C03</code>：已接受但响应丢失为submit_unknown。</p>
+</li>
+<li><p><code>T27-C04</code>：明确冲突保留原体。</p>
+</li>
+<li><p><code>T27-C05</code>：新run新键旧run不删。</p>
+</li>
+<li><p><code>T27-C06</code>：unknown不自动重发。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/video-submit.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 发送前持久化dispatching；重放仅使用原连接/绑定/最终bytes和幂等键，且部署契约验证支持；无可恢复端点时展示人工核查，不编造GET接口。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/video-submit.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T27.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/runs/submit-video.ts&quot; &quot;src/domain/video-run-machine.ts&quot; &quot;src/application/runs/recover-submit.ts&quot; &quot;tests/unit/video-submit.test.ts&quot; &quot;docs/review/evidence/T27.json&quot;
+git commit -m &quot;feat(t27): video-submit&quot;
+</code></pre>
+<h2>T28 · 任务轮询、退避和查询状态</h2>
+<p><strong>依赖：</strong> T23, T24, T27。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/runs/poll-video.ts</code></li>
+<li><code>src/adapters/core/retry-policy.ts</code></li>
+<li><code>src/domain/run-status.ts</code></li>
+<li>验收测试：<code>tests/unit/video-polling.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：CoreTaskView、Run四维状态与授权。</li>
+<li>产出：pollVideoOnce(runId: string): Promise&lt;Run&gt;；nextPollDelay(result: PollResult, attempt: number): number；pausePolling(runId: string): Promise&lt;void&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> V-11, V-12, V-13, J-04, J-05, F-05。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { pollVideoOnce } from '../../src/application/runs/poll-video';
+it(&quot;T28 任务轮询、退避和查询状态：关键回归&quot;, async () =&gt; {
+  await f.persistRun(f.run({id:'r1',executionState:'succeeded'}));
+  f.failNextStatus(503);
+  await pollVideoOnce('r1');
+  expect((await f.readRun('r1')).executionState).toBe('succeeded');
+  expect(f.videoPosts()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T28-C01</code>：暂停仅停止查询。</p>
+</li>
+<li><p><code>T28-C02</code>：401要求原授权。</p>
+</li>
+<li><p><code>T28-C03</code>：404保留不可访问不判免费。</p>
+</li>
+<li><p><code>T28-C04</code>：429解析秒数或HTTP-date的Retry-After。</p>
+</li>
+<li><p><code>T28-C05</code>：5xx不清执行成功。</p>
+</li>
+<li><p><code>T28-C06</code>：完成结果与账务未明可并存。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/video-polling.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 常态轮询3秒，异常2/4/8/16/30秒上限带抖动为实现初值；Retry-After优先；页面隐藏降频，恢复不发POST；显式暂停标记持久化。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/video-polling.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T28.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/runs/poll-video.ts&quot; &quot;src/adapters/core/retry-policy.ts&quot; &quot;src/domain/run-status.ts&quot; &quot;tests/unit/video-polling.test.ts&quot; &quot;docs/review/evidence/T28.json&quot;
+git commit -m &quot;feat(t28): video-polling&quot;
+</code></pre>
+<h2>T29 · 依赖执行队列与刷新恢复</h2>
+<p><strong>依赖：</strong> T06, T10, T26, T27, T28。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/runs/queue.ts</code></li>
+<li><code>src/application/runs/graph-plan.ts</code></li>
+<li><code>src/features/tasks/QueueControls.tsx</code></li>
+<li>验收测试：<code>tests/unit/run-queue.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：有向无环Graph、ApprovedRun与run日志。</li>
+<li>产出：planGraphRuns(graph: Graph, selected: string[]): ValidationResult&lt;RunPlan[]&gt;；resumeQueue(queueId: string, approval: QueueApproval): Promise&lt;void&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> C-17, C-18, J-06, J-07。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { planGraphRuns } from '../../src/application/runs/graph-plan';
+it(&quot;T29 依赖执行队列与刷新恢复：关键回归&quot;, async () =&gt; {
+  const planned=planGraphRuns(f.threeShotGraph(),['shot-2']);
+  expect(planned.ok).toBe(true);
+  if (!planned.ok) throw new Error('expected valid execution plan');
+  expect(planned.value.map(x=&gt;x.nodeId)).toEqual(['shot-2']);
+});
+</code></pre>
+<ul>
+<li><p><code>T29-C01</code>：默认1个准备并行，最大3。</p>
+</li>
+<li><p><code>T29-C02</code>：暂停不取消已提交。</p>
+</li>
+<li><p><code>T29-C03</code>：刷新不续发待提交队列。</p>
+</li>
+<li><p><code>T29-C04</code>：只改第二镜头不重跑其他。</p>
+</li>
+<li><p><code>T29-C05</code>：上游失败阻断下游。</p>
+</li>
+<li><p><code>T29-C06</code>：图变化重新确认。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/run-queue.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 排队与Core真正并发限制分开；新上游结果到达只准备下游确认，不自动把未审输入送出；禁止组节点隐式包含所有媒体。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/run-queue.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T29.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/runs/queue.ts&quot; &quot;src/application/runs/graph-plan.ts&quot; &quot;src/features/tasks/QueueControls.tsx&quot; &quot;tests/unit/run-queue.test.ts&quot; &quot;docs/review/evidence/T29.json&quot;
+git commit -m &quot;feat(t29): run-queue&quot;
+</code></pre>
+<h2>T30 · Core文字优化与独立PromptRun</h2>
+<p><strong>依赖：</strong> T09, T19, T20, T23, T24, T26。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/text.ts</code></li>
+<li><code>src/application/prompts/optimize-text.ts</code></li>
+<li><code>src/application/prompts/text-model-policy.ts</code></li>
+<li>验收测试：<code>tests/unit/text-optimization.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：PromptDraft、CredentialSession、已核验textOnly模型契约。</li>
+<li>产出：optimizePrompt(input: ApprovedPromptInput): Promise&lt;PromptRun&gt;；isTextOnlyModel(modelId: string, caps: CapabilityProfile): boolean。</li>
+</ul>
+<p><strong>交互主责：</strong> T-06, B-01, PG15, PG17, PG18, PG19, PG20。</p>
+<p><strong>页面/弹窗主责：</strong> PGD02。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { isTextOnlyModel } from '../../src/application/prompts/text-model-policy';
+it(&quot;T30 Core文字优化与独立PromptRun：关键回归&quot;, async () =&gt; {
+  expect(isTextOnlyModel('seedance',f.caps())).toBe(false);
+  expect(isTextOnlyModel('video-alias',f.caps({videoAliases:['video-alias']}))).toBe(false);
+  expect(isTextOnlyModel('verified-text',f.caps({textModels:['verified-text']}))).toBe(true);
+});
+</code></pre>
+<ul>
+<li><p><code>T30-C01</code>：seedance及视频路由别名拒绝。</p>
+</li>
+<li><p><code>T30-C02</code>：只发文字与已勾选说明不发二进制。</p>
+</li>
+<li><p><code>T30-C03</code>：发前保存PromptRun。</p>
+</li>
+<li><p><code>T30-C04</code>：确认前0请求。</p>
+</li>
+<li><p><code>T30-C05</code>：超时不造异步查询地址。</p>
+</li>
+<li><p><code>T30-C06</code>：新请求必须另确认。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/text-optimization.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 通过Core chat:invoke路径，默认非流式便于首版契约；任何文字生成仍可能收费。禁止独立Electron Key设置或绕Core直接供应商；保存设置不做最小聊天测试。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/text-optimization.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T30.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/text.ts&quot; &quot;src/application/prompts/optimize-text.ts&quot; &quot;src/application/prompts/text-model-policy.ts&quot; &quot;tests/unit/text-optimization.test.ts&quot; &quot;docs/review/evidence/T30.json&quot;
+git commit -m &quot;feat(t30): text-optimization&quot;
+</code></pre>
+<h2>T31 · AI结果解析、差异与提示词模式联通</h2>
+<p><strong>依赖：</strong> T19, T20, T21, T30。<strong>分支：</strong> <code>feat/prompt-generation</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/prompt-result-parser.ts</code></li>
+<li><code>src/features/prompt-generation/AIOptimizeDialog.tsx</code></li>
+<li><code>src/features/prompt-generation/PromptResultDiff.tsx</code></li>
+<li>验收测试：<code>tests/e2e/prompt-result-parser.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Core文本响应、PromptResultVersion、输入revision。</li>
+<li>产出：parsePromptResponse(raw: unknown): PromptParseResult；attachPromptRunResult(runId: string, result: PromptParseResult): Promise&lt;void&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> T-07, PG21。</p>
+<p><strong>页面/弹窗主责：</strong> PGD06。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T31 AI结果解析、差异与提示词模式联通：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'invalid-ai-result');
+  await page.goto('/prompt-generator?type=video');
+  await expect(page.getByText('结果待检查',exact:true)).toBeVisible();
+  expect(await countPaidRequests(page)).toBe(0);
+  await expect(page.getByRole('button',{name:'自动修复并重试'})).toHaveCount(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T31-C01</code>：结构化JSON正确。</p>
+</li>
+<li><p><code>T31-C02</code>：旧标记格式兼容并待校验。</p>
+</li>
+<li><p><code>T31-C03</code>：解析错保留raw不自动调用修复。</p>
+</li>
+<li><p><code>T31-C04</code>：品牌/对白变化报警。</p>
+</li>
+<li><p><code>T31-C05</code>：AI回包不覆盖新草稿。</p>
+</li>
+<li><p><code>T31-C06</code>：停止等待不显示退款。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 不宣称系统提示词可防全部注入；视图渲染纯文本或受限格式；AI结果仅候选版本；账务有证据才更新；原始响应诊断默认不导出全文。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/prompt-result-parser.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T31.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/prompt-result-parser.ts&quot; &quot;src/features/prompt-generation/AIOptimizeDialog.tsx&quot; &quot;src/features/prompt-generation/PromptResultDiff.tsx&quot; &quot;tests/e2e/prompt-result-parser.spec.ts&quot; &quot;docs/review/evidence/T31.json&quot;
+git commit -m &quot;feat(t31): prompt-result-parser&quot;
+</code></pre>
+<h2>T32 · 作业版本、改版和续写</h2>
+<p><strong>依赖：</strong> T23, T24, T27, T28。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/video-works.ts</code></li>
+<li><code>src/features/canvas/WorkBranchDialog.tsx</code></li>
+<li><code>src/application/runs/work-context.ts</code></li>
+<li>验收测试：<code>tests/unit/video-work-context.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Core work_context、普通Key权限、部署开关。</li>
+<li>产出：getVideoWork(workId: string, binding: RunBinding): Promise&lt;VideoWork&gt;；prepareWorkRevision(input: WorkRevisionInput): Promise&lt;RunPlan&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> V-15, V-16。</p>
+<p><strong>页面/弹窗主责：</strong> D08。</p>
+<p><strong>门槛：</strong> 必须具备已验证work_context/continuation及父版本fixture；否则功能受限但基础版不绕过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { prepareWorkRevision } from '../../src/application/runs/work-context';
+it(&quot;T32 作业版本、改版和续写：关键回归&quot;, async () =&gt; {
+  f.disableCapability('continuation');
+  await expect(prepareWorkRevision(f.workRevision({action:'continue'}))).rejects.toThrow('continuation_disabled');
+  expect(f.videoPosts()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T32-C01</code>：未启用404/continuation_disabled不回退文生。</p>
+</li>
+<li><p><code>T32-C02</code>：父版本必须本Key可读。</p>
+</li>
+<li><p><code>T32-C03</code>：继承规格显式展示。</p>
+</li>
+<li><p><code>T32-C04</code>：新时长表示新增片段。</p>
+</li>
+<li><p><code>T32-C05</code>：不同Key拒绝。</p>
+</li>
+<li><p><code>T32-C06</code>：不声称无缝拼接。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/video-work-context.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> route与action按实际契约；sourceAsset/run固定关联。原生严格首帧未经验证不出现；基础发布可隐藏执行并保留明确说明，不能记作实测通过。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/video-work-context.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T32.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/video-works.ts&quot; &quot;src/features/canvas/WorkBranchDialog.tsx&quot; &quot;src/application/runs/work-context.ts&quot; &quot;tests/unit/video-work-context.test.ts&quot; &quot;docs/review/evidence/T32.json&quot;
+git commit -m &quot;feat(t32): video-work-context&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP05" data-title="WP05 结果、备份与恢复"><summary>WP05 · 结果、备份与恢复</summary><section><h1>WP05 · 结果、备份与恢复 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 任务中心、审片、导入导出及异常恢复形成可长期使用的工作台。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T33 · 鉴权媒体内容、缓存与浏览器下载</h2>
+<p><strong>依赖：</strong> T07, T09, T24, T28。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/adapters/core/content.ts</code></li>
+<li><code>src/features/review/media-delivery.ts</code></li>
+<li><code>src/features/review/object-url-pool.ts</code></li>
+<li>验收测试：<code>tests/unit/media-delivery.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：已完成Run、原授权与CoreClient。</li>
+<li>产出：fetchRunMedia(runId: string, intent: MediaIntent): Promise&lt;MediaDeliveryResult&gt;；triggerBrowserDownload(assetId: string): Promise&lt;DownloadTriggerResult&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> R-03, R-04, R-12。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { fetchRunMedia } from '../../src/features/review/media-delivery';
+it(&quot;T33 鉴权媒体内容、缓存与浏览器下载：关键回归&quot;, async () =&gt; {
+  await f.persistRun(f.run({id:'r1',executionState:'succeeded'}));
+  f.redirectNextDownload('https://untrusted.invalid/file.mp4');
+  await expect(fetchRunMedia('r1','download')).rejects.toThrow('redirect_blocked');
+  expect(f.videoPosts()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T33-C01</code>：video标签不拼Key URL。</p>
+</li>
+<li><p><code>T33-C02</code>：鉴权fetch blob。</p>
+</li>
+<li><p><code>T33-C03</code>：跨域redirect阻止。</p>
+</li>
+<li><p><code>T33-C04</code>：下载失败不改生成终态。</p>
+</li>
+<li><p><code>T33-C05</code>：已有本地缓存可离线看。</p>
+</li>
+<li><p><code>T33-C06</code>：对象URL释放。</p>
+</li>
+<li><p><code>T33-C07</code>：无Downloads已保存假文案。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/media-delivery.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 200MiB默认自动缓存预算为产品初值，超限先确认或提示改用可用下载方式；未知内容长度采用流量计数；不按不可信header无限分配内存。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/media-delivery.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T33.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/adapters/core/content.ts&quot; &quot;src/features/review/media-delivery.ts&quot; &quot;src/features/review/object-url-pool.ts&quot; &quot;tests/unit/media-delivery.test.ts&quot; &quot;docs/review/evidence/T33.json&quot;
+git commit -m &quot;feat(t33): media-delivery&quot;
+</code></pre>
+<h2>T34 · 任务中心与底部抽屉共享记录</h2>
+<p><strong>依赖：</strong> T28, T29, T31, T33。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/tasks/TasksPage.tsx</code></li>
+<li><code>src/features/tasks/TaskDrawer.tsx</code></li>
+<li><code>src/features/tasks/TaskDetail.tsx</code></li>
+<li><code>src/features/tasks/task-filters.ts</code></li>
+<li>验收测试：<code>tests/e2e/task-center.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Run/PromptRun索引、队列和四维状态。</li>
+<li>产出：listLocalTasks(filter: TaskFilter): Promise&lt;TaskListItem[]&gt;；TaskDrawer({projectId}: {projectId:string}): ReactElement。</li>
+</ul>
+<p><strong>交互主责：</strong> V-18, J-01, J-02, J-03, J-08, J-09。</p>
+<p><strong>页面/弹窗主责：</strong> P06。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T34 任务中心与底部抽屉共享记录：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'mixed-task-history');
+  await page.goto('/tasks');
+  await page.getByRole('button',{name:'文字优化',exact:true}).click();
+  await expect(page.getByTestId('prompt-run-1')).toBeVisible();
+  await expect(page.getByTestId('video-run-1')).toHaveCount(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T34-C01</code>：视频/文字记录可区分。</p>
+</li>
+<li><p><code>T34-C02</code>：无全Core历史假宣称。</p>
+</li>
+<li><p><code>T34-C03</code>：按原连接分组刷新。</p>
+</li>
+<li><p><code>T34-C04</code>：只重试查询/下载各自失败项。</p>
+</li>
+<li><p><code>T34-C05</code>：未知提交不批量重试。</p>
+</li>
+<li><p><code>T34-C06</code>：归档不擦追踪。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/task-center.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 用户状态与技术详情双层；taskId/requestId可复制；脱敏CSV防公式注入；所有定位链接不存在时显示历史而非伪造重建。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/task-center.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T34.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/tasks/TasksPage.tsx&quot; &quot;src/features/tasks/TaskDrawer.tsx&quot; &quot;src/features/tasks/TaskDetail.tsx&quot; &quot;src/features/tasks/task-filters.ts&quot; &quot;tests/e2e/task-center.spec.ts&quot; &quot;docs/review/evidence/T34.json&quot;
+git commit -m &quot;feat(t34): task-center&quot;
+</code></pre>
+<h2>T35 · 审片、A/B比较和结果复用</h2>
+<p><strong>依赖：</strong> T14, T15, T16, T33, T34。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/review/ResultPage.tsx</code></li>
+<li><code>src/features/review/ComparePage.tsx</code></li>
+<li><code>src/features/review/result-selection.ts</code></li>
+<li>验收测试：<code>tests/e2e/result-review.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：具体Run资产、历史和输入快照。</li>
+<li>产出：selectResult(input: ResultSelectionInput): Promise&lt;CommandReceipt&gt;；ComparePage(): ReactElement。</li>
+</ul>
+<p><strong>交互主责：</strong> V-17, R-01, R-02, R-05, R-06, R-07, R-08, R-09, R-10, R-11, R-13。</p>
+<p><strong>页面/弹窗主责：</strong> P07, P08, D11。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T35 审片、A/B比较和结果复用：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'two-result-versions');
+  await page.goto('/projects/p1/compare?runs=r1,r2');
+  await page.locator('[data-interaction-id=&quot;R-10&quot;]').click();
+  await expect(page.getByTestId('comparison-left')).toHaveAttribute('data-run-id','r2');
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T35-C01</code>：只能两版本比较。</p>
+</li>
+<li><p><code>T35-C02</code>：短片结束同步暂停且提示非帧级同步。</p>
+</li>
+<li><p><code>T35-C03</code>：交换不改来源。</p>
+</li>
+<li><p><code>T35-C04</code>：选下游显示影响不自动重跑。</p>
+</li>
+<li><p><code>T35-C05</code>：结果不可覆写。</p>
+</li>
+<li><p><code>T35-C06</code>：键盘播放与全屏可退。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/result-review.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 复用播放器，不多播放器全屏同时解码；保留原提示词/素材/参数及授权绑定；结果入素材库验证缓存写成功。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/result-review.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T35.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/review/ResultPage.tsx&quot; &quot;src/features/review/ComparePage.tsx&quot; &quot;src/features/review/result-selection.ts&quot; &quot;tests/e2e/result-review.spec.ts&quot; &quot;docs/review/evidence/T35.json&quot;
+git commit -m &quot;feat(t35): result-review&quot;
+</code></pre>
+<h2>T36 · 安全项目包、导入迁移与草稿备份</h2>
+<p><strong>依赖：</strong> T04, T05, T08, T10, T20, T33。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/infrastructure/packages/export-project.ts</code></li>
+<li><code>src/infrastructure/packages/import-project.ts</code></li>
+<li><code>src/infrastructure/packages/package-limits.ts</code></li>
+<li><code>src/infrastructure/packages/legacy-migration.ts</code></li>
+<li>验收测试：<code>tests/unit/project-package.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Project、Graph、Asset、Run、PromptDraft及格式版本。</li>
+<li>产出：exportProject(id: string, options: ExportOptions): Promise&lt;ExportResult&gt;；inspectImport(file: File): Promise&lt;ImportInspection&gt;；commitImport(plan: ImportPlan): Promise&lt;Project&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> C-19, D-04, D-05, D-09, D-10, I-01, I-02, I-03, I-04, I-05, I-06, I-07, I-08。</p>
+<p><strong>页面/弹窗主责：</strong> P14, D16, D17。</p>
+<p><strong>门槛：</strong> 上述数值是本次实施计划确定的初值，不是Core或浏览器真实容量上限。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { inspectImport } from '../../src/infrastructure/packages/import-project';
+it(&quot;T36 安全项目包、导入迁移与草稿备份：关键回归&quot;, async () =&gt; {
+  const report=await inspectImport(f.zipWithEntry('../outside.txt','bad'));
+  expect(report.ok).toBe(false);
+  expect(report.errorCode).toBe('import_unsafe');
+  expect(await f.projectCount()).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T36-C01</code>：路径穿越/压缩炸弹/重复ID/hash错拒绝。</p>
+</li>
+<li><p><code>T36-C02</code>：Key/token/脚本/执行批准排除。</p>
+</li>
+<li><p><code>T36-C03</code>：导入新ID完整重映射。</p>
+</li>
+<li><p><code>T36-C04</code>：未知节点只读。</p>
+</li>
+<li><p><code>T36-C05</code>：新schema不破坏原包。</p>
+</li>
+<li><p><code>T36-C06</code>：失败事务回滚。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/project-package.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 压缩包初限256MiB、展开512MiB、单条目200MiB、条目10000作为防御初值写入配置；大项目提示分批而不生成空成功包。旧格式仅用户显式导入，无自动读取旧存储。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/project-package.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T36.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/infrastructure/packages/export-project.ts&quot; &quot;src/infrastructure/packages/import-project.ts&quot; &quot;src/infrastructure/packages/package-limits.ts&quot; &quot;src/infrastructure/packages/legacy-migration.ts&quot; &quot;tests/unit/project-package.test.ts&quot; &quot;docs/review/evidence/T36.json&quot;
+git commit -m &quot;feat(t36): project-package&quot;
+</code></pre>
+<h2>T37 · 设置、存储占用与缓存清理</h2>
+<p><strong>依赖：</strong> T09, T11, T23, T24, T36。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/settings/ConnectionSettings.tsx</code></li>
+<li><code>src/features/settings/CapabilitySettings.tsx</code></li>
+<li><code>src/features/settings/StorageSettings.tsx</code></li>
+<li><code>src/features/settings/Preferences.tsx</code></li>
+<li>验收测试：<code>tests/e2e/storage-settings.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Connection/Caps、浏览器存储能力、项目包工具。</li>
+<li>产出：getStorageSummary(): Promise&lt;StorageSummary&gt;；requestPersistence(): Promise&lt;boolean&gt;；cleanRebuildableCache(): Promise&lt;CleanupReport&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> G-06, K-01, K-02, K-03, K-06, K-09, K-10, B-02, B-06, S-01, S-02, S-03, S-04, S-05, S-06, D-01, D-02, D-03, D-06。</p>
+<p><strong>页面/弹窗主责：</strong> P10, P11, P12, P13, D18。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T37 设置、存储占用与缓存清理：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'storage-persistence-denied');
+  await page.goto('/settings/storage');
+  await page.locator('[data-interaction-id=&quot;D-02&quot;]').click();
+  await expect(page.getByText('浏览器未批准持久存储')).toBeVisible();
+  await expect(page.locator('[data-interaction-id=&quot;D-05&quot;]')).toBeEnabled();
+});
+</code></pre>
+<ul>
+<li><p><code>T37-C01</code>：只记地址不记Key。</p>
+</li>
+<li><p><code>T37-C02</code>：模型失效不静默换。</p>
+</li>
+<li><p><code>T37-C03</code>：存储未知不伪造剩余额度。</p>
+</li>
+<li><p><code>T37-C04</code>：持久存储拒绝可继续备份。</p>
+</li>
+<li><p><code>T37-C05</code>：清缓存不删唯一原文件。</p>
+</li>
+<li><p><code>T37-C06</code>：重置偏好不动项目。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/storage-settings.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 主题深/浅/系统、密度、动画、播放偏好；连接改地址新ID；读接口不探测收费；条件备份页说明不含可执行假按钮。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/storage-settings.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T37.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/settings/ConnectionSettings.tsx&quot; &quot;src/features/settings/CapabilitySettings.tsx&quot; &quot;src/features/settings/StorageSettings.tsx&quot; &quot;src/features/settings/Preferences.tsx&quot; &quot;tests/e2e/storage-settings.spec.ts&quot; &quot;docs/review/evidence/T37.json&quot;
+git commit -m &quot;feat(t37): storage-settings&quot;
+</code></pre>
+<h2>T38 · 恢复中心、活动记录与帮助</h2>
+<p><strong>依赖：</strong> T06, T08, T28, T34, T36, T37。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/recovery/RecoveryCenter.tsx</code></li>
+<li><code>src/features/activity/ActivityPage.tsx</code></li>
+<li><code>src/features/help/HelpPage.tsx</code></li>
+<li><code>src/security/diagnostic-export.ts</code></li>
+<li>验收测试：<code>tests/e2e/recovery-diagnostics.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：SaveResult、Run状态、原授权、lease与白名单日志。</li>
+<li>产出：buildRecoveryActions(issue: RecoveryIssue): RecoveryAction[]；exportDiagnostics(filter: DiagnosticFilter): Promise&lt;Blob&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> H-01, H-02, H-03, H-04, Q-01, Q-03, Q-04, F-03, F-04, F-06。</p>
+<p><strong>页面/弹窗主责：</strong> P15, P16, P20, D15, D20, D22。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T38 恢复中心、活动记录与帮助：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'submit-unknown');
+  await page.goto('/tasks');
+  await page.locator('[data-interaction-id=&quot;J-10&quot;]').click();
+  await expect(page.getByText('提交结果暂未确认')).toBeVisible();
+  await expect(page.getByRole('button',{name:'自动重新生成'})).toHaveCount(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T38-C01</code>：24类E错误都给安全下一步。</p>
+</li>
+<li><p><code>T38-C02</code>：保存失败导出内存草稿。</p>
+</li>
+<li><p><code>T38-C03</code>：未知run不能清空。</p>
+</li>
+<li><p><code>T38-C04</code>：Key/全文prompt/token无诊断泄漏。</p>
+</li>
+<li><p><code>T38-C05</code>：反馈无配置隐藏。</p>
+</li>
+<li><p><code>T38-C06</code>：许可与产品营销分开。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/recovery-diagnostics.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 错误常驻可定位；本地日志不伪称Core审计；时区标签明确；首版无自动遥测；异常出口不把安全拒绝自动改写规避。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/recovery-diagnostics.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T38.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/recovery/RecoveryCenter.tsx&quot; &quot;src/features/activity/ActivityPage.tsx&quot; &quot;src/features/help/HelpPage.tsx&quot; &quot;src/security/diagnostic-export.ts&quot; &quot;tests/e2e/recovery-diagnostics.spec.ts&quot; &quot;docs/review/evidence/T38.json&quot;
+git commit -m &quot;feat(t38): recovery-diagnostics&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP06" data-title="WP06 Agent 协作"><summary>WP06 · Agent 协作</summary><section><h1>WP06 · Agent 协作 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 仅同机已打开画布；只读、提案、运行三种权限分开。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T39 · 本机Agent连接与最小授权通道</h2>
+<p><strong>依赖：</strong> T09, T10, T24, T38。<strong>分支：</strong> <code>feat/canvas-agent</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>companion/package.json</code></li>
+<li><code>companion/src/server.ts</code></li>
+<li><code>companion/src/session.ts</code></li>
+<li><code>companion/src/origin-policy.ts</code></li>
+<li><code>src/features/agent/agent-client.ts</code></li>
+<li>验收测试：<code>tests/unit/agent-relay.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：已打开画布、项目命令与授权模型；现有canvas-agent协议供只读参考。</li>
+<li>产出：connectAgent(input: AgentConnectInput): Promise&lt;AgentSession&gt;；authorizeAgent(sessionId: string, grant: AgentGrant): Promise&lt;void&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> A-01, A-02, A-03, A-12。</p>
+<p><strong>页面/弹窗主责：</strong> D13。</p>
+<p><strong>门槛：</strong> 连接器/模型实际可用后再进入此包；不改动原MCP既有视频工具。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { connectAgent } from '../../src/features/agent/agent-client';
+it(&quot;T39 本机Agent连接与最小授权通道：关键回归&quot;, async () =&gt; {
+  f.agentOrigin('https://untrusted.invalid');
+  await expect(connectAgent(f.agentConnect())).rejects.toThrow('origin_denied');
+  expect(f.commandWrites()).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T39-C01</code>：只监听127.0.0.1。</p>
+</li>
+<li><p><code>T39-C02</code>：缺token/错误Origin/错误project或过期epoch拒绝。</p>
+</li>
+<li><p><code>T39-C03</code>：首连默认只读。</p>
+</li>
+<li><p><code>T39-C04</code>：断连撤权。</p>
+</li>
+<li><p><code>T39-C05</code>：没有网页返回canvas_not_connected而非假成功。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/agent-relay.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 新增companion仅连接当前浏览器和Agent，不是生成后端；token独立于Core Key，随机生成只留会话；不自动npm远程安装；会话默认30分钟，可显式续授。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/agent-relay.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T39.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;companion/package.json&quot; &quot;companion/src/server.ts&quot; &quot;companion/src/session.ts&quot; &quot;companion/src/origin-policy.ts&quot; &quot;src/features/agent/agent-client.ts&quot; &quot;tests/unit/agent-relay.test.ts&quot; &quot;docs/review/evidence/T39.json&quot;
+git commit -m &quot;feat(t39): agent-relay&quot;
+</code></pre>
+<h2>T40 · 结构化提案与revision冲突处理</h2>
+<p><strong>依赖：</strong> T10, T39。<strong>分支：</strong> <code>feat/canvas-agent</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/application/proposals/validate-proposal.ts</code></li>
+<li><code>src/application/proposals/apply-proposal.ts</code></li>
+<li><code>src/features/agent/ProposalReview.tsx</code></li>
+<li>验收测试：<code>tests/unit/agent-proposals.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Proposal、AgentSession与applyCommand。</li>
+<li>产出：validateProposal(raw: unknown, grant: AgentGrant): ValidationResult&lt;Proposal&gt;；applyProposal(id: string, selectedOperationIds: string[]): Promise&lt;CommandReceipt&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> A-06, A-07, A-08, A-09, A-16。</p>
+<p><strong>页面/弹窗主责：</strong> D14。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { validateProposal } from '../../src/application/proposals/validate-proposal';
+it(&quot;T40 结构化提案与revision冲突处理：关键回归&quot;, async () =&gt; {
+  const r=validateProposal({operations:[{type:'shell',command:'echo unsafe'}]},f.agentGrant());
+  expect(r.ok).toBe(false);
+  expect(f.commandWrites()).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T40-C01</code>：默认选区非全项目。</p>
+</li>
+<li><p><code>T40-C02</code>：未知命令/Shell/fetch拒绝。</p>
+</li>
+<li><p><code>T40-C03</code>：旧revision不得覆盖。</p>
+</li>
+<li><p><code>T40-C04</code>：选中操作依赖不完整时拒绝部分应用。</p>
+</li>
+<li><p><code>T40-C05</code>：重复提案不双写。</p>
+</li>
+<li><p><code>T40-C06</code>：接受修改不提交收费。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/agent-proposals.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 每提案最多100操作、256KiB结构化JSON为实现初值；删除数量高亮；CAS冲突重读后重新审阅而非无条件重放；保留批准摘要不存秘密。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/agent-proposals.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T40.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/application/proposals/validate-proposal.ts&quot; &quot;src/application/proposals/apply-proposal.ts&quot; &quot;src/features/agent/ProposalReview.tsx&quot; &quot;tests/unit/agent-proposals.test.ts&quot; &quot;docs/review/evidence/T40.json&quot;
+git commit -m &quot;feat(t40): agent-proposals&quot;
+</code></pre>
+<h2>T41 · 画布MCP工具与唯一执行入口</h2>
+<p><strong>依赖：</strong> T22, T27, T29, T30, T39, T40。<strong>分支：</strong> <code>feat/canvas-agent</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>companion/src/mcp.ts</code></li>
+<li><code>companion/src/tools/canvas-read.ts</code></li>
+<li><code>companion/src/tools/canvas-propose.ts</code></li>
+<li><code>companion/src/tools/canvas-run.ts</code></li>
+<li><code>docs/integrations/mcp.md</code></li>
+<li><code>docs/review/mcp-contract-evidence.json</code></li>
+<li>验收测试：<code>tests/unit/canvas-mcp.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：统一命令、PG、Run、用户确认与同机连接。</li>
+<li>产出：MCP工具：canvas_get_state、canvas_get_selection、canvas_propose_ops、canvas_apply_proposal、canvas_request_run；不新增绕Core生成工具。；handleCanvasTool(name: string, input: unknown, session: AgentSession): Promise&lt;ToolResult&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> A-10。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { handleCanvasTool } from '../../companion/src/mcp';
+it(&quot;T41 画布MCP工具与唯一执行入口：关键回归&quot;, async () =&gt; {
+  const r=await handleCanvasTool('canvas_request_run',{nodeIds:['video-1']},f.agentSession());
+  expect(r.status).toBe('awaiting_browser_confirmation');
+  expect(f.videoPosts()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T41-C01</code>：工具读权限范围内数据。</p>
+</li>
+<li><p><code>T41-C02</code>：request_run只打开确认不是自动发。</p>
+</li>
+<li><p><code>T41-C03</code>：确认后只建同一run。</p>
+</li>
+<li><p><code>T41-C04</code>：旧seedance工具独立运行不冒充画布归属。</p>
+</li>
+<li><p><code>T41-C05</code>：不读取DPAPI或把Key传Agent。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/canvas-mcp.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 尽量新companion独立于既有MCP部署；必要的现有MCP改动必须单独PR和原runner回归，不作为基础版依赖。消费协议不宣称兼容所有宿主。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/canvas-mcp.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T41.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;companion/src/mcp.ts&quot; &quot;companion/src/tools/canvas-read.ts&quot; &quot;companion/src/tools/canvas-propose.ts&quot; &quot;companion/src/tools/canvas-run.ts&quot; &quot;docs/integrations/mcp.md&quot; &quot;docs/review/mcp-contract-evidence.json&quot; &quot;tests/unit/canvas-mcp.test.ts&quot; &quot;docs/review/evidence/T41.json&quot;
+git commit -m &quot;feat(t41): canvas-mcp&quot;
+</code></pre>
+<h2>T42 · Agent面板、上下文预览与停止行为</h2>
+<p><strong>依赖：</strong> T11, T34, T39, T40, T41。<strong>分支：</strong> <code>feat/canvas-agent</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/features/agent/AgentPanel.tsx</code></li>
+<li><code>src/features/agent/ContextPicker.tsx</code></li>
+<li><code>src/features/agent/AgentHistory.tsx</code></li>
+<li><code>src/features/agent/AgentPermissionDialog.tsx</code></li>
+<li>验收测试：<code>tests/e2e/agent-panel.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：会话、提案和命令回执。</li>
+<li>产出：AgentPanel({projectId}: {projectId:string}): ReactElement；预览选区/节点/全项目三档上下文。</li>
+</ul>
+<p><strong>交互主责：</strong> A-04, A-05, A-11, A-13, A-14, A-15。</p>
+<p><strong>页面/弹窗主责：</strong> P09。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T42 Agent面板、上下文预览与停止行为：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'agent-readonly');
+  await page.goto('/projects/p1/agent');
+  await expect(page.getByRole('button',{name:'应用选中修改'})).toBeDisabled();
+  await page.locator('[data-interaction-id=&quot;A-12&quot;]').click();
+  await expect(page.getByText('已断开',exact:true)).toBeVisible();
+});
+</code></pre>
+<ul>
+<li><p><code>T42-C01</code>：未连接明确配置。</p>
+</li>
+<li><p><code>T42-C02</code>：全项目额外确认。</p>
+</li>
+<li><p><code>T42-C03</code>：接受/拒绝可见。</p>
+</li>
+<li><p><code>T42-C04</code>：停止对话不取消视频。</p>
+</li>
+<li><p><code>T42-C05</code>：旧提案权限回收失效。</p>
+</li>
+<li><p><code>T42-C06</code>：跨标签授权隔离。</p>
+</li>
+<li><p><code>T42-C07</code>：模型成本提示不编造。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/agent-panel.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 不内置完整通用LLM客户端；仅适配实际验收宿主；外部Agent模型选择由宿主控制，不能把页面开关当宿主权限。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/agent-panel.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T42.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/features/agent/AgentPanel.tsx&quot; &quot;src/features/agent/ContextPicker.tsx&quot; &quot;src/features/agent/AgentHistory.tsx&quot; &quot;src/features/agent/AgentPermissionDialog.tsx&quot; &quot;tests/e2e/agent-panel.spec.ts&quot; &quot;docs/review/evidence/T42.json&quot;
+git commit -m &quot;feat(t42): agent-panel&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP07" data-title="WP07 全量验收与安全加固"><summary>WP07 · 全量验收与安全加固</summary><section><h1>WP07 · 全量验收与安全加固 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 交互追踪、故障注入、可访问性和性能证据齐备。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T43 · 条件能力与原功能处置完整性</h2>
+<p><strong>依赖：</strong> T17, T23, T32, T37, T42。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>src/app/feature-gates.ts</code></li>
+<li><code>src/features/settings/UnavailableCapability.tsx</code></li>
+<li><code>docs/review/capability-gates.json</code></li>
+<li>验收测试：<code>tests/unit/optional-capabilities.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：25条上游处置、X/Y交互、PG03及当前部署契约。</li>
+<li>产出：getFeatureAvailability(id: FeatureId, caps: CapabilityProfile): FeatureAvailability。</li>
+</ul>
+<p><strong>交互主责：</strong> B-04, X-01, X-02, X-03, X-04, Y-01, Y-02, Y-03, Y-04, Y-05。</p>
+<p><strong>页面/弹窗主责：</strong> P18, P19。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { getFeatureAvailability } from '../../src/app/feature-gates';
+it(&quot;T43 条件能力与原功能处置完整性：关键回归&quot;, async () =&gt; {
+  for(const id of ['image-generation','audio-generation','video-cancel','webdav-backup']) {
+   expect(getFeatureAvailability(id,f.unknownCaps()).executable).toBe(false);
+  }
+  expect(f.networkRequests()).toHaveLength(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T43-C01</code>：图片/音频/取消/WebDAV未满足契约时无执行入口。</p>
+</li>
+<li><p><code>T43-C02</code>：可查看说明。</p>
+</li>
+<li><p><code>T43-C03</code>：不路由到admin。</p>
+</li>
+<li><p><code>T43-C04</code>：视频拼接不进入菜单。</p>
+</li>
+<li><p><code>T43-C05</code>：PG图片草稿不激活生成。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/optional-capabilities.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 条件开放项目标blocked_capability，不算已实现；已有设计说明与门控测试作为本轮交付，真实扩展另行签API契约。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/optional-capabilities.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T43.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;src/app/feature-gates.ts&quot; &quot;src/features/settings/UnavailableCapability.tsx&quot; &quot;docs/review/capability-gates.json&quot; &quot;tests/unit/optional-capabilities.test.ts&quot; &quot;docs/review/evidence/T43.json&quot;
+git commit -m &quot;feat(t43): optional-capabilities&quot;
+</code></pre>
+<h2>T44 · 260项交互与30弹窗追踪回归</h2>
+<p><strong>依赖：</strong> T12, T13, T14, T15, T16, T17, T21, T22, T26, T31, T34, T35, T37, T38, T42, T43。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>docs/review/interaction-map.json</code></li>
+<li><code>scripts/check-traceability.mjs</code></li>
+<li><code>tests/e2e/interaction-contracts.spec.ts</code></li>
+<li><code>tests/e2e/dialog-contracts.spec.ts</code></li>
+<li>验收测试：<code>tests/e2e/interaction-coverage.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：原228交互＋PG32、23页、D24＋PGD6及任务主责映射。</li>
+<li>产出：coverage-report.json：每ID的taskId、测试名、证据、实现状态；CI禁止缺失或空断言。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T44 260项交互与30弹窗追踪回归：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'editable-history');
+  await page.goto('/projects/p1/canvas');
+  await page.locator('[data-interaction-id=&quot;C-13&quot;]').click();
+  expect(await countPaidRequests(page)).toBe(0);
+  // 其余259项分别具有真实操作/禁用/错误断言；禁止用此例代替全量用例。
+});
+</code></pre>
+<ul>
+<li><p><code>T44-C01</code>：260/23/30去重且全映射。</p>
+</li>
+<li><p><code>T44-C02</code>：每一可执行按钮有正常/禁用/错误/持久化/副作用证据。</p>
+</li>
+<li><p><code>T44-C03</code>：条件项有隐藏+无请求测试。</p>
+</li>
+<li><p><code>T44-C04</code>：测试跳过不记通过。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/interaction-coverage.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 每UI控件data-interaction-id与语义role并用；聚合映射只是覆盖台账，不是测试本身；强制实际点击和断言，不能循环写expect(true)。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/interaction-coverage.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T44.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;docs/review/interaction-map.json&quot; &quot;scripts/check-traceability.mjs&quot; &quot;tests/e2e/interaction-contracts.spec.ts&quot; &quot;tests/e2e/dialog-contracts.spec.ts&quot; &quot;tests/e2e/interaction-coverage.spec.ts&quot; &quot;docs/review/evidence/T44.json&quot;
+git commit -m &quot;feat(t44): interaction-coverage&quot;
+</code></pre>
+<h2>T45 · 安全与故障注入整链路测试</h2>
+<p><strong>依赖：</strong> T27, T28, T29, T30, T33, T36, T38, T41。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>tests/security/import-attacks.test.ts</code></li>
+<li><code>tests/security/credential-leaks.test.ts</code></li>
+<li><code>tests/e2e/recovery-races.spec.ts</code></li>
+<li><code>tests/helpers/failure-fixtures.ts</code></li>
+<li><code>scripts/check-security.mjs</code></li>
+<li><code>docs/review/security-evidence.json</code></li>
+<li>验收测试：<code>tests/unit/failure-injection.test.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：Mock Core、离线/崩溃模拟、资产包和run记录。</li>
+<li>产出：故障报告：replay、网络、存储、越权、XSS、归属、审计脱敏的实际结果。；测试专用runCrashScenario(name: CrashPoint): Promise&lt;CrashScenarioResult&gt;。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { it, expect } from 'vitest';
+import { f } from '../helpers/fixtures';
+import { runCrashScenario } from '../helpers/failure-fixtures';
+it(&quot;T45 安全与故障注入整链路测试：关键回归&quot;, async () =&gt; {
+  const r=await runCrashScenario('after-send-before-reply');
+  expect(r.videoSubmissions).toBe(1);
+  expect(r.run.executionState).toBe('submit_unknown');
+  expect(r.reopenedPaidRequests).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T45-C01</code>：提交前断电0POST。</p>
+</li>
+<li><p><code>T45-C02</code>：提交后响应丢失不双发。</p>
+</li>
+<li><p><code>T45-C03</code>：缓存耗尽不新发。</p>
+</li>
+<li><p><code>T45-C04</code>：跨Key不可读。</p>
+</li>
+<li><p><code>T45-C05</code>：恶意SVG/HTML不执行。</p>
+</li>
+<li><p><code>T45-C06</code>：ZIP炸弹拒绝。</p>
+</li>
+<li><p><code>T45-C07</code>：下载redirect不泄Key。</p>
+</li>
+<li><p><code>T45-C08</code>：页面关闭未发队列不恢复提交。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:unit -- tests/unit/failure-injection.test.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 测试期间禁止真实公网；进程/浏览器挂起与恢复使用真实浏览器存储测试，不只fake-indexeddb；每个负面样本有可观测失败原因。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:unit -- tests/unit/failure-injection.test.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T45.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;tests/security/import-attacks.test.ts&quot; &quot;tests/security/credential-leaks.test.ts&quot; &quot;tests/e2e/recovery-races.spec.ts&quot; &quot;tests/helpers/failure-fixtures.ts&quot; &quot;scripts/check-security.mjs&quot; &quot;docs/review/security-evidence.json&quot; &quot;tests/unit/failure-injection.test.ts&quot; &quot;docs/review/evidence/T45.json&quot;
+git commit -m &quot;feat(t45): failure-injection&quot;
+</code></pre>
+<h2>T46 · 视觉、可访问性与性能验收</h2>
+<p><strong>依赖：</strong> T02, T44, T45。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>tests/e2e/visual-states.spec.ts</code></li>
+<li><code>tests/e2e/a11y.spec.ts</code></li>
+<li><code>tests/performance/canvas-profile.spec.ts</code></li>
+<li><code>docs/review/performance-baseline.md</code></li>
+<li>验收测试：<code>tests/e2e/visual-a11y-performance.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：已审视觉截图、23页、50/200节点夹具。</li>
+<li>产出：视觉diff、键盘录像、可访问性检查与性能p50/p95报告。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T46 视觉、可访问性与性能验收：关键回归&quot;, async ({ page }) =&gt; {
+  await page.setViewportSize({width:1024,height:768});
+  await seedStudio(page,'minimal-project');
+  await page.goto('/projects/p1/canvas');
+  await expect(page).toHaveScreenshot('canvas-1024-dark.png');
+  await page.keyboard.press('Tab');
+  await expect(page.locator(':focus')).toBeVisible();
+});
+</code></pre>
+<ul>
+<li><p><code>T46-C01</code>：深浅主题1440/1280/1024无关键溢出。</p>
+</li>
+<li><p><code>T46-C02</code>：768以下轻操作不出批量收费。</p>
+</li>
+<li><p><code>T46-C03</code>：125%/150%缩放可用。</p>
+</li>
+<li><p><code>T46-C04</code>：IME/中文/emoji字节边界正确。</p>
+</li>
+<li><p><code>T46-C05</code>：200节点无长时间输入冻结。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/visual-a11y-performance.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 目标：固定Windows设备上200节点平移p95帧&lt;=33ms、输入响应p95&lt;=100ms、1MiB不含blob元数据保存p95&lt;=500ms；这些是新验收目标非已实测。自动检测加键盘人工检查，焦点32px命中/触屏44px；不盲目更新快照。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/visual-a11y-performance.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T46.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;tests/e2e/visual-states.spec.ts&quot; &quot;tests/e2e/a11y.spec.ts&quot; &quot;tests/performance/canvas-profile.spec.ts&quot; &quot;docs/review/performance-baseline.md&quot; &quot;tests/e2e/visual-a11y-performance.spec.ts&quot; &quot;docs/review/evidence/T46.json&quot;
+git commit -m &quot;feat(t46): visual-a11y-performance&quot;
+</code></pre>
+</section></details>
+<details class="workpackage" id="WP08" data-title="WP08 发布、实测与交接"><summary>WP08 · 发布、实测与交接</summary><section><h1>WP08 · 发布、实测与交接 实施分计划</h1>
+<blockquote>
+<p><strong>执行代理必读：</strong> 使用 <code>superpowers:executing-plans</code>逐任务执行；仅一个用户指定的GPT6.1 sol high实施代理，多代理实施需另行授权。下列复选项未执行。</p>
+</blockquote>
+<p><strong>目标：</strong> 独立启动、授权实测、版本迁移和整分支审查，禁止以Mock冒充生产验证。
+<strong>架构：</strong> 遵循总计划的独立Web、统一命令、独立本地存储和Core权威边界；不扩展成第二后端。
+<strong>技术栈：</strong> 继承T03锁定工具链。
+<strong>设计依据：</strong> <code>../specs/AIWORK_Studio_Design_v1.md</code>；<code>../specs/AIWORK_Studio_Prompt_Generation_Design_v1.1.md</code>。
+<strong>全局约束：</strong> 必须先读<a href="#overview">总计划</a>的全局约束、实现决策、五项审查焦点；本包没有豁免。任务接口名及测试夹具详见<a href="#contracts">共享契约</a>。
+<strong>审查焦点：</strong> 对应任务必须测试休眠旧租约、丢失提交响应、中文显式约束、结果/账务分离、提案冲突；不以演示happy path代替。</p>
+<blockquote>
+<p>以下源码和测试路径均为<strong>计划创建/改造</strong>，不是已存在证明。测试代码块是最小回归示例；必须补齐每项列出的所有断言和台账对应交互。环境未配置导致测试报错不算完成TDD红灯。</p>
+</blockquote>
+<h2>T47 · 独立启动、部署与发行包扫描</h2>
+<p><strong>依赖：</strong> T24, T36, T43, T44, T45, T46。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>deploy/nginx-canvas.conf</code></li>
+<li><code>deploy/canvas-runtime.example.json</code></li>
+<li><code>scripts/serve-local.mjs</code></li>
+<li><code>scripts/start-canvas.ps1</code></li>
+<li><code>scripts/package-release.mjs</code></li>
+<li><code>scripts/check-brand.mjs</code></li>
+<li><code>scripts/check-license.mjs</code></li>
+<li><code>docs/deployment.md</code></li>
+<li>验收测试：<code>tests/e2e/distribution.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：构建dist、非秘密运行配置、同源允许列表与来源许可。</li>
+<li>产出：独立Web发行包；Windows启动入口；SHA256清单；品牌扫描与许可扫描分别出报告。</li>
+</ul>
+<p><strong>交互主责：</strong> Q-02。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 原README前端标识要求尚需澄清；未获适用授权不得标记完全去标识发布通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T47 独立启动、部署与发行包扫描：关键回归&quot;, async ({ page }) =&gt; {
+  await page.goto('/projects');
+  await page.reload();
+  await expect(page.getByRole('heading',{name:'项目',exact:true})).toBeVisible();
+  const denied=await page.request.get('/core-api/admin/v1/api-keys');
+  expect([403,404]).toContain(denied.status());
+});
+</code></pre>
+<ul>
+<li><p><code>T47-C01</code>：dist无上游广告/跳转/默认渠道/旧存储写入。</p>
+</li>
+<li><p><code>T47-C02</code>：许可例外仍完整。</p>
+</li>
+<li><p><code>T47-C03</code>：localhost严格绑定。</p>
+</li>
+<li><p><code>T47-C04</code>：路由刷新可打开。</p>
+</li>
+<li><p><code>T47-C05</code>：/core-api未知路径拒绝。</p>
+</li>
+<li><p><code>T47-C06</code>：运行配置无Key。</p>
+</li>
+<li><p><code>T47-C07</code>：sourceMap无秘密。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/distribution.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 正式静态站由现成Web服务提供；本地Node静态服务只做明确固定目标代理，不做项目/计费后端。生产不把vite preview当正式服务，不偷偷开放LAN；反馈链接可缺省隐藏。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/distribution.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T47.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;deploy/nginx-canvas.conf&quot; &quot;deploy/canvas-runtime.example.json&quot; &quot;scripts/serve-local.mjs&quot; &quot;scripts/start-canvas.ps1&quot; &quot;scripts/package-release.mjs&quot; &quot;scripts/check-brand.mjs&quot; &quot;scripts/check-license.mjs&quot; &quot;docs/deployment.md&quot; &quot;tests/e2e/distribution.spec.ts&quot; &quot;docs/review/evidence/T47.json&quot;
+git commit -m &quot;feat(t47): distribution&quot;
+</code></pre>
+<h2>T48 · 经授权的真实Core联调</h2>
+<p><strong>依赖：</strong> T27, T28, T30, T32, T33, T47。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>tests/live/authorized-live.spec.ts</code></li>
+<li><code>docs/review/live-acceptance.md</code></li>
+<li><code>tests/live/approval.schema.json</code></li>
+<li>验收测试：<code>tests/live/authorized-live.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：测试部署地址、脱敏Key绑定、明确场景/调用次数/费用上限/截止时间授权。</li>
+<li>产出：逐项live evidence：请求ID、任务ID、结果、真实费用证据或未知、调用次数；不记录Key。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 设计/计划批准不等于收费授权；尚未获得授权时本任务保持待授权，其他本地工作可交付。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { loadLiveApproval } from '../helpers/live-approval';
+test(&quot;T48 经授权的真实Core联调：关键回归&quot;, async ({ page }) =&gt; {
+  test.skip(!process.env.AIWORK_ALLOW_LIVE,'尚未授权：不调用真实网关');
+  const approval=await loadLiveApproval();
+  expect(approval.allowedVideoSubmissions).toBeLessThanOrEqual(1);
+  expect(approval.expired).toBe(false);
+  // 真正一次生成与一次文字验证按审批场景执行，不能仅凭此守卫判live通过。
+});
+</code></pre>
+<ul>
+<li><p><code>T48-C01</code>：缺allow-live与审批文件直接跳过且报告未验收。</p>
+</li>
+<li><p><code>T48-C02</code>：默认最多1文字+1视频，只有授权范围可增加。</p>
+</li>
+<li><p><code>T48-C03</code>：无自动重试。</p>
+</li>
+<li><p><code>T48-C04</code>：读取/下载不新建任务。</p>
+</li>
+<li><p><code>T48-C05</code>：对账未知不宣称免费。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:live -- tests/live/authorized-live.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 测试与生产分开；额度上限若Core不能可靠执行则禁止声称已设硬限，要求先验证准入策略。到达调用计数或异常立即停止新收费。Mock不替代这一步。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:live -- tests/live/authorized-live.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T48.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;tests/live/authorized-live.spec.ts&quot; &quot;docs/review/live-acceptance.md&quot; &quot;tests/live/approval.schema.json&quot; &quot;tests/live/authorized-live.spec.ts&quot; &quot;docs/review/evidence/T48.json&quot;
+git commit -m &quot;feat(t48): authorized-live&quot;
+</code></pre>
+<h2>T49 · 升级、备份与回滚演练</h2>
+<p><strong>依赖：</strong> T36, T45, T47。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>docs/release-runbook.md</code></li>
+<li><code>docs/review/migration-rehearsal.md</code></li>
+<li><code>src/infrastructure/storage/release-compatibility.ts</code></li>
+<li><code>tests/e2e/release-compatibility.spec.ts</code></li>
+<li>验收测试：<code>tests/e2e/migration-release.spec.ts</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：本地schema、原项目包和新版本构建；仅画布存储。</li>
+<li>产出：canOpenSchema(version: number): CompatibilityDecision；版本支持矩阵和回滚操作单。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 依赖任务验收通过。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-ts">import { test, expect } from '@playwright/test';
+import { seedStudio } from '../helpers/seed-studio';
+import { countPaidRequests } from '../helpers/network-counter';
+test(&quot;T49 升级、备份与回滚演练：关键回归&quot;, async ({ page }) =&gt; {
+  await seedStudio(page,'newer-project-schema');
+  await page.goto('/projects/p1/canvas');
+  await expect(page.getByText('项目版本高于当前客户端')).toBeVisible();
+  expect(await countPaidRequests(page)).toBe(0);
+});
+</code></pre>
+<ul>
+<li><p><code>T49-C01</code>：前端旧bundle不能覆写新schema。</p>
+</li>
+<li><p><code>T49-C02</code>：升级前导出可恢复。</p>
+</li>
+<li><p><code>T49-C03</code>：未知run/PromptRun日志保留。</p>
+</li>
+<li><p><code>T49-C04</code>：回滚不改Core账本。</p>
+</li>
+<li><p><code>T49-C05</code>：坏包保留原文件。</p>
+</li>
+<li><p><code>T49-C06</code>：无run自动重发。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>npm run test:e2e -- tests/e2e/migration-release.spec.ts</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 本轮不迁移Core财务DB；前端回滚只用兼容版本+同一持久数据，不能恢复较旧快照丢失新增收费证据；出现问题停新提交、保留查询与追踪。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>npm run test:e2e -- tests/e2e/migration-release.spec.ts</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T49.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;docs/release-runbook.md&quot; &quot;docs/review/migration-rehearsal.md&quot; &quot;src/infrastructure/storage/release-compatibility.ts&quot; &quot;tests/e2e/release-compatibility.spec.ts&quot; &quot;tests/e2e/migration-release.spec.ts&quot; &quot;docs/review/evidence/T49.json&quot;
+git commit -m &quot;feat(t49): migration-release&quot;
+</code></pre>
+<h2>T50 · 整分支独立审查与最终交接</h2>
+<p><strong>依赖：</strong> T01, T02, T44, T45, T46, T47, T48, T49。<strong>分支：</strong> <code>feat/aiwork-studio</code>。<strong>当前状态：</strong> 未开始。</p>
+<p><strong>文件范围（计划新增；已由前序任务创建则范围内修改）：</strong></p>
+<ul>
+<li><code>docs/review/final-acceptance.md</code></li>
+<li><code>docs/review/known-limitations.md</code></li>
+<li><code>docs/review/task-evidence-index.json</code></li>
+<li><code>docs/agent/EXECUTION_HANDOFF.md</code></li>
+<li>验收测试：<code>tests/planning/final-review.test.mjs</code></li>
+</ul>
+<p><strong>接口：</strong></p>
+<ul>
+<li>消费：50任务的提交、测试输出、260交互、23页、30弹窗与条件门槛证据。</li>
+<li>产出：最终结论按离线版/联调版/协作版/发布版分别签收；仅实际通过项标通过。</li>
+</ul>
+<p><strong>交互主责：</strong> 横切任务；见依赖模块与全量映射。</p>
+<p><strong>页面/弹窗主责：</strong> 底层或跨页面能力。</p>
+<p><strong>门槛：</strong> 涉及真实联调/来源授权未完成，可交离线构建但发布结论保持受限。</p>
+<ul>
+<li>[ ] <strong>步骤1：创建最小失败用例，并补齐下列必测行为。</strong></li>
+</ul>
+<pre><code class="language-js">import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+test(&quot;T50 整分支独立审查与最终交接：关键回归&quot;, () =&gt; {
+  const final=JSON.parse(readFileSync('docs/review/task-evidence-index.json','utf8'));
+  assert.equal(final.tasks.length,50);
+  assert.equal(final.tasks.filter(x=&gt;x.status==='通过' &amp;&amp; !x.evidence).length,0);
+  assert.equal(final.liveVerified || final.releaseStatus!=='正式发布通过',true);
+});
+</code></pre>
+<ul>
+<li><p><code>T50-C01</code>：未执行命令不得写PASS。</p>
+</li>
+<li><p><code>T50-C02</code>：live未验收则不得称全面上线完成。</p>
+</li>
+<li><p><code>T50-C03</code>：条件功能受限明确。</p>
+</li>
+<li><p><code>T50-C04</code>：零阻塞缺陷。</p>
+</li>
+<li><p><code>T50-C05</code>：发布包hash与审查commit对应。</p>
+</li>
+<li><p><code>T50-C06</code>：一条交互不能只凭截图宣布可用。</p>
+</li>
+<li><p>[ ] <strong>步骤2：运行 <code>node --test tests/planning/final-review.test.mjs</code>，确认失败来自预期未实现/行为不符合。</strong> 工具链任务先准备运行测试所需最小配置，再验证断言红灯；不是把环境错误当行为证据。</p>
+</li>
+<li><p>[ ] <strong>步骤3：在上列路径实现指定接口。</strong> 使用与实施分离的审查回合，由主审核对diff和原设计；不默认再启动其他模型。保留用户指定GPT6.1 sol high；不能请求到该模型则报告，不换Luna等旧配置。</p>
+</li>
+<li><p>[ ] <strong>步骤4：重跑 <code>node --test tests/planning/final-review.test.mjs</code>，并运行 <code>npm run typecheck</code>（T03工具链建立后）。</strong> 预期目标断言全部通过、0失败；条件live缺授权必须报告未验证，不伪造绿灯。</p>
+</li>
+<li><p>[ ] <strong>步骤5：按台账补充该任务交互的异常/禁用/保存/网络副作用测试，保存 <code>docs/review/evidence/T50.json</code>。</strong> UI任务附实际截图或trace；领域任务附故障样本和计数。独立审核检查diff与原设计后写结论。</p>
+</li>
+<li><p>[ ] <strong>步骤6：仅提交本任务文件。</strong> 未通过不提交“完成”声明；下面是未来命令，不是已执行记录。</p>
+</li>
+</ul>
+<pre><code class="language-bash">git add -- &quot;docs/review/final-acceptance.md&quot; &quot;docs/review/known-limitations.md&quot; &quot;docs/review/task-evidence-index.json&quot; &quot;docs/agent/EXECUTION_HANDOFF.md&quot; &quot;tests/planning/final-review.test.mjs&quot; &quot;docs/review/evidence/T50.json&quot;
+git commit -m &quot;feat(t50): final-review&quot;
+</code></pre>
+</section></details>
+<details id="contracts"><summary>共享接口与测试夹具</summary><section><h1>共享接口与测试夹具约定</h1>
+<p>状态：实施计划附件，不是已存在的TypeScript文件。所有函数体由对应任务实现。类型约束不依赖React；UI组件另用ReactElement。</p>
+<h2>类型最小结构</h2>
+<pre><code class="language-ts">type ValidationIssue = { code: string; path: string; message: string };
+type ValidationResult&lt;T&gt; = { ok: true; value: T } | { ok: false; issues: ValidationIssue[] };
+type SaveResult = { status: &quot;saved&quot;; revision: number } |
+  { status: &quot;conflict&quot;; currentRevision: number } | { status: &quot;failed&quot;; code: string };
+type Viewport = { x: number; y: number; scale: number }; // scale在0.25–2.0内
+type RunBinding = { connectionId: string; authBindingId: string; originSnapshot: string };
+type ExecutionState = &quot;draft&quot; | &quot;preflight_blocked&quot; | &quot;awaiting_confirmation&quot; |
+  &quot;persisted&quot; | &quot;uploading&quot; | &quot;submitting&quot; | &quot;submit_unknown&quot; | &quot;accepted&quot; |
+  &quot;running&quot; | &quot;succeeded&quot; | &quot;failed_confirmed&quot;;
+type QueryState = &quot;idle&quot; | &quot;polling&quot; | &quot;paused_by_user&quot; | &quot;interrupted&quot; | &quot;auth_required&quot;;
+type DeliveryState = &quot;not_ready&quot; | &quot;fetching&quot; | &quot;available_for_preview&quot; |
+  &quot;cached_local&quot; | &quot;browser_download_triggered&quot; | &quot;download_failed&quot;;
+type BillingState = &quot;not_provided&quot; | &quot;reserved&quot; | &quot;pending_reconciliation&quot; | &quot;settled&quot; | &quot;released&quot;;
+type Project = { id:string; schemaVersion:number; title:string; description:string; revision:number;
+  createdAt:number; updatedAt:number; archived:boolean; trashedAt:number|null };
+type Edge = { id:string; sourceId:string; targetId:string; port:&quot;text&quot;|&quot;image&quot;|&quot;video&quot;; order:number };
+type Graph = { projectId:string; revision:number; nodes:CanvasNode[]; edges:Edge[]; viewport:Viewport };
+type CanvasNode = { id:string; type:&quot;text&quot;|&quot;asset&quot;|&quot;video-generation&quot;|&quot;result&quot;|&quot;group&quot;;
+  title:string; x:number; y:number; locked:boolean; data:NodeData };
+type NodeData =
+  { kind:&quot;text&quot;; text:string; referenceTokens:ReferenceToken[] } |
+  { kind:&quot;asset&quot;; assetId:string } |
+  { kind:&quot;video-generation&quot;; draft:VideoSpec; inputBindings:InputBinding[]; stale:boolean } |
+  { kind:&quot;result&quot;; assetId:string; runId:string } |
+  { kind:&quot;group&quot;; childIds:string[]; collapsed:boolean };
+type ReferenceToken = { assetId?:string; alias:string; mediaType:&quot;image&quot;|&quot;video&quot;|&quot;audio&quot;; role:string;
+  description:string; available:boolean; unbound:boolean };
+type InputBinding = { nodeId:string; assetId?:string; runId?:string; order:number; role:string };
+type VideoSpec = { modelId:string; durationSeconds?:number; ratio?:string; resolution?:string };
+type Asset = { id:string; sha256:string; mediaType:&quot;image&quot;|&quot;video&quot;|&quot;audio&quot;|&quot;text&quot;; mimeType:string;
+  bytes:number; blobKey:string; title:string; durationSeconds?:number; width?:number; height?:number;
+  sourceRunId?:string; createdAt:number };
+type Run = RunBinding &amp; { id:string; projectId:string; nodeId:string; graphRevision:number;
+  idempotencyKey:string; inputSnapshot:unknown; finalBody?:string; finalBodyHash?:string;
+  executionState:ExecutionState; queryState:QueryState; deliveryState:DeliveryState; billingState:BillingState;
+  taskId?:string; coreRequestId?:string; resultAssetId?:string; createdAt:number; updatedAt:number };
+type CoreTaskView = { taskId:string; requestId?:string; status:&quot;queued&quot;|&quot;processing&quot;|&quot;completed&quot;|&quot;failed&quot;|&quot;unknown&quot;;
+  contentPath?:string; errorCode?:string; workContext?:{workId:string;baseVersionId:string} };
+type ConnectionProfile = { id:string; name:string; proxyBase:string; originSnapshot:string; contractVersion:string };
+type CapabilityProfile = { contractVersion:string; verification:&quot;unknown&quot;|&quot;reviewed&quot;|&quot;live_verified&quot;;
+  textModels:string[]; videoModels:string[]; videoAliases:string[]; videoSpecs:VideoSpec[];
+  workContext:boolean; continuation:boolean; imageGeneration:boolean; audioGeneration:boolean;
+  cancelVideo:boolean; backup:boolean };
+type CommandEnvelope = { id:string; projectId:string; baseRevision:number; leaseEpoch:number;
+  origin:&quot;ui&quot;|&quot;mcp&quot;; operations:GraphOperation[] };
+type GraphOperation = { id:string; type:&quot;add_node&quot;|&quot;update_node&quot;|&quot;remove_node&quot;|&quot;add_edge&quot;|&quot;remove_edge&quot;|
+  &quot;move_node&quot;|&quot;group&quot;|&quot;ungroup&quot;|&quot;select_result&quot;; payload:Record&lt;string,unknown&gt; };
+type CommandReceipt = { id:string; status:&quot;applied&quot;|&quot;replayed&quot;|&quot;conflict&quot;|&quot;rejected&quot;; revision?:number;
+  errorCode?:string };
+type PromptCompileInput = { userRequest:string; sceneId:string;
+  requestedSpec:{durationSeconds?:number;ratio?:string}; audioPlan:string;
+  lockedConstraints:LockedConstraint[]; references:ReferenceToken[] };
+type LockedConstraint = { id:string; field:string; originalValue:string; acceptedValue?:string; locked:boolean };
+type ConstraintResolution = { conflicts:{field:string;originalValue:string;formValue:string}[];
+  readyForAI:boolean; resolved:PromptCompileInput };
+type Shot = { id:string; durationSeconds:number; prompt:string; startState:string; endState:string };
+type PromptCompileResult = { finalPrompt:string; shotPlan:Shot[]; improvements:string[]; warnings:string[];
+  suggestedSpec:{durationSeconds?:number;ratio?:string} };
+type PromptResultVersion = PromptCompileResult &amp; { id:string; sourceRevision:number;
+  origin:&quot;local&quot;|&quot;ai&quot;|&quot;manual&quot;; validationState:&quot;unchecked&quot;|&quot;needs_review&quot;|&quot;valid&quot;;
+  promptRunId?:string; createdAt:number };
+type PromptDraft = PromptCompileInput &amp; { id:string; revision:number; type:&quot;video&quot;|&quot;image&quot;;
+  sourceProjectId?:string; sourceNodeId?:string; sourceRevision?:number; ruleVersion:string;
+  resultVersions:PromptResultVersion[] };
+type PromptRun = RunBinding &amp; { id:string; draftId:string; draftRevision:number; mode:&quot;ai&quot;;
+  textModelId:string; idempotencyKey:string; requestSnapshot:string; coreRequestId?:string;
+  executionState:&quot;persisted&quot;|&quot;sending&quot;|&quot;succeeded&quot;|&quot;failed_confirmed&quot;|&quot;response_unknown&quot;|&quot;waiting_stopped&quot;;
+  billingState:BillingState; startedAt:number; finishedAt?:number };
+type Proposal = { id:string; projectId:string; baseRevision:number; sessionId:string;
+  operations:GraphOperation[]; status:&quot;proposed&quot;|&quot;applied&quot;|&quot;rejected&quot;|&quot;conflict&quot; };
+type AgentGrant = { projectId:string; scope:&quot;selection&quot;|&quot;nodes&quot;|&quot;project&quot;; nodeIds:string[];
+  access:&quot;read&quot;|&quot;propose&quot;; expiresAt:number; epoch:number };
+type AgentSession = { id:string; projectId:string; allowedOrigin:string; grant:AgentGrant; connected:boolean };
+type ToolResult = { status:&quot;ok&quot;|&quot;awaiting_browser_confirmation&quot;|&quot;rejected&quot;; errorCode?:string; data?:unknown };
+</code></pre>
+<p>以上是最小结构，敏感字段不允许“灵活扩展”。<code>unknown</code>只出现在不可执行的输入快照/校验边界，使用前必须schema检查。回执不能自带新授权。所有接口公开输入/结果都用判别联合或具体Schema，不以any跳过。</p>
+<h2>各任务补充输入输出类型</h2>
+<table>
+<thead>
+<tr>
+  <th>类型</th>
+  <th>决定的结构 / 规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>SourceManifest</td>
+  <td>target.relativePath、target.resolvedPathEvidence；sources[]含repository、commit、license、reuseDisposition；恰好五个来源</td>
+</tr>
+<tr>
+  <td>VisualManifest</td>
+  <td>pages[]、criticalStates[]；capturePath是实际图文件，reviewDecision不能默认approved</td>
+</tr>
+<tr>
+  <td>StudioDb</td>
+  <td>本产品IndexedDB连接；tables: projects/graphs/assets/blobs/runs/promptDrafts/promptRuns/prompts/connections/proposals/receipts/leases/diagnostics</td>
+</tr>
+<tr>
+  <td>LeaseResult / ClaimResult</td>
+  <td>ok:boolean，epoch?:number，expiresAt?:number，errorCode?:string；失效epoch写失败</td>
+</tr>
+<tr>
+  <td>ImportReport</td>
+  <td>successes、failures逐项；errorCode?:string；不超过50文件</td>
+</tr>
+<tr>
+  <td>MediaMetadata</td>
+  <td>mimeType、bytes、width?、height?、durationSeconds?；不可读字段缺省不猜测</td>
+</tr>
+<tr>
+  <td>DeleteTarget / DeletionConfirmation</td>
+  <td>kind(project/node/asset)、id、mode；确认绑定影响hash和已显示数量</td>
+</tr>
+<tr>
+  <td>DeletionImpact / DeleteResult</td>
+  <td>blockers:string[]、sharedAssets、activeRuns、deletable；结果逐项success/error</td>
+</tr>
+<tr>
+  <td>RelinkResult</td>
+  <td>same_hash_restored/new_asset_requires_confirmation/error，assetId?</td>
+</tr>
+<tr>
+  <td>NewProjectInput</td>
+  <td>title、description可选，来源模板可选；不包含credentials/runs执行授权</td>
+</tr>
+<tr>
+  <td>SelectionQuery / ViewAction</td>
+  <td>已有节点ID或边界；zoom/pan/fit明确动作；无网络</td>
+</tr>
+<tr>
+  <td>PositionPatch</td>
+  <td>nodeId、x、y；不能夹带参数/输入顺序修改</td>
+</tr>
+<tr>
+  <td>PromptLibraryEntry</td>
+  <td>id/title/body/tags/variables/source/license/revision/starred/trashed</td>
+</tr>
+<tr>
+  <td>PromptPanelProps</td>
+  <td>draftId、source(projectId/nodeId/revision可选)</td>
+</tr>
+<tr>
+  <td>ApplyPromptInput</td>
+  <td>draftId、resultVersionId、targetProjectId、targetNodeId?、baseRevision、mode(insert/apply)、commandId</td>
+</tr>
+<tr>
+  <td>FlowDraftInput</td>
+  <td>resultVersionId、targetProjectId、baseRevision、capabilityVersion、显式参考；无视频批准</td>
+</tr>
+<tr>
+  <td>CoreModel / DeploymentContract</td>
+  <td>真实目录id；契约包含版本、路由、允许枚举、输入限制、验证来源；不从名称推断视频/文字能力</td>
+</tr>
+<tr>
+  <td>CoreClient / CredentialSession</td>
+  <td>按注册ConnectionProfile操作固定路由；秘钥通过withCredential短期注入；不能暴露给UI状态序列化</td>
+</tr>
+<tr>
+  <td>AssetUploadInput / CoreAssetRef</td>
+  <td>本地asset/blob/mime/name、RunBinding；结果coreAssetId/expiresAt/同绑定</td>
+</tr>
+<tr>
+  <td>PreparedVideoRequest</td>
+  <td>runId、binding、finalBody原字符串、bodyHash、idempotencyKey、assetMappings</td>
+</tr>
+<tr>
+  <td>RunDraftInput / RunPlan</td>
+  <td>project/node/revision、spec、显式输入、caps；plan含阻塞项/输入摘要/下游依赖</td>
+</tr>
+<tr>
+  <td>ConfirmDecision / ApprovedRun</td>
+  <td>用户确认planHash、节点数、输入快照；批准记录关联run，不当远端身份</td>
+</tr>
+<tr>
+  <td>RecoveryDecision / RecoveryResult</td>
+  <td>query/replay_original/manual_only；原bytes/原键仅契约验证后重放</td>
+</tr>
+<tr>
+  <td>PreflightResult</td>
+  <td>ready/blocked、issues[]、plan?；预检零网络</td>
+</tr>
+<tr>
+  <td>QueueApproval</td>
+  <td>queueId、planHashes、revision、explicitDecision；未见的上游结果不能提前批准</td>
+</tr>
+<tr>
+  <td>PollResult</td>
+  <td>httpStatus?、retryAfter?、errorCode?、task?；不将network_error当生成终态</td>
+</tr>
+<tr>
+  <td>ApprovedPromptInput</td>
+  <td>draftId/revision、requestSnapshot、binding、textModelId、idempotencyKey、approvalId</td>
+</tr>
+<tr>
+  <td>PromptParseResult</td>
+  <td>parsed/result 或 invalid/rawForLocalReview/issues；不得执行输出或自动请求修复</td>
+</tr>
+<tr>
+  <td>VideoWork / WorkRevisionInput</td>
+  <td>workId、versions[]、baseVersionId；action revise/continue、prompt、显式spec覆盖、RunBinding</td>
+</tr>
+<tr>
+  <td>MediaIntent</td>
+  <td>preview/download/cache；MediaDeliveryResult含blobKey/objectUrl?和交付状态，不包含Key URL</td>
+</tr>
+<tr>
+  <td>DownloadTriggerResult</td>
+  <td>triggered/failed；没有“已写入Downloads”状态</td>
+</tr>
+<tr>
+  <td>TaskFilter / TaskListItem</td>
+  <td>类型(video/prompt)、project、独立四维状态与非秘密来源</td>
+</tr>
+<tr>
+  <td>ResultSelectionInput</td>
+  <td>projectId/nodeId/runId/assetId/baseRevision/commandId</td>
+</tr>
+<tr>
+  <td>ExportOptions / ExportResult</td>
+  <td>structure/full、explicitMissingAssetsPolicy；blob/fileName/report；无执行授权</td>
+</tr>
+<tr>
+  <td>ImportInspection / ImportPlan</td>
+  <td>ok/errorCode、manifest、缺失/未知项、尺寸预算、ID映射；新project默认；非法内容不执行</td>
+</tr>
+<tr>
+  <td>StorageSummary / CleanupReport</td>
+  <td>estimateBytes?、actualKnownBytes、source、deletedRebuildableItems；未知不伪造0</td>
+</tr>
+<tr>
+  <td>RecoveryIssue / RecoveryAction</td>
+  <td>code、run/project refs、binding；仅安全下一步query/export/reload/provide_auth/manual</td>
+</tr>
+<tr>
+  <td>DiagnosticFilter</td>
+  <td>projectId?、kind?、timeRange?；输出固定字段白名单</td>
+</tr>
+<tr>
+  <td>AgentConnectInput</td>
+  <td>回环地址、独立session token、origin、projectId；无Core Key</td>
+</tr>
+<tr>
+  <td>FeatureAvailability</td>
+  <td>visible、executable、reason、evidenceVersion；两者可不同</td>
+</tr>
+<tr>
+  <td>CompatibilityDecision</td>
+  <td>writable/readonly/unsupported、reason；新版本数据不能默默降schema</td>
+</tr>
+<tr>
+  <td>CrashPoint / CrashScenarioResult</td>
+  <td>有限已命名崩溃点；真实模拟请求计数、持久run快照、重开后计数</td>
+</tr>
+<tr>
+  <td>LiveApproval</td>
+  <td>endpoint、bindingLabel、allowedTextSubmissions、allowedVideoSubmissions、expiresAt、可验证费用约束；不保存Key</td>
+</tr>
+</tbody>
+</table>
+<h2>测试夹具责任</h2>
+<p>T03提供网络计数器、阻断所有未允许业务网路的setup、Vitest/Playwright环境和通用纯数据factory。T04使factory对齐正式类型，T05新增真实IndexedDB的<code>seedStudio(page, scenario)</code>，用实际schema和事务写入，不让mock仓库掩盖保存问题。</p>
+<p>未来<code>tests/helpers/fixtures.ts</code>导出<code>f</code>：project、run、promptInput、draft、promptResult、caps、unknownCaps、workRevision、agentConnect、agentGrant、agentSession为类型factory；persist/readProject/Graph/Run/Draft、persistApprovedRun、persistActiveRun、projectCount、persistedText操作隔离测试DB；validFiles/zipWithEntry为小型原创测试素材；networkRequests/videoPosts/commandWrites读取真正请求计数，不是写死返回值；failFinalBodySave/failNextStatus/redirectNextDownload/disableCapability/agentOrigin/originalIdempotencyKey注入精确故障；threeShotGraph/addTextCommand创建固定场景。</p>
+<p><code>seedStudio</code>场景名：minimal-project、project-library、unverified-capability、asset-library、template-with-required-variable、prompt-draft、prompt-result-ready、runnable-video、invalid-ai-result、mixed-task-history、two-result-versions、storage-persistence-denied、submit-unknown、agent-readonly、editable-history、newer-project-schema。每个场景的project ID固定p1，不带真实Key。</p>
+<p><code>countPaidRequests(page): Promise&lt;number&gt;</code>统计本地Mock的聊天/视频提交，而不是页面点击数。
+T45的<code>runCrashScenario(name)</code>使用实际浏览器/MockHTTP故障与持久DB，不能只构造期望JSON。
+T48的<code>loadLiveApproval()</code>读取本地审批并检查截止时间，不用环境变量存在替代具体范围授权。</p>
+<p>单测代码块为最小回归示例，完整实现还要覆盖该任务全部条目与交互台账。文件存在、report写true、类型检查通过都不能替代真实行为测试。</p>
+</section></details>
+<details id="handoff"><summary>执行代理交接</summary><section><h1>AI WORK Studio 执行代理交接</h1>
+<h2>本轮用户指令</h2>
+<p>目标相对目录：<code>TRAEWORK/aiwork-studio</code>。
+执行者：<strong>1个代理，用户指定显示名GPT6.1 sol high，high推理档位</strong>。不要沿用其他项目的Luna配置。
+设计基线1.0和提示词生成增补1.1已获用户认可；当前交付正式实施计划。产品代码、生产部署和真实费用授权分别处理。</p>
+<h2>首次启动必须留下的事实</h2>
+<ol>
+<li>用宿主工作区工具确定TRAEWORK的实际根位置与可写性，记录当前工作目录和Git状态。没有工具证据不假定磁盘路径，不在任意既有仓库启动。</li>
+<li>调度器确认实际模型id和推理档位。此处display name不是可直接粘贴到API的model id；不可用则报告真实限制，不替换模型、不假称已启动。</li>
+<li>阅读两份spec、总计划、shared-contracts和本次包；加载该任务依赖的验收证据。</li>
+<li>只能在新项目及明确允许的来源只读副本中工作。既有Trae-core、trae-maker、trae-maker-MCP和提示词仓库main不变。</li>
+<li>默认阻断真实业务网络。测试使用假Key和本地Mock；只有T48明确审批后才允许限制范围live。</li>
+<li>分支创建/推送遭403或本地不可写，保留命令与错误，不用伪造结果或改另一仓库替代。</li>
+</ol>
+<h2>第一个批次</h2>
+<p>T01→T02→T03→T04→T05→T06。先基线、来源、视觉门槛，再工程工具链与可靠事务/锁。不能先把整张效果图转成假按钮。
+之后T07–T17完成本地画布，T18–T22在feat/prompt-generation完成本地规则、冲突、草稿和插入。
+后续按总计划依赖图顺序执行，不越过持久化与确认直接接收费API。</p>
+<h2>每任务工作协议</h2>
+<ul>
+<li>建失败用例并实际观察失败；环境坏不是有效红灯。</li>
+<li>实现该任务规定的接口，不增第二套模型API、存储或计费。</li>
+<li>运行目标测试及模块回归，记录exit code、case数和跳过数。</li>
+<li>检查diff与对应交互ID；截取真实运行UI，不拿设计图代替。</li>
+<li>只提交任务范围内文件；写入docs/review/evidence/Txx.json。</li>
+<li>主审检查后才进入依赖任务。修改失败保留现场，不删除已发run，不改原幂等身份重发。</li>
+<li>原软件标识去除与第三方版权保留分别验收；未知来源授权阻止不合规发布。</li>
+<li>逐阶段交付可用软件，不因后续条件能力未开而造假显示。</li>
+</ul>
+<h2>不能声称的事</h2>
+<p>未运行不称测试通过；Mock不称真实视频成功；未收到调度回执不称代理已启动；
+未写入用户工作区不称已放进TRAEWORK；浏览器下载不称Downloads已落盘；
+停止等待不称取消或退款；设计通过不称已构建；模型列表可读不称所有scope可用。</p>
+<h2>交付记录最小格式</h2>
+<p>taskId、baseCommit、headCommit、actualModel、reasoningMode、files、
+commands[{command,exitCode,passed,failed,skipped,logPath}]、
+interactionIds、screenshots、networkMode(mock/live)、knownLimitations、reviewDecision。</p>
+<p>这是一份可交给执行宿主的指令，不是本会话已创建或运行代理的证明。</p>
+</section></details></main><footer>实际工作区与指定模型需由执行宿主确认。未启动代理，未修改业务仓库，未调用真实收费服务。</footer>
+<script>document.getElementById('expand').onclick=()=>document.querySelectorAll('details').forEach(x=>x.open=true);
+document.getElementById('collapse').onclick=()=>document.querySelectorAll('details').forEach(x=>x.open=false);
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{let e=document.getElementById(a.hash.slice(1));if(e&&e.tagName==='DETAILS')e.open=true;}));</script></body></html>

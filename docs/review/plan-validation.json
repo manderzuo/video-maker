@@ -1,0 +1,31 @@
+{
+  "type": "planning-package-validation",
+  "date": "2026-09-30",
+  "tasks": 50,
+  "work_packages": 9,
+  "interactions": 260,
+  "pages_panels": 23,
+  "dialogs": 30,
+  "all_interactions_have_owner_and_test_id": true,
+  "task_dependency_dag_valid": true,
+  "original_spec_hashes_unchanged": {
+    "AIWORK_Studio_Design_v1.md": "78d729195494edfe7af5936f89f19eaf00ac82f4f5d9a76283ee60b50f41c1f4",
+    "AIWORK_Studio_Prompt_Generation_Design_v1.1.md": "3cc3f508ce38ca589d70387637679cb19f024a543773b30f2459caf4cae0500a"
+  },
+  "html_internal_links_valid": true,
+  "workbook_sheets": 9,
+  "workbook_cached_summary": {
+    "tasks": 50,
+    "verified_tasks": 0,
+    "interactions": 260,
+    "verified_interactions": 0
+  },
+  "xlsx_error_cells": 0,
+  "product_source_created": false,
+  "product_tests_run": false,
+  "agent_launched": false,
+  "remote_branch_created": false,
+  "reader_render_scope": "static document set_content rendered 1440 and 1024 widths; no external requests; local-file navigation blocked by host policy; application UI not tested",
+  "verification_scope": "document structure, ownership, links, spreadsheet formulas and packaging only",
+  "user_workstation_workspace_written": false
+}

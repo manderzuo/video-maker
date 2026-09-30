@@ -1,0 +1,261 @@
+﻿id,page,label,task_id,scope,condition,action,error,persistence,side_effect,test_id,test_path,status,evidence,source
+G-01,P03,应用字标/项目入口,T11,本轮主线,非阻塞导入状态,先刷新保存状态，再回项目页,保存失败留在当前页并可导出草稿,视口随项目保存；无数据撤销,本地，不计费,AC-G-01,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-02,P03,全局导航,T11,本轮主线,目标页面可用,切换项目/素材/提示词/任务/设置；当前项高亮,未知路由进入自有404页,保存最后访问页；不新建任务,本地，不计费,AC-G-02,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-03,P03,命令面板,T11,本轮主线,焦点不在输入法组合态,Ctrl+K搜索当前权限下的操作,无匹配显示空态；不显示隐藏能力,不保存搜索词,本地；收费命令仍进确认,AC-G-03,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-04,P03,全局搜索,T11,本轮主线,已有本地索引,查项目名、节点标题、提示词标题；300ms去抖,无结果给清除筛选,仅本地索引,本地，不计费,AC-G-04,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-05,P03,连接状态筹码,T11,本轮主线,任意状态,打开连接详情，不直接重连或发请求,Core状态未知明确显示未知,读取连接档案,只读测试需显式点击,AC-G-05,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-06,P03,保存状态,T37,本轮主线,项目打开,展开上次成功保存时间和失败原因,失败提供重试和导出草稿,不得提前显示已保存,本地，不计费,AC-G-06,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+G-07,P03,帮助按钮,T11,本轮主线,任意页,打开该区域帮助抽屉,本地帮助缺失显示版本信息,不改变项目,本地，不计费,AC-G-07,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-08,P03,关闭面板/Esc,T11,本轮主线,最顶层面板获得焦点,先关闭菜单再抽屉，编辑脏数据提示,生成确认过程中不允许重复提交,不撤销已提交任务,本地，不计费,AC-G-08,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-09,P03,通知消息,T11,本轮主线,有可见通知,点击定位相关任务/节点,对象已删除显示历史摘要,重要错误保留到处理,本地，不计费,AC-G-09,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+G-10,P03,恢复布局,T11,本轮主线,画布页面,还原面板宽度与位置，不改节点坐标,布局存储失败提示,操作可再次手动调整,本地，不计费,AC-G-10,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+W-01,P01,进入本地模式,T11,本轮主线,无需Key,到项目主页，所有生成入口显示未连接提示,存储不可用进入只读并允许导出,记住引导完成状态,本地，不计费,AC-W-01,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+W-02,P01,Core地址输入,T11,本轮主线,受部署允许的地址,去除末尾斜线；拒绝URL内用户名/密码/查询Key,非法URL行内报错；不猜测修复域名,保存地址与别名，不保存Key,无请求,AC-W-02,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+W-03,P01,普通Key输入,T11,本轮主线,用户明确输入,密码框，不自动读取剪贴板或MCP配置,空Key不测试；不把管理员密码当Key,当前标签页内存保存,无请求,AC-W-03,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+W-04,P01,显示/隐藏Key,T11,本轮主线,当前已输入,按住或点击临时显示，失焦隐藏,不复制到日志,不改变保存策略,无请求,AC-W-04,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+W-05,P01,测试连接,T11,本轮主线,地址合法且有Key,依次健康检查和模型列表；显示每步结果,区分401/403/404/网络；不发送视频测试,记录时间及脱敏状态,GET /healthz与/v1/models；不生成,AC-W-05,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+W-06,P01,继续创建项目,T11,本轮主线,本地可写,进入新项目对话框；连接可稍后处理,没有视频权限仍可创作,写引导完成状态,本地，不计费,AC-W-06,tests/e2e/app-shell.spec.ts,待实施,,Design 1.0
+P-01,P02,新建项目,T12,本轮主线,本地可写,输入名称后创建空项目并打开画布,名称1–60字符；默认未命名项目可重名,写项目记录；可软删除,本地，不计费,AC-P-01,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-02,P02,使用本地模板,T12,本轮主线,模板来自内置或显式导入,预览节点后创建新项目，不带任务与授权,未知节点隔离；不可偷偷执行,复制模板结构与参数,本地，不计费,AC-P-02,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-03,P02,打开项目,T12,本轮主线,项目可解析,恢复位置、素材与任务卡；不自动提交,锁冲突先只读；缺素材定位修复,读取本地projectId,本地；查询任务按授权恢复,AC-P-03,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-04,P02,重命名,T12,本轮主线,非只读,Enter保存，Esc取消，名称即时更新,空白/超长行内提示,可撤销；更新modifiedAt,本地，不计费,AC-P-04,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-05,P02,复制项目,T12,本轮主线,项目可读,复制结构和资源引用；默认历史只读，不复制运行队列,容量不足无半成品,新ID；共享blob引用计数,本地，不计费,AC-P-05,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-06,P02,收藏/取消收藏,T12,本轮主线,项目存在,仅调整星标,写入失败恢复原状态,可逆，本地,本地，不计费,AC-P-06,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-07,P02,归档/取消归档,T12,本轮主线,项目存在,归档不阻止远端任务；归档项目仍可查,状态未知任务保留追踪,可逆，本地,本地，不计费,AC-P-07,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-08,P02,移入回收站,T12,本轮主线,确认影响,显示活动任务数量；软删除项目,不可取消远端任务；不能表示删除完成即停止,可恢复；追踪记录保留,本地，不计费,AC-P-08,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-09,P02,选择/批量选择,T12,本轮主线,列表非空,出现数量与批量菜单,跨页选择须显示范围,选择不持久化,本地，不计费,AC-P-09,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-10,P02,批量归档,T12,本轮主线,已选项目,显示准确数量后更新,部分失败逐项报告,逐项可恢复,本地，不计费,AC-P-10,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-11,P02,批量导出,T12,本轮主线,已选项目,生成含清单的备份包；核对敏感信息排除,容量不足停止；不生成空成功包,不包含Key；结果保留,本地，不计费,AC-P-11,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-12,P02,筛选/排序,T12,本轮主线,列表页,名称/最近修改/收藏/归档筛选,空结果保留清除入口,仅记住排序偏好,本地，不计费,AC-P-12,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-13,P02,网格/列表切换,T12,本轮主线,列表页,保留筛选、滚动附近位置与选择,无失败副作用,本地UI偏好,本地，不计费,AC-P-13,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+P-14,P02,项目详情,T12,本轮主线,选中一项,显示本地大小、素材数量、任务绑定与最后备份,未知容量显示未统计,只读,本地，不计费,AC-P-14,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+C-01,P03,选择工具,T13,本轮主线,画布可交互,V切换；单击选中，Shift切换选择,输入框内V不拦截,选区不生成新版本,本地，不计费,AC-C-01,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-02,P03,平移工具,T13,本轮主线,画布可交互,H或按住空格；中键也可平移,拖动在弹窗中不生效,保存视口,本地，不计费,AC-C-02,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-03,P03,框选,T13,本轮主线,空白处选择模式拖动,框内节点加入选区；可用节点列表替代,锁定节点可选不可移动,选区不持久化,本地，不计费,AC-C-03,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-04,P03,缩放 +/-,T13,本轮主线,无模态遮挡,以视口中心缩放；范围25%–200%,不超出范围；禁用边界按钮,保存视口,本地，不计费,AC-C-04,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-05,P03,缩放数值,T13,本轮主线,画布页,输入百分比；非法值恢复原值,范围校验与错误提示,保存视口,本地，不计费,AC-C-05,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-06,P03,适配全部,T13,本轮主线,至少一节点,计算边界留48px空白,空画布回100%,保存视口,本地，不计费,AC-C-06,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-07,P03,定位选中,T13,本轮主线,至少一节点,居中选中节点，保留合理缩放,未选中禁用,只改视口,本地，不计费,AC-C-07,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-08,P03,小地图开关,T13,本轮主线,画布页,显示/收起；点击跳到位置,小屏自动隐藏仍能设置恢复,UI偏好,本地，不计费,AC-C-08,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-09,P03,画布背景,T13,本轮主线,画布页,点阵/网格/纯色；默认点阵,主题切换保持可见度,项目UI设置,本地，不计费,AC-C-09,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-10,P03,添加节点,T13,本轮主线,可编辑,弹菜单：文本/素材/视频生成/结果引用/分组,隐藏未开放的生成能力,可撤销新增,本地，不计费,AC-C-10,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-11,P03,粘贴文件,T13,本轮主线,用户主动粘贴且允许,解析图片/视频为素材；文本成为文本节点,不读取整个剪贴板历史,写blob后写节点，失败回滚,本地，不计费,AC-C-11,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-12,P03,粘贴链接,T13,本轮主线,用户主动粘贴,生成文本或提示确认导入；不自动远程抓取,非授权URL不能成为API/脚本,文本可撤销,无自动请求,AC-C-12,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-13,P03,撤销,T13,本轮主线,本地可撤销操作栈非空,Ctrl+Z撤销结构与编辑；不能撤销付费执行,输入框由原生撤销处理,撤销仍写新revision,本地，不退款,AC-C-13,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-14,P03,重做,T13,本轮主线,有重做记录,恢复最近被撤销的编辑；不重发任务,历史失效时禁用,写新revision,本地，不计费,AC-C-14,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+C-15,P03,运行选中,T26,本轮主线,选中可执行节点且可持久化,进入执行预检与确认；按钮绝不直接批量收费,缺参数/参考/身份/循环依赖定位错误,确认后固定run记录,经确认 POST 视频接口,AC-C-15,tests/e2e/generation-preflight.spec.ts,待实施,,Design 1.0
+C-16,P03,运行全部可执行节点,T26,本轮主线,项目内有可执行节点,只通过运行菜单进入；列出数量和顺序,默认不自动重跑已完成节点,审批绑定图revision,经逐项/批量确认收费,AC-C-16,tests/e2e/generation-preflight.spec.ts,待实施,,Design 1.0
+C-17,P03,暂停本地队列,T29,本轮主线,有未提交执行,停止发出后续请求；已提交任务继续,不能显示取消成功,队列状态持久化,无取消接口调用,AC-C-17,tests/unit/run-queue.test.ts,待实施,,Design 1.0
+C-18,P03,继续本地队列,T29,本轮主线,未提交队列存在,重新核对过期授权、输入和数量,参数已改变须再次确认,更新队列审批,将触发后续已确认生成,AC-C-18,tests/unit/run-queue.test.ts,待实施,,Design 1.0
+C-19,P03,导出项目,T36,本轮主线,项目可读,打开导出范围：结构/含素材备份,缺素材明确列出不静默跳过,导出不改源,本地，不计费,AC-C-19,tests/unit/project-package.test.ts,待实施,,Design 1.0
+C-20,P03,节点大纲,T15,本轮主线,画布页,按镜头/类型查看，选择并定位,过滤无结果提示,排序视图不改流程顺序,本地，不计费,AC-C-20,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-01,P03,节点拖动,T13,本轮主线,可编辑且未锁定,坐标更新；松手一次入撤销栈,锁定或另标签写入拒绝,持久化位置,本地，不计费,AC-N-01,tests/e2e/canvas-viewport.spec.ts,待实施,,Design 1.0
+N-02,P03,节点标题编辑,T14,本轮主线,可编辑,双击或F2，1–60字符,空标题恢复默认并提示,可撤销,本地，不计费,AC-N-02,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+N-03,P03,复制节点,T15,本轮主线,选中节点,复制结构到内部剪贴板；结果引用固定asset版本,复制不传Key、运行授权或动态token,本地快照,本地，不计费,AC-N-03,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-04,P03,粘贴节点,T15,本轮主线,剪贴板可解析,创建新ID并偏移24px；保留内部连接,外部连接变缺少输入提示,可撤销；不复制任务执行,本地，不计费,AC-N-04,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-05,P03,复制为分支,T15,本轮主线,文本/生成/结果可用,新生成节点继承输入参数与明确父结果,旧结果不存在则阻止父版本操作,新增分支，不改旧版,本地；不自动生成,AC-N-05,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-06,P03,删除节点,T15,本轮主线,可编辑,删除摆放和边，不删除任务及共享素材,活动任务保留在任务中心,可撤销,本地，不取消远端任务,AC-N-06,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-07,P03,锁定/解锁节点,T15,本轮主线,可编辑,锁布局；仍可查看，参数编辑需解锁,锁不作为权限安全边界,可逆,本地，不计费,AC-N-07,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-08,P03,组合,T15,本轮主线,多选至少2节点,建立布局分组，不自动把全组内容当参考,不可嵌套到自身,可撤销,本地，不计费,AC-N-08,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-09,P03,取消组合,T15,本轮主线,选中分组,解除布局父子关系，位置不跳变,组有导出引用时显式保留原输入映射,可撤销,本地，不计费,AC-N-09,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-10,P03,分组收起/展开,T15,本轮主线,分组存在,隐藏/显示子节点，边折叠投影,不改变执行输入,UI状态可逆,本地，不计费,AC-N-10,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-11,P03,对齐/等间距,T15,本轮主线,2个/3个以上非锁定节点,只调整坐标,不足数量禁用,可撤销,本地，不计费,AC-N-11,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-12,P03,整理布局,T15,本轮主线,有节点,预览建议布局，应用后一次写入,超大图分镜头操作,可撤销；不改拓扑,本地，不计费,AC-N-12,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-13,P03,拉线连接,T14,本轮主线,输出类型与输入类型匹配,显示可连接端口；落点生成数据依赖边,拒绝自连/循环/超额/不兼容,可撤销；下游标记输入已变,本地，不计费,AC-N-13,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+N-14,P03,选择输入菜单,T14,本轮主线,生成节点可编辑,不用拖动也能搜索并选择上游节点,无可用节点显示新建入口,同拉线契约,本地，不计费,AC-N-14,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+N-15,P03,断开连接,T14,本轮主线,选中边,移除依赖，显示缺少输入,运行中使用快照不改变,可撤销,本地，不计费,AC-N-15,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+N-16,P03,修改输入顺序,T14,本轮主线,两个以上参考,显式序号/上下移，与连线位置无关,超上限不可提交，不静默截断,记录输入顺序,本地，不计费,AC-N-16,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+N-17,P03,节点右键菜单,T15,本轮主线,单选/多选/空白,按对象显示合法操作，非法项附原因,不提供空点击无响应项,菜单无状态写入,收费项仍进入确认,AC-N-17,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-18,P03,镜头分组命名,T15,本轮主线,分组存在,输入镜头名和顺序,名称不决定视频拼接,可撤销,本地，不计费,AC-N-18,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+N-19,P03,标记选用结果,T15,本轮主线,已完成可读结果,固定下游引用此asset版本,下游已有运行不受影响，草稿待确认,写selectionRevision,本地，不计费,AC-N-19,tests/e2e/canvas-layout.spec.ts,待实施,,Design 1.0
+T-01,P03,编辑文本,T14,本轮主线,文本节点可写,直接编辑，300ms后草稿保存,组合输入不打断；长度计数,可撤销，保存成功才显示已保存,本地，不计费,AC-T-01,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+T-02,P03,字号切换,T14,本轮主线,文本节点,12/14/16/20px，仅显示效果,文本内容不改变,项目UI元数据,本地，不计费,AC-T-02,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+T-03,P03,插入参考@,T14,本轮主线,仅允许已选择/连接内容,弹选区列表，插入稳定引用token,无效引用高亮并禁止付费运行,保存引用ID，不存临时URL,本地，不计费,AC-T-03,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+T-04,P03,复制文本,T14,本轮主线,文本非空,写剪贴板并提示已复制,权限拒绝显示手动选中文本,无数据写入,本地，不计费,AC-T-04,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+T-05,P03,保存为提示词,T17,本轮主线,文本非空,D09填写标题标签后入库,重复标题可另存，不自动覆盖,可删除恢复,本地，不计费,AC-T-05,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+T-06,P03,AI润色,T30,本轮主线,Core文字能力已核验,预览送出文本/引用与计费提示；确认后生成建议节点,失败保留原文；未知请求不自动重试,新文本结果，保留源,POST /v1/chat/completions；文字计费,AC-T-06,tests/unit/text-optimization.test.ts,待实施,,Design 1.0
+T-07,P03,使用润色建议,T31,本轮主线,已有建议,展示diff后替换或另存，默认另存,原文revision变化必须重审,可撤销纯编辑,本地，不计费,AC-T-07,tests/e2e/prompt-result-parser.spec.ts,待实施,,Design 1.0
+T-08,P03,从文本创建视频流程,T22,本轮主线,文本可读,生成连接好的视频配置节点,无视频能力仍可建草稿，运行禁用,新增结构可撤销,本地，不计费,AC-T-08,tests/e2e/prompt-canvas-commands.spec.ts,待实施,,Design 1.0
+M-01,P04,导入文件,T07,本轮主线,显式选择/拖入,先在本地解析类型、hash与缩略图，再确认入库,逐个列出格式/体积/损坏错误,事务写素材；失败不留坏节点,本地，不上传Core,AC-M-01,tests/unit/asset-import.test.ts,待实施,,Design 1.0
+M-02,P04,批量导入,T07,本轮主线,一次最多50个文件（产品初值）,逐项显示进度，成功项保留,失败可重选；不宣称全部成功,逐项素材记录,本地，不计费,AC-M-02,tests/unit/asset-import.test.ts,待实施,,Design 1.0
+M-03,P04,查看大图,T16,本轮主线,图片可读,遮罩层预览，适配/原尺寸,缺失提供重新关联,不写项目,本地，不计费,AC-M-03,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-04,P04,播放/暂停,T16,本轮主线,视频/音频可读,仅当前媒体播放，默认无自动播放,解码失败给下载原文件,不改变源文件,本地，不计费,AC-M-04,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-05,P04,静音/音量,T16,本轮主线,媒体可播放,记住会话音量；首次默认静音,设备不可用不影响生成,会话偏好,本地，不计费,AC-M-05,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-06,P04,播放进度,T16,本轮主线,可定位媒体,拖动或键盘±5秒,缓冲不足显示加载，不改变素材时长,不持久化媒体内容,本地，不计费,AC-M-06,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-07,P04,修改素材名称/标签,T16,本轮主线,素材可编辑,更新描述，不更换内容哈希,引用节点显示名同步,可撤销,本地，不计费,AC-M-07,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-08,P04,添加到画布,T16,本轮主线,有目标项目,创建素材引用节点；无项目先选项目,目标只读阻止写入,新nodeId，asset不复制,本地，不计费,AC-M-08,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-09,P04,替换当前输入,T16,本轮主线,草稿节点可编辑,选择新素材并列出影响的下游,运行快照和历史不变,可撤销，标记待更新,本地，不计费,AC-M-09,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-10,P04,重新关联丢失素材,T16,本轮主线,用户主动选择文件,hash相同恢复；不同则另建素材并确认替换,不能把同名视为相同内容,保留旧asset来源,本地，不计费,AC-M-10,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-11,P04,下载原素材,T16,本轮主线,本地或已授权内容可得,触发浏览器下载，显示文件名,远端过期不自动抓取任意URL,不声称下载目录已写入,GET content仅同一授权源,AC-M-11,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-12,P04,移除素材,T08,本轮主线,检查项目引用,有引用禁止永久删除，可先解除引用,活动/未知任务关联保留,软删除可恢复,本地，不删Core资产,AC-M-12,tests/unit/asset-retention.test.ts,待实施,,Design 1.0
+M-13,P04,素材筛选/排序,T16,本轮主线,素材库,类型、标签、最近添加、被引用筛选,空结果给清除筛选,UI偏好,本地，不计费,AC-M-13,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-14,P04,网格/列表,T16,本轮主线,素材库,保持选择与筛选,无数据副作用,UI偏好,本地，不计费,AC-M-14,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+M-15,P04,详情与引用位置,T16,本轮主线,单素材,列出本地位置、来源、hash、被使用节点,缺失字段显示未知,只读,本地，不计费,AC-M-15,tests/e2e/asset-library.spec.ts,待实施,,Design 1.0
+V-01,P03,选择视频模型,T14,本轮主线,连接模型列表可得,选择逻辑模型；不把文字模型当视频模型,能力未核验时禁用运行,写草稿；旧run模型不改,GET /v1/models只读,AC-V-01,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-02,P03,时长输入,T14,本轮主线,有已核验规格,整数框与可选滑杆同步；显示单位秒,超范围报错不静默夹值,参数草稿可撤销,无请求,AC-V-02,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-03,P03,画幅比例,T14,本轮主线,有已核验枚举,显示横/竖比例chips；不裁剪源图,旧比例不支持时显示需选择,参数草稿可撤销,无请求,AC-V-03,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-04,P03,清晰度,T14,本轮主线,有已核验枚举,选择后显示实际请求规格,不因UI出现就承诺4K,参数草稿可撤销,无请求,AC-V-04,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-05,P03,参考素材列表,T14,本轮主线,素材可读,图/视频分区和序号，显示用途说明,缺失或过期须修复；不得静默降成文生视频,固定引用及顺序,提交时才 POST /v1/assets,AC-V-05,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-06,P03,打开输入快照,T14,本轮主线,节点有上游,展示将发送的文字和显式素材,不隐式加入全画布,只读,本地，不计费,AC-V-06,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-07,P03,重置参数,T14,本轮主线,草稿可编辑,恢复当前模型已核验默认值，显示变更,运行中快照不受影响,可撤销,本地，不计费,AC-V-07,tests/e2e/typed-nodes.spec.ts,待实施,,Design 1.0
+V-08,P03,生成预检,T26,本轮主线,数据可写且授权有效,验证类型、参数、依赖、来源、任务数量,列出所有阻塞项并定位,预检不上传不收费,本地校验，不保证远端准入,AC-V-08,tests/e2e/generation-preflight.spec.ts,待实施,,Design 1.0
+V-09,P03,确认生成,T27,本轮主线,D05显示完整快照,保存run和幂等键后上传/提交；重复点击单飞,存储失败禁止提交；网络不明保持未知,不可用撤销抵消；保留证据,POST /v1/assets + /v1/videos/generations,AC-V-09,tests/unit/video-submit.test.ts,待实施,,Design 1.0
+V-10,P03,取消生成确认,T26,本轮主线,尚未提交,关闭D05，保留草稿,已经发出时不展示本地取消成功,不创建run或发请求,不计费,AC-V-10,tests/e2e/generation-preflight.spec.ts,待实施,,Design 1.0
+V-11,P03,查看实时状态,T28,本轮主线,有Core任务ID和对应Key,查询原任务，节流并退避,401需授权；429按Retry-After；5xx不重提,更新查询状态而非抹掉任务,GET /v1/videos/{id},AC-V-11,tests/unit/video-polling.test.ts,待实施,,Design 1.0
+V-12,P03,重新查询,T28,本轮主线,查询中断,同taskId恢复查询，不换幂等键,状态仍不明持续显示未知,保留原run,GET /v1/videos/{id}，不生成,AC-V-12,tests/unit/video-polling.test.ts,待实施,,Design 1.0
+V-13,P03,暂停查询,T28,本轮主线,已提交任务,停止本标签页轮询；文案说明任务仍可能运行,不能等同取消/退款,保存暂停标记,无新请求,AC-V-13,tests/unit/video-polling.test.ts,待实施,,Design 1.0
+V-14,P03,重新生成,T27,本轮主线,用户明确要新尝试,复制输入到新run确认单，明确可能再次计费,未知旧任务须风险确认且默认阻止自动新发,新run新幂等键，旧run保留,确认后创建新收费任务,AC-V-14,tests/unit/video-submit.test.ts,待实施,,Design 1.0
+V-15,P03,创建改版,T32,作业能力条件开放,有work_context且已开放,固定work_id/base_version_id，展示差异,父版本不属于此Key则阻止,保留父链,确认后 action=revise,AC-V-15,tests/unit/video-work-context.test.ts,待实施,,Design 1.0
+V-16,P03,创建续写,T32,作业能力条件开放,版本可读且continuation开放,继承参数并显示新增片段时长,不支持严格首帧/拼接时明确说明,新版本，不改源,POST /v1/video-works/{id}/continue,AC-V-16,tests/unit/video-work-context.test.ts,待实施,,Design 1.0
+V-17,P03,将结果用于下游,T35,本轮主线,结果已完成,选择固定版本引用,新版本到达不偷偷替换此绑定,下游标记待确认,本地，不计费,AC-V-17,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+V-18,P03,显示账务信息,T34,本轮主线,普通接口确实返回可信字段,实际、预占、待对账独立显示,无接口显示未提供，不向admin取数,显示只读，不本地结算,只读已有任务字段,AC-V-18,tests/e2e/task-center.spec.ts,待实施,,Design 1.0
+R-01,P07,打开审片,T35,本轮主线,结果记录存在,进入P07并加载具体run,内容不可得显示任务仍可查,保留浏览位置,GET鉴权content或本地blob,AC-R-01,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-02,P07,全屏预览,T35,本轮主线,用户手势允许,进入浏览器全屏；Esc退出,被禁止仍可普通播放,仅UI状态,本地，不计费,AC-R-02,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-03,P07,下载视频,T33,本轮主线,有对应Key或本地缓存,鉴权获取blob后触发下载,不向跨域重定向泄漏Key；失败可重试下载,缓存成功与下载触发分开记,GET /v1/videos/{id}/content,AC-R-03,tests/unit/media-delivery.test.ts,待实施,,Design 1.0
+R-04,P07,重新下载,T33,本轮主线,下载失败且生成已完成,只重试内容接口,过期/权限错误提示，不新生成,更新delivery状态,GET content，不生成,AC-R-04,tests/unit/media-delivery.test.ts,待实施,,Design 1.0
+R-05,P07,复制任务编号,T35,本轮主线,有taskId,复制服务地址别名与taskId，不复制Key,剪贴板拒绝可选中文本,无写入,本地，不计费,AC-R-05,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-06,P07,复制参数,T35,本轮主线,有输入快照,复制脱敏JSON/文本，不含凭据与签名URL,缺素材ID只保留本地引用说明,无写入,本地，不计费,AC-R-06,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-07,P07,选择历史版本,T35,本轮主线,节点多次执行,显示该run，运行快照只读,缺文件保留任务来源,不改变默认下游，除非点选用,本地/鉴权查询,AC-R-07,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-08,P07,比较两个版本,T35,本轮主线,选中两个可读视频,进入P08,多于两个要求重新选择,比较不改变结果,本地，不计费,AC-R-08,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-09,P07,同步播放,T35,本轮主线,P08两个媒体就绪,按共同时间近似播放，短片结束即暂停,不同帧率显示非帧精确,不生成新文件,本地，不计费,AC-R-09,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-10,P07,交换A/B,T35,本轮主线,P08,交换展示槽位,无副作用,UI状态,本地，不计费,AC-R-10,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-11,P07,选为后续输入,T35,本轮主线,结果完成,显示受影响节点列表后替换选定引用,已有run不改；不自动重跑,可撤销草稿引用,本地，不计费,AC-R-11,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+R-12,P07,结果加入素材库,T33,本轮主线,结果可获取,缓存为项目素材；记录Core来源,写缓存失败不显示永久保存,引用计数+hash,GET content或本地blob,AC-R-12,tests/unit/media-delivery.test.ts,待实施,,Design 1.0
+R-13,P07,移除结果摆放,T35,本轮主线,画布结果节点,只删卡片，历史仍在任务/版本,不可删除运行证据,可撤销,本地，不计费,AC-R-13,tests/e2e/result-review.spec.ts,待实施,,Design 1.0
+J-01,P06,状态筛选,T34,本轮主线,任务页,执行/查询/下载三个独立筛选,没有结果显示筛选摘要,偏好可记住,本地，不计费,AC-J-01,tests/e2e/task-center.spec.ts,待实施,,Design 1.0
+J-02,P06,任务详情,T34,本轮主线,一条任务,展示请求快照、服务绑定和错误,敏感字段默认遮蔽/不存,只读,本地或 GET status,AC-J-02,tests/e2e/task-center.spec.ts,待实施,,Design 1.0
+J-03,P06,定位到节点,T34,本轮主线,节点仍存在,打开项目并居中节点,已删除显示原节点名称与历史,不重建节点或任务,本地，不计费,AC-J-03,tests/e2e/task-center.spec.ts,待实施,,Design 1.0
+J-04,P06,批量刷新,T28,本轮主线,选中已知任务,合并请求并按当前授权分组、限速,不匹配Key的条目跳过并报告,保留各任务状态,GET status，不生成,AC-J-04,tests/unit/video-polling.test.ts,待实施,,Design 1.0
+J-05,P06,仅重试查询失败项,T28,本轮主线,有查询中断,不处理已明确生成失败的任务,禁止自动提交,查询状态更新,GET status,AC-J-05,tests/unit/video-polling.test.ts,待实施,,Design 1.0
+J-06,P06,移出本地待提交队列,T29,本轮主线,尚未发送,删除未提交执行计划,发送临界点以持久状态判定；不明则锁定,记录用户撤回，不退款,无请求,AC-J-06,tests/unit/run-queue.test.ts,待实施,,Design 1.0
+J-07,P06,停止后续提交,T29,本轮主线,有批量执行,剩余节点暂停，进行中不受影响,不显示所有任务已取消,保存队列,无取消接口调用,AC-J-07,tests/unit/run-queue.test.ts,待实施,,Design 1.0
+J-08,P06,隐藏已完成记录,T34,本轮主线,完成且无未知状态,仅归档显示记录,记录仍可在归档查找,可逆,本地，不计费,AC-J-08,tests/e2e/task-center.spec.ts,待实施,,Design 1.0
+J-09,P06,导出任务记录,T34,本轮主线,有记录,脱敏CSV/JSON；包含taskId与结果状态,不包含Key、下载token,导出副本,本地，不计费,AC-J-09,tests/e2e/task-center.spec.ts,待实施,,Design 1.0
+J-10,P06,处理未知提交,T27,本轮主线,存在submit_unknown,优先同幂等键同快照重放/查询受支持路径；不可换键,无法验证则保留人工核对状态,不丢持久run,仅契约支持的幂等恢复,AC-J-10,tests/unit/video-submit.test.ts,待实施,,Design 1.0
+J-11,P06,补充原授权,T09,本轮主线,任务凭据缺失,D12输入原Key并验证，不能自动换服务,不同Key无法读任务则保留失败原因,不重新绑定已有任务,GET status仅校验,AC-J-11,tests/unit/credential-session.test.ts,待实施,,Design 1.0
+L-01,P05,新建提示词,T17,本轮主线,本地可写,填写名称、正文、标签与可选变量,名称/正文为空禁止保存,独立promptId,本地，不计费,AC-L-01,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-02,P05,编辑提示词,T17,本轮主线,条目可写,保存新revision，原模板引用不随动,脏数据离开需确认,可撤销或保留版本,本地，不计费,AC-L-02,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-03,P05,删除提示词,T17,本轮主线,条目存在,软删除；已插入文本保留,被模板引用给影响说明,可恢复,本地，不计费,AC-L-03,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-04,P05,收藏,T17,本轮主线,条目存在,切换星标,写失败回滚,可逆,本地，不计费,AC-L-04,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-05,P05,搜索/标签过滤,T17,本轮主线,提示词页,全文本地搜索，300ms去抖,无结果给清空筛选,不发送网络,本地，不计费,AC-L-05,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-06,P05,查看详情,T17,本轮主线,条目存在,显示正文、变量、来源/许可,未知来源标示用户导入未核验,只读,本地，不计费,AC-L-06,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-07,P05,复制提示词,T17,本轮主线,正文可读,变量未填写先进入填值对话框,必填缺失禁止最终复制,不修改源模板,本地，不计费,AC-L-07,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-08,P05,插入画布,T17,本轮主线,选定目标项目,变量填值后创建文本节点,目标只读或不存在则选择新目标,可撤销,本地，不计费,AC-L-08,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-09,P05,应用到当前文本,T17,本轮主线,可编辑文本节点,显示原文/新文diff，明确替换,revision变化返回冲突,可撤销,本地，不计费,AC-L-09,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-10,P05,导入JSON提示词,T17,本轮主线,显式选文件,校验schema，预览条目与来源后另存,禁止HTML/脚本执行；同名不覆盖,新ID，保留来源元数据,本地，不计费,AC-L-10,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-11,P05,导出提示词,T17,本轮主线,有选择,仅文本、变量、标签和来源,不包含模型Key与内部提示,导出副本,本地，不计费,AC-L-11,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+L-12,P05,来源管理,T17,本轮主线,用户导入源存在,查看/停用/移除来源缓存，不默认安装上游七个源,删除源不删用户已另存文本,保留必要出处和许可,基础版无定时联网抓取,AC-L-12,tests/e2e/prompt-library.spec.ts,待实施,,Design 1.0
+A-01,P09,连接本地Agent,T39,协作版：同机打开画布,本地连接能力安装并允许,填写回环地址和一次性token，验证来源,失败不申请扩大系统权限,token仅会话；不导出,本地授权连接，不生成,AC-A-01,tests/unit/agent-relay.test.ts,待实施,,Design 1.0
+A-02,P09,授予项目访问,T39,协作版：同机打开画布,有效本地连接,显示项目、选区、可读写范围和期限,不同标签/项目不能复用越权授权,授权记录与项目绑定,无收费执行,AC-A-02,tests/unit/agent-relay.test.ts,待实施,,Design 1.0
+A-03,P09,只读/建议修改权限,T39,协作版：同机打开画布,用户可管理会话,默认只读，允许建议不等于允许执行,运行中降权立即生效,会话权限,无生成,AC-A-03,tests/unit/agent-relay.test.ts,待实施,,Design 1.0
+A-04,P09,发送任务描述,T42,协作版：同机打开画布,授权有效,展示将发送的上下文摘要后发送,未选区默认只发指令，不传全素材库,会话记录脱敏保存,Agent模型成本另计；不自动视频,AC-A-04,tests/e2e/agent-panel.spec.ts,待实施,,Design 1.0
+A-05,P09,选择上下文,T42,协作版：同机打开画布,项目打开,选区/指定节点/整个项目三档，默认选区,全项目须再次明确确认,记录快照revision,无自动请求,AC-A-05,tests/e2e/agent-panel.spec.ts,待实施,,Design 1.0
+A-06,P09,查看修改提案,T40,协作版：同机打开画布,Agent返回结构化操作,新增/删除/修改分色diff，未知操作拒绝,提案不符合schema返回错误,提案只读暂存,不计费,AC-A-06,tests/unit/agent-proposals.test.ts,待实施,,Design 1.0
+A-07,P09,接受选中修改,T40,协作版：同机打开画布,提案有效且revision未变,仅应用选中操作，执行按钮另点,冲突不覆盖，重新读取,可撤销纯编辑，写receipt,本地，不生成,AC-A-07,tests/unit/agent-proposals.test.ts,待实施,,Design 1.0
+A-08,P09,拒绝修改,T40,协作版：同机打开画布,提案存在,标记拒绝并保留摘要,不改图,记录决策,本地，不计费,AC-A-08,tests/unit/agent-proposals.test.ts,待实施,,Design 1.0
+A-09,P09,全部接受,T40,协作版：同机打开画布,提案无冲突,先显示删除数/改动数，再一次应用,不能夹带网络/脚本/收费操作,可撤销结构变更,本地，不生成,AC-A-09,tests/unit/agent-proposals.test.ts,待实施,,Design 1.0
+A-10,P09,运行提案节点,T41,协作版：同机打开画布,修改已接受且预检通过,转D05收费执行确认,不沿用旧的自动批准配置,独立run审批,Core收费路径,AC-A-10,tests/unit/canvas-mcp.test.ts,待实施,,Design 1.0
+A-11,P09,停止当前Agent回合,T42,协作版：同机打开画布,回合未结束,请求停止对话；不取消Core视频,本地Agent不支持停止时明确反馈,保留已有提案,不承诺退款,AC-A-11,tests/e2e/agent-panel.spec.ts,待实施,,Design 1.0
+A-12,P09,断开并撤销授权,T39,协作版：同机打开画布,会话存在,撤销项目读写，关闭通道,正在运行Core任务不受影响,清内存token,无生成,AC-A-12,tests/unit/agent-relay.test.ts,待实施,,Design 1.0
+A-13,P09,新会话,T42,协作版：同机打开画布,项目可读,创建空对话，不清空画布,旧未处理提案可返回,保存会话索引,无收费请求,AC-A-13,tests/e2e/agent-panel.spec.ts,待实施,,Design 1.0
+A-14,P09,删除本地会话,T42,协作版：同机打开画布,无未确认提案或确认放弃,移除本地会话记录,不声明清除远端模型记录,不可撤销前确认,本地，不计费,AC-A-14,tests/e2e/agent-panel.spec.ts,待实施,,Design 1.0
+A-15,P09,查看Agent操作记录,T42,协作版：同机打开画布,有日志,显示指令、提案ID、批准、应用结果,提示词正文可隐藏,只读；非Core财务审计,本地，不计费,AC-A-15,tests/e2e/agent-panel.spec.ts,待实施,,Design 1.0
+A-16,P09,刷新冲突提案,T40,协作版：同机打开画布,版本冲突,重新读取当前revision，请Agent重提而非覆盖,网络失败原提案保留不可执行,新提案ID,可能Agent文字成本，需提示,AC-A-16,tests/unit/agent-proposals.test.ts,待实施,,Design 1.0
+K-01,P10,新增连接档案,T37,本轮主线,本地可写,新建名称/部署允许地址，不带默认供应商,禁止任意代理目标；不接受URL内Key,地址档案持久化，凭据内存,无请求,AC-K-01,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+K-02,P10,编辑地址/名称,T37,本轮主线,档案存在,改名称即时；改地址创建新connectionId,旧任务保持旧绑定,可撤销档案编辑,无生成,AC-K-02,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+K-03,P10,切换连接,T37,本轮主线,至少两个档案,影响新草稿，旧任务仍按原连接查,活动队列暂停待确认,保存默认选择,不生成,AC-K-03,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+K-04,P10,输入/更新Key,T09,本轮主线,普通客户端授权,内存保存；用原任务读权限核对,不能自动信任Key前缀代表身份,会话内；不localStorage,GET只读测试,AC-K-04,tests/unit/credential-session.test.ts,待实施,,Design 1.0
+K-05,P10,清除当前Key,T09,本轮主线,已连接,停止新提交与本页轮询；留项目,提醒远端任务可能继续,清内存，不删除任务,无请求,AC-K-05,tests/unit/credential-session.test.ts,待实施,,Design 1.0
+K-06,P10,删除连接档案,T37,本轮主线,没有不可迁移活动追踪或确认保留只读副本,移除新建入口，旧run保留地址绑定,不可擦掉唯一任务追踪资料,可恢复脱敏档案,本地，不计费,AC-K-06,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+K-07,P10,测试连接,T24,本轮主线,地址合法Key非空,验证健康及模型接口，只读,显示HTTP与脱敏错误,不把模型可见等同scope可用,GET health/models,AC-K-07,tests/unit/core-transport.test.ts,待实施,,Design 1.0
+K-08,P10,刷新模型列表,T23,本轮主线,已连接,保留已选旧模型为失效项，下载新目录,失败保留上次缓存且标过期,目录缓存版本化,GET /v1/models,AC-K-08,tests/unit/core-contract.test.ts,待实施,,Design 1.0
+K-09,P10,复制连接地址,T37,本轮主线,档案存在,仅复制公开地址，不含Key,剪贴板失败可手选,无写入,本地，不计费,AC-K-09,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+K-10,P10,导出连接配置,T37,本轮主线,有档案,名称、地址、参数偏好，不含Key/Token,敏感字段扫描失败阻止导出,导出副本,本地，不计费,AC-K-10,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+B-01,P11,选择默认文字模型,T30,本轮主线,已验证文字契约,更新新文本任务默认值,不能自动改变已有节点,偏好保存,无生成,AC-B-01,tests/unit/text-optimization.test.ts,待实施,,Design 1.0
+B-02,P11,选择默认视频模型,T37,本轮主线,已验证视频契约,更新新视频节点默认值,旧模型失效须用户替换,偏好保存,无生成,AC-B-02,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+B-03,P11,查看能力详情,T23,本轮主线,能力条目存在,显示证据来源/协议版本/最近验证时间,未核验显示未知,只读,无生成,AC-B-03,tests/unit/core-contract.test.ts,待实施,,Design 1.0
+B-04,P11,显示未开放功能,T43,本轮主线,设置页,解释生图/音频/取消/余额缺什么接口,不能出现可执行假按钮,UI偏好,无生成,AC-B-04,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+B-05,P11,刷新能力状态,T23,本轮主线,有公共能力接口或部署契约,合并目录与版本化契约，不把管理员接口放前端,无法核验保持未知,缓存版本,只读；无自发收费试探,AC-B-05,tests/unit/core-contract.test.ts,待实施,,Design 1.0
+B-06,P11,修改默认参数,T37,本轮主线,有受支持参数,新建节点使用；已有节点需手动应用,无效组合即时提示,可恢复默认,无生成,AC-B-06,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+S-01,P12,主题切换,T37,本轮主线,设置页,深色/浅色/跟随系统即时预览,保存失败提示，但可继续当前会话,本地偏好,本地，不计费,AC-S-01,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+S-02,P12,界面密度,T37,本轮主线,设置页,舒适/紧凑，命中区保持最小尺寸,不压缩正文到不可读,本地偏好,本地，不计费,AC-S-02,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+S-03,P12,自动播放,T37,本轮主线,默认关闭,只影响主动进入预览后的策略,浏览器禁止时仍显示播放按钮,本地偏好,本地，不计费,AC-S-03,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+S-04,P12,减少动画,T37,本轮主线,设置页,遵循系统或手动关闭非必要动效,不改变任务状态,本地偏好,本地，不计费,AC-S-04,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+S-05,P12,快捷键说明,T37,本轮主线,任意页,列快捷键与输入框例外；可搜索,无键盘也有菜单替代,只读,本地，不计费,AC-S-05,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+S-06,P12,重置操作偏好,T37,本轮主线,确认D18,仅重置主题/布局/快捷键偏好,绝不删除项目或Key,重置前快照可恢复,本地，不计费,AC-S-06,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+D-01,P13,查看占用,T37,本轮主线,存储API可用,显示估计值和本地统计来源,未知不伪造剩余容量,只读,本地，不计费,AC-D-01,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+D-02,P13,请求持久存储,T37,本轮主线,用户手势,请求浏览器保留数据，报告是否批准,拒绝仍可用但建议备份,记录结果，不保证永不清除,浏览器Storage API,AC-D-02,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+D-03,P13,立即保存,T37,本轮主线,项目可写,强制flush，成功后记录时间,QuotaExceeded时禁收费新提交,持久化revision,本地，不计费,AC-D-03,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+D-04,P13,导出结构,T36,本轮主线,项目可读,JSON仅结构，不含大媒体；明确需原素材,缺资源列清单,不含凭据,本地，不计费,AC-D-04,tests/unit/project-package.test.ts,待实施,,Design 1.0
+D-05,P13,导出含素材项目包,T36,本轮主线,项目可读,manifest+结构+媒体+hash；运行状态只读,体积超过预算提示拆分项目，不能空包成功,剔除Key与临时token,本地，不计费,AC-D-05,tests/unit/project-package.test.ts,待实施,,Design 1.0
+D-06,P13,清理缩略图缓存,T37,本轮主线,存在可重建缓存,显示将清理大小，保留原文件和任务记录,不可清理唯一原视频,可自动重建非收费缩略图,本地，不计费,AC-D-06,tests/e2e/storage-settings.spec.ts,待实施,,Design 1.0
+D-07,P13,清理未引用素材,T08,本轮主线,引用扫描完成,展示明细，由用户确认,活动run/历史需要的素材视为已引用,危险操作单独确认,本地，不计费,AC-D-07,tests/unit/asset-retention.test.ts,待实施,,Design 1.0
+D-08,P13,清空本地项目数据,T08,本轮主线,D19输入确认词且备份提醒,列出全部影响；活动未知任务禁止擦唯一追踪,阻止时保留数据；不修改Core数据库,不可撤销；不退款不删远端,本地，不计费,AC-D-08,tests/unit/asset-retention.test.ts,待实施,,Design 1.0
+D-09,P13,导出脱敏设置,T36,本轮主线,设置可读,只含外观、连接地址、参数默认,不导出密钥/代理秘密,导出副本,本地，不计费,AC-D-09,tests/unit/project-package.test.ts,待实施,,Design 1.0
+D-10,P13,导入设置,T36,本轮主线,JSON通过schema,显示差异并选择性导入；地址需重新授权,不会测试/提交/安装脚本,可撤销设置,本地，不计费,AC-D-10,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-01,P14,选择导入文件,T36,本轮主线,用户显式手势,仅允许本产品schema或人工启用迁移器,未知包拒绝；不自动下载URL,不写项目前先校验,本地，不计费,AC-I-01,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-02,P14,校验项目包,T36,本轮主线,文件已选择,核对manifest版本、hash、路径、展开大小,拒绝路径穿越/脚本/压缩炸弹/重复ID,沙盒暂存，失败清理,本地，不计费,AC-I-02,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-03,P14,预览导入内容,T36,本轮主线,校验成功,列节点、文件、未知字段、历史绑定,不能假称媒体完整,无持久写入,本地，不计费,AC-I-03,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-04,P14,另存为新项目,T36,本轮主线,默认策略,分配新project/node IDs，正确重映射边,禁止盲目覆盖现存项目,事务写入，旧项目保留,本地，不计费,AC-I-04,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-05,P14,隔离未知节点,T36,本轮主线,有未知schema,显示只读占位，保留JSON用于导出,不执行unknown节点或恢复脚本,保留原始payload为数据,本地，不计费,AC-I-05,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-06,P14,确认导入,T36,本轮主线,检查完成且空间足够,一次事务提交并打开结果摘要,部分失败回滚本次导入,新项目可删除,本地，不计费,AC-I-06,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-07,P14,取消导入,T36,本轮主线,未完成写入,释放暂存，原项目不变,进入最终事务后等待明确完成/失败,无半写记录,本地，不计费,AC-I-07,tests/unit/project-package.test.ts,待实施,,Design 1.0
+I-08,P14,查看导入报告,T36,本轮主线,已完成或失败,显示处理数量、缺失和已剔除秘密字段,敏感值永不回显,可下载脱敏报告,本地，不计费,AC-I-08,tests/unit/project-package.test.ts,待实施,,Design 1.0
+H-01,P15,筛选活动,T38,本轮主线,有日志,项目/类型/日期过滤,无结果可清除,UI偏好,本地，不计费,AC-H-01,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+H-02,P15,查看错误详情,T38,本轮主线,有错误,用户解释＋技术码＋taskId＋下一安全动作,不暴露上游响应原文秘密,只读,本地，不计费,AC-H-02,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+H-03,P15,导出诊断包,T38,本轮主线,用户确认,先预览脱敏字段清单，再导出,检测疑似秘密即阻止并剔除,不含素材及提示词全文,本地，不计费,AC-H-03,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+H-04,P15,清理活动显示,T38,本轮主线,用户确认,清本地诊断日志，不删任务执行记录,活动任务追踪不得清除,不可撤销前提示,本地，不计费,AC-H-04,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+Q-01,P16,版本信息,T38,本轮主线,帮助页,显示产品/适配器/项目schema版本,未发布版明确设计或开发态,只读,本地，不计费,AC-Q-01,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+Q-02,P16,第三方许可,T47,本轮主线,法律声明入口,展示必须保留的版权/许可；与产品营销分开,不能将删除声明列为验收目标,随发行包保留,本地，不计费,AC-Q-02,tests/e2e/distribution.spec.ts,待实施,,Design 1.0
+Q-03,P16,反馈问题,T38,本轮主线,部署配置有自有渠道,先复制脱敏摘要，再经用户打开外部页,未配置则只提供本地报告导出,不发自动遥测,显式外链，不附Key,AC-Q-03,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+Q-04,P16,查看入门/常见问题,T38,本轮主线,任意模式,本地帮助，包含保存/授权/重试说明,离线可用,只读,本地，不计费,AC-Q-04,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+Z-01,P17,恢复项目,T12,本轮主线,软删除记录可读,回原分类并恢复引用,名称冲突允许重名不覆盖,可逆,本地，不计费,AC-Z-01,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+Z-02,P17,永久删除,T12,本轮主线,无活动/未知追踪，引用检查完成,输入项目名确认，只删该项目独占资源,共享素材保留；不能触发远端取消,不可撤销,本地，不计费,AC-Z-02,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+Z-03,P17,批量永久删除,T12,本轮主线,所有选项均通过检查,先列被阻止项，安全项仍需单独数量确认,不把部分成功说成全成功,不可撤销,本地，不计费,AC-Z-03,tests/e2e/project-library.spec.ts,待实施,,Design 1.0
+F-01,P20,以只读方式打开,T06,本轮主线,另标签持有项目写锁,允许查看和备份，禁止编辑/收费提交,显示当前写者时间不泄漏其他会话Key,不夺锁,本地，不计费,AC-F-01,tests/unit/project-lease.test.ts,待实施,,Design 1.0
+F-02,P20,接管编辑,T06,本轮主线,旧租约失效或用户明确接管,重新读revision后获得写权限,旧标签立刻只读；活动任务不重发,单写者租约,本地，不计费,AC-F-02,tests/unit/project-lease.test.ts,待实施,,Design 1.0
+F-03,P20,保存为冲突副本,T38,本轮主线,数据冲突,新projectId保留当前草稿，不覆盖对端,存储不足可导出文件,新副本,本地，不计费,AC-F-03,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+F-04,P20,丢弃本地草稿并重载,T38,本轮主线,明确确认,恢复持久化最新revision,提示丢失未保存内容,不可撤销前备份入口,本地，不计费,AC-F-04,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+F-05,P20,继续原任务查询,T28,本轮主线,恢复场景,按原连接、原Key、原taskId查询,未知保留；不重提,更新查询状态,GET status,AC-F-05,tests/unit/video-polling.test.ts,待实施,,Design 1.0
+F-06,P20,导出紧急草稿,T38,本轮主线,本地写入失败,从内存导出结构，标资源可能不完整,浏览器下载失败显示可复制JSON,保留现场,本地，不计费,AC-F-06,tests/e2e/recovery-diagnostics.spec.ts,待实施,,Design 1.0
+X-01,P18,生图参数与生成,T43,条件功能：仅门控/说明测试，执行另需契约,未来Core图片契约全部验证,图像模型/尺寸/质量/数量/透明参数预检后确认,当前无公开契约则完全隐藏执行按钮,每次输出独立asset与run,未来图片接口；不得绕Core,AC-X-01,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+X-02,P18,参考图编辑,T43,条件功能：仅门控/说明测试，执行另需契约,未来契约支持该参考/遮罩,原图只读，编辑产生新结果,不把一般参考当精确局部编辑,保留原图与差异,未来受控图片编辑接口,AC-X-02,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+X-03,P18,音频生成,T43,条件功能：仅门控/说明测试，执行另需契约,未来Core音频契约已开放,文本/音色/语速/格式确认后执行,当前仅本地音频预览，生成隐藏,独立run和输出,未来音频接口,AC-X-03,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+X-04,P18,远端取消任务,T43,条件功能：仅门控/说明测试，执行另需契约,未来Core普通用户取消接口支持,显示取消是请求，待服务确认；不承诺退款,当前无公开取消则无此按钮,终态以Core为准,未来受控取消接口,AC-X-04,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+Y-01,P19,配置WebDAV备份,T43,条件功能：仅门控/说明测试，执行另需契约,可选备份模块正式启用,固定授权端点、路径、会话凭据,不开放任意通用代理；禁用未经部署的端点,凭据不在普通导出中,可选授权HTTP模块,AC-Y-01,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+Y-02,P19,测试备份连接,T43,条件功能：仅门控/说明测试，执行另需契约,用户显式点击,说明将进行小型探测读写并清理测试项,失败保留本地项目,仅探测记录,可能存储服务费用，不是生成积分,AC-Y-02,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+Y-03,P19,备份快照,T43,条件功能：仅门控/说明测试，执行另需契约,端点可用且用户确认,按版本号上传完整快照，不覆盖已有版本,网络失败可重试上传，不重跑视频,记录备份revision/hash,备份传输，无生成,AC-Y-03,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+Y-04,P19,恢复快照,T43,条件功能：仅门控/说明测试，执行另需契约,清单已校验,默认另存项目；不导入Key和运行授权,冲突不覆盖；导入未知节点隔离,新项目,备份下载，无生成,AC-Y-04,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+Y-05,P19,断开备份,T43,条件功能：仅门控/说明测试，执行另需契约,用户确认,清会话凭据，保留本地与远端已有备份,不冒充删除远端数据,设置更新,不生成,AC-Y-05,tests/unit/optional-capabilities.test.ts,待实施,,Design 1.0
+PG01,P21/P22/P23,导航：提示词生成,T21,本轮主线,任意页面,打开 /prompt-generator，恢复当前视频草稿；不自动生成。,来源项目尚未打开时保留来源标记，不猜测目标。,见增补数据契约,仅本地读取,AC-PG01,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
+PG02,P21/P22/P23,从节点优化,T21,本轮主线,选中一个文本或视频配置节点,读取该节点的文本、参数与已连接素材快照，打开右侧面板。,多选必须明确目标；节点无文本仍可编辑；不扫描其他素材。,见增补数据契约,仅本地读取,AC-PG02,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
+PG03,P21/P22/P23,视频／图片类型切换,T20,本轮主线,生成器已打开,分别保存两种草稿和结果，切换不清空。首版默认视频。,图片提示词可规划后续复用，但不得因提示词类型开放图片生成接口。,见增补数据契约,仅本地编辑,AC-PG03,tests/unit/prompt-drafts.test.ts,待实施,,Design 1.1
+PG04,P21/P22/P23,创作方向选择,T18,本轮主线,有11类场景选项,显示方向说明与相关字段；保留已输入内容。,视频编辑、声音、续写均为写作方向，不代表模型原生支持。,见增补数据契约,不调用接口,AC-PG04,tests/unit/video-prompt-compiler.test.ts,待实施,,Design 1.1
+PG05,P21/P22/P23,原始需求输入,T20,本轮主线,本地可写,自动保存草稿；输入法组合结束后校验；保留原文。,空白禁止编译；超长显示字符数及目标接口限制，不静默截断。,见增补数据契约,仅本地写入,AC-PG05,tests/unit/prompt-drafts.test.ts,待实施,,Design 1.1
+PG06,P21/P22/P23,从画布读取,T21,本轮主线,来源项目可访问,展示选中节点和上游引用清单，由用户勾选本次上下文。,跨Key素材或不可用素材标注；不得自动读取项目全部内容。,见增补数据契约,读取本地元数据,AC-PG06,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
+PG07,P21/P22/P23,选择素材用途,T19,本轮主线,已有素材引用,绑定稳定 assetId，标注人物、场景、动作、运镜或说明。,文本说明不等于看过视频；未分析时不出现“已识别”。,见增补数据契约,不上传媒体,AC-PG07,tests/unit/prompt-validation.test.ts,待实施,,Design 1.1
+PG08,P21/P22/P23,新增外部参考说明,T19,本轮主线,独立写作模式,允许标记未绑定的占位引用，用于外部导出。,插入可执行流程前必须绑定或移除；不能生成不存在的素材ID。,见增补数据契约,仅本地编辑,AC-PG08,tests/unit/prompt-validation.test.ts,待实施,,Design 1.1
+PG09,P21/P22/P23,重排／移除引用,T19,本轮主线,已有引用列表,别名按类型重排，统一更新文本引用预览，稳定ID不变。,检测悬空引用，保留旧版本；不删素材文件。,见增补数据契约,本地修订,AC-PG09,tests/unit/prompt-validation.test.ts,待实施,,Design 1.1
+PG10,P21/P22/P23,时长与比例编辑,T19,本轮主线,有目标规格,需求字段与执行能力并列显示；显式值优先保留。,文字与表单冲突时打开差异选择，不静默用默认15秒覆盖。,见增补数据契约,无接口调用,AC-PG10,tests/unit/prompt-validation.test.ts,待实施,,Design 1.1
+PG11,P21/P22/P23,声音策略编辑,T18,本轮主线,选择声音写作要求,分别维护对白、旁白、环境声和音乐描述。,没有音频输入能力时只输出文字计划，不上传音频文件。,见增补数据契约,本地编辑,AC-PG11,tests/unit/video-prompt-compiler.test.ts,待实施,,Design 1.1
+PG12,P21/P22/P23,锁定明确要求,T19,本轮主线,检测到或手工选定要求,锁定人物数量、品牌原文、对白、禁止项、比例和时长。,锁定不是质量保证；发现冲突提示用户解决，不能自动放宽。,见增补数据契约,本地编辑,AC-PG12,tests/unit/prompt-validation.test.ts,待实施,,Design 1.1
+PG13,P21/P22/P23,规则整理模式,T18,本轮主线,无需Core授权,切换至本地编译器；主按钮标为“本地整理”。,不得因离线请求API；模式切换不改变原始需求。,见增补数据契约,无网络、无生成额度,AC-PG13,tests/unit/video-prompt-compiler.test.ts,待实施,,Design 1.1
+PG14,P21/P22/P23,本地整理,T18,本轮主线,需求非空且本地保存正常,生成新草稿版本、参数建议和规则检查提示。,保留上一结果；不把固定模板描述成模型理解后的最终分镜。,见增补数据契约,纯本地运行,AC-PG14,tests/unit/video-prompt-compiler.test.ts,待实施,,Design 1.1
+PG15,P21/P22/P23,AI优化模式,T30,本轮主线,普通Core Key及已确认文字能力,选择实际文字模型，复用Studio连接档案。,禁止选择seedance或其他具有视频执行语义的模型；能力未知不可发送。,见增补数据契约,切换本身不收费,AC-PG15,tests/unit/text-optimization.test.ts,待实施,,Design 1.1
+PG16,P21/P22/P23,测试Core连接,T24,本轮主线,有连接地址与授权,仅调用既有健康／模型只读接口，不发送测试聊天。,连通不等于chat:invoke已确认；显示能力未知及下一步。,见增补数据契约,只读请求,AC-PG16,tests/unit/core-transport.test.ts,待实施,,Design 1.1
+PG17,P21/P22/P23,AI优化确认,T30,本轮主线,草稿快照保存成功,展示发出的文字、参考说明、模型和收费提示，确认后提交一次文本请求。,无可靠计价不编造积分；媒体二进制默认不发送。,见增补数据契约,POST /v1/chat/completions,AC-PG17,tests/unit/text-optimization.test.ts,待实施,,Design 1.1
+PG18,P21/P22/P23,AI生成中,T30,本轮主线,已有PromptRun,冻结本次输入快照；允许继续编辑下一草稿，旧请求结果不覆盖新编辑。,按钮单飞；原草稿和旧版本继续可读。,见增补数据契约,不重复提交,AC-PG18,tests/unit/text-optimization.test.ts,待实施,,Design 1.1
+PG19,P21/P22/P23,停止等待,T30,本轮主线,文本请求进行中,停止本页读取并标记已停止等待，保留请求标识。,不宣称上游已取消、未收费或已退款。,见增补数据契约,不调用视频取消,AC-PG19,tests/unit/text-optimization.test.ts,待实施,,Design 1.1
+PG20,P21/P22/P23,重试AI优化,T30,本轮主线,明确失败或结果不确定,明确失败先检查原记录；未知不自动重发；新优化必须重新确认。,保留原幂等键／请求关联；不把文本API当作已实现异步查询服务。,见增补数据契约,新请求须明确授权,AC-PG20,tests/unit/text-optimization.test.ts,待实施,,Design 1.1
+PG21,P21/P22/P23,结果格式校验,T31,本轮主线,AI返回内容,先解析结构，核对必填字段、锁定要求、引用和时长。,解析失败保留原响应为未校验草稿；不自动再次付费请求修复。,见增补数据契约,本地校验,AC-PG21,tests/e2e/prompt-result-parser.spec.ts,待实施,,Design 1.1
+PG22,P21/P22/P23,编辑最终提示词,T20,本轮主线,有草稿结果,编辑正文并标记人工修订；保留AI原文与来源版本。,修改使原校验结果过期，必须重新检查。,见增补数据契约,仅本地写入,AC-PG22,tests/unit/prompt-drafts.test.ts,待实施,,Design 1.1
+PG23,P21/P22/P23,参数建议／差异页签,T21,本轮主线,存在输出,展示原始要求与建议差异、引用映射和不支持项。,参数是建议，未接受前不改变画布节点。,见增补数据契约,本地读取,AC-PG23,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
+PG24,P21/P22/P23,镜头草案,T19,本轮主线,目标时长超过单任务能力或用户主动拆镜,输出结构化镜头草案及段落时长，总和可核对。,分镜不是拼接或自动续写；未经确认不创建收费任务。,见增补数据契约,本地规划或已确认文本优化,AC-PG24,tests/unit/prompt-validation.test.ts,待实施,,Design 1.1
+PG25,P21/P22/P23,复制最终文本,T21,本轮主线,存在可复制正文,只复制最终提示词，不混入改进说明和内部字段。,剪贴板失败提供可选中文本，不显示虚假成功。,见增补数据契约,无网络,AC-PG25,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
+PG26,P21/P22/P23,保存到提示词库,T22,本轮主线,正文非空,写入P05，保存标题、标签、来源与版本，不复制Key。,同名可另存或显式更新；失效素材保留说明，不假装可跨项目使用。,见增补数据契约,仅本地写入,AC-PG26,tests/e2e/prompt-canvas-commands.spec.ts,待实施,,Design 1.1
+PG27,P21/P22/P23,导出草稿,T20,本轮主线,有草稿,导出 .txt 或结构化JSON，含约束及引用说明，不含凭据。,未校验与未绑定引用需明确标注；不会自动导出媒体。,见增补数据契约,浏览器下载触发,AC-PG27,tests/unit/prompt-drafts.test.ts,待实施,,Design 1.1
+PG28,P21/P22/P23,插入画布,T22,本轮主线,选定目标项目并通过写入检查,事务性创建一个提示词节点并保存，定位到新节点。,无目标先选择；保存失败回滚；不覆盖已有节点。,见增补数据契约,无生成调用,AC-PG28,tests/e2e/prompt-canvas-commands.spec.ts,待实施,,Design 1.1
+PG29,P21/P22/P23,应用当前节点,T22,本轮主线,存在来源nodeId与revision,弹窗对照修改，确认后条件写入并标记下游待更新。,revision变化则要求比较或另存，不覆盖他人／另一个标签页修改。,见增补数据契约,无生成调用,AC-PG29,tests/e2e/prompt-canvas-commands.spec.ts,待实施,,Design 1.1
+PG30,P21/P22/P23,创建视频流程,T22,本轮主线,提示词可用且引用可执行,创建提示词、素材连线与视频配置节点；预览后一次性保存。,不自动点击生成；未支持参数阻止执行，不静默替换。,见增补数据契约,仅本地结构变化,AC-PG30,tests/e2e/prompt-canvas-commands.spec.ts,待实施,,Design 1.1
+PG31,P21/P22/P23,历史版本／恢复,T20,本轮主线,存在版本历史,查看或复制指定版本为新草稿。,不恢复旧Key；旧素材无权限时标明；不重跑任何模型。,见增补数据契约,本地修订,AC-PG31,tests/unit/prompt-drafts.test.ts,待实施,,Design 1.1
+PG32,P21/P22/P23,清空／离开／恢复草稿,T21,本轮主线,有未保存变更,清空需确认；离开先保存，保存失败提供导出；恢复保持输入输出一致。,不能沿用旧实现切换类型即清空结果的行为。,见增补数据契约,不发远端请求,AC-PG32,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
