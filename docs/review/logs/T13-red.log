@@ -1,0 +1,211 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-viewport.spec.ts
+
+[WebServer] (node:26712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:33288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (3.5s)
+(node:33852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (3.5s)
+(node:24308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (3.6s)
+(node:8564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (3.6s)
+(node:1504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (8.4s)
+(node:33044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:33044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  6 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (4.5s)
+
+
+  1) tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision 
+
+    TimeoutError: locator.fill: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('缩放百分比')[22m
+
+
+       5 | test.beforeEach(async({page})=>{await seedStudio(page,'canvas-project');});
+       6 | test('T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision',async({page})=>{
+    >  7 |  await page.goto('/projects/p1/canvas');const zoom=page.getByLabel('缩放百分比');await zoom.fill('201');await zoom.press('Enter');await expect(page.getByText('缩放范围为25%–200%')).toBeVisible();await expect(zoom).toHaveValue('100');
+         |                                                                                        ^
+       8 |  await zoom.fill('25');await zoom.press('Enter');await expect(page.getByRole('button',{name:'缩小',exact:true})).toBeDisabled();await zoom.fill('200');await zoom.press('Enter');await expect(page.getByRole('button',{name:'放大',exact:true})).toBeDisabled();await page.reload();await expect(zoom).toHaveValue('200');expect((await graphState(page)).graph.revision).toBe(1);
+       9 | });
+      10 | test('T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection',async({page})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:7:88
+
+    Error Context: test-results\canvas-viewport-T13-C01-in-46125-t-without-creative-revision\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-C01-in-46125-t-without-creative-revision\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-C01-in-46125-t-without-creative-revision\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '适配全部' })[22m
+
+
+       9 | });
+      10 | test('T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection',async({page})=>{
+    > 11 |  await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'适配全部'}).click();const stage=await page.getByTestId('canvas-stage').boundingBox(),node=await page.getByTestId('node-text-1').boundingBox();expect(stage).not.toBeNull();expect(node!.x-stage!.x).toBeGreaterThanOrEqual(47);expect(stage!.x+stage!.width-node!.x-node!.width).toBeGreaterThanOrEqual(47);
+         |                                                                                      ^
+      12 |  await page.mouse.move(node!.x-10,node!.y-10);await page.mouse.down();await page.mouse.move(node!.x+node!.width+10,node!.y+node!.height+10);await page.mouse.up();await expect(page.getByTestId('node-text-1')).toHaveAttribute('aria-selected','true');await page.getByLabel('选择 镜头一').uncheck();await expect(page.getByTestId('node-text-1')).toHaveAttribute('aria-selected','false');await page.getByLabel('选择 镜头一').check();await expect(page.getByTestId('node-text-1')).toHaveAttribute('aria-selected','true');
+      13 | });
+      14 | test('T13-C04: space in input is retained and canvas pan is separate from graph edits',async({page})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:11:86
+
+    Error Context: test-results\canvas-viewport-T13-C02-fi-5110f-equivalent-to-box-selection\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-C02-fi-5110f-equivalent-to-box-selection\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-C02-fi-5110f-equivalent-to-box-selection\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits 
+
+    TimeoutError: locator.fill: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('查找节点')[22m
+
+
+      13 | });
+      14 | test('T13-C04: space in input is retained and canvas pan is separate from graph edits',async({page})=>{
+    > 15 |  await page.goto('/projects/p1/canvas');const field=page.getByLabel('查找节点');await field.fill('镜头');await field.press('Space');await expect(field).toHaveValue('镜头 ');await page.getByTestId('canvas-stage').focus();await page.keyboard.press('h');const stage=await page.getByTestId('canvas-stage').boundingBox();await page.mouse.move(stage!.x+15,stage!.y+15);await page.mouse.down();await page.mouse.move(stage!.x+60,stage!.y+60);await page.mouse.up();expect((await graphState(page)).graph.revision).toBe(1);
+         |                                                                                         ^
+      16 | });
+      17 | test('T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit',async({page,networkCounter})=>{
+      18 |  await page.goto('/projects/p1/canvas');const handle=page.getByTestId('node-text-1').getByTestId('node-handle'),box=await handle.boundingBox();await page.mouse.move(box!.x+30,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+130,box!.y+70,{steps:5});expect((await graphState(page)).graph.revision).toBe(1);await page.mouse.up();await expect.poll(async()=>(await graphState(page)).graph.revision).toBe(2);expect((await graphState(page)).receipts.filter((r:{status?:string})=>r.status==='applied')).toHaveLength(1);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect.poll(async()=>(await graphState(page)).graph.nodes[0].x).toBe(80);await page.getByRole('button',{name:'重做',exact:true}).click();await expect.poll(async()=>(await graphState(page)).graph.nodes[0].x).toBe(180);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:15:89
+
+    Error Context: test-results\canvas-viewport-T13-C04-sp-b84d8-s-separate-from-graph-edits\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-C04-sp-b84d8-s-separate-from-graph-edits\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-C04-sp-b84d8-s-separate-from-graph-edits\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit 
+
+    TimeoutError: locator.boundingBox: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-text-1').getByTestId('node-handle')[22m
+
+
+      16 | });
+      17 | test('T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit',async({page,networkCounter})=>{
+    > 18 |  await page.goto('/projects/p1/canvas');const handle=page.getByTestId('node-text-1').getByTestId('node-handle'),box=await handle.boundingBox();await page.mouse.move(box!.x+30,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+130,box!.y+70,{steps:5});expect((await graphState(page)).graph.revision).toBe(1);await page.mouse.up();await expect.poll(async()=>(await graphState(page)).graph.revision).toBe(2);expect((await graphState(page)).receipts.filter((r:{status?:string})=>r.status==='applied')).toHaveLength(1);await page.getByRole('button',{name:'撤销',exact:true}).click();await expect.poll(async()=>(await graphState(page)).graph.nodes[0].x).toBe(80);await page.getByRole('button',{name:'重做',exact:true}).click();await expect.poll(async()=>(await graphState(page)).graph.nodes[0].x).toBe(180);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                  ^
+      19 | });
+      20 | test('T13-C06: another writer makes canvas readonly; takeover requires explicit dialog',async({page})=>{
+      21 |  await page.evaluate(async()=>{const path='/src/infrastructure/storage/project-lease.ts';const {acquireProjectLease}=await import(path) as typeof import('../../src/infrastructure/storage/project-lease');await acquireProjectLease('p1','other-tab',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权')).toBeVisible();const box=await page.getByTestId('node-text-1').getByTestId('node-handle').boundingBox();await page.mouse.move(box!.x+20,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+80,box!.y+30);await page.mouse.up();expect((await graphState(page)).graph.nodes[0].x).toBe(80);await page.getByRole('button',{name:'接管编辑'}).click();await expect(page.getByRole('dialog',{name:'接管编辑'})).toBeVisible();await page.getByRole('button',{name:'取消',exact:true}).click();expect((await graphState(page)).graph.revision).toBe(1);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:18:130
+
+    Error Context: test-results\canvas-viewport-T13-C05-dr-b6df5-e-undo-redo-does-not-submit\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-C05-dr-b6df5-e-undo-redo-does-not-submit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-C05-dr-b6df5-e-undo-redo-does-not-submit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('只读 · 另一标签持有写权')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('只读 · 另一标签持有写权')[22m
+
+
+      19 | });
+      20 | test('T13-C06: another writer makes canvas readonly; takeover requires explicit dialog',async({page})=>{
+    > 21 |  await page.evaluate(async()=>{const path='/src/infrastructure/storage/project-lease.ts';const {acquireProjectLease}=await import(path) as typeof import('../../src/infrastructure/storage/project-lease');await acquireProjectLease('p1','other-tab',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权')).toBeVisible();const box=await page.getByTestId('node-text-1').getByTestId('node-handle').boundingBox();await page.mouse.move(box!.x+20,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+80,box!.y+30);await page.mouse.up();expect((await graphState(page)).graph.nodes[0].x).toBe(80);await page.getByRole('button',{name:'接管编辑'}).click();await expect(page.getByRole('dialog',{name:'接管编辑'})).toBeVisible();await page.getByRole('button',{name:'取消',exact:true}).click();expect((await graphState(page)).graph.revision).toBe(1);
+         |                                                                                                                                                                                                                                                                                                                                                           ^
+      22 | });
+      23 | test('T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs',async({page,networkCounter})=>{
+      24 |  await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点'}).click();await page.getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);await page.getByTestId('canvas-stage').dispatchEvent('paste',{clipboardData:{getData:()=>''}}).catch(()=>{});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:21:347
+
+    Error Context: test-results\canvas-viewport-T13-C06-an-0525d-er-requires-explicit-dialog\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-C06-an-0525d-er-requires-explicit-dialog\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-C06-an-0525d-er-requires-explicit-dialog\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs 
+
+    TimeoutError: locator.click: Timeout 2500ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '添加节点' })[22m
+
+
+      22 | });
+      23 | test('T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs',async({page,networkCounter})=>{
+    > 24 |  await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点'}).click();await page.getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);await page.getByTestId('canvas-stage').dispatchEvent('paste',{clipboardData:{getData:()=>''}}).catch(()=>{});
+         |                                                                                      ^
+      25 |  await page.getByLabel('画布背景').selectOption('grid');await page.getByRole('button',{name:'显示小地图'}).click();await expect(page.getByTestId('canvas-minimap')).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T13-canvas.png'});await page.reload();await expect(page.getByLabel('画布背景')).toHaveValue('grid');await expect(page.getByTestId('canvas-minimap')).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+      26 | });
+      27 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:24:86
+
+    Error Context: test-results\canvas-viewport-T13-contro-6db56-persist-and-no-fetch-occurs\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-contro-6db56-persist-and-no-fetch-occurs\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-contro-6db56-persist-and-no-fetch-occurs\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision 
+    tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection 
+    tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits 
+    tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit 
+    tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog 
+    tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs 

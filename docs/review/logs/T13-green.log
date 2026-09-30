@@ -1,0 +1,21 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-viewport.spec.ts
+
+[WebServer] (node:34660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:36264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (1.3s)
+  ok 2 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (894ms)
+  ok 3 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (870ms)
+  ok 4 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (904ms)
+  ok 5 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (963ms)
+  ok 6 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (1.2s)
+
+  6 passed (9.4s)

@@ -1,0 +1,57 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-viewport.spec.ts
+
+[WebServer] (node:36480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:15316) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15316) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (1.3s)
+  ok 2 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (923ms)
+  ok 3 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (820ms)
+  ok 4 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (890ms)
+  ok 5 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (956ms)
+  ok 6 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (1.3s)
+  x  7 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (6.1s)
+
+
+  1) tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '离开前保存' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '离开前保存' })[22m
+
+
+      26 | });
+      27 | test('T13 navigation: quota failure retains draft and blocks browser Back until explicit discard',async({page})=>{
+    > 28 |  await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1')).toBeVisible();await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let once=true;IDBObjectStore.prototype.put=function(...args:Parameters<IDBObjectStore['put']>){if(this.name==='graphs'&&once){once=false;throw new DOMException('test quota','QuotaExceededError');}return original.apply(this,args);};});const box=await page.getByTestId('node-text-1').getByTestId('node-handle').boundingBox();await page.mouse.move(box!.x+15,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+70,box!.y+30);await page.mouse.up();await expect(page.getByText('尚未保存 · 内存草稿保留')).toBeVisible();expect((await graphState(page)).graph.revision).toBe(1);await page.goBack();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();await page.getByRole('button',{name:'继续编辑',exact:true}).click();await expect(page).toHaveURL(/\/canvas$/);await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();await page.getByRole('button',{name:'保存并离开',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect((await graphState(page)).graph.revision).toBe(2);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      29 | });
+      30 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:28:815
+
+    Error Context: test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard 
+  6 passed (15.4s)

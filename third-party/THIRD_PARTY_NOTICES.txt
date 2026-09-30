@@ -293,3 +293,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+
+T13 migrated adaptation: src/features/canvas/geometry.ts uses nodeBounds from the frozen basketikun snapshot, Copyright (c) 2026 basketikun, MIT (licenses/infinite-canvas.LICENSE). Other original UI and provider code is excluded. Frontend-mark authorization remains an unresolved release gate.

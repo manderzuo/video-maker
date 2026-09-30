@@ -1,0 +1,19 @@
+{
+ "taskId":"T13","status":"视口/选择/拖动/导航保护自检通过，节点入口及文件粘贴待T14/T16接入，待统一验收/独立审查",
+ "baseCommit":"af77c2b67fc44aac1e8eabc17810a9538945f011","headCommit":null,"actualModel":"由用户在宿主选择，当前工具不可验证","reviewDecision":"待审查","independentReviewPerformed":false,
+ "files":["src/features/canvas/CanvasPage.tsx","src/features/canvas/geometry.ts","src/features/canvas/viewport.ts","src/features/canvas/selection.ts","src/features/canvas/CanvasToolbar.tsx","src/features/canvas/NodeOutline.tsx","src/app/App.tsx","src/app/routes.tsx","src/ui/tokens.css","tests/e2e/canvas-viewport.spec.ts","tests/unit/canvas-viewport.test.ts","tests/helpers/seed-studio.ts","tests/fixtures/seed.ts"],
+ "commands":[
+ {"command":"npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts","phase":"red","exitCode":1,"passed":0,"failed":6,"skipped":0,"logPath":"docs/review/logs/T13-red.log"},
+ {"command":"npm run typecheck","exitCode":2,"logPath":"docs/review/logs/T13-typecheck.log","note":"React19 useRef必须传初始值，已修正真实类型，不屏蔽"},
+ {"command":"npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts","phase":"first-green","exitCode":0,"passed":6,"failed":0,"skipped":0,"logPath":"docs/review/logs/T13-green.log"},
+ {"command":"npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts -g navigation","phase":"initial-test-scope-error","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T13-navigation-red.log","note":"测试用page.goto形成跨文档历史，错误期待SPA弹窗；此失败不作为SPA行为红灯，跨文档使用beforeunload原生保护"},
+ {"command":"npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts -g navigation","phase":"actual-spa-red","exitCode":1,"passed":0,"failed":1,"skipped":0,"logPath":"docs/review/logs/T13-spa-back-red.log","note":"改为真实项目链接进入画布，确认无popstate保护时草稿离开"},
+ {"command":"npm run test:e2e -- tests/e2e/canvas-viewport.spec.ts tests/e2e/app-shell.spec.ts tests/e2e/project-library.spec.ts","phase":"final-regression","exitCode":0,"passed":23,"failed":0,"skipped":0,"logPath":"docs/review/logs/T13-browser-regression.log"},
+ {"command":"npm run test:unit","exitCode":0,"passed":73,"failed":0,"skipped":0,"logPath":"docs/review/logs/T13-unit.log"},
+ {"command":"npm run typecheck","exitCode":0,"logPath":"docs/review/logs/T13-typecheck-complete.log"},
+ {"command":"npm run lint","exitCode":0,"logPath":"docs/review/logs/T13-lint-complete.log"},
+ {"command":"npm run build","exitCode":0,"logPath":"docs/review/logs/T13-build.log"}],
+ "screenshots":["docs/review/screenshots/T13-canvas.png"],"businessCalls":0,
+ "rulings":["选择框与大纲使用同一选择函数；锁定节点可选不可移动；视口与背景偏好保存到UI记录，不创建创作revision。", "缩放25%–200%，中心锚定，正常适配48px；空图回100%。拖动只在松手提交一次，撤销重做写新revision，无Run或付费请求。", "复用冻结canvas-node-geometry.ts的reduce边界算法，适配分组相对坐标，保留MIT版权与来源；没有叠加画布引擎。", "写者续租/广播失效/明确接管使用T06契约；接管后重新建立心跳。", "URL粘贴只作为纯文本，不自动抓取。配额失败不覆写已保存图，pending命令及预览保留，内部导航与SPA后退提示保存。"],
+ "knownLimitations":["C10全部节点入口待T14/T15，C11文件粘贴原子素材与节点提交待T16；暂不把入口提示记为已实现。", "大图若最小25%仍无法容纳，需平移查看；48px适配证据为正常可容纳图。", "跨文档beforeunload浏览器原生提示已接入，尚未独立验证该原生弹窗。", "真实高倍率缩放、用户视觉验收、独立审查待。"]
+}

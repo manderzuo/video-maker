@@ -1,0 +1,50 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-viewport.spec.ts -g navigation
+
+[WebServer] (node:35828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:18260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (6.3s)
+
+
+  1) tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '离开前保存' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '离开前保存' })[22m
+
+
+      26 | });
+      27 | test('T13 navigation: quota failure retains draft and blocks browser Back until explicit discard',async({page})=>{
+    > 28 |  await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1')).toBeVisible();await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let once=true;IDBObjectStore.prototype.put=function(...args:Parameters<IDBObjectStore['put']>){if(this.name==='graphs'&&once){once=false;throw new DOMException('test quota','QuotaExceededError');}return original.apply(this,args);};});const box=await page.getByTestId('node-text-1').getByTestId('node-handle').boundingBox();await page.mouse.move(box!.x+15,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+70,box!.y+30);await page.mouse.up();await expect(page.getByText('尚未保存 · 内存草稿保留')).toBeVisible();expect((await graphState(page)).graph.revision).toBe(1);await page.goBack();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();await page.getByRole('button',{name:'继续编辑',exact:true}).click();await expect(page).toHaveURL(/\/canvas$/);await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();await page.getByRole('button',{name:'保存并离开',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect((await graphState(page)).graph.revision).toBe(2);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      29 | });
+      30 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:28:815
+
+    Error Context: test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard 
