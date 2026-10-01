@@ -1,0 +1,111 @@
+{
+  "taskId": "T43",
+  "status": "门控和说明实施完成，本地自检通过；条件能力执行受限，待审查",
+  "baseCommit": "c1930610caf2cd30553ce1dc75b7cb5f2c030b65",
+  "headCommit": null,
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/app/feature-gates.ts",
+    "src/features/settings/UnavailableCapability.tsx",
+    "src/features/settings/CapabilitySettings.tsx",
+    "src/features/settings/SettingsPage.tsx",
+    "docs/review/capability-gates.json",
+    "tests/unit/optional-capabilities.test.ts",
+    "tests/e2e/optional-capabilities.spec.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/optional-capabilities.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/optional-capabilities.test.ts",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-target.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/optional-capabilities.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-browser-red.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/optional-capabilities.spec.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-browser-initial.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/optional-capabilities.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/storage-settings.spec.ts",
+      "exitCode": 0,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-browser-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 369,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-unit.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T43-build.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T43-media-gate.png",
+    "docs/review/screenshots/T43-backup-gate.png"
+  ],
+  "validation": [
+    "25条上游处置逐项记录；5项扩展与9个条件交互执行保持blocked_capability",
+    "能力布尔值不能绕过固定适配器和公开契约；没有admin路由、生成表单或业务请求",
+    "实际说明弹窗、显示未开放功能开关、WebDAV说明及图片占位草稿回归通过"
+  ],
+  "rulings": [
+    "首轮浏览器回归中的searchbox误写为textbox，修正为同时要求textbox为0和全局searchbox为1，未降低业务断言"
+  ],
+  "limitations": [
+    "图片、音频、远端取消、WebDAV均未实现执行能力；说明与门控通过不能称其执行可用",
+    "统一视觉验收、独立审查、前端标识许可与真实接口验证尚未进行",
+    "构建体积警告留待T46；没有真实Core、收费、生产、推送或部署授权"
+  ]
+}

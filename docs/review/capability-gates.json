@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "baseCommit": "c1930610caf2cd30553ce1dc75b7cb5f2c030b65",
+  "sourceSpecification": "docs/superpowers/specs/AIWORK_Studio_Design_v1.md",
+  "capabilityFlagsAloneDoNotEnableExecution": true,
+  "features": [
+    {
+      "id": "image-generation",
+      "status": "blocked_capability",
+      "executable": false,
+      "interfaceProof": false,
+      "adapterImplemented": false,
+      "independentReview": "待审查"
+    },
+    {
+      "id": "image-editing",
+      "status": "blocked_capability",
+      "executable": false,
+      "interfaceProof": false,
+      "adapterImplemented": false,
+      "independentReview": "待审查"
+    },
+    {
+      "id": "audio-generation",
+      "status": "blocked_capability",
+      "executable": false,
+      "interfaceProof": false,
+      "adapterImplemented": false,
+      "independentReview": "待审查"
+    },
+    {
+      "id": "video-cancel",
+      "status": "blocked_capability",
+      "executable": false,
+      "interfaceProof": false,
+      "adapterImplemented": false,
+      "independentReview": "待审查"
+    },
+    {
+      "id": "webdav-backup",
+      "status": "blocked_capability",
+      "executable": false,
+      "interfaceProof": false,
+      "adapterImplemented": false,
+      "independentReview": "待审查"
+    }
+  ],
+  "upstreamDispositions": [
+    {
+      "id": "U-01",
+      "original": "项目/首页",
+      "decision": "保留能力，重写界面",
+      "targetPage": "P01/P02/P17",
+      "boundary": "迁移到新project schema；不沿用上游站点身份",
+      "taskIds": [
+        "T07",
+        "T36"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-02",
+      "original": "无限画布/连线/缩放",
+      "decision": "保留行为内核，重写视觉和命令边界",
+      "targetPage": "P03",
+      "boundary": "变更不触发生成；连线显式类型与循环检测",
+      "taskIds": [
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-03",
+      "original": "文本/润色",
+      "decision": "保留并改为Core文字适配",
+      "targetPage": "P03/P05",
+      "boundary": "文字调用有独立成本，不自动改写视频提示词",
+      "taskIds": [
+        "T14",
+        "T30",
+        "T31"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-04",
+      "original": "图片素材",
+      "decision": "保留导入/查看/参考",
+      "targetPage": "P04/P03",
+      "boundary": "不宣称支持精确人脸锁定或首帧控制",
+      "taskIds": [
+        "T14",
+        "T16"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-05",
+      "original": "图片生成与改图工作台",
+      "decision": "完整定义条件UI，首版隐藏执行",
+      "targetPage": "P18",
+      "boundary": "Core公开图片契约、权限、预算、测试齐备才开放",
+      "taskIds": [
+        "T43"
+      ],
+      "implementationStatus": "blocked_capability",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-06",
+      "original": "视频工作台",
+      "decision": "合并为统一画布/审片/任务",
+      "targetPage": "P03/P06/P07",
+      "boundary": "不保留第二套孤立生成记录",
+      "taskIds": [
+        "T26",
+        "T27",
+        "T34",
+        "T35"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-07",
+      "original": "音频素材与生成",
+      "decision": "素材可本地使用；生成条件开放",
+      "targetPage": "P04/P18",
+      "boundary": "缺Core音频能力不显示生成按钮",
+      "taskIds": [
+        "T16",
+        "T43"
+      ],
+      "implementationStatus": "local_assets_only_generation_blocked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-08",
+      "original": "分组与上游引用",
+      "decision": "重构",
+      "targetPage": "P03",
+      "boundary": "布局分组不默认把所有成员送模型",
+      "taskIds": [
+        "T15",
+        "T22"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-09",
+      "original": "生成模型/多渠道",
+      "decision": "改为Core连接与已核验能力",
+      "targetPage": "P10/P11",
+      "boundary": "不保留外部供应商充值或默认API",
+      "taskIds": [
+        "T24",
+        "T37"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-10",
+      "original": "任务创建/轮询/结果保存",
+      "decision": "重写Core适配器与run日志",
+      "targetPage": "P06",
+      "boundary": "保留幂等身份；执行、查询、下载、账务分离",
+      "taskIds": [
+        "T25",
+        "T27",
+        "T28",
+        "T33"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-11",
+      "original": "本地Agent/MCP",
+      "decision": "保留协议语义，重构授权和品牌",
+      "targetPage": "P09",
+      "boundary": "不自动安装上游插件，不继承自动放行配置",
+      "taskIds": [
+        "T39",
+        "T40",
+        "T41",
+        "T42"
+      ],
+      "implementationStatus": "local_transport_verified_host_pending",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-12",
+      "original": "提示词库及默认七个远端源",
+      "decision": "本地库保留，默认源全部移除",
+      "targetPage": "P05",
+      "boundary": "使用原创模板或显式导入，必要素材出处仍保留",
+      "taskIds": [
+        "T17",
+        "T19"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-13",
+      "original": "素材库",
+      "decision": "保留，增加引用计数与缺失恢复",
+      "targetPage": "P04",
+      "boundary": "显式选择才导入；不后台扫硬盘",
+      "taskIds": [
+        "T16",
+        "T36"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-14",
+      "original": "WebDAV同步",
+      "decision": "改为可选版本化手动备份",
+      "targetPage": "P19",
+      "boundary": "非实时协作，冲突另存；默认关闭",
+      "taskIds": [
+        "T43"
+      ],
+      "implementationStatus": "blocked_capability",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-15",
+      "original": "任意URL远程节点插件",
+      "decision": "移除执行与安装入口",
+      "targetPage": "P11",
+      "boundary": "仅审核过的内置节点；未知节点导入只读隔离",
+      "taskIds": [
+        "T10",
+        "T36",
+        "T43"
+      ],
+      "implementationStatus": "removed_execution",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-16",
+      "original": "自定义接口脚本/脚本编辑器",
+      "decision": "移除用户执行入口",
+      "targetPage": "P11",
+      "boundary": "AI Work专用适配器集中维护，不向网页开放任意代码",
+      "taskIds": [
+        "T10",
+        "T43"
+      ],
+      "implementationStatus": "removed_execution",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-17",
+      "original": "本地通用代理设置",
+      "decision": "改为受部署允许的同源API通道",
+      "targetPage": "P10",
+      "boundary": "禁止任意URL代理及admin/internal转发",
+      "taskIds": [
+        "T24",
+        "T43"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-18",
+      "original": "生图/音频/视频各自历史",
+      "decision": "合并为统一run与素材来源",
+      "targetPage": "P06/P07",
+      "boundary": "不同能力保留类型，不互相覆盖",
+      "taskIds": [
+        "T34",
+        "T35",
+        "T36"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-19",
+      "original": "设置导入导出",
+      "decision": "保留脱敏配置导入导出",
+      "targetPage": "P13/P14",
+      "boundary": "禁止凭据、脚本和自动运行迁移",
+      "taskIds": [
+        "T37"
+      ],
+      "implementationStatus": "implemented_self_checked",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-20",
+      "original": "广告/赞助/群聊/捐赠/原域名",
+      "decision": "从产品UI和运行资源移除",
+      "targetPage": "全部页面",
+      "boundary": "不得把上游推广链接换成自动调用",
+      "taskIds": [
+        "T01",
+        "T11",
+        "T47"
+      ],
+      "implementationStatus": "runtime_removed_release_scan_pending",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-21",
+      "original": "名称/logo/favicon/SEO/欢迎页",
+      "decision": "自有品牌重做",
+      "targetPage": "全部页面",
+      "boundary": "默认纯字标AI WORK Studio；命名尚属提案",
+      "taskIds": [
+        "T11",
+        "T38"
+      ],
+      "implementationStatus": "own_brand_release_permission_pending",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-22",
+      "original": "LICENSE/NOTICE/第三方版权",
+      "decision": "依法依许可保留并隔离",
+      "targetPage": "P16/发行包",
+      "boundary": "不列入去品牌删除清单；README额外要求发布前澄清",
+      "taskIds": [
+        "T01",
+        "T38",
+        "T47"
+      ],
+      "implementationStatus": "notices_preserved_release_permission_pending",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-23",
+      "original": "原工作流文件格式",
+      "decision": "只读迁移器，不自动导入配置",
+      "targetPage": "P14",
+      "boundary": "显式选择、版本校验、另存为新项目",
+      "taskIds": [
+        "T36"
+      ],
+      "implementationStatus": "explicit_legacy_v3_single_project_import",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-24",
+      "original": "多语言/主题/快捷键",
+      "decision": "保留基础结构，全部文案重写",
+      "targetPage": "P12/P16",
+      "boundary": "首版简体中文；系统消息中文；模型ID不译造",
+      "taskIds": [
+        "T11",
+        "T37",
+        "T46"
+      ],
+      "implementationStatus": "implemented_browser_zoom_pending",
+      "reviewDecision": "待统一验收/独立审查"
+    },
+    {
+      "id": "U-25",
+      "original": "视频拼接/时间线剪辑",
+      "decision": "明确不在本轮",
+      "targetPage": "范围外",
+      "boundary": "用户已暂缓，不以重构名义重新塞入",
+      "taskIds": [
+        "T43"
+      ],
+      "implementationStatus": "out_of_scope",
+      "reviewDecision": "待统一验收/独立审查"
+    }
+  ],
+  "interactionStates": [
+    {
+      "id": "B-04",
+      "state": "implemented_explanation_preference"
+    },
+    {
+      "id": "X-01",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "X-02",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "X-03",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "X-04",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "Y-01",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "Y-02",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "Y-03",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "Y-04",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "Y-05",
+      "state": "blocked_capability",
+      "descriptionImplemented": true,
+      "executionImplemented": false
+    },
+    {
+      "id": "PG03",
+      "state": "local_image_placeholder_only",
+      "imageCompilation": false,
+      "imageGeneration": false
+    }
+  ],
+  "releaseApproved": false
+}

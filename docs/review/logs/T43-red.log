@@ -1,0 +1,55 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/optional-capabilities.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/optional-capabilities.test.ts (3 tests | 3 failed) 10ms
+   × T43-C01 capability flags alone cannot enable image/audio/cancel/WebDAV without an implemented verified public contract 6ms
+   × T43-C02/C03 explanation routes stay public and gates never probe an admin endpoint 1ms
+   × T43-C04/C05 local image prompt drafts do not unlock generation and video editing remains outside menus 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/optional-capabilities.test.ts > T43-C01 capability flags alone cannot enable image/audio/cancel/WebDAV without an implemented verified public contract
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/optional-capabilities.test.ts:5:481
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/unit/optional-capabilities.test.ts > T43-C02/C03 explanation routes stay public and gates never probe an admin endpoint
+AssertionError: expected 4 to be greater than 12
+ ❯ tests/unit/optional-capabilities.test.ts:6:288
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/unit/optional-capabilities.test.ts > T43-C04/C05 local image prompt drafts do not unlock generation and video editing remains outside menus
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/optional-capabilities.test.ts:7:319
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  09:23:31
+   Duration  266ms (transform 55ms, setup 44ms, import 29ms, tests 10ms, environment 0ms)
+

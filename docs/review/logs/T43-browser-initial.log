@@ -1,0 +1,49 @@
+[WebServer] (node:23592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:11268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\optional-capabilities.spec.ts:3:1 › T43 actual capability explanation opens with no media generation, admin route or network side effect (958ms)
+  x  2 tests\e2e\optional-capabilities.spec.ts:4:1 › T43 WebDAV explanation has no endpoint credentials, upload, probe or remote sync entry (5.7s)
+
+
+  1) tests\e2e\optional-capabilities.spec.ts:4:1 › T43 WebDAV explanation has no endpoint credentials, upload, probe or remote sync entry 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  getByRole('textbox')
+    Expected: [32m1[39m
+    Received: [31m0[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('textbox')[22m
+    [2m    9 × locator resolved to 0 elements[22m
+    [2m      - unexpected value "0"[22m
+
+
+      2 | test.use({actionTimeout:2000});
+      3 | test('T43 actual capability explanation opens with no media generation, admin route or network side effect',async({page,networkCounter})=>{await page.goto('/settings/capabilities');await page.getByLabel('显示未开放能力说明',{exact:true}).check();await page.getByRole('button',{name:'查看图片生成开放条件',exact:true}).click();const dialog=page.getByRole('dialog',{name:'图片生成开放条件',exact:true});await expect(dialog).toContainText('普通用户公开契约');await expect(dialog).toContainText('条件未满足');await expect(page.getByRole('button',{name:'生成图片',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'取消远端任务',exact:true})).toHaveCount(0);await page.screenshot({path:'docs/review/screenshots/T43-media-gate.png'});await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'查看图片生成开放条件',exact:true})).toBeFocused();expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.method==='POST'||/admin|internal/.test(r.url))).toHaveLength(0);});
+    > 4 | test('T43 WebDAV explanation has no endpoint credentials, upload, probe or remote sync entry',async({page,networkCounter})=>{await page.goto('/settings/backup');await expect(page.getByText('条件未满足 · WebDAV 版本化备份',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'测试备份连接',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'同步备份',exact:true})).toHaveCount(0);await expect(page.getByRole('textbox')).toHaveCount(1);await page.screenshot({path:'docs/review/screenshots/T43-backup-gate.png'});expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\optional-capabilities.spec.ts:4:442
+
+    Error Context: test-results\optional-capabilities-T43--c48d4--probe-or-remote-sync-entry\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\optional-capabilities-T43--c48d4--probe-or-remote-sync-entry\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\optional-capabilities-T43--c48d4--probe-or-remote-sync-entry\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\optional-capabilities.spec.ts:4:1 › T43 WebDAV explanation has no endpoint credentials, upload, probe or remote sync entry 
+  1 passed (9.5s)

@@ -1,0 +1,40 @@
+[WebServer] (node:9144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 25 tests using 1 worker
+
+(node:25560) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25560) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\optional-capabilities.spec.ts:3:1 › T43 actual capability explanation opens with no media generation, admin route or network side effect (972ms)
+  ok  2 tests\e2e\optional-capabilities.spec.ts:4:1 › T43 WebDAV explanation has no endpoint credentials, upload, probe or remote sync entry (718ms)
+  ok  3 tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one (1.3s)
+  ok  4 tests\e2e\prompt-workspace.spec.ts:5:1 › T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text (1.8s)
+  ok  5 tests\e2e\prompt-workspace.spec.ts:6:1 › T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly (1.7s)
+  ok  6 tests\e2e\prompt-workspace.spec.ts:7:1 › T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound (1.9s)
+  ok  7 tests\e2e\prompt-workspace.spec.ts:8:1 › T21 PG05: composition input does not persist before composition ends (2.9s)
+  ok  8 tests\e2e\prompt-workspace.spec.ts:9:1 › T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice (1.4s)
+  ok  9 tests\e2e\prompt-workspace.spec.ts:10:1 › T21 P23: original input snapshot is shown independently of current edited input (1.4s)
+  ok 10 tests\e2e\prompt-workspace.spec.ts:11:1 › T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages (1.6s)
+  ok 11 tests\e2e\prompt-workspace.spec.ts:13:1 › T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh (2.0s)
+  ok 12 tests\e2e\prompt-workspace.spec.ts:14:1 › T21-C01: canvas panel expands the same saved draft identity without duplication (2.0s)
+  ok 13 tests\e2e\prompt-workspace.spec.ts:15:1 › T21-C04: editing output persists a new manual result and invalidates previous checks (2.4s)
+  ok 14 tests\e2e\prompt-workspace.spec.ts:16:1 › T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version (1.5s)
+  ok 15 tests\e2e\prompt-workspace.spec.ts:17:1 › T21-C06: unavailable AI cannot claim success or create either paid record type (1.2s)
+  ok 16 tests\e2e\prompt-workspace.spec.ts:18:1 › T21: original/form conflict has no preselected resolution and confirmed choices stay explicit (1.2s)
+  ok 17 tests\e2e\prompt-workspace.spec.ts:19:1 › T21: image placeholder saves independently and never activates video rules or image generation (1.2s)
+(node:23848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 18 tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate (2.8s)
+  ok 19 tests\e2e\storage-settings.spec.ts:7:1 › T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access (2.6s)
+  ok 20 tests\e2e\storage-settings.spec.ts:8:1 › T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history (2.7s)
+  ok 21 tests\e2e\storage-settings.spec.ts:9:1 › T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography (2.7s)
+  ok 22 tests\e2e\storage-settings.spec.ts:10:1 › T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity (2.7s)
+  ok 23 tests\e2e\storage-settings.spec.ts:11:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe (2.6s)
+  ok 24 tests\e2e\storage-settings.spec.ts:12:1 › T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection (2.8s)
+  ok 25 tests\e2e\storage-settings.spec.ts:13:1 › T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records (3.7s)
+
+  25 passed (54.7s)
