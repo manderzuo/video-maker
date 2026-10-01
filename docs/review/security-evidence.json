@@ -1,0 +1,530 @@
+{
+  "taskId": "T45",
+  "implementationSelfCheck": "passed",
+  "userAcceptance": "pending",
+  "independentReview": "pending",
+  "network": "local Mock and fake Key only",
+  "browser": {
+    "path": "docs/review/logs/T45-native-final-results.json",
+    "sha256": "f8cf8924b7f818e655f358f0701ba9a95aefe1ceacb3a02fe7fb032042882153",
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0
+  },
+  "unit": {
+    "path": "docs/review/logs/T45-unit-results.json",
+    "sha256": "7773ad2753d9c89a8eab20a50e3bb8963f6d2f90980016cf930dd92c73821f06",
+    "passed": 386,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sourceSha256": {
+    "tests/e2e/recovery-races.spec.ts": "7ca8c07f8461ecacdaeac50ee2cf5623c1d49e807ee008945934245b4f4f4d0b"
+  },
+  "cases": [
+    {
+      "caseId": "T45-C01",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening",
+      "status": "passed",
+      "assertions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 163
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 210
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 424
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 598
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 647
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 699
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 0,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C02",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key",
+      "status": "passed",
+      "assertions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 282
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 381
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 486
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 535
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 709
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 758
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 810
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 1,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C03",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt",
+      "status": "passed",
+      "assertions": 12,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 536
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 623
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 703
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 846
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 969
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 1065
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 1160
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 1212
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 0,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C04",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched",
+      "status": "passed",
+      "assertions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 24,
+          "column": 561
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 24,
+          "column": 657
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1357
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1492
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1644
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1708
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 1,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C05",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write",
+      "status": "passed",
+      "assertions": 12,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 769
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1220
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1301
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1332
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1380
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1301
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1332
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1380
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1444
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1496
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 0,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C06",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C06 compressed native ZIP bomb forged expansion is rejected with an observable reason and zero creative writes",
+      "status": "passed",
+      "assertions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 558
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 921
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 0,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C07",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C07 actual download redirect never contacts its target or leaks a Key and never regenerates the completed task",
+      "status": "passed",
+      "assertions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 216
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 625
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 702
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 814
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 931
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 1017
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 1069
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 0,
+      "nativeBrowserStorage": true
+    },
+    {
+      "caseId": "T45-C08",
+      "testId": "tests/e2e/recovery-races.spec.ts::T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically",
+      "status": "passed",
+      "assertions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1284
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1333
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1701
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1757
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1809
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "observedNetwork": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      },
+      "expectedOriginalPaidRequests": 0,
+      "nativeBrowserStorage": true
+    }
+  ],
+  "limitations": [
+    "Unit crash helper uses fake-indexeddb and is supplemental; all eight chain cases separately exercise actual Chromium/native IndexedDB.",
+    "Tab closure and injected socket/transaction failure are tested; physical power loss is not performed.",
+    "No live Core, actual paid request or production data used."
+  ]
+}

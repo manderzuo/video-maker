@@ -1,0 +1,44 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/failure-injection.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/failure-injection.test.ts (2 tests | 2 failed) 86ms
+   × T45-C01: actual local dispatch fixture must interrupt before send, leaving a durable original and zero POST 70ms
+   × T45-C02: real loopback response loss leaves one unknown original and reopening never submits a replacement 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/failure-injection.test.ts > T45-C01: actual local dispatch fixture must interrupt before send, leaving a durable original and zero POST
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/unit/failure-injection.test.ts:4:85
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/failure-injection.test.ts > T45-C02: real loopback response loss leaves one unknown original and reopening never submits a replacement
+AssertionError: expected 'accepted' to be 'submit_unknown' // Object.is equality
+
+Expected: "submit_unknown"
+Received: "accepted"
+
+ ❯ tests/unit/failure-injection.test.ts:7:139
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  17:26:21
+   Duration  657ms (transform 232ms, setup 46ms, import 338ms, tests 86ms, environment 0ms)
+

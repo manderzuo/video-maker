@@ -1,0 +1,221 @@
+[WebServer] (node:29396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:3660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\recovery-races.spec.ts:12:1 › T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening (7.2s)
+(node:4848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\recovery-races.spec.ts:15:1 › T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key (7.3s)
+(node:29252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\recovery-races.spec.ts:18:1 › T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt (1.6s)
+(node:10280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\recovery-races.spec.ts:21:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task untouched (542ms)
+(node:25356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\recovery-races.spec.ts:24:1 › T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write (1.2s)
+(node:23972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 tests\e2e\recovery-races.spec.ts:27:1 › T45-C06 compressed native ZIP bomb forged expansion is rejected with an observable reason and zero creative writes (1.8s)
+  ok 7 tests\e2e\recovery-races.spec.ts:30:1 › T45-C07 actual download redirect never contacts its target or leaks a Key and never regenerates the completed task (334ms)
+  x  8 tests\e2e\recovery-races.spec.ts:33:1 › T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically (6.8s)
+
+
+  1) tests\e2e\recovery-races.spec.ts:12:1 › T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: '本地任务中心', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: '本地任务中心', exact: true })[22m
+
+
+      11 |
+      12 | test('T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening',async({page,context,networkCounter})=>{
+    > 13 |  await setup(page);const dialog=await confirm(page);await holdNextNativeCommit(page,'runs');await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect.poll(()=>nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});const before=await nativeRuns(page);expect(before).toHaveLength(1);expect(before[0].executionState).toBe('persisted');expect(networkCounter.paidRequests).toHaveLength(0);await page.close();const reopened=await context.newPage();await reopened.goto('/tasks');await expect(reopened.getByRole('heading',{name:'本地任务中心',exact:true})).toBeVisible();expect(await nativeRuns(reopened)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);await reopened.screenshot({path:'docs/review/screenshots/T45-before-send-reopened.png'});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^
+      14 | });
+      15 | test('T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key',async({page,context,networkCounter})=>{
+      16 |  await setup(page);await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(page.getByRole('dialog',{name:'任务未知结果',exact:true})).toBeVisible();const before=await nativeRuns(page);expect(before).toHaveLength(1);expect(before[0]).toMatchObject({executionState:'submit_unknown',billingState:'not_provided'});expect(before[0].finalBody).toBeTruthy();expect(networkCounter.paidRequests).toHaveLength(1);await page.close();const reopened=await context.newPage();await reopened.goto('/tasks');await expect(reopened.getByRole('heading',{name:'本地任务中心',exact:true})).toBeVisible();expect(await nativeRuns(reopened)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(1);await reopened.screenshot({path:'docs/review/screenshots/T45-unknown-reopened.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:13:599
+
+    Error Context: test-results\recovery-races-T45-C01-nat-e68d4-uces-zero-POST-on-reopening\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C01-nat-e68d4-uces-zero-POST-on-reopening\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C01-nat-e68d4-uces-zero-POST-on-reopening\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\recovery-races.spec.ts:15:1 › T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: '本地任务中心', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: '本地任务中心', exact: true })[22m
+
+
+      14 | });
+      15 | test('T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key',async({page,context,networkCounter})=>{
+    > 16 |  await setup(page);await page.route('**/core-api/v1/videos/generations',route=>route.abort('connectionclosed'));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(page.getByRole('dialog',{name:'任务未知结果',exact:true})).toBeVisible();const before=await nativeRuns(page);expect(before).toHaveLength(1);expect(before[0]).toMatchObject({executionState:'submit_unknown',billingState:'not_provided'});expect(before[0].finalBody).toBeTruthy();expect(networkCounter.paidRequests).toHaveLength(1);await page.close();const reopened=await context.newPage();await reopened.goto('/tasks');await expect(reopened.getByRole('heading',{name:'本地任务中心',exact:true})).toBeVisible();expect(await nativeRuns(reopened)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(1);await reopened.screenshot({path:'docs/review/screenshots/T45-unknown-reopened.png'});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^
+      17 | });
+      18 | test('T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt',async({page,networkCounter})=>{
+      19 |  await setup(page);await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(this.name==='runs'&&(args[0] as {executionState?:string}).executionState==='submitting')throw new DOMException('actual-dispatch-storage-full','QuotaExceededError');return original.apply(this,args);};});const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect.poll(async()=>{const rows=await nativeRuns(page);return rows.length;}).toBe(1);await expect(page.getByRole('dialog',{name:'任务未知结果',exact:true})).toHaveCount(0);const runs=await nativeRuns(page);expect(runs[0].executionState).toBe('persisted');expect(runs[0].finalBody).toBeTruthy();expect(runs[0].billingState).toBe('not_provided');expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:16:710
+
+    Error Context: test-results\recovery-races-T45-C02-nat-d6ee6-ver-replace-its-body-or-key\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C02-nat-d6ee6-ver-replace-its-body-or-key\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C02-nat-d6ee6-ver-replace-its-body-or-key\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\recovery-races.spec.ts:18:1 › T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+    Received: [31mundefined[39m
+
+      17 | });
+      18 | test('T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt',async({page,networkCounter})=>{
+    > 19 |  await setup(page);await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(this.name==='runs'&&(args[0] as {executionState?:string}).executionState==='submitting')throw new DOMException('actual-dispatch-storage-full','QuotaExceededError');return original.apply(this,args);};});const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect.poll(async()=>{const rows=await nativeRuns(page);return rows.length;}).toBe(1);await expect(page.getByRole('dialog',{name:'任务未知结果',exact:true})).toHaveCount(0);const runs=await nativeRuns(page);expect(runs[0].executionState).toBe('persisted');expect(runs[0].finalBody).toBeTruthy();expect(runs[0].billingState).toBe('not_provided');expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^
+      20 | });
+      21 | test('T45-C04 actual replacement Key cannot query or download another binding and leaves the original task untouched',async({page,networkCounter})=>{
+      22 |  await page.goto('/tests/fixtures/media-delivery.html');const before=await nativeRuns(page);const errors=await page.evaluate(async()=>{const active='/src/adapters/core/current-connection.ts',auth='/src/domain/authorization.ts',credentials='/src/security/credential-session.ts',clientPath='/src/adapters/core/http-client.ts',delivery='/src/features/review/media-delivery.ts',poll='/src/application/runs/poll-video.ts';const a=await import(active),c=await import(credentials),profile=a.getActiveCore().client.profile,binding=(await import(auth)).createAuthBinding(profile);c.setSessionCredential(binding.id,'fake-replacement-security-key');const client=(await import(clientPath)).createCoreClient(profile,{binding,withCredential:c.withCredential},{registry:[profile]});const results:string[]=[];for(const action of [()=>import(delivery).then(m=>m.fetchRunMedia('media-original-run','cache',{client})),()=>import(poll).then(m=>m.pollVideoOnce('media-original-run',{client}))])try{await action();results.push('unexpected_success');}catch(error){results.push((error as Error).message);}return results;});expect(errors).toEqual(['original_authorization_required','original_authorization_required']);expect(await nativeRuns(page)).toEqual(before);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:19:754
+
+    Error Context: test-results\recovery-races-T45-C03-act-19d3a-e-original-approved-attempt\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C03-act-19d3a-e-original-approved-attempt\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C03-act-19d3a-e-original-approved-attempt\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\recovery-races.spec.ts:21:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task untouched 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Array [[22m
+    [2m    "original_authorization_required",[22m
+    [32m-   "original_authorization_required",[39m
+    [31m+   "dispatch_not_committed",[39m
+    [2m  ][22m
+
+      20 | });
+      21 | test('T45-C04 actual replacement Key cannot query or download another binding and leaves the original task untouched',async({page,networkCounter})=>{
+    > 22 |  await page.goto('/tests/fixtures/media-delivery.html');const before=await nativeRuns(page);const errors=await page.evaluate(async()=>{const active='/src/adapters/core/current-connection.ts',auth='/src/domain/authorization.ts',credentials='/src/security/credential-session.ts',clientPath='/src/adapters/core/http-client.ts',delivery='/src/features/review/media-delivery.ts',poll='/src/application/runs/poll-video.ts';const a=await import(active),c=await import(credentials),profile=a.getActiveCore().client.profile,binding=(await import(auth)).createAuthBinding(profile);c.setSessionCredential(binding.id,'fake-replacement-security-key');const client=(await import(clientPath)).createCoreClient(profile,{binding,withCredential:c.withCredential},{registry:[profile]});const results:string[]=[];for(const action of [()=>import(delivery).then(m=>m.fetchRunMedia('media-original-run','cache',{client})),()=>import(poll).then(m=>m.pollVideoOnce('media-original-run',{client}))])try{await action();results.push('unexpected_success');}catch(error){results.push((error as Error).message);}return results;});expect(errors).toEqual(['original_authorization_required','original_authorization_required']);expect(await nativeRuns(page)).toEqual(before);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      23 | });
+      24 | test('T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write',async({page,networkCounter})=>{
+      25 |  await page.goto('/assets');await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await(await import(path)).seedGeneration();});await page.reload();const before=await nativeRuns(page),attempts=await page.evaluate(async()=>{Object.assign(window,{securityExecuted:0});const p='/src/features/assets/import-service.ts',m=await import(p);const payloads=['<svg xmlns="http://www.w3.org/2000/svg"><script>window.securityExecuted++</script></svg>','<html><script>window.securityExecuted++</script></html>'];const reports=[];for(const [i,payload]of payloads.entries())reports.push(await m.importAssetFiles([new File([payload],'attack-'+i+'.png',{type:'image/png'})]));return {reports,executed:Reflect.get(window,'securityExecuted')};});expect(attempts.executed).toBe(0);expect(attempts.reports).toHaveLength(2);for(const r of attempts.reports){expect(r.successes).toEqual([]);expect(r.failures).toHaveLength(1);expect(r.failures[0].errorCode).toBe('media_invalid_signature');}expect(await nativeRuns(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:22:1115
+
+    Error Context: test-results\recovery-races-T45-C04-act-0b81c-the-original-task-untouched\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C04-act-0b81c-the-original-task-untouched\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C04-act-0b81c-the-original-task-untouched\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\recovery-races.spec.ts:24:1 › T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write 
+
+    Error: page.evaluate: TypeError: m.importAssetFiles is not a function
+        at eval (eval at evaluate (:290:30), <anonymous>:9:75)
+        at async <anonymous>:316:30
+        at eval (eval at evaluate (:290:30), <anonymous>:9:75)
+        at async <anonymous>:316:30
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:25:224
+
+    Error Context: test-results\recovery-races-T45-C05-nat-e4932-no-asset-or-execution-write\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C05-nat-e4932-no-asset-or-execution-write\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C05-nat-e4932-no-asset-or-execution-write\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests\e2e\recovery-races.spec.ts:33:1 › T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('region', { name: '执行队列', exact: true })
+    Expected substring: [32m"已暂停"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('region', { name: '执行队列', exact: true })[22m
+
+
+      32 | });
+      33 | test('T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically',async({page,context,networkCounter})=>{
+    > 34 |  await setup(page);await page.evaluate(async()=>{const s='/src/features/projects/project-service.ts',d='/src/infrastructure/storage/database.ts',a='/src/application/runs/approval.ts',p='/src/application/runs/preflight.ts',q='/src/application/runs/queue.ts',c='/src/adapters/core/current-connection.ts';const service=await import(s),database=await import(d),approval=await import(a),preflight=await import(p),queue=await import(q),core=(await import(c)).getActiveCore(),lease=await service.getProjectWriter('p1');const draft=await database.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>database.transact(db,['graphs','assets','blobs','diagnostics','runs'],'readonly',(tx:IDBTransaction)=>approval.storedRunDraft(tx,'p1',['video-1'],core,true)));const checked=preflight.preflightRun(draft);if(checked.status!=='ready')throw Error('test_preflight_not_ready');const plan=await preflight.sealRunPlan(checked.plan),approved=await approval.approveRun(plan,{confirmed:true,kind:'video',planHash:plan.planHash,nodeCount:1,acknowledgeUnknownFee:true},{...core,lease});await queue.createRunQueue({projectId:'p1',revision:1,nodeIds:['video-1'],approved},{...core,lease,tabId:service.studioTabId});});const before=await nativeRuns(page);expect(before).toHaveLength(1);expect(before[0].executionState).toBe('persisted');await page.close();const reopened=await context.newPage();await reopened.goto('/projects/p1/canvas');await expect(reopened.getByRole('region',{name:'执行队列',exact:true})).toContainText('已暂停');expect(await nativeRuns(reopened)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);await reopened.screenshot({path:'docs/review/screenshots/T45-pending-queue-reopened.png'});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      35 | });
+      36 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:34:1520
+
+    Error Context: test-results\recovery-races-T45-C08-clo-29d20-ubmitted-work-automatically\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C08-clo-29d20-ubmitted-work-automatically\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C08-clo-29d20-ubmitted-work-automatically\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    tests\e2e\recovery-races.spec.ts:12:1 › T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening 
+    tests\e2e\recovery-races.spec.ts:15:1 › T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key 
+    tests\e2e\recovery-races.spec.ts:18:1 › T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt 
+    tests\e2e\recovery-races.spec.ts:21:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task untouched 
+    tests\e2e\recovery-races.spec.ts:24:1 › T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write 
+    tests\e2e\recovery-races.spec.ts:33:1 › T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically 
+  2 passed (37.6s)

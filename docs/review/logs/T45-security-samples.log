@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/security/import-attacks.test.ts tests/security/credential-leaks.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  17:31:24
+   Duration  455ms (transform 239ms, setup 63ms, import 408ms, tests 41ms, environment 0ms)
+

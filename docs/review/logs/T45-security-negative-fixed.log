@@ -1,0 +1,14 @@
+
+> aiwork-studio@0.0.1 test:security
+> vitest run tests/security && node scripts/check-network-negative.mjs
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  17:38:02
+   Duration  487ms (transform 264ms, setup 83ms, import 457ms, tests 47ms, environment 0ms)
+
+Observed negative browser test exit 1 at network guard, then verified the harness assertion.

@@ -1,5 +1,5 @@
 {
-  "currentTask": "T45",
+  "currentTask": "T46",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -350,7 +350,7 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T44.json",
-      "headCommit": null,
+      "headCommit": "42f983fb17eb9734c102dfa77c7855c615c43cb6",
       "id": "T44",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
       "status": "实现完成，自检通过；待用户统一验收与独立审查",
@@ -362,7 +362,7 @@
       "headCommit": null,
       "id": "T45",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
-      "status": "未开始",
+      "status": "实现完成，自检通过；待统一验收与独立审查",
       "title": "安全与故障注入整链路测试"
     },
     {

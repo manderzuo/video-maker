@@ -2,7 +2,7 @@
   "taskId": "T44",
   "status": "实现完成，自检通过；待用户统一验收与独立审查",
   "baseCommit": "6d8e5b5f56c9151dbc79fe76c3de96c0971cbdfd",
-  "headCommit": null,
+  "headCommit": "42f983fb17eb9734c102dfa77c7855c615c43cb6",
   "branch": "feat/aiwork-studio",
   "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
   "actualModel": "由用户在宿主选择，当前工具不可验证",

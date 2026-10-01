@@ -1,0 +1,23 @@
+Error: Cannot find module './tests/helpers/coverage-reporter.ts'
+Require stack:
+- E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\common\config.js
+- E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\program.js
+- E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@playwright\test\cli.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1430:15)
+    at Function.resolveFilename [as _resolveFilename] (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\transform\transform.js:247:36)
+    at Function.resolve (node:internal/modules/helpers:157:19)
+    at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\common\config.js:200:21
+    at Array.map (<anonymous>)
+    at resolveReporters (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\common\config.js:197:34)
+    at new FullConfigInternal (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\common\config.js:92:56)
+    at loadConfig (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\common\configLoader.js:121:22)
+    at loadConfigFromFile (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\common\configLoader.js:331:10)
+    at runTests (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\program.js:197:18)
+    at i.<anonymous> (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\playwright\lib\program.js:70:7) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\node_modules\\playwright\\lib\\common\\config.js',
+    'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\node_modules\\playwright\\lib\\program.js',
+    'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\node_modules\\@playwright\\test\\cli.js'
+  ]
+}

@@ -1,0 +1,24 @@
+
+> aiwork-studio@0.0.1 test:security
+> vitest run tests/security && node scripts/check-network-negative.mjs
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  17:37:12
+   Duration  467ms (transform 273ms, setup 73ms, import 460ms, tests 47ms, environment 0ms)
+
+file:///E:/trae-studio/TRAEWORK/aiwork-studio/scripts/check-network-negative.mjs:5
+if(r.status!==1||!r.stdout.includes('Unauthorized network requests must fail CI'))throw new Error('Negative probe did not fail for the required network guard reason');
+                                                                                        ^
+
+Error: Negative probe did not fail for the required network guard reason
+    at file:///E:/trae-studio/TRAEWORK/aiwork-studio/scripts/check-network-negative.mjs:5:89
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.3

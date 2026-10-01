@@ -1,0 +1,55 @@
+[WebServer] (node:26280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:21188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\recovery-races.spec.ts:12:1 › T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening (2.2s)
+  ok 2 tests\e2e\recovery-races.spec.ts:15:1 › T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key (2.0s)
+  ok 3 tests\e2e\recovery-races.spec.ts:18:1 › T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt (1.4s)
+  x  4 tests\e2e\recovery-races.spec.ts:21:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched (6.3s)
+(node:12600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 5 tests\e2e\recovery-races.spec.ts:25:1 › T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write (1.2s)
+  ok 6 tests\e2e\recovery-races.spec.ts:28:1 › T45-C06 compressed native ZIP bomb forged expansion is rejected with an observable reason and zero creative writes (1.6s)
+  ok 7 tests\e2e\recovery-races.spec.ts:31:1 › T45-C07 actual download redirect never contacts its target or leaks a Key and never regenerates the completed task (326ms)
+  ok 8 tests\e2e\recovery-races.spec.ts:34:1 › T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically (2.1s)
+
+
+  1) tests\e2e\recovery-races.spec.ts:21:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"[7msu[27mcce[7med[27med"[39m
+    Received: [31m"[7ma[27mcce[7mpt[27med"[39m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      20 | });
+      21 | test('T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched',async({page,networkCounter})=>{
+    > 22 |  await setup(page);await page.route('**/core-api/v1/videos/generations',route=>route.fulfill({status:202,contentType:'application/json',body:JSON.stringify({task:{id:'security-original',status:'queued'}})}));await page.route('**/core-api/v1/videos/security-original',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({task:{id:'security-original',status:'succeeded'}})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect.poll(async()=>{const rows=await nativeRuns(page);return rows[0]?.executionState;}).toBe('succeeded');const before=await nativeRuns(page),networkBefore=networkCounter.requests.filter(r=>r.url.includes('/core-api/')).length;
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+      23 |  const outcome=await page.evaluate(async()=>{const active='/src/adapters/core/current-connection.ts',auth='/src/domain/authorization.ts',credentials='/src/security/credential-session.ts',clientPath='/src/adapters/core/http-client.ts',delivery='/src/features/review/media-delivery.ts',poll='/src/application/runs/poll-video.ts',database='/src/infrastructure/storage/database.ts';const a=await import(active),c=await import(credentials),old=a.getActiveCore(),profile=old.client.profile,binding=(await import(auth)).createAuthBinding(profile);c.setSessionCredential(binding.id,'fake-replacement-security-key');const client=(await import(clientPath)).createCoreClient(profile,{binding,withCredential:c.withCredential},{registry:[profile]});a.setActiveCore(client,old.capability);const d=await import(database),run=await d.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>d.transact(db,['runs'],'readonly',async(tx:IDBTransaction)=>(await d.requestResult(tx.objectStore('runs').getAll()))[0]));let mediaError='unexpected_success';try{await(await import(delivery)).fetchRunMedia(run.id,'cache',{client});}catch(error){mediaError=(error as Error).message;}const queried=await(await import(poll)).pollVideoOnce(run.id,{client,capability:old.capability});return {mediaError,queryState:queried.queryState};});expect(outcome).toEqual({mediaError:'original_authorization_required',queryState:'auth_required'});const after=await nativeRuns(page);expect(after[0]).toEqual({...before[0],queryState:'auth_required',updatedAt:after[0].updatedAt});expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(networkBefore);expect(networkCounter.paidRequests).toHaveLength(1);
+      24 | });
+      25 | test('T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-races.spec.ts:22:510
+
+    Error Context: test-results\recovery-races-T45-C04-act-c9924-nal-task-identity-untouched\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-races-T45-C04-act-c9924-nal-task-identity-untouched\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-races-T45-C04-act-c9924-nal-task-identity-untouched\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\recovery-races.spec.ts:21:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched 
+  7 passed (22.0s)
