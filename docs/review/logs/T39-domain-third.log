@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/agent-relay.test.ts tests/unit/agent-browser-client.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  2 passed (2)
+      Tests  6 passed (6)
+   Start at  08:22:42
+   Duration  502ms (transform 166ms, setup 64ms, import 316ms, tests 161ms, environment 0ms)
+

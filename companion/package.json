@@ -1,0 +1,1 @@
+{"name":"aiwork-studio-companion","version":"0.0.1","private":true,"type":"module","engines":{"node":">=22.12.0 <23"},"scripts":{"build":"npm --prefix .. run companion:build","start":"node dist/main.mjs"},"description":"Loopback relay only; dependencies and compiler are pinned by the Studio root lockfile."}

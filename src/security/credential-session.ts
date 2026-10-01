@@ -1,6 +1,7 @@
 const credentials=new Map<string,string>();
 const bindingIdentity=new Map<string,string>();
 const knownSecrets=new Set<string>();
+export function registerDiagnosticSecret(secret:string){if(secret)knownSecrets.add(secret);}
 export function sanitizeKnownSecrets(input:string):string{
  let result=input;
  for(const secret of Array.from(knownSecrets).sort((a,b)=>b.length-a.length))result=result.split(secret).join('[已脱敏]');

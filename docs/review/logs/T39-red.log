@@ -1,0 +1,77 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/agent-relay.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/agent-relay.test.ts (2 tests | 2 failed) 27ms
+   × T39-C01/C02 actual HTTP binds only loopback and rejects missing token, wrong Origin and arbitrary origin preflight 23ms
+   × T39-C03/C04/C05 actual readonly session, mismatched project/epoch denial and disconnect revokes authority rather than fake success 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/agent-relay.test.ts > T39-C01/C02 actual HTTP binds only loopback and rejects missing token, wrong Origin and arbitrary origin preflight
+Error: test_network_denied
+ ❯ globalThis.fetch tests/helpers/unit-setup.ts:10:149
+      8|  globalThis.fetch=async(input,init)=>{
+      9|   const url=typeof input==='string'?input:input instanceof URL?input.h…
+     10|   if(!isAllowedTestUrl(url,'http://127.0.0.1:4179')&&!registeredMockOr…
+       |                                                                                                                                                     ^
+     11|   return originalFetch(input,{...init,redirect:init?.redirect==='manua…
+     12|  };
+ ❯ tests/unit/agent-relay.test.ts:4:277
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/unit/agent-relay.test.ts > T39-C01/C02 actual HTTP binds only loopback and rejects missing token, wrong Origin and arbitrary origin preflight
+AssertionError: unit test attempted unauthorized network: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "http://127.0.0.1:53231/canvas/connect",
++ ]
+
+ ❯ tests/helpers/unit-setup.ts:14:108
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/unit/agent-relay.test.ts > T39-C03/C04/C05 actual readonly session, mismatched project/epoch denial and disconnect revokes authority rather than fake success
+Error: test_network_denied
+ ❯ globalThis.fetch tests/helpers/unit-setup.ts:10:149
+      8|  globalThis.fetch=async(input,init)=>{
+      9|   const url=typeof input==='string'?input:input instanceof URL?input.h…
+     10|   if(!isAllowedTestUrl(url,'http://127.0.0.1:4179')&&!registeredMockOr…
+       |                                                                                                                                                     ^
+     11|   return originalFetch(input,{...init,redirect:init?.redirect==='manua…
+     12|  };
+ ❯ tests/unit/agent-relay.test.ts:5:230
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/unit/agent-relay.test.ts > T39-C03/C04/C05 actual readonly session, mismatched project/epoch denial and disconnect revokes authority rather than fake success
+AssertionError: unit test attempted unauthorized network: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "http://127.0.0.1:53232/agent/state",
++ ]
+
+ ❯ tests/helpers/unit-setup.ts:14:108
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  08:15:21
+   Duration  285ms (transform 44ms, setup 43ms, import 31ms, tests 27ms, environment 0ms)
+

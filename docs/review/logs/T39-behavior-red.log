@@ -1,0 +1,44 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/agent-relay.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/agent-relay.test.ts (2 tests | 2 failed) 53ms
+   × T39-C01/C02 actual HTTP binds only loopback and rejects missing token, wrong Origin and arbitrary origin preflight 42ms
+   × T39-C03/C04/C05 actual readonly session, mismatched project/epoch denial and disconnect revokes authority rather than fake success 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/agent-relay.test.ts > T39-C01/C02 actual HTTP binds only loopback and rejects missing token, wrong Origin and arbitrary origin preflight
+AssertionError: expected 501 to be 401 // Object.is equality
+
+- Expected
++ Received
+
+- 401
++ 501
+
+ ❯ tests/unit/agent-relay.test.ts:5:436
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/agent-relay.test.ts > T39-C03/C04/C05 actual readonly session, mismatched project/epoch denial and disconnect revokes authority rather than fake success
+AssertionError: expected 'not_implemented' to be 'canvas_not_connected' // Object.is equality
+
+Expected: "canvas_not_connected"
+Received: "not_implemented"
+
+ ❯ tests/unit/agent-relay.test.ts:6:378
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  08:15:48
+   Duration  323ms (transform 47ms, setup 45ms, import 36ms, tests 53ms, environment 0ms)
+

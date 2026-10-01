@@ -1,0 +1,92 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/agent-browser-client.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/agent-browser-client.test.ts (4 tests | 3 failed) 88ms
+   × T39 late successful pairing after closing the canvas must revoke server session and never reconnect the browser silently 47ms
+   × T39 browser client needs an actually opened live writer; native epoch takeover revokes its session and cannot renew old proposal permission 20ms
+   × T39 actual HTTP expires at default session deadline and at loss of browser heartbeat; Host rebinding and URL tokens denied 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/agent-browser-client.test.ts > T39 late successful pairing after closing the canvas must revoke server session and never reconnect the browser silently
+AssertionError: promise resolved "{ …(5) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "allowedOrigin": "http://127.0.0.1:4179",
++   "connected": true,
++   "grant": {
++     "access": "read",
++     "epoch": 1,
++     "expiresAt": 1790815921865,
++     "nodeIds": [],
++     "projectId": "p1",
++     "scope": "selection",
++   },
++   "id": "0bea6efd-1c52-49f6-8e68-ed07d7ca4d07",
++   "projectId": "p1",
+  }
+
+ ❯ tests/unit/agent-browser-client.test.ts:9:599
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/unit/agent-browser-client.test.ts > T39 browser client needs an actually opened live writer; native epoch takeover revokes its session and cannot renew old proposal permission
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/unit/agent-browser-client.test.ts:10:1472
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/unit/agent-browser-client.test.ts > T39 browser client needs an actually opened live writer; native epoch takeover revokes its session and cannot renew old proposal permission
+AssertionError: unit test attempted unauthorized network: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "http://127.0.0.1:63866/canvas/disconnect",
++ ]
+
+ ❯ tests/helpers/unit-setup.ts:14:108
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/unit/agent-browser-client.test.ts > T39 actual HTTP expires at default session deadline and at loss of browser heartbeat; Host rebinding and URL tokens denied
+AssertionError: expected 200 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 200
+
+ ❯ tests/unit/agent-browser-client.test.ts:12:952
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 1 passed (4)
+   Start at  08:22:01
+   Duration  519ms (transform 126ms, setup 43ms, import 205ms, tests 88ms, environment 0ms)
+

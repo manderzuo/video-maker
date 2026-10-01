@@ -1,0 +1,156 @@
+{
+  "taskId": "T39",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "762bf9a0260896ba111cf2d7f083dffb29628a1d",
+  "headCommit": null,
+  "branch": "feat/canvas-agent",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "companion/package.json",
+    "companion/src/server.ts",
+    "companion/src/session.ts",
+    "companion/src/origin-policy.ts",
+    "companion/src/main.ts",
+    "companion/vite.config.ts",
+    "src/domain/agent-session.ts",
+    "src/features/agent/agent-client.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/security/credential-session.ts",
+    "docs/integrations/agent-relay.md",
+    "tests/unit/agent-relay.test.ts",
+    "tests/unit/agent-browser-client.test.ts",
+    "tests/unit/agent-session-isolation.test.ts",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/agent-relay.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-relay.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-behavior-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-relay.test.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-domain-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-relay.test.ts tests/unit/agent-browser-client.test.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-domain-second.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-browser-client.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-revoke-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-relay.test.ts tests/unit/agent-browser-client.test.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-domain-third.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 349,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-unit-all.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-build-final.log"
+    },
+    {
+      "command": "npm run companion:build",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-companion-build-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/lease.spec.ts tests/e2e/typed-nodes.spec.ts",
+      "exitCode": 0,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T39-browser-related.log"
+    }
+  ],
+  "sourceReads": [
+    {
+      "repository": "basketikun/infinite-canvas",
+      "commit": "dab19adc0847e32e39b7fc8ff90cb392561fb826",
+      "path": "canvas-agent/src/canvas/session.ts",
+      "sha256": "4b150c8ae7215c39facab1b4446c0e192f98c5bd4fc3077283a6acb8c1f26003",
+      "readScope": "前150行协议/状态定义，只读参考，没有迁移通用LLM客户端"
+    },
+    {
+      "path": "canvas-agent/src/server/http.ts",
+      "sha256": "49ea671e8bc6da5da3fbcfe76905940863b2326cc47beaa6e7941d17c58a82dd",
+      "readScope": "前150行，只读参考"
+    }
+  ],
+  "notes": [
+    "首次随机回环端口未登记被测试网络守卫拒绝，属于环境失败，不计有效红灯；显式登记实际启动的回环测试服务并在finally撤销后观察到2有效行为红灯。",
+    "Node fetch忽略Host覆盖造成1负例未真正发送目标Host，改原生http.request发送同一固定回环请求并保留403断言；服务器Host检查没有放宽。",
+    "另2真实行为红灯为接管后未即时撤回服务权限、关闭画布后的迟到握手重新接回，均已修复，目标6通过。",
+    "只监听127.0.0.1，独立随机32字节临时token/浏览器nonce，固定Host/精确Origin、绑定project/tab/epoch、默认只读选区为空、30分钟授权/15秒失联拒绝、无自动延长。",
+    "客户端核对实际打开画布与原生DB租约，失联、关闭、epoch变化撤权，元数据不含token；不读取Core Key/DPAPI/历史配置。",
+    "无新增依赖，companion依赖根lock锁定的Zod/Vite工具链；独立Node22产物已构建，不自动安装。"
+  ],
+  "screenshots": [],
+  "limitations": [
+    "此任务为底层协议；Agent新页面/首次授权弹窗实际渲染和点击在T42核验，不宣称D13交互已通过。",
+    "本机HTTP与本地测试客户端实际核验；外部模型宿主未配置且未验证，health如实标记，不声称真实Agent模型可用/兼容所有宿主。可继续本地受控提案/MCP/UI实施，不开启未核验宿主调用。",
+    "统一验收/独立审查、真实费用/发布/许可门槛保留。"
+  ],
+  "independentSubagentsStarted": 0
+}

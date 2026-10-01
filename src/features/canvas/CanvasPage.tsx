@@ -12,6 +12,7 @@ import {executeGraphOperations} from '../../application/commands/registry';
 import type {Project} from '../../domain/project';
 import {recoveryCode} from '../recovery/recovery-model';
 import {useMemoryRecoveries,retainMemoryRecovery,readMemoryRecoveries,discardMemoryRecovery,downloadMemoryRecovery,type MemoryRecovery} from '../recovery/memory-recovery';
+import {registerOpenedCanvas} from '../agent/agent-client';
 import {MemoryRecoveryDialog} from '../recovery/RecoveryCenter';
 import type {GraphOperation,CommandReceipt} from '../../application/commands/registry';
 import {Button} from '../../ui/Button';
@@ -67,6 +68,7 @@ export function CanvasPage({projectId}:{projectId:string}){
  const [graph,setGraph]=useState<Graph>(),[title,setTitle]=useState(''),[loading,setLoading]=useState(true),[error,setError]=useState(''),[status,setStatus]=useState('已保存');
  const [lease,setLease]=useState<ProjectLeaseToken>(),[selected,setSelected]=useState<string[]>([]),[tool,setTool]=useState<'select'|'pan'>('select'),[view,setView]=useState<Viewport>({x:0,y:0,scale:1}),[prefs,setPrefs]=useState<{background:Prefs['background'];minimap:boolean}>({background:'dots',minimap:false});
  const [box,setBox]=useState<{left:number;top:number;width:number;height:number}>(),[addOpen,setAddOpen]=useState(false),[takeoverOpen,setTakeoverOpen]=useState(false),[leavePath,setLeavePath]=useState(''),[historyState,setHistoryState]=useState<HistoryState>();
+ useEffect(()=>registerOpenedCanvas({identity:async()=>{const token=leaseRef.current;if(!token)return undefined;try{return await withDatabase(undefined,db=>transact(db,['projects','graphs','leases'],'readonly',async tx=>{await assertProjectWriter(tx,projectId,token);const project=await requestResult<{trashedAt:number|null;archived:boolean}|undefined>(tx.objectStore('projects').get(projectId));if(!project||project.trashedAt!==null||project.archived)return undefined;return {...token};}));}catch{return undefined;}}}),[projectId]);
  useEffect(()=>subscribeActiveCore(()=>setCapability(getActiveCore()?.capability??unverifiedCapabilities())),[]);
  const [assets,setAssets]=useState<Asset[]>([]),[runs,setRuns]=useState<Run[]>([]),[capability,setCapability]=useState<CapabilityProfile>(unverifiedCapabilities),[editTitle,setEditTitle]=useState<CanvasNode>(),[nodeTitle,setNodeTitle]=useState(''),[titleError,setTitleError]=useState(''),[fontSizes,setFontSizes]=useState<Record<string,number>>({});
  const [resourcePicker,setResourcePicker]=useState<'asset'|'result'|null>(null),[connectionStart,setConnectionStart]=useState<{nodeId:string;port:'text'|'image'|'video'}>();

@@ -1,0 +1,15 @@
+import {randomBytes,randomUUID} from 'node:crypto';
+import {agentGrantSchema,type AgentGrant,type AgentSession,type CanvasIdentity} from '../../src/domain/agent-session';
+type LiveSession={session:AgentSession;identity:CanvasIdentity;browserNonce:string;lastSeenAt:number};
+export class AgentSessionStore{
+ private sessions=new Map<string,LiveSession>();
+ constructor(private now:()=>number=Date.now){}
+ connect(identity:CanvasIdentity,origin:string){if(this.sessions.size>=50)throw Error('agent_session_limit');for(const record of this.sessions.values())if(record.identity.projectId===identity.projectId&&record.identity.tabId===identity.tabId){record.session.connected=false;record.session.grant.access='read';record.session.grant.nodeIds=[];}const id=randomUUID(),session:AgentSession={id,projectId:identity.projectId,allowedOrigin:origin,connected:true,grant:{projectId:identity.projectId,scope:'selection',nodeIds:[],access:'read',expiresAt:this.now()+1800000,epoch:identity.epoch}},browserNonce=randomBytes(32).toString('base64url');this.sessions.set(id,{session,identity:{...identity},browserNonce,lastSeenAt:this.now()});return {session:structuredClone(session),browserNonce};}
+ current(id?:string):LiveSession{const live=id?this.sessions.get(id):[...this.sessions.values()].filter(r=>r.session.connected).at(-1);if(!live||!live.session.connected)throw Error('canvas_not_connected');if(live.session.grant.expiresAt<=this.now()||live.lastSeenAt+15000<=this.now()){live.session.connected=false;live.session.grant.access='read';live.session.grant.nodeIds=[];throw Error('agent_session_expired');}return live;}
+ browser(id:string,nonce:string|undefined,origin:string){const live=this.current(id);if(!nonce||live.browserNonce!==nonce||live.session.allowedOrigin!==origin)throw Error('browser_authority_required');return live;}
+ authorize(id:string,nonce:string|undefined,origin:string,raw:AgentGrant,fullProjectConfirmed=false){const live=this.browser(id,nonce,origin),grant=agentGrantSchema.parse(raw);if(grant.projectId!==live.session.projectId||grant.epoch!==live.identity.epoch)throw Error('agent_scope_mismatch');if(grant.expiresAt<=this.now()||grant.expiresAt>this.now()+1800000)throw Error('agent_grant_expiry_invalid');if(grant.scope==='project'&&!fullProjectConfirmed)throw Error('full_context_confirmation_required');live.session.grant=structuredClone(grant);return structuredClone(live.session);}
+ heartbeat(id:string,nonce:string|undefined,origin:string,identity:CanvasIdentity){const live=this.browser(id,nonce,origin);if(JSON.stringify(identity)!==JSON.stringify(live.identity))throw Error('agent_epoch_mismatch');live.lastSeenAt=this.now();return structuredClone(live.session);}
+ disconnect(id:string,nonce:string|undefined,origin:string){const live=this.browser(id,nonce,origin);live.session.connected=false;live.session.grant.access='read';live.session.grant.nodeIds=[];return structuredClone(live.session);}
+ read(id?:string){return structuredClone(this.current(id).session);}
+ clear(){for(const row of this.sessions.values()){row.session.connected=false;row.session.grant.access='read';row.session.grant.nodeIds=[];}this.sessions.clear();}
+}

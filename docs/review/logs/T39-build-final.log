@@ -1,0 +1,25 @@
+
+> aiwork-studio@0.0.1 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 268 modules transformed.
+[plugin vite:reporter] 
+(!) E:/trae-studio/TRAEWORK/aiwork-studio/src/infrastructure/storage/project-repository.ts is dynamically imported by E:/trae-studio/TRAEWORK/aiwork-studio/src/features/recovery/RecoveryCenter.tsx but also statically imported by E:/trae-studio/TRAEWORK/aiwork-studio/src/features/assets/asset-service.ts, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/projects/project-service.ts, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/projects/trash-service.ts, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/prompt-generation/ApplyPromptDialog.tsx, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/prompt-generation/InsertTargetDialog.tsx, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/prompt-generation/workspace-service.ts, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/prompts/prompt-library.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) E:/trae-studio/TRAEWORK/aiwork-studio/src/infrastructure/packages/import-project.ts is dynamically imported by E:/trae-studio/TRAEWORK/aiwork-studio/src/features/recovery/RecoveryCenter.tsx but also statically imported by E:/trae-studio/TRAEWORK/aiwork-studio/src/features/packages/PackagePage.tsx, E:/trae-studio/TRAEWORK/aiwork-studio/src/features/recovery/memory-recovery.ts, dynamic import will not move module into another chunk.
+
+rendering chunks...
+computing gzip size...
+dist/assets/hash-worker-CwunAZM4.js    0.36 kB
+dist/index.html                        0.42 kB │ gzip:   0.30 kB
+dist/assets/index-CrKanJFZ.css        19.00 kB │ gzip:   4.61 kB
+dist/assets/index--vJFfRBq.js        745.04 kB │ gzip: 234.76 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.04s

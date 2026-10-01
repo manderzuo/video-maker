@@ -2,7 +2,7 @@
   "taskId": "T38",
   "status": "实施完成，自检通过，待统一验收/独立审查",
   "baseCommit": "c951d92810993c49dae2f45b71b4aa850e89cdb4",
-  "headCommit": null,
+  "headCommit": "762bf9a0260896ba111cf2d7f083dffb29628a1d",
   "branch": "feat/aiwork-studio",
   "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
   "actualModel": "由用户在宿主选择，当前工具不可验证",
