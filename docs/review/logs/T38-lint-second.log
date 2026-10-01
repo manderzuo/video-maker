@@ -1,0 +1,4 @@
+
+> aiwork-studio@0.0.1 lint
+> eslint src tests vite.config.ts vitest.config.ts playwright.config.ts
+

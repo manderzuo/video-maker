@@ -1,0 +1,15 @@
+[WebServer] (node:26972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:26164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\recovery-diagnostics.spec.ts:6:1 › T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run (2.8s)
+  ok 2 tests\e2e\recovery-diagnostics.spec.ts:7:1 › T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message (2.7s)
+  ok 3 tests\e2e\recovery-diagnostics.spec.ts:8:1 › T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback (2.5s)
+  ok 4 tests\e2e\recovery-diagnostics.spec.ts:9:1 › T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download (3.5s)
+
+  4 passed (14.4s)

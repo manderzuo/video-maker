@@ -1,0 +1,142 @@
+{
+  "taskId": "T38",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "c951d92810993c49dae2f45b71b4aa850e89cdb4",
+  "headCommit": null,
+  "branch": "feat/aiwork-studio",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/app/App.tsx",
+    "src/app/routes.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/nodes/TextNode.tsx",
+    "src/features/activity/",
+    "src/features/help/",
+    "src/features/recovery/",
+    "src/security/diagnostic-export.ts",
+    "tests/e2e/recovery-diagnostics.spec.ts",
+    "tests/unit/recovery-diagnostics.test.ts",
+    "tests/unit/recovery-log-retention.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/recovery-diagnostics.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-red.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 2,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-typecheck-initial.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/recovery-diagnostics.spec.ts",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-browser-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/recovery-diagnostics.test.ts",
+      "exitCode": 1,
+      "passed": 25,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-copy-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/recovery-diagnostics.test.ts",
+      "exitCode": 0,
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-domain-second.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/recovery-log-retention.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-active-log-red.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 342,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-unit-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-build-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/recovery-diagnostics.spec.ts tests/e2e/typed-nodes.spec.ts tests/e2e/app-shell.spec.ts tests/e2e/prompt-workspace.spec.ts",
+      "exitCode": 0,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-browser-related.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/recovery-diagnostics.spec.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T38-browser-final.log"
+    }
+  ],
+  "notes": [
+    "4页面有效红灯后实施；初始回调返回Blob的类型错误已修正无忽略。浏览器另1失败复现保存后文本框停留只读，改可观察busy状态更新，保留可编辑断言。",
+    "27领域用例首次25通过2失败：1为冲突副本带入无关素材，修复为引用闭包；1为禁止动作断言误匹配“不自动新建”中的子串，改用户标签为按原身份核对，断言原样保留。",
+    "另1有效红灯：活动清理删除未知Run关联诊断，修复同事务读取Run/PromptRun保护相关事件。",
+    "24种错误仅query/export/reload/provide_auth/manual安全动作；无重新生成/清空未知任务入口。",
+    "实际原生IDB配额故障后当前中文稿内存下载，恢复写入后另存新ID冲突副本并明确丢弃重载，原图/原Run保持。",
+    "诊断固定字段白名单，无raw message/全文提示词/inputSnapshot/finalBody/Key/临时链接；本地日志非Core审计、UTC持久时间、本地时区展示；反馈未配置无发送入口。",
+    "法律声明本地明确入口，完整原许可/来源与正常产品导航分离，无自动外链。"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T38-activity.png",
+    "docs/review/screenshots/T38-memory-draft.png"
+  ],
+  "screenshotsVisuallyInspected": true,
+  "limitations": [
+    "统一用户验收/独立审查尚未进行；许可/前端标识授权仍为发布门槛。",
+    "内存稿仅当前标签页；紧急文件是结构稿，可能缺媒体，非已保存成功。冲突副本通过安全导入另存新项目，历史只读无执行授权。",
+    "没有真实Core/收费请求、自动遥测或远程反馈。",
+    "更广慢存储/密集编辑/浏览器休眠与键盘全链路继续T45–T47。"
+  ]
+}

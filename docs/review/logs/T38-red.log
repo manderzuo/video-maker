@@ -1,0 +1,163 @@
+[WebServer] (node:29336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:22448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\recovery-diagnostics.spec.ts:6:1 › T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run (7.6s)
+(node:27972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\recovery-diagnostics.spec.ts:7:1 › T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message (30.1s)
+(node:20272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\recovery-diagnostics.spec.ts:8:1 › T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback (7.5s)
+(node:23924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\recovery-diagnostics.spec.ts:9:1 › T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download (30.2s)
+
+
+  1) tests\e2e\recovery-diagnostics.spec.ts:6:1 › T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: '需要处理的本地问题', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: '需要处理的本地问题', exact: true })[22m
+
+
+      4 | test.use({launchOptions:{downloadsPath:resolve('E:/trae-studio/tools/temp/playwright-downloads/recovery')}});
+      5 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts',d='/src/infrastructure/storage/database.ts',c='/src/security/credential-session.ts';await(await import(p)).seedResultReview();(await import(c)).setSessionCredential('recovery-fake-binding','fake-recovery-secret');const m=await import(d),db=await m.openStudioDb();try{await m.transact(db,['runs','diagnostics'],'readwrite',async(tx:IDBTransaction)=>{const run=await m.requestResult(tx.objectStore('runs').get('r1'));run.executionState='submit_unknown';run.taskId=undefined;run.deliveryState='not_ready';tx.objectStore('runs').put(run);tx.objectStore('diagnostics').put({id:'err-1',kind:'command_rejected',projectId:'p1',runId:'r1',errorCode:'save_conflict',message:'完整提示词必须排除 fake-recovery-secret https://core.invalid/media?token=never-export',prompt:'完整提示词必须排除',at:Date.now()});});}finally{db.close();}});});
+    > 6 | test('T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run',async({page,networkCounter})=>{await page.goto('/recovery');await expect(page.getByRole('heading',{name:'需要处理的本地问题',exact:true})).toBeVisible();const item=page.getByTestId('recovery-run-r1');await expect(item).toContainText('提交结果暂未确认');await expect(item.getByRole('button',{name:'自动重新生成'})).toHaveCount(0);await expect(item.getByRole('button',{name:'清空任务'})).toHaveCount(0);await page.getByRole('link',{name:'查看活动记录',exact:true}).click();await page.getByRole('button',{name:'清理活动显示',exact:true}).click();await page.getByRole('dialog',{name:'清理本地活动显示',exact:true}).getByRole('button',{name:'确认清理显示',exact:true}).click();const saved=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(saved.runs).toHaveLength(2);expect(saved.runs.find((r:{id:string})=>r.id==='r1').executionState).toBe('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                  ^
+      7 | test('T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message',async({page,networkCounter})=>{await page.goto('/activity');await page.getByRole('button',{name:'导出诊断包',exact:true}).click();const dialog=page.getByRole('dialog',{name:'导出脱敏诊断',exact:true});await expect(dialog).toContainText('不含提示词全文');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出诊断',exact:true}).click();const file=await pending,text=await readFile((await file.path())!,'utf8'),parsed=JSON.parse(text);expect(parsed.source).toBe('本地浏览器记录，非Core审计');expect(text).not.toContain('完整提示词必须排除');expect(text).not.toContain('fake-recovery-secret');expect(text).not.toContain('never-export');expect(text).not.toContain('inputSnapshot');expect(text).toContain('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-activity.png'});});
+      8 | test('T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback',async({page,networkCounter})=>{await page.goto('/help');await expect(page.getByRole('heading',{name:'帮助与版本',exact:true})).toBeVisible();await expect(page.getByText('开发版本 0.0.1 · 项目Schema 1 · 适配器能力按连接契约',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送反馈',exact:true})).toHaveCount(0);await expect(page.getByRole('link',{name:'打开反馈渠道',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'第三方许可与来源',exact:true}).click();await expect(page.getByRole('dialog',{name:'第三方许可与来源',exact:true})).toContainText('MIT');await expect(page.getByRole('dialog')).toContainText('前端标识授权仍是发布门槛');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+      9 | test('T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('dialog',{name:'添加节点',exact:true}).getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.getByLabel('节点文本',{exact:true})).toBeVisible();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args){if(this.name==='projects')throw new DOMException('fixture quota','QuotaExceededError');return put.apply(this,args);};});await page.getByLabel('节点文本',{exact:true}).fill('未保存的当前中文稿，品牌康济健葆');await expect(page.getByText('尚未保存 · 内存草稿保留',{exact:true})).toBeVisible();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出紧急内存草稿',exact:true}).click();const download=await pending,text=await readFile((await download.path())!,'utf8'),data=JSON.parse(text);expect(data.saved).toBe(false);expect(text).toContain('未保存的当前中文稿，品牌康济健葆');expect(text).not.toContain('fake-recovery-secret');const rows=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(rows.graph.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('');expect(rows.runs).toHaveLength(2);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-memory-draft.png'});});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-diagnostics.spec.ts:6:242
+
+    Error Context: test-results\recovery-diagnostics-T38-C-f2e51-ivity-never-removes-the-Run\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-diagnostics-T38-C-f2e51-ivity-never-removes-the-Run\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-diagnostics-T38-C-f2e51-ivity-never-removes-the-Run\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\recovery-diagnostics.spec.ts:7:1 › T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '导出诊断包', exact: true })[22m
+
+
+       5 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts',d='/src/infrastructure/storage/database.ts',c='/src/security/credential-session.ts';await(await import(p)).seedResultReview();(await import(c)).setSessionCredential('recovery-fake-binding','fake-recovery-secret');const m=await import(d),db=await m.openStudioDb();try{await m.transact(db,['runs','diagnostics'],'readwrite',async(tx:IDBTransaction)=>{const run=await m.requestResult(tx.objectStore('runs').get('r1'));run.executionState='submit_unknown';run.taskId=undefined;run.deliveryState='not_ready';tx.objectStore('runs').put(run);tx.objectStore('diagnostics').put({id:'err-1',kind:'command_rejected',projectId:'p1',runId:'r1',errorCode:'save_conflict',message:'完整提示词必须排除 fake-recovery-secret https://core.invalid/media?token=never-export',prompt:'完整提示词必须排除',at:Date.now()});});}finally{db.close();}});});
+       6 | test('T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run',async({page,networkCounter})=>{await page.goto('/recovery');await expect(page.getByRole('heading',{name:'需要处理的本地问题',exact:true})).toBeVisible();const item=page.getByTestId('recovery-run-r1');await expect(item).toContainText('提交结果暂未确认');await expect(item.getByRole('button',{name:'自动重新生成'})).toHaveCount(0);await expect(item.getByRole('button',{name:'清空任务'})).toHaveCount(0);await page.getByRole('link',{name:'查看活动记录',exact:true}).click();await page.getByRole('button',{name:'清理活动显示',exact:true}).click();await page.getByRole('dialog',{name:'清理本地活动显示',exact:true}).getByRole('button',{name:'确认清理显示',exact:true}).click();const saved=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(saved.runs).toHaveLength(2);expect(saved.runs.find((r:{id:string})=>r.id==='r1').executionState).toBe('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+    >  7 | test('T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message',async({page,networkCounter})=>{await page.goto('/activity');await page.getByRole('button',{name:'导出诊断包',exact:true}).click();const dialog=page.getByRole('dialog',{name:'导出脱敏诊断',exact:true});await expect(dialog).toContainText('不含提示词全文');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出诊断',exact:true}).click();const file=await pending,text=await readFile((await file.path())!,'utf8'),parsed=JSON.parse(text);expect(parsed.source).toBe('本地浏览器记录，非Core审计');expect(text).not.toContain('完整提示词必须排除');expect(text).not.toContain('fake-recovery-secret');expect(text).not.toContain('never-export');expect(text).not.toContain('inputSnapshot');expect(text).toContain('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-activity.png'});});
+         |                                                                                                                                                                                                                                ^
+       8 | test('T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback',async({page,networkCounter})=>{await page.goto('/help');await expect(page.getByRole('heading',{name:'帮助与版本',exact:true})).toBeVisible();await expect(page.getByText('开发版本 0.0.1 · 项目Schema 1 · 适配器能力按连接契约',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送反馈',exact:true})).toHaveCount(0);await expect(page.getByRole('link',{name:'打开反馈渠道',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'第三方许可与来源',exact:true}).click();await expect(page.getByRole('dialog',{name:'第三方许可与来源',exact:true})).toContainText('MIT');await expect(page.getByRole('dialog')).toContainText('前端标识授权仍是发布门槛');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+       9 | test('T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('dialog',{name:'添加节点',exact:true}).getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.getByLabel('节点文本',{exact:true})).toBeVisible();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args){if(this.name==='projects')throw new DOMException('fixture quota','QuotaExceededError');return put.apply(this,args);};});await page.getByLabel('节点文本',{exact:true}).fill('未保存的当前中文稿，品牌康济健葆');await expect(page.getByText('尚未保存 · 内存草稿保留',{exact:true})).toBeVisible();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出紧急内存草稿',exact:true}).click();const download=await pending,text=await readFile((await download.path())!,'utf8'),data=JSON.parse(text);expect(data.saved).toBe(false);expect(text).toContain('未保存的当前中文稿，品牌康济健葆');expect(text).not.toContain('fake-recovery-secret');const rows=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(rows.graph.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('');expect(rows.runs).toHaveLength(2);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-memory-draft.png'});});
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-diagnostics.spec.ts:7:224
+
+    Error Context: test-results\recovery-diagnostics-T38-C-68dea-mporary-URL-and-raw-message\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-diagnostics-T38-C-68dea-mporary-URL-and-raw-message\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-diagnostics-T38-C-68dea-mporary-URL-and-raw-message\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\recovery-diagnostics.spec.ts:8:1 › T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: '帮助与版本', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: '帮助与版本', exact: true })[22m
+
+
+       6 | test('T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run',async({page,networkCounter})=>{await page.goto('/recovery');await expect(page.getByRole('heading',{name:'需要处理的本地问题',exact:true})).toBeVisible();const item=page.getByTestId('recovery-run-r1');await expect(item).toContainText('提交结果暂未确认');await expect(item.getByRole('button',{name:'自动重新生成'})).toHaveCount(0);await expect(item.getByRole('button',{name:'清空任务'})).toHaveCount(0);await page.getByRole('link',{name:'查看活动记录',exact:true}).click();await page.getByRole('button',{name:'清理活动显示',exact:true}).click();await page.getByRole('dialog',{name:'清理本地活动显示',exact:true}).getByRole('button',{name:'确认清理显示',exact:true}).click();const saved=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(saved.runs).toHaveLength(2);expect(saved.runs.find((r:{id:string})=>r.id==='r1').executionState).toBe('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+       7 | test('T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message',async({page,networkCounter})=>{await page.goto('/activity');await page.getByRole('button',{name:'导出诊断包',exact:true}).click();const dialog=page.getByRole('dialog',{name:'导出脱敏诊断',exact:true});await expect(dialog).toContainText('不含提示词全文');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出诊断',exact:true}).click();const file=await pending,text=await readFile((await file.path())!,'utf8'),parsed=JSON.parse(text);expect(parsed.source).toBe('本地浏览器记录，非Core审计');expect(text).not.toContain('完整提示词必须排除');expect(text).not.toContain('fake-recovery-secret');expect(text).not.toContain('never-export');expect(text).not.toContain('inputSnapshot');expect(text).toContain('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-activity.png'});});
+    >  8 | test('T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback',async({page,networkCounter})=>{await page.goto('/help');await expect(page.getByRole('heading',{name:'帮助与版本',exact:true})).toBeVisible();await expect(page.getByText('开发版本 0.0.1 · 项目Schema 1 · 适配器能力按连接契约',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送反馈',exact:true})).toHaveCount(0);await expect(page.getByRole('link',{name:'打开反馈渠道',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'第三方许可与来源',exact:true}).click();await expect(page.getByRole('dialog',{name:'第三方许可与来源',exact:true})).toContainText('MIT');await expect(page.getByRole('dialog')).toContainText('前端标识授权仍是发布门槛');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                  ^
+       9 | test('T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('dialog',{name:'添加节点',exact:true}).getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.getByLabel('节点文本',{exact:true})).toBeVisible();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args){if(this.name==='projects')throw new DOMException('fixture quota','QuotaExceededError');return put.apply(this,args);};});await page.getByLabel('节点文本',{exact:true}).fill('未保存的当前中文稿，品牌康济健葆');await expect(page.getByText('尚未保存 · 内存草稿保留',{exact:true})).toBeVisible();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出紧急内存草稿',exact:true}).click();const download=await pending,text=await readFile((await download.path())!,'utf8'),data=JSON.parse(text);expect(data.saved).toBe(false);expect(text).toContain('未保存的当前中文稿，品牌康济健葆');expect(text).not.toContain('fake-recovery-secret');const rows=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(rows.graph.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('');expect(rows.runs).toHaveLength(2);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-memory-draft.png'});});
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-diagnostics.spec.ts:8:258
+
+    Error Context: test-results\recovery-diagnostics-T38-C-30886-ng-or-unconfigured-feedback\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-diagnostics-T38-C-30886-ng-or-unconfigured-feedback\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-diagnostics-T38-C-30886-ng-or-unconfigured-feedback\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\recovery-diagnostics.spec.ts:9:1 › T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.waitForEvent: Test timeout of 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for event "download"
+    ============================================================
+
+       7 | test('T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message',async({page,networkCounter})=>{await page.goto('/activity');await page.getByRole('button',{name:'导出诊断包',exact:true}).click();const dialog=page.getByRole('dialog',{name:'导出脱敏诊断',exact:true});await expect(dialog).toContainText('不含提示词全文');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出诊断',exact:true}).click();const file=await pending,text=await readFile((await file.path())!,'utf8'),parsed=JSON.parse(text);expect(parsed.source).toBe('本地浏览器记录，非Core审计');expect(text).not.toContain('完整提示词必须排除');expect(text).not.toContain('fake-recovery-secret');expect(text).not.toContain('never-export');expect(text).not.toContain('inputSnapshot');expect(text).toContain('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-activity.png'});});
+       8 | test('T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback',async({page,networkCounter})=>{await page.goto('/help');await expect(page.getByRole('heading',{name:'帮助与版本',exact:true})).toBeVisible();await expect(page.getByText('开发版本 0.0.1 · 项目Schema 1 · 适配器能力按连接契约',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送反馈',exact:true})).toHaveCount(0);await expect(page.getByRole('link',{name:'打开反馈渠道',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'第三方许可与来源',exact:true}).click();await expect(page.getByRole('dialog',{name:'第三方许可与来源',exact:true})).toContainText('MIT');await expect(page.getByRole('dialog')).toContainText('前端标识授权仍是发布门槛');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+    >  9 | test('T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('dialog',{name:'添加节点',exact:true}).getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.getByLabel('节点文本',{exact:true})).toBeVisible();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args){if(this.name==='projects')throw new DOMException('fixture quota','QuotaExceededError');return put.apply(this,args);};});await page.getByLabel('节点文本',{exact:true}).fill('未保存的当前中文稿，品牌康济健葆');await expect(page.getByText('尚未保存 · 内存草稿保留',{exact:true})).toBeVisible();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出紧急内存草稿',exact:true}).click();const download=await pending,text=await readFile((await download.path())!,'utf8'),data=JSON.parse(text);expect(data.saved).toBe(false);expect(text).toContain('未保存的当前中文稿，品牌康济健葆');expect(text).not.toContain('fake-recovery-secret');const rows=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(rows.graph.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('');expect(rows.runs).toHaveLength(2);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-memory-draft.png'});});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-diagnostics.spec.ts:9:806
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '导出紧急内存草稿', exact: true })[22m
+
+
+       7 | test('T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message',async({page,networkCounter})=>{await page.goto('/activity');await page.getByRole('button',{name:'导出诊断包',exact:true}).click();const dialog=page.getByRole('dialog',{name:'导出脱敏诊断',exact:true});await expect(dialog).toContainText('不含提示词全文');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出诊断',exact:true}).click();const file=await pending,text=await readFile((await file.path())!,'utf8'),parsed=JSON.parse(text);expect(parsed.source).toBe('本地浏览器记录，非Core审计');expect(text).not.toContain('完整提示词必须排除');expect(text).not.toContain('fake-recovery-secret');expect(text).not.toContain('never-export');expect(text).not.toContain('inputSnapshot');expect(text).toContain('submit_unknown');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-activity.png'});});
+       8 | test('T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback',async({page,networkCounter})=>{await page.goto('/help');await expect(page.getByRole('heading',{name:'帮助与版本',exact:true})).toBeVisible();await expect(page.getByText('开发版本 0.0.1 · 项目Schema 1 · 适配器能力按连接契约',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送反馈',exact:true})).toHaveCount(0);await expect(page.getByRole('link',{name:'打开反馈渠道',exact:true})).toHaveCount(0);await page.getByRole('button',{name:'第三方许可与来源',exact:true}).click();await expect(page.getByRole('dialog',{name:'第三方许可与来源',exact:true})).toContainText('MIT');await expect(page.getByRole('dialog')).toContainText('前端标识授权仍是发布门槛');expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);});
+    >  9 | test('T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download',async({page,networkCounter})=>{await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('dialog',{name:'添加节点',exact:true}).getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.getByLabel('节点文本',{exact:true})).toBeVisible();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args){if(this.name==='projects')throw new DOMException('fixture quota','QuotaExceededError');return put.apply(this,args);};});await page.getByLabel('节点文本',{exact:true}).fill('未保存的当前中文稿，品牌康济健葆');await expect(page.getByText('尚未保存 · 内存草稿保留',{exact:true})).toBeVisible();const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出紧急内存草稿',exact:true}).click();const download=await pending,text=await readFile((await download.path())!,'utf8'),data=JSON.parse(text);expect(data.saved).toBe(false);expect(text).toContain('未保存的当前中文稿，品牌康济健葆');expect(text).not.toContain('fake-recovery-secret');const rows=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(rows.graph.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('');expect(rows.runs).toHaveLength(2);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T38-memory-draft.png'});});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      10 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\recovery-diagnostics.spec.ts:9:891
+
+    Error Context: test-results\recovery-diagnostics-T38-C-6e568-n-emergency-memory-download\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\recovery-diagnostics-T38-C-6e568-n-emergency-memory-download\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\recovery-diagnostics-T38-C-6e568-n-emergency-memory-download\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\e2e\recovery-diagnostics.spec.ts:6:1 › T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run 
+    tests\e2e\recovery-diagnostics.spec.ts:7:1 › T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message 
+    tests\e2e\recovery-diagnostics.spec.ts:8:1 › T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback 
+    tests\e2e\recovery-diagnostics.spec.ts:9:1 › T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download 

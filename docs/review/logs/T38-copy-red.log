@@ -1,0 +1,47 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/recovery-diagnostics.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/recovery-diagnostics.test.ts (27 tests | 2 failed) 40ms
+   × T38-C01 E10 has a safe explicit next step without automatic submit or overwrite 4ms
+   × T38 conflict copy contains only current draft referenced assets and keeps original project, graph and unknown Run immutable 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/recovery-diagnostics.test.ts > T38-C01 E10 has a safe explicit next step without automatic submit or overwrite
+AssertionError: expected '核对原提交身份，不自动新建尝试' not to match /自动重发|自动新建|已退款|关闭浏览器安全/
+
+- Expected:
+/自动重发|自动新建|已退款|关闭浏览器安全/
+
++ Received:
+"核对原提交身份，不自动新建尝试"
+
+ ❯ tests/unit/recovery-diagnostics.test.ts:8:456
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/recovery-diagnostics.test.ts > T38 conflict copy contains only current draft referenced assets and keeps original project, graph and unknown Run immutable
+AssertionError: expected [ { …(9) }, { id: 'a1', …(7) }, …(2) ] to have a length of 3 but got 4
+
+- Expected
++ Received
+
+- 3
++ 4
+
+ ❯ tests/unit/recovery-diagnostics.test.ts:11:1378
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 25 passed (27)
+   Start at  08:06:55
+   Duration  569ms (transform 208ms, setup 42ms, import 303ms, tests 40ms, environment 0ms)
+

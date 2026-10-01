@@ -1,5 +1,5 @@
 {
-  "currentTask": "T38",
+  "currentTask": "T39",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -294,18 +294,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T37.json",
-      "headCommit": null,
+      "headCommit": "c951d92810993c49dae2f45b71b4aa850e89cdb4",
       "id": "T37",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "设置、存储占用与缓存清理"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T38.json",
       "headCommit": null,
       "id": "T38",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp05-05-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "恢复中心、活动记录与帮助"
     },
     {

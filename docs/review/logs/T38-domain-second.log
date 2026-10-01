@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/recovery-diagnostics.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  08:07:52
+   Duration  557ms (transform 210ms, setup 45ms, import 303ms, tests 37ms, environment 0ms)
+

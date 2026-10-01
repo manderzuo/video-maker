@@ -19,6 +19,7 @@ export const routeTitle=(pathname:string)=>{
  if(pathname==='/prompt-generator/history')return '提示词生成历史';
  if(pathname==='/prompts')return '提示词库';
  if(pathname==='/tasks')return '任务中心';
+ if(pathname==='/recovery')return '恢复与冲突中心';
  if(pathname==='/activity')return '活动记录';
  if(pathname==='/help')return '帮助';
  if(pathname==='/trash')return '回收站';
