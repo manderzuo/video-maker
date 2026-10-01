@@ -1,0 +1,32 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/canvas-mcp.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/canvas-mcp.test.ts (5 tests | 1 failed) 129ms
+   × T41 simultaneous duplicate browser requests share one confirmation instead of racing two previews 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/canvas-mcp.test.ts > T41 simultaneous duplicate browser requests share one confirmation instead of racing two previews
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/unit/canvas-mcp.test.ts:12:614
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  08:58:00
+   Duration  724ms (transform 237ms, setup 46ms, import 353ms, tests 129ms, environment 0ms)
+

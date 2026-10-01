@@ -1,0 +1,12 @@
+
+> aiwork-studio@0.0.1 lint
+> eslint src tests vite.config.ts vitest.config.ts playwright.config.ts companion/src companion/vite.config.ts
+
+
+E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx
+  74:124  error  '_id' is defined but never used   @typescript-eslint/no-unused-vars
+  74:157  error  '_id' is defined but never used   @typescript-eslint/no-unused-vars
+  74:168  error  '_ids' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 3 problems (3 errors, 0 warnings)
+

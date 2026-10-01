@@ -1,0 +1,27 @@
+[WebServer] (node:28520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 16 tests using 1 worker
+
+(node:21540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request (1.8s)
+  ok  2 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run (1.7s)
+  ok  3 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request denies approval after revocation (1.6s)
+  ok  4 tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests (1.4s)
+  ok  5 tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click preserves one approval and sends exactly one confirmed frozen request (1.6s)
+  ok  6 tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft (1.8s)
+  ok  7 tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run (1.3s)
+  ok  8 tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus (1.3s)
+  ok  9 tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected (1.3s)
+  ok 10 tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog (1.3s)
+  ok 11 tests\e2e\generation-preflight.spec.ts:17:1 › T26: quota failure atomically preserves draft and refuses approval/Run creation (1.3s)
+  ok 12 tests\e2e\generation-preflight.spec.ts:18:1 › T26: changing text even without revision bump invalidates the reviewed input snapshot (1.4s)
+  ok 13 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (575ms)
+  ok 14 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (489ms)
+  ok 15 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (443ms)
+  ok 16 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (456ms)
+
+  16 passed (23.2s)

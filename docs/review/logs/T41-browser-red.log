@@ -1,0 +1,38 @@
+[WebServer] (node:12916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-mcp.spec.ts:4:1 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run (9.5s)
+
+
+  1) tests\e2e\canvas-mcp.spec.ts:4:1 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"awaiting_browser_confirmation"[39m
+    Received: [31m"rejected"[39m
+
+      2 | import {seedStudio} from '../helpers/seed-studio';
+      3 | import {startCompanion} from '../../companion/src/server';
+    > 4 | test('T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run',async({page,networkCounter})=>{const relay=await startCompanion({allowedOrigins:['http://127.0.0.1:4179']});try{await page.route(new RegExp('^http://127[.]0[.]0[.]1:4179/canvas/(connect|authorize|heartbeat|disconnect|poll|reply)$'),async route=>{const req=route.request(),url=new URL(req.url()),headers={...req.headers(),origin:'http://127.0.0.1:4179'};delete(headers as Record<string,string>).host;const response=await fetch(relay.url+url.pathname,{method:req.method(),headers,body:req.postData(),redirect:'error'});await route.fulfill({status:response.status,contentType:'application/json',body:await response.text()});});await seedStudio(page,'unverified-capability');await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await(await import(path)).seedGeneration();});await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();await page.evaluate(async()=>{const path='/tests/fixtures/generation.ts';await(await import(path)).connectGeneration();});await page.route('**/core-api/v1/videos/generations',route=>route.fulfill({status:202,contentType:'application/json',body:JSON.stringify({task:{id:'mock-mcp-run-41',status:'queued'},request_id:'mock-mcp-request-41'})}));const sessionId=await page.evaluate(async token=>{const p='/src/features/agent/agent-client.ts',m=await import(p),identity=await m.getOpenedCanvasIdentity('p1'),session=await m.connectAgent({...identity,endpoint:location.origin,origin:location.origin,token});await m.authorizeAgent(session.id,{...session.grant,nodeIds:['video-1']});return session.id;},relay.token),body={requestId:'outer-41',sessionId,name:'canvas_request_run',input:{requestId:'one-confirmation-41',nodeIds:['video-1']}},headers={Authorization:'Bearer '+relay.token,'Content-Type':'application/json'},first=await fetch(relay.url+'/agent/tool',{method:'POST',headers,body:JSON.stringify(body)});expect((await first.json()).result.status).toBe('awaiting_browser_confirmation');const dialog=page.getByRole('dialog',{name:'生成确认单',exact:true});await expect(dialog).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);const second=await fetch(relay.url+'/agent/tool',{method:'POST',headers,body:JSON.stringify(body)});expect((await second.json()).result.status).toBe('awaiting_browser_confirmation');await dialog.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await dialog.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(page.getByText('已提交 1 项 · 追踪中',{exact:true})).toBeVisible();const rows=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['runs','receipts'],'readonly',async(tx:IDBTransaction)=>({runs:await m.requestResult(tx.objectStore('runs').getAll()),approvals:(await m.requestResult(tx.objectStore('receipts').getAll())).filter((r:{id:string})=>r.id.startsWith('approval:'))})));});expect(rows.runs).toHaveLength(1);expect(rows.approvals).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(1);await page.screenshot({path:'docs/review/screenshots/T41-mcp-confirmed.png'});await page.evaluate(async id=>{const p='/src/features/agent/agent-client.ts';await(await import(p)).disconnectAgent(id);},sessionId);}finally{await relay.close();}});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-mcp.spec.ts:4:2075
+
+    Error Context: test-results\canvas-mcp-T41-real-browse-9dc04-st-creates-one-original-Run\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-mcp-T41-real-browse-9dc04-st-creates-one-original-Run\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-mcp-T41-real-browse-9dc04-st-creates-one-original-Run\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-mcp.spec.ts:4:1 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run 

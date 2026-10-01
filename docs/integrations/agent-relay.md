@@ -8,6 +8,6 @@
 
 协议路径：`POST /canvas/connect`、`POST /canvas/authorize`、`POST /canvas/heartbeat`、`POST /canvas/disconnect`；`GET /agent/state?sessionId=…` 只返回非秘密会话元数据。不存在网页时返回 `canvas_not_connected`。授权限定projectId、tabId、epoch、选区/节点/项目范围及read/propose。运行始终另走浏览器确认，不随提案批准授权费用。HTTP输入/响应限制256KiB。
 
-当前仅核验了本机 HTTP 协议及本地测试客户端，`/health` 明确报告外部模型宿主未配置。MCP工具在T41接入，实际外部宿主兼容性仍需核验；不宣称兼容所有宿主，也不把Mock当作真实模型回执。既有 trae-maker-MCP 视频工具保持独立，没有修改其代码或部署。
+当前仅核验了本机 HTTP 协议及本地测试客户端，`/health` 明确报告外部模型宿主未配置。MCP工具已在T41接入，详见 [MCP契约](mcp.md)，实际外部宿主兼容性仍需核验；不宣称兼容所有宿主，也不把Mock当作真实模型回执。既有 trae-maker-MCP 视频工具保持独立，没有修改其代码或部署。
 
 固定只读参考：infinite-canvas `dab19adc0847e32e39b7fc8ff90cb392561fb826` 的 `canvas-agent/src/canvas/session.ts`（SHA256 `4b150c8ae7215c39facab1b4446c0e192f98c5bd4fc3077283a6acb8c1f26003`）与 `canvas-agent/src/server/http.ts`（SHA256 `49ea671e8bc6da5da3fbcfe76905940863b2326cc47beaa6e7941d17c58a82dd`）的协议/状态定义。没有迁移其通用模型客户端、任意技能管理、查询token、持久化配置或远程执行接口。

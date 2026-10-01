@@ -1,0 +1,13 @@
+import {randomUUID} from 'node:crypto';
+import {createMcpPeer} from './mcp-protocol';
+import {validateAgentEndpoint} from './origin-policy';
+import {toolResultSchema} from './tool-inbox';
+const endpoint=validateAgentEndpoint(process.env.STUDIO_AGENT_ENDPOINT??''),token=process.env.STUDIO_AGENT_TOKEN,sessionId=process.env.STUDIO_AGENT_SESSION;
+if(!token||!/^studio-agent-[A-Za-z0-9_-]{43}$/.test(token)||!sessionId||sessionId.length>256)throw Error('Explicit independent STUDIO_AGENT_TOKEN and STUDIO_AGENT_SESSION are required.');
+const peer=createMcpPeer(async(name,input)=>{const response=await fetch(endpoint+'/agent/tool',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({requestId:randomUUID(),sessionId,name,input}),redirect:'error',signal:AbortSignal.timeout(10000)});const reader=response.body?.getReader();if(!reader)throw Error('agent_response_invalid');let bytes=0,text='';const decoder=new TextDecoder('utf-8',{fatal:true});try{while(true){const part=await reader.read();if(part.done)break;bytes+=part.value.byteLength;if(bytes>262144){await reader.cancel();throw Error('agent_response_too_large');}text+=decoder.decode(part.value,{stream:true});}text+=decoder.decode();}finally{reader.releaseLock();}if(!response.ok)return {status:'rejected',errorCode:'agent_tool_denied'};return toolResultSchema.parse((JSON.parse(text) as {result:unknown}).result);});
+let buffer=Buffer.alloc(0),queued=0,chain=Promise.resolve();
+function emit(value:unknown){if(value!==undefined)process.stdout.write(JSON.stringify(value)+'\n');}
+function invalid(){emit({jsonrpc:'2.0',id:null,error:{code:-32600,message:'Invalid bounded UTF-8 message'}});process.exitCode=1;process.stdin.destroy();}
+process.stdin.on('data',(chunk:Buffer)=>{buffer=Buffer.concat([buffer,chunk]);let end:number;while((end=buffer.indexOf(10))>=0){const line=buffer.subarray(0,end);buffer=buffer.subarray(end+1);if(line.length>262144||queued>=16){invalid();return;}if(!line.length)continue;queued++;chain=chain.then(async()=>{try{const message=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(line));if(Array.isArray(message)){if(!message.length||message.length>16){invalid();return;}const replies=[];for(const item of message){const reply=await peer.handle(item);if(reply!==undefined)replies.push(reply);}if(replies.length)emit(replies);}else emit(await peer.handle(message));}catch{emit({jsonrpc:'2.0',id:null,error:{code:-32700,message:'Parse error'}});}finally{queued--;}});}if(buffer.length>262144)invalid();});
+process.stdin.on('end',()=>{if(buffer.length)invalid();});
+process.stdin.on('error',()=>{process.exitCode=1;});

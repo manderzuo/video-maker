@@ -1,0 +1,65 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/canvas-mcp.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/canvas-mcp.test.ts (4 tests | 4 failed) 97ms
+   × T41-C01 scoped native read omits ungranted text, Run/body/Key and exposes only selected nodes 60ms
+   × T41-C02/C03 repeated run request opens one browser confirmation, creates no Run or paid request 16ms
+   × T41 proposal tool records native proposal but external apply only opens browser review 11ms
+   × T41-C04/C05 unsupported legacy generation/DPAPI/tool fields rejected and missing canvas reports honest failure 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/canvas-mcp.test.ts > T41-C01 scoped native read omits ungranted text, Run/body/Key and exposes only selected nodes
+AssertionError: expected 'not_implemented' to be 'ok' // Object.is equality
+
+Expected: "ok"
+Received: "not_implemented"
+
+ ❯ tests/unit/canvas-mcp.test.ts:8:688
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/unit/canvas-mcp.test.ts > T41-C02/C03 repeated run request opens one browser confirmation, creates no Run or paid request
+AssertionError: expected 'not_implemented' to be 'awaiting_browser_confirmation' // Object.is equality
+
+Expected: "awaiting_browser_confirmation"
+Received: "not_implemented"
+
+ ❯ tests/unit/canvas-mcp.test.ts:9:693
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/unit/canvas-mcp.test.ts > T41 proposal tool records native proposal but external apply only opens browser review
+AssertionError: expected 'not_implemented' to be 'proposed' // Object.is equality
+
+Expected: "proposed"
+Received: "not_implemented"
+
+ ❯ tests/unit/canvas-mcp.test.ts:10:401
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/unit/canvas-mcp.test.ts > T41-C04/C05 unsupported legacy generation/DPAPI/tool fields rejected and missing canvas reports honest failure
+AssertionError: expected 'not_implemented' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "not_implemented"
+
+ ❯ tests/unit/canvas-mcp.test.ts:11:300
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  08:47:02
+   Duration  551ms (transform 147ms, setup 44ms, import 231ms, tests 97ms, environment 0ms)
+

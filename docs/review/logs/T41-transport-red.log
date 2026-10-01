@@ -1,0 +1,47 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/canvas-mcp-transport.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/canvas-mcp-transport.test.ts (2 tests | 2 failed) 104ms
+   × T41 actual loopback tool reaches nonce-protected browser inbox and returns scoped native state 87ms
+   × T41 actual relay rejects legacy tools, missing explicit session and oversized payload before browser delivery 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/canvas-mcp-transport.test.ts > T41 actual loopback tool reaches nonce-protected browser inbox and returns scoped native state
+AssertionError: expected 404 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 404
+
+ ❯ tests/unit/canvas-mcp-transport.test.ts:5:749
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/canvas-mcp-transport.test.ts > T41 actual relay rejects legacy tools, missing explicit session and oversized payload before browser delivery
+AssertionError: expected 404 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 404
+
+ ❯ tests/unit/canvas-mcp-transport.test.ts:6:661
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  08:49:43
+   Duration  655ms (transform 223ms, setup 43ms, import 332ms, tests 104ms, environment 0ms)
+

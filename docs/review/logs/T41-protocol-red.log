@@ -1,0 +1,61 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/canvas-mcp-protocol.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/canvas-mcp-protocol.test.ts (2 tests | 2 failed) 11ms
+   × T41 MCP peer negotiates pinned protocol, waits initialized and publishes only five canvas tools 8ms
+   × T41 MCP notifications never execute tools; malformed IDs, unsupported methods and foreign tools fail safely 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/canvas-mcp-protocol.test.ts > T41 MCP peer negotiates pinned protocol, waits initialized and publishes only five canvas tools
+AssertionError: expected { jsonrpc: '2.0', …(2) } to match object { id: +0, error: { code: -32002 } }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "error": {
+-     "code": -32002,
++     "code": -32601,
+    },
+-   "id": 0,
++   "id": null,
+  }
+
+ ❯ tests/unit/canvas-mcp-protocol.test.ts:3:330
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/canvas-mcp-protocol.test.ts > T41 MCP notifications never execute tools; malformed IDs, unsupported methods and foreign tools fail safely
+AssertionError: expected { jsonrpc: '2.0', …(2) } to be undefined
+
+- Expected:
+undefined
+
++ Received:
+{
+  "error": {
+    "code": -32601,
+    "message": "Not implemented",
+  },
+  "id": null,
+  "jsonrpc": "2.0",
+}
+
+ ❯ tests/unit/canvas-mcp-protocol.test.ts:4:301
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  08:54:50
+   Duration  272ms (transform 49ms, setup 50ms, import 17ms, tests 11ms, environment 0ms)
+

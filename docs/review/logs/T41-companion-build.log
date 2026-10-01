@@ -1,0 +1,25 @@
+
+> aiwork-studio@0.0.1 companion:build
+> vite build --config companion/vite.config.ts
+
+X [ERROR] Expected ":" but found "companion"
+
+    companion/vite.config.ts:2:142:
+      2 │ ...ompanion/src/main.ts','mcp:'companion/src/mcp-main.ts'},output:{...
+        │                                ~~~~~~~~~
+        ╵                                :
+
+failed to load config from E:\trae-studio\TRAEWORK\aiwork-studio\companion\vite.config.ts
+error during build:
+Error: Build failed with 1 error:
+companion/vite.config.ts:2:142: ERROR: Expected ":" but found "companion"
+    at failureErrorWithLog (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:1752:15)
+    at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:1211:25
+    at runOnEndCallbacks (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:1592:45)
+    at buildResponseToResult (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:1209:7)
+    at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:1236:16
+    at responseCallbacks.<computed> (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:886:9)
+    at handleIncomingPacket (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:941:12)
+    at Socket.readFromStdout (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\esbuild\lib\main.js:864:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)

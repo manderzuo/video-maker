@@ -1,5 +1,5 @@
 {
-  "currentTask": "T41",
+  "currentTask": "T42",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -318,18 +318,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T40.json",
-      "headCommit": null,
+      "headCommit": "964601a45a669d8a79105ec9856fb1bb4238609e",
       "id": "T40",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "结构化提案与revision冲突处理"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T41.json",
       "headCommit": null,
       "id": "T41",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "画布MCP工具与唯一执行入口"
     },
     {

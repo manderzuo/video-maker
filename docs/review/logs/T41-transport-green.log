@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/canvas-mcp.test.ts tests/unit/canvas-mcp-transport.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  2 passed (2)
+      Tests  6 passed (6)
+   Start at  08:50:37
+   Duration  679ms (transform 425ms, setup 55ms, import 687ms, tests 229ms, environment 0ms)
+

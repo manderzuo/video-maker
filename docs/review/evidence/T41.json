@@ -1,0 +1,177 @@
+{
+  "taskId": "T41",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "964601a45a669d8a79105ec9856fb1bb4238609e",
+  "headCommit": null,
+  "branch": "feat/canvas-agent",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "companion/src/mcp.ts",
+    "companion/src/mcp-protocol.ts",
+    "companion/src/mcp-main.ts",
+    "companion/src/tool-inbox.ts",
+    "companion/src/tools/canvas-read.ts",
+    "companion/src/tools/canvas-propose.ts",
+    "companion/src/tools/canvas-run.ts",
+    "companion/src/server.ts",
+    "companion/vite.config.ts",
+    "src/features/agent/canvas-tools.ts",
+    "src/features/agent/agent-client.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "tests/unit/canvas-mcp.test.ts",
+    "tests/unit/canvas-mcp-transport.test.ts",
+    "tests/unit/canvas-mcp-protocol.test.ts",
+    "tests/companion/mcp-runtime.test.mjs",
+    "tests/e2e/canvas-mcp.spec.ts",
+    "tests/e2e/agent-proposal-review.spec.ts",
+    "package.json",
+    "docs/integrations/mcp.md",
+    "docs/integrations/agent-relay.md",
+    "docs/review/mcp-contract-evidence.json"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/canvas-mcp.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/canvas-mcp-transport.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-transport-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/canvas-mcp-protocol.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-protocol-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/canvas-mcp.test.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-singleflight-red.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/canvas-mcp.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-browser-red.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/canvas-mcp.spec.ts tests/e2e/agent-proposal-review.spec.ts tests/e2e/generation-preflight.spec.ts tests/e2e/lease.spec.ts",
+      "exitCode": 1,
+      "passed": 14,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-revocation-browser-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/canvas-mcp.test.ts tests/unit/canvas-mcp-transport.test.ts tests/unit/canvas-mcp-protocol.test.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-target-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 364,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-unit.log"
+    },
+    {
+      "command": "node --test tests/companion/mcp-runtime.test.mjs",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-stdio-runtime.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/canvas-mcp.spec.ts tests/e2e/agent-proposal-review.spec.ts tests/e2e/generation-preflight.spec.ts tests/e2e/lease.spec.ts",
+      "exitCode": 0,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-browser-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-build.log"
+    },
+    {
+      "command": "npm run companion:build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-companion-build-final.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T41-security.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T41-mcp-confirmation.png",
+    "docs/review/screenshots/T41-mcp-confirmed.png",
+    "docs/review/screenshots/T41-revoked-confirmation.png"
+  ],
+  "validation": [
+    "五个白名单工具，授权范围与普通Key隔离；无DPAPI/文件/旧视频工具",
+    "原生HTTP请求→nonce受保护网页inbox→nativeIndexedDB→脱敏响应",
+    "外部apply只打开审阅，request_run只打开预检/费用确认",
+    "并发重复requestId只打开一次确认；正式确认后仅一个Run/approval和一次本地Mock POST",
+    "旧Agent确认单撤权后拒绝，收费请求0",
+    "真实编译stdio进程握手/列表/未知工具和超长输入拒绝，stdout只协议JSON"
+  ],
+  "limitations": [
+    "未配对真实模型宿主，hostAdapter not-configured；MCP2025-03-26已实现子集不等于所有宿主兼容验收",
+    "首次多入口构建配置语法错误已修正，非行为红灯；两次lint未使用参数已修正；原日志保留",
+    "T40旧浏览器夹具缺新poll/reply路由造成断连，更新为真实relay代理，原断言保留；另一个有效浏览器撤权红灯发现上下文遗漏，现已修复",
+    "浏览器真实网络许可、Core/收费、发布许可、视觉/独立审核均未验收；当前Mock不能当真实回执",
+    "包体警告T46处理，无新增依赖、远端推送或业务源码修改"
+  ]
+}

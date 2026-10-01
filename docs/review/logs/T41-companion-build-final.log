@@ -1,0 +1,12 @@
+
+> aiwork-studio@0.0.1 companion:build
+> vite build --config companion/vite.config.ts
+
+vite v7.3.6 building ssr environment for production...
+transforming...
+✓ 14 modules transformed.
+rendering chunks...
+companion/dist/mcp.mjs                            6.12 kB
+companion/dist/assets/origin-policy-A6fJc5Qt.js   9.71 kB
+companion/dist/main.mjs                          10.25 kB
+✓ built in 137ms

@@ -1,2 +1,2 @@
 import {defineConfig} from 'vite';
-export default defineConfig({build:{ssr:'companion/src/main.ts',target:'node22',outDir:'companion/dist',rollupOptions:{output:{entryFileNames:'main.mjs'}}}});
+export default defineConfig({build:{ssr:true,target:'node22',outDir:'companion/dist',rollupOptions:{input:{main:'companion/src/main.ts',mcp:'companion/src/mcp-main.ts'},output:{entryFileNames:'[name].mjs'}}}});

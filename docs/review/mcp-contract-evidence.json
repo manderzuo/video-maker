@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "protocolVersion": "2025-03-26",
+  "transport": "stdio",
+  "actualHostVerified": false,
+  "hostAdapter": "not-configured",
+  "model": "由用户在宿主选择，当前工具不可验证",
+  "sourceRepositoriesModified": false,
+  "legacySeedanceToolsIndependent": true,
+  "coreCredentialExposed": false,
+  "generationBackend": false,
+  "tools": [
+    "canvas_get_state",
+    "canvas_get_selection",
+    "canvas_propose_ops",
+    "canvas_apply_proposal",
+    "canvas_request_run"
+  ],
+  "browserConfirmationRequired": [
+    "canvas_apply_proposal",
+    "canvas_request_run"
+  ],
+  "limits": {
+    "jsonBytes": 262144,
+    "proposalOperations": 100,
+    "stdioQueuedMessages": 16,
+    "toolPending": 16,
+    "toolRetained": 100,
+    "toolTimeoutMs": 8000
+  },
+  "verifiedLogs": [
+    "docs/review/logs/T41-target-final.log",
+    "docs/review/logs/T41-stdio-runtime.log",
+    "docs/review/logs/T41-browser-final.log"
+  ],
+  "officialReferences": [
+    "https://modelcontextprotocol.io/specification/2025-03-26/basic/transports",
+    "https://modelcontextprotocol.io/specification/2025-03-26/basic/lifecycle",
+    "https://modelcontextprotocol.io/specification/2025-03-26/server/tools"
+  ],
+  "reviewDecision": "待审查"
+}

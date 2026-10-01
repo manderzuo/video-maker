@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: T41 compiled real stdio process initializes and lists tools with clean JSON stdout and no generation network
+ok 1 - T41 compiled real stdio process initializes and lists tools with clean JSON stdout and no generation network
+  ---
+  duration_ms: 158.7792
+  type: 'test'
+  ...
+# Subtest: T41 stdio invalid bounded line exits safely without echoing malicious body
+ok 2 - T41 stdio invalid bounded line exits safely without echoing malicious body
+  ---
+  duration_ms: 147.6884
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 398.8618
