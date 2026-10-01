@@ -399,7 +399,7 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T50.json",
-      "headCommit": null,
+      "headCommit": "671d358c8d211ec6e19ae157d7fd97aaa1fae023",
       "id": "T50",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
       "status": "已授权本地交接与自动自检完成，进入用户验收/独立审计，T48仍待授权",

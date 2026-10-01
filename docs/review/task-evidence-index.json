@@ -8699,8 +8699,8 @@
       "status": "交接材料自检，独立审查待进行",
       "implementationRecord": "已授权本地交接与自动自检完成，进入用户验收/独立审计，T48仍待授权",
       "evidence": "docs/review/evidence/T50.json",
-      "commit": null,
-      "commitResolution": "document commit pending; resolve from git log after handoff commit",
+      "commit": "671d358c8d211ec6e19ae157d7fd97aaa1fae023",
+      "commitResolution": "verified local commit",
       "commandEvidence": [
         {
           "command": "node --test tests/planning/final-review.test.mjs",
