@@ -1,0 +1,529 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/visual-states.spec.ts::T46 visual runtime dark 1024: all 23 page and panel identities retain readable type, bounded dialogs and zero fee",
+      "file": "tests/e2e/visual-states.spec.ts",
+      "title": "T46 visual runtime dark 1024: all 23 page and panel identities retain readable type, bounded dialogs and zero fee",
+      "status": "passed",
+      "assertions": 96,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 6,
+          "column": 255
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 7,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 8,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/visual-states.spec.ts",
+          "line": 8,
+          "column": 90
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 10,
+          "column": 669,
+          "function": "seedVisualRuntime"
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 14,
+          "column": 69,
+          "function": "openVisualView"
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 15,
+          "column": 81,
+          "function": "openVisualView"
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 16,
+          "column": 78,
+          "function": "openVisualView"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

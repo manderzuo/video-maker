@@ -2,5 +2,6 @@ work/
 node_modules/
 dist/
 test-results/
+test-results-performance/
 playwright-report/
 .superpowers/

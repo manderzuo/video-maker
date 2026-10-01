@@ -1,0 +1,48 @@
+[WebServer] (node:22156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:24448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\visual-a11y-performance.spec.ts:16:1 › T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately (6.6s)
+
+
+  1) tests\e2e\visual-a11y-performance.spec.ts:16:1 › T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  getByRole('dialog', { name: '生成确认单', exact: true })
+    Expected: [32m0[39m
+    Received: [31m1[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '生成确认单', exact: true })[22m
+    [2m    9 × locator resolved to 1 element[22m
+    [2m      - unexpected value "1"[22m
+
+
+      15 | });
+      16 | test('T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately',async({page,networkCounter})=>{
+    > 17 |  await canvas(page);await page.locator('[data-interaction-id="C-16"]').click();await expect(page.getByRole('dialog',{name:'生成确认单',exact:true})).toBeVisible();await page.setViewportSize({width:767,height:900});await expect(page.getByRole('dialog',{name:'生成确认单',exact:true})).toHaveCount(0);await expect(page.locator('[data-interaction-id="C-16"]')).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                   ^
+      18 | });
+      19 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\visual-a11y-performance.spec.ts:17:275
+
+    Error Context: test-results\visual-a11y-performance-T4-7d891--batch-controls-immediately\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\visual-a11y-performance-T4-7d891--batch-controls-immediately\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\visual-a11y-performance-T4-7d891--batch-controls-immediately\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\visual-a11y-performance.spec.ts:16:1 › T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately 

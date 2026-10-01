@@ -1,0 +1,40 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 145
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 72
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

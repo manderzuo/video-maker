@@ -1,0 +1,227 @@
+{
+  "copies": [
+    {
+      "original": "docs/review/screenshots/T03-bootstrap.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T03-bootstrap.png"
+    },
+    {
+      "original": "docs/review/screenshots/T07-local-import.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T07-local-import.png"
+    },
+    {
+      "original": "docs/review/screenshots/T11-shell-dark.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T11-shell-dark.png"
+    },
+    {
+      "original": "docs/review/screenshots/T11-shell-light.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T11-shell-light.png"
+    },
+    {
+      "original": "docs/review/screenshots/T11-shell-narrow.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T11-shell-narrow.png"
+    },
+    {
+      "original": "docs/review/screenshots/T12-project-library.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T12-project-library.png"
+    },
+    {
+      "original": "docs/review/screenshots/T13-canvas.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T13-canvas.png"
+    },
+    {
+      "original": "docs/review/screenshots/T15-layout-preview.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T15-layout-preview.png"
+    },
+    {
+      "original": "docs/review/screenshots/T16-asset-library.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T16-asset-library.png"
+    },
+    {
+      "original": "docs/review/screenshots/T17-prompt-inspector.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T17-prompt-inspector.png"
+    },
+    {
+      "original": "docs/review/screenshots/T21-prompt-light.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T21-prompt-light.png"
+    },
+    {
+      "original": "docs/review/screenshots/T21-prompt-narrow.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T21-prompt-narrow.png"
+    },
+    {
+      "original": "docs/review/screenshots/T21-prompt-panel.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T21-prompt-panel.png"
+    },
+    {
+      "original": "docs/review/screenshots/T21-prompt-workspace.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T21-prompt-workspace.png"
+    },
+    {
+      "original": "docs/review/screenshots/T22-apply-diff.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T22-apply-diff.png"
+    },
+    {
+      "original": "docs/review/screenshots/T22-flow.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T22-flow.png"
+    },
+    {
+      "original": "docs/review/screenshots/T22-text-insert.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T22-text-insert.png"
+    },
+    {
+      "original": "docs/review/screenshots/T26-generation-confirm.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T26-generation-confirm.png"
+    },
+    {
+      "original": "docs/review/screenshots/T27-submit-unknown.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T27-submit-unknown.png"
+    },
+    {
+      "original": "docs/review/screenshots/T29-queue-paused.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T29-queue-paused.png"
+    },
+    {
+      "original": "docs/review/screenshots/T31-ai-candidate-diff.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T31-ai-candidate-diff.png"
+    },
+    {
+      "original": "docs/review/screenshots/T31-ai-confirm-cancelled.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T31-ai-confirm-cancelled.png"
+    },
+    {
+      "original": "docs/review/screenshots/T31-ai-confirm.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T31-ai-confirm.png"
+    },
+    {
+      "original": "docs/review/screenshots/T32-work-limited.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T32-work-limited.png"
+    },
+    {
+      "original": "docs/review/screenshots/T33-local-video.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T33-local-video.png"
+    },
+    {
+      "original": "docs/review/screenshots/T34-task-center.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T34-task-center.png"
+    },
+    {
+      "original": "docs/review/screenshots/T34-task-detail.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T34-task-detail.png"
+    },
+    {
+      "original": "docs/review/screenshots/T34-task-drawer.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T34-task-drawer.png"
+    },
+    {
+      "original": "docs/review/screenshots/T35-comparison.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T35-comparison.png"
+    },
+    {
+      "original": "docs/review/screenshots/T35-result-review.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T35-result-review.png"
+    },
+    {
+      "original": "docs/review/screenshots/T36-import-preview.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T36-import-preview.png"
+    },
+    {
+      "original": "docs/review/screenshots/T37-connection.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T37-connection.png"
+    },
+    {
+      "original": "docs/review/screenshots/T37-storage.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T37-storage.png"
+    },
+    {
+      "original": "docs/review/screenshots/T38-activity.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T38-activity.png"
+    },
+    {
+      "original": "docs/review/screenshots/T38-memory-draft.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T38-memory-draft.png"
+    },
+    {
+      "original": "docs/review/screenshots/T40-proposal.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T40-proposal.png"
+    },
+    {
+      "original": "docs/review/screenshots/T40-review-dialog.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T40-review-dialog.png"
+    },
+    {
+      "original": "docs/review/screenshots/T41-mcp-confirmation.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T41-mcp-confirmation.png"
+    },
+    {
+      "original": "docs/review/screenshots/T41-mcp-confirmed.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T41-mcp-confirmed.png"
+    },
+    {
+      "original": "docs/review/screenshots/T41-revoked-confirmation.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T41-revoked-confirmation.png"
+    },
+    {
+      "original": "docs/review/screenshots/T42-applied-proposal.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T42-applied-proposal.png"
+    },
+    {
+      "original": "docs/review/screenshots/T42-disconnected.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T42-disconnected.png"
+    },
+    {
+      "original": "docs/review/screenshots/T42-light-1024.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T42-light-1024.png"
+    },
+    {
+      "original": "docs/review/screenshots/T42-light-390.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T42-light-390.png"
+    },
+    {
+      "original": "docs/review/screenshots/T42-readonly-proposal.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T42-readonly-proposal.png"
+    },
+    {
+      "original": "docs/review/screenshots/T42-unconnected.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T42-unconnected.png"
+    },
+    {
+      "original": "docs/review/screenshots/T43-media-gate.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T43-media-gate.png"
+    },
+    {
+      "original": "docs/review/screenshots/T44-native-decode-disabled.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T44-native-decode-disabled.png"
+    },
+    {
+      "original": "docs/review/screenshots/T44-native-paste.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T44-native-paste.png"
+    },
+    {
+      "original": "docs/review/screenshots/T44-queue-withdrawal.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T44-queue-withdrawal.png"
+    },
+    {
+      "original": "docs/review/screenshots/T44-result-native-quota.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T44-result-native-quota.png"
+    },
+    {
+      "original": "docs/review/screenshots/T44-text-ai-entry.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T44-text-ai-entry.png"
+    },
+    {
+      "original": "docs/review/screenshots/T44-viewport-preference-fault.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T44-viewport-preference-fault.png"
+    },
+    {
+      "original": "docs/review/screenshots/T45-before-send-reopened.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T45-before-send-reopened.png"
+    },
+    {
+      "original": "docs/review/screenshots/T45-unknown-reopened.png",
+      "actualRegressionCopy": "docs/review/screenshots/T46-regression-T45-unknown-reopened.png"
+    }
+  ],
+  "historicalRestoredFrom": "48bf6d2e807d42d4999002bdac8f9debce783788",
+  "source": "Actual full browser regression, preserved before historical restoration",
+  "userApproved": false
+}

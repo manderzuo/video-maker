@@ -1,0 +1,685 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/a11y.spec.ts::T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary",
+      "file": "tests/e2e/a11y.spec.ts",
+      "title": "T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary",
+      "status": "failed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 3,
+          "column": 324,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 695
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 813
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 911
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 134
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 438
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 6,
+          "column": 730
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/a11y.spec.ts::T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape",
+      "file": "tests/e2e/a11y.spec.ts",
+      "title": "T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 474
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 644
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 690
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 774
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 811
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 861
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 109
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 137
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 402
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 430
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 508
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 737
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/real-browser-zoom.spec.ts::T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "file": "tests/e2e/real-browser-zoom.spec.ts",
+      "title": "T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "status": "passed",
+      "assertions": 24,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 12,
+          "column": 591
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 108
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 10,
+          "column": 669,
+          "function": "seedVisualRuntime"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 15,
+          "column": 81,
+          "function": "openVisualView"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/real-browser-zoom.spec.ts::T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "file": "tests/e2e/real-browser-zoom.spec.ts",
+      "title": "T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "status": "passed",
+      "assertions": 24,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 12,
+          "column": 591
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 108
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 10,
+          "column": 669,
+          "function": "seedVisualRuntime"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 15,
+          "column": 81,
+          "function": "openVisualView"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 131
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 259
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 310
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 408
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 192
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 339
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 409
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 457
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 68
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 401
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 349
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 400
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 72
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

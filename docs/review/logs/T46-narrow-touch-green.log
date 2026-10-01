@@ -1,0 +1,33 @@
+[WebServer] (node:11964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 22 tests using 1 worker
+
+(node:17596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run (1.9s)
+  ok  2 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request denies approval after revocation (1.5s)
+  ok  3 tests\e2e\creative-operation-fault-contracts.spec.ts:8:1 › T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records (1.3s)
+  ok  4 tests\e2e\creative-operation-fault-contracts.spec.ts:12:1 › T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request (1.3s)
+  ok  5 tests\e2e\creative-operation-fault-contracts.spec.ts:16:1 › T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records (1.4s)
+  ok  6 tests\e2e\creative-operation-fault-contracts.spec.ts:20:1 › T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending (1.2s)
+  ok  7 tests\e2e\creative-operation-fault-contracts.spec.ts:24:1 › T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request (1.4s)
+  ok  8 tests\e2e\queue-native-fault-contracts.spec.ts:7:1 › T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion (1.4s)
+  ok  9 tests\e2e\queue-native-fault-contracts.spec.ts:14:1 › T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending (1.3s)
+  ok 10 tests\e2e\queue-native-fault-contracts.spec.ts:18:1 › T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee (1.6s)
+  ok 11 tests\e2e\recovery-races.spec.ts:12:1 › T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening (1.9s)
+  ok 12 tests\e2e\recovery-races.spec.ts:15:1 › T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key (2.0s)
+  ok 13 tests\e2e\recovery-races.spec.ts:18:1 › T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt (1.5s)
+  ok 14 tests\e2e\recovery-races.spec.ts:23:1 › T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched (5.3s)
+  ok 15 tests\e2e\recovery-races.spec.ts:27:1 › T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write (1.0s)
+  ok 16 tests\e2e\recovery-races.spec.ts:30:1 › T45-C06 compressed native ZIP bomb forged expansion is rejected with an observable reason and zero creative writes (1.6s)
+  ok 17 tests\e2e\recovery-races.spec.ts:33:1 › T45-C07 actual download redirect never contacts its target or leaks a Key and never regenerates the completed task (347ms)
+  ok 18 tests\e2e\recovery-races.spec.ts:36:1 › T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically (2.0s)
+  ok 19 tests\e2e\visual-a11y-performance.spec.ts:4:1 › T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease (1.2s)
+  ok 20 tests\e2e\visual-a11y-performance.spec.ts:9:2 › actual touch context › T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution (1.2s)
+  ok 21 tests\e2e\visual-a11y-performance.spec.ts:13:1 › T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base (2.3s)
+  ok 22 tests\e2e\visual-a11y-performance.spec.ts:16:1 › T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately (1.2s)
+
+  22 passed (39.6s)

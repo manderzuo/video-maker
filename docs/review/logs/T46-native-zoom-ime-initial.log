@@ -1,0 +1,64 @@
+[WebServer] (node:16332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:4804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\a11y.spec.ts:5:1 › T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary (2.7s)
+(node:6512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\a11y.spec.ts:9:1 › T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape (675ms)
+  ok 3 tests\e2e\real-browser-zoom.spec.ts:8:32 › T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction (7.6s)
+  ok 4 tests\e2e\real-browser-zoom.spec.ts:8:32 › T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction (7.5s)
+  ok 5 tests\e2e\visual-a11y-performance.spec.ts:4:1 › T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease (984ms)
+  ok 6 tests\e2e\visual-a11y-performance.spec.ts:9:2 › actual touch context › T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution (983ms)
+  ok 7 tests\e2e\visual-a11y-performance.spec.ts:13:1 › T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base (1.7s)
+  ok 8 tests\e2e\visual-a11y-performance.spec.ts:16:1 › T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately (1.1s)
+
+
+  1) tests\e2e\a11y.spec.ts:5:1 › T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [33m@@ -2,9 +2,9 @@[39m
+    [2m    Object {[22m
+    [2m      "trusted": true,[22m
+    [2m      "type": "compositionstart",[22m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "trusted": true,[39m
+    [31m+     "trusted": false,[39m
+    [2m      "type": "compositionend",[22m
+    [2m    },[22m
+    [2m  ][22m
+
+      4 | async function body(page:import('@playwright/test').Page):Promise<string>{return page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['graphs'],'readonly',async(tx:IDBTransaction)=>(await m.requestResult(tx.objectStore('graphs').get('p1'))).nodes.find((n:{id:string})=>n.id==='text-1').data.text);}finally{db.close();}});}
+      5 | test('T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary',async({page,context,networkCounter})=>{
+    > 6 |  await setup(page);const input=page.getByTestId('node-text-1').getByLabel('节点文本',{exact:true}),original=await body(page);await input.focus();await input.evaluate(element=>{const events:{type:string;trusted:boolean}[]=[];Reflect.set(window,'actualIMEEvents',events);for(const type of ['compositionstart','compositionend'])element.addEventListener(type,event=>events.push({type:event.type,trusted:event.isTrusted}));});await page.keyboard.press('Control+a');const cdp=await context.newCDPSession(page);await cdp.send('Input.imeSetComposition',{text:'中文😀',selectionStart:0,selectionEnd:4,replacementStart:0,replacementEnd:original.length});await page.waitForTimeout(400);expect(await body(page)).toBe(original);await page.keyboard.press('Control+k');await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).toHaveCount(0);await cdp.send('Input.insertText',{text:'中文😀'});await expect.poll(()=>body(page)).toBe('中文😀');const events=await page.evaluate(()=>Reflect.get(window,'actualIMEEvents'));expect(events).toEqual([{type:'compositionstart',trusted:true},{type:'compositionend',trusted:true}]);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^
+      7 |  const boundary='😀'.repeat(16384);await input.focus();await page.keyboard.press('Control+a');await cdp.send('Input.insertText',{text:boundary});await expect.poll(async()=>new TextEncoder().encode(await body(page)).byteLength).toBe(65536);await expect(input).toHaveValue(boundary);await cdp.send('Input.insertText',{text:'中'});await expect(page.getByTestId('node-text-1').getByRole('alert')).toHaveText('本地文本超过64KiB，已保存版本保持原样。');expect(new TextEncoder().encode(await input.inputValue()).byteLength).toBe(65539);expect(await body(page)).toBe(boundary);expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T46-native-ime-byte-boundary.png'});
+      8 | });
+      9 | test('T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\a11y.spec.ts:6:1015
+
+    Error Context: test-results\a11y-T46-C04-actual-native-64c86-xactly-at-the-UTF8-boundary\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\a11y-T46-C04-actual-native-64c86-xactly-at-the-UTF8-boundary\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\a11y-T46-C04-actual-native-64c86-xactly-at-the-UTF8-boundary\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\a11y.spec.ts:5:1 › T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary 
+  7 passed (28.0s)

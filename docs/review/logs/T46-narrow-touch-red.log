@@ -1,0 +1,96 @@
+[WebServer] (node:9920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:14156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\visual-a11y-performance.spec.ts:4:1 › T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease (6.3s)
+(node:21700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\visual-a11y-performance.spec.ts:9:2 › actual touch context › T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution (1.4s)
+(node:18760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\visual-a11y-performance.spec.ts:13:1 › T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base (2.6s)
+
+
+  1) tests\e2e\visual-a11y-performance.spec.ts:4:1 › T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  locator('[data-interaction-id="C-16"]')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-interaction-id="C-16"]')[22m
+    [2m    9 × locator resolved to <button aria-busy="false" class="button secondary " data-interaction-id="C-16">运行全部视频</button>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      3 | async function canvas(page:import('@playwright/test').Page){await seedStudio(page,'unverified-capability');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';await(await import(p)).seedGeneration();});await page.goto('/projects/p1/canvas');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';await(await import(p)).connectGeneration();});}
+      4 | test('T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease',async({page,networkCounter})=>{
+    > 5 |  await page.setViewportSize({width:767,height:900});await canvas(page);await expect(page.locator('[data-interaction-id="C-16"]')).toBeDisabled();await page.getByLabel('选择 确认视频',{exact:true}).check();await expect(page.locator('[data-interaction-id="C-15"]')).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+        |                                                                                                                                   ^
+      6 | });
+      7 | test.describe('actual touch context',()=>{
+      8 |  test.use({hasTouch:true,viewport:{width:720,height:900}});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\visual-a11y-performance.spec.ts:5:131
+
+    Error Context: test-results\visual-a11y-performance-T4-ab86a-capability-and-writer-lease\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\visual-a11y-performance-T4-ab86a-capability-and-writer-lease\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\visual-a11y-performance-T4-ab86a-capability-and-writer-lease\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\visual-a11y-performance.spec.ts:9:2 › actual touch context › T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 7[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "height": 33,[39m
+    [31m+     "text": "复制节点",[39m
+    [31m+     "width": 78,[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+       8 |  test.use({hasTouch:true,viewport:{width:720,height:900}});
+       9 |  test('T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution',async({page,networkCounter})=>{
+    > 10 |   await canvas(page);await page.getByLabel('选择 确认正文',{exact:true}).check();const targets=await page.locator('.node-action-bar button:not(:disabled)').evaluateAll(elements=>elements.map(element=>({text:element.textContent,width:element.getBoundingClientRect().width,height:element.getBoundingClientRect().height})));expect(targets.length).toBeGreaterThan(0);expect(targets.filter(t=>t.width<44||t.height<44)).toEqual([]);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      11 |  });
+      12 | });
+      13 | test('T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\visual-a11y-performance.spec.ts:10:409
+
+    Error Context: test-results\visual-a11y-performance-ac-1c624-t-granting-a-paid-execution\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\visual-a11y-performance-ac-1c624-t-granting-a-paid-execution\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\visual-a11y-performance-ac-1c624-t-granting-a-paid-execution\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\visual-a11y-performance.spec.ts:4:1 › T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease 
+    tests\e2e\visual-a11y-performance.spec.ts:9:2 › actual touch context › T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution 
+  1 passed (16.3s)

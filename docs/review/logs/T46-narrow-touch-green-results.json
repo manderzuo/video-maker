@@ -1,0 +1,1574 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3275
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3780
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3819
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3138
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3208
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request denies approval after revocation",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request denies approval after revocation",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2841
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2898
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2723
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2793
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 371
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 562
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 323
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 349
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 712
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 753
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 823
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 894
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 204
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 277
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 440
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 556
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 425
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 765
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 944
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1013
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1065
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 353
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 495
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 613
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 896
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1122
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1370
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1411
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1463
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1199
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 922
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 973
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1213
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1263
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 542
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 652
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+      "status": "passed",
+      "assertions": 22,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 358
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 580
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 620
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 161
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 293
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 427
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 277
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 326
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 118
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 386
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 434
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 614
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 662
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 721
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 263
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 497
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 229
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 110
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 983
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1104
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1155
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 899
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1505
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1675
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1850
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1890
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2003
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2060
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2119
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2173
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2221
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2265
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1395
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1465
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1776
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1972
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C01 native approval commit then tab closure before dispatch preserves the original and produces zero POST on reopening",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 163
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 210
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 424
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 598
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 647
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 699
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 114,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 236,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 13,
+          "column": 155
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C02 native lost response and actual tab reopening retain one frozen unknown request and never replace its body or key",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 282
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 381
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 486
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 535
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 709
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 758
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 810
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 114,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 236,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 16,
+          "column": 208
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C03 actual native dispatch quota rejects a new generation before HTTP and retains the original approved attempt",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 536
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 623
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 703
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 846
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 969
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 1065
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 1160
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 20,
+          "column": 1212
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 114,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 236,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 19,
+          "column": 464
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C04 actual replacement Key cannot query or download another binding and leaves the original task identity untouched",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 24,
+          "column": 561
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 24,
+          "column": 657
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1357
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1492
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1644
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 25,
+          "column": 1708
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 114,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 10,
+          "column": 236,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 24,
+          "column": 553
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C05 native SVG and HTML imports stay inert even when disguised as PNG, with no asset or execution write",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 769
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1220
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1301
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1332
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1380
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1301
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1332
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1380
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1444
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 28,
+          "column": 1496
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C06 compressed native ZIP bomb forged expansion is rejected with an observable reason and zero creative writes",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C06 compressed native ZIP bomb forged expansion is rejected with an observable reason and zero creative writes",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 558
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 921
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 31,
+          "column": 304
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C07 actual download redirect never contacts its target or leaks a Key and never regenerates the completed task",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C07 actual download redirect never contacts its target or leaks a Key and never regenerates the completed task",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 216
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 625
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 702
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 814
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 931
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 1017
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 34,
+          "column": 1069
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-races.spec.ts::T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically",
+      "file": "tests/e2e/recovery-races.spec.ts",
+      "title": "T45-C08 closing a real native approved pending queue reopens paused and never resumes unsubmitted work automatically",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 9,
+          "column": 425,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1284
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1333
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1701
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1757
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1809
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1512
+        },
+        {
+          "file": "tests/e2e/recovery-races.spec.ts",
+          "line": 37,
+          "column": 1625
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 131
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 259
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 310
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 408
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 5,
+          "column": 192
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 339
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 409
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 457
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 68
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 401
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 349
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 400
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 17,
+          "column": 72
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

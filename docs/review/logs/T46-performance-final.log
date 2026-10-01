@@ -1,0 +1,18 @@
+
+> aiwork-studio@0.0.1 test:performance
+> playwright test --config tests/performance/performance.config.ts
+
+[WebServer] (node:4984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:13220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\performance\canvas-profile.spec.ts:5:33 › T46-C05 fixed Windows actual 50-node canvas pan frames and native input response meet p95 budgets (3.2s)
+  ok 2 tests\performance\canvas-profile.spec.ts:5:33 › T46-C05 fixed Windows actual 200-node canvas pan frames and native input response meet p95 budgets (4.1s)
+  ok 3 tests\performance\canvas-profile.spec.ts:11:1 › T46 native canonical metadata saves include exact 1MiB graph bytes, schema/lease checks and actual commit acknowledgement within p95 500ms (851ms)
+
+  3 passed (11.5s)

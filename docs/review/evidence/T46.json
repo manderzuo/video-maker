@@ -1,0 +1,253 @@
+{
+  "taskId": "T46",
+  "status": "本地实现完成，自检通过；视觉、人工IME/键盘、统一验收与独立审查待进行",
+  "complete": true,
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "48bf6d2e807d42d4999002bdac8f9debce783788",
+  "headCommit": null,
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "userAcceptancePerformed": false,
+  "commands": [
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-narrow-touch-red.log",
+      "resultPath": "docs/review/logs/T46-narrow-touch-red-results.json"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-narrow-resize-red.log",
+      "resultPath": "docs/review/logs/T46-narrow-resize-red-results.json"
+    },
+    {
+      "command": "npm run test:performance (targeted configured invocation)",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-performance-initial.log",
+      "resultPath": "docs/review/logs/T46-performance-initial-results.json"
+    },
+    {
+      "command": "npm run test:performance (targeted configured invocation)",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-performance-memo.log",
+      "resultPath": "docs/review/logs/T46-performance-memo-results.json"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 1,
+      "passed": 7,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-native-zoom-ime-initial.log",
+      "resultPath": "docs/review/logs/T46-native-zoom-ime-initial-results.json"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 1,
+      "passed": 8,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-native-input-responsive-green.log",
+      "resultPath": "docs/review/logs/T46-native-input-responsive-green-results.json",
+      "executedRunner": "playwright test tests/e2e/a11y.spec.ts tests/e2e/real-browser-zoom.spec.ts tests/e2e/visual-a11y-performance.spec.ts"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-native-input-final.log",
+      "resultPath": "docs/review/logs/T46-native-input-final-results.json",
+      "executedRunner": "playwright test tests/e2e/a11y.spec.ts tests/e2e/real-browser-zoom.spec.ts tests/e2e/visual-a11y-performance.spec.ts"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-visual-final.log",
+      "resultPath": "docs/review/logs/T46-visual-final-results.json",
+      "executedRunner": "playwright test tests/e2e/visual-states.spec.ts"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-real-zoom-viewport-final.log",
+      "resultPath": "docs/review/logs/T46-real-zoom-viewport-final-results.json",
+      "executedRunner": "playwright test tests/e2e/real-browser-zoom.spec.ts"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-native-zoom-capture.log",
+      "resultPath": "docs/review/logs/T46-native-zoom-capture-results.json",
+      "executedRunner": "playwright test tests/e2e/real-browser-zoom.spec.ts"
+    },
+    {
+      "command": "npm run test:e2e (targeted files; see log)",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-native-surface-capture.log",
+      "resultPath": "docs/review/logs/T46-native-surface-capture-results.json",
+      "executedRunner": "playwright test tests/e2e/real-browser-zoom.spec.ts"
+    },
+    {
+      "command": "npm run test:performance (targeted configured invocation)",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-performance-final.log",
+      "resultPath": "docs/review/logs/T46-performance-final-results.json",
+      "executedRunner": "playwright test --config tests/performance/performance.config.ts"
+    },
+    {
+      "command": "npm run test:unit -- --reporter=json --outputFile=docs/review/logs/T46-unit-results.json",
+      "exitCode": 0,
+      "passed": 386,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-unit.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T46-final-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T46-final-lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T46-final-build.log"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T46-final-bundle.log"
+    },
+    {
+      "command": "npm run test:trace",
+      "exitCode": 1,
+      "passed": 26,
+      "failed": 1,
+      "skipped": 0,
+      "reason": "T02 visual approval pending; approval assertion preserved",
+      "logPath": "docs/review/logs/T46-planning-gates.log"
+    },
+    {
+      "command": "node scripts/check-ui-identities.mjs",
+      "exitCode": 0,
+      "missingBindings": 0,
+      "logPath": "docs/review/logs/T46-ui-source-bindings.log"
+    },
+    {
+      "command": "npm run test:e2e (first whole run)",
+      "exitCode": 1,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "reason": "Interrupted by executor to fix screenshot tooling after observing a blank headless capture; no final report, not counted as a passing regression",
+      "logPath": "docs/review/logs/T46-complete-browser-capture-tooling-aborted.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 406,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T46-complete-browser.log",
+      "resultPath": "docs/review/logs/T46-complete-browser-results.json"
+    },
+    {
+      "command": "node work/t44-current-gate.mjs docs/review/logs/T46-complete-browser-results.json",
+      "exitCode": 0,
+      "interactions": 260,
+      "pages": 23,
+      "dialogs": 30,
+      "missing": 0,
+      "logPath": "docs/review/logs/T46-strict-coverage.log"
+    }
+  ],
+  "performance": {
+    "device": "docs/review/logs/T46-fixed-windows-device.json",
+    "node200": "docs/review/logs/T46-canvas-performance.json",
+    "node50": "docs/review/logs/T46-50-node-performance.json",
+    "nativeSave": "docs/review/logs/T46-native-save-performance.json"
+  },
+  "visual": {
+    "actualRenderedCaptures": 184,
+    "manifestPaths": [
+      "docs/review/logs/T46-visual-dark-1024.json",
+      "docs/review/logs/T46-visual-dark-1280.json",
+      "docs/review/logs/T46-visual-dark-1440.json",
+      "docs/review/logs/T46-visual-dark-720.json",
+      "docs/review/logs/T46-visual-light-1024.json",
+      "docs/review/logs/T46-visual-light-1280.json",
+      "docs/review/logs/T46-visual-light-1440.json",
+      "docs/review/logs/T46-visual-light-720.json"
+    ],
+    "approvedPixelBaseline": false,
+    "userApproved": false,
+    "keyboardVideo": "docs/review/screenshots/T46-keyboard-focus.webm",
+    "zoomMethod": "Native chrome.tabs.setZoom + getZoom, disposable local profile",
+    "screenshotMethod": "Native surface capture; blank/cropped prior captures rejected"
+  },
+  "modifiedFiles": [
+    ".gitignore",
+    "package.json",
+    "src/app/App.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/tasks/QueueControls.tsx",
+    "src/ui/tokens.css",
+    "vite.config.ts",
+    "scripts/check-bundle-budget.mjs",
+    "tests/e2e/a11y.spec.ts",
+    "tests/e2e/real-browser-zoom.spec.ts",
+    "tests/e2e/visual-a11y-performance.spec.ts",
+    "tests/e2e/visual-states.spec.ts",
+    "tests/helpers/visual-runtime.ts",
+    "tests/performance/canvas-profile.spec.ts",
+    "tests/performance/performance.config.ts",
+    "docs/review/performance-baseline.md"
+  ],
+  "limitations": [
+    "User visual approval and OS IME/manual keyboard acceptance pending; independent review not performed.",
+    "IME initial false-trusted expectation and nonexistent queueEntries store were fixture errors, not valid product RED.",
+    "200-node pan has one actual 129ms long task even though p95 budgets pass.",
+    "No live Core, paid calls, production data or external release.",
+    "Planning verification 26 passed / 1 failed retains mandatory pending human visual and independent review gate; complete means local implementation only."
+  ],
+  "next": "T47 独立localhost启动、发行包与品牌/许可扫描；不发布。T48待额外真实业务授权，再继续T49/T50本地工作。",
+  "completionScope": "local implementation and automated self-check only",
+  "implementationComplete": true,
+  "acceptanceComplete": false
+}

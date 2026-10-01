@@ -1,0 +1,457 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/real-browser-zoom.spec.ts::T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "file": "tests/e2e/real-browser-zoom.spec.ts",
+      "title": "T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "status": "passed",
+      "assertions": 33,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 12,
+          "column": 591
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 641
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 721
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 791
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1686
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 108
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 10,
+          "column": 669,
+          "function": "seedVisualRuntime"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 15,
+          "column": 81,
+          "function": "openVisualView"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 892
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1604
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/real-browser-zoom.spec.ts::T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "file": "tests/e2e/real-browser-zoom.spec.ts",
+      "title": "T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction",
+      "status": "passed",
+      "assertions": 33,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 12,
+          "column": 591
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 641
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 721
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 791
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1686
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 14,
+          "column": 108
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 10,
+          "column": 669,
+          "function": "seedVisualRuntime"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/helpers/visual-runtime.ts",
+          "line": 15,
+          "column": 81,
+          "function": "openVisualView"
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 892
+        },
+        {
+          "file": "tests/e2e/real-browser-zoom.spec.ts",
+          "line": 13,
+          "column": 1604
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

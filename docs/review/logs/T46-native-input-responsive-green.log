@@ -1,0 +1,51 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/a11y.spec.ts tests/e2e/real-browser-zoom.spec.ts tests/e2e/visual-a11y-performance.spec.ts
+
+[WebServer] (node:25348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:26856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\a11y.spec.ts:6:1 › T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary (3.2s)
+  ok 2 tests\e2e\a11y.spec.ts:11:1 › T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape (578ms)
+  ok 3 tests\e2e\real-browser-zoom.spec.ts:8:32 › T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction (7.4s)
+  ok 4 tests\e2e\real-browser-zoom.spec.ts:8:32 › T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction (7.6s)
+  ok 5 tests\e2e\visual-a11y-performance.spec.ts:6:1 › T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease (1.2s)
+  ok 6 tests\e2e\visual-a11y-performance.spec.ts:11:2 › actual touch context › T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution (1.0s)
+  ok 7 tests\e2e\visual-a11y-performance.spec.ts:15:1 › T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base (1.8s)
+  ok 8 tests\e2e\visual-a11y-performance.spec.ts:18:1 › T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately (1.0s)
+  x  9 tests\e2e\visual-a11y-performance.spec.ts:21:1 › T46-C02 resizing during a real durable approval acknowledgment preserves the original record without dispatch or queue insertion (1.1s)
+
+
+  1) tests\e2e\visual-a11y-performance.spec.ts:21:1 › T46-C02 resizing during a real durable approval acknowledgment preserves the original record without dispatch or queue insertion 
+
+    Error: page.evaluate: NotFoundError: Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.
+        at IDBDatabase.transaction (eval at evaluate (:290:30), <anonymous>:16:30)
+        at Module.transact (http://127.0.0.1:4179/src/infrastructure/storage/database.ts:38:28)
+        at eval (eval at evaluate (:290:30), <anonymous>:6:22)
+        at async <anonymous>:316:30
+        at IDBDatabase.transaction (eval at evaluate (:290:30), <anonymous>:16:30)
+        at Module.transact (http://127.0.0.1:4179/src/infrastructure/storage/database.ts:38:28)
+        at eval (eval at evaluate (:290:30), <anonymous>:6:22)
+        at async <anonymous>:316:30
+        at records (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\visual-a11y-performance.spec.ts:23:25)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\visual-a11y-performance.spec.ts:24:21
+
+    Error Context: test-results\visual-a11y-performance-T4-d24d4-dispatch-or-queue-insertion\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\visual-a11y-performance-T4-d24d4-dispatch-or-queue-insertion\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\visual-a11y-performance-T4-d24d4-dispatch-or-queue-insertion\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\visual-a11y-performance.spec.ts:21:1 › T46-C02 resizing during a real durable approval acknowledgment preserves the original record without dispatch or queue insertion 
+  8 passed (28.4s)

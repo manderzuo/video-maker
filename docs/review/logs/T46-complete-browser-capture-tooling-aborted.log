@@ -1,0 +1,51 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test
+
+[WebServer] (node:21368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 406 tests using 1 worker
+
+(node:26524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   1 tests\e2e\a11y.spec.ts:7:1 › T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary (3.2s)
+  ok   2 tests\e2e\a11y.spec.ts:12:1 › T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape (659ms)
+(node:22364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   3 tests\e2e\activity-native-fault-contracts.spec.ts:8:1 › T44 H03 native diagnostic export read failure and delayed real completion preserve unknown requests and expose busy confirmation (1.4s)
+  ok   4 tests\e2e\activity-native-fault-contracts.spec.ts:13:1 › T44 H04 native diagnostic deletion failure rolls back its display transaction and busy retry retains all functional history (1.1s)
+  ok   5 tests\e2e\agent-bulk-contracts.spec.ts:10:1 › T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated (1.7s)
+  ok   6 tests\e2e\agent-bulk-contracts.spec.ts:11:1 › T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all (1.7s)
+  ok   7 tests\e2e\agent-bulk-contracts.spec.ts:12:1 › T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history (1.2s)
+  ok   8 tests\e2e\agent-bulk-contracts.spec.ts:13:1 › T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data (1.2s)
+  ok   9 tests\e2e\agent-bulk-contracts.spec.ts:15:1 › T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions (1.6s)
+  ok  10 tests\e2e\agent-native-fault-contracts.spec.ts:10:1 › T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records (1.2s)
+  ok  11 tests\e2e\agent-native-fault-contracts.spec.ts:14:1 › T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission (1.6s)
+  ok  12 tests\e2e\agent-native-fault-contracts.spec.ts:19:1 › T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records (1.2s)
+  ok  13 tests\e2e\agent-panel.spec.ts:8:1 › T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate (1.1s)
+  ok  14 tests\e2e\agent-panel.spec.ts:9:1 › T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission (1.4s)
+  ok  15 tests\e2e\agent-panel.spec.ts:10:1 › T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply (2.1s)
+  ok  16 tests\e2e\agent-panel.spec.ts:11:1 › T42-C04 stop feedback does not claim remote model cancellation or change the original Core task (1.2s)
+  ok  17 tests\e2e\agent-panel.spec.ts:12:1 › T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization (1.9s)
+  ok  18 tests\e2e\agent-panel.spec.ts:13:1 › T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation (2.1s)
+  ok  19 tests\e2e\agent-panel.spec.ts:14:72 › T42 real light-theme agent panel fits viewport 1024 (1.1s)
+  ok  20 tests\e2e\agent-panel.spec.ts:14:72 › T42 real light-theme agent panel fits viewport 390 (1.1s)
+  ok  21 tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request (1.5s)
+  ok  22 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (529ms)
+  ok  23 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (491ms)
+  ok  24 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (837ms)
+  ok  25 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (414ms)
+  ok  26 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (629ms)
+  ok  27 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (469ms)
+  ok  28 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (543ms)
+  ok  29 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (781ms)
+  ok  30 tests\e2e\asset-busy-contracts.spec.ts:7:1 › T44 M01/M02 actual native import completion blocks duplicate file selection and confirmation until acknowledgement (2.2s)
+  ok  31 tests\e2e\asset-busy-contracts.spec.ts:13:1 › T44 M07 actual native metadata save pending disables its submit while original hash and all Runs remain intact (1.1s)
+  ok  32 tests\e2e\asset-busy-contracts.spec.ts:17:1 › T44 M11 actual native original read acknowledgement disables only its local download until the same bytes are available (1.2s)
+  ok  33 tests\e2e\asset-deletion-contract.spec.ts:3:1 › T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history (1.2s)
+  ok  34 tests\e2e\asset-import.spec.ts:2:1 › T07 browser: worker hash, decoded metadata, thumbnail and individual corruption reporting without upload (453ms)

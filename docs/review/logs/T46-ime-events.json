@@ -1,0 +1,16 @@
+{
+  "method": "Chromium CDP Input.imeSetComposition + Input.insertText",
+  "events": [
+    {
+      "type": "compositionstart",
+      "trusted": true
+    },
+    {
+      "type": "compositionend",
+      "trusted": false
+    }
+  ],
+  "osImeAcceptance": "pending",
+  "intermediateCommit": false,
+  "committedText": "中文😀"
+}

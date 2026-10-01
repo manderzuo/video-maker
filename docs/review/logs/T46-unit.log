@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run --reporter=json --outputFile=docs/review/logs/T46-unit-results.json
+
+JSON report written to E:/trae-studio/TRAEWORK/aiwork-studio/docs/review/logs/T46-unit-results.json

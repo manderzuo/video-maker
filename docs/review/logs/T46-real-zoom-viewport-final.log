@@ -1,0 +1,17 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/real-browser-zoom.spec.ts
+
+[WebServer] (node:3388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:25228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\real-browser-zoom.spec.ts:8:32 › T46-C03 actual Chrome tabs zoom 125% changes CSS viewport and DPR while preserving readable Studio interaction (7.9s)
+  ok 2 tests\e2e\real-browser-zoom.spec.ts:8:32 › T46-C03 actual Chrome tabs zoom 150% changes CSS viewport and DPR while preserving readable Studio interaction (7.3s)
+
+  2 passed (18.5s)

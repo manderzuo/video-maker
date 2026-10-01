@@ -1,0 +1,12 @@
+{
+  "processor": {
+    "Name": "12th Gen Intel(R) Core(TM) i5-12400F",
+    "NumberOfCores": 6,
+    "NumberOfLogicalProcessors": 12
+  },
+  "os": {
+    "Caption": "Microsoft Windows 10 专业版",
+    "Version": "10.0.19045",
+    "TotalVisibleMemorySize": 33388044
+  }
+}

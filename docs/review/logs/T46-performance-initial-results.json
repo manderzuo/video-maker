@@ -1,0 +1,117 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/performance/canvas-profile.spec.ts::T46-C05 fixed Windows actual 200-node canvas pan frames and native input response meet p95 budgets",
+      "file": "tests/performance/canvas-profile.spec.ts",
+      "title": "T46-C05 fixed Windows actual 200-node canvas pan frames and native input response meet p95 budgets",
+      "status": "failed",
+      "assertions": 4,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 6,
+          "column": 877
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 9,
+          "column": 1249
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 9,
+          "column": 1305
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 6,
+          "column": 993
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 9,
+          "column": 58
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 9,
+          "column": 157
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/performance/canvas-profile.spec.ts::T46 native canonical metadata saves include exact 1MiB graph bytes, schema/lease checks and actual commit acknowledgement within p95 500ms",
+      "file": "tests/performance/canvas-profile.spec.ts",
+      "title": "T46 native canonical metadata saves include exact 1MiB graph bytes, schema/lease checks and actual commit acknowledgement within p95 500ms",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2610
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2685
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2731
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2780
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2814
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2841
+        },
+        {
+          "file": "tests/performance/canvas-profile.spec.ts",
+          "line": 12,
+          "column": 2902
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 339
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 10,
+          "column": 68
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 14,
+          "column": 401
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}
