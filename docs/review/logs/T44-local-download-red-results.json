@@ -1,0 +1,78 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/local-download-fault-contracts.spec.ts::T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry",
+      "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+      "title": "T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 238
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 428
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/local-download-fault-contracts.spec.ts::T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records",
+      "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+      "title": "T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 211
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/local-download-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 346
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

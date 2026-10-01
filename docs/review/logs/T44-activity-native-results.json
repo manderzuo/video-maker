@@ -1,0 +1,228 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/activity-native-fault-contracts.spec.ts::T44 H03 native diagnostic export read failure and delayed real completion preserve unknown requests and expose busy confirmation",
+      "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+      "title": "T44 H03 native diagnostic export read failure and delayed real completion preserve unknown requests and expose busy confirmation",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 625
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 634
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 674
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 219
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 351
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 430
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 773
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 821
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 885
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 963
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1015
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 90
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 547
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 164
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/activity-native-fault-contracts.spec.ts::T44 H04 native diagnostic deletion failure rolls back its display transaction and busy retry retains all functional history",
+      "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+      "title": "T44 H04 native diagnostic deletion failure rolls back its display transaction and busy retry retains all functional history",
+      "status": "passed",
+      "assertions": 17,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 625
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 671
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 117
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 164
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 296
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 375
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 488
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 539
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 586
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 633
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 739
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 814
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 905
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 955
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 91
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 552
+        },
+        {
+          "file": "tests/e2e/activity-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 109
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 261
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 342
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 426
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 638
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 653
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 768
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 808
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 860
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 188
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 502
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 571
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 541
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 683
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1155
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1196
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1248
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 402
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 744
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 896
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1013
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 271
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 462
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 902
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 962
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 1134
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 1186
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 362
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 840
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 1034
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 606
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 687
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 766
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 828
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 861
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 894
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 946
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 998
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 475
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 533
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/package-native-fault-contracts.spec.ts::T44 D04/D05/I01/I02 native snapshot failure keeps all creative data and real export stays disabled until actual read acknowledgement",
+      "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+      "title": "T44 D04/D05/I01/I02 native snapshot failure keeps all creative data and real export stays disabled until actual read acknowledgement",
+      "status": "passed",
+      "assertions": 19,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 704
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 342
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 421
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 501
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 568
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 848
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1167
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 1219
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 110
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 658
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 157
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/package-native-fault-contracts.spec.ts::T44 I06/I07 native import quota rolls back every partial project and the real retry freezes cancel until acknowledgement",
+      "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+      "title": "T44 I06/I07 native import quota rolls back every partial project and the real retry freezes cancel until acknowledgement",
+      "status": "passed",
+      "assertions": 18,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 448
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 925
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 992
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 113
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 291
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 507
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 605
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 653
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 782
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 817
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 885
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 920
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1026
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1078
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 226
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 879
+        },
+        {
+          "file": "tests/e2e/package-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 105
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

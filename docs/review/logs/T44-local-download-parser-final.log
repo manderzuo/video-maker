@@ -1,0 +1,22 @@
+[WebServer] (node:27444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:29120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\local-download-fault-contracts.spec.ts:7:1 › T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry (1.5s)
+  ok  2 tests\e2e\local-download-fault-contracts.spec.ts:12:1 › T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records (1.2s)
+  ok  3 tests\e2e\local-download-fault-contracts.spec.ts:17:1 › T44 PG27 current unchecked memory draft export survives browser refusal without saving, credentials or media (1.3s)
+  ok  4 tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft (1.6s)
+  ok  5 tests\e2e\prompt-result-parser.spec.ts:7:1 › T31: actual candidate save quota preserves its response and explicit local parse retry sends no second request (1.6s)
+  ok  6 tests\e2e\prompt-result-parser.spec.ts:8:1 › T31: invalid response and raw inspection restore from saved storage after refresh without a chat (2.1s)
+  ok  7 tests\e2e\prompt-result-parser.spec.ts:9:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns (1.5s)
+  ok  8 tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video (1.6s)
+  ok  9 tests\e2e\prompt-result-parser.spec.ts:11:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request (1.5s)
+  ok 10 tests\e2e\prompt-result-parser.spec.ts:12:1 › T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact (1.6s)
+  ok 11 tests\e2e\prompt-result-parser.spec.ts:13:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request (1.5s)
+
+  11 passed (20.3s)

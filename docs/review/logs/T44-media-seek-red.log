@@ -1,0 +1,49 @@
+[WebServer] (node:28384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\native-media-state-contracts.spec.ts:7:1 › T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph (7.0s)
+
+
+  1) tests\e2e\native-media-state-contracts.spec.ts:7:1 › T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  getByTestId('asset-card').filter({ has: getByLabel('选择 声音220.wav', { exact: true }) }).getByLabel('声音220.wav 播放进度', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('asset-card').filter({ has: getByLabel('选择 声音220.wav', { exact: true }) }).getByLabel('声音220.wav 播放进度', { exact: true })[22m
+    [2m    9 × locator resolved to <input min="0" max="12" step="1" value="0" type="range" data-interaction-id="M-06"/>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      12 |  await card.getByLabel('声音220.wav 播放进度',{exact:true}).focus();
+      13 |  await expect(card.getByRole('button',{name:'播放 声音220.wav',exact:true})).toBeDisabled();
+    > 14 |  await expect(card.getByLabel('声音220.wav 播放进度',{exact:true})).toBeDisabled();
+         |                                                               ^
+      15 |  expect(await stored(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.coreWrites).toBe(0);
+      16 | });
+      17 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\native-media-state-contracts.spec.ts:14:63
+
+    Error Context: test-results\native-media-state-contrac-76862--original-identity-or-graph\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\native-media-state-contrac-76862--original-identity-or-graph\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\native-media-state-contrac-76862--original-identity-or-graph\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\native-media-state-contracts.spec.ts:7:1 › T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph 

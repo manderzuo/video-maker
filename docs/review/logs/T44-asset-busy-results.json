@@ -1,0 +1,281 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/asset-busy-contracts.spec.ts::T44 M01/M02 actual native import completion blocks duplicate file selection and confirmation until acknowledgement",
+      "file": "tests/e2e/asset-busy-contracts.spec.ts",
+      "title": "T44 M01/M02 actual native import completion blocks duplicate file selection and confirmation until acknowledgement",
+      "status": "passed",
+      "assertions": 16,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 8,
+          "column": 408
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 8,
+          "column": 547
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 8,
+          "column": 594
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 57
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 146
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 366
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 477
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 551
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 10,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 10,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 10,
+          "column": 195
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 10,
+          "column": 245
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 8,
+          "column": 198
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 8,
+          "column": 539
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 9,
+          "column": 262
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-busy-contracts.spec.ts::T44 M07 actual native metadata save pending disables its submit while original hash and all Runs remain intact",
+      "file": "tests/e2e/asset-busy-contracts.spec.ts",
+      "title": "T44 M07 actual native metadata save pending disables its submit while original hash and all Runs remain intact",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 271
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 318
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 448
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 671
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 713
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 843
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 924
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 974
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 94
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 14,
+          "column": 263
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-busy-contracts.spec.ts::T44 M11 actual native original read acknowledgement disables only its local download until the same bytes are available",
+      "file": "tests/e2e/asset-busy-contracts.spec.ts",
+      "title": "T44 M11 actual native original read acknowledgement disables only its local download until the same bytes are available",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 217
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 392
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 439
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 568
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 733
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 813
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 853
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 905
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 94
+        },
+        {
+          "file": "tests/e2e/asset-busy-contracts.spec.ts",
+          "line": 18,
+          "column": 384
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[WebServer] (node:25620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:10696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft (1.8s)
+  ok  2 tests\e2e\prompt-result-parser.spec.ts:7:1 › T31: actual candidate save quota preserves its response and explicit local parse retry sends no second request (1.5s)
+  ok  3 tests\e2e\prompt-result-parser.spec.ts:8:1 › T31: invalid response and raw inspection restore from saved storage after refresh without a chat (2.2s)
+  ok  4 tests\e2e\prompt-result-parser.spec.ts:9:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns (1.5s)
+  ok  5 tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video (1.6s)
+  ok  6 tests\e2e\prompt-result-parser.spec.ts:11:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request (1.5s)
+  ok  7 tests\e2e\prompt-result-parser.spec.ts:12:1 › T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact (1.6s)
+  ok  8 tests\e2e\prompt-result-parser.spec.ts:13:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request (1.5s)
+  ok  9 tests\e2e\recovery-control-contracts.spec.ts:5:1 › T44 F03/D20 conflict copy after an actual native save failure preserves source project and saves the recoverable creative text under a new ID (1.5s)
+  ok 10 tests\e2e\recovery-control-contracts.spec.ts:8:1 › T44 F04 discard requires an explicit second choice, keeps the draft on return and restores the saved source without creating an execution (1.7s)
+  ok 11 tests\e2e\recovery-control-contracts.spec.ts:11:1 › T44 F03 conflict copy native quota failure retains the current memory draft and writes no partial copy (1.5s)
+  ok 12 tests\e2e\recovery-control-contracts.spec.ts:14:1 › T44 H01/H02/D22 local activity filter and detail show original unknown state without querying or changing the task (1.2s)
+  ok 13 tests\e2e\recovery-control-contracts.spec.ts:17:1 › T44 F04 native reload failure retains the emergency draft and original saved project rather than claiming restoration (1.5s)
+  ok 14 tests\e2e\recovery-control-contracts.spec.ts:20:1 › T44 H01 native activity filter read failure reports the unread state and retains every original Run (1.2s)
+  ok 15 tests\e2e\recovery-control-contracts.spec.ts:24:1 › T44 F03/F04 actual native conflict copy pending prevents duplicate copy or discarding the recoverable memory draft (1.7s)
+
+  15 passed (26.9s)

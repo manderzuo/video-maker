@@ -1,0 +1,17 @@
+[WebServer] (node:11576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:16956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\empty-state-guard-contracts.spec.ts:6:1 › T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution (1.7s)
+  ok 2 tests\e2e\empty-state-guard-contracts.spec.ts:10:1 › T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project (1.7s)
+  ok 3 tests\e2e\empty-state-guard-contracts.spec.ts:14:1 › T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states (1.3s)
+  ok 4 tests\e2e\empty-state-guard-contracts.spec.ts:18:1 › T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source (1.2s)
+  ok 5 tests\e2e\package-native-fault-contracts.spec.ts:8:1 › T44 D04/D05/I01/I02 native snapshot failure keeps all creative data and real export stays disabled until actual read acknowledgement (2.9s)
+  ok 6 tests\e2e\package-native-fault-contracts.spec.ts:13:1 › T44 I06/I07 native import quota rolls back every partial project and the real retry freezes cancel until acknowledgement (2.7s)
+
+  6 passed (14.7s)

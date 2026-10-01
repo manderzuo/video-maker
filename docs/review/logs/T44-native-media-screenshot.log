@@ -1,0 +1,15 @@
+[WebServer] (node:5900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:9344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\native-media-state-contracts.spec.ts:9:1 › T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph (2.1s)
+  ok 2 tests\e2e\native-media-state-contracts.spec.ts:21:1 › T44 M03 actual image Blob read failure keeps preview dismissible and permits an explicit reopening retry (1.3s)
+  ok 3 tests\e2e\native-media-state-contracts.spec.ts:26:1 › T44 M11 actual original download read failure reports download error and retries only the same local bytes (1.4s)
+  ok 4 tests\e2e\native-media-state-contracts.spec.ts:32:1 › T44 M05 actual native mute and volume survive SPA navigation only and do not enter creative storage (1.8s)
+
+  4 passed (9.7s)

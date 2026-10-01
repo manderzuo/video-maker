@@ -1,0 +1,314 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/native-media-state-contracts.spec.ts::T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph",
+      "file": "tests/e2e/native-media-state-contracts.spec.ts",
+      "title": "T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 12,
+          "column": 40
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 13,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 15,
+          "column": 74
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 16,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 18,
+          "column": 29
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 18,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 18,
+          "column": 140
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 14,
+          "column": 55
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/native-media-state-contracts.spec.ts::T44 M03 actual image Blob read failure keeps preview dismissible and permits an explicit reopening retry",
+      "file": "tests/e2e/native-media-state-contracts.spec.ts",
+      "title": "T44 M03 actual image Blob read failure keeps preview dismissible and permits an explicit reopening retry",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 22,
+          "column": 103
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 174
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 447
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 488
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 540
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 262
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 23,
+          "column": 374
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/native-media-state-contracts.spec.ts::T44 M11 actual original download read failure reports download error and retries only the same local bytes",
+      "file": "tests/e2e/native-media-state-contracts.spec.ts",
+      "title": "T44 M11 actual original download read failure reports download error and retries only the same local bytes",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 27,
+          "column": 218
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 28,
+          "column": 105
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 28,
+          "column": 178
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 29,
+          "column": 177
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 29,
+          "column": 338
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 29,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 29,
+          "column": 465
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 29,
+          "column": 517
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 27,
+          "column": 95
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 28,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 29,
+          "column": 103
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/native-media-state-contracts.spec.ts::T44 M05 actual native mute and volume survive SPA navigation only and do not enter creative storage",
+      "file": "tests/e2e/native-media-state-contracts.spec.ts",
+      "title": "T44 M05 actual native mute and volume survive SPA navigation only and do not enter creative storage",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 35,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 35,
+          "column": 151
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 36,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 37,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 37,
+          "column": 151
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 37,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 38,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 38,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 39,
+          "column": 29
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 39,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 39,
+          "column": 140
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 34,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 34,
+          "column": 127
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 36,
+          "column": 54
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 36,
+          "column": 158
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/connection-error-state-contracts.spec.ts::T44 K01/K02 invalid address and native address save quota keep original profiles and task ownership without a request",
+      "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+      "title": "T44 K01/K02 invalid address and native address save quota keep original profiles and task ownership without a request",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 95
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 352
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 392
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1028
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1114
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1188
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1228
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1287
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1331
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 192
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 278
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 456
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 528
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 9,
+          "column": 1020
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-error-state-contracts.spec.ts::T44 W05/K04/K07 real readonly HTTP rejection clears the ordinary Key and creates no verified binding or generation",
+      "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+      "title": "T44 W05/K04/K07 real readonly HTTP rejection clears the ordinary Key and creates no verified binding or generation",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 392
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 738
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 780
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 929
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 1028
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 1154
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 1201
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 488
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 13,
+          "column": 586
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-error-state-contracts.spec.ts::T44 K08 actual readonly model refresh failure marks the old catalog stale without rewriting original authorization or task identities",
+      "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+      "title": "T44 K08 actual readonly model refresh failure marks the old catalog stale without rewriting original authorization or task identities",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1100
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1240
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1240
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1240
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1240
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1240
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1350
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1512
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1560
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1630
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 442
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 17,
+          "column": 1026
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-error-state-contracts.spec.ts::T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry",
+      "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+      "title": "T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry",
+      "status": "failed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 21,
+          "column": 95
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 21,
+          "column": 552
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 21,
+          "column": 592
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 21,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/connection-error-state-contracts.spec.ts",
+          "line": 21,
+          "column": 710
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

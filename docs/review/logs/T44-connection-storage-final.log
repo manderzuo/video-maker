@@ -1,0 +1,55 @@
+[WebServer] (node:28712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:9492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\connection-error-state-contracts.spec.ts:8:1 › T44 K01/K02 invalid address and native address save quota keep original profiles and task ownership without a request (1.4s)
+  ok  2 tests\e2e\connection-error-state-contracts.spec.ts:12:1 › T44 W05/K04/K07 real readonly HTTP rejection clears the ordinary Key and creates no verified binding or generation (1.3s)
+  ok  3 tests\e2e\connection-error-state-contracts.spec.ts:16:1 › T44 K08 actual readonly model refresh failure marks the old catalog stale without rewriting original authorization or task identities (1.4s)
+  x   4 tests\e2e\connection-error-state-contracts.spec.ts:20:1 › T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry (1.4s)
+(node:4492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  5 tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate (2.7s)
+  ok  6 tests\e2e\storage-settings.spec.ts:7:1 › T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access (2.6s)
+  ok  7 tests\e2e\storage-settings.spec.ts:8:1 › T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history (2.7s)
+  ok  8 tests\e2e\storage-settings.spec.ts:9:1 › T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography (2.7s)
+  ok  9 tests\e2e\storage-settings.spec.ts:10:1 › T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity (2.6s)
+  ok 10 tests\e2e\storage-settings.spec.ts:11:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe (2.5s)
+  ok 11 tests\e2e\storage-settings.spec.ts:12:1 › T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection (2.8s)
+  ok 12 tests\e2e\storage-settings.spec.ts:13:1 › T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records (3.4s)
+
+
+  1) tests\e2e\connection-error-state-contracts.spec.ts:20:1 › T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"https://core.invalid"[39m
+    Received: [31m"https://core.invalid[7m/[27m"[39m
+
+      19 |
+      20 | test('T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry',async({page,networkCounter})=>{
+    > 21 |  await page.goto('/settings/connections');await expect(page.getByLabel('已保存连接',{exact:true})).toHaveValue('c1');const before=await state(page);await page.evaluate(()=>{const original=HTMLAnchorElement.prototype.click;let armed=true;HTMLAnchorElement.prototype.click=function(){if(armed&&this.download){armed=false;throw new DOMException('native-public-export-denied','NotAllowedError');}return original.call(this);};});await page.getByRole('button',{name:'导出连接配置',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'连接操作失败'})).toBeVisible();expect(await state(page)).toEqual(before);const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出连接配置',exact:true}).click();const download=await pending,document=JSON.parse((await readFile((await download.path())!)).toString());expect(document.connections[0].originSnapshot).toBe(before.connections[0].originSnapshot);expect(JSON.stringify(document)).not.toMatch(/authBindingId|apiKey|token|authorization/);expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      22 | });
+      23 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\connection-error-state-contracts.spec.ts:21:869
+
+    Error Context: test-results\connection-error-state-con-0874a-explicit-local-export-retry\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\connection-error-state-con-0874a-explicit-local-export-retry\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\connection-error-state-con-0874a-explicit-local-export-retry\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\connection-error-state-contracts.spec.ts:20:1 › T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry 
+  11 passed (32.4s)

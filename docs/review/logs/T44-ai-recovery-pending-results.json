@@ -1,0 +1,1347 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 694
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 749
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 821
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 1039
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 1095
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 467
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 536
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 6,
+          "column": 980
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31: actual candidate save quota preserves its response and explicit local parse retry sends no second request",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31: actual candidate save quota preserves its response and explicit local parse retry sends no second request",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 1100
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 1150
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 1230
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 1434
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 1475
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 972
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 7,
+          "column": 1041
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31: invalid response and raw inspection restore from saved storage after refresh without a chat",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31: invalid response and raw inspection restore from saved storage after refresh without a chat",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 515
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 600
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 682
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 806
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 861
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 456
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 8,
+          "column": 743
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 9,
+          "column": 196
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 9,
+          "column": 239
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 9,
+          "column": 307
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 9,
+          "column": 498
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 9,
+          "column": 548
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 9,
+          "column": 418
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 727
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 796
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 873
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 996
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 1115
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 175
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 231
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 10,
+          "column": 668
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 536
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 748
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 819
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 870
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 477
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 11,
+          "column": 596
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 755
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 833
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 915
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 996
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1279
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1344
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1418
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1722
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1767
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1822
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 683
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1054
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1135
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 12,
+          "column": 1210
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-result-parser.spec.ts::T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request",
+      "file": "tests/e2e/prompt-result-parser.spec.ts",
+      "title": "T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 3,
+          "column": 711,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 605
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 992
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1057
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1366
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1571
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 91,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 211,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 302,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 4,
+          "column": 360,
+          "function": "confirm"
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 533
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 675
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1134
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1250
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1339
+        },
+        {
+          "file": "tests/e2e/prompt-result-parser.spec.ts",
+          "line": 13,
+          "column": 1446
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 F03/D20 conflict copy after an actual native save failure preserves source project and saves the recoverable creative text under a new ID",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 F03/D20 conflict copy after an actual native save failure preserves source project and saves the recoverable creative text under a new ID",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 540,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 694,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 228
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 308
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 417
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 532
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 632
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 454,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 6,
+          "column": 179
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 F04 discard requires an explicit second choice, keeps the draft on return and restores the saved source without creating an execution",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 F04 discard requires an explicit second choice, keeps the draft on return and restores the saved source without creating an execution",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 540,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 694,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 210
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 356
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 552
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 665
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 717
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 454,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 181
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 9,
+          "column": 519
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 F03 conflict copy native quota failure retains the current memory draft and writes no partial copy",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 F03 conflict copy native quota failure retains the current memory draft and writes no partial copy",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 540,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 694,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 12,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 12,
+          "column": 552
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 12,
+          "column": 619
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 12,
+          "column": 686
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 454,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 12,
+          "column": 450
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 H01/H02/D22 local activity filter and detail show original unknown state without querying or changing the task",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 H01/H02/D22 local activity filter and detail show original unknown state without querying or changing the task",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 481
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 574
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 616
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 668
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 151
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 313
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 15,
+          "column": 533
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 F04 native reload failure retains the emergency draft and original saved project rather than claiming restoration",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 F04 native reload failure retains the emergency draft and original saved project rather than claiming restoration",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 540,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 694,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 590
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 663
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 862
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 958
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 454,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 181
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 18,
+          "column": 541
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 H01 native activity filter read failure reports the unread state and retains every original Run",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 H01 native activity filter read failure reports the unread state and retains every original Run",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 21,
+          "column": 146
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 21,
+          "column": 589
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 21,
+          "column": 643
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 21,
+          "column": 695
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 21,
+          "column": 539
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/recovery-control-contracts.spec.ts::T44 F03/F04 actual native conflict copy pending prevents duplicate copy or discarding the recoverable memory draft",
+      "file": "tests/e2e/recovery-control-contracts.spec.ts",
+      "title": "T44 F03/F04 actual native conflict copy pending prevents duplicate copy or discarding the recoverable memory draft",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 540,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 694,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 231
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 278
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 411
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 497
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 578
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 644
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 842
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 888
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 992
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 1086
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 1136
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 454,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "failedDraft"
+        },
+        {
+          "file": "tests/e2e/recovery-control-contracts.spec.ts",
+          "line": 25,
+          "column": 223
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

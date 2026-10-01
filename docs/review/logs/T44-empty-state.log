@@ -1,0 +1,97 @@
+[WebServer] (node:13452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:16888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\empty-state-guard-contracts.spec.ts:6:1 › T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution (30.2s)
+(node:13176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\empty-state-guard-contracts.spec.ts:10:1 › T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project (1.9s)
+  x  3 tests\e2e\empty-state-guard-contracts.spec.ts:14:1 › T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states (30.1s)
+(node:8820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\empty-state-guard-contracts.spec.ts:18:1 › T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source (1.4s)
+
+
+  1) tests\e2e\empty-state-guard-contracts.spec.ts:6:1 › T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.check: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-text-1').getByRole('checkbox')[22m
+
+
+       5 |
+       6 | test('T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution',async({page,networkCounter})=>{
+    >  7 |  await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/canvas');const text=page.getByTestId('node-text-1');await text.getByRole('textbox',{name:'节点文本',exact:true}).fill('');await expect(text.getByRole('button',{name:'复制文本',exact:true})).toBeDisabled();await expect(text.getByRole('button',{name:'保存为提示词',exact:true})).toBeDisabled();await expect(text.getByRole('button',{name:'从文本创建视频流程',exact:true})).toBeDisabled();await text.getByRole('checkbox').check();await page.getByTestId('node-video-1').getByRole('checkbox').check();await expect(page.locator('[data-interaction-id="PG01"]')).toBeDisabled();await expect.poll(async()=>(await state(page))[1][0].nodes.find((node:{id:string})=>node.id==='text-1').data.text).toBe('');expect((await state(page))[2]).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+       8 | });
+       9 |
+      10 | test('T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\empty-state-guard-contracts.spec.ts:7:474
+
+    Error Context: test-results\empty-state-guard-contract-51774-ctions-without-an-execution\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\empty-state-guard-contract-51774-ctions-without-an-execution\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\empty-state-guard-contract-51774-ctions-without-an-execution\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\empty-state-guard-contracts.spec.ts:14:1 › T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('执行状态筛选', { exact: true })[22m
+    [2m    - locator resolved to <select aria-label="执行状态筛选" data-interaction-id="J-01">…</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 × waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    56 × waiting for element to be visible and enabled[22m
+    [2m       - did not find some options[22m
+    [2m     - retrying select option action[22m
+    [2m       - waiting 500ms[22m
+
+
+      13 |
+      14 | test('T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states',async({page,networkCounter})=>{
+    > 15 |  await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';await (await import(p)).seedTaskHistory();});await page.goto('/tasks');await expect(page.getByTestId('video-run-unknown').getByRole('button',{name:'归档记录',exact:true})).toBeDisabled();const before=await state(page);await page.getByLabel('执行状态筛选',{exact:true}).selectOption('failed_before_dispatch');await expect(page.getByRole('button',{name:'导出脱敏CSV',exact:true})).toBeDisabled();await page.evaluate(()=>{const original=IDBObjectStore.prototype.getAll;let armed=true;IDBObjectStore.prototype.getAll=function(...args:Parameters<typeof original>){if(armed&&this.name==='runs'){armed=false;throw new DOMException('native-task-filter-read-failed','UnknownError');}return original.apply(this,args);};});await page.getByLabel('执行状态筛选',{exact:true}).selectOption('running');await expect(page.getByRole('alert')).toHaveText('本地任务读取失败，原记录保留，请重试。');expect(await state(page)).toEqual(before);await page.getByRole('button',{name:'清除筛选',exact:true}).click();await expect(page.getByTestId('video-run-unknown')).toBeVisible();expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                          ^
+      16 | });
+      17 |
+      18 | test('T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\empty-state-guard-contracts.spec.ts:15:362
+
+    Error Context: test-results\empty-state-guard-contract-d698f-ering-keeps-original-states\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\empty-state-guard-contract-d698f-ering-keeps-original-states\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\empty-state-guard-contract-d698f-ering-keeps-original-states\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\empty-state-guard-contracts.spec.ts:6:1 › T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution 
+    tests\e2e\empty-state-guard-contracts.spec.ts:14:1 › T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states 
+  2 passed (1.2m)

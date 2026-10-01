@@ -1,0 +1,45 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/native-media-state-contracts.spec.ts::T44 M11 actual original download read failure reports download error and retries only the same local bytes",
+      "file": "tests/e2e/native-media-state-contracts.spec.ts",
+      "title": "T44 M11 actual original download read failure reports download error and retries only the same local bytes",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 25,
+          "column": 218
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 25,
+          "column": 95
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 26,
+          "column": 59
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

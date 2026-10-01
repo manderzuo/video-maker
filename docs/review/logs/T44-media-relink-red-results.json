@@ -1,0 +1,55 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/native-media-state-contracts.spec.ts::T44 M04/M06/M10 same-hash native file restoration clears the old decoder failure and permits explicit local playback",
+      "file": "tests/e2e/native-media-state-contracts.spec.ts",
+      "title": "T44 M04/M06/M10 same-hash native file restoration clears the old decoder failure and permits explicit local playback",
+      "status": "failed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 44,
+          "column": 210
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 44,
+          "column": 319
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 45,
+          "column": 217
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 44,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/native-media-state-contracts.spec.ts",
+          "line": 45,
+          "column": 2
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

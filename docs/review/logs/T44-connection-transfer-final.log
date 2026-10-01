@@ -1,0 +1,17 @@
+[WebServer] (node:21276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:5172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\connection-error-state-contracts.spec.ts:8:1 › T44 K01/K02 invalid address and native address save quota keep original profiles and task ownership without a request (1.4s)
+  ok 2 tests\e2e\connection-error-state-contracts.spec.ts:12:1 › T44 W05/K04/K07 real readonly HTTP rejection clears the ordinary Key and creates no verified binding or generation (1.3s)
+  ok 3 tests\e2e\connection-error-state-contracts.spec.ts:16:1 › T44 K08 actual readonly model refresh failure marks the old catalog stale without rewriting original authorization or task identities (1.4s)
+  ok 4 tests\e2e\connection-error-state-contracts.spec.ts:20:1 › T44 K10 public configuration download failure preserves sources and permits only an explicit local export retry (1.4s)
+  ok 5 tests\e2e\settings-transfer-fault-contracts.spec.ts:8:1 › T44 D09/D10 native configuration read failure and pending export preserve old tasks and disable both transfer controls (1.2s)
+  ok 6 tests\e2e\settings-transfer-fault-contracts.spec.ts:13:1 › T44 D10 native imported connection quota leaves old ownership intact and a real retry stays busy until acknowledgement (1.3s)
+
+  6 passed (11.3s)

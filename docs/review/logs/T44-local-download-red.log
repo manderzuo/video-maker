@@ -1,0 +1,86 @@
+[WebServer] (node:5516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:20976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\local-download-fault-contracts.spec.ts:7:1 › T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry (6.4s)
+(node:27260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\local-download-fault-contracts.spec.ts:12:1 › T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records (6.3s)
+
+
+  1) tests\e2e\local-download-fault-contracts.spec.ts:7:1 › T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('alert')
+    Expected: [32m"提示词导出未完成；原条目保留，请检查浏览器下载权限后重试。"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('alert')[22m
+
+
+       6 |
+       7 | test('T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry',async({page,networkCounter})=>{
+    >  8 |  await page.goto('/prompts');await page.evaluate(async()=>{const p='/tests/fixtures/prompt-library.ts';await (await import(p)).seedPromptLibrary();});await page.reload();await expect(page.getByRole('button',{name:'导出所选提示词',exact:true})).toBeDisabled();await page.getByLabel('选择 品牌模板',{exact:true}).check();const before=await records(page);await denyNextDownload(page);await page.getByRole('button',{name:'导出所选提示词',exact:true}).click();await expect(page.getByRole('alert')).toHaveText('提示词导出未完成；原条目保留，请检查浏览器下载权限后重试。');expect(await records(page)).toEqual(before);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+       9 |  const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出所选提示词',exact:true}).click();const download=await pending,data=JSON.parse((await readFile((await download.path())!)).toString());expect(data.entries[0].body).toBe(before[4].find((entry:{id:string})=>entry.id==='template').body);expect(data.entries[0].source).toBe('用户提供的测试来源');expect(await records(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+      10 | });
+      11 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\local-download-fault-contracts.spec.ts:8:474
+
+    Error Context: test-results\local-download-fault-contr-38760-entry-before-explicit-retry\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\local-download-fault-contr-38760-entry-before-explicit-retry\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\local-download-fault-contr-38760-entry-before-explicit-retry\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\local-download-fault-contracts.spec.ts:12:1 › T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: 'CSV导出未完成；原任务记录保留，请检查浏览器下载权限后重试。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: 'CSV导出未完成；原任务记录保留，请检查浏览器下载权限后重试。' })[22m
+
+
+      11 |
+      12 | test('T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records',async({page,networkCounter})=>{
+    > 13 |  await page.goto('/tasks');await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';await (await import(p)).seedTaskHistory();});await page.reload();await expect(page.getByTestId('video-run-1')).toBeVisible();const before=await records(page);await denyNextDownload(page);await page.getByRole('button',{name:'导出脱敏CSV',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'CSV导出未完成；原任务记录保留，请检查浏览器下载权限后重试。'})).toBeVisible();expect(await records(page)).toEqual(before);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      14 |  const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出脱敏CSV',exact:true}).click();const download=await pending,csv=(await readFile((await download.path())!)).toString();expect(csv).toContain('video-run-unknown');expect(csv).not.toContain('fake-task-key');expect(await records(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+      15 | });
+      16 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\local-download-fault-contracts.spec.ts:13:445
+
+    Error Context: test-results\local-download-fault-contr-a8dcf-ecution-and-billing-records\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\local-download-fault-contr-a8dcf-ecution-and-billing-records\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\local-download-fault-contr-a8dcf-ecution-and-billing-records\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\local-download-fault-contracts.spec.ts:7:1 › T44 L11 actual browser download failure reports an honest error and keeps every source entry before explicit retry 
+    tests\e2e\local-download-fault-contracts.spec.ts:12:1 › T44 J09 actual browser CSV download refusal does not claim success or alter original execution and billing records 

@@ -1,0 +1,16 @@
+[WebServer] (node:2984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:20740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-read-fault-contracts.spec.ts:6:1 › T44 PG01/PG02/T06 actual native draft discovery failure preserves graph and rejects opening rather than creating a fee (1.2s)
+  ok 2 tests\e2e\prompt-read-fault-contracts.spec.ts:12:1 › T44 PG03 actual native existing draft read failure in type navigation retains both draft kinds and exposes no execution (1.2s)
+  ok 3 tests\e2e\prompt-read-fault-contracts.spec.ts:16:1 › T44 PG06/PG07/PG09 native reference read and role or removal saves fail without changing original references or Runs (1.6s)
+  ok 4 tests\e2e\prompt-read-fault-contracts.spec.ts:23:1 › T44 PG31 actual native history snapshot read and restoration commit failures preserve both saved versions and current input (1.3s)
+  ok 5 tests\e2e\prompt-read-fault-contracts.spec.ts:28:1 › T44 PG17/PG18 native pre-dispatch PromptRun quota produces zero HTTP calls and preserves original writing draft (1.4s)
+
+  5 passed (9.9s)

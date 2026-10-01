@@ -1,0 +1,14 @@
+[WebServer] (node:17768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:11716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\native-storage-state-contracts.spec.ts:6:1 › T44 D01/D02/D06 actual native persistence outcome is held for busy controls and remains truthful after reload (1.9s)
+  ok 2 tests\e2e\native-storage-state-contracts.spec.ts:16:1 › T44 D01 actual native summary read failure can explicitly retry without deleting originals or tasks (1.3s)
+  ok 3 tests\e2e\native-storage-state-contracts.spec.ts:21:1 › T44 D06 native cleanup commit failure rolls back removed thumbnail and preserves every source and Run before explicit retry (1.8s)
+
+  3 passed (8.0s)

@@ -1,0 +1,422 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-read-fault-contracts.spec.ts::T44 PG01/PG02/T06 actual native draft discovery failure preserves graph and rejects opening rather than creating a fee",
+      "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+      "title": "T44 PG01/PG02/T06 actual native draft discovery failure preserves graph and rejects opening rather than creating a fee",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 7,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 38
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 224
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 224
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 224
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-read-fault-contracts.spec.ts::T44 PG03 actual native existing draft read failure in type navigation retains both draft kinds and exposes no execution",
+      "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+      "title": "T44 PG03 actual native existing draft read failure in type navigation retains both draft kinds and exposes no execution",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 266
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 466
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 529
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 581
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 420
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-read-fault-contracts.spec.ts::T44 PG06/PG07/PG09 native reference read and role or removal saves fail without changing original references or Runs",
+      "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+      "title": "T44 PG06/PG07/PG09 native reference read and role or removal saves fail without changing original references or Runs",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 753
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 811
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 261
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 461
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 20,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 20,
+          "column": 207
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 20,
+          "column": 258
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 576
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 192
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 340
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 415
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 20,
+          "column": 49
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 20,
+          "column": 113
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-read-fault-contracts.spec.ts::T44 PG31 actual native history snapshot read and restoration commit failures preserve both saved versions and current input",
+      "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+      "title": "T44 PG31 actual native history snapshot read and restoration commit failures preserve both saved versions and current input",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 24,
+          "column": 331
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 24,
+          "column": 656
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 24,
+          "column": 714
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 431
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 466
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 506
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 558
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 24,
+          "column": 271
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 24,
+          "column": 432
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 24,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 348
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-read-fault-contracts.spec.ts::T44 PG17/PG18 native pre-dispatch PromptRun quota produces zero HTTP calls and preserves original writing draft",
+      "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+      "title": "T44 PG17/PG18 native pre-dispatch PromptRun quota produces zero HTTP calls and preserves original writing draft",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 29,
+          "column": 266
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 29,
+          "column": 596
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 30,
+          "column": 393
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 30,
+          "column": 504
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 30,
+          "column": 554
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 30,
+          "column": 606
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 30,
+          "column": 665
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 29,
+          "column": 453
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 29,
+          "column": 671
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 29,
+          "column": 762
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 29,
+          "column": 820
+        },
+        {
+          "file": "tests/e2e/prompt-read-fault-contracts.spec.ts",
+          "line": 30,
+          "column": 347
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+[WebServer] (node:27220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\native-media-state-contracts.spec.ts:24:1 › T44 M11 actual original download read failure reports download error and retries only the same local bytes (6.5s)
+
+
+  1) tests\e2e\native-media-state-contracts.spec.ts:24:1 › T44 M11 actual original download read failure reports download error and retries only the same local bytes 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  getByRole('alert')
+    Expected: [32m"[7m原素材下载失败，请重新读取或关联本地文件；素材与任务记录保留[27m。"[39m
+    Received: [31m"[7m操作失败，修改尚未保存，请检查名称、标签限制或本地空间[27m。"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('alert')[22m
+    [2m    9 × locator resolved to <p role="alert">操作失败，修改尚未保存，请检查名称、标签限制或本地空间。</p>[22m
+    [2m      - unexpected value "操作失败，修改尚未保存，请检查名称、标签限制或本地空间。"[22m
+
+
+      24 | test('T44 M11 actual original download read failure reports download error and retries only the same local bytes',async({page,networkCounter})=>{
+      25 |  const before=await stored(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await expect(page.getByRole('complementary',{name:'素材详情',exact:true}).getByRole('img',{name:'参考.png',exact:true})).toBeVisible();await page.evaluate(()=>{const original=IDBObjectStore.prototype.get;let armed=true;IDBObjectStore.prototype.get=function(...args:Parameters<typeof original>){if(armed&&this.name==='blobs'){armed=false;throw new DOMException('native-download-read-denied','UnknownError');}return original.apply(this,args);};});
+    > 26 |  await page.getByRole('button',{name:'下载原素材',exact:true}).click();await expect(page.getByRole('alert')).toHaveText('原素材下载失败，请重新读取或关联本地文件；素材与任务记录保留。');expect(await stored(page)).toEqual(before);
+         |                                                                                                         ^
+      27 |  const pending=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();const download=await pending;expect(download.suggestedFilename()).toBe('参考.png');const bytes=await readFile((await download.path())!);expect(bytes.length).toBe(before.assets.find((row:{title:string})=>row.title==='参考.png').bytes);expect(await stored(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+      28 | });
+      29 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\native-media-state-contracts.spec.ts:26:105
+
+    Error Context: test-results\native-media-state-contrac-bc5bf-s-only-the-same-local-bytes\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\native-media-state-contrac-bc5bf-s-only-the-same-local-bytes\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\native-media-state-contrac-bc5bf-s-only-the-same-local-bytes\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\native-media-state-contracts.spec.ts:24:1 › T44 M11 actual original download read failure reports download error and retries only the same local bytes 

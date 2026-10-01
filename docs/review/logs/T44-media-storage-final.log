@@ -1,0 +1,53 @@
+[WebServer] (node:18224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:19552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\native-media-state-contracts.spec.ts:8:1 › T44 M04/M06 actual native decoder failure disables playback and seek without changing original identity or graph (2.0s)
+  ok 2 tests\e2e\native-media-state-contracts.spec.ts:19:1 › T44 M03 actual image Blob read failure keeps preview dismissible and permits an explicit reopening retry (1.3s)
+  ok 3 tests\e2e\native-media-state-contracts.spec.ts:24:1 › T44 M11 actual original download read failure reports download error and retries only the same local bytes (1.4s)
+  ok 4 tests\e2e\native-media-state-contracts.spec.ts:30:1 › T44 M05 actual native mute and volume survive SPA navigation only and do not enter creative storage (1.8s)
+  ok 5 tests\e2e\native-storage-state-contracts.spec.ts:6:1 › T44 D01/D02/D06 actual native persistence outcome is held for busy controls and remains truthful after reload (1.7s)
+  ok 6 tests\e2e\native-storage-state-contracts.spec.ts:16:1 › T44 D01 actual native summary read failure can explicitly retry without deleting originals or tasks (1.2s)
+  x  7 tests\e2e\native-storage-state-contracts.spec.ts:21:1 › T44 D06 native cleanup commit failure rolls back removed thumbnail and preserves every source and Run before explicit retry (6.4s)
+
+
+  1) tests\e2e\native-storage-state-contracts.spec.ts:21:1 › T44 D06 native cleanup commit failure rolls back removed thumbnail and preserves every source and Run before explicit retry 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: '已清理 1 项' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: '已清理 1 项' })[22m
+
+
+      22 |  const before=await state(page);await page.getByRole('button',{name:'清理可重建缩略图',exact:true}).click();await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='diagnostics'){armed=false;throw new DOMException('native-cleanup-quota','QuotaExceededError');}return original.apply(this,args);};});
+      23 |  const dialog=page.getByRole('dialog',{name:'清理缩略图缓存',exact:true});await dialog.getByRole('button',{name:'确认清理缩略图',exact:true}).click();await expect(page.getByRole('alert')).toHaveText('清理事务未完成，原文件与任务保留。');await expect(dialog).toBeVisible();expect(await state(page)).toEqual(before);
+    > 24 |  await dialog.getByRole('button',{name:'确认清理缩略图',exact:true}).click();await expect(dialog).toHaveCount(0);await expect(page.getByRole('status').filter({hasText:'已清理 1 项'})).toBeVisible();const after=await state(page);expect(after.assets).toEqual(before.assets);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.blobs).toEqual(before.blobs.filter((row:{id:string})=>row.id!=='thumbnail:state-contract'));await page.reload();await expect(page.getByRole('button',{name:'清理可重建缩略图',exact:true})).toBeDisabled();expect(await state(page)).toEqual(after);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                              ^
+      25 | });
+      26 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\native-storage-state-contracts.spec.ts:24:174
+
+    Error Context: test-results\native-storage-state-contr-66575-d-Run-before-explicit-retry\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\native-storage-state-contr-66575-d-Run-before-explicit-retry\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\native-storage-state-contr-66575-d-Run-before-explicit-retry\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\native-storage-state-contracts.spec.ts:21:1 › T44 D06 native cleanup commit failure rolls back removed thumbnail and preserves every source and Run before explicit retry 
+  6 passed (19.0s)

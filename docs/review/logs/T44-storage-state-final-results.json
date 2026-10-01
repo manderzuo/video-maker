@@ -1,0 +1,276 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/native-storage-state-contracts.spec.ts::T44 D01/D02/D06 actual native persistence outcome is held for busy controls and remains truthful after reload",
+      "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+      "title": "T44 D01/D02/D06 actual native persistence outcome is held for busy controls and remains truthful after reload",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 4,
+          "column": 562
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 8,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 8,
+          "column": 170
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 9,
+          "column": 108
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 9,
+          "column": 108
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 9,
+          "column": 108
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 11,
+          "column": 119
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 11,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 11,
+          "column": 248
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 11,
+          "column": 293
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 12,
+          "column": 133
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 12,
+          "column": 182
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 12,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 12,
+          "column": 279
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 8,
+          "column": 60
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/native-storage-state-contracts.spec.ts::T44 D01 actual native summary read failure can explicitly retry without deleting originals or tasks",
+      "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+      "title": "T44 D01 actual native summary read failure can explicitly retry without deleting originals or tasks",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 4,
+          "column": 562
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 164
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 284
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 351
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 443
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 18,
+          "column": 238
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/native-storage-state-contracts.spec.ts::T44 D06 native cleanup commit failure rolls back removed thumbnail and preserves every source and Run before explicit retry",
+      "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+      "title": "T44 D06 native cleanup commit failure rolls back removed thumbnail and preserves every source and Run before explicit retry",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 4,
+          "column": 562
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 23,
+          "column": 175
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 23,
+          "column": 228
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 23,
+          "column": 268
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 193
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 258
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 342
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 383
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 574
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 615
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 666
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 22,
+          "column": 279
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 23,
+          "column": 129
+        },
+        {
+          "file": "tests/e2e/native-storage-state-contracts.spec.ts",
+          "line": 24,
+          "column": 63
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

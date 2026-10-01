@@ -1,0 +1,2589 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16 different content confirmation creates a new asset and retains original graph and source",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16 different content confirmation creates a new asset and retains original graph and source",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 589
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 638
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 790
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 855
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 939
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 975
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 1088
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 2,
+          "column": 715
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16 input replacement previews downstream then changes draft binding with historical Run unchanged",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16 input replacement previews downstream then changes draft binding with historical Run unchanged",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1449
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1579
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1627
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1682
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 2180
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 2243
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 2340
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 2384
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1190
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1256
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1366
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1533
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1759
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1823
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1892
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 1958
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 2068
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 3,
+          "column": 2172
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16 player cleanup: hiding active media pauses the detached element and releases its object URL",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16 player cleanup: hiding active media pauses the detached element and releases its object URL",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 4,
+          "column": 725
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 4,
+          "column": 856
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 4,
+          "column": 972
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 4,
+          "column": 179
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 4,
+          "column": 667
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16 tags and metadata: shared limits reject invalid tags and stale undo instead of overwriting",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16 tags and metadata: shared limits reject invalid tags and stale undo instead of overwriting",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 442
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 650
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 1245
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 1347
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 211
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 262
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 341
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 508
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 577
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 5,
+          "column": 1199
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 237
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 595
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 662
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 728
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 784
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 841
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 1444
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 1490
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 6,
+          "column": 1541
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16 readonly target: insert is blocked by another writer without creating nodes or media",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16 readonly target: insert is blocked by another writer without creating nodes or media",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 7,
+          "column": 586
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 7,
+          "column": 632
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 7,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 7,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 7,
+          "column": 540
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16-C01/C02: native audio is initially muted without autoplay and only one player stays active",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16-C01/C02: native audio is initially muted without autoplay and only one player stays active",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 170
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 313
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 390
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 514
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 692
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 764
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 955
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 1017
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 382
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 580
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 10,
+          "column": 754
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 253
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 442
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 693
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 174
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 316
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 378
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 517
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 545
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 11,
+          "column": 624
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16-C03: same hash restores original identity; same filename with different content does not replace silently",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16-C03: same hash restores original identity; same filename with different content does not replace silently",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 1415
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 1464
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 1612
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 612
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 803
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 1237
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 12,
+          "column": 1570
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 454
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 546
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 791
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 200
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 251
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 307
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 13,
+          "column": 714
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-library.spec.ts::T16-M03/M08: image fit/original preview and insertion only adds an asset node",
+      "file": "tests/e2e/asset-library.spec.ts",
+      "title": "T16-M03/M08: image fit/original preview and insertion only adds an asset node",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 722
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 832
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 888
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 945
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 178
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 446
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 546
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 611
+        },
+        {
+          "file": "tests/e2e/asset-library.spec.ts",
+          "line": 14,
+          "column": 714
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+      "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+      "title": "T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+      "status": "passed",
+      "assertions": 19,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 427
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 664
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 711
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 798
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 832
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 991
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1498
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1539
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1591
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1668
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1747
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1797
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 503
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 642
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/dialog-busy-contracts.spec.ts::T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed",
+      "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+      "title": "T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 561
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 810
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 857
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 989
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1070
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1149
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1221
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1691
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1726
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1765
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1834
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1917
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1996
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 2047
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1184
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/dialog-busy-contracts.spec.ts::T44 D03 actual immediate save native quota retains latest editable text, original graph and Run without pretending persistence succeeded",
+      "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+      "title": "T44 D03 actual immediate save native quota retains latest editable text, original graph and Run without pretending persistence succeeded",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 422
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 1413
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 1525
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 1606
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 1693
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 2136
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 2430
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 2477
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 1338
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 5,
+          "column": 1405
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+      "file": "tests/e2e/project-busy-contracts.spec.ts",
+      "title": "T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 525
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 786
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 869
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1404
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1444
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1511
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1555
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1667
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1745
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1795
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 413
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 517
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 2,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 2,
+          "column": 355
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 2,
+          "column": 588
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 2,
+          "column": 198
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 2,
+          "column": 486
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 2,
+          "column": 514
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 3,
+          "column": 745
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 3,
+          "column": 791
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 3,
+          "column": 941
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 3,
+          "column": 663
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 3,
+          "column": 879
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 L09: apply requires old/new diff and refuses a stale project revision",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 L09: apply requires old/new diff and refuses a stale project revision",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 521
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 1305
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 1379
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 1431
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 157
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 284
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 4,
+          "column": 1257
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 566
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 891
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 981
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 1069
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 1182
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 331
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 641
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 5,
+          "column": 1137
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 6,
+          "column": 555
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 6,
+          "column": 623
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 6,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 6,
+          "column": 339
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 6,
+          "column": 417
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 6,
+          "column": 493
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 source preferences: disable survives refresh and removing source cache preserves user entries",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 source preferences: disable survives refresh and removing source cache preserves user entries",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 366
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 550
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 742
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 178
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 456
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 7,
+          "column": 697
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 535
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 1214
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 1293
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 1379
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 192
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 369
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 473
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 612
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 718
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 897
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 8,
+          "column": 1163
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 338
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 466
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 670
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 738
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 862
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 926
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 1028
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 1108
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 1164
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 207
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 399
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 11,
+          "column": 662
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17-C04: create validates tag lengths/count and persists only after explicit save",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17-C04: create validates tag lengths/count and persists only after explicit save",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 516
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 567
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 997
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 1098
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 163
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 388
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 468
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 629
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 742
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 849
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 12,
+          "column": 922
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 523
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 692
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 756
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 862
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 943
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 1076
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 274
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 13,
+          "column": 684
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17-C06/L05: local debounced search and source management do not automatically load remote sources",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17-C06/L05: local debounced search and source management do not automatically load remote sources",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 14,
+          "column": 254
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 14,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 14,
+          "column": 491
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 14,
+          "column": 182
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 14,
+          "column": 325
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 248
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 507
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 988
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 1084
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 678
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 778
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 845
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 15,
+          "column": 926
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library.spec.ts::T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating",
+      "file": "tests/e2e/prompt-library.spec.ts",
+      "title": "T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 537
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 601
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 653
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 697
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 276
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/prompt-library.spec.ts",
+          "line": 16,
+          "column": 529
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 287
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 488
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 548
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 755
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 815
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 891
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 433
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 619
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 672
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 333
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 467
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 503
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 553
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 823
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 898
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 630
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 785
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1002
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1190
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1297
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1374
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 642
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 642
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 642
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 710
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34-C06: local completed archive hides presentation but never removes Run or unknown history",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34-C06: local completed archive hides presentation but never removes Run or unknown history",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 285
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 407
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 518
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 688
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 788
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 865
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 223
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 345
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 CSV: actual native export prevents title formula injection and omits request body and ordinary Key",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 CSV: actual native export prevents title formula injection and omits request body and ordinary Key",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 637
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 678
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 721
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 755
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 354
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 442
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 848
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 923
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 744
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34: original-bound ongoing task keeps polling after project archive and UI kind filtering, zero new POST",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34: original-bound ongoing task keeps polling after project archive and UI kind filtering, zero new POST",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 948
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 1159
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 1246
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 1030
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 unknown recovery: no invented task identity or replay, nested dialog Escape returns to the original row",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 unknown recovery: no invented task identity or replay, nested dialog Escape returns to the original row",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 462
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 544
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 692
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 322
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 579
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+      "status": "passed",
+      "assertions": 27,
+      "actions": 17,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2006
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2088
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2156
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2740
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2967
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3123
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3162
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3461
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3528
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4505
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5069
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5114
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5243
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5417
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5532
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1633
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1694
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1781
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1836
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1925
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2238
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2291
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2368
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2555
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2666
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3379
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3614
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3817
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4050
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4101
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4170
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4259
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

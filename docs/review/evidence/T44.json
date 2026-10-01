@@ -1,6 +1,6 @@
 {
   "taskId": "T44",
-  "status": "实施中：313项浏览器回归全部通过；完整状态142项通过、176条缺口；待统一验收与独立审查",
+  "status": "实施中：最新完整状态206项通过、71条缺口；待统一验收与独立审查",
   "baseCommit": "6d8e5b5f56c9151dbc79fe76c3de96c0971cbdfd",
   "headCommit": null,
   "branch": "feat/aiwork-studio",
@@ -19,8 +19,8 @@
     "interactionsWithSomeProof": 260,
     "pagesWithSomeProof": 23,
     "dialogsWithSomeProof": 30,
-    "interactionsAllFacetsPassed": 142,
-    "coverageErrors": 176,
+    "interactionsAllFacetsPassed": 206,
+    "coverageErrors": 71,
     "allFacetsPassed": false
   },
   "commands": [
@@ -373,6 +373,222 @@
       "skipped": 0,
       "logPath": "docs/review/logs/T44-checkpoint6-full-browser.log",
       "results": "docs/review/logs/T44-checkpoint6-full-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-seek-red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-seek-red.log",
+      "results": "docs/review/logs/T44-media-seek-red-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-state-green",
+      "exitCode": 1,
+      "passed": 11,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-state-green.log",
+      "results": "docs/review/logs/T44-media-state-green-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-state-final",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-state-final.log",
+      "results": "docs/review/logs/T44-media-state-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-download-red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-download-red.log",
+      "results": "docs/review/logs/T44-media-download-red-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-storage-final",
+      "exitCode": 1,
+      "passed": 6,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-storage-final.log",
+      "results": "docs/review/logs/T44-media-storage-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: storage-state-final",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-storage-state-final.log",
+      "results": "docs/review/logs/T44-storage-state-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: native-media-input-final",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-native-media-input-final.log",
+      "results": "docs/review/logs/T44-native-media-input-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: asset-busy",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-asset-busy.log",
+      "results": "docs/review/logs/T44-asset-busy-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: ai-recovery-pending",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-ai-recovery-pending.log",
+      "results": "docs/review/logs/T44-ai-recovery-pending-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: local-download-red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-local-download-red.log",
+      "results": "docs/review/logs/T44-local-download-red-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: local-download-parser-final",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-local-download-parser-final.log",
+      "results": "docs/review/logs/T44-local-download-parser-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: prompt-native-reads",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-prompt-native-reads.log",
+      "results": "docs/review/logs/T44-prompt-native-reads-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: activity-native",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-activity-native.log",
+      "results": "docs/review/logs/T44-activity-native-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: checkpoint7-related",
+      "exitCode": 0,
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-checkpoint7-related.log",
+      "results": "docs/review/logs/T44-checkpoint7-related-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: native-media-screenshot",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-native-media-screenshot.log",
+      "results": "docs/review/logs/T44-native-media-screenshot-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: empty-state",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-empty-state.log",
+      "results": "docs/review/logs/T44-empty-state-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: empty-state-final",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-empty-state-final.log",
+      "results": "docs/review/logs/T44-empty-state-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: connection-error",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-connection-error.log",
+      "results": "docs/review/logs/T44-connection-error-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: connection-storage-final",
+      "exitCode": 1,
+      "passed": 11,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-connection-storage-final.log",
+      "results": "docs/review/logs/T44-connection-storage-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: connection-transfer-final",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-connection-transfer-final.log",
+      "results": "docs/review/logs/T44-connection-transfer-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-relink-red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-relink-red.log",
+      "results": "docs/review/logs/T44-media-relink-red-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: media-relink-green",
+      "exitCode": 0,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-media-relink-green.log",
+      "results": "docs/review/logs/T44-media-relink-green-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: k07-binding",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-k07-binding.log",
+      "results": "docs/review/logs/T44-k07-binding-results.json"
+    },
+    {
+      "command": "Playwright Chromium targeted local browser regression: package-empty",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-package-empty.log",
+      "results": "docs/review/logs/T44-package-empty-results.json"
     }
   ],
   "implemented": [
@@ -403,7 +619,7 @@
     "用户统一验收、全视觉与独立审查待进行；前端标识许可仍为发布门槛。",
     "构建通过但约842kB主包大于500kB警告，T46需代码拆分，不提高警告上限。"
   ],
-  "next": "继续补齐T44的176条状态缺口；313项最新全量浏览器已退出0。完成严格门槛后顺序T45–T50，保留用户统一验收、独立审查与许可门槛。",
+  "next": "继续补齐T44的71条缺口；严格门槛与最终全量回归通过后顺序T45–T50；不把实施者自检写为独立审查。",
   "files": [
     "docs/review/EXECUTION_PROGRESS.md",
     "docs/review/IMPLEMENTATION_STATUS.json",
@@ -870,7 +1086,7 @@
     "tests/unit/network-evidence.test.ts",
     "tests/unit/queue-withdrawal.test.ts"
   ],
-  "checkpointBeforeCommit": "139c63a5689496a3193ddfee79fc32089b88ef2b",
+  "checkpointBeforeCommit": "45819a3bb70562a462f301b2fde4891816833af4",
   "screenshotInspection": {
     "inspected": [
       "docs/review/screenshots/T44-comparison.png",
@@ -949,6 +1165,276 @@
     },
     "screenshotInspected": "docs/review/screenshots/T44-native-paste.png",
     "userVisualApproval": false,
+    "independentReview": false
+  },
+  "checkpoint7": {
+    "date": "2026-10-01T08:29:54.114Z",
+    "commands": [
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-seek-red",
+        "exitCode": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-seek-red.log",
+        "results": "docs/review/logs/T44-media-seek-red-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-state-green",
+        "exitCode": 1,
+        "passed": 11,
+        "failed": 2,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-state-green.log",
+        "results": "docs/review/logs/T44-media-state-green-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-state-final",
+        "exitCode": 0,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-state-final.log",
+        "results": "docs/review/logs/T44-media-state-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-download-red",
+        "exitCode": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-download-red.log",
+        "results": "docs/review/logs/T44-media-download-red-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-storage-final",
+        "exitCode": 1,
+        "passed": 6,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-storage-final.log",
+        "results": "docs/review/logs/T44-media-storage-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: storage-state-final",
+        "exitCode": 0,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-storage-state-final.log",
+        "results": "docs/review/logs/T44-storage-state-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: native-media-input-final",
+        "exitCode": 0,
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-native-media-input-final.log",
+        "results": "docs/review/logs/T44-native-media-input-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: asset-busy",
+        "exitCode": 0,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-asset-busy.log",
+        "results": "docs/review/logs/T44-asset-busy-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: ai-recovery-pending",
+        "exitCode": 0,
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-ai-recovery-pending.log",
+        "results": "docs/review/logs/T44-ai-recovery-pending-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: local-download-red",
+        "exitCode": 1,
+        "passed": 0,
+        "failed": 2,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-local-download-red.log",
+        "results": "docs/review/logs/T44-local-download-red-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: local-download-parser-final",
+        "exitCode": 0,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-local-download-parser-final.log",
+        "results": "docs/review/logs/T44-local-download-parser-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: prompt-native-reads",
+        "exitCode": 0,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-prompt-native-reads.log",
+        "results": "docs/review/logs/T44-prompt-native-reads-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: activity-native",
+        "exitCode": 0,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-activity-native.log",
+        "results": "docs/review/logs/T44-activity-native-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: checkpoint7-related",
+        "exitCode": 0,
+        "passed": 36,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-checkpoint7-related.log",
+        "results": "docs/review/logs/T44-checkpoint7-related-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: native-media-screenshot",
+        "exitCode": 0,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-native-media-screenshot.log",
+        "results": "docs/review/logs/T44-native-media-screenshot-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: empty-state",
+        "exitCode": 1,
+        "passed": 2,
+        "failed": 2,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-empty-state.log",
+        "results": "docs/review/logs/T44-empty-state-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: empty-state-final",
+        "exitCode": 0,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-empty-state-final.log",
+        "results": "docs/review/logs/T44-empty-state-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: connection-error",
+        "exitCode": 1,
+        "passed": 3,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-connection-error.log",
+        "results": "docs/review/logs/T44-connection-error-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: connection-storage-final",
+        "exitCode": 1,
+        "passed": 11,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-connection-storage-final.log",
+        "results": "docs/review/logs/T44-connection-storage-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: connection-transfer-final",
+        "exitCode": 0,
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-connection-transfer-final.log",
+        "results": "docs/review/logs/T44-connection-transfer-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-relink-red",
+        "exitCode": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-relink-red.log",
+        "results": "docs/review/logs/T44-media-relink-red-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: media-relink-green",
+        "exitCode": 0,
+        "passed": 16,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-media-relink-green.log",
+        "results": "docs/review/logs/T44-media-relink-green-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: k07-binding",
+        "exitCode": 0,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-k07-binding.log",
+        "results": "docs/review/logs/T44-k07-binding-results.json"
+      },
+      {
+        "command": "Playwright Chromium targeted local browser regression: package-empty",
+        "exitCode": 0,
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-package-empty.log",
+        "results": "docs/review/logs/T44-package-empty-results.json"
+      }
+    ],
+    "staticChecks": {
+      "typecheck": 0,
+      "lint": 0,
+      "unit": {
+        "exitCode": 0,
+        "passed": 379,
+        "failed": 0,
+        "skipped": 0,
+        "files": 50
+      },
+      "build": {
+        "exitCode": 0,
+        "warning": "842.91kB main chunk exceeds 500kB; T46 code splitting pending"
+      },
+      "prefix": "docs/review/logs/T44-checkpoint7-current-"
+    },
+    "coverage": {
+      "exitCode": 1,
+      "complete": 206,
+      "errors": 71,
+      "log": "docs/review/logs/T44-checkpoint7-final-coverage.log"
+    },
+    "runtimeFixes": [
+      "Native decoder failure disables seek",
+      "Original local download failure uses download-specific feedback",
+      "Prompt JSON and task CSV denied downloads give explicit retry feedback",
+      "Same-hash replacement clears decoder state and old cleanup cannot delete newly rendered src"
+    ],
+    "validBehaviorRedRuns": [
+      "media-seek-red",
+      "media-download-red",
+      "local-download-red",
+      "media-relink-red"
+    ],
+    "testFixtureFailures": [
+      "media-state-green: wrong networkCounter.evidence access",
+      "media-storage-final: fixture has two removable thumbnails, not one",
+      "empty-state: selection checkbox lives in outline; filter option is failed_confirmed",
+      "connection-error and connection-storage-final: portable public URL normalizes trailing slash"
+    ],
+    "screenshot": {
+      "path": "docs/review/screenshots/T44-native-decode-disabled.png",
+      "actualRunningPage": true,
+      "viewedByImplementer": true,
+      "userApproved": false
+    },
+    "fullBrowserCaveat": "313-case checkpoint6 full run passed before the new runtime fixes; newest targeted 16-case media run and related 36-case run passed. New full run will follow remaining T44 fixes.",
+    "sourceBindingMissing": 0,
     "independentReview": false
   }
 }

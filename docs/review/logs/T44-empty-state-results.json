@@ -1,0 +1,222 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 T04/T05/PG01 actual empty text and multi-selection disable their inapplicable actions without an execution",
+      "status": "timedOut",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 261
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 342
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 426
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 7,
+          "column": 188
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 L01 actual new prompt has no save action until both name and body exist; project package export needs a local project",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 541
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 683
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1155
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1196
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1248
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 402
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 744
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 896
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 11,
+          "column": 1013
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states",
+      "status": "timedOut",
+      "assertions": 2,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 15,
+          "column": 271
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source",
+      "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+      "title": "T44 PG29/PG32 a real empty independent draft cannot clear or apply to a nonexistent source",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 496
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 577
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 656
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 718
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 751
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 784
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 836
+        },
+        {
+          "file": "tests/e2e/empty-state-guard-contracts.spec.ts",
+          "line": 19,
+          "column": 888
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}
