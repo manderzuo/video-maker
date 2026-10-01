@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "normalInterfaceFindings": [],
+  "legalAndMigrationExceptions": [
+    {
+      "file": "dist\\assets\\legacy-migration-C3yk2DxT.js",
+      "value": "infinite-canvas",
+      "offset": 17893,
+      "reason": "explicit isolated legacy import format"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 269,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "infinite-canvas",
+      "offset": 280,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "https://github.com/basketikun/infinite-canvas/tree/dab19adc0847e32e39b7fc8ff90cb392561fb826\\r",
+      "offset": 353,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 11179,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "https://github.com/basketikun/infinite-canvas/blob/main/LICENSE).",
+      "offset": 12480,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "https://github.com/basketikun/infinite-canvas/blob/main/LICENSE)。任何个人、团队和企业都可以免费、自由地使用本项目，没有使用场景和商业用途限制。\\r",
+      "offset": 13254,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 16526,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 16566,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "infinite-canvas",
+      "offset": 16592,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 16874,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 16914,
+      "reason": "explicit copyright/license text only"
+    },
+    {
+      "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+      "value": "basketikun",
+      "offset": 17701,
+      "reason": "explicit copyright/license text only"
+    }
+  ],
+  "sourceMaps": [],
+  "credentialFindings": [],
+  "frontendMarkAuthorization": "unresolved",
+  "formalReleaseApproved": false
+}

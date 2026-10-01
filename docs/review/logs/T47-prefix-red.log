@@ -1,0 +1,42 @@
+
+> aiwork-studio@0.0.1 test:distribution
+> playwright test --config playwright.distribution.config.ts --grep longest registered
+
+[WebServer] (node:21968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:23312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23312) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\distribution.spec.ts:9:1 › T47 fixed target selection honors the longest registered service prefix alongside the default service (79ms)
+
+
+  1) tests\e2e\distribution.spec.ts:9:1 › T47 fixed target selection honors the longest registered service prefix alongside the default service 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m200[39m
+    Received: [31m403[39m
+
+       9 | test('T47 fixed target selection honors the longest registered service prefix alongside the default service',async({networkCounter})=>{
+      10 |  const m=await import(runtimeModule),seen:string[]=[],a=createServer((req,res)=>{seen.push('a:'+req.url);res.setHeader('Content-Type','application/json');res.end('{"service":"a"}');}),b=createServer((req,res)=>{seen.push('b:'+req.url);res.setHeader('Content-Type','application/json');res.end('{"service":"b"}');}),oa=await listenLocal(a),ob=await listenLocal(b),entries=[{base:'/core-api',origin:oa,id:'a'},{base:'/core-api/registered/b',origin:ob,id:'b'}],runtime={...m.offlineRuntime,connections:entries.map(e=>({profile:{id:e.id,name:e.id,originSnapshot:e.origin,proxyBase:e.base,contractVersion:'mock'},contract:{version:'mock'}})),coreTargets:entries.map(e=>({proxyBase:e.base,origin:e.origin,allowWrites:false}))},server=m.createLocalServer({runtime}),origin=await listenLocal(server);
+    > 11 |  try{const registered=await rawLocalRequest(origin,'/core-api/registered/b/v1/models');expect(registered.status).toBe(200);expect(JSON.parse(registered.body)).toEqual({service:'b'});const original=await rawLocalRequest(origin,'/core-api/v1/models');expect(original.status).toBe(200);expect(JSON.parse(original.body)).toEqual({service:'a'});expect(seen).toEqual(['b:/v1/models','a:/v1/models']);expect(networkCounter.paidRequests).toHaveLength(0);}finally{await closeLocal(server);await closeLocal(a);await closeLocal(b);}
+         |                                                                                                                  ^
+      12 | });
+      13 | test('T47-C04 actual production build opens and refreshes its own nested routes without Core traffic',async({page,networkCounter})=>{
+      14 |  for(const path of ['/projects','/settings/storage','/help']){await page.goto(path);await page.reload();await expect(page.getByRole('link',{name:'AI WORK Studio',exact:true})).toBeVisible();await expect(page.getByText('由 Core 执行').first()).toHaveCount(0);expect(await page.locator('iframe').count()).toBe(0);}expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T47-production-help.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\distribution.spec.ts:11:114
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\distribution-T47-fixed-tar-a5b77-ongside-the-default-service\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\distribution-T47-fixed-tar-a5b77-ongside-the-default-service\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\distribution.spec.ts:9:1 › T47 fixed target selection honors the longest registered service prefix alongside the default service 

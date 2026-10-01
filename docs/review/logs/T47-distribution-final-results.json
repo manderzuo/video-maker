@@ -1,0 +1,1571 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47 fixed target selection honors the longest registered service prefix alongside the default service",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47 fixed target selection honors the longest registered service prefix alongside the default service",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 11,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 11,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 11,
+          "column": 274
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 11,
+          "column": 318
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 11,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 11,
+          "column": 431
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47-C04 actual production build opens and refreshes its own nested routes without Core traffic",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47-C04 actual production build opens and refreshes its own nested routes without Core traffic",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 177
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 177
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 177
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 14,
+          "column": 346
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47 Q02 production copyright dialog opens explicitly, retains original rights and returns focus without a default external channel",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47 Q02 production copyright dialog opens explicitly, retains original rights and returns focus without a default external channel",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 194
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 338
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 408
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 473
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 559
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 254
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 17,
+          "column": 436
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47-C01/C02/C07 artifact scanners reject promotion, counterfeit legal chunks, source maps, sentinel credentials and modified license copies",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47-C01/C02/C07 artifact scanners reject promotion, counterfeit legal chunks, source maps, sentinel credentials and modified license copies",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 21,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 21,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 21,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 21,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 31
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 186
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 229
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 284
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 412
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 496
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 22,
+          "column": 543
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47-C03/C05 actual fixed loopback proxy refuses raw traversal/admin, follows no redirect, strips Cookie and never retries a lost POST",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47-C03/C05 actual fixed loopback proxy refuses raw traversal/admin, follows no redirect, strips Cookie and never retries a lost POST",
+      "status": "passed",
+      "assertions": 20,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 253
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 381
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 28,
+          "column": 410
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 232
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 255
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 524
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 566
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 628
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 793
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 29,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 30,
+          "column": 336
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 30,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 30,
+          "column": 447
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47 offline ZIP has actual per-file and archive SHA256, complete licenses and starts from its extracted files without development dependencies",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47 offline ZIP has actual per-file and archive SHA256, complete licenses and starts from its extracted files without development dependencies",
+      "status": "passed",
+      "assertions": 205,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 34,
+          "column": 211
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 34,
+          "column": 495
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 34,
+          "column": 622
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 296
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 409
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 35,
+          "column": 465
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 36,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 37,
+          "column": 259
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 37,
+          "column": 346
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 37,
+          "column": 439
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 37,
+          "column": 554
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 40,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 40,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 40,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 40,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 40,
+          "column": 262
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47-C03 only loopback may be configured and foreign Host requests never render the application",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47-C03 only loopback may be configured and foreign Host requests never render the application",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 43,
+          "column": 142
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 43,
+          "column": 280
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 43,
+          "column": 326
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47-C06 runtime rejects credentials at every depth and browser runtime never exports a Key",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47-C06 runtime rejects credentials at every depth and browser runtime never exports a Key",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 46,
+          "column": 265
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 46,
+          "column": 265
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 46,
+          "column": 265
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 46,
+          "column": 383
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 46,
+          "column": 443
+        },
+        {
+          "file": "tests/e2e/distribution.spec.ts",
+          "line": 46,
+          "column": 521
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "taskId": "T47",
+  "status": "本地启动与离线发行包实施完成，自检通过；正式发布许可/Nginx部署核验/用户验收/独立审查待进行",
+  "complete": true,
+  "completionScope": "local implementation and automated self-check only",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "baseCommit": "2dcfb862b0612069a9a78251ae2e2cd455be02eb",
+  "headCommit": null,
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "userAcceptancePerformed": false,
+  "commands": [
+    {
+      "command": "playwright test --config playwright.distribution.config.ts (see log)",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 3,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-distribution-red-results.json",
+      "logPath": "docs/review/logs/T47-distribution-red.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts (see log)",
+      "exitCode": 1,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-runtime-green-results.json",
+      "logPath": "docs/review/logs/T47-runtime-green.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-distribution-native-results.json",
+      "logPath": "docs/review/logs/T47-distribution-native.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts --grep longest registered",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-prefix-red-results.json",
+      "logPath": "docs/review/logs/T47-prefix-red.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts",
+      "exitCode": 0,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-distribution-final-results.json",
+      "logPath": "docs/review/logs/T47-distribution-final.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-distribution-complete-results.json",
+      "logPath": "docs/review/logs/T47-distribution-complete.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts --grep credential aliases",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-runtime-alias-red-results.json",
+      "logPath": "docs/review/logs/T47-runtime-alias-red.log"
+    },
+    {
+      "command": "playwright test --config playwright.distribution.config.ts",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-distribution-final-all-results.json",
+      "logPath": "docs/review/logs/T47-distribution-final-all.log"
+    },
+    {
+      "command": "playwright test tests/e2e/app-shell.spec.ts tests/e2e/canvas-mcp.spec.ts tests/e2e/dialog-contracts.spec.ts",
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "resultPath": "docs/review/logs/T47-related-browser-results.json",
+      "logPath": "docs/review/logs/T47-related-browser.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-build.log"
+    },
+    {
+      "command": "npm run companion:build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-companion-build.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-final-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-final-lint.log"
+    },
+    {
+      "command": "node scripts/check-brand.mjs",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-brand-scan.log"
+    },
+    {
+      "command": "node scripts/check-license.mjs --collect --offline-review",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-license-collect.log"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T47-bundle-budget.log"
+    },
+    {
+      "command": "node --test tests/companion/mcp-runtime.test.mjs",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T47-mcp-bundle-regression.log"
+    },
+    {
+      "command": "node scripts/check-license.mjs",
+      "exitCode": 1,
+      "reason": "Formal release remains blocked by unresolved frontend mark permission; all license texts preserved",
+      "logPath": "docs/review/logs/T47-formal-license-gate.log"
+    },
+    {
+      "command": "scripts/start-canvas.ps1 -Port 0",
+      "exitCode": 0,
+      "resultPath": "docs/review/logs/T47-windows-entry-result.json",
+      "logPath": "docs/review/logs/T47-windows-startup.log"
+    },
+    {
+      "command": "node work/t44-current-gate.mjs docs/review/logs/T46-complete-browser-results.json docs/review/logs/T47-related-browser-results.json",
+      "exitCode": 0,
+      "interactions": 260,
+      "pages": 23,
+      "dialogs": 30,
+      "missing": 0,
+      "logPath": "docs/review/logs/T47-strict-coverage.log"
+    }
+  ],
+  "modifiedFiles": [
+    ".gitignore",
+    "package.json",
+    "tsconfig.json",
+    "playwright.config.ts",
+    "playwright.distribution.config.ts",
+    "vite.config.ts",
+    "companion/vite.config.ts",
+    "src/features/help/HelpPage.tsx",
+    "src/features/help/legal-notices.ts",
+    "scripts/serve-local.mjs",
+    "scripts/start-canvas.ps1",
+    "scripts/start-companion.ps1",
+    "scripts/package-release.mjs",
+    "scripts/check-brand.mjs",
+    "scripts/check-license.mjs",
+    "deploy/canvas-runtime.example.json",
+    "deploy/nginx-canvas.conf",
+    "docs/deployment.md",
+    "tests/e2e/distribution.spec.ts",
+    "tests/helpers/distribution-runtime.ts",
+    "third-party/runtime-licenses.json",
+    "third-party/licenses/runtime-fflate-0.8.2.LICENSE",
+    "third-party/licenses/runtime-react-19.2.8.LICENSE",
+    "third-party/licenses/runtime-react-dom-19.2.8.LICENSE",
+    "third-party/licenses/runtime-scheduler-0.27.0.LICENSE",
+    "third-party/licenses/runtime-zod-4.3.6.LICENSE",
+    "third-party/licenses/runtime-zustand-5.0.15.LICENSE"
+  ],
+  "screenshots": [
+    {
+      "path": "docs/review/screenshots/T47-production-persisted-project.png",
+      "actualRenderedPage": true,
+      "viewedByImplementer": true,
+      "userApproved": false
+    },
+    {
+      "path": "docs/review/screenshots/T47-production-help.png",
+      "actualRenderedPage": true,
+      "userApproved": false
+    }
+  ],
+  "artifact": "docs/review/logs/T47-distribution-package.json",
+  "limitations": [
+    "Current developer review ZIP is explicitly dirtySources=true and sourceCommit is the last committed baseline, not a formal source-aligned release; final handoff must regenerate from committed sources.",
+    "Nginx configuration is preparation only, not deployed or nginx -t validated; actual Host/Origin, TLS trust, body limits require production verification.",
+    "Frontend mark permission unresolved; formal license gate exit1.",
+    "Runtime proxy and Model/MCP transport use owned local mock processes and fake credentials; no real Core/fees, no model execution host configured.",
+    "An APIRequest encoded dot-segment case was normalized before arrival; fixture was corrected to encoded slash and raw Node HTTP traversal separately proved refusal.",
+    "Server CLI launches only localhost; no LAN, push, remote repository, deployment or production data used."
+  ],
+  "rulings": [
+    "Dedicated production Playwright configuration tests actual dist with the local launcher. Distribution tests are excluded from the Vite development suite and run separately by test:distribution; verify includes them after build.",
+    "Shared route-policy.ts is shipped unchanged for the builtin Node runtime; startup enforces Node22.18+ within22.x, actual verified runtime22.23.3.",
+    "Legal code block accepts only literal data matching retained copyright files; legacy format is allowed only in isolated legacy migration. No frontend mark permission inferred."
+  ],
+  "next": "T48 approval guard and explicitly unverified live record; no real business authorization. Then T49/T50 authorized local work."
+}

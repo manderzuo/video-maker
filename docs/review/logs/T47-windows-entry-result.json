@@ -1,0 +1,8 @@
+{
+  "ActualCommand": "scripts/start-canvas.ps1 -Port 0",
+  "LoopbackAddress": "http://127.0.0.1:53283",
+  "ProjectStatus": 200,
+  "UnknownApiStatus": 403,
+  "CoreConfigured": false,
+  "Passed": true
+}

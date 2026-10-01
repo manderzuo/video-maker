@@ -1,0 +1,29 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/distribution.spec.ts::T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata",
+      "file": "tests/e2e/distribution.spec.ts",
+      "title": "T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

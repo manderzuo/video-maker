@@ -1,0 +1,5 @@
+
+> aiwork-studio@0.0.1 package:review
+> node scripts/package-release.mjs --offline-review
+
+{"output":"artifacts\\aiwork-studio-offline-review-2dcfb86-7888668f0f6b.zip","sha256":"7888668f0f6be70eecba971770a2e9ca9f8868068759b3c2415c2174bdc59f86","bytes":384953,"kind":"offline-review","sourceCommit":"2dcfb862b0612069a9a78251ae2e2cd455be02eb","dirtySources":true,"releaseAllowed":false}

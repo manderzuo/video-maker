@@ -1,0 +1,167 @@
+{
+  "thresholdBytes": 500000,
+  "files": [
+    {
+      "file": "ActivityPage-Bt9FNzKm.js",
+      "bytes": 6135
+    },
+    {
+      "file": "apply-command-Dg1Y2uYA.js",
+      "bytes": 9004
+    },
+    {
+      "file": "AssetPreview-DLUkfe87.js",
+      "bytes": 4119
+    },
+    {
+      "file": "AssetsPage-lZhDAuO_.js",
+      "bytes": 18647
+    },
+    {
+      "file": "canvas-import-j5mEHHP8.js",
+      "bytes": 3239
+    },
+    {
+      "file": "CanvasPage-DjPtPCC8.js",
+      "bytes": 122132
+    },
+    {
+      "file": "ComparePage-CPfql_Gk.js",
+      "bytes": 3215
+    },
+    {
+      "file": "diagnostic-export-BuOB-MFD.js",
+      "bytes": 6112
+    },
+    {
+      "file": "fingerprint-C6-xfKii.js",
+      "bytes": 180
+    },
+    {
+      "file": "graph-validation-I34WMZXN.js",
+      "bytes": 2051
+    },
+    {
+      "file": "hash-worker-CwunAZM4.js",
+      "bytes": 356
+    },
+    {
+      "file": "HelpPage-DrF_1Haw.js",
+      "bytes": 3919
+    },
+    {
+      "file": "history-DV-P6qR7.js",
+      "bytes": 1849
+    },
+    {
+      "file": "import-project-CvDSTxXQ.js",
+      "bytes": 8590
+    },
+    {
+      "file": "index-rZmTx5sJ.js",
+      "bytes": 54006
+    },
+    {
+      "file": "legacy-migration-C3yk2DxT.js",
+      "bytes": 20874
+    },
+    {
+      "file": "legal-notices-DULDc9G1.js",
+      "bytes": 21508
+    },
+    {
+      "file": "object-url-pool-5YRcU3_1.js",
+      "bytes": 132
+    },
+    {
+      "file": "PackagePage-QiupoZvU.js",
+      "bytes": 11870
+    },
+    {
+      "file": "project-lease-BwsPjuy2.js",
+      "bytes": 3392
+    },
+    {
+      "file": "project-repository-GKV2Xcla.js",
+      "bytes": 7883
+    },
+    {
+      "file": "project-service-YFp9j6Fm.js",
+      "bytes": 10795
+    },
+    {
+      "file": "ProjectsPage-Cryf9qDN.js",
+      "bytes": 12384
+    },
+    {
+      "file": "PromptEditor-B7H-HuQn.js",
+      "bytes": 8416
+    },
+    {
+      "file": "PromptGeneratorPage-DiZ4JxfQ.js",
+      "bytes": 1928
+    },
+    {
+      "file": "PromptGeneratorPanel-VVvm47dQ.js",
+      "bytes": 85681
+    },
+    {
+      "file": "PromptsPage-B5Sttk2S.js",
+      "bytes": 14630
+    },
+    {
+      "file": "react-vendor-rQA_ESBx.js",
+      "bytes": 192363
+    },
+    {
+      "file": "RecoveryCenter-CyC_o4bv.js",
+      "bytes": 7557
+    },
+    {
+      "file": "redaction-DcPGZPVO.js",
+      "bytes": 1171
+    },
+    {
+      "file": "ResultPage-Cz0eQZKF.js",
+      "bytes": 3622
+    },
+    {
+      "file": "review-components-ABu-rw4-.js",
+      "bytes": 9925
+    },
+    {
+      "file": "RunMediaActions-B-mZw1lc.js",
+      "bytes": 8109
+    },
+    {
+      "file": "schema-vendor-DHwGgy8U.js",
+      "bytes": 72444
+    },
+    {
+      "file": "SettingsPage-ByzDbE5O.js",
+      "bytes": 27818
+    },
+    {
+      "file": "task-filters-CdSl-Fa3.js",
+      "bytes": 37176
+    },
+    {
+      "file": "TasksPage-Cwq6xcbm.js",
+      "bytes": 35984
+    },
+    {
+      "file": "Toast-BOsUXE-_.js",
+      "bytes": 383
+    },
+    {
+      "file": "TrashPage-Bv4KL8GX.js",
+      "bytes": 6427
+    },
+    {
+      "file": "zip-vendor-BK4ikTfh.js",
+      "bytes": 14243
+    }
+  ],
+  "oversized": [],
+  "passed": true
+}

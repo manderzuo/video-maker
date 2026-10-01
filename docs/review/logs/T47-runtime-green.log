@@ -1,0 +1,46 @@
+[WebServer] (node:25224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:11064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\distribution.spec.ts:4:1 › T47-C04 actual production build opens and refreshes its own nested routes without Core traffic (686ms)
+  x  2 tests\e2e\distribution.spec.ts:7:1 › T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server (147ms)
+(node:4444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\distribution.spec.ts:10:1 › T47-C03 only loopback may be configured and foreign Host requests never render the application (281ms)
+  ok 4 tests\e2e\distribution.spec.ts:13:1 › T47-C06 runtime rejects credentials at every depth and browser runtime never exports a Key (111ms)
+
+
+  1) tests\e2e\distribution.spec.ts:7:1 › T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+    Expected value: [32m200[39m
+    Received array: [31m[403, 404][39m
+
+       6 | });
+       7 | test('T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server',async({page,networkCounter})=>{
+    >  8 |  for(const path of ['/core-api/admin/v1/api-keys','/core-api/v1/finance','/core-api/https://business.invalid/','/core-api/%2e%2e/admin']){const reply=await page.request.get(path);expect([403,404]).toContain(reply.status());}expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                      ^
+       9 | });
+      10 | test('T47-C03 only loopback may be configured and foreign Host requests never render the application',async({page,networkCounter})=>{
+      11 |  const m=await import(runtimeModule);expect(()=>m.validateRuntime({schemaVersion:1,host:'0.0.0.0',port:4179,connections:[],coreTargets:[]})).toThrow('localhost_only');const reply=await page.request.get('/projects',{headers:{Host:'attacker.invalid:4179'}});expect(reply.status()).toBe(403);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\distribution.spec.ts:8:198
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\distribution-T47-C05-unkno-bae94-actual-local-startup-server\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\distribution-T47-C05-unkno-bae94-actual-local-startup-server\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\distribution.spec.ts:7:1 › T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server 
+  3 passed (4.8s)

@@ -1,5 +1,5 @@
 {
-  "currentTask": "T47",
+  "currentTask": "T48",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -367,7 +367,7 @@
     },
     {
       "evidenceFile": null,
-      "headCommit": null,
+      "headCommit": "2dcfb862b0612069a9a78251ae2e2cd455be02eb",
       "id": "T46",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
       "status": "本地实现完成，自检通过；视觉、人工IME/键盘、统一验收与独立审查待进行",
@@ -378,7 +378,7 @@
       "headCommit": null,
       "id": "T47",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
-      "status": "未开始",
+      "status": "本地启动与离线发行包实施完成，自检通过；正式发布许可/Nginx部署核验/用户验收/独立审查待进行",
       "title": "独立启动、部署与发行包扫描"
     },
     {

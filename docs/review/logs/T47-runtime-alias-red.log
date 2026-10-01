@@ -1,0 +1,45 @@
+
+> aiwork-studio@0.0.1 test:distribution
+> playwright test --config playwright.distribution.config.ts --grep credential aliases
+
+[WebServer] (node:8136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:23188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\distribution.spec.ts:9:1 › T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata (55ms)
+
+
+  1) tests\e2e\distribution.spec.ts:9:1 › T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata 
+
+    Error: coreKey
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoThrow[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected substring: [32m"runtime_credentials_denied"[39m
+
+    Received function did not throw
+
+       8 | const runtimeModule=resolve('scripts/serve-local.mjs');
+       9 | test('T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata',async({networkCounter})=>{
+    > 10 |  const m=await import(runtimeModule);for(const name of ['coreKey','privateToken','CoreAuthorization']){const runtime={...m.offlineRuntime,connections:[{profile:{id:'local-config-test',name:'配置测试',originSnapshot:'https://core.example.invalid',proxyBase:'/core-api',contractVersion:'test'},contract:{version:'test',evidence:[{kind:'deployment_review',reference:'local-only',details:{[name]:'STUDIO_T47_CREDENTIAL_DO_NOT_EXPORT'}}]}}]};expect(()=>m.validateRuntime(runtime),name).toThrow('runtime_credentials_denied');}expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+      11 | });
+      12 | test('T47 production CSP permits validated local creation and native persistence across full-page reload without generation',async({page,networkCounter})=>{
+      13 |  await page.goto('/projects');await page.getByRole('button',{name:'新建项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建项目',exact:true});await dialog.getByLabel('项目名称',{exact:true}).fill('中'.repeat(61));await dialog.getByRole('button',{name:'创建',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');await dialog.getByLabel('项目名称',{exact:true}).fill('发行构建真实保存');await dialog.getByRole('button',{name:'创建',exact:true}).click();await expect(page).toHaveURL(/\/projects\/[^/]+\/canvas$/);await expect(page.getByRole('button',{name:'立即保存',exact:true})).toBeEnabled();await page.reload();await expect(page.getByRole('heading',{name:'发行构建真实保存',exact:true})).toBeVisible();await page.goto('/projects');await page.reload();await expect(page.getByRole('heading',{name:'发行构建真实保存',exact:true})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T47-production-persisted-project.png'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\distribution.spec.ts:10:478
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\distribution-T47-nonsecret-f15de--accepted-contract-metadata\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\distribution-T47-nonsecret-f15de--accepted-contract-metadata\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\distribution.spec.ts:9:1 › T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata 

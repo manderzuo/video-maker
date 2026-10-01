@@ -1,0 +1,529 @@
+{
+  "output": "artifacts\\aiwork-studio-offline-review-2dcfb86-7888668f0f6b.zip",
+  "sha256": "7888668f0f6be70eecba971770a2e9ca9f8868068759b3c2415c2174bdc59f86",
+  "bytes": 384953,
+  "manifest": {
+    "format": "aiwork-studio-distribution",
+    "schemaVersion": 1,
+    "kind": "offline-review",
+    "sourceCommit": "2dcfb862b0612069a9a78251ae2e2cd455be02eb",
+    "sourceTreeSha256": "54d52d6890a64d18742ab153987a73eeb727e34eceb5237c27b11d26105a9e21",
+    "dirtySources": true,
+    "createdAt": "2026-10-01T11:05:21.389Z",
+    "files": [
+      {
+        "file": "dist/assets/ActivityPage-Bt9FNzKm.js",
+        "bytes": 6135,
+        "sha256": "4d269c669e276ce65eed70837019494160a1a19e245d4933d55ae9d9c0ce0c50"
+      },
+      {
+        "file": "dist/assets/apply-command-Dg1Y2uYA.js",
+        "bytes": 9004,
+        "sha256": "258d51cfca72761b4d6af0671c72e217c6ff4cc7799d73caaa2d6387c332ee89"
+      },
+      {
+        "file": "dist/assets/AssetPreview-DLUkfe87.js",
+        "bytes": 4119,
+        "sha256": "b33237a2776de88bf8ea4d926363273b946bd93ace146da60c64b66110671ef1"
+      },
+      {
+        "file": "dist/assets/AssetsPage-lZhDAuO_.js",
+        "bytes": 18647,
+        "sha256": "97b921784cec288ca6047d3c6314d4bdd52ee1b2b644c892755460ca7210d7f4"
+      },
+      {
+        "file": "dist/assets/canvas-import-j5mEHHP8.js",
+        "bytes": 3239,
+        "sha256": "c7b1e7318f472e30685b554adace50d322858a2a79c73ec863fe9985806b70b4"
+      },
+      {
+        "file": "dist/assets/CanvasPage-DjPtPCC8.js",
+        "bytes": 122132,
+        "sha256": "d3b28be4f65ab16b98839fa0c3d9fa9c347864223096d3e664da97d315ddbdbc"
+      },
+      {
+        "file": "dist/assets/ComparePage-CPfql_Gk.js",
+        "bytes": 3215,
+        "sha256": "16015556ed81f18c17865a997b6bf044f55b7cae1ae85d7489d5e2024c5e6d63"
+      },
+      {
+        "file": "dist/assets/diagnostic-export-BuOB-MFD.js",
+        "bytes": 6112,
+        "sha256": "e209e96c3e0f9782c8001c3a904deef63af3c9c06e75eb166d0e073ecb4dae60"
+      },
+      {
+        "file": "dist/assets/fingerprint-C6-xfKii.js",
+        "bytes": 180,
+        "sha256": "26715bc371c71437e1431f777878204f51fdde81a886ab8908b231a1705b1ca7"
+      },
+      {
+        "file": "dist/assets/graph-validation-I34WMZXN.js",
+        "bytes": 2051,
+        "sha256": "b9ada7595fa3acab0c8aa907f85e8fa42095bbe828f22256623c3814c3e6675e"
+      },
+      {
+        "file": "dist/assets/hash-worker-CwunAZM4.js",
+        "bytes": 356,
+        "sha256": "b41d4db9d2b2226531ed7fa5205c1b60ae6d2a2aa1886304988837f7e826d3ca"
+      },
+      {
+        "file": "dist/assets/HelpPage-DrF_1Haw.js",
+        "bytes": 3919,
+        "sha256": "292ebf70ef0e48fe71e28c3d3fdad3c21e8fd436d87ac9aa78a18e156a8c50f4"
+      },
+      {
+        "file": "dist/assets/history-DV-P6qR7.js",
+        "bytes": 1849,
+        "sha256": "e29eff53bdcf985e89627ffdc99c1acb2ad4e1b9bdca5b157d3e68d1ce79ce5b"
+      },
+      {
+        "file": "dist/assets/import-project-CvDSTxXQ.js",
+        "bytes": 8590,
+        "sha256": "dfca1d942e568ed2ae974c424a46e94bf783dd31ba2c34165a4eda138e849a83"
+      },
+      {
+        "file": "dist/assets/index-D6e2ejnX.css",
+        "bytes": 20483,
+        "sha256": "3f2307cc6a62c43650f0bb99301620a6a1bdcf4fb3618401bc2fe7fc2ab0c2db"
+      },
+      {
+        "file": "dist/assets/index-rZmTx5sJ.js",
+        "bytes": 54006,
+        "sha256": "6bb90c7aa1d56f91f8c0b5eed351fc53a6fc11c6342e75577aa113fc0aaa5a05"
+      },
+      {
+        "file": "dist/assets/legacy-migration-C3yk2DxT.js",
+        "bytes": 20874,
+        "sha256": "360df5884c0dd216856f81d8a19ec2869c82f0eb6d956b48737968c506069bea"
+      },
+      {
+        "file": "dist/assets/legal-notices-DULDc9G1.js",
+        "bytes": 21508,
+        "sha256": "51a460c6c9cecedc5b36636aef1c5481df8ade72797b758888bad4cdb92bdf28"
+      },
+      {
+        "file": "dist/assets/object-url-pool-5YRcU3_1.js",
+        "bytes": 132,
+        "sha256": "3c65a7013ddef40f0007e43610a6412a2e621bd014f83feff555711688e8bbd4"
+      },
+      {
+        "file": "dist/assets/PackagePage-QiupoZvU.js",
+        "bytes": 11870,
+        "sha256": "23475c43730313c532682f0950461a26f985d4a00efc39ecb53fd98bea07448c"
+      },
+      {
+        "file": "dist/assets/project-lease-BwsPjuy2.js",
+        "bytes": 3392,
+        "sha256": "b58d26e821f14c38d701684fa2b331fd1fe9d831917281017e8c577b5750f360"
+      },
+      {
+        "file": "dist/assets/project-repository-GKV2Xcla.js",
+        "bytes": 7883,
+        "sha256": "bc5b5d8683703a9a80ff6e085ea6989490bc2de313b4b10263c68940d70c3e04"
+      },
+      {
+        "file": "dist/assets/project-service-YFp9j6Fm.js",
+        "bytes": 10795,
+        "sha256": "1df4a3aa82db4e1c14c3cf6b8ecaf9cee0051466c9af58d1b5a5773883dc3c6f"
+      },
+      {
+        "file": "dist/assets/ProjectsPage-Cryf9qDN.js",
+        "bytes": 12384,
+        "sha256": "c520b80f971ad019e7a44b859da980e7a38e1bb40415ca2540e7f0c8c78754f1"
+      },
+      {
+        "file": "dist/assets/PromptEditor-B7H-HuQn.js",
+        "bytes": 8416,
+        "sha256": "c7d01032b5d02cddac9fdb136c8b3bec732782e3b69aedb6fd94474cad897619"
+      },
+      {
+        "file": "dist/assets/PromptGeneratorPage-DiZ4JxfQ.js",
+        "bytes": 1928,
+        "sha256": "e588883ea97a0a2a66fb183279ba71f56b9c3555b535e43aade0d29c7eeacf2d"
+      },
+      {
+        "file": "dist/assets/PromptGeneratorPanel-VVvm47dQ.js",
+        "bytes": 85681,
+        "sha256": "8e392837053edbdb62d6b5a8d134b65cc7cb2f8382fe0866cbf2bd7fc4780fe3"
+      },
+      {
+        "file": "dist/assets/PromptsPage-B5Sttk2S.js",
+        "bytes": 14630,
+        "sha256": "ca548d6eb00a4925106300b8c3fd8f2a9d30163369ecac3e55ab6db350c4b32c"
+      },
+      {
+        "file": "dist/assets/react-vendor-rQA_ESBx.js",
+        "bytes": 192363,
+        "sha256": "b3683c149e3e2dc8b9596d3321f8eb386d156329d580e3d5a9897a0497ea7ce3"
+      },
+      {
+        "file": "dist/assets/RecoveryCenter-CyC_o4bv.js",
+        "bytes": 7557,
+        "sha256": "394ba8ab8d487cd9c8568d7c6554b4a8312477c11276906bdfb3898a5a95c05a"
+      },
+      {
+        "file": "dist/assets/redaction-DcPGZPVO.js",
+        "bytes": 1171,
+        "sha256": "8e3f5ba116e711a24e6c8850b8e1148700ec03b6a8b7f97db403e261f4741414"
+      },
+      {
+        "file": "dist/assets/ResultPage-Cz0eQZKF.js",
+        "bytes": 3622,
+        "sha256": "d3079d740e59bf5636475fecf0ab65a182344b589e42f6b1244f444c24b72513"
+      },
+      {
+        "file": "dist/assets/review-components-ABu-rw4-.js",
+        "bytes": 9925,
+        "sha256": "306e18aa57c2913e678e7d180c774feb4445b5b4cc1629e35bdb97c1adfee655"
+      },
+      {
+        "file": "dist/assets/RunMediaActions-B-mZw1lc.js",
+        "bytes": 8109,
+        "sha256": "5e119fe3297e3ba37d3e096d8eb3d665b0b0eaaa38b9ccc76d85438cfa6dd9a2"
+      },
+      {
+        "file": "dist/assets/schema-vendor-DHwGgy8U.js",
+        "bytes": 72444,
+        "sha256": "8b19fa1dc4e3e06d637e79987c895f2140268814c255472635b72af5b333b545"
+      },
+      {
+        "file": "dist/assets/SettingsPage-ByzDbE5O.js",
+        "bytes": 27818,
+        "sha256": "bd95610cf02f3011a8bef15a944c2868467523896c02be85ff86f0cce28e8969"
+      },
+      {
+        "file": "dist/assets/task-filters-CdSl-Fa3.js",
+        "bytes": 37176,
+        "sha256": "231b6a9f40f7431733042ffa8151aef51d4c8cae1bb16f928b125d55c01c0134"
+      },
+      {
+        "file": "dist/assets/TasksPage-Cwq6xcbm.js",
+        "bytes": 35984,
+        "sha256": "55f2ab6014253430fb4a6193fffb714f30cd3e369e11735c8b2faf29d1fde4bc"
+      },
+      {
+        "file": "dist/assets/Toast-BOsUXE-_.js",
+        "bytes": 383,
+        "sha256": "6e5fc3599aedcfa14bac39a8a6265fddc48896bfff336a9dd22f5d3a0e11ad14"
+      },
+      {
+        "file": "dist/assets/TrashPage-Bv4KL8GX.js",
+        "bytes": 6427,
+        "sha256": "5f5b6806b42186f24040ff4cd439e131aa8cf74b6624dfd66ff5550bd7e45090"
+      },
+      {
+        "file": "dist/assets/zip-vendor-BK4ikTfh.js",
+        "bytes": 14243,
+        "sha256": "372e56000baa959361f25ab04211f2b48f16557f61f1800ba37eb1f1261528ab"
+      },
+      {
+        "file": "dist/favicon.svg",
+        "bytes": 243,
+        "sha256": "48210a99edc1053790352967e3af064c5f630bd5d887c8bb94c8b20f37840748"
+      },
+      {
+        "file": "dist/index.html",
+        "bytes": 742,
+        "sha256": "f8bc0840728ce9bb35b625c1d500006c30fc3bb3dcda0b4adef8065ab51c9057"
+      },
+      {
+        "file": "dist/studio-deployment.json",
+        "bytes": 37,
+        "sha256": "51410a587534fb6991279d308fb8d2894241689181a3064b8ba526d0f697a6d3"
+      },
+      {
+        "file": "third-party/licenses/fflate-0.8.2.LICENSE",
+        "bytes": 1069,
+        "sha256": "805f6cb28bb8b6d3a0badd83c93bccd9671fa01a3b4b92b7042b0743325ac243"
+      },
+      {
+        "file": "third-party/licenses/infinite-canvas..agents_skills_frontend-design_LICENSE.txt",
+        "bytes": 10351,
+        "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549"
+      },
+      {
+        "file": "third-party/licenses/infinite-canvas.docs_content_docs_business_license.mdx",
+        "bytes": 770,
+        "sha256": "6b22f5bcbfac57e7fa13da59865c66cfcafe1629e80562f0d7337309b81e74e5"
+      },
+      {
+        "file": "third-party/licenses/infinite-canvas.docs_content_docs_business_license.zh-CN.mdx",
+        "bytes": 1001,
+        "sha256": "e52082b2e7e0fbb64120c91ace0befadf89483b7f6e696099defed3ae2beacd4"
+      },
+      {
+        "file": "third-party/licenses/infinite-canvas.LICENSE",
+        "bytes": 1088,
+        "sha256": "44e52203e61565877cc4685791343679f19c49f7b28288a2d0b9f7b9aced8009"
+      },
+      {
+        "file": "third-party/licenses/prompt-for-seedance-gptimage2.5.LICENSE",
+        "bytes": 1055,
+        "sha256": "9eb6f69d48a1dd764e8a33f14a584f460d3cec653477c136a95dd6df9c249211"
+      },
+      {
+        "file": "third-party/licenses/runtime-fflate-0.8.2.LICENSE",
+        "bytes": 1069,
+        "sha256": "805f6cb28bb8b6d3a0badd83c93bccd9671fa01a3b4b92b7042b0743325ac243"
+      },
+      {
+        "file": "third-party/licenses/runtime-react-19.2.8.LICENSE",
+        "bytes": 1088,
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-react-dom-19.2.8.LICENSE",
+        "bytes": 1088,
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-scheduler-0.27.0.LICENSE",
+        "bytes": 1088,
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-zod-4.3.6.LICENSE",
+        "bytes": 1072,
+        "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8"
+      },
+      {
+        "file": "third-party/licenses/runtime-zustand-5.0.15.LICENSE",
+        "bytes": 1070,
+        "sha256": "c1e6e266563517467b1bf874817d23e426f3149252bd7d42758cd697514b8417"
+      },
+      {
+        "file": "third-party/runtime-licenses.json",
+        "bytes": 1767,
+        "sha256": "518b5a9a020ade0931a7187c110d0480300768ea7a6e12a109c31a54145920a1"
+      },
+      {
+        "file": "third-party/THIRD_PARTY_NOTICES.txt",
+        "bytes": 17893,
+        "sha256": "c6326c8bbee7b55e98de30555a9a51691e09119062e28b8e458cb0d4923480a4"
+      },
+      {
+        "file": "companion/dist/assets/origin-policy-DNIERA-1.js",
+        "bytes": 152866,
+        "sha256": "69cae50989d8f3a075aa255788396c5b1e6e6a2b9d396b28d086067671d33d8e"
+      },
+      {
+        "file": "companion/dist/favicon.svg",
+        "bytes": 243,
+        "sha256": "48210a99edc1053790352967e3af064c5f630bd5d887c8bb94c8b20f37840748"
+      },
+      {
+        "file": "companion/dist/main.mjs",
+        "bytes": 10260,
+        "sha256": "72ba8f14b4552398ce0cb763d2c230d6d6fc308f521d4979b09ed099b7ccf81e"
+      },
+      {
+        "file": "companion/dist/mcp.mjs",
+        "bytes": 6157,
+        "sha256": "a8da143623a264cbe00f1744d300ea1cca60fa1d9ed2dc536aceae7a0157a569"
+      },
+      {
+        "file": "companion/dist/studio-deployment.json",
+        "bytes": 37,
+        "sha256": "51410a587534fb6991279d308fb8d2894241689181a3064b8ba526d0f697a6d3"
+      },
+      {
+        "file": "scripts/serve-local.mjs",
+        "bytes": 9346,
+        "sha256": "1d4444b125412ac75a95ca9ee619315f0f93140cec1b1a53d142ea977dea53cd"
+      },
+      {
+        "file": "scripts/start-canvas.ps1",
+        "bytes": 911,
+        "sha256": "6fb8981c2983bb2a5f89d16b3f27bc58ae8ce246842c5c81d7a0e2aabd6c76d9"
+      },
+      {
+        "file": "scripts/start-companion.ps1",
+        "bytes": 737,
+        "sha256": "23609bf94b9a9f21229db7e33a7b4f58f155a56658c4a2b7430af62e2ac49d2e"
+      },
+      {
+        "file": "src/adapters/core/route-policy.ts",
+        "bytes": 933,
+        "sha256": "2767530384d98f9e9882758970a30847500f8bfdacbf1ea362c8eaae202fbe0c"
+      },
+      {
+        "file": "deploy/canvas-runtime.example.json",
+        "bytes": 85,
+        "sha256": "7cd5f3207339bce244a18aab6942e472753938a91ed48cd2e2e2a9f89435c4d1"
+      },
+      {
+        "file": "deploy/nginx-canvas.conf",
+        "bytes": 2468,
+        "sha256": "4eac86fab495116bb7dd91406dd101eb9a928ed3a41af9ebaa8a62db26c16d3f"
+      },
+      {
+        "file": "docs/deployment.md",
+        "bytes": 3833,
+        "sha256": "1f4873e825924de7bbc928d599889a4818e841843697e203bbd01c9fe7fb0fb0"
+      },
+      {
+        "file": "docs/integrations/mcp.md",
+        "bytes": 4171,
+        "sha256": "edd80b0f9c81d9bc07c6c68ae658b0f834c3513cc39d4bdcbf191003e5acc990"
+      },
+      {
+        "file": "package.json",
+        "bytes": 105,
+        "sha256": "4505208fb5f45e9ef38c14b1afd25e52f484272505e9f2479858340f8694fbb6"
+      }
+    ],
+    "formalReleaseApproved": false,
+    "liveVerified": false,
+    "userAccepted": false,
+    "independentReviewPerformed": false,
+    "frontendMarkAuthorization": "unresolved",
+    "coreConfigured": false
+  },
+  "brand": {
+    "passed": true,
+    "normalInterfaceFindings": [],
+    "legalAndMigrationExceptions": [
+      {
+        "file": "dist\\assets\\legacy-migration-C3yk2DxT.js",
+        "value": "infinite-canvas",
+        "offset": 17893,
+        "reason": "explicit isolated legacy import format"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 269,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "infinite-canvas",
+        "offset": 280,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "https://github.com/basketikun/infinite-canvas/tree/dab19adc0847e32e39b7fc8ff90cb392561fb826\\r",
+        "offset": 353,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 11179,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "https://github.com/basketikun/infinite-canvas/blob/main/LICENSE).",
+        "offset": 12480,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "https://github.com/basketikun/infinite-canvas/blob/main/LICENSE)。任何个人、团队和企业都可以免费、自由地使用本项目，没有使用场景和商业用途限制。\\r",
+        "offset": 13254,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16526,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16566,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "infinite-canvas",
+        "offset": 16592,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16874,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16914,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 17701,
+        "reason": "explicit copyright/license text only"
+      }
+    ],
+    "sourceMaps": [],
+    "credentialFindings": [],
+    "frontendMarkAuthorization": "unresolved",
+    "formalReleaseApproved": false
+  },
+  "license": {
+    "preservedAll": true,
+    "missing": [],
+    "modified": [],
+    "preserved": [
+      {
+        "file": "third-party/licenses/runtime-fflate-0.8.2.LICENSE",
+        "sha256": "805f6cb28bb8b6d3a0badd83c93bccd9671fa01a3b4b92b7042b0743325ac243"
+      },
+      {
+        "file": "third-party/licenses/runtime-react-19.2.8.LICENSE",
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-react-dom-19.2.8.LICENSE",
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-scheduler-0.27.0.LICENSE",
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-zod-4.3.6.LICENSE",
+        "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8"
+      },
+      {
+        "file": "third-party/licenses/runtime-zustand-5.0.15.LICENSE",
+        "sha256": "c1e6e266563517467b1bf874817d23e426f3149252bd7d42758cd697514b8417"
+      },
+      {
+        "file": "third-party\\THIRD_PARTY_NOTICES.txt",
+        "sha256": "c6326c8bbee7b55e98de30555a9a51691e09119062e28b8e458cb0d4923480a4"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas.LICENSE",
+        "sha256": "44e52203e61565877cc4685791343679f19c49f7b28288a2d0b9f7b9aced8009"
+      },
+      {
+        "file": "third-party\\licenses\\prompt-for-seedance-gptimage2.5.LICENSE",
+        "sha256": "9eb6f69d48a1dd764e8a33f14a584f460d3cec653477c136a95dd6df9c249211"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas.docs_content_docs_business_license.mdx",
+        "sha256": "6b22f5bcbfac57e7fa13da59865c66cfcafe1629e80562f0d7337309b81e74e5"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas.docs_content_docs_business_license.zh-CN.mdx",
+        "sha256": "e52082b2e7e0fbb64120c91ace0befadf89483b7f6e696099defed3ae2beacd4"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas..agents_skills_frontend-design_LICENSE.txt",
+        "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549"
+      }
+    ],
+    "frontendMarkAuthorization": "unresolved",
+    "releaseAllowed": false,
+    "reason": "Pinned upstream README/frontend mark exception remains pending human clarification; source reference repositories without licenses have not been copied into product."
+  },
+  "releaseAllowed": false
+}

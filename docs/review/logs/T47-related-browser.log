@@ -1,0 +1,28 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/app-shell.spec.ts tests/e2e/canvas-mcp.spec.ts tests/e2e/dialog-contracts.spec.ts
+
+[WebServer] (node:19752) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 13 tests using 1 worker
+
+(node:25044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (2.5s)
+  ok  2 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (500ms)
+  ok  3 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (861ms)
+  ok  4 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (439ms)
+  ok  5 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (643ms)
+  ok  6 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (473ms)
+  ok  7 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (479ms)
+  ok  8 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (789ms)
+  ok  9 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run (2.1s)
+  ok 10 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request denies approval after revocation (1.5s)
+  ok 11 tests\e2e\dialog-contracts.spec.ts:5:1 › T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing (1.1s)
+  ok 12 tests\e2e\dialog-contracts.spec.ts:8:1 › T44 D01/D02/D03/D19 actual dialogs preserve identity and enforce destructive impact gates (1.6s)
+  ok 13 tests\e2e\dialog-contracts.spec.ts:11:1 › T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read (1.7s)
+
+  13 passed (17.9s)
