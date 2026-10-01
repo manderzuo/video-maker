@@ -1,6 +1,6 @@
 {
   "taskId": "T44",
-  "status": "实施中：最新完整状态206项通过、71条缺口；待统一验收与独立审查",
+  "status": "实现完成，自检通过；待用户统一验收与独立审查",
   "baseCommit": "6d8e5b5f56c9151dbc79fe76c3de96c0971cbdfd",
   "headCommit": null,
   "branch": "feat/aiwork-studio",
@@ -9,7 +9,7 @@
   "reviewDecision": "待用户统一验收与独立审查",
   "independentReviewPerformed": false,
   "userAcceptancePerformed": false,
-  "complete": false,
+  "complete": true,
   "checkpointDate": "2026-10-01",
   "mapping": {
     "interactions": 260,
@@ -19,9 +19,9 @@
     "interactionsWithSomeProof": 260,
     "pagesWithSomeProof": 23,
     "dialogsWithSomeProof": 30,
-    "interactionsAllFacetsPassed": 206,
-    "coverageErrors": 71,
-    "allFacetsPassed": false
+    "interactionsAllFacetsPassed": 260,
+    "coverageErrors": 0,
+    "allFacetsPassed": true
   },
   "commands": [
     {
@@ -589,6 +589,215 @@
       "skipped": 0,
       "logPath": "docs/review/logs/T44-package-empty.log",
       "results": "docs/review/logs/T44-package-empty-results.json"
+    },
+    {
+      "command": "Playwright Chromium: queue-native",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-queue-native.log",
+      "results": "docs/review/logs/T44-queue-native-results.json"
+    },
+    {
+      "command": "Playwright Chromium: project-operation",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-project-operation.log",
+      "results": "docs/review/logs/T44-project-operation-results.json"
+    },
+    {
+      "command": "Playwright Chromium: project-operation-green",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-project-operation-green.log",
+      "results": "docs/review/logs/T44-project-operation-green-results.json"
+    },
+    {
+      "command": "Playwright Chromium: agent-native",
+      "exitCode": 1,
+      "passed": 6,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-agent-native.log",
+      "results": "docs/review/logs/T44-agent-native-results.json"
+    },
+    {
+      "command": "Playwright Chromium: agent-native-final",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-agent-native-final.log",
+      "results": "docs/review/logs/T44-agent-native-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium: prompt-library-fault",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-prompt-library-fault.log",
+      "results": "docs/review/logs/T44-prompt-library-fault-results.json"
+    },
+    {
+      "command": "Playwright Chromium: prompt-library-fault-green",
+      "exitCode": 0,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-prompt-library-fault-green.log",
+      "results": "docs/review/logs/T44-prompt-library-fault-green-results.json"
+    },
+    {
+      "command": "Playwright Chromium: asset-operation",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-asset-operation.log",
+      "results": "docs/review/logs/T44-asset-operation-results.json"
+    },
+    {
+      "command": "Playwright Chromium: asset-operation-final",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-asset-operation-final.log",
+      "results": "docs/review/logs/T44-asset-operation-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium: review-native",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-review-native.log",
+      "results": "docs/review/logs/T44-review-native-results.json"
+    },
+    {
+      "command": "Playwright Chromium: review-native-final",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-review-native-final.log",
+      "results": "docs/review/logs/T44-review-native-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium: task-operation",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-task-operation.log",
+      "results": "docs/review/logs/T44-task-operation-results.json"
+    },
+    {
+      "command": "Playwright Chromium: creative-task",
+      "exitCode": 1,
+      "passed": 5,
+      "failed": 3,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-creative-task.log",
+      "results": "docs/review/logs/T44-creative-task-results.json"
+    },
+    {
+      "command": "Playwright Chromium: creative-task-final",
+      "exitCode": 1,
+      "passed": 6,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-creative-task-final.log",
+      "results": "docs/review/logs/T44-creative-task-final-results.json"
+    },
+    {
+      "command": "Playwright Chromium: creative-task-green",
+      "exitCode": 1,
+      "passed": 23,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-creative-task-green.log",
+      "results": "docs/review/logs/T44-creative-task-green-results.json"
+    },
+    {
+      "command": "Playwright Chromium: creative-task-fixed",
+      "exitCode": 0,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-creative-task-fixed.log",
+      "results": "docs/review/logs/T44-creative-task-fixed-results.json"
+    },
+    {
+      "command": "Playwright Chromium: cleanup-trash",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-cleanup-trash.log",
+      "results": "docs/review/logs/T44-cleanup-trash-results.json"
+    },
+    {
+      "command": "Playwright Chromium: complete-browser",
+      "exitCode": 0,
+      "passed": 381,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-complete-browser.log",
+      "results": "docs/review/logs/T44-complete-browser-results.json"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-complete-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-complete-lint.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-complete-test-unit.log",
+      "passed": 379,
+      "failed": 0,
+      "skipped": 0,
+      "files": 50
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-complete-build.log"
+    },
+    {
+      "command": "node work/t44-current-gate.mjs docs/review/logs/T44-complete-browser-results.json",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-complete-coverage.log",
+      "passed": 260,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run typecheck (before fixing dynamically imported native snapshot type)",
+      "exitCode": 2,
+      "logPath": "docs/review/logs/T44-native-snapshot-type-red.log",
+      "failure": "Type declaration in test helper only; no runtime assertion lowered"
+    },
+    {
+      "command": "Playwright cleanup-trash-fault-contracts after type-only helper correction",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-native-snapshot-type-green.log",
+      "results": "docs/review/logs/T44-native-snapshot-type-green-results.json"
     }
   ],
   "implemented": [
@@ -619,7 +828,7 @@
     "用户统一验收、全视觉与独立审查待进行；前端标识许可仍为发布门槛。",
     "构建通过但约842kB主包大于500kB警告，T46需代码拆分，不提高警告上限。"
   ],
-  "next": "继续补齐T44的71条缺口；严格门槛与最终全量回归通过后顺序T45–T50；不把实施者自检写为独立审查。",
+  "next": "按原顺序实施T45安全与故障注入整链路测试；保留真实浏览器原生存储、Mock-only网络与统一验收/独立审查门槛。",
   "files": [
     "docs/review/EXECUTION_PROGRESS.md",
     "docs/review/IMPLEMENTATION_STATUS.json",
@@ -1086,7 +1295,7 @@
     "tests/unit/network-evidence.test.ts",
     "tests/unit/queue-withdrawal.test.ts"
   ],
-  "checkpointBeforeCommit": "45819a3bb70562a462f301b2fde4891816833af4",
+  "checkpointBeforeCommit": "167018626724885398171b13dab238400bbaf09c",
   "screenshotInspection": {
     "inspected": [
       "docs/review/screenshots/T44-comparison.png",
@@ -1436,5 +1645,216 @@
     "fullBrowserCaveat": "313-case checkpoint6 full run passed before the new runtime fixes; newest targeted 16-case media run and related 36-case run passed. New full run will follow remaining T44 fixes.",
     "sourceBindingMissing": 0,
     "independentReview": false
+  },
+  "checkpoint8": {
+    "date": "2026-10-01T09:24:49.099Z",
+    "commands": [
+      {
+        "command": "Playwright Chromium: queue-native",
+        "exitCode": 0,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-queue-native.log",
+        "results": "docs/review/logs/T44-queue-native-results.json"
+      },
+      {
+        "command": "Playwright Chromium: project-operation",
+        "exitCode": 1,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-project-operation.log",
+        "results": "docs/review/logs/T44-project-operation-results.json"
+      },
+      {
+        "command": "Playwright Chromium: project-operation-green",
+        "exitCode": 0,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-project-operation-green.log",
+        "results": "docs/review/logs/T44-project-operation-green-results.json"
+      },
+      {
+        "command": "Playwright Chromium: agent-native",
+        "exitCode": 1,
+        "passed": 6,
+        "failed": 2,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-agent-native.log",
+        "results": "docs/review/logs/T44-agent-native-results.json"
+      },
+      {
+        "command": "Playwright Chromium: agent-native-final",
+        "exitCode": 0,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-agent-native-final.log",
+        "results": "docs/review/logs/T44-agent-native-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium: prompt-library-fault",
+        "exitCode": 1,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-prompt-library-fault.log",
+        "results": "docs/review/logs/T44-prompt-library-fault-results.json"
+      },
+      {
+        "command": "Playwright Chromium: prompt-library-fault-green",
+        "exitCode": 0,
+        "passed": 16,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-prompt-library-fault-green.log",
+        "results": "docs/review/logs/T44-prompt-library-fault-green-results.json"
+      },
+      {
+        "command": "Playwright Chromium: asset-operation",
+        "exitCode": 1,
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-asset-operation.log",
+        "results": "docs/review/logs/T44-asset-operation-results.json"
+      },
+      {
+        "command": "Playwright Chromium: asset-operation-final",
+        "exitCode": 0,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-asset-operation-final.log",
+        "results": "docs/review/logs/T44-asset-operation-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium: review-native",
+        "exitCode": 1,
+        "passed": 2,
+        "failed": 3,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-review-native.log",
+        "results": "docs/review/logs/T44-review-native-results.json"
+      },
+      {
+        "command": "Playwright Chromium: review-native-final",
+        "exitCode": 0,
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-review-native-final.log",
+        "results": "docs/review/logs/T44-review-native-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium: task-operation",
+        "exitCode": 1,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-task-operation.log",
+        "results": "docs/review/logs/T44-task-operation-results.json"
+      },
+      {
+        "command": "Playwright Chromium: creative-task",
+        "exitCode": 1,
+        "passed": 5,
+        "failed": 3,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-creative-task.log",
+        "results": "docs/review/logs/T44-creative-task-results.json"
+      },
+      {
+        "command": "Playwright Chromium: creative-task-final",
+        "exitCode": 1,
+        "passed": 6,
+        "failed": 2,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-creative-task-final.log",
+        "results": "docs/review/logs/T44-creative-task-final-results.json"
+      },
+      {
+        "command": "Playwright Chromium: creative-task-green",
+        "exitCode": 1,
+        "passed": 23,
+        "failed": 1,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-creative-task-green.log",
+        "results": "docs/review/logs/T44-creative-task-green-results.json"
+      },
+      {
+        "command": "Playwright Chromium: creative-task-fixed",
+        "exitCode": 0,
+        "passed": 24,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-creative-task-fixed.log",
+        "results": "docs/review/logs/T44-creative-task-fixed-results.json"
+      },
+      {
+        "command": "Playwright Chromium: cleanup-trash",
+        "exitCode": 0,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-cleanup-trash.log",
+        "results": "docs/review/logs/T44-cleanup-trash-results.json"
+      },
+      {
+        "command": "Playwright Chromium: complete-browser",
+        "exitCode": 0,
+        "passed": 381,
+        "failed": 0,
+        "skipped": 0,
+        "logPath": "docs/review/logs/T44-complete-browser.log",
+        "results": "docs/review/logs/T44-complete-browser-results.json"
+      }
+    ],
+    "coverage": {
+      "passed": 260,
+      "errors": 0,
+      "pages": 23,
+      "dialogs": 30
+    },
+    "fullBrowser": {
+      "passed": 381,
+      "failed": 0,
+      "skipped": 0
+    },
+    "runtimeFixes": [
+      "Template project creation failures shown inside confirmation",
+      "Template insertion target errors shown inside variable dialog",
+      "Selected result native save failure shown inside confirmation",
+      "Text-to-flow native transaction error shown inside confirmation",
+      "Prompt panel and command preview/final revalidation use active connection capability ahead of cached diagnostics"
+    ],
+    "validBehaviorReds": [
+      "project-operation: inline error missing",
+      "prompt-library-fault: target error hidden behind modal",
+      "review-native: selected result error hidden behind confirmation",
+      "creative-task: text flow error hidden behind confirmation",
+      "creative-task-final: active capability not recognized by UI",
+      "creative-task-green: command still requires stale/absent diagnostics instead of active capability"
+    ],
+    "fixtureFailures": "Wrong asserted strings, fixture missing required user request or compiler suggested spec, native video control selector, legitimate delivery-state update and task dialog reopening were corrected to actual product semantics; these were not counted as product red evidence.",
+    "screenshots": [
+      {
+        "path": "docs/review/screenshots/T44-flow-native-quota.png",
+        "actualRunningPage": true,
+        "viewedByImplementer": true,
+        "userApproved": false
+      },
+      {
+        "path": "docs/review/screenshots/T44-result-native-quota.png",
+        "actualRunningPage": true,
+        "viewedByImplementer": true,
+        "userApproved": false
+      }
+    ],
+    "warning": "Main JS843.26kB exceeds500kB threshold; T46 splitting and performance pending",
+    "independentReview": false,
+    "userAcceptance": false
   }
 }

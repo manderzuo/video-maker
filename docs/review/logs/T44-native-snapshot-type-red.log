@@ -1,0 +1,6 @@
+
+> aiwork-studio@0.0.1 typecheck
+> tsc --noEmit
+
+tests/e2e/cleanup-trash-fault-contracts.spec.ts(5,410): error TS2347: Untyped function calls may not accept type arguments.
+tests/e2e/cleanup-trash-fault-contracts.spec.ts(5,488): error TS7006: Parameter 'r' implicitly has an 'any' type.

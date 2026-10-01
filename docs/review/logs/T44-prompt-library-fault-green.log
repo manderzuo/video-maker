@@ -1,0 +1,27 @@
+[WebServer] (node:27940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 16 tests using 1 worker
+
+(node:11956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\prompt-library-fault-contracts.spec.ts:8:1 › T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text (1.7s)
+  ok  2 tests\e2e\prompt-library-fault-contracts.spec.ts:12:1 › T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs (1.5s)
+  ok  3 tests\e2e\prompt-library-fault-contracts.spec.ts:17:1 › T44 L12 actual native source-state read rejection preserves all source entries and imported prompt licenses (1.2s)
+  ok  4 tests\e2e\prompt-library.spec.ts:2:1 › T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable (1.2s)
+  ok  5 tests\e2e\prompt-library.spec.ts:3:1 › T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion (1.1s)
+  ok  6 tests\e2e\prompt-library.spec.ts:4:1 › T17 L09: apply requires old/new diff and refuses a stale project revision (1.2s)
+  ok  7 tests\e2e\prompt-library.spec.ts:5:1 › T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview (1.2s)
+  ok  8 tests\e2e\prompt-library.spec.ts:6:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard (1.7s)
+  ok  9 tests\e2e\prompt-library.spec.ts:7:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries (1.6s)
+  ok 10 tests\e2e\prompt-library.spec.ts:8:1 › T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard (1.3s)
+  ok 11 tests\e2e\prompt-library.spec.ts:11:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node (1.2s)
+  ok 12 tests\e2e\prompt-library.spec.ts:12:1 › T17-C04: create validates tag lengths/count and persists only after explicit save (1.7s)
+  ok 13 tests\e2e\prompt-library.spec.ts:13:1 › T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source (1.1s)
+  ok 14 tests\e2e\prompt-library.spec.ts:14:1 › T17-C06/L05: local debounced search and source management do not automatically load remote sources (1.5s)
+  ok 15 tests\e2e\prompt-library.spec.ts:15:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data (1.3s)
+  ok 16 tests\e2e\prompt-library.spec.ts:16:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating (1.6s)
+
+  16 passed (25.4s)

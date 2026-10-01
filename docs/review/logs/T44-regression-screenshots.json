@@ -11,17 +11,17 @@
     {
       "source": "docs/review/screenshots/T07-local-import.png",
       "archive": "docs/review/screenshots/T44-regression-T07-local-import.png",
-      "sha256": "2ac3525de70d04520a5ff8ce5615fa74de68aa9e4697bdc970648d75475090f4"
+      "sha256": "c9bf0b3e6bbd84e1b439d291268dd0b92bc426cada6400ca00ba78f9d38899a4"
     },
     {
       "source": "docs/review/screenshots/T11-shell-narrow.png",
       "archive": "docs/review/screenshots/T44-regression-T11-shell-narrow.png",
-      "sha256": "09e06bbefefa0bc4a1c27c4a7eb733246062b65e143c8d5d5741a1560c2da025"
+      "sha256": "855d173e7af057e5d2f848f4462f05f3255b2f339767f513887639e50499ac2c"
     },
     {
       "source": "docs/review/screenshots/T12-project-library.png",
       "archive": "docs/review/screenshots/T44-regression-T12-project-library.png",
-      "sha256": "dc9a18cf1dac2fc1c1a4ab32c4455bb27590702a68496cc77216b4ef8a749dfa"
+      "sha256": "c240cd423f80bc5df9746351481583895b037fd9656a8a533125318d9200bf00"
     },
     {
       "source": "docs/review/screenshots/T13-canvas.png",
@@ -36,7 +36,7 @@
     {
       "source": "docs/review/screenshots/T16-asset-library.png",
       "archive": "docs/review/screenshots/T44-regression-T16-asset-library.png",
-      "sha256": "7fa00db7e63cd413af6be02b7928b9df983036ce6a9aaede37ed9e70c1ff5801"
+      "sha256": "82da4b989dcca9608b71136d5eec6e0029042b347a2d0f9c5c9e552b96f76164"
     },
     {
       "source": "docs/review/screenshots/T17-prompt-inspector.png",
@@ -81,12 +81,12 @@
     {
       "source": "docs/review/screenshots/T26-generation-confirm.png",
       "archive": "docs/review/screenshots/T44-regression-T26-generation-confirm.png",
-      "sha256": "c8082650c23eda7e9d64a519cc9f73b3beb9ace7f3799f974a1922706bc66921"
+      "sha256": "7e5e7283111fd450ebcf2d681a7385443a6d45383a1fec7f43e4f999fe2c3b54"
     },
     {
       "source": "docs/review/screenshots/T27-submit-unknown.png",
       "archive": "docs/review/screenshots/T44-regression-T27-submit-unknown.png",
-      "sha256": "c0ec6b96baf9c5a0b7b979f26ef99e8283ff3bbe61d8cc7b4a1628037ae95637"
+      "sha256": "51d5dcb15baca6261c00da33e1647de394ea0be73c40e7acd0f12455a0be5225"
     },
     {
       "source": "docs/review/screenshots/T29-queue-paused.png",
@@ -151,17 +151,17 @@
     {
       "source": "docs/review/screenshots/T37-connection.png",
       "archive": "docs/review/screenshots/T44-regression-T37-connection.png",
-      "sha256": "070820452be7057c03bcdc12e37b3300f204360f6ce2d06748b6fac4586c04ec"
+      "sha256": "e1ea05a46c4c187368170181819a913083ebdf92248ebc88250ef18f32718770"
     },
     {
       "source": "docs/review/screenshots/T37-storage.png",
       "archive": "docs/review/screenshots/T44-regression-T37-storage.png",
-      "sha256": "8b73020bf7c3c828a43d5e06dc0789d434e2c84762b74a3878cfc549e492d3a3"
+      "sha256": "087dd97f5d4cc80c865bc304c9ef34e19433d5747ca7cce82c4e0f53a42ec451"
     },
     {
       "source": "docs/review/screenshots/T38-activity.png",
       "archive": "docs/review/screenshots/T44-regression-T38-activity.png",
-      "sha256": "c7ad331cfb6d87b7ff467f636ba4f9d628626d25054b1b96e59d55b5064a32b9"
+      "sha256": "268f8c230059f4fe2eef515f8efe498c079856a3cdec00032d47b9c0b15ffca3"
     },
     {
       "source": "docs/review/screenshots/T38-memory-draft.png",
@@ -181,7 +181,7 @@
     {
       "source": "docs/review/screenshots/T41-mcp-confirmation.png",
       "archive": "docs/review/screenshots/T44-regression-T41-mcp-confirmation.png",
-      "sha256": "bd7d15b25248973f4426dc356ca54065f610e9dd9af8c46d0027fa193730cb0d"
+      "sha256": "8594e76e2a84cee732fa605abcf48c19b0c6a9438d3d810d34bdd6674639e9fe"
     },
     {
       "source": "docs/review/screenshots/T41-mcp-confirmed.png",
@@ -191,7 +191,7 @@
     {
       "source": "docs/review/screenshots/T41-revoked-confirmation.png",
       "archive": "docs/review/screenshots/T44-regression-T41-revoked-confirmation.png",
-      "sha256": "0f497306d904fa3b4c36d6daf14b236ae92c1b2cb40a5f14b2ca45b87df4edda"
+      "sha256": "436714674eabeb28ce6a01a239f23fb2a3e41506f02801ed41ea9b4c8dd9c43a"
     },
     {
       "source": "docs/review/screenshots/T42-applied-proposal.png",
@@ -206,12 +206,12 @@
     {
       "source": "docs/review/screenshots/T42-light-1024.png",
       "archive": "docs/review/screenshots/T44-regression-T42-light-1024.png",
-      "sha256": "77e24d24a099efb5333a6556dfa9a409f9089ecbd47d605cad8c7474a672a5cb"
+      "sha256": "2b9c86d64d707e98a2eceae1dec105e40a70a56ccb36ae04b6212de85e5db344"
     },
     {
       "source": "docs/review/screenshots/T42-light-390.png",
       "archive": "docs/review/screenshots/T44-regression-T42-light-390.png",
-      "sha256": "bbefe39fbed42a5408525a98ebb1a65f5fcdbf5b1e6d996e9c6de2b2eb13aa15"
+      "sha256": "85def5677a8a7cd4e828f93edff0f008c2bff2f308228bb6b21423bfd9d4212b"
     },
     {
       "source": "docs/review/screenshots/T42-readonly-proposal.png",

@@ -1,0 +1,211 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text",
+      "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+      "title": "T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 214
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 559
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 944
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1032
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1073
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1360
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1409
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1461
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 119
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 289
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 407
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 511
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 796
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 898
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1148
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1310
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs",
+      "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+      "title": "T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 215
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 321
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L12 actual native source-state read rejection preserves all source entries and imported prompt licenses",
+      "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+      "title": "T44 L12 actual native source-state read rejection preserves all source entries and imported prompt licenses",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 221
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 327
+        },
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 419
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-library-fault-contracts.spec.ts",
+          "line": 18,
+          "column": 129
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

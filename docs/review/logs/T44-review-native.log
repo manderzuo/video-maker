@@ -1,0 +1,142 @@
+[WebServer] (node:25020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:3868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\review-native-fault-contracts.spec.ts:8:1 › T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results (3.0s)
+  x  2 tests\e2e\review-native-fault-contracts.spec.ts:12:1 › T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities (30.1s)
+(node:29116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\review-native-fault-contracts.spec.ts:16:1 › T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure (2.9s)
+  x  4 tests\e2e\review-native-fault-contracts.spec.ts:20:1 › T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories (7.7s)
+(node:9428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\review-native-fault-contracts.spec.ts:24:1 › T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion (3.0s)
+
+
+  1) tests\e2e\review-native-fault-contracts.spec.ts:12:1 › T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '播放', exact: true })[22m
+
+
+      11 |
+      12 | test('T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities',async({page,networkCounter})=>{
+    > 13 |  await page.goto('/projects/p1/results?runId=r1');await expect.poll(()=>page.locator('video').evaluate((v:HTMLVideoElement)=>v.readyState)).toBeGreaterThanOrEqual(2);const before=await state(page);await page.evaluate(()=>{const original=Element.prototype.requestFullscreen;let armed=true;Element.prototype.requestFullscreen=function(...args:Parameters<typeof original>){if(armed&&this instanceof HTMLVideoElement){armed=false;return Promise.reject(new DOMException('native-fullscreen-denied','NotAllowedError'));}return original.apply(this,args);};});await page.getByRole('button',{name:'全屏预览',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'浏览器未允许全屏，可以继续普通预览。'})).toBeVisible();expect(await page.evaluate(()=>document.fullscreenElement)).toBeNull();await page.getByRole('button',{name:'播放',exact:true}).click();await expect.poll(()=>page.locator('video').evaluate((v:HTMLVideoElement)=>v.paused)).toBe(false);expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      14 | });
+      15 |
+      16 | test('T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\review-native-fault-contracts.spec.ts:13:833
+
+    Error Context: test-results\review-native-fault-contra-6abd6-cution-and-media-identities\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\review-native-fault-contra-6abd6-cution-and-media-identities\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\review-native-fault-contra-6abd6-cution-and-media-identities\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\review-native-fault-contracts.spec.ts:20:1 › T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '确认选用结果', exact: true }).getByRole('status')
+    Expected: [32m"结果引用未保存；原结果与任务保留，请检查画布版本、写权和本地空间后重试。"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '确认选用结果', exact: true }).getByRole('status')[22m
+
+
+      19 |
+      20 | test('T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories',async({page,networkCounter})=>{
+    > 21 |  await page.goto('/projects/p1/results?runId=r2');const before=await state(page);await page.getByRole('button',{name:'选为后续输入',exact:true}).click();const dialog=page.getByRole('dialog',{name:'确认选用结果',exact:true});await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='graphs'){armed=false;throw new DOMException('native-result-selection-quota','QuotaExceededError');}return original.apply(this,args);};});await dialog.getByRole('button',{name:'确认选用',exact:true}).click();await expect(dialog.getByRole('status')).toHaveText('结果引用未保存；原结果与任务保留，请检查画布版本、写权和本地空间后重试。');expect(await state(page)).toEqual(before);await expect(dialog).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      22 | });
+      23 |
+      24 | test('T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\review-native-fault-contracts.spec.ts:21:639
+
+    Error Context: test-results\review-native-fault-contra-9dbe6-mmutable-original-histories\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\review-native-fault-contra-9dbe6-mmutable-original-histories\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\review-native-fault-contra-9dbe6-mmutable-original-histories\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\review-native-fault-contracts.spec.ts:24:1 › T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [33m@@ -94,11 +94,11 @@[39m
+    [2m        "authBindingId": "binding-a",[22m
+    [2m        "billingState": "not_provided",[22m
+    [2m        "connectionId": "c1",[22m
+    [2m        "coreRequestId": "mock-request-1",[22m
+    [2m        "createdAt": 1000,[22m
+    [32m-       "deliveryState": "cached_local",[39m
+    [31m+       "deliveryState": "browser_download_triggered",[39m
+    [2m        "executionState": "succeeded",[22m
+    [2m        "graphRevision": 1,[22m
+    [2m        "id": "r1",[22m
+    [2m        "idempotencyKey": "fake-idempotency-r1",[22m
+    [2m        "inputSnapshot": Object {[22m
+    [33m@@ -119,11 +119,11 @@[39m
+    [2m          "modelId": "fake-video-only",[22m
+    [2m          "ratio": "9:16",[22m
+    [2m        },[22m
+    [2m        "resultAssetId": "result-asset-1",[22m
+    [2m        "taskId": "mock-video-1",[22m
+    [32m-       "updatedAt": 1000,[39m
+    [31m+       "updatedAt": 1790844578549,[39m
+    [2m      },[22m
+    [2m      Object {[22m
+    [2m        "authBindingId": "binding-a",[22m
+    [2m        "billingState": "not_provided",[22m
+    [2m        "connectionId": "c1",[22m
+
+      24 | test('T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion',async({page,networkCounter})=>{
+      25 |  await page.goto('/projects/p1/results?runId=r1');await expect.poll(()=>page.locator('video').evaluate((v:HTMLVideoElement)=>v.readyState)).toBeGreaterThanOrEqual(2);const before=await state(page),bytes=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['blobs','assets'],'readonly',async(tx:IDBTransaction)=>{const asset=await m.requestResult(tx.objectStore('assets').get('result-asset-1')),row=await m.requestResult(tx.objectStore('blobs').get(asset.blobKey));return Array.from(new Uint8Array(await row.blob.arrayBuffer()));});}finally{db.close();}});await page.evaluate(()=>{const original=IDBObjectStore.prototype.get;let armed=true;IDBObjectStore.prototype.get=function(...args:Parameters<typeof original>){if(armed&&this.name==='blobs'){armed=false;throw new DOMException('native-result-download-read','UnknownError');}return original.apply(this,args);};});await page.getByRole('button',{name:'下载结果',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'结果获取或本地保存失败'})).toBeVisible();expect(await state(page)).toEqual(before);
+    > 26 |  await holdNextNativeCommit(page,'blobs','readonly');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'重新下载',exact:true}).click();await expect.poll(()=>nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});try{await expect(page.getByRole('button',{name:'重新下载',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'获取并缓存结果',exact:true})).toBeDisabled();expect(await state(page)).toEqual(before);}finally{await releaseNativeCommit(page);}const download=await pending;expect(Array.from(await readFile((await download.path())!))).toEqual(bytes);expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      27 | });
+      28 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\review-native-fault-contracts.spec.ts:26:649
+
+    Error Context: test-results\review-native-fault-contra-4284e-cache-until-read-completion\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\review-native-fault-contra-4284e-cache-until-read-completion\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\review-native-fault-contra-4284e-cache-until-read-completion\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\review-native-fault-contracts.spec.ts:12:1 › T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities 
+    tests\e2e\review-native-fault-contracts.spec.ts:20:1 › T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories 
+    tests\e2e\review-native-fault-contracts.spec.ts:24:1 › T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion 
+  2 passed (52.7s)

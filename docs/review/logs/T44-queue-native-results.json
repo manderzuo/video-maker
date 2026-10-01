@@ -1,0 +1,321 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+      "status": "passed",
+      "assertions": 22,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 358
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 580
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 620
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 161
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 293
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 427
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 277
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 326
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 118
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 386
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 434
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 614
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 662
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 721
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 263
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 497
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 229
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 110
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 983
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1104
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1155
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 899
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1505
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1675
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1850
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1890
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2003
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2060
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2119
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2173
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2221
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2265
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1395
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1465
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1776
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1972
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

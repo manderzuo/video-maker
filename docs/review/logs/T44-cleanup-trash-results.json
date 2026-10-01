@@ -1,0 +1,271 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 D07/D08 pending real reference scan disables cleanup; actual clear-project abort preserves every project, original media and history",
+      "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+      "title": "T44 D07/D08 pending real reference scan disables cleanup; actual clear-project abort preserves every project, original media and history",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 382
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 596
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 637
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 1446
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 1524
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 1576
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 327
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 869
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 997
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 1398
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 Z01 actual restore quota retains trashed original and unknown tracking; a native retry disables restore until its real acknowledgement",
+      "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+      "title": "T44 Z01 actual restore quota retains trashed original and unknown tracking; a native retry disables restore until its real acknowledgement",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 507
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 547
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 670
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 717
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 844
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 892
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 973
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1086
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1116
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1158
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1201
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1259
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 461
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 662
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 Z03 actual native batch deletion failure reports both failed and protected items and preserves original unknown task and shared files",
+      "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+      "title": "T44 Z03 actual native batch deletion failure reports both failed and protected items and preserves original unknown task and shared files",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 393
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 912
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 978
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1049
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1106
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1146
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1198
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 138
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 229
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 295
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 469
+        },
+        {
+          "file": "tests/e2e/cleanup-trash-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 865
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

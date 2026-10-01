@@ -1,0 +1,14 @@
+[WebServer] (node:21708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:18264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\queue-native-fault-contracts.spec.ts:7:1 › T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion (1.6s)
+  ok 2 tests\e2e\queue-native-fault-contracts.spec.ts:14:1 › T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending (1.3s)
+  ok 3 tests\e2e\queue-native-fault-contracts.spec.ts:18:1 › T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee (1.6s)
+
+  3 passed (7.6s)

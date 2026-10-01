@@ -1,0 +1,26 @@
+[WebServer] (node:20952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:29564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\result-review.spec.ts:4:1 › T35-C01/C03: exactly two local versions; swapping only presentation preserves fixed original runs and assets (3.3s)
+  ok  2 tests\e2e\result-review.spec.ts:5:1 › T35-C02: real native clips play together, shorter ending pauses both and warns approximate synchronization (3.6s)
+  ok  3 tests\e2e\result-review.spec.ts:6:1 › T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores (2.9s)
+  ok  4 tests\e2e\result-review.spec.ts:7:1 › T35-C06: native keyboard playback and fullscreen can exit without playing other preview (2.7s)
+  ok  5 tests\e2e\review-action-contracts.spec.ts:4:1 › T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input (3.8s)
+  ok  6 tests\e2e\review-action-contracts.spec.ts:7:1 › T44 R05/R06 clipboard rejection reports the failure and preserves the native result and original parameter snapshot (2.6s)
+  ok  7 tests\e2e\review-action-contracts.spec.ts:10:1 › T44 R13 remove placement is separately confirmed, preserves immutable task and original files, and is undoable through the canvas (3.2s)
+  ok  8 tests\e2e\review-action-contracts.spec.ts:13:1 › T44 R13 native removal quota failure leaves the placement, result history and media intact with an explicit retry message (2.6s)
+  ok  9 tests\e2e\review-action-contracts.spec.ts:16:1 › T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip (2.7s)
+  ok 10 tests\e2e\review-action-contracts.spec.ts:19:1 › T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results (3.1s)
+  ok 11 tests\e2e\review-native-fault-contracts.spec.ts:8:1 › T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results (2.7s)
+  ok 12 tests\e2e\review-native-fault-contracts.spec.ts:12:1 › T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities (2.6s)
+  ok 13 tests\e2e\review-native-fault-contracts.spec.ts:16:1 › T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure (2.6s)
+  ok 14 tests\e2e\review-native-fault-contracts.spec.ts:20:1 › T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories (2.7s)
+  ok 15 tests\e2e\review-native-fault-contracts.spec.ts:24:1 › T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion (2.7s)
+
+  15 passed (47.3s)

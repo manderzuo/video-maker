@@ -1,0 +1,14 @@
+[WebServer] (node:25264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:7372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\cleanup-trash-fault-contracts.spec.ts:7:1 › T44 D07/D08 pending real reference scan disables cleanup; actual clear-project abort preserves every project, original media and history (1.6s)
+  ok 2 tests\e2e\cleanup-trash-fault-contracts.spec.ts:12:1 › T44 Z01 actual restore quota retains trashed original and unknown tracking; a native retry disables restore until its real acknowledgement (1.2s)
+  ok 3 tests\e2e\cleanup-trash-fault-contracts.spec.ts:16:1 › T44 Z03 actual native batch deletion failure reports both failed and protected items and preserves original unknown task and shared files (1.3s)
+
+  3 passed (7.2s)

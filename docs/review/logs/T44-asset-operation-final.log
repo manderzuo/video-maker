@@ -1,0 +1,14 @@
+[WebServer] (node:6432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:29112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\asset-operation-fault-contracts.spec.ts:8:1 › T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts (1.8s)
+  ok 2 tests\e2e\asset-operation-fault-contracts.spec.ts:12:1 › T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry (1.4s)
+  ok 3 tests\e2e\asset-operation-fault-contracts.spec.ts:16:1 › T44 M15 actual reference navigation with a failed native graph read reports the unreadable target and keeps the original media and tasks (1.3s)
+
+  3 passed (7.5s)

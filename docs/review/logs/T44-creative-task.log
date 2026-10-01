@@ -1,0 +1,139 @@
+[WebServer] (node:3936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:12772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\creative-operation-fault-contracts.spec.ts:8:1 › T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records (6.5s)
+(node:25336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\creative-operation-fault-contracts.spec.ts:12:1 › T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request (6.3s)
+(node:18140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\creative-operation-fault-contracts.spec.ts:16:1 › T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records (6.5s)
+(node:28184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\creative-operation-fault-contracts.spec.ts:20:1 › T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending (1.5s)
+  ok 5 tests\e2e\creative-operation-fault-contracts.spec.ts:24:1 › T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request (1.4s)
+  ok 6 tests\e2e\task-operation-fault-contracts.spec.ts:5:1 › T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation (1.3s)
+  ok 7 tests\e2e\task-operation-fault-contracts.spec.ts:9:1 › T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records (1.2s)
+  ok 8 tests\e2e\task-operation-fault-contracts.spec.ts:13:1 › T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation (1.6s)
+
+
+  1) tests\e2e\creative-operation-fault-contracts.spec.ts:8:1 › T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '从文本创建视频流程', exact: true }).getByRole('alert')
+    Expected: [32m"存储空间不足，本次修改尚未保存。"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '从文本创建视频流程', exact: true }).getByRole('alert')[22m
+
+
+       7 |
+       8 | test('T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records',async({page,networkCounter})=>{
+    >  9 |  await page.goto('/projects/p1/canvas');const before=await state(page);await page.getByTestId('node-text-1').getByRole('button',{name:'从文本创建视频流程',exact:true}).click();const dialog=page.getByRole('dialog',{name:'从文本创建视频流程',exact:true});await deny(page,'graphs');await dialog.getByRole('button',{name:'确认仅创建草稿',exact:true}).click();await expect(dialog.getByRole('alert')).toHaveText('存储空间不足，本次修改尚未保存。');expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                   ^
+      10 | });
+      11 |
+      12 | test('T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\creative-operation-fault-contracts.spec.ts:9:371
+
+    Error Context: test-results\creative-operation-fault-c-4d214-source-and-all-task-records\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\creative-operation-fault-c-4d214-source-and-all-task-records\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\creative-operation-fault-c-4d214-source-and-all-task-records\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\creative-operation-fault-contracts.spec.ts:12:1 › T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeEnabled[2m([22m[2m)[22m failed
+
+    Locator:  getByRole('button', { name: 'AI优化', exact: true })
+    Expected: enabled
+    Received: disabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeEnabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: 'AI优化', exact: true })[22m
+    [2m    9 × locator resolved to <button disabled aria-busy="false" aria-describedby="_r_r_" class="button secondary " data-interaction-id="PG15">AI优化</button>[22m
+    [2m      - unexpected value "disabled"[22m
+
+
+      11 |
+      12 | test('T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request',async({page,networkCounter})=>{
+    > 13 |  await page.goto('/prompt-generator?type=video');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';(await import(p)).connectGeneration();});await expect(page.getByRole('button',{name:'AI优化',exact:true})).toBeEnabled();const before=await state(page);await page.getByLabel('最终提示词正文',{exact:true}).fill('尚未保存的人工中文正文，品牌康济健葆。');await deny(page,'promptDrafts');await page.getByRole('button',{name:'AI优化',exact:true}).click();await expect(page.getByRole('alert')).toContainText('未保存');await expect(page.getByRole('dialog',{name:'AI文字请求预览',exact:true})).toHaveCount(0);expect(await state(page)).toEqual(before);await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue('尚未保存的人工中文正文，品牌康济健葆。');expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                 ^
+      14 | });
+      15 |
+      16 | test('T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\creative-operation-fault-contracts.spec.ts:13:225
+
+    Error Context: test-results\creative-operation-fault-c-9a6c1-pproval-or-billable-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\creative-operation-fault-c-9a6c1-pproval-or-billable-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\creative-operation-fault-c-9a6c1-pproval-or-billable-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\creative-operation-fault-contracts.spec.ts:16:1 › T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeEnabled[2m([22m[2m)[22m failed
+
+    Locator:  getByRole('dialog', { name: '选择插入目标', exact: true }).getByRole('button', { name: '确认仅建流程', exact: true })
+    Expected: enabled
+    Received: disabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeEnabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '选择插入目标', exact: true }).getByRole('button', { name: '确认仅建流程', exact: true })[22m
+    [2m    9 × locator resolved to <button disabled aria-busy="false" class="button primary " data-interaction-id="ui:InsertTargetDialog:Button:2ab3535fbce3">确认仅建流程</button>[22m
+    [2m      - unexpected value "disabled"[22m
+
+
+      15 |
+      16 | test('T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records',async({page,networkCounter})=>{
+    > 17 |  await page.goto('/prompt-generator?type=video');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';(await import(p)).connectGeneration();});await page.getByLabel('最终提示词正文',{exact:true}).fill('原创人工正文，品牌康济健葆。');await page.getByRole('button',{name:'保存草稿',exact:true}).click();await page.getByRole('button',{name:'仅建流程',exact:true}).click();const dialog=page.getByRole('dialog',{name:'选择插入目标',exact:true});await dialog.getByLabel('目标项目',{exact:true}).selectOption('p1');await dialog.getByLabel('流程视频规格',{exact:true}).selectOption('0');await expect(dialog.getByRole('button',{name:'确认仅建流程',exact:true})).toBeEnabled();const before=await state(page);await deny(page,'graphs');await dialog.getByRole('button',{name:'确认仅建流程',exact:true}).click();await expect(dialog.getByRole('alert')).toHaveText('存储写入失败，本次没有留下节点或连线；草稿保留，可重试。');expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+      18 | });
+      19 |
+      20 | test('T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\creative-operation-fault-contracts.spec.ts:17:620
+
+    Error Context: test-results\creative-operation-fault-c-bdf39-groups-or-execution-records\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\creative-operation-fault-c-bdf39-groups-or-execution-records\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\creative-operation-fault-c-bdf39-groups-or-execution-records\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\creative-operation-fault-contracts.spec.ts:8:1 › T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records 
+    tests\e2e\creative-operation-fault-contracts.spec.ts:12:1 › T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request 
+    tests\e2e\creative-operation-fault-contracts.spec.ts:16:1 › T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records 
+  5 passed (34.1s)

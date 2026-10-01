@@ -1,0 +1,96 @@
+[WebServer] (node:4808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:20380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\asset-operation-fault-contracts.spec.ts:8:1 › T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts (6.6s)
+(node:27788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\asset-operation-fault-contracts.spec.ts:12:1 › T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry (6.5s)
+(node:21368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\asset-operation-fault-contracts.spec.ts:16:1 › T44 M15 actual reference navigation with a failed native graph read reports the unreadable target and keeps the original media and tasks (1.5s)
+
+
+  1) tests\e2e\asset-operation-fault-contracts.spec.ts:8:1 › T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '选择目标项目', exact: true }).getByRole('alert')
+    Expected substring: [32m"修改未保存"[39m
+    Received string:    [31m"[7m操作失败，[27m修改[7m尚[27m未保存[7m，请检查名称、标签限制或本地空间。[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '选择目标项目', exact: true }).getByRole('alert')[22m
+    [2m    9 × locator resolved to <p role="alert">操作失败，修改尚未保存，请检查名称、标签限制或本地空间。</p>[22m
+    [2m      - unexpected value "操作失败，修改尚未保存，请检查名称、标签限制或本地空间。"[22m
+
+
+       7 |
+       8 | test('T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts',async({page,networkCounter})=>{
+    >  9 |  const before=await state(page);await page.getByRole('button',{name:'详情 声音440.wav',exact:true}).click();await page.getByRole('button',{name:'添加到画布',exact:true}).click();let dialog=page.getByRole('dialog',{name:'选择目标项目',exact:true});await deny(page,'graphs');await dialog.getByRole('button',{name:'插入 素材项目',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('修改未保存');expect(await state(page)).toEqual(before);await dialog.getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('button',{name:'替换草稿输入',exact:true}).click();await dialog.getByRole('button',{name:'替换 素材项目 / 图片引用',exact:true}).click();dialog=page.getByRole('dialog').filter({has:page.getByRole('button',{name:'确认替换草稿输入',exact:true})});await deny(page,'graphs');await dialog.getByRole('button',{name:'确认替换草稿输入',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('修改未保存');expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                ^
+      10 | });
+      11 |
+      12 | test('T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-operation-fault-contracts.spec.ts:9:368
+
+    Error Context: test-results\asset-operation-fault-cont-a0263-aph-and-historical-attempts\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-operation-fault-cont-a0263-aph-and-historical-attempts\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-operation-fault-cont-a0263-aph-and-historical-attempts\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\asset-operation-fault-contracts.spec.ts:12:1 › T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('alert')
+    Expected substring: [32m"修改未保存"[39m
+    Received string:    [31m"[7m操作失败，[27m修改[7m尚[27m未保存[7m，请检查名称、标签限制或本地空间。[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('alert')[22m
+    [2m    9 × locator resolved to <p role="alert">操作失败，修改尚未保存，请检查名称、标签限制或本地空间。</p>[22m
+    [2m      - unexpected value "操作失败，修改尚未保存，请检查名称、标签限制或本地空间。"[22m
+
+
+      11 |
+      12 | test('T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry',async({page,networkCounter})=>{
+    > 13 |  const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await deny(page,'graphs','getAll');await page.getByRole('button',{name:'移到回收站',exact:true}).click();await expect(page.getByRole('alert')).toContainText('修改未保存');expect(await state(page)).toEqual(before);await holdNextNativeCommit(page,'graphs','readonly');await page.getByRole('button',{name:'移到回收站',exact:true}).click();await expect.poll(()=>nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});try{await expect(page.getByRole('button',{name:'移到回收站',exact:true})).toBeDisabled();expect(await state(page)).toEqual(before);}finally{await releaseNativeCommit(page);}const dialog=page.getByRole('dialog',{name:'移入素材回收站',exact:true});await expect(dialog).toBeVisible();await deny(page,'assets');await dialog.getByRole('button',{name:'确认移入素材回收站',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('未保存');expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                ^
+      14 | });
+      15 |
+      16 | test('T44 M15 actual reference navigation with a failed native graph read reports the unreadable target and keeps the original media and tasks',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-operation-fault-contracts.spec.ts:13:240
+
+    Error Context: test-results\asset-operation-fault-cont-f8268-ts-duplicate-deletion-entry\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-operation-fault-cont-f8268-ts-duplicate-deletion-entry\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-operation-fault-cont-f8268-ts-duplicate-deletion-entry\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\asset-operation-fault-contracts.spec.ts:8:1 › T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts 
+    tests\e2e\asset-operation-fault-contracts.spec.ts:12:1 › T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry 
+  1 passed (20.5s)

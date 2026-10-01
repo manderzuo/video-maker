@@ -1,0 +1,206 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only",
+      "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+      "title": "T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only",
+      "status": "failed",
+      "assertions": 3,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 285
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 325
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 396
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 462
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 623
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P08 native soft-deletion quota retains original project and ongoing task identities without cancellation or refund",
+      "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+      "title": "T44 P08 native soft-deletion quota retains original project and ongoing task identities without cancellation or refund",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 185
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 328
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 368
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 546
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 633
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 90
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 280
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 12,
+          "column": 440
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P11 actual batch export snapshot failure generates no empty success package and keeps the original selected project and frozen tasks",
+      "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+      "title": "T44 P11 actual batch export snapshot failure generates no empty success package and keeps the original selected project and frozen tasks",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 237
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 844
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 938
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 980
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 1032
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 74
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 142
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/project-operation-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 798
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

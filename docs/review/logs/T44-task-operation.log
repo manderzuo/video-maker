@@ -1,0 +1,44 @@
+[WebServer] (node:11992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:6140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\task-operation-fault-contracts.spec.ts:5:1 › T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation (1.5s)
+  ok 2 tests\e2e\task-operation-fault-contracts.spec.ts:9:1 › T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records (1.1s)
+  x  3 tests\e2e\task-operation-fault-contracts.spec.ts:13:1 › T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation (30.1s)
+
+
+  1) tests\e2e\task-operation-fault-contracts.spec.ts:13:1 › T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '核对未知提交', exact: true })[22m
+
+
+      12 |
+      13 | test('T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation',async({page,networkCounter})=>{
+    > 14 |  await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';await(await import(p)).seedGeneration();});await page.goto('/projects/p1/canvas');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';(await import(p)).connectGeneration();});await page.route('**/core-api/v1/videos/generations',route=>route.fulfill({status:202,contentType:'application/json',body:'{"task":{"id":"mock-t44-durable-task","status":"queued"}}'}));await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='runs'&&(args[0] as {executionState?:string}).executionState==='accepted'){armed=false;throw new DOMException('native-original-response-save','QuotaExceededError');}return original.apply(this,args);};});await page.getByTestId('node-video-1').locator('[data-interaction-id="V-08"]').click();const confirmation=page.getByRole('dialog',{name:'生成确认单',exact:true});await confirmation.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知').check();await confirmation.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await page.getByRole('dialog',{name:'任务未知结果',exact:true}).getByRole('button',{name:'暂存待核对',exact:true}).click();const before=await state(page),run=before.runs[0];expect(run.finalBody).toBeTruthy();await page.evaluate(async()=>{const p='/src/app/routes.tsx';(await import(p)).navigate('/tasks');});await page.getByTestId(run.id).getByRole('button',{name:'详情',exact:true}).click();await page.evaluate(()=>{const original=IDBObjectStore.prototype.get;let armed=true;IDBObjectStore.prototype.get=function(...args:Parameters<typeof original>){if(armed&&this.name==='receipts'&&String(args[0]).startsWith('submission-response:')){armed=false;throw new DOMException('native-durable-response-read','UnknownError');}return original.apply(this,args);};});await page.getByRole('button',{name:'核对未知提交',exact:true}).click();let dialog=page.getByRole('dialog',{name:'任务未知结果',exact:true});await expect(dialog.getByRole('status')).toHaveText('原响应记录读取失败，请保留原请求核对。');expect(await state(page)).toEqual(before);await dialog.getByRole('button',{name:'暂存待核对',exact:true}).click();await page.getByRole('button',{name:'核对未知提交',exact:true}).click();dialog=page.getByRole('dialog',{name:'任务未知结果',exact:true});await expect(dialog.getByRole('button',{name:'查询原任务',exact:true})).toBeEnabled();await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='runs'){armed=false;throw new DOMException('native-durable-recovery-save','QuotaExceededError');}return original.apply(this,args);};});await dialog.getByRole('button',{name:'查询原任务',exact:true}).click();await expect(dialog.getByRole('status')).toHaveText('原请求恢复尚未完成，请检查原服务授权或保留记录人工核对；未创建新任务。');expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(1);expect(networkCounter.requests.filter(r=>r.method==='POST'&&r.url.includes('/v1/videos/generations'))).toHaveLength(1);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+      15 | });
+      16 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\task-operation-fault-contracts.spec.ts:14:2276
+
+    Error Context: test-results\task-operation-fault-contr-ab645-ts-key-or-repeat-generation\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\task-operation-fault-contr-ab645-ts-key-or-repeat-generation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\task-operation-fault-contr-ab645-ts-key-or-repeat-generation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\task-operation-fault-contracts.spec.ts:13:1 › T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation 
+  2 passed (35.9s)

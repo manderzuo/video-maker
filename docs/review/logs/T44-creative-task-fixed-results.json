@@ -1,0 +1,2139 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3275
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3780
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3819
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3138
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3208
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request denies approval after revocation",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request denies approval after revocation",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2841
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2898
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2723
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2793
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 371
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 562
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 323
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 349
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 712
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 753
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 823
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 894
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 204
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 277
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 440
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 556
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 425
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 765
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 944
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1013
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 1065
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 353
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 495
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 613
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 896
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1122
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1370
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1411
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1463
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 1199
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request",
+      "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+      "title": "T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 922
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 973
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1213
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1263
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 542
+        },
+        {
+          "file": "tests/e2e/creative-operation-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 652
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22: video-source diff keeps parameters unless explicitly accepted and replaces only text connections",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22: video-source diff keeps parameters unless explicitly accepted and replaces only text connections",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1855
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1921
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2091
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2238
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2318
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2370
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2424
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2475
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1255
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1375
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1443
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1504
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1605
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1677
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 1740
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 6,
+          "column": 2064
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C03: browser storage fault leaves zero partial nodes and retries the same command safely",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22-C03: browser storage fault leaves zero partial nodes and retries the same command safely",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 352
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 782
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 867
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 902
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 1003
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 1097
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 1164
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 173
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 739
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 7,
+          "column": 1070
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C06: replaying an applied command in the actual browser never adds a second node",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22-C06: replaying an applied command in the actual browser never adds a second node",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 363
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 1294
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 1351
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 262
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 8,
+          "column": 336
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22: applying from the canvas panel retains its writer lease and selected historical body",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22: applying from the canvas panel retains its writer lease and selected historical body",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 923
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1491
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1611
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1684
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1744
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 413
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 479
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1222
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1361
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1464
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 9,
+          "column": 1594
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C01: insertion requires an explicit project and previews position before committing",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22-C01: insertion requires an explicit project and previews position before committing",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 303
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 446
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 542
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 637
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 703
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 726
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 759
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 832
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 183
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 358
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 10,
+          "column": 515
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C02: applying previews old/new text and rejects a revision changed after preview",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22-C02: applying previews old/new text and rejects a revision changed after preview",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 362
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 975
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 1051
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 1180
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 1287
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 1360
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 167
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 932
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 1123
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 11,
+          "column": 1260
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C04: reviewed local mock capability builds one atomic group with no POST or Run",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22-C04: reviewed local mock capability builds one atomic group with no POST or Run",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 910
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1053
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1123
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1189
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1219
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1250
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1283
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 1356
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 686
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 783
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 844
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 12,
+          "column": 979
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C05: unknown capabilities and unbound references cannot become executable flows",
+      "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+      "title": "T22-C05: unknown capabilities and unbound references cannot become executable flows",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 13,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 13,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 13,
+          "column": 431
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 5,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 13,
+          "column": 243
+        },
+        {
+          "file": "tests/e2e/prompt-canvas-commands.spec.ts",
+          "line": 13,
+          "column": 380
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-mode.spec.ts::T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "file": "tests/e2e/prompt-mode.spec.ts",
+      "title": "T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 371
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 635
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 764
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 884
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1019
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1069
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1250
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1306
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 681
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 798
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 777
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1128
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1169
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1221
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 833
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 882
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 948
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1061
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 694
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 768
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 880
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1004
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1056
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 865
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 727
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 841
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 681
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 639
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 800
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 887
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 590
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1104
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1144
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 162
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 419
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 733
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 821
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 1009
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1025
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 154
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation",
+      "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+      "title": "T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation",
+      "status": "passed",
+      "assertions": 60,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1208
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1253
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1371
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1508
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1555
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 560
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 667
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 667
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records",
+      "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+      "title": "T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 693
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 761
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 853
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 612
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation",
+      "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+      "title": "T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1344
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2075
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2135
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2492
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2930
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 3006
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 3058
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 3177
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 942
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1076
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1152
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1264
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1531
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1963
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2210
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2292
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2358
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2881
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

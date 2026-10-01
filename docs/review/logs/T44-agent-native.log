@@ -1,0 +1,126 @@
+[WebServer] (node:23700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:6852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\agent-bulk-contracts.spec.ts:10:1 › T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated (2.1s)
+  ok 2 tests\e2e\agent-bulk-contracts.spec.ts:11:1 › T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all (1.9s)
+  ok 3 tests\e2e\agent-bulk-contracts.spec.ts:12:1 › T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history (1.4s)
+  ok 4 tests\e2e\agent-bulk-contracts.spec.ts:13:1 › T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data (1.4s)
+  x  5 tests\e2e\agent-bulk-contracts.spec.ts:15:1 › T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions (6.4s)
+(node:22484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 tests\e2e\agent-native-fault-contracts.spec.ts:10:1 › T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records (1.5s)
+  ok 7 tests\e2e\agent-native-fault-contracts.spec.ts:14:1 › T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission (1.6s)
+  x  8 tests\e2e\agent-native-fault-contracts.spec.ts:19:1 › T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records (6.3s)
+
+
+  1) tests\e2e\agent-bulk-contracts.spec.ts:15:1 › T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: 'Agent 提案审阅', exact: true })
+    Timeout: 5000ms
+    [32m- Expected substring  -  1[39m
+    [31m+ Received string     + 10[39m
+
+    [32m- 提案处理失败[39m
+    [31m+ Agent 提案审阅×提案 bulk-review-44 · 基于修订 1 · 待审阅删除节点 0 · 选中删除 0 · 总操作 2接受创作修改不授权生成。收费执行仍需要单独确认。修改节点 · title-op节点：镜头一标题："镜头一" → "批量审阅的中文标题"查看结构化操作{[39m
+    [31m+   "nodeId": "text-1",[39m
+    [31m+   "patch": {[39m
+    [31m+     "title": "批量审阅的中文标题"[39m
+    [31m+   }[39m
+    [31m+ }移动节点 · move-op节点：镜头一位置：(80, 80) → (100, 120)查看结构化操作{[39m
+    [31m+   "nodeId": "text-1",[39m
+    [31m+   "x": 100,[39m
+    [31m+   "y": 120[39m
+    [31m+ }修改未应用：storage_quota_exceeded。请检查权限、操作依赖和保存状态。拒绝提案接受全部修改应用选中修改[39m
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: 'Agent 提案审阅', exact: true })[22m
+    [2m    2 × locator resolved to <dialog open="" aria-modal="true" data-dialog-id="D14" aria-labelledby="_r_2l_" class="dialog dialog-960">…</dialog>[22m
+    [2m      - unexpected value "Agent 提案审阅×操作处理中，请稍候提案 bulk-review-44 · 基于修订 1 · 待审阅删除节点 0 · 选中删除 0 · 总操作 2接受创作修改不授权生成。收费执行仍需要单独确认。修改节点 · title-op节点：镜头一标题："镜头一" → "批量审阅的中文标题"查看结构化操作{[22m
+    [2m  "nodeId": "text-1",[22m
+    [2m  "patch": {[22m
+    [2m    "title": "批量审阅的中文标题"[22m
+    [2m  }[22m
+    [2m}移动节点 · move-op节点：镜头一位置：(80, 80) → (100, 120)查看结构化操作{[22m
+    [2m  "nodeId": "text-1",[22m
+    [2m  "x": 100,[22m
+    [2m  "y": 120[22m
+    [2m}拒绝提案接受全部修改◌ 应用选中修改请勾选要接受的操作；有关联的操作须一起选择。"[22m
+    [2m    7 × locator resolved to <dialog open="" aria-modal="true" data-dialog-id="D14" aria-labelledby="_r_2l_" class="dialog dialog-960">…</dialog>[22m
+    [2m      - unexpected value "Agent 提案审阅×提案 bulk-review-44 · 基于修订 1 · 待审阅删除节点 0 · 选中删除 0 · 总操作 2接受创作修改不授权生成。收费执行仍需要单独确认。修改节点 · title-op节点：镜头一标题："镜头一" → "批量审阅的中文标题"查看结构化操作{[22m
+    [2m  "nodeId": "text-1",[22m
+    [2m  "patch": {[22m
+    [2m    "title": "批量审阅的中文标题"[22m
+    [2m  }[22m
+    [2m}移动节点 · move-op节点：镜头一位置：(80, 80) → (100, 120)查看结构化操作{[22m
+    [2m  "nodeId": "text-1",[22m
+    [2m  "x": 100,[22m
+    [2m  "y": 120[22m
+    [2m}修改未应用：storage_quota_exceeded。请检查权限、操作依赖和保存状态。拒绝提案接受全部修改应用选中修改"[22m
+
+
+      14 |
+      15 | test('T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions',async({page,networkCounter})=>{
+    > 16 |  const before=await state(page),dialog=await review(page);await dialog.getByLabel('选择操作 title-op',{exact:true}).check();await dialog.getByLabel('选择操作 move-op',{exact:true}).check();await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='graphs'){armed=false;throw new DOMException('native-selected-proposal-quota','QuotaExceededError');}return original.apply(this,args);};});await dialog.getByRole('button',{name:'应用选中修改',exact:true}).click();await expect(dialog).toContainText('提案处理失败');expect(await state(page)).toEqual(before);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      17 |  await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='proposals'){armed=false;throw new DOMException('native-proposal-reject-quota','QuotaExceededError');}return original.apply(this,args);};});await dialog.getByRole('button',{name:'拒绝提案',exact:true}).click();await expect(dialog).toContainText('拒绝结果未保存');expect(await state(page)).toEqual(before);
+      18 |  const helper=await import('../helpers/native-commit-hold');await helper.holdNextNativeCommit(page,'proposals');await dialog.getByRole('button',{name:'拒绝提案',exact:true}).click();await expect.poll(()=>helper.nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});try{await expect(dialog.getByRole('button',{name:'拒绝提案',exact:true})).toBeDisabled();await expect(dialog.getByRole('button',{name:'应用选中修改',exact:true})).toBeDisabled();const actual=await state(page);expect(actual.graph).toEqual(before.graph);expect(actual.runs).toEqual(before.runs);expect(actual.proposals[0].status).toBe('rejected');}finally{await helper.releaseNativeCommit(page);}await expect(dialog).toHaveCount(0);expect(networkCounter.paidRequests).toHaveLength(0);
+      19 | });
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-bulk-contracts.spec.ts:16:591
+
+    Error Context: test-results\agent-bulk-contracts-T44-A-155ed-ion-disables-both-decisions\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-bulk-contracts-T44-A-155ed-ion-disables-both-decisions\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-bulk-contracts-T44-A-155ed-ion-disables-both-decisions\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\agent-native-fault-contracts.spec.ts:19:1 › T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('alert').filter({ hasText: '本地会话或关联索引未保存' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('alert').filter({ hasText: '本地会话或关联索引未保存' })[22m
+
+
+      18 |
+      19 | test('T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records',async({page,networkCounter})=>{
+    > 20 |  await boot(page);const before=await state(page);await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let armed=true;IDBObjectStore.prototype.put=function(...args:Parameters<typeof original>){if(armed&&this.name==='diagnostics'){armed=false;throw new DOMException('native-agent-conversation-create','QuotaExceededError');}return original.apply(this,args);};});await page.getByRole('button',{name:'新本地会话',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'本地会话或关联索引未保存'})).toBeVisible();expect(await state(page)).toEqual(before);await page.getByRole('button',{name:'新本地会话',exact:true}).click();await expect(page.getByText('已创建空本地会话；画布和旧提案保留。',{exact:true})).toBeVisible();await expect(page.getByLabel('本地会话',{exact:true})).not.toHaveValue('');const created=await state(page);expect(created.runs).toEqual(before.runs);await page.getByRole('button',{name:'删除本地会话',exact:true}).click();const dialog=page.getByRole('dialog',{name:'删除本地 Agent 会话',exact:true});await dialog.getByLabel('我确认删除这些本地对话记录',{exact:true}).check();await page.evaluate(()=>{const original=IDBObjectStore.prototype.delete;let armed=true;IDBObjectStore.prototype.delete=function(...args:Parameters<typeof original>){if(armed&&this.name==='diagnostics'){armed=false;throw new DOMException('native-agent-conversation-delete','QuotaExceededError');}return original.apply(this,args);};});await dialog.getByRole('button',{name:'确认删除本地会话',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'本地会话未确认删除'})).toBeVisible();await expect(dialog).toBeVisible();expect(await state(page)).toEqual(created);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      21 | });
+      22 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-native-fault-contracts.spec.ts:20:513
+
+    Error Context: test-results\agent-native-fault-contrac-e4cc2-d-all-original-task-records\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-native-fault-contrac-e4cc2-d-all-original-task-records\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-native-fault-contrac-e4cc2-d-all-original-task-records\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\agent-bulk-contracts.spec.ts:15:1 › T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions 
+    tests\e2e\agent-native-fault-contracts.spec.ts:19:1 › T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records 
+  6 passed (27.7s)

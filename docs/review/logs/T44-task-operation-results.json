@@ -1,0 +1,461 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation",
+      "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+      "title": "T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation",
+      "status": "passed",
+      "assertions": 60,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1115
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1208
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1253
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1371
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1508
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 1555
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 560
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 667
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 667
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records",
+      "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+      "title": "T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 693
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 761
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 853
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 612
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation",
+      "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+      "title": "T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation",
+      "status": "timedOut",
+      "assertions": 4,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1344
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2075
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2135
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 942
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1076
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1152
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1264
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1531
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 1963
+        },
+        {
+          "file": "tests/e2e/task-operation-fault-contracts.spec.ts",
+          "line": 14,
+          "column": 2210
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

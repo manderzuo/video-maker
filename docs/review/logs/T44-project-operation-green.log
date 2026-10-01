@@ -1,0 +1,22 @@
+[WebServer] (node:12472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:20032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model (1.9s)
+  ok  2 tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue (1.3s)
+  ok  3 tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked (1.8s)
+  ok  4 tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope (1.5s)
+  ok  5 tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval (676ms)
+  ok  6 tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking (1.2s)
+  ok  7 tests\e2e\project-library.spec.ts:38:1 › T12 / W06: welcome opens the real new-project dialog; rename Escape preserves the stored name (1.3s)
+  ok  8 tests\e2e\project-library.spec.ts:43:1 › T12 batch archive: locked project is reported by name and remains unmodified (1.3s)
+  ok  9 tests\e2e\project-operation-fault-contracts.spec.ts:7:1 › T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only (3.4s)
+  ok 10 tests\e2e\project-operation-fault-contracts.spec.ts:11:1 › T44 P08 native soft-deletion quota retains original project and ongoing task identities without cancellation or refund (3.0s)
+  ok 11 tests\e2e\project-operation-fault-contracts.spec.ts:15:1 › T44 P11 actual batch export snapshot failure generates no empty success package and keeps the original selected project and frozen tasks (2.6s)
+
+  11 passed (23.2s)

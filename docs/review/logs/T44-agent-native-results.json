@@ -1,0 +1,715 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 400
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 953
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1078
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1180
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1215
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1492
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1602
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1673
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1860
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1924
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 744
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1298
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1366
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1425
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1750
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1812
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 697
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 770
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 861
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1083
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1134
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 649
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 835
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1136
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1200
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1246
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1291
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1348
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 247
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 992
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 352
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 814
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 957
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 1031
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 1095
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 1147
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 226
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 285
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 768
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 911
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 16,
+          "column": 113
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 16,
+          "column": 174
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 16,
+          "column": 562
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records",
+      "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+      "title": "T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 78
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 152
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 756
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 804
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 961
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 1013
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 540
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 610
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 708
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission",
+      "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+      "title": "T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 7,
+          "column": 1010,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 821
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1002
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1046
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1240
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1401
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1500
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 183
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 330
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 486
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 528
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 580
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 7,
+          "column": 675,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 7,
+          "column": 799,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 7,
+          "column": 869,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 7,
+          "column": 948,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 269
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 352
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 487
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 773
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1171
+        },
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 16,
+          "column": 101
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records",
+      "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+      "title": "T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-native-fault-contracts.spec.ts",
+          "line": 20,
+          "column": 434
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

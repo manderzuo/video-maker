@@ -817,6 +817,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/project-library.spec.ts::T12 templates are original local structures and never come with execution approval",
           "facets": [
             "normal",
@@ -928,6 +941,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-library.spec.ts::T12-C02: clone shares media but copies neither Run nor Key nor queue",
           "facets": [
@@ -1077,6 +1103,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P08 native soft-deletion quota retains original project and ongoing task identities without cancellation or refund",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            12
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
           "facets": [
@@ -1229,6 +1268,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/project-operation-fault-contracts.spec.ts::T44 P11 actual batch export snapshot failure generates no empty success package and keeps the original selected project and frozen tasks",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            16
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
           "facets": [
@@ -2308,6 +2360,31 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            15
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            19
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/run-queue.spec.ts::T29: actual pause while the first request waits keeps its response and stops the second submission",
           "facets": [
             "normal",
@@ -2338,6 +2415,31 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            15
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            19
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/run-queue.spec.ts::T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST",
           "facets": [
@@ -3875,6 +3977,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 T08 native text-to-flow write failure is visible within its confirmation and preserves the original source and all task records",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/missing-entry-contracts.spec.ts::T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request",
           "facets": [
             "normal",
@@ -4292,6 +4407,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/asset-library.spec.ts::T16-M03/M08: image fit/original preview and insertion only adds an asset node",
           "facets": [
             "normal",
@@ -4335,6 +4463,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/asset-library.spec.ts::T16 input replacement previews downstream then changes draft binding with historical Run unchanged",
           "facets": [
@@ -4482,6 +4623,20 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/asset-deletion-contract.spec.ts::T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history",
           "facets": [
             "normal",
@@ -4590,6 +4745,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M15 actual reference navigation with a failed native graph read reports the unreadable target and keeps the original media and tasks",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/asset-library.spec.ts::T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible",
           "facets": [
@@ -4868,6 +5035,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 V05 real explicit reference with missing native file stays listed and blocks preflight without replacing its identity or sending",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            21
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/typed-nodes.spec.ts::T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run",
           "facets": [
             "normal",
@@ -5115,6 +5295,18 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 V10 real pending durable approval disables local cancellation before dispatch and releases only the original confirmed request",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            25
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/generation-preflight.spec.ts::T26 V-10: Escape cancels without approval or Run and restores the preflight button focus",
           "facets": [
             "normal",
@@ -5128,7 +5320,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "error": "返回编辑只在提交之前同步关闭确认单并保留原草稿，不执行网络或存储；确认保存期间禁用，已发出请求由未知结果入口核对。"
+      },
       "plannedTestPath": "tests/e2e/generation-preflight.spec.ts",
       "review": "待审查"
     },
@@ -5309,7 +5503,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "error": "此实现中的V-14是新尝试风险确认勾选项，只同步改变当前确认单风险选择；实际预检、冻结与发送错误由V-08/V-09报告，未知旧任务没有自动重发。"
+      },
       "plannedTestPath": "tests/unit/video-submit.test.ts",
       "review": "待审查",
       "bindingNote": "同一现有控件的手势、阶段或跨模块行为；来源绑定本身不作为行为通过证明。"
@@ -5419,6 +5615,31 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            21
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/result-review.spec.ts::T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores",
           "facets": [
             "normal",
@@ -5519,6 +5740,30 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/result-review.spec.ts::T35-C06: native keyboard playback and fullscreen can exit without playing other preview",
           "facets": [
             "normal",
@@ -5551,6 +5796,32 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            25,
+            26
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/missing-entry-contracts.spec.ts::T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged",
           "facets": [
             "normal",
@@ -5582,6 +5853,33 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            25,
+            26
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            25,
+            26
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/missing-entry-contracts.spec.ts::T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged",
           "facets": [
             "normal",
@@ -5612,6 +5910,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
           "facets": [
@@ -5747,6 +6057,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/review-dialog-contracts.spec.ts::T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history",
           "facets": [
             "normal",
@@ -5778,6 +6101,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results",
           "facets": [
@@ -5856,6 +6191,31 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            21
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/result-review.spec.ts::T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores",
           "facets": [
             "normal",
@@ -5886,6 +6246,31 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            25,
+            26
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/media-delivery.spec.ts::T33 actual native video: authenticated blob preview, local cache offline, original-byte download and cleanup; zero paid POST",
           "facets": [
@@ -5932,6 +6317,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R13 remove placement is separately confirmed, preserves immutable task and original files, and is undoable through the canvas",
           "facets": [
@@ -6113,6 +6510,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/task-center.spec.ts::T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry",
           "facets": [
             "normal",
@@ -6144,6 +6554,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J04/J05 actual selected query failures preserve original ownership, frozen input and all billing states without a new generation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/task-center.spec.ts::T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry",
           "facets": [
@@ -6182,6 +6605,23 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/queue-withdrawal.spec.ts::T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it",
           "facets": [
             "normal",
@@ -6213,6 +6653,23 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/queue-withdrawal.spec.ts::T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it",
           "facets": [
             "normal",
@@ -6243,6 +6700,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J08 actual native archive write failure leaves the completed task visible with its original ownership and accounting records",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            10
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/empty-state-guard-contracts.spec.ts::T44 J01/J08/J09 actual unknown task cannot archive and empty filtering cannot export; failed native filtering keeps original states",
           "facets": [
@@ -6342,6 +6812,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            14
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/task-center.spec.ts::T34 unknown recovery: no invented task identity or replay, nested dialog Escape returns to the original row",
           "facets": [
@@ -6463,6 +6946,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-library.spec.ts::T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data",
           "facets": [
             "normal",
@@ -6495,6 +6991,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-library.spec.ts::T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion",
           "facets": [
@@ -6541,6 +7050,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-library.spec.ts::T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data",
           "facets": [
@@ -6687,6 +7209,20 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13,
+            14
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-library.spec.ts::T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node",
           "facets": [
             "normal",
@@ -6718,6 +7254,21 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs",
+          "facets": [
+            "error",
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13,
+            14
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-library.spec.ts::T17 L09: apply requires old/new diff and refuses a stale project revision",
           "facets": [
@@ -6842,6 +7393,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-library-fault-contracts.spec.ts::T44 L12 actual native source-state read rejection preserves all source entries and imported prompt licenses",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-library.spec.ts::T17 source preferences: disable survives refresh and removing source cache preserves user entries",
           "facets": [
             "normal",
@@ -6874,6 +7438,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission",
           "facets": [
@@ -6918,6 +7494,20 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            15,
+            16
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission",
           "facets": [
@@ -7075,6 +7665,18 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            12
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/agent-proposal-review.spec.ts::T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request",
           "facets": [
             "normal",
@@ -7088,7 +7690,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "审阅列表入口始终允许只读查看已有提案，断开连接或无编辑权也不阻止查看；接受修改和拒绝各自在实际决定入口检查状态。"
+      },
       "plannedTestPath": "tests/unit/agent-proposals.test.ts",
       "review": "待审查"
     },
@@ -7105,6 +7709,22 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            16,
+            17,
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply",
           "facets": [
@@ -7161,6 +7781,22 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            16,
+            17,
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply",
           "facets": [
@@ -7257,6 +7893,7 @@
           "testId": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request denies approval after revocation",
           "facets": [
             "disabled",
+            "error",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
@@ -7284,6 +7921,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C04 stop feedback does not claim remote model cancellation or change the original Core task",
           "facets": [
@@ -7317,6 +7966,32 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission",
+          "facets": [
+            "error",
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            15,
+            16
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission",
           "facets": [
             "normal",
@@ -7348,6 +8023,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            20
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation",
           "facets": [
@@ -7381,6 +8069,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/agent-native-fault-contracts.spec.ts::T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            20
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/agent-panel.spec.ts::T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation",
           "facets": [
@@ -9037,6 +9738,18 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 D07/D08 pending real reference scan disables cleanup; actual clear-project abort preserves every project, original media and history",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/local-cleanup.spec.ts::T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original",
           "facets": [
             "normal",
@@ -9073,6 +9786,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 D07/D08 pending real reference scan disables cleanup; actual clear-project abort preserves every project, original media and history",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-write-contracts.spec.ts::T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data",
           "facets": [
@@ -9901,6 +10627,20 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 Z01 actual restore quota retains trashed original and unknown tracking; a native retry disables restore until its real acknowledgement",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/project-library.spec.ts::T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked",
           "facets": [
             "normal",
@@ -9992,6 +10732,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/cleanup-trash-fault-contracts.spec.ts::T44 Z03 actual native batch deletion failure reports both failed and protected items and preserves original unknown task and shared files",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-library.spec.ts::T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking",
           "facets": [
@@ -10270,6 +11023,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/task-operation-fault-contracts.spec.ts::T44 J10/F05 actual durable response recovery read and save faults retain the original frozen request and never replace its key or repeat generation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            14
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/video-submit.spec.ts::T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission",
           "facets": [
             "normal",
@@ -10313,6 +11079,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/recovery-diagnostics.spec.ts::T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download",
+          "facets": [
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/recovery-diagnostics.spec.ts::T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download",
           "facets": [
@@ -11515,6 +12293,18 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 PG15 actual unsaved manual output native quota blocks AI preview before any approval or billable request",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-mode.spec.ts::T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
           "facets": [
             "normal",
@@ -12269,6 +13059,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/creative-operation-fault-contracts.spec.ts::T44 PG30 actual native flow commit quota preserves the complete writing draft and leaves zero partial nodes, groups or execution records",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C04: reviewed local mock capability builds one atomic group with no POST or Run",
           "facets": [

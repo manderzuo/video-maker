@@ -1,0 +1,317 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R02/R03/R05/R09/R11/R12/R13/V17 real missing media and archived project disable inapplicable actions without changing original results",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 777
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1128
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1169
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1221
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 833
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 882
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 948
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1061
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R02 native fullscreen rejection retains normal playable preview and all original execution and media identities",
+      "status": "timedOut",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 694
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 768
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 608
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R08 actual compare navigation read failure keeps both original selected versions and displays a recoverable local failure",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 727
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 841
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 681
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R11/V17 native selected result quota remains visible inside confirmation and preserves downstream drafts and immutable original histories",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 21,
+          "column": 590
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-native-fault-contracts.spec.ts::T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+      "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+      "title": "T44 R03/R04/R12 native download read rejection preserves original cached bytes; actual retry disables download and cache until read completion",
+      "status": "failed",
+      "assertions": 11,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1104
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1144
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 162
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 419
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 608
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 25,
+          "column": 1025
+        },
+        {
+          "file": "tests/e2e/review-native-fault-contracts.spec.ts",
+          "line": 26,
+          "column": 154
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

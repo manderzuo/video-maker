@@ -1,0 +1,236 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts",
+      "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+      "title": "T44 M08/M09 native insert and draft replacement failures preserve the original media identities, graph and historical attempts",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 368
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 895
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 964
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 1016
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 97
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 162
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 320
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 651
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 847
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry",
+      "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+      "title": "T44 M12 native deletion-impact read and deletion write failures keep all original media; pending inspection prevents duplicate deletion entry",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 309
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 443
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 490
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 619
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 805
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 956
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1003
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 1055
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 94
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 194
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 435
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 13,
+          "column": 908
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/asset-operation-fault-contracts.spec.ts::T44 M15 actual reference navigation with a failed native graph read reports the unreadable target and keeps the original media and tasks",
+      "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+      "title": "T44 M15 actual reference navigation with a failed native graph read reports the unreadable target and keeps the original media and tasks",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 225
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 317
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 357
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 409
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 94
+        },
+        {
+          "file": "tests/e2e/asset-operation-fault-contracts.spec.ts",
+          "line": 17,
+          "column": 198
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

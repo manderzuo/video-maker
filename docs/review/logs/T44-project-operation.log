@@ -1,0 +1,54 @@
+[WebServer] (node:15408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:19404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-operation-fault-contracts.spec.ts:7:1 › T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only (8.0s)
+(node:17264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\project-operation-fault-contracts.spec.ts:11:1 › T44 P08 native soft-deletion quota retains original project and ongoing task identities without cancellation or refund (3.2s)
+  ok 3 tests\e2e\project-operation-fault-contracts.spec.ts:15:1 › T44 P11 actual batch export snapshot failure generates no empty success package and keeps the original selected project and frozen tasks (2.8s)
+
+
+  1) tests\e2e\project-operation-fault-contracts.spec.ts:7:1 › T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '使用本地模板', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '使用本地模板', exact: true }).getByRole('alert')[22m
+
+
+       6 |
+       7 | test('T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only',async({page,networkCounter})=>{
+    >  8 |  const before=await state(page);await page.getByRole('button',{name:'复制项目',exact:true}).click();const clone=page.getByRole('dialog',{name:'复制项目',exact:true});await denyWrite(page);await clone.getByRole('button',{name:'创建副本',exact:true}).click();await expect(clone.getByRole('alert')).toBeVisible();expect(await state(page)).toEqual(before);await clone.getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('button',{name:'使用本地模板',exact:true}).click();const template=page.getByRole('dialog',{name:'使用本地模板',exact:true});await denyWrite(page);await template.getByRole('button',{name:'创建原创分镜草稿',exact:true}).click();await expect(template.getByRole('alert')).toBeVisible();expect(await state(page)).toEqual(before);await template.getByRole('button',{name:'创建原创分镜草稿',exact:true}).click();await expect(page).toHaveURL(/\/projects\/[^/]+\/canvas$/);await page.reload();await expect(page.getByRole('heading',{name:'原创分镜草稿',exact:true})).toBeVisible();const after=await state(page);expect(after.projects).toHaveLength(2);expect(after.graphs.find((g:{projectId:string})=>g.projectId==='p1')).toEqual(before.graphs[0]);expect(after.graphs.find((g:{projectId:string})=>g.projectId!=='p1').nodes.every((n:{type:string})=>n.type==='text')).toBe(true);expect(after.runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+       9 | });
+      10 |
+      11 | test('T44 P08 native soft-deletion quota retains original project and ongoing task identities without cancellation or refund',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-operation-fault-contracts.spec.ts:8:673
+
+    Error Context: test-results\project-operation-fault-co-dbbf9-y-persists-a-new-draft-only\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-operation-fault-co-dbbf9-y-persists-a-new-draft-only\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-operation-fault-co-dbbf9-y-persists-a-new-draft-only\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\project-operation-fault-contracts.spec.ts:7:1 › T44 P02/P05 native template and clone quota preserve original graph and history; explicit template retry persists a new draft only 
+  2 passed (18.5s)

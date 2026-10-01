@@ -1,0 +1,54 @@
+[WebServer] (node:28868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:22700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-library-fault-contracts.spec.ts:8:1 › T44 L02/L03/L04 actual editor, favorite and deletion read-write failures keep the original prompt versions and inserted text (1.7s)
+  x  2 tests\e2e\prompt-library-fault-contracts.spec.ts:12:1 › T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs (6.3s)
+(node:22520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\prompt-library-fault-contracts.spec.ts:17:1 › T44 L12 actual native source-state read rejection preserves all source entries and imported prompt licenses (1.3s)
+
+
+  1) tests\e2e\prompt-library-fault-contracts.spec.ts:12:1 › T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '填写模板变量', exact: true }).getByRole('alert')
+    Expected substring: [32m"操作未完成"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '填写模板变量', exact: true }).getByRole('alert')[22m
+
+
+      11 |
+      12 | test('T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs',async({page,networkCounter})=>{
+    > 13 |  const before=await state(page);await page.getByRole('button',{name:'复制 品牌模板',exact:true}).click();const template=page.getByRole('dialog',{name:'填写模板变量',exact:true});await template.getByLabel('变量 人物',{exact:true}).fill('演员');await deny(page,'graphs','getAll');await template.getByRole('button',{name:'插入画布',exact:true}).click();await expect(template.getByRole('alert')).toContainText('操作未完成');expect(await state(page)).toEqual(before);await template.getByRole('button',{name:'应用到文本节点',exact:true}).click();await page.getByRole('dialog',{name:'选择提示词目标',exact:true}).getByRole('button',{name:'应用 提示词项目 / 旧文字',exact:true}).click();const diff=page.getByRole('dialog').filter({has:page.getByRole('button',{name:'确认替换文本',exact:true})});await deny(page,'graphs');await diff.getByRole('button',{name:'确认替换文本',exact:true}).click();await expect(diff.getByRole('alert')).toContainText('操作未完成');expect(await state(page)).toEqual(before);
+         |                                                                                                                                                                                                                                                                                                                                                                                   ^
+      14 |  await holdNextNativeCommit(page,'graphs');await diff.getByRole('button',{name:'确认替换文本',exact:true}).click();await expect.poll(()=>nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});try{await expect(diff.getByRole('button',{name:'确认替换文本',exact:true})).toBeDisabled();const actual=await state(page);expect(actual.prompts).toEqual(before.prompts);expect(actual.runs).toEqual(before.runs);expect(actual.graph.nodes[0].data.text).toBe('演员展示康济健葆，保持不切镜。');}finally{await releaseNativeCommit(page);}await expect(page.getByRole('status').filter({hasText:'提示词已写入文本节点'})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+      15 | });
+      16 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-library-fault-contracts.spec.ts:13:371
+
+    Error Context: test-results\prompt-library-fault-contr-eb2ad-ging-source-prompts-or-runs\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-library-fault-contr-eb2ad-ging-source-prompts-or-runs\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-library-fault-contr-eb2ad-ging-source-prompts-or-runs\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-library-fault-contracts.spec.ts:12:1 › T44 L08/L09 template target read and native replacement failures remain visible; pending replacement disables confirmation without changing source prompts or runs 
+  2 passed (13.9s)

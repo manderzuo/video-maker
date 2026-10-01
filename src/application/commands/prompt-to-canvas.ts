@@ -3,6 +3,7 @@ import {id,revision,videoSpecSchema,type VideoSpec} from '../../domain/common';
 import {promptDraftSchema,promptResultVersionSchema,type PromptDraft,type PromptResultVersion} from '../../domain/prompt';
 import {referenceTokenSchema,type ReferenceToken,type CanvasNode,graphSchema} from '../../domain/graph';
 import {capabilitySchema,type CapabilityProfile} from '../../domain/connection';
+import {getActiveCore} from '../../adapters/core/current-connection';
 import {validatePromptResult} from '../../domain/prompt-engine/validate-result';
 import {assetSchema} from '../../domain/asset';
 import {requestResult,transact,withDatabase,storageErrorCode,type StudioDb} from '../../infrastructure/storage/database';
@@ -43,6 +44,11 @@ async function readCanonical(tx:IDBTransaction,input:ApplyPromptInput){
  const record=await requestResult<DraftVersionReceipt|undefined>(tx.objectStore('receipts').get(`prompt-draft:${current.id}:${result.sourceRevision}`));if(!record||record.kind!=='prompt-draft-version')throw new Error('prompt_source_input_missing');
  const draft=promptDraftSchema.parse({...record.draft,resultVersions:[result]});return {draft,result};
 }
+async function currentCapability(tx:IDBTransaction){
+ const active=getActiveCore();if(active)return capabilitySchema.parse(active.capability);
+ const stored=await requestResult<{capability:unknown}|undefined>(tx.objectStore('diagnostics').get('capability:current'));
+ return capabilitySchema.parse(stored?.capability);
+}
 async function prepare(tx:IDBTransaction,input:ApplyPromptInput){
  const {draft,result}=await readCanonical(tx,input),graph=graphSchema.parse(await requestResult(tx.objectStore('graphs').get(input.targetProjectId)));
  if(!result.finalPrompt.trim())throw new Error('prompt_result_empty');
@@ -51,14 +57,14 @@ async function prepare(tx:IDBTransaction,input:ApplyPromptInput){
   const node=graph.nodes.find(n=>n.id===input.targetNodeId);if(!node||!['text','video-generation'].includes(node.type)||node.locked)throw new Error('prompt_target_not_editable');
   if(node.type==='text'){if(input.acceptedVideoSpec)throw new Error('prompt_text_target_spec_forbidden');return [{id:input.commandId+':apply',type:'update_node',payload:{nodeId:node.id,patch:{data:{...node.data,text:result.finalPrompt,referenceTokens:draft.references,promptGenerationSource:provenance(draft,result)}}}}] satisfies GraphOperation[];}
   if(node.type!=='video-generation')throw new Error('prompt_target_not_editable');
-  if(input.acceptedVideoSpec){const stored=await requestResult<{capability:unknown}|undefined>(tx.objectStore('diagnostics').get('capability:current'));const caps=capabilitySchema.parse(stored?.capability);if(caps.verification==='unknown'||!caps.videoModels.includes(input.acceptedVideoSpec.modelId)||!caps.videoSpecs.some(s=>JSON.stringify(s)===JSON.stringify(input.acceptedVideoSpec))||input.acceptedVideoSpec.durationSeconds!==result.suggestedSpec.durationSeconds||input.acceptedVideoSpec.ratio!==result.suggestedSpec.ratio)throw new Error('prompt_video_spec_unverified');}
+  if(input.acceptedVideoSpec){const caps=await currentCapability(tx);if(caps.verification==='unknown'||!caps.videoModels.includes(input.acceptedVideoSpec.modelId)||!caps.videoSpecs.some(s=>JSON.stringify(s)===JSON.stringify(input.acceptedVideoSpec))||input.acceptedVideoSpec.durationSeconds!==result.suggestedSpec.durationSeconds||input.acceptedVideoSpec.ratio!==result.suggestedSpec.ratio)throw new Error('prompt_video_spec_unverified');}
   const prompt=textNode({...input,position:{x:node.x-420,y:node.y}},draft,result),oldTextEdges=graph.edges.filter(e=>e.targetId===node.id&&e.port==='text'),other=graph.edges.filter(e=>e.targetId===node.id&&e.port!=='text');
   const operations:GraphOperation[]=oldTextEdges.map(edge=>({id:input.commandId+':remove:'+edge.id,type:'remove_edge',payload:{edgeId:edge.id}}));
   operations.push({id:input.commandId+':prompt:add',type:'add_node',payload:{node:prompt}},{id:input.commandId+':video:update',type:'update_node',payload:{nodeId:node.id,patch:{data:{...node.data,draft:input.acceptedVideoSpec??node.data.draft,stale:true}}}},{id:input.commandId+':link:add',type:'add_edge',payload:{edge:{id:input.commandId+':edge:apply',sourceId:prompt.id,targetId:node.id,port:'text',order:Math.max(-1,...other.map(e=>e.order))+1}}});return operations;
  }
  if(input.targetNodeId||input.acceptedVideoSpec)throw new Error('prompt_insert_target_node_forbidden');
  if(!input.flow)return [{id:input.commandId+':text:add',type:'add_node',payload:{node:textNode(input,draft,result)}}] satisfies GraphOperation[];
- const stored=await requestResult<{capability:unknown}|undefined>(tx.objectStore('diagnostics').get('capability:current'));const capability=capabilitySchema.parse(stored?.capability);
+ const capability=await currentCapability(tx);
  return buildVideoFlow({resultVersionId:result.id,targetProjectId:input.targetProjectId,baseRevision:input.baseRevision,commandId:input.commandId,capabilityVersion:input.flow.capabilityVersion,capability,result,draft,references:draft.references,spec:input.flow.spec,position:input.position});
 }
 export async function previewPromptCanvas(raw:ApplyPromptInput,db?:StudioDb){const input=applyPromptInputSchema.parse(raw);return withDatabase(db,c=>transact(c,['promptDrafts','receipts','graphs','diagnostics'],'readonly',tx=>prepare(tx,input)));}

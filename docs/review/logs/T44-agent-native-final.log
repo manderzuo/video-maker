@@ -1,0 +1,19 @@
+[WebServer] (node:20644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:12164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\agent-bulk-contracts.spec.ts:10:1 › T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated (2.1s)
+  ok 2 tests\e2e\agent-bulk-contracts.spec.ts:11:1 › T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all (1.9s)
+  ok 3 tests\e2e\agent-bulk-contracts.spec.ts:12:1 › T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history (1.4s)
+  ok 4 tests\e2e\agent-bulk-contracts.spec.ts:13:1 › T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data (1.4s)
+  ok 5 tests\e2e\agent-bulk-contracts.spec.ts:15:1 › T44 A07/A08 native selected apply and rejection faults preserve graph, proposed status and history; pending rejection disables both decisions (1.8s)
+  ok 6 tests\e2e\agent-native-fault-contracts.spec.ts:10:1 › T44 A01 actual rejected local pairing never creates a session or changes the original creative and execution records (1.3s)
+  ok 7 tests\e2e\agent-native-fault-contracts.spec.ts:14:1 › T44 A02/A12 failed authorization retains the old scope; successful local grant stays memory-only and failed revocation honestly removes local permission (1.7s)
+  ok 8 tests\e2e\agent-native-fault-contracts.spec.ts:19:1 › T44 A13/A14 native local conversation create and delete faults retain existing descriptions and all original task records (1.4s)
+
+  8 passed (16.4s)
