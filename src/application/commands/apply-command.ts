@@ -10,7 +10,7 @@ import {assetSchema} from '../../domain/asset';
 export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;origin:'ui'|'mcp';authorize?:(envelope:CommandEnvelope)=>void;capability?:CapabilityProfile;referenceLimits?:ReferenceLimits;beforeCreativeCommit?:(tx:IDBTransaction)=>Promise<void>};
 export type StoredCommandReceipt={id:string;projectId:string;status:'applied';revision:number;fingerprint:string;beforeGraph:Graph;afterGraph:Graph;origin:'ui'|'mcp';createdAt:number};
 export type HistoryState={id:string;projectId:string;undoStack:string[];redoStack:string[]};
-export const commandTables:TableName[]=['projects','graphs','receipts','references','leases','runs','assets','diagnostics','blobs','promptDrafts'];
+export const commandTables:TableName[]=['projects','graphs','receipts','references','leases','runs','assets','diagnostics','blobs','promptDrafts','proposals'];
 export function emptyHistory(projectId:string):HistoryState{return {id:'history:'+projectId,projectId,undoStack:[],redoStack:[]};}
 export async function putCreativeGraph(tx:IDBTransaction,graph:Graph){
  tx.objectStore('graphs').put(graph);
@@ -64,6 +64,8 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
     if(changedTargets.has(node.id))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true,missingInputNodeIds:node.data.missingInputNodeIds?.filter(id=>!graph.edges.some(edge=>edge.targetId===node.id&&edge.sourceId===id))};
     if(graph.edges.some(e=>e.targetId===node.id&&changedSources.has(e.sourceId)))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true};
    }
+   context.authorize?.(input);
+   await assertProjectWriter(tx,input.projectId,lease);
    await putCreativeGraph(tx,graph);
    tx.objectStore('projects').put({...project,revision:graph.revision,updatedAt:Date.now()});
    const record:StoredCommandReceipt={id:input.id,projectId:project.id,status:'applied',revision:graph.revision,fingerprint,beforeGraph:before,afterGraph:graph,origin:context.origin,createdAt:Date.now()};

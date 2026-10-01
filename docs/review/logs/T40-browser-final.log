@@ -1,0 +1,24 @@
+[WebServer] (node:7476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 13 tests using 1 worker
+
+(node:16964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request (1.8s)
+  ok  2 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (623ms)
+  ok  3 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (510ms)
+  ok  4 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (414ms)
+  ok  5 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (502ms)
+  ok  6 tests\e2e\prompt-canvas-commands.spec.ts:6:1 › T22: video-source diff keeps parameters unless explicitly accepted and replaces only text connections (2.2s)
+  ok  7 tests\e2e\prompt-canvas-commands.spec.ts:7:1 › T22-C03: browser storage fault leaves zero partial nodes and retries the same command safely (1.4s)
+  ok  8 tests\e2e\prompt-canvas-commands.spec.ts:8:1 › T22-C06: replaying an applied command in the actual browser never adds a second node (1.4s)
+  ok  9 tests\e2e\prompt-canvas-commands.spec.ts:9:1 › T22: applying from the canvas panel retains its writer lease and selected historical body (2.4s)
+  ok 10 tests\e2e\prompt-canvas-commands.spec.ts:10:1 › T22-C01: insertion requires an explicit project and previews position before committing (1.4s)
+  ok 11 tests\e2e\prompt-canvas-commands.spec.ts:11:1 › T22-C02: applying previews old/new text and rejects a revision changed after preview (1.5s)
+  ok 12 tests\e2e\prompt-canvas-commands.spec.ts:12:1 › T22-C04: reviewed local mock capability builds one atomic group with no POST or Run (1.8s)
+  ok 13 tests\e2e\prompt-canvas-commands.spec.ts:13:1 › T22-C05: unknown capabilities and unbound references cannot become executable flows (1.2s)
+
+  13 passed (20.5s)

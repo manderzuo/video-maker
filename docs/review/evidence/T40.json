@@ -1,0 +1,114 @@
+{
+  "taskId": "T40",
+  "status": "实施完成，自检通过，待统一验收/独立审查",
+  "baseCommit": "672b6795fcc7efbccb615f50bf123e2768040463",
+  "headCommit": null,
+  "branch": "feat/canvas-agent",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/application/proposals/validate-proposal.ts",
+    "src/application/proposals/apply-proposal.ts",
+    "src/application/commands/apply-command.ts",
+    "src/features/agent/agent-client.ts",
+    "src/features/agent/ProposalReview.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "tests/helpers/agent-harness.ts",
+    "tests/unit/agent-proposals.test.ts",
+    "tests/e2e/agent-proposal-review.spec.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:unit -- tests/unit/agent-proposals.test.ts",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 4,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-red.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-proposals.test.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-domain-initial.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-proposal-review.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-browser-valid-red.log",
+      "behavior": "实际握手/授权/保存提案之后缺少Agent提案按钮"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 355,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-unit.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-proposal-review.spec.ts tests/e2e/lease.spec.ts tests/e2e/prompt-canvas-commands.spec.ts",
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-browser-final.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-proposal-review.spec.ts",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-browser-diff-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T40-build-final.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T40-review-dialog.png",
+    "docs/review/screenshots/T40-proposal.png"
+  ],
+  "validation": [
+    "默认选区授权、未知shell/fetch/超100操作拒绝",
+    "选中依赖不完整拒绝，旧revision冲突，不自动重放",
+    "原生事务内提案状态/图/批准摘要一起保存，Quota故障整体回滚",
+    "重复提案精确receipt，无重复写入或收费请求",
+    "实际弹窗未选禁用、勾选、前后对照、应用和删除数量提示"
+  ],
+  "limitations": [
+    "浏览器夹具四次错误均非有效红灯，原日志保留；修复重复节点/Origin重复头后实际缺按钮红灯才有效",
+    "外部模型宿主未配置、未验证；自检不等于独立审查或视觉审批",
+    "正式全量安全/交互收敛在T45–T47；包体警告留T46",
+    "真实Core/收费/上线/远端推送均未授权"
+  ]
+}

@@ -1,0 +1,44 @@
+[WebServer] (node:13700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 08:33:24 [vite] (client) warning: 
+[WebServer] E:/trae-studio/TRAEWORK/aiwork-studio/tests/helpers/seed-studio.ts
+[WebServer] 3  |    await page.evaluate(async (name) => {
+[WebServer] 4  |      const modulePath = ["project-library", "canvas-project", "unverified-capability"].includes(name) ? "/tests/fixtur...
+[WebServer] 5  |      const fixture = await import(modulePath);
+[WebServer]    |                                   ^^^^^^^^^^
+[WebServer] 6  |      await fixture.seedScenario(name);
+[WebServer] 7  |    }, scenario);
+[WebServer] The above dynamic import cannot be analyzed by Vite.
+[WebServer] See https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations for supported dynamic import formats. If this is intended to be left as-is, you can use the /* @vite-ignore */ comment inside the import() call to suppress this warning.
+[WebServer] 
+[WebServer]   Plugin: vite:import-analysis
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/tests/helpers/seed-studio.ts
+  x  1 tests\e2e\agent-proposal-review.spec.ts:3:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request (422ms)
+
+
+  1) tests\e2e\agent-proposal-review.spec.ts:3:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request 
+
+    Error: page.evaluate: TypeError: (intermediate value).seedInBrowser is not a function
+        at eval (eval at evaluate (:290:30), <anonymous>:3:31)
+        at async <anonymous>:316:30
+        at eval (eval at evaluate (:290:30), <anonymous>:3:31)
+        at async <anonymous>:316:30
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-proposal-review.spec.ts:3:695
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-proposal-review-T40--aa93f-once-without-a-paid-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-proposal-review-T40--aa93f-once-without-a-paid-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\agent-proposal-review.spec.ts:3:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request 

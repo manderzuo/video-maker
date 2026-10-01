@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/agent-proposals.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  08:32:15
+   Duration  638ms (transform 192ms, setup 45ms, import 292ms, tests 130ms, environment 0ms)
+

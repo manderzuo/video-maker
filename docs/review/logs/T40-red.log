@@ -1,0 +1,68 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/agent-proposals.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/agent-proposals.test.ts (6 tests | 4 failed) 119ms
+   × T40-C01/C02 scope is selected nodes and unknown shell/fetch, readonly, expired grants and excessive operations are rejected 58ms
+   × T40-C05/C06 accepted edits share native command transaction, repeat returns receipt once and never calls a paid route 20ms
+   × T40-C03 old revision returns conflict and preserves human edit without replaying 17ms
+   × T40-C04 partial edge operation without its new-node dependency is refused before native write 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/agent-proposals.test.ts > T40-C01/C02 scope is selected nodes and unknown shell/fetch, readonly, expired grants and excessive operations are rejected
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/agent-proposals.test.ts:8:600
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/unit/agent-proposals.test.ts > T40-C05/C06 accepted edits share native command transaction, repeat returns receipt once and never calls a paid route
+AssertionError: expected 'rejected' to be 'applied' // Object.is equality
+
+Expected: "applied"
+Received: "rejected"
+
+ ❯ tests/unit/agent-proposals.test.ts:9:511
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/unit/agent-proposals.test.ts > T40-C03 old revision returns conflict and preserves human edit without replaying
+AssertionError: expected 'rejected' to be 'conflict' // Object.is equality
+
+Expected: "conflict"
+Received: "rejected"
+
+ ❯ tests/unit/agent-proposals.test.ts:10:470
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/unit/agent-proposals.test.ts > T40-C04 partial edge operation without its new-node dependency is refused before native write
+AssertionError: expected 'proposal_not_implemented' to be 'proposal_dependency_missing' // Object.is equality
+
+Expected: "proposal_dependency_missing"
+Received: "proposal_not_implemented"
+
+ ❯ tests/unit/agent-proposals.test.ts:11:539
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 2 passed (6)
+   Start at  08:29:46
+   Duration  624ms (transform 177ms, setup 50ms, import 271ms, tests 119ms, environment 0ms)
+

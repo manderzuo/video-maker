@@ -2,7 +2,7 @@
   "taskId": "T39",
   "status": "实施完成，自检通过，待统一验收/独立审查",
   "baseCommit": "762bf9a0260896ba111cf2d7f083dffb29628a1d",
-  "headCommit": null,
+  "headCommit": "672b6795fcc7efbccb615f50bf123e2768040463",
   "branch": "feat/canvas-agent",
   "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
   "actualModel": "由用户在宿主选择，当前工具不可验证",

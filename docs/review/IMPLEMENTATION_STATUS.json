@@ -1,5 +1,5 @@
 {
-  "currentTask": "T40",
+  "currentTask": "T41",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -310,18 +310,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T39.json",
-      "headCommit": null,
+      "headCommit": "672b6795fcc7efbccb615f50bf123e2768040463",
       "id": "T39",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "本机Agent连接与最小授权通道"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T40.json",
       "headCommit": null,
       "id": "T40",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "结构化提案与revision冲突处理"
     },
     {

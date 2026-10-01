@@ -1,0 +1,32 @@
+[WebServer] (node:4848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:29472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request (815ms)
+
+
+  1) tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request 
+
+    Error: page.evaluate: TypeError: Cannot read properties of null (reading 'addEventListener')
+        at http://127.0.0.1:4179/tests/fixtures/storage-fixture.ts:85:32
+        at http://127.0.0.1:4179/tests/fixtures/storage-fixture.ts:85:32
+        at seedStudio (E:\trae-studio\TRAEWORK\aiwork-studio\tests\helpers\seed-studio.ts:5:13)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-proposal-review.spec.ts:4:768
+
+    Error Context: test-results\agent-proposal-review-T40--aa93f-once-without-a-paid-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-proposal-review-T40--aa93f-once-without-a-paid-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-proposal-review-T40--aa93f-once-without-a-paid-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request 
