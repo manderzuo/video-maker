@@ -1,5 +1,5 @@
 {
-  "currentTask": "T49",
+  "currentTask": "T50",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -383,18 +383,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T48.json",
-      "headCommit": null,
+      "headCommit": "315dafb70fc47c6d77a0cde3e5745a8b5b8c6d1b",
       "id": "T48",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
       "status": "待额外真实业务/收费授权，真实联调未验收；本地守卫已准备并自检",
       "title": "经授权的真实Core联调"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T49.json",
       "headCommit": null,
       "id": "T49",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
-      "status": "未开始",
+      "status": "本地实施完成，自检通过；生产切换/统一验收/独立审查待进行",
       "title": "升级、备份与回滚演练"
     },
     {

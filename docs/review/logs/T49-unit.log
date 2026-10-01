@@ -1,0 +1,101 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/core-transport.test.ts (13 tests | 1 failed) 171ms
+   × T24 deployment template: fixed target, method allowlist and disabled upstream retry match reviewed transport policy 25ms
+ ❯ tests/security/network-policy.test.ts (3 tests | 1 failed) 8ms
+   × environment flags alone do not authorize live calls 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/security/network-policy.test.ts > environment flags alone do not authorize live calls
+TypeError: validateLiveApproval is not a function
+ ❯ tests/security/network-policy.test.ts:9:70
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/core-transport.test.ts > T24 deployment template: fixed target, method allowlist and disabled upstream retry match reviewed transport policy
+AssertionError: expected '# Include in nginx\'s http{} context.…' to contain 'proxy_pass https://core.example.inval…'
+
+- Expected
++ Received
+
+- proxy_pass https://core.example.invalid/;
++ # Include in nginx's http{} context. Preparation only: not deployed or nginx-tested.
++ # Default offline. Replace the fixed approved upstream and enable only after separate approval.
++ map "$request_method:$uri" $studio_core_allowed {
++  default 0;
++  ~^GET:/core-api/(health|healthz|v1/models)$ 1;
++  ~^GET:/core-api/v1/videos/[A-Za-z0-9._~-]+(/content)?$ 1;
++  ~^GET:/core-api/v1/video-works/[A-Za-z0-9._~-]+$ 1;
++  ~^POST:/core-api/v1/(assets|chat/completions|videos/generations)$ 1;
++  ~^POST:/core-api/v1/video-works/[A-Za-z0-9._~-]+/continue$ 1;
++  ~^POST:/core-api/v1/videos/[A-Za-z0-9._~-]+/delivery$ 1;
++ }
++ map "$request_method:$uri" $studio_idempotency_required {
++  default 0;
++  ~^POST:/core-api/v1/(chat/completions|videos/generations)$ 1;
++  ~^POST:/core-api/v1/video-works/[A-Za-z0-9._~-]+/continue$ 1;
++ }
++ map "$studio_idempotency_required:$http_idempotency_key" $studio_idempotency_denied {
++  default 1;
++  ~^0: 0;
++  "~^1:[-A-Za-z0-9._~]{1,256}$" 0;
++ }
++ server {
++  listen 127.0.0.1:8080;
++  server_name localhost;
++  root E:/trae-studio/TRAEWORK/aiwork-studio/dist;
++  access_log off;
++  client_max_body_size 46m;
++  add_header X-Content-Type-Options nosniff always;
++  add_header Referrer-Policy no-referrer always;
++  add_header X-Frame-Options DENY always;
++  add_header Cache-Control no-store always;
++  # A separate HTTPS front service, certificate and exact browser Origin require deployment approval.
++  set $studio_proxy_enabled 0;
++  location /core-api/ {
++   if ($studio_core_allowed = 0) { return 403; }
++   if ($args != "") { return 403; }
++   if ($request_uri ~ "%|\\x5c") { return 403; }
++   if ($studio_idempotency_denied = 1) { return 400; }
++   if ($studio_proxy_enabled = 0) { return 503; }
++   proxy_pass https://approved-core.example.invalid/;
++   proxy_set_header Host approved-core.example.invalid;
++   proxy_set_header Authorization $http_authorization;
++   proxy_set_header Idempotency-Key $http_idempotency_key;
++   proxy_set_header Cookie "";
++   proxy_set_header Referer "";
++   proxy_hide_header Set-Cookie;
++   proxy_hide_header Access-Control-Allow-Origin;
++   proxy_ssl_server_name on;
++   proxy_ssl_name approved-core.example.invalid;
++   proxy_ssl_verify on;
++   proxy_next_upstream off;
++   proxy_intercept_errors on;
++   error_page 301 302 303 307 308 =502 @studio_redirect_denied;
++  }
++  location @studio_redirect_denied { return 502; }
++  location = /studio-deployment.json { try_files $uri =404; }
++  location ~ /\. { deny all; }
++  location /assets/ { try_files $uri =404; }
++  location / { try_files $uri /index.html; }
++ }
++
+
+ ❯ tests/unit/core-transport.test.ts:12:715
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 51 passed (53)
+      Tests  2 failed | 384 passed (386)
+   Start at  04:55:28
+   Duration  8.89s (transform 12.13s, setup 3.02s, import 27.19s, tests 18.85s, environment 17ms)
+

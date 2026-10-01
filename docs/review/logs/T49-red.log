@@ -1,0 +1,131 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/release-compatibility.spec.ts tests/e2e/migration-release.spec.ts
+
+[WebServer] (node:20512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:28856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\migration-release.spec.ts:2:1 › T49 old client cannot overwrite future project and unknown Run and PromptRun evidence remains identical (2.2s)
+  ok 2 tests\e2e\migration-release.spec.ts:3:1 › T49 newer native database rejects old client without upgrading down or losing unknown histories (409ms)
+  ok 3 tests\e2e\migration-release.spec.ts:4:1 › T49 pre-upgrade backup recovers into new project while newer charging evidence remains in original database and no task replays (2.0s)
+  ok 4 tests\e2e\migration-release.spec.ts:11:1 › T49 corrupt and future packages retain original byte-for-byte and never change native data (441ms)
+  x  5 tests\e2e\release-compatibility.spec.ts:2:1 › T49 schema support matrix rejects invalid versions and retains newer data as readonly (453ms)
+(node:24144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  6 tests\e2e\release-compatibility.spec.ts:8:1 › T49 newer native project shows explicit preservation message with no editor or automatic submission (5.8s)
+
+
+  1) tests\e2e\release-compatibility.spec.ts:2:1 › T49 schema support matrix rejects invalid versions and retains newer data as readonly 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 12[39m
+    [31m+ Received  + 12[39m
+
+    [33m@@ -6,29 +6,29 @@[39m
+    [2m    Object {[22m
+    [2m      "code": "schema_too_new",[22m
+    [2m      "mode": "readonly",[22m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "code": "schema_invalid",[39m
+    [32m-     "mode": "unsupported",[39m
+    [31m+     "code": "supported",[39m
+    [31m+     "mode": "writable",[39m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "code": "schema_invalid",[39m
+    [32m-     "mode": "unsupported",[39m
+    [31m+     "code": "supported",[39m
+    [31m+     "mode": "writable",[39m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "code": "schema_invalid",[39m
+    [32m-     "mode": "unsupported",[39m
+    [31m+     "code": "schema_too_new",[39m
+    [31m+     "mode": "readonly",[39m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "code": "schema_invalid",[39m
+    [32m-     "mode": "unsupported",[39m
+    [31m+     "code": "supported",[39m
+    [31m+     "mode": "writable",[39m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "code": "schema_invalid",[39m
+    [32m-     "mode": "unsupported",[39m
+    [31m+     "code": "schema_too_new",[39m
+    [31m+     "mode": "readonly",[39m
+    [2m    },[22m
+    [2m    Object {[22m
+    [32m-     "code": "schema_invalid",[39m
+    [32m-     "mode": "unsupported",[39m
+    [31m+     "code": "schema_too_new",[39m
+    [31m+     "mode": "readonly",[39m
+    [2m    },[22m
+    [2m  ][22m
+
+      3 |  await page.goto('/projects');
+      4 |  const decisions=await page.evaluate(async()=>{const path='/src/infrastructure/storage/release-compatibility.ts';const {canOpenSchema}=await import(path);return [1,2,0,-1,1.5,NaN,Infinity,Number.MAX_SAFE_INTEGER+1].map(canOpenSchema);});
+    > 5 |  expect(decisions).toEqual([{mode:'writable',code:'supported'},{mode:'readonly',code:'schema_too_new'},...Array.from({length:6},()=>({mode:'unsupported',code:'schema_invalid'}))]);
+        |                    ^
+      6 |  expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);
+      7 | });
+      8 | test('T49 newer native project shows explicit preservation message with no editor or automatic submission',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\release-compatibility.spec.ts:5:20
+
+    Error Context: test-results\release-compatibility-T49--5b509-ains-newer-data-as-readonly\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\release-compatibility-T49--5b509-ains-newer-data-as-readonly\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\release-compatibility-T49--5b509-ains-newer-data-as-readonly\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\release-compatibility.spec.ts:8:1 › T49 newer native project shows explicit preservation message with no editor or automatic submission 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('项目版本高于当前客户端，请使用兼容版本打开；原数据与任务记录已保留。', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('项目版本高于当前客户端，请使用兼容版本打开；原数据与任务记录已保留。', { exact: true })[22m
+
+
+       8 | test('T49 newer native project shows explicit preservation message with no editor or automatic submission',async({page,networkCounter})=>{
+       9 |  await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/release-rehearsal.ts';await(await import(p)).prepareFutureProject();});
+    > 10 |  await page.goto('/projects/p1/canvas');await expect(page.getByText('项目版本高于当前客户端，请使用兼容版本打开；原数据与任务记录已保留。',{exact:true})).toBeVisible();
+         |                                                                                                                         ^
+      11 |  await expect(page.getByRole('button',{name:'立即保存',exact:true})).toHaveCount(0);await page.reload();
+      12 |  await expect(page.getByText('项目版本高于当前客户端，请使用兼容版本打开；原数据与任务记录已保留。',{exact:true})).toBeVisible();
+      13 |  const rows=await page.evaluate(async()=>{const p='/tests/fixtures/release-rehearsal.ts';return(await import(p)).snapshot();});expect(rows.projects[0]).toMatchObject({schemaVersion:2,revision:7});expect(rows.runs[0]).toMatchObject({executionState:'future_pending',billingState:'reconcile_required'});expect(rows.promptRuns[0]).toMatchObject({executionState:'future_response_unknown'});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\release-compatibility.spec.ts:10:121
+
+    Error Context: test-results\release-compatibility-T49--c7ea5-tor-or-automatic-submission\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\release-compatibility-T49--c7ea5-tor-or-automatic-submission\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\release-compatibility-T49--c7ea5-tor-or-automatic-submission\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\release-compatibility.spec.ts:2:1 › T49 schema support matrix rejects invalid versions and retains newer data as readonly 
+    tests\e2e\release-compatibility.spec.ts:8:1 › T49 newer native project shows explicit preservation message with no editor or automatic submission 
+  4 passed (15.8s)

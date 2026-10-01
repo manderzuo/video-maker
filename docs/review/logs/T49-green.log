@@ -1,0 +1,21 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/release-compatibility.spec.ts tests/e2e/migration-release.spec.ts
+
+[WebServer] (node:20128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:11448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\migration-release.spec.ts:2:1 › T49 old client cannot overwrite future project and unknown Run and PromptRun evidence remains identical (2.1s)
+  ok 2 tests\e2e\migration-release.spec.ts:3:1 › T49 newer native database rejects old client without upgrading down or losing unknown histories (420ms)
+  ok 3 tests\e2e\migration-release.spec.ts:4:1 › T49 pre-upgrade backup recovers into new project while newer charging evidence remains in original database and no task replays (2.0s)
+  ok 4 tests\e2e\migration-release.spec.ts:11:1 › T49 corrupt and future packages retain original byte-for-byte and never change native data (444ms)
+  ok 5 tests\e2e\release-compatibility.spec.ts:2:1 › T49 schema support matrix rejects invalid versions and retains newer data as readonly (402ms)
+  ok 6 tests\e2e\release-compatibility.spec.ts:8:1 › T49 newer native project shows explicit preservation message with no editor or automatic submission (2.3s)
+
+  6 passed (10.7s)

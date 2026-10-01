@@ -1,0 +1,107 @@
+{
+  "taskId": "T49",
+  "status": "本地实施完成，自检通过；生产切换、统一验收与独立审查待进行",
+  "complete": true,
+  "completionScope": "local implementation and native storage rehearsal only",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "baseCommit": "315dafb70fc47c6d77a0cde3e5745a8b5b8c6d1b",
+  "headCommit": null,
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "userAcceptancePerformed": false,
+  "liveVerified": false,
+  "actualBusinessCalls": 0,
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/release-compatibility.spec.ts tests/e2e/migration-release.spec.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T49-red.log",
+      "resultPath": "docs/review/logs/T49-red-results.json"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/release-compatibility.spec.ts tests/e2e/migration-release.spec.ts",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T49-green.log",
+      "resultPath": "docs/review/logs/T49-green-results.json"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 1,
+      "passed": 384,
+      "failed": 2,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T49-unit.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 386,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T49-unit-green.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T49-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T49-lint-final.log"
+    }
+  ],
+  "behaviorIds": [
+    "T49-C01",
+    "T49-C02",
+    "T49-C03",
+    "T49-C04",
+    "T49-C05",
+    "T49-C06"
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T49-newer-schema-preserved.png"
+  ],
+  "screenshotInspected": true,
+  "limitations": [
+    "No actual deployment/frontend rollback, Core ledger or production migration performed.",
+    "Unknown native history retained in original database; portable creative package is not a complete billing log backup.",
+    "Higher native schema cannot be fully previewed/exported by this client; preserve original and use compatible client.",
+    "Nginx template static regression only, no nginx -t.",
+    "Initial full unit regression failed two previous integration cases; retained logs, corrected strict helper module import and request header policy."
+  ],
+  "rulings": [
+    "T49 dependency acceptance deferred to user-authorized unified acceptance; local checks continue, no approval fabricated.",
+    "Pure schema decision implemented in domain and re-exported from planned infrastructure interface to avoid domain/storage coupling."
+  ],
+  "modifiedFiles": [
+    "src/domain/schema-compatibility.ts",
+    "src/domain/validation.ts",
+    "src/infrastructure/storage/release-compatibility.ts",
+    "src/infrastructure/storage/project-repository.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "tests/fixtures/release-rehearsal.ts",
+    "tests/e2e/release-compatibility.spec.ts",
+    "tests/e2e/migration-release.spec.ts",
+    "tests/unit/core-transport.test.ts",
+    "tests/security/network-policy.test.ts",
+    "tests/helpers/live-approval.mjs",
+    "deploy/nginx-canvas.conf",
+    "docs/release-runbook.md",
+    "docs/review/migration-rehearsal.md"
+  ]
+}

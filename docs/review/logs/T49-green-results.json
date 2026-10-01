@@ -1,0 +1,269 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/migration-release.spec.ts::T49 old client cannot overwrite future project and unknown Run and PromptRun evidence remains identical",
+      "file": "tests/e2e/migration-release.spec.ts",
+      "title": "T49 old client cannot overwrite future project and unknown Run and PromptRun evidence remains identical",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 2,
+          "column": 328
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 2,
+          "column": 411
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 2,
+          "column": 463
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 2,
+          "column": 596
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/migration-release.spec.ts::T49 newer native database rejects old client without upgrading down or losing unknown histories",
+      "file": "tests/e2e/migration-release.spec.ts",
+      "title": "T49 newer native database rejects old client without upgrading down or losing unknown histories",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 3,
+          "column": 326
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 3,
+          "column": 562
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/migration-release.spec.ts::T49 pre-upgrade backup recovers into new project while newer charging evidence remains in original database and no task replays",
+      "file": "tests/e2e/migration-release.spec.ts",
+      "title": "T49 pre-upgrade backup recovers into new project while newer charging evidence remains in original database and no task replays",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 35
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 72
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 129
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 190
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 225
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 281
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 9,
+          "column": 435
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/migration-release.spec.ts::T49 corrupt and future packages retain original byte-for-byte and never change native data",
+      "file": "tests/e2e/migration-release.spec.ts",
+      "title": "T49 corrupt and future packages retain original byte-for-byte and never change native data",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 12,
+          "column": 839
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 12,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 12,
+          "column": 1038
+        },
+        {
+          "file": "tests/e2e/migration-release.spec.ts",
+          "line": 12,
+          "column": 1122
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/release-compatibility.spec.ts::T49 schema support matrix rejects invalid versions and retains newer data as readonly",
+      "file": "tests/e2e/release-compatibility.spec.ts",
+      "title": "T49 schema support matrix rejects invalid versions and retains newer data as readonly",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 5,
+          "column": 20
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 6,
+          "column": 63
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/release-compatibility.spec.ts::T49 newer native project shows explicit preservation message with no editor or automatic submission",
+      "file": "tests/e2e/release-compatibility.spec.ts",
+      "title": "T49 newer native project shows explicit preservation message with no editor or automatic submission",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 10,
+          "column": 121
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 11,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 12,
+          "column": 82
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 13,
+          "column": 153
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 13,
+          "column": 218
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 13,
+          "column": 328
+        },
+        {
+          "file": "tests/e2e/release-compatibility.spec.ts",
+          "line": 14,
+          "column": 63
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

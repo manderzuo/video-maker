@@ -38,7 +38,7 @@ export async function saveProject(project:Project,expectedRevision:number,option
   }));
  }catch(error){return {status:'failed',code:storageErrorCode(error)};}
 }
-export async function readProject(id:string,db?:StudioDb):Promise<Project|undefined>{return withDatabase(db,c=>transact(c,['projects'],'readonly',async tx=>{const value:unknown=await requestResult(tx.objectStore('projects').get(id));if(value===undefined)return undefined;const checked=validateProject(value);if(!checked.ok)throw new Error('stored_project_not_writable');return checked.value;}));}
+export async function readProject(id:string,db?:StudioDb):Promise<Project|undefined>{return withDatabase(db,c=>transact(c,['projects'],'readonly',async tx=>{const value:unknown=await requestResult(tx.objectStore('projects').get(id));if(value===undefined)return undefined;const checked=validateProject(value);if(!checked.ok)throw new Error(checked.issues[0].code==='schema_too_new'?'schema_too_new':'stored_project_not_writable');return checked.value;}));}
 export async function readGraph(id:string,db?:StudioDb):Promise<Graph|undefined>{return withDatabase(db,c=>transact(c,['graphs'],'readonly',async tx=>{const value:unknown=await requestResult(tx.objectStore('graphs').get(id));if(value===undefined)return undefined;const checked=validateGraph(value);if(!checked.ok)throw new Error('stored_graph_not_writable');return checked.value;}));}
 export class ProjectSaveSession{
  private writeAccess=false;

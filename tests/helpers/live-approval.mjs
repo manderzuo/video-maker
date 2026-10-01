@@ -2,6 +2,7 @@ import {readFile} from 'node:fs/promises';
 const fields=['schemaVersion','humanAuthorizationReference','studioOrigin','coreOrigin','authBindingId','expiresAt','allowedTextSubmissions','allowedVideoSubmissions','maximumCredits','budgetEnforcement','scenarioIds'];
 function containsCredential(value){return !!value&&typeof value==='object'&&Object.entries(value).some(([name,child])=>/key|token|cookie|password|secret|credential|jwt/i.test(name)||containsCredential(child));}
 function origin(value){try{const url=new URL(value);return url.origin===value&&!url.username&&!url.password&&(url.protocol==='https:'||url.protocol==='http:'&&url.hostname==='127.0.0.1');}catch{return false;}}
+/** @param {{allowLive?:boolean,approval?:unknown,now?:number}} options */
 export function evaluateLiveApproval({allowLive=false,approval,now=Date.now()}={}){
  const refuse=reason=>({allowed:false,reason,liveVerified:false,actualBusinessCalls:0});
  if(!allowLive)return refuse('allow_live_not_granted');if(!approval)return refuse('approval_missing');if(containsCredential(approval))return refuse('approval_must_not_contain_credentials');
