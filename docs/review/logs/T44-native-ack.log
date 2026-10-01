@@ -1,0 +1,16 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/dialog-busy-contracts.spec.ts
+
+[WebServer] (node:18984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\dialog-busy-contracts.spec.ts:3:1 › T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed (1.6s)
+
+  1 passed (4.6s)

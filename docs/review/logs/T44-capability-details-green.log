@@ -1,0 +1,100 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/capability-detail-contracts.spec.ts tests/e2e/task-detail-contracts.spec.ts tests/e2e/help-navigation-contracts.spec.ts
+
+[WebServer] (node:412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:20100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\capability-detail-contracts.spec.ts:5:1 › T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared (1.5s)
+  ok 2 tests\e2e\capability-detail-contracts.spec.ts:6:1 › T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved (1.2s)
+  ok 3 tests\e2e\capability-detail-contracts.spec.ts:7:1 › T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation (1.3s)
+  x  4 tests\e2e\help-navigation-contracts.spec.ts:2:1 › T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests (5.8s)
+(node:10524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\task-detail-contracts.spec.ts:6:1 › T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled (7.4s)
+(node:28732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 tests\e2e\task-detail-contracts.spec.ts:7:1 › T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records (1.5s)
+  ok 7 tests\e2e\task-detail-contracts.spec.ts:8:1 › T44 V12 native query save failure is reported and preserves original identity, frozen request and all task records (1.3s)
+  ok 8 tests\e2e\task-detail-contracts.spec.ts:9:1 › T44 V13 native pause save failure keeps the previous query state and never calls cancellation or refunds (1.3s)
+
+
+  1) tests\e2e\help-navigation-contracts.spec.ts:2:1 › T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('button', { name: '导出脱敏诊断报告', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: '导出脱敏诊断报告', exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests',async({page,networkCounter})=>{await page.goto('/help');await page.getByRole('link',{name:'导出本地脱敏报告',exact:true}).click();await expect(page).toHaveURL(/\/activity$/);await expect(page.getByRole('button',{name:'导出脱敏诊断报告',exact:true})).toBeVisible();await page.goto('/help');await page.getByRole('link',{name:'查看入门引导',exact:true}).click();await expect(page).toHaveURL(/\/welcome$/);await expect(page.getByRole('heading',{name:'开始创作',exact:true})).toBeVisible();expect(networkCounter.requests.filter(r=>['POST','PUT','PATCH','DELETE'].includes(r.method))).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                          ^
+      3 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\help-navigation-contracts.spec.ts:2:362
+
+    Error Context: test-results\help-navigation-contracts--25274-edback-or-business-requests\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\help-navigation-contracts--25274-edback-or-business-requests\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\help-navigation-contracts--25274-edback-or-business-requests\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\task-detail-contracts.spec.ts:6:1 › T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '任务详情', exact: true })
+    Expected substring: [32m"本地查询已暂停"[39m
+    Received string:    [31m"任务详情×=HYPERLINK(\"https://invalid.example\")生成中 · 已停止本地查询 · 内容待获取 · 账务未提供原项目：测试项目原服务：c1 · 原授权绑定：task-original-binding本地记录video-run-1Core任务IDmock-core-1Core请求IDcore-original-1复制任务ID复制请求ID定位原节点补充原授权重新查询原任务需要原授权及已知任务ID；未知提交单独核对停止本地查询未找到可操作的本地队列。仅操作本地尚未发出的项，已发出任务仍保留追踪。停止后续提交移出本地待提交队列需本地未提交项和有效写权；准备中或已发出的任务不能移除。重新读取队列技术详情executionState: runningqueryState: paused_by_userdeliveryState: not_readybillingState: not_provided停止查询、下载失败与收到内容都不等于退款或账务结算。{\"prompt\":\"原创本地测试\"}关闭"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '任务详情', exact: true })[22m
+    [2m    9 × locator resolved to <dialog open="" aria-modal="true" aria-labelledby="_r_10_" class="dialog dialog-960">…</dialog>[22m
+    [2m      - unexpected value "任务详情×=HYPERLINK("https://invalid.example")生成中 · 已停止本地查询 · 内容待获取 · 账务未提供原项目：测试项目原服务：c1 · 原授权绑定：task-original-binding本地记录video-run-1Core任务IDmock-core-1Core请求IDcore-original-1复制任务ID复制请求ID定位原节点补充原授权重新查询原任务需要原授权及已知任务ID；未知提交单独核对停止本地查询未找到可操作的本地队列。仅操作本地尚未发出的项，已发出任务仍保留追踪。停止后续提交移出本地待提交队列需本地未提交项和有效写权；准备中或已发出的任务不能移除。重新读取队列技术详情executionState: runningqueryState: paused_by_userdeliveryState: not_readybillingState: not_provided停止查询、下载失败与收到内容都不等于退款或账务结算。{"prompt":"原创本地测试"}关闭"[22m
+
+
+      4 | const details=async(page:Page)=>{await page.getByTestId('video-run-1').getByRole('button',{name:'详情',exact:true}).click();return page.getByRole('dialog',{name:'任务详情',exact:true});};
+      5 | test.beforeEach(async({page})=>{await page.goto('/tasks');await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';await(await import(p)).seedTaskHistory();});await page.reload();await expect(page.getByTestId('video-run-1')).toBeVisible();});
+    > 6 | test('T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled',async({page,networkCounter})=>{await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';(await import(p)).connectTaskHistory();});await page.route('**/core-api/v1/videos/mock-core-1',route=>route.fulfill({contentType:'application/json',body:'{"id":"mock-core-1","status":"running"}'}));const before=await state(page),dialog=await details(page);await dialog.getByRole('button',{name:'重新查询原任务',exact:true}).click();await expect(dialog.getByRole('status').filter({hasText:'已查询原任务，没有创建新任务。'})).toBeVisible();await dialog.getByRole('button',{name:'停止本地查询',exact:true}).click();await expect(dialog.getByRole('status').filter({hasText:'已停止本地查询，不代表取消或退款。'})).toBeVisible();await expect(dialog.getByRole('button',{name:'停止本地查询',exact:true})).toBeDisabled();const after=await state(page),original=before.runs.find((r:{id:string})=>r.id==='video-run-1'),changed=after.runs.find((r:{id:string})=>r.id==='video-run-1');expect(changed).toMatchObject({queryState:'paused_by_user',executionState:'running',billingState:original.billingState,connectionId:original.connectionId,authBindingId:original.authBindingId,originSnapshot:original.originSnapshot,inputSnapshot:original.inputSnapshot,idempotencyKey:original.idempotencyKey});expect(after.runs.filter((r:{id:string})=>r.id!=='video-run-1')).toEqual(before.runs.filter((r:{id:string})=>r.id!=='video-run-1'));await page.reload();const restored=await details(page);await expect(restored).toContainText('本地查询已暂停');expect(networkCounter.requests.filter(r=>r.url.endsWith('/v1/videos/mock-core-1'))).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^
+      7 | test('T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records',async({page,networkCounter})=>{const before=await state(page),dialog=await details(page);await expect(dialog.getByRole('button',{name:'重新查询原任务',exact:true})).toBeDisabled();await dialog.getByRole('button',{name:'定位原节点',exact:true}).click();await expect(page).toHaveURL(/\/projects\/p1\/canvas\?node=text-1$/);await expect(page.getByTestId('node-text-1')).toBeVisible();expect((await state(page)).runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);});
+      8 | test('T44 V12 native query save failure is reported and preserves original identity, frozen request and all task records',async({page,networkCounter})=>{await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';(await import(p)).connectTaskHistory();});const before=await state(page),dialog=await details(page);await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='runs')throw new DOMException('test-single-query-quota','QuotaExceededError');return put.apply(this,args);};});await dialog.getByRole('button',{name:'重新查询原任务',exact:true}).click();await expect(dialog.getByRole('status').filter({hasText:'查询尚未完成，请核对原服务与授权；未重新提交。'})).toBeVisible();expect((await state(page)).runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);});
+      9 | test('T44 V13 native pause save failure keeps the previous query state and never calls cancellation or refunds',async({page,networkCounter})=>{const before=await state(page),dialog=await details(page);await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='runs')throw new DOMException('test-local-pause-quota','QuotaExceededError');return put.apply(this,args);};});await dialog.getByRole('button',{name:'停止本地查询',exact:true}).click();await expect(dialog.getByRole('status').filter({hasText:'停止查询尚未保存，请保留原记录。'})).toBeVisible();expect((await state(page)).runs).toEqual(before.runs);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);expect(networkCounter.paidRequests).toHaveLength(0);});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\task-detail-contracts.spec.ts:6:1586
+
+    Error Context: test-results\task-detail-contracts-T44--a2443--a-second-pause-is-disabled\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\task-detail-contracts-T44--a2443--a-second-pause-is-disabled\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\task-detail-contracts-T44--a2443--a-second-pause-is-disabled\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\help-navigation-contracts.spec.ts:2:1 › T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests 
+    tests\e2e\task-detail-contracts.spec.ts:6:1 › T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled 
+  6 passed (27.5s)

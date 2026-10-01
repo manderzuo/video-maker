@@ -1,0 +1,45 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03 native history read failure is reported, keeps the prior selection and never mixes another connection with old binding options",
+      "file": "tests/e2e/connection-selection-contracts.spec.ts",
+      "title": "T44 K03 native history read failure is reported, keeps the prior selection and never mixes another connection with old binding options",
+      "status": "failed",
+      "assertions": 3,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 827
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 960
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 645
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/import-report-contracts.spec.ts tests/e2e/agent-bulk-contracts.spec.ts tests/e2e/canvas-run-menu-contracts.spec.ts
+
+[WebServer] (node:27496) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:28936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\agent-bulk-contracts.spec.ts:10:1 › T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated (2.1s)
+  ok 2 tests\e2e\agent-bulk-contracts.spec.ts:11:1 › T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all (1.9s)
+  ok 3 tests\e2e\agent-bulk-contracts.spec.ts:12:1 › T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history (1.5s)
+  ok 4 tests\e2e\canvas-run-menu-contracts.spec.ts:5:1 › T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request (1.7s)
+  ok 5 tests\e2e\canvas-run-menu-contracts.spec.ts:6:1 › T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history (1.6s)
+  ok 6 tests\e2e\canvas-run-menu-contracts.spec.ts:7:1 › T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation (1.5s)
+  x  7 tests\e2e\import-report-contracts.spec.ts:6:1 › T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project (7.0s)
+
+
+  1) tests\e2e\import-report-contracts.spec.ts:6:1 › T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText(/未知节点已隔离/)
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText(/未知节点已隔离/)[22m
+
+
+      4 | import type {Page} from '@playwright/test';
+      5 | const state=(page:Page)=>page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['projects','graphs','runs','receipts'],'readonly',async(tx:IDBTransaction)=>({projects:await m.requestResult(tx.objectStore('projects').getAll()),graphs:await m.requestResult(tx.objectStore('graphs').getAll()),runs:await m.requestResult(tx.objectStore('runs').getAll()),receipts:await m.requestResult(tx.objectStore('receipts').getAll())})));});
+    > 6 | test('T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project',async({page,networkCounter})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.goto('/projects/packages?projectId=p1');const before=await state(page),text={id:'text-import',type:'text',title:'原始汉字',x:1,y:2,locked:false,data:{kind:'text',text:'原创正文',referenceTokens:[]}},unknown={id:'unknown-import',type:'future-node',title:'未识别的只读节点',x:40,y:40,locked:false,data:{memo:'<script>globalThis.importAttack=true</script>',apiKey:'do-not-preserve-import-secret'}},bytes=zipSync({'manifest.json':strToU8(JSON.stringify({format:'aiwork-studio-project',schemaVersion:1,mode:'structure',createdAt:1000,assets:[]})),'project.json':strToU8(JSON.stringify(f.project({title:'含未知节点的本地包'}))),'graph.json':strToU8(JSON.stringify({...f.graph(),nodes:[text,unknown]})),'runs.json':strToU8('[]'),'drafts.json':strToU8('[]')});await expect(page.getByRole('button',{name:'查看导入报告',exact:true})).toBeDisabled();await page.getByLabel('选择项目包',{exact:true}).setInputFiles({name:'unknown-project.zip',mimeType:'application/zip',buffer:Buffer.from(bytes)});const dialog=page.getByRole('dialog',{name:'检查项目包',exact:true});await expect(dialog.getByRole('alert')).toContainText('未知节点 1 项已隔离');await expect(dialog).toContainText('未识别的只读节点');expect(await state(page)).toEqual(before);const download=page.waitForEvent('download');await dialog.getByRole('button',{name:'导入新项目',exact:true}).click();expect((await download).suggestedFilename()).toBe('project-import-report.json');await page.getByRole('button',{name:'查看导入报告',exact:true}).click();const report=page.getByRole('region',{name:'导入报告',exact:true});await expect(report).toContainText('含未知节点的本地包');await expect(report).toContainText('未识别的只读节点');await expect(report).toContainText('"readonly": true');await expect(report).not.toContainText('do-not-preserve-import-secret');const after=await state(page);expect(after.projects).toHaveLength(before.projects.length+1);expect(after.graphs.find((g:{projectId:string})=>g.projectId==='p1')).toEqual(before.graphs.find((g:{projectId:string})=>g.projectId==='p1'));expect(after.runs).toEqual(before.runs);const imported=after.projects.find((p:{id:string})=>p.id!=='p1');expect(JSON.stringify(after.receipts)).not.toContain('do-not-preserve-import-secret');await page.goto('/projects/'+imported.id+'/canvas');await expect(page.getByText(/未知节点已隔离/)).toBeVisible();expect(await page.evaluate(()=>Reflect.get(globalThis,'importAttack'))).toBeUndefined();expect((await state(page)).runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      7 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\import-report-contracts.spec.ts:6:2560
+
+    Error Context: test-results\import-report-contracts-T4-3d5bd-eserve-the-original-project\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\import-report-contracts-T4-3d5bd-eserve-the-original-project\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\import-report-contracts-T4-3d5bd-eserve-the-original-project\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\import-report-contracts.spec.ts:6:1 › T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project 
+  6 passed (20.9s)

@@ -1,0 +1,216 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 530
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 700
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 530
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 700
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 793
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 903
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 343
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 659
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 260
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 607
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 287
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 401
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 493
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 260
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

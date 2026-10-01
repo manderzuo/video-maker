@@ -1,0 +1,235 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-candidate-contracts.spec.ts::T44 T07 choosing an explicitly reviewed candidate preserves its native history and never applies a node or submits video",
+      "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+      "title": "T44 T07 choosing an explicitly reviewed candidate preserves its native history and never applies a node or submits video",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 4,
+          "column": 721
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 867,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 463
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 568
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 614
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 714
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 766
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 870
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 939
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 997
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 424,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 559,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 650,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 725,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 793,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 6,
+          "column": 271
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-candidate-contracts.spec.ts::T44 T07 native draft save failure blocks switching to a candidate and retains the newer raw input and original source",
+      "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+      "title": "T44 T07 native draft save failure blocks switching to a candidate and retains the newer raw input and original source",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 4,
+          "column": 721
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 867,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 701
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 780
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 868
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 911
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 953
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 999
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 1062
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 424,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 559,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 650,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 725,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 5,
+          "column": 793,
+          "function": "candidate"
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 539
+        },
+        {
+          "file": "tests/e2e/prompt-candidate-contracts.spec.ts",
+          "line": 7,
+          "column": 628
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

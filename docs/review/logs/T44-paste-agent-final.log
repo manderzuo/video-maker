@@ -1,0 +1,18 @@
+[WebServer] (node:25660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:10280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\agent-bulk-contracts.spec.ts:10:1 › T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated (2.1s)
+  ok 2 tests\e2e\agent-bulk-contracts.spec.ts:11:1 › T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all (1.9s)
+  ok 3 tests\e2e\agent-bulk-contracts.spec.ts:12:1 › T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history (1.4s)
+  ok 4 tests\e2e\agent-bulk-contracts.spec.ts:13:1 › T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data (1.4s)
+  ok 5 tests\e2e\canvas-native-paste-contracts.spec.ts:7:1 › T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload (2.1s)
+  ok 6 tests\e2e\canvas-native-paste-contracts.spec.ts:8:1 › T44 C11 actual browser image paste quota abort preserves the graph, blobs, media and original Run together (1.4s)
+  ok 7 tests\e2e\canvas-native-paste-contracts.spec.ts:9:1 › T44 C11 another native writer disables image paste without modifying any creative or execution data (1.3s)
+
+  7 passed (14.9s)

@@ -1,0 +1,17 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/prompt-candidate-contracts.spec.ts
+
+[WebServer] (node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:27888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-candidate-contracts.spec.ts:6:1 › T44 T07 choosing an explicitly reviewed candidate preserves its native history and never applies a node or submits video (2.4s)
+  ok 2 tests\e2e\prompt-candidate-contracts.spec.ts:7:1 › T44 T07 native draft save failure blocks switching to a candidate and retains the newer raw input and original source (1.7s)
+
+  2 passed (7.1s)

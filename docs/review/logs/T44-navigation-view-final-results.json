@@ -1,0 +1,281 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/navigation-storage-faults.spec.ts::T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation",
+      "file": "tests/e2e/navigation-storage-faults.spec.ts",
+      "title": "T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 658
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 868
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 997
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 1058
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 970
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/navigation-storage-faults.spec.ts::T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact",
+      "file": "tests/e2e/navigation-storage-faults.spec.ts",
+      "title": "T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 3,
+          "column": 748
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 3,
+          "column": 1127
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 3,
+          "column": 1194
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 3,
+          "column": 1255
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 3,
+          "column": 691
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+      "file": "tests/e2e/viewport-preference-faults.spec.ts",
+      "title": "T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+      "status": "passed",
+      "assertions": 23,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 426
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2177
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2277
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2383
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2557
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2657
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2736
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2827
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 3266
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 3408
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 914
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2156
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 2549
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

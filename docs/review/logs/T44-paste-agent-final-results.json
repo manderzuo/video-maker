@@ -1,0 +1,651 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 400
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 953
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1078
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1180
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1215
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1492
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1602
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1673
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1860
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1924
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 744
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1298
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1366
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1425
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1750
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1812
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 697
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 770
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 861
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1083
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1134
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 649
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 835
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1136
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1200
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1246
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1291
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1348
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 247
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 992
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 352
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 814
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 957
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 1031
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 1095
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 1147
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 226
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 285
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 768
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 13,
+          "column": 911
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload",
+      "status": "passed",
+      "assertions": 17,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 254,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 675
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 715
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 850
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 959
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1059
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1159
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1227
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1359
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1501
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 1589
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 358
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 7,
+          "column": 386
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 179,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 288,
+          "function": "pasteIntoCanvas"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 actual browser image paste quota abort preserves the graph, blobs, media and original Run together",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C11 actual browser image paste quota abort preserves the graph, blobs, media and original Run together",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 8,
+          "column": 250
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 254,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 8,
+          "column": 649
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 8,
+          "column": 695
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 8,
+          "column": 766
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 8,
+          "column": 817
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 179,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 288,
+          "function": "pasteIntoCanvas"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 another native writer disables image paste without modifying any creative or execution data",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C11 another native writer disables image paste without modifying any creative or execution data",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 9,
+          "column": 418
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 254,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 9,
+          "column": 593
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 9,
+          "column": 634
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 9,
+          "column": 686
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 179,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 288,
+          "function": "pasteIntoCanvas"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

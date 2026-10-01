@@ -1,0 +1,59 @@
+[WebServer] (node:23052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:7008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\review-action-contracts.spec.ts:4:1 › T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input (4.0s)
+  ok 2 tests\e2e\review-action-contracts.spec.ts:7:1 › T44 R05/R06 clipboard rejection reports the failure and preserves the native result and original parameter snapshot (2.6s)
+  ok 3 tests\e2e\review-action-contracts.spec.ts:10:1 › T44 R13 remove placement is separately confirmed, preserves immutable task and original files, and is undoable through the canvas (3.4s)
+  ok 4 tests\e2e\review-action-contracts.spec.ts:13:1 › T44 R13 native removal quota failure leaves the placement, result history and media intact with an explicit retry message (2.6s)
+  x  5 tests\e2e\review-action-contracts.spec.ts:16:1 › T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip (7.7s)
+(node:25020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 tests\e2e\review-action-contracts.spec.ts:19:1 › T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results (3.4s)
+
+
+  1) tests\e2e\review-action-contracts.spec.ts:16:1 › T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveJSProperty[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('video')
+    Expected: [32m0[39m
+    Received: [31m0.02529[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveJSProperty" with timeout 5000ms[22m
+    [2m  - waiting for locator('video')[22m
+    [2m    9 × locator resolved to <video preload="metadata" src="blob:http://127.0.0.1:4179/8eac084b-d172-4b73-9f47-2fdd0385c63d"></video>[22m
+    [2m      - unexpected value "0.02529"[22m
+
+
+      15 | });
+      16 | test('T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip',async({page,networkCounter})=>{
+    > 17 |  const before=await state(page),video=page.locator('video');await expect.poll(()=>video.evaluate((el:HTMLVideoElement)=>el.readyState)).toBeGreaterThanOrEqual(2);await page.getByRole('button',{name:'取消静音 原创版本1.webm',exact:true}).click();await expect(video).toHaveJSProperty('muted',false);await page.getByRole('slider',{name:'原创版本1.webm 音量',exact:true}).press('End');await expect(video).toHaveJSProperty('volume',1);await page.getByRole('button',{name:'播放 原创版本1.webm',exact:true}).click();await expect(video).toHaveJSProperty('paused',false);await page.getByRole('button',{name:'暂停 原创版本1.webm',exact:true}).click();await expect(video).toHaveJSProperty('paused',true);await page.getByRole('slider',{name:'原创版本1.webm 播放进度',exact:true}).press('Home');await expect(video).toHaveJSProperty('currentTime',0);const after=await state(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.assets).toEqual(before.assets);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      18 | });
+      19 | test('T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results',async({page,networkCounter})=>{
+      20 |  const before=await state(page);await page.goto('/projects/p1/compare?runs=r1,r2');const play=page.getByRole('button',{name:'同步播放',exact:true});await expect(play).toBeEnabled();await page.evaluate(()=>{const play=HTMLMediaElement.prototype.play;let first=true;HTMLMediaElement.prototype.play=function(){if(first){first=false;return Promise.reject(new DOMException('test-comparison-play-denied','NotAllowedError'));}return play.call(this);};});await play.click();await expect(page.getByRole('status').filter({hasText:'一侧播放失败，双方已暂停'})).toBeVisible();for(const video of await page.locator('video').all())await expect(video).toHaveJSProperty('paused',true);const after=await state(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.assets).toEqual(before.assets);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\review-action-contracts.spec.ts:17:769
+
+    Error Context: test-results\review-action-contracts-T4-28a2d-nly-the-readable-local-clip\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\review-action-contracts-T4-28a2d-nly-the-readable-local-clip\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\review-action-contracts-T4-28a2d-nly-the-readable-local-clip\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\review-action-contracts.spec.ts:16:1 › T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip 
+  5 passed (28.3s)

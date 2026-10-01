@@ -1,0 +1,682 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 400
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 953
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1078
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1180
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1215
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1492
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1602
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1673
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1860
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1924
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 744
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1298
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1366
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1425
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1750
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1812
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 697
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 770
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 861
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1083
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1134
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 649
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 835
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1136
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1200
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1246
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1291
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1348
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 247
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 992
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 530
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 700
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 530
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 700
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 793
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 903
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 343
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 659
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 699
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 699
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 879
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 931
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 1019
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 260
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 836
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 836
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 287
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 401
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 493
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 260
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/import-report-contracts.spec.ts::T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+      "file": "tests/e2e/import-report-contracts.spec.ts",
+      "title": "T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+      "status": "failed",
+      "assertions": 14,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1122
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1382
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1432
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1484
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1657
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1842
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1890
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1937
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1996
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2096
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2205
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2296
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2425
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1604
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1750
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

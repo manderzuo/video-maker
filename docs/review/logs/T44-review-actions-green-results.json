@@ -1,0 +1,475 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/review-action-contracts.spec.ts::T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
+      "file": "tests/e2e/review-action-contracts.spec.ts",
+      "title": "T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 614
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 954
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 1062
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 1130
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 1171
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 1213
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 1272
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 131
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 463
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 722
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 5,
+          "column": 916
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-action-contracts.spec.ts::T44 R05/R06 clipboard rejection reports the failure and preserves the native result and original parameter snapshot",
+      "file": "tests/e2e/review-action-contracts.spec.ts",
+      "title": "T44 R05/R06 clipboard rejection reports the failure and preserves the native result and original parameter snapshot",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 388
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 388
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 453
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 494
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 536
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 595
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 307
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 8,
+          "column": 307
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-action-contracts.spec.ts::T44 R13 remove placement is separately confirmed, preserves immutable task and original files, and is undoable through the canvas",
+      "file": "tests/e2e/review-action-contracts.spec.ts",
+      "title": "T44 R13 remove placement is separately confirmed, preserves immutable task and original files, and is undoable through the canvas",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 266
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 627
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 704
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 878
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 932
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 996
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 97
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 224
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 352
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 477
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 11,
+          "column": 820
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-action-contracts.spec.ts::T44 R13 native removal quota failure leaves the placement, result history and media intact with an explicit retry message",
+      "file": "tests/e2e/review-action-contracts.spec.ts",
+      "title": "T44 R13 native removal quota failure leaves the placement, result history and media intact with an explicit retry message",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 545
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 650
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 692
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 751
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 97
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 14,
+          "column": 472
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-action-contracts.spec.ts::T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip",
+      "file": "tests/e2e/review-action-contracts.spec.ts",
+      "title": "T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 61
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 137
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 258
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 388
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 636
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 774
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 858
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 899
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 941
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 1000
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 355
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 482
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 17,
+          "column": 735
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/review-action-contracts.spec.ts::T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results",
+      "file": "tests/e2e/review-action-contracts.spec.ts",
+      "title": "T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 164
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 535
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 622
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 622
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 704
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 745
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 846
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-action-contracts.spec.ts",
+          "line": 20,
+          "column": 455
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

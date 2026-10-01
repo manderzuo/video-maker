@@ -1,0 +1,30 @@
+[WebServer] (node:27880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 19 tests using 1 worker
+
+(node:28024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\prompt-field-contracts.spec.ts:5:1 › T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model (2.1s)
+  ok  2 tests\e2e\prompt-field-contracts.spec.ts:8:1 › T44 PG06/PG07/PG08/PG09 reference selection, roles, reorder and removal preserve stable IDs and never delete media (2.4s)
+  ok  3 tests\e2e\prompt-field-contracts.spec.ts:11:1 › T44 PG05/PG11/PG12 native draft storage failure preserves saved fields and exposes the current recoverable input (1.3s)
+  ok  4 tests\e2e\prompt-field-contracts.spec.ts:14:1 › T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction (1.3s)
+  ok  5 tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one (1.3s)
+  ok  6 tests\e2e\prompt-workspace.spec.ts:5:1 › T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text (1.8s)
+  ok  7 tests\e2e\prompt-workspace.spec.ts:6:1 › T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly (1.6s)
+  ok  8 tests\e2e\prompt-workspace.spec.ts:7:1 › T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound (1.7s)
+  ok  9 tests\e2e\prompt-workspace.spec.ts:8:1 › T21 PG05: composition input does not persist before composition ends (2.7s)
+  ok 10 tests\e2e\prompt-workspace.spec.ts:9:1 › T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice (1.3s)
+  ok 11 tests\e2e\prompt-workspace.spec.ts:10:1 › T21 P23: original input snapshot is shown independently of current edited input (1.2s)
+  ok 12 tests\e2e\prompt-workspace.spec.ts:11:1 › T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages (1.5s)
+  ok 13 tests\e2e\prompt-workspace.spec.ts:13:1 › T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh (1.9s)
+  ok 14 tests\e2e\prompt-workspace.spec.ts:14:1 › T21-C01: canvas panel expands the same saved draft identity without duplication (1.7s)
+  ok 15 tests\e2e\prompt-workspace.spec.ts:15:1 › T21-C04: editing output persists a new manual result and invalidates previous checks (2.2s)
+  ok 16 tests\e2e\prompt-workspace.spec.ts:16:1 › T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version (1.3s)
+  ok 17 tests\e2e\prompt-workspace.spec.ts:17:1 › T21-C06: unavailable AI cannot claim success or create either paid record type (1.2s)
+  ok 18 tests\e2e\prompt-workspace.spec.ts:18:1 › T21: original/form conflict has no preselected resolution and confirmed choices stay explicit (1.3s)
+  ok 19 tests\e2e\prompt-workspace.spec.ts:19:1 › T21: image placeholder saves independently and never activates video rules or image generation (1.2s)
+
+  19 passed (34.4s)

@@ -1,0 +1,90 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/capability-detail-contracts.spec.ts
+
+[WebServer] (node:5388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\capability-detail-contracts.spec.ts:5:1 › T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared (30.1s)
+(node:20360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\capability-detail-contracts.spec.ts:6:1 › T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved (6.5s)
+(node:1320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\capability-detail-contracts.spec.ts:7:1 › T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation (1.4s)
+
+
+  1) tests\e2e\capability-detail-contracts.spec.ts:5:1 › T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByText('能力核验详情', { exact: true })[22m
+
+
+      3 | const snapshot=(page:Page)=>page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs','runs','receipts'],'readonly',async(tx:IDBTransaction)=>({graph:await m.requestResult(tx.objectStore('graphs').get('p1')),runs:await m.requestResult(tx.objectStore('runs').getAll()),receipts:await m.requestResult(tx.objectStore('receipts').getAll())})));});
+      4 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.goto('/settings/capabilities');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts',d='/src/infrastructure/storage/database.ts',generation=await import(g),m=await import(d);generation.connectGeneration();await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['receipts'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('receipts').put({id:'connection-catalog:c1',kind:'readonly-model-catalog',connectionId:'c1',verifiedAt:1893456000000,evidence:[{kind:'mock',reference:'T44 本地文字与视频目录样本，未联调真实Core'}],capability:generation.generationCaps,models:[{id:'fake-text-only'},{id:'fake-video-only'}]})));});});
+    > 5 | test('T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared',async({page,networkCounter})=>{await page.getByText('能力核验详情',{exact:true}).click();const panel=page.locator('[data-interaction-id="B-03"]').locator('..');await expect(panel).toContainText('T44 本地文字与视频目录样本，未联调真实Core');await expect(panel.locator('time')).toHaveAttribute('datetime','2030-01-01T00:00:00.000Z');await expect(panel).toContainText('local-mock-v1');const before=await snapshot(page);await page.getByText('能力核验详情',{exact:true}).click();await page.getByText('能力核验详情',{exact:true}).click();expect(await snapshot(page)).toEqual(before);await page.evaluate(async()=>{const p='/src/adapters/core/current-connection.ts';(await import(p)).clearActiveCore();});await expect(panel).toContainText('最近验证时间未知');await expect(panel).toContainText('核验状态 unknown');expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                              ^
+      6 | test('T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved',async({page,networkCounter})=>{const before=await snapshot(page);await page.getByRole('combobox',{name:'默认文字模型',exact:true}).selectOption('fake-text-only');await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('0');const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('aiwork-studio:preferences')!));expect(stored).toMatchObject({defaultTextModel:'fake-text-only',defaultVideoModel:'fake-video-only',defaultDuration:5,defaultRatio:'9:16'});expect((await snapshot(page)).graph).toEqual(before.graph);await page.evaluate(()=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(name,value){if(name==='aiwork-studio:preferences')throw new DOMException('test-capability-preference-denied','QuotaExceededError');return set.call(this,name,value);};});await page.getByRole('combobox',{name:'默认文字模型',exact:true}).selectOption('');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('aiwork-studio:preferences')!))).toEqual(stored);expect((await snapshot(page)).graph).toEqual(before.graph);expect((await snapshot(page)).runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);});
+      7 | test('T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation',async({page,networkCounter})=>{await page.route('**/core-api/v1/models',route=>route.fulfill({status:503,contentType:'application/json',body:'{"error":{"message":"local fixture unavailable"}}'}));const before=await snapshot(page);await page.getByRole('button',{name:'刷新能力与目录',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'目录刷新失败，上次缓存保留并标为过期'})).toBeVisible();const after=await snapshot(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.receipts.find((r:{id:string})=>r.id==='connection-catalog:c1')).toMatchObject({...before.receipts.find((r:{id:string})=>r.id==='connection-catalog:c1'),stale:true});expect(networkCounter.requests.filter(r=>r.url.endsWith('/v1/models'))).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);await page.evaluate(async()=>{const p='/src/adapters/core/current-connection.ts';(await import(p)).clearActiveCore();});await expect(page.getByRole('button',{name:'刷新能力与目录',exact:true})).toBeDisabled();await expect(page.getByRole('combobox',{name:'默认视频规格',exact:true})).toBeDisabled();});
+      8 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\capability-detail-contracts.spec.ts:5:238
+
+    Error Context: test-results\capability-detail-contract-56f9e-er-authorization-is-cleared\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\capability-detail-contract-56f9e-er-authorization-is-cleared\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\capability-detail-contract-56f9e-er-authorization-is-cleared\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\capability-detail-contracts.spec.ts:6:1 › T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })[22m
+
+
+      4 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.goto('/settings/capabilities');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts',d='/src/infrastructure/storage/database.ts',generation=await import(g),m=await import(d);generation.connectGeneration();await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['receipts'],'readwrite',(tx:IDBTransaction)=>tx.objectStore('receipts').put({id:'connection-catalog:c1',kind:'readonly-model-catalog',connectionId:'c1',verifiedAt:1893456000000,evidence:[{kind:'mock',reference:'T44 本地文字与视频目录样本，未联调真实Core'}],capability:generation.generationCaps,models:[{id:'fake-text-only'},{id:'fake-video-only'}]})));});});
+      5 | test('T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared',async({page,networkCounter})=>{await page.getByText('能力核验详情',{exact:true}).click();const panel=page.locator('[data-interaction-id="B-03"]').locator('..');await expect(panel).toContainText('T44 本地文字与视频目录样本，未联调真实Core');await expect(panel.locator('time')).toHaveAttribute('datetime','2030-01-01T00:00:00.000Z');await expect(panel).toContainText('local-mock-v1');const before=await snapshot(page);await page.getByText('能力核验详情',{exact:true}).click();await page.getByText('能力核验详情',{exact:true}).click();expect(await snapshot(page)).toEqual(before);await page.evaluate(async()=>{const p='/src/adapters/core/current-connection.ts';(await import(p)).clearActiveCore();});await expect(panel).toContainText('最近验证时间未知');await expect(panel).toContainText('核验状态 unknown');expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 6 | test('T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved',async({page,networkCounter})=>{const before=await snapshot(page);await page.getByRole('combobox',{name:'默认文字模型',exact:true}).selectOption('fake-text-only');await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('0');const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('aiwork-studio:preferences')!));expect(stored).toMatchObject({defaultTextModel:'fake-text-only',defaultVideoModel:'fake-video-only',defaultDuration:5,defaultRatio:'9:16'});expect((await snapshot(page)).graph).toEqual(before.graph);await page.evaluate(()=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(name,value){if(name==='aiwork-studio:preferences')throw new DOMException('test-capability-preference-denied','QuotaExceededError');return set.call(this,name,value);};});await page.getByRole('combobox',{name:'默认文字模型',exact:true}).selectOption('');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('aiwork-studio:preferences')!))).toEqual(stored);expect((await snapshot(page)).graph).toEqual(before.graph);expect((await snapshot(page)).runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      7 | test('T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation',async({page,networkCounter})=>{await page.route('**/core-api/v1/models',route=>route.fulfill({status:503,contentType:'application/json',body:'{"error":{"message":"local fixture unavailable"}}'}));const before=await snapshot(page);await page.getByRole('button',{name:'刷新能力与目录',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'目录刷新失败，上次缓存保留并标为过期'})).toBeVisible();const after=await snapshot(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.receipts.find((r:{id:string})=>r.id==='connection-catalog:c1')).toMatchObject({...before.receipts.find((r:{id:string})=>r.id==='connection-catalog:c1'),stale:true});expect(networkCounter.requests.filter(r=>r.url.endsWith('/v1/models'))).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);await page.evaluate(async()=>{const p='/src/adapters/core/current-connection.ts';(await import(p)).clearActiveCore();});await expect(page.getByRole('button',{name:'刷新能力与目录',exact:true})).toBeDisabled();await expect(page.getByRole('combobox',{name:'默认视频规格',exact:true})).toBeDisabled();});
+      8 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\capability-detail-contracts.spec.ts:6:1205
+
+    Error Context: test-results\capability-detail-contract-2a9a9-nd-source-data-is-preserved\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\capability-detail-contract-2a9a9-nd-source-data-is-preserved\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\capability-detail-contract-2a9a9-nd-source-data-is-preserved\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\capability-detail-contracts.spec.ts:5:1 › T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared 
+    tests\e2e\capability-detail-contracts.spec.ts:6:1 › T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved 
+  1 passed (44.0s)

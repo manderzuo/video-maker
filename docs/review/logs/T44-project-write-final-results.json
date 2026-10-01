@@ -1,0 +1,379 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/project-write-contracts.spec.ts::T44 Z02 safe permanent local removal needs the exact project title and survives reload without any remote cancellation or generation",
+      "file": "tests/e2e/project-write-contracts.spec.ts",
+      "title": "T44 Z02 safe permanent local removal needs the exact project title and survives reload without any remote cancellation or generation",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 7,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 341,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 474
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 531
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 599
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 636
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 671
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 755
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 806
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 894
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 116,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 229,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 290,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 439,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 441
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-write-contracts.spec.ts::T44 Z02 native permanent-removal transaction abort retains the trashed project and graph without deleting partial local data",
+      "file": "tests/e2e/project-write-contracts.spec.ts",
+      "title": "T44 Z02 native permanent-removal transaction abort retains the trashed project and graph without deleting partial local data",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 7,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 341,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 683
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 723
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 782
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 832
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 116,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 229,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 290,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 3,
+          "column": 439,
+          "function": "trash"
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 281
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 637
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-write-contracts.spec.ts::T44 P04 actual project rename persists its approved Chinese title while keeping creative nodes and all history unchanged",
+      "file": "tests/e2e/project-write-contracts.spec.ts",
+      "title": "T44 P04 actual project rename persists its approved Chinese title while keeping creative nodes and all history unchanged",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 7,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 569
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 658
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 768
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 819
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 905
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 968
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 272
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 8,
+          "column": 477
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-write-contracts.spec.ts::T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data",
+      "file": "tests/e2e/project-write-contracts.spec.ts",
+      "title": "T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 7,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 404
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 496
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 663
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 772
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 839
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 876
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 911
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 1006
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 1057
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 308
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 578
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 9,
+          "column": 739
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

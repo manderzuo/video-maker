@@ -1,0 +1,10 @@
+
+> aiwork-studio@0.0.1 lint
+> eslint src tests vite.config.ts vitest.config.ts playwright.config.ts companion/src companion/vite.config.ts
+
+
+E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx
+  180:1033  error  Parsing error: '}' expected
+
+✖ 1 problem (1 error, 0 warnings)
+

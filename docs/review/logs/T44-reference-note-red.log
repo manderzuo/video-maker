@@ -1,0 +1,48 @@
+[WebServer] (node:26700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-field-contracts.spec.ts:14:1 › T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction (6.5s)
+
+
+  1) tests\e2e\prompt-field-contracts.spec.ts:14:1 › T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  getByRole('button', { name: '新增未绑定参考说明', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: '新增未绑定参考说明', exact: true })[22m
+    [2m    9 × locator resolved to <button aria-busy="false" class="button secondary " data-interaction-id="PG08">新增未绑定参考说明</button>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      13 | });
+      14 | test('T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction',async({page,networkCounter})=>{
+    > 15 |  await page.getByText('本地参考素材与用途',{exact:true}).click();const before=await state(page),note='中'.repeat(21846);await page.getByLabel('外部参考说明',{exact:true}).fill(note);await expect(page.getByRole('button',{name:'新增未绑定参考说明',exact:true})).toBeDisabled();await expect(page.getByRole('alert')).toContainText('64KiB');await expect(page.getByLabel('外部参考说明',{exact:true})).toHaveValue(note);expect(await state(page)).toEqual(before);await page.getByLabel('外部参考说明',{exact:true}).fill('修正后的原创参考说明');await page.getByRole('button',{name:'新增未绑定参考说明',exact:true}).click();await page.getByRole('button',{name:'保存草稿',exact:true}).click();expect((await state(page)).drafts[0].references[0]).toMatchObject({description:'修正后的原创参考说明',available:false,unbound:true});expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                            ^
+      16 | });
+      17 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-field-contracts.spec.ts:15:236
+
+    Error Context: test-results\prompt-field-contracts-T44-5dacb-mes-usable-after-correction\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-field-contracts-T44-5dacb-mes-usable-after-correction\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-field-contracts-T44-5dacb-mes-usable-after-correction\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-field-contracts.spec.ts:14:1 › T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction 

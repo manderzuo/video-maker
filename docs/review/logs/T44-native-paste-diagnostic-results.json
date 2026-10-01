@@ -1,0 +1,45 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 2,
+          "column": 507
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 2,
+          "column": 988
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 2,
+          "column": 1415
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

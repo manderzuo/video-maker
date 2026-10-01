@@ -4,67 +4,7 @@
     {
       "code": "facet_missing:error",
       "kind": "interactions",
-      "id": "G-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-02"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-03"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "G-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-04"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "G-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-05"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "G-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-07"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "G-08"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-08"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-09"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "G-10"
     },
     {
       "code": "facet_missing:disabled",
@@ -107,17 +47,7 @@
       "id": "W-04"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "W-05"
-    },
-    {
       "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "W-05"
-    },
-    {
-      "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "W-05"
     },
@@ -159,21 +89,6 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "P-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "P-03"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "P-04"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "P-04"
     },
     {
@@ -209,21 +124,6 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "P-09"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "P-09"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "P-09"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "P-10"
     },
     {
@@ -237,11 +137,6 @@
       "id": "P-11"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "P-12"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "P-12"
@@ -250,11 +145,6 @@
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "P-12"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "P-13"
     },
     {
       "code": "facet_missing:error",
@@ -277,11 +167,6 @@
       "id": "P-14"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-03"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "C-03"
@@ -290,81 +175,6 @@
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "C-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-06"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-06"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-06"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-07"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-07"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-08"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-08"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-09"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-09"
-    },
-    {
-      "code": "action_missing",
-      "kind": "interactions",
-      "id": "C-11"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "C-11"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-11"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-11"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-11"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "C-11"
     },
     {
       "code": "facet_missing:disabled",
@@ -387,56 +197,6 @@
       "id": "C-14"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "C-15"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-15"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-15"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-15"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "C-15"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "C-16"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-16"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-16"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-16"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "C-16"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "C-17"
@@ -455,46 +215,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "C-18"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "C-19"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-19"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-19"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-19"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "C-19"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "C-20"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "C-20"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "C-20"
     },
     {
       "code": "facet_missing:error",
@@ -532,16 +252,6 @@
       "id": "N-17"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "T-01"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "T-02"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "T-02"
@@ -567,27 +277,7 @@
       "id": "T-06"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "T-07"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "T-07"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "T-07"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "T-07"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "T-07"
     },
@@ -617,11 +307,6 @@
       "id": "M-03"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "M-04"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "M-04"
@@ -637,39 +322,9 @@
       "id": "M-04"
     },
     {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "M-04"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "M-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "M-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "M-05"
-    },
-    {
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "M-05"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "M-05"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "M-06"
     },
     {
       "code": "facet_missing:disabled",
@@ -683,11 +338,6 @@
     },
     {
       "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "M-06"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "M-06"
     },
@@ -787,46 +437,6 @@
       "id": "M-15"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-01"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-02"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-02"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-03"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-04"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-04"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "V-05"
@@ -847,21 +457,6 @@
       "id": "V-06"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-07"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-07"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "V-08"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "V-10"
@@ -870,71 +465,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "V-10"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "V-11"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-11"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "V-11"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-12"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "V-12"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-12"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "V-12"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "V-12"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-13"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "V-13"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-13"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "V-13"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "V-13"
     },
     {
       "code": "facet_missing:error",
@@ -942,36 +472,6 @@
       "id": "V-14"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-15"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-15"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "V-15"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "V-16"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-16"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "V-16"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "V-17"
@@ -980,46 +480,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "V-17"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "V-18"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "V-18"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "V-18"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "R-01"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "R-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-01"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-01"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "R-01"
     },
     {
       "code": "facet_missing:disabled",
@@ -1057,79 +517,9 @@
       "id": "R-04"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "R-05"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "R-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-05"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-05"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "R-05"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "R-06"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "R-06"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-06"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-06"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "R-06"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "R-07"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "R-07"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-07"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-07"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "R-07"
     },
     {
       "code": "facet_missing:error",
@@ -1142,16 +532,6 @@
       "id": "R-09"
     },
     {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-09"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-09"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "R-10"
@@ -1172,52 +552,12 @@
       "id": "R-11"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "R-12"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "R-12"
     },
     {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-12"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-12"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "R-12"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "R-13"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "R-13"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "R-13"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "R-13"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "R-13"
     },
@@ -1252,27 +592,7 @@
       "id": "J-02"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "J-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "J-03"
-    },
-    {
       "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "J-03"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "J-03"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "J-03"
     },
@@ -1447,11 +767,6 @@
       "id": "L-12"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "A-01"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "A-01"
@@ -1480,31 +795,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "A-03"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "A-04"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "A-04"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "A-04"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "A-04"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "A-04"
     },
     {
       "code": "facet_missing:disabled",
@@ -1540,31 +830,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "A-08"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "A-09"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "A-09"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "A-09"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "A-09"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "A-09"
     },
     {
       "code": "facet_missing:error",
@@ -1607,69 +872,9 @@
       "id": "A-14"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "A-15"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "A-15"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "A-15"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "A-15"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "A-15"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "A-16"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "A-16"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "A-16"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "A-16"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "A-16"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-01"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "K-01"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-02"
     },
     {
       "code": "facet_missing:error",
@@ -1677,36 +882,6 @@
       "id": "K-02"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "K-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "K-03"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "K-03"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "K-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-04"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "K-04"
@@ -1715,56 +890,6 @@
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "K-04"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "K-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "K-05"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "K-05"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "K-05"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "K-06"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-06"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "K-06"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "K-06"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "K-06"
     },
     {
       "code": "facet_missing:persistence",
@@ -1772,11 +897,6 @@
       "id": "K-07"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-08"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "K-08"
@@ -1785,36 +905,6 @@
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "K-08"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "K-09"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-09"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "K-09"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "K-09"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "K-09"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "K-10"
     },
     {
       "code": "facet_missing:error",
@@ -1827,27 +917,7 @@
       "id": "B-01"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "B-01"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "B-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "B-01"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "B-01"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "B-01"
     },
@@ -1857,11 +927,6 @@
       "id": "B-02"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "B-02"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "B-02"
@@ -1870,41 +935,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "B-02"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "B-02"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "B-02"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "B-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "B-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "B-03"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "B-03"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "B-03"
     },
     {
       "code": "facet_missing:error",
@@ -1917,59 +947,9 @@
       "id": "B-04"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "B-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "B-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "B-05"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "B-05"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "B-05"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "B-06"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "B-06"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "B-06"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "B-06"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "B-06"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-01"
     },
     {
       "code": "facet_missing:error",
@@ -1977,19 +957,9 @@
       "id": "S-01"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-02"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "S-02"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-03"
     },
     {
       "code": "facet_missing:error",
@@ -1997,29 +967,9 @@
       "id": "S-03"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-04"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "S-04"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "S-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-06"
     },
     {
       "code": "facet_missing:error",
@@ -2092,11 +1042,6 @@
       "id": "D-07"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "D-08"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "D-08"
@@ -2134,51 +1079,6 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "I-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "I-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "I-04"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "I-04"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "I-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "I-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "I-05"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "I-05"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "I-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "I-06"
     },
     {
@@ -2195,31 +1095,6 @@
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "I-07"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "I-08"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "I-08"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "I-08"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "I-08"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "I-08"
     },
     {
       "code": "facet_missing:disabled",
@@ -2264,107 +1139,12 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "Q-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "Q-01"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "Q-01"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "Q-02"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "Q-02"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "Q-02"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "Q-03"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "Q-03"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "Q-03"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "Q-03"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "Q-03"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "Q-04"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "Q-04"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "Q-04"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "Q-04"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "Q-04"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "Z-01"
     },
     {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "Z-01"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "Z-02"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "Z-02"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "Z-02"
     },
     {
       "code": "facet_missing:error",
@@ -2372,34 +1152,9 @@
       "id": "Z-03"
     },
     {
-      "code": "facet_missing:normal",
+      "code": "source_binding_missing",
       "kind": "interactions",
       "id": "F-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "F-01"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "F-01"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "F-02"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "F-02"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "F-02"
     },
     {
       "code": "facet_missing:disabled",
@@ -2464,11 +1219,6 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "PG05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "PG06"
     },
     {
@@ -2477,39 +1227,14 @@
       "id": "PG06"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "PG07"
-    },
-    {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "PG07"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "PG08"
     },
     {
       "code": "facet_missing:error",
       "kind": "interactions",
       "id": "PG09"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "PG10"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "PG11"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "PG12"
     },
     {
       "code": "facet_missing:error",
@@ -2584,26 +1309,6 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "PG23"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "PG23"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "PG24"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "PG24"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "PG27"
     },
     {
@@ -2647,7 +1352,7 @@
       "id": "G-01",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect",
@@ -2663,16 +1368,27 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "G-02",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/navigation-storage-faults.spec.ts::T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/navigation-memory.spec.ts::T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests",
           "facets": [
@@ -2687,15 +1403,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "G-03",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/app-shell.spec.ts::T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
@@ -2715,7 +1429,6 @@
         {
           "testId": "tests/e2e/app-shell.spec.ts::T11-C05: composing and editable targets do not trigger global keyboard commands",
           "facets": [
-            "disabled",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
@@ -2726,17 +1439,26 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "G-04",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/navigation-storage-faults.spec.ts::T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/app-shell.spec.ts::T11 global search uses local data and returns actual project titles without network",
           "facets": [
@@ -2764,15 +1486,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "G-05",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
@@ -2787,11 +1507,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "G-06",
@@ -2832,7 +1548,7 @@
       "id": "G-07",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect",
@@ -2848,9 +1564,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "G-08",
@@ -2858,6 +1572,18 @@
       "taskId": "T11",
       "status": "incomplete",
       "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/app-shell.spec.ts::T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
           "facets": [
@@ -2888,7 +1614,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -2896,7 +1621,7 @@
       "id": "G-09",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect",
@@ -2912,16 +1637,27 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "G-10",
       "kind": "interactions",
       "taskId": "T11",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-contracts.spec.ts::T44 G10 restore layout preserves all node coordinates, creative revision and task identities",
           "facets": [
@@ -2936,9 +1672,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "W-01",
@@ -3073,6 +1807,19 @@
       "status": "incomplete",
       "proofs": [
         {
+          "testId": "tests/e2e/welcome-connection.spec.ts::T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/app-shell.spec.ts::T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
           "facets": [
             "disabled",
@@ -3089,9 +1836,7 @@
         }
       ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence"
+        "facet_missing:error"
       ]
     },
     {
@@ -3100,6 +1845,19 @@
       "taskId": "T11",
       "status": "incomplete",
       "proofs": [
+        {
+          "testId": "tests/e2e/project-library.spec.ts::T12 / W06: welcome opens the real new-project dialog; rename Escape preserves the stored name",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            40,
+            41
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-library.spec.ts::T12 / W06: welcome opens the real new-project dialog; rename Escape preserves the stored name",
           "facets": [
@@ -3176,7 +1934,7 @@
       "id": "P-03",
       "kind": "interactions",
       "taskId": "T12",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/project-action-contracts.spec.ts::T44 P03 opening an existing project preserves its creative revision, shared media and original unknown Run",
@@ -3192,10 +1950,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "P-04",
@@ -3203,6 +1958,19 @@
       "taskId": "T12",
       "status": "incomplete",
       "proofs": [
+        {
+          "testId": "tests/e2e/project-write-contracts.spec.ts::T44 P04 actual project rename persists its approved Chinese title while keeping creative nodes and all history unchanged",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist",
           "facets": [
@@ -3218,7 +1986,6 @@
         }
       ],
       "missing": [
-        "facet_missing:normal",
         "facet_missing:disabled"
       ]
     },
@@ -3354,7 +2121,7 @@
       "id": "P-09",
       "kind": "interactions",
       "taskId": "T12",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/project-library.spec.ts::T12-C05: search, view changes and multi-select retain exact selection scope",
@@ -3383,11 +2150,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "P-10",
@@ -3474,7 +2237,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence"
       ]
@@ -3513,7 +2275,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence"
       ]
@@ -3620,7 +2381,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence"
       ]
@@ -3631,6 +2391,19 @@
       "taskId": "T13",
       "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision",
           "facets": [
@@ -3692,8 +2465,21 @@
       "id": "C-06",
       "kind": "interactions",
       "taskId": "T13",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection",
           "facets": [
@@ -3708,18 +2494,27 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "C-07",
       "kind": "interactions",
       "taskId": "T13",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit",
           "facets": [
@@ -3734,17 +2529,27 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "C-08",
       "kind": "interactions",
       "taskId": "T13",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
           "facets": [
@@ -3773,17 +2578,27 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "C-09",
       "kind": "interactions",
       "taskId": "T13",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
           "facets": [
@@ -3812,10 +2627,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "C-10",
@@ -3823,6 +2635,18 @@
       "taskId": "T13",
       "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit",
           "facets": [
@@ -3868,31 +2692,49 @@
       "id": "C-11",
       "kind": "interactions",
       "taskId": "T13",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
-          "testId": "tests/e2e/asset-library.spec.ts::T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state",
+          "testId": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload",
           "facets": [
             "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 actual browser image paste quota abort preserves the graph, blobs, media and original Run together",
+          "facets": [
             "error",
             "persistence",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            6
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C11 another native writer disables image paste without modifying any creative or execution data",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "action_missing",
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "missing": []
     },
     {
       "id": "C-12",
@@ -3998,29 +2840,105 @@
       "id": "C-15",
       "kind": "interactions",
       "taskId": "T26",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "C-16",
       "kind": "interactions",
       "taskId": "T26",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "C-17",
@@ -4076,21 +2994,28 @@
       "id": "C-19",
       "kind": "interactions",
       "taskId": "T36",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "C-20",
       "kind": "interactions",
       "taskId": "T15",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/canvas-layout.spec.ts::T15 outline filters and sort preserve graph/references and indicate empty results",
@@ -4105,11 +3030,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "N-01",
@@ -4925,8 +3846,20 @@
       "id": "T-01",
       "kind": "interactions",
       "taskId": "T14",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/typed-nodes.spec.ts::T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact",
           "facets": [
@@ -4942,9 +3875,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "T-02",
@@ -4979,7 +3910,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -5123,13 +4053,36 @@
       "kind": "interactions",
       "taskId": "T31",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/prompt-candidate-contracts.spec.ts::T44 T07 choosing an explicitly reviewed candidate preserves its native history and never applies a node or submits video",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/prompt-candidate-contracts.spec.ts::T44 T07 native draft save failure blocks switching to a candidate and retains the newer raw input and original source",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 1,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -5250,13 +4203,24 @@
       "kind": "interactions",
       "taskId": "T16",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
         "facet_missing:disabled",
         "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -5264,13 +4228,22 @@
       "kind": "interactions",
       "taskId": "T16",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -5278,13 +4251,24 @@
       "kind": "interactions",
       "taskId": "T16",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 M04/M05/M06 native playback, mute, volume and seeking affect only the readable local clip",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
         "facet_missing:disabled",
         "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -5540,8 +4524,21 @@
       "id": "V-01",
       "kind": "interactions",
       "taskId": "T14",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/typed-nodes.spec.ts::T14-C04: unknown capabilities keep video drafts editable without an execution button",
           "facets": [
@@ -5553,6 +4550,20 @@
             6
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V-01 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4,
+            6
+          ],
+          "scope": "逐个实际下拉选择触发原生图事务失败；原规格、输入绑定、执行记录保留，当前编辑可恢复且无业务写入。"
         },
         {
           "testId": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
@@ -5568,17 +4579,41 @@
           "scope": "实际存在的只读控件全部逐一断言禁用；标题键盘入口不改变图，不发业务写入。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "V-02",
       "kind": "interactions",
       "taskId": "T14",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V-02 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4,
+            6
+          ],
+          "scope": "逐个实际下拉选择触发原生图事务失败；原规格、输入绑定、执行记录保留，当前编辑可恢复且无业务写入。"
+        },
         {
           "testId": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
           "facets": [
@@ -5593,17 +4628,41 @@
           "scope": "实际存在的只读控件全部逐一断言禁用；标题键盘入口不改变图，不发业务写入。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "V-03",
       "kind": "interactions",
       "taskId": "T14",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V-03 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4,
+            6
+          ],
+          "scope": "逐个实际下拉选择触发原生图事务失败；原规格、输入绑定、执行记录保留，当前编辑可恢复且无业务写入。"
+        },
         {
           "testId": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
           "facets": [
@@ -5618,17 +4677,41 @@
           "scope": "实际存在的只读控件全部逐一断言禁用；标题键盘入口不改变图，不发业务写入。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "V-04",
       "kind": "interactions",
       "taskId": "T14",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V-04 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4,
+            6
+          ],
+          "scope": "逐个实际下拉选择触发原生图事务失败；原规格、输入绑定、执行记录保留，当前编辑可恢复且无业务写入。"
+        },
         {
           "testId": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
           "facets": [
@@ -5643,10 +4726,7 @@
           "scope": "实际存在的只读控件全部逐一断言禁用；标题键盘入口不改变图，不发业务写入。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "V-05",
@@ -5702,8 +4782,46 @@
       "id": "V-07",
       "kind": "interactions",
       "taskId": "T14",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/video-spec-contracts.spec.ts::T44 V07 resetting a reviewed local spec fails visibly when the native graph transaction aborts and keeps the original input bindings",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
           "facets": [
@@ -5718,17 +4836,26 @@
           "scope": "实际存在的只读控件全部逐一断言禁用；标题键盘入口不改变图，不发业务写入。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "V-08",
       "kind": "interactions",
       "taskId": "T26",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/generation-preflight.spec.ts::T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests",
           "facets": [
@@ -5755,9 +4882,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "V-09",
@@ -5835,7 +4960,7 @@
       "id": "V-11",
       "kind": "interactions",
       "taskId": "T28",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/task-center.spec.ts::T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
@@ -5850,39 +4975,101 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "V-12",
       "kind": "interactions",
       "taskId": "T28",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12 native query save failure is reported and preserves original identity, frozen request and all task records",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "V-13",
       "kind": "interactions",
       "taskId": "T28",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V13 native pause save failure keeps the previous query state and never calls cancellation or refunds",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "V-14",
@@ -5913,8 +5100,21 @@
       "id": "V-15",
       "kind": "interactions",
       "taskId": "T32",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/video-work-context.spec.ts::T32 D08: original result opens bounded work dialog; absent capability disables execution and Escape restores focus, zero POST",
+          "facets": [
+            "normal",
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "真实页面明确展示改版/续写说明；缺少部署能力和父版本完整规格时确认始终禁用，无Core收费请求，不代表真实服务能力已核验。"
+        },
         {
           "testId": "tests/e2e/video-work-context.spec.ts::T32 D08: original result opens bounded work dialog; absent capability disables execution and Escape restores focus, zero POST",
           "facets": [
@@ -5928,18 +5128,27 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "V-16",
       "kind": "interactions",
       "taskId": "T32",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/video-work-context.spec.ts::T32 D08: original result opens bounded work dialog; absent capability disables execution and Escape restores focus, zero POST",
+          "facets": [
+            "normal",
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "真实页面明确展示改版/续写说明；缺少部署能力和父版本完整规格时确认始终禁用，无Core收费请求，不代表真实服务能力已核验。"
+        },
         {
           "testId": "tests/e2e/video-work-context.spec.ts::T32 D08: original result opens bounded work dialog; absent capability disables execution and Escape restores focus, zero POST",
           "facets": [
@@ -5953,11 +5162,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "V-17",
@@ -5988,7 +5193,7 @@
       "id": "V-18",
       "kind": "interactions",
       "taskId": "T34",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/task-center.spec.ts::T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
@@ -6003,25 +5208,29 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "R-01",
       "kind": "interactions",
       "taskId": "T35",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "R-02",
@@ -6103,42 +5312,94 @@
       "kind": "interactions",
       "taskId": "T35",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R05/R06 clipboard rejection reports the failure and preserves the native result and original parameter snapshot",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:disabled"
       ]
     },
     {
       "id": "R-06",
       "kind": "interactions",
       "taskId": "T35",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R05/R06 clipboard rejection reports the failure and preserves the native result and original parameter snapshot",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "R-07",
       "kind": "interactions",
       "taskId": "T35",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R01/R05/R06/R07 canvas review navigation, original identity copy and history selection never change source or downstream input",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "R-08",
@@ -6172,6 +5433,19 @@
       "status": "incomplete",
       "proofs": [
         {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R09 one-sided native playback rejection pauses both clips and preserves their fixed original results",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            20
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/result-review.spec.ts::T35-C02: real native clips play together, shorter ending pauses both and warns approximate synchronization",
           "facets": [
             "normal",
@@ -6185,9 +5459,7 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -6245,13 +5517,38 @@
       "kind": "interactions",
       "taskId": "T33",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/media-delivery.spec.ts::T33 actual native video: authenticated blob preview, local cache offline, original-byte download and cleanup; zero paid POST",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8,
+            9,
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/media-delivery.spec.ts::T33 actual transport: redirected media is blocked without any generation change or remote redirect request",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            14
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -6259,13 +5556,36 @@
       "kind": "interactions",
       "taskId": "T35",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R13 remove placement is separately confirmed, preserves immutable task and original files, and is undoable through the canvas",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/review-action-contracts.spec.ts::T44 R13 native removal quota failure leaves the placement, result history and media intact with an explicit retry message",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            14
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -6323,13 +5643,47 @@
       "kind": "interactions",
       "taskId": "T34",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/task-center.spec.ts::T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:error"
       ]
     },
     {
@@ -6873,6 +6227,18 @@
       "status": "incomplete",
       "proofs": [
         {
+          "testId": "tests/e2e/agent-panel.spec.ts::T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/agent-panel.spec.ts::T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization",
           "facets": [
             "disabled",
@@ -6886,7 +6252,6 @@
         }
       ],
       "missing": [
-        "facet_missing:normal",
         "facet_missing:error",
         "facet_missing:persistence"
       ]
@@ -6956,15 +6321,23 @@
       "id": "A-04",
       "kind": "interactions",
       "taskId": "T42",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+          "facets": [
+            "normal",
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            10
+          ],
+          "scope": "实际打开Agent面板并检查模型宿主未验收、发送按钮禁用和零收费请求；不宣称外部宿主发送能力可用。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "A-05",
@@ -7106,15 +6479,37 @@
       "id": "A-09",
       "kind": "interactions",
       "taskId": "T40",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            10
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "A-10",
@@ -7267,29 +6662,59 @@
       "id": "A-15",
       "kind": "interactions",
       "taskId": "T42",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A15 native history read failure remains visible, retries real receipts, and preserves original decisions and creative data",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            10
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "A-16",
       "kind": "interactions",
       "taskId": "T40",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+          "facets": [
+            "normal",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            12
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "K-01",
@@ -7297,6 +6722,18 @@
       "taskId": "T37",
       "status": "incomplete",
       "proofs": [
+        {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/storage-settings.spec.ts::T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity",
           "facets": [
@@ -7312,7 +6749,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7323,6 +6759,18 @@
       "status": "incomplete",
       "proofs": [
         {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/storage-settings.spec.ts::T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity",
           "facets": [
             "normal",
@@ -7337,7 +6785,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7345,15 +6792,61 @@
       "id": "K-03",
       "kind": "interactions",
       "taskId": "T37",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03 native history read failure is reported, keeps the prior selection and never mixes another connection with old binding options",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "K-04",
@@ -7361,6 +6854,18 @@
       "taskId": "T09",
       "status": "incomplete",
       "proofs": [
+        {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
           "facets": [
@@ -7375,7 +6880,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence"
       ]
@@ -7384,29 +6888,93 @@
       "id": "K-05",
       "kind": "interactions",
       "taskId": "T09",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "K-06",
       "kind": "interactions",
       "taskId": "T37",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K06 deleting a used connection requires confirmation and keeps a readonly original profile and all task bindings",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K06 native archive receipt quota aborts deletion and preserves the original connection and task history",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "K-07",
@@ -7451,6 +7019,18 @@
       "status": "incomplete",
       "proofs": [
         {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
           "facets": [
             "normal",
@@ -7464,7 +7044,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence"
       ]
@@ -7473,15 +7052,47 @@
       "id": "K-09",
       "kind": "interactions",
       "taskId": "T37",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "K-10",
@@ -7489,6 +7100,18 @@
       "taskId": "T37",
       "status": "incomplete",
       "proofs": [
+        {
+          "testId": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/missing-entry-contracts.spec.ts::T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key",
           "facets": [
@@ -7503,7 +7126,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7514,34 +7136,30 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
           "facets": [
-            "error",
+            "normal",
             "persistence",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            11
+            7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
-        }
-      ],
-      "missing": [
-        "action_missing",
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
-    },
-    {
-      "id": "B-02",
-      "kind": "interactions",
-      "taskId": "T37",
-      "status": "incomplete",
-      "proofs": [
+        },
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
           "facets": [
@@ -7558,26 +7176,93 @@
       ],
       "missing": [
         "action_missing",
-        "facet_missing:normal",
+        "facet_missing:disabled"
+      ]
+    },
+    {
+      "id": "B-02",
+      "kind": "interactions",
+      "taskId": "T37",
+      "status": "incomplete",
+      "proofs": [
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": [
+        "action_missing",
         "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:error"
       ]
     },
     {
       "id": "B-03",
       "kind": "interactions",
       "taskId": "T23",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B03 native verification evidence read failure is explicit and cannot erase saved capabilities or task records",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "B-04",
@@ -7608,28 +7293,85 @@
       "id": "B-05",
       "kind": "interactions",
       "taskId": "T23",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation",
+          "facets": [
+            "error",
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "B-06",
       "kind": "interactions",
       "taskId": "T37",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:error"
       ]
     },
     {
@@ -7653,7 +7395,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7678,7 +7419,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7703,7 +7443,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7728,7 +7467,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7736,13 +7474,12 @@
       "id": "S-05",
       "kind": "interactions",
       "taskId": "T37",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/storage-settings.spec.ts::T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography",
           "facets": [
             "normal",
-            "persistence",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
@@ -7752,10 +7489,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "S-06",
@@ -7778,7 +7512,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -7964,6 +7697,20 @@
       "status": "incomplete",
       "proofs": [
         {
+          "testId": "tests/e2e/project-write-contracts.spec.ts::T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data",
+          "facets": [
+            "normal",
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            9
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/local-cleanup.spec.ts::T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history",
           "facets": [
             "disabled",
@@ -7978,7 +7725,6 @@
         }
       ],
       "missing": [
-        "facet_missing:normal",
         "facet_missing:error"
       ]
     },
@@ -8110,7 +7856,7 @@
       "id": "I-03",
       "kind": "interactions",
       "taskId": "T36",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/project-package.spec.ts::T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history",
@@ -8126,16 +7872,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "I-04",
       "kind": "interactions",
       "taskId": "T36",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/project-package.spec.ts::T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history",
@@ -8151,24 +7894,29 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "I-05",
       "kind": "interactions",
       "taskId": "T36",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/import-report-contracts.spec.ts::T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "I-06",
@@ -8224,15 +7972,34 @@
       "id": "I-08",
       "kind": "interactions",
       "taskId": "T36",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/import-report-contracts.spec.ts::T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/import-report-contracts.spec.ts::T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "H-01",
@@ -8350,7 +8117,7 @@
       "id": "Q-01",
       "kind": "interactions",
       "taskId": "T38",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/recovery-diagnostics.spec.ts::T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback",
@@ -8365,17 +8132,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "Q-02",
       "kind": "interactions",
       "taskId": "T47",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/recovery-diagnostics.spec.ts::T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback",
@@ -8390,39 +8153,49 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "Q-03",
       "kind": "interactions",
       "taskId": "T38",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/help-navigation-contracts.spec.ts::T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "Q-04",
       "kind": "interactions",
       "taskId": "T38",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/help-navigation-contracts.spec.ts::T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "Z-01",
@@ -8455,8 +8228,35 @@
       "id": "Z-02",
       "kind": "interactions",
       "taskId": "T12",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/project-write-contracts.spec.ts::T44 Z02 safe permanent local removal needs the exact project title and survives reload without any remote cancellation or generation",
+          "facets": [
+            "normal",
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/project-write-contracts.spec.ts::T44 Z02 native permanent-removal transaction abort retains the trashed project and graph without deleting partial local data",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-library.spec.ts::T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked",
           "facets": [
@@ -8472,11 +8272,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "Z-03",
@@ -8511,30 +8307,18 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+          "testId": "tests/e2e/writer-takeover-contracts.spec.ts::T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting",
           "facets": [
-            "disabled",
+            "normal",
+            "persistence",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            21
+            5
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
-        }
-      ],
-      "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
-    },
-    {
-      "id": "F-02",
-      "kind": "interactions",
-      "taskId": "T06",
-      "status": "incomplete",
-      "proofs": [
+        },
         {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
           "facets": [
@@ -8549,10 +8333,80 @@
         }
       ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence"
+        "source_binding_missing"
       ]
+    },
+    {
+      "id": "F-02",
+      "kind": "interactions",
+      "taskId": "T06",
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/writer-takeover-contracts.spec.ts::T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/writer-takeover-contracts.spec.ts::T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            6
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            21
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+          "facets": [
+            "disabled",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            21
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "F-03",
@@ -9014,7 +8868,7 @@
       "id": "PG05",
       "kind": "interactions",
       "taskId": "T20",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
@@ -9056,9 +8910,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "PG06",
@@ -9119,7 +8971,6 @@
         }
       ],
       "missing": [
-        "facet_missing:disabled",
         "facet_missing:error"
       ]
     },
@@ -9127,8 +8978,23 @@
       "id": "PG08",
       "kind": "interactions",
       "taskId": "T19",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction",
+          "facets": [
+            "normal",
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            15
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG06/PG07/PG08/PG09 reference selection, roles, reorder and removal preserve stable IDs and never delete media",
           "facets": [
@@ -9168,9 +9034,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "PG09",
@@ -9212,7 +9076,7 @@
       "id": "PG10",
       "kind": "interactions",
       "taskId": "T19",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
@@ -9242,15 +9106,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "PG11",
       "kind": "interactions",
       "taskId": "T18",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
@@ -9279,15 +9141,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "PG12",
       "kind": "interactions",
       "taskId": "T19",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
@@ -9316,9 +9176,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "PG13",
@@ -9618,7 +9476,7 @@
       "id": "PG23",
       "kind": "interactions",
       "taskId": "T21",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/prompt-output-contracts.spec.ts::T44 PG23/PG24 result tabs are local views; PG25 copies only the final body and PG26 saves an independent library entry without execution",
@@ -9633,16 +9491,13 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "PG24",
       "kind": "interactions",
       "taskId": "T19",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/prompt-output-contracts.spec.ts::T44 PG23/PG24 result tabs are local views; PG25 copies only the final body and PG26 saves an independent library entry without execution",
@@ -9657,10 +9512,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
-      ]
+      "missing": []
     },
     {
       "id": "PG25",
@@ -11016,7 +10868,7 @@
     "interactions": 260,
     "pages": 23,
     "dialogs": 30,
-    "passed": 35
+    "passed": 98
   },
   "review": "待用户统一验收与独立审查"
 }

@@ -1,0 +1,19 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/project-write-contracts.spec.ts
+
+[WebServer] (node:10068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:20816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\project-write-contracts.spec.ts:4:1 › T44 Z02 safe permanent local removal needs the exact project title and survives reload without any remote cancellation or generation (2.1s)
+  ok 2 tests\e2e\project-write-contracts.spec.ts:5:1 › T44 Z02 native permanent-removal transaction abort retains the trashed project and graph without deleting partial local data (1.4s)
+  ok 3 tests\e2e\project-write-contracts.spec.ts:8:1 › T44 P04 actual project rename persists its approved Chinese title while keeping creative nodes and all history unchanged (1.8s)
+  ok 4 tests\e2e\project-write-contracts.spec.ts:9:1 › T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data (2.2s)
+
+  4 passed (10.7s)

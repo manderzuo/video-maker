@@ -1,0 +1,465 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/video-spec-contracts.spec.ts::T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+      "file": "tests/e2e/video-spec-contracts.spec.ts",
+      "title": "T44 V01/V02/V03/V04/V07 each local Mock spec choice persists explicitly, resetting is separately reviewed and no historical request is rewritten",
+      "status": "passed",
+      "assertions": 25,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 4,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 519
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 745
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 519
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 745
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 519
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 745
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 519
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 669
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 745
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 879
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 987
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1095
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1216
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1343
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1629
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1848
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1960
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 2079
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 2136
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 2224
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1184
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1460
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1587
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1713
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 5,
+          "column": 1840
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-spec-contracts.spec.ts::T44 V-01 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "file": "tests/e2e/video-spec-contracts.spec.ts",
+      "title": "T44 V-01 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 4,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 752
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 857
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 914
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 665
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-spec-contracts.spec.ts::T44 V-02 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "file": "tests/e2e/video-spec-contracts.spec.ts",
+      "title": "T44 V-02 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 4,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 752
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 857
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 914
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 665
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-spec-contracts.spec.ts::T44 V-03 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "file": "tests/e2e/video-spec-contracts.spec.ts",
+      "title": "T44 V-03 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 4,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 752
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 857
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 914
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 665
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-spec-contracts.spec.ts::T44 V-04 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "file": "tests/e2e/video-spec-contracts.spec.ts",
+      "title": "T44 V-04 native spec mutation quota preserves its original saved draft and exposes a recoverable local edit",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 4,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 752
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 857
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 914
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 6,
+          "column": 665
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-spec-contracts.spec.ts::T44 V07 resetting a reviewed local spec fails visibly when the native graph transaction aborts and keeps the original input bindings",
+      "file": "tests/e2e/video-spec-contracts.spec.ts",
+      "title": "T44 V07 resetting a reviewed local spec fails visibly when the native graph transaction aborts and keeps the original input bindings",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 4,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 7,
+          "column": 739
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 7,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 7,
+          "column": 842
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 7,
+          "column": 899
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 7,
+          "column": 291
+        },
+        {
+          "file": "tests/e2e/video-spec-contracts.spec.ts",
+          "line": 7,
+          "column": 664
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,1203 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 400
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 826
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 953
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1078
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1180
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1215
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1492
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1602
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1673
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1860
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1924
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 609
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 744
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1298
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1366
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1425
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1750
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 10,
+          "column": 1812
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 697
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 770
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 816
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 861
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1083
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 1134
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 94,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 9,
+          "column": 173,
+          "function": "review"
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 11,
+          "column": 649
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-bulk-contracts.spec.ts::T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+      "title": "T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 7,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 835
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1040
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1136
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1200
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1246
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1291
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 1348
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 247
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/agent-bulk-contracts.spec.ts",
+          "line": 12,
+          "column": 992
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 267
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 530
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 700
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 530
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 700
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 793
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 903
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 343
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 5,
+          "column": 659
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 699
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 699
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 879
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 931
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 1019
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 260
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 836
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 6,
+          "column": 836
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-run-menu-contracts.spec.ts::T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+      "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+      "title": "T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 4,
+          "column": 306
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 287
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 401
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 493
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-run-menu-contracts.spec.ts",
+          "line": 7,
+          "column": 260
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 112
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 292
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 359
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 111
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 13
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 138
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 161
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 234
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 464
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 281
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 410
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C04: space in input is retained and canvas pan is separate from graph edits",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C04: space in input is retained and canvas pan is separate from graph edits",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 497
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 112
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 233
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 313
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 343
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 411
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 512
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 590
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 731
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 847
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 582
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 723
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 632
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 686
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 815
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 529
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 616
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 156
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 368
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 418
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 150
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 32
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 99
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13 navigation: quota failure retains draft and blocks browser Back until explicit discard",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13 navigation: quota failure retains draft and blocks browser Back until explicit discard",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 139
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 723
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 867
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 964
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1101
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1199
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1272
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 85
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 937
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1039
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1172
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/import-report-contracts.spec.ts::T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+      "file": "tests/e2e/import-report-contracts.spec.ts",
+      "title": "T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project",
+      "status": "passed",
+      "assertions": 19,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1122
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1382
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1432
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1484
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1657
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1842
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1890
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1937
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1996
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2096
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2205
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2296
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2425
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2560
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2646
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2695
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2752
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 2840
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1604
+        },
+        {
+          "file": "tests/e2e/import-report-contracts.spec.ts",
+          "line": 6,
+          "column": 1750
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

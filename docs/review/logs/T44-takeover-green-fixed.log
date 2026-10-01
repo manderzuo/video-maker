@@ -1,0 +1,102 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/writer-takeover-contracts.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/canvas-tool-contracts.spec.ts
+
+[WebServer] (node:21528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:19460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\canvas-tool-contracts.spec.ts:4:1 › T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed (2.1s)
+  ok  2 tests\e2e\canvas-tool-contracts.spec.ts:7:1 › T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data (1.2s)
+  ok  3 tests\e2e\canvas-tool-contracts.spec.ts:10:1 › T44 N10/N18/N19 existing group and result controls refuse a native foreign writer (1.9s)
+  ok  4 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (1.8s)
+  ok  5 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (1.3s)
+  ok  6 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (1.2s)
+  ok  7 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (1.4s)
+  ok  8 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (1.3s)
+  ok  9 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (2.0s)
+  ok 10 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (1.5s)
+  x  11 tests\e2e\writer-takeover-contracts.spec.ts:5:1 › T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting (6.2s)
+(node:23196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  12 tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph (6.6s)
+
+
+  1) tests\e2e\writer-takeover-contracts.spec.ts:5:1 › T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  getByRole('textbox', { name: '节点文本', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('textbox', { name: '节点文本', exact: true })[22m
+    [2m    9 × locator resolved to <textarea readonly aria-label="节点文本" data-interaction-id="T-01">原创确认正文</textarea>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      3 | const state=(page:Page)=>page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs','leases','runs'],'readonly',async(tx:IDBTransaction)=>({graph:await m.requestResult(tx.objectStore('graphs').get('p1')),lease:await m.requestResult(tx.objectStore('leases').get('project:p1')),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});
+      4 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts',l='/src/infrastructure/storage/project-lease.ts';await(await import(g)).seedGeneration();await(await import(l)).acquireProjectLease('p1','original-other-writer',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权',{exact:true})).toBeVisible();});
+    > 5 | test('T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting',async({page,networkCounter})=>{const before=await state(page);await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeDisabled();await page.getByRole('button',{name:'接管编辑',exact:true}).click();let dialog=page.getByRole('dialog',{name:'接管编辑',exact:true});await dialog.getByRole('button',{name:'取消',exact:true}).click();expect(await state(page)).toEqual(before);await page.getByRole('button',{name:'接管编辑',exact:true}).click();dialog=page.getByRole('dialog',{name:'接管编辑',exact:true});await dialog.getByRole('button',{name:'确认接管',exact:true}).click();await expect(dialog).not.toBeVisible();await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeEditable();const after=await state(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.lease.epoch).toBe(before.lease.epoch+1);expect(after.lease.tabId).not.toBe(before.lease.tabId);expect(await page.evaluate(async lease=>{const d='/src/infrastructure/storage/database.ts',l='/src/infrastructure/storage/project-lease.ts',m=await import(d),leases=await import(l);try{await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['leases'],'readonly',(tx:IDBTransaction)=>leases.assertProjectWriter(tx,'p1',{projectId:'p1',tabId:lease.tabId,epoch:lease.epoch})));return 'unexpectedly-authorized';}catch(error){return error instanceof Error?error.message:'unrecognized-failure';}},before.lease)).toBe('lease_epoch_invalid');expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                   ^
+      6 | test('T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph',async({page,networkCounter})=>{const before=await state(page),errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await page.getByRole('button',{name:'接管编辑',exact:true}).click();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='leases')throw new DOMException('test-takeover-native-quota','QuotaExceededError');return put.apply(this,args);};});await page.getByRole('dialog',{name:'接管编辑',exact:true}).getByRole('button',{name:'确认接管',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'接管失败，原草稿及写权保留，请稍后重试。'})).toBeVisible();expect(await state(page)).toEqual(before);await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeDisabled();expect(errors).toEqual([]);expect(networkCounter.paidRequests).toHaveLength(0);});
+      7 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\writer-takeover-contracts.spec.ts:5:291
+
+    Error Context: test-results\writer-takeover-contracts--50850-al-owner-without-submitting\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\writer-takeover-contracts--50850-al-owner-without-submitting\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\writer-takeover-contracts--50850-al-owner-without-submitting\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  getByRole('textbox', { name: '节点文本', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('textbox', { name: '节点文本', exact: true })[22m
+    [2m    9 × locator resolved to <textarea readonly aria-label="节点文本" data-interaction-id="T-01">原创确认正文</textarea>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      4 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts',l='/src/infrastructure/storage/project-lease.ts';await(await import(g)).seedGeneration();await(await import(l)).acquireProjectLease('p1','original-other-writer',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权',{exact:true})).toBeVisible();});
+      5 | test('T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting',async({page,networkCounter})=>{const before=await state(page);await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeDisabled();await page.getByRole('button',{name:'接管编辑',exact:true}).click();let dialog=page.getByRole('dialog',{name:'接管编辑',exact:true});await dialog.getByRole('button',{name:'取消',exact:true}).click();expect(await state(page)).toEqual(before);await page.getByRole('button',{name:'接管编辑',exact:true}).click();dialog=page.getByRole('dialog',{name:'接管编辑',exact:true});await dialog.getByRole('button',{name:'确认接管',exact:true}).click();await expect(dialog).not.toBeVisible();await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeEditable();const after=await state(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.lease.epoch).toBe(before.lease.epoch+1);expect(after.lease.tabId).not.toBe(before.lease.tabId);expect(await page.evaluate(async lease=>{const d='/src/infrastructure/storage/database.ts',l='/src/infrastructure/storage/project-lease.ts',m=await import(d),leases=await import(l);try{await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['leases'],'readonly',(tx:IDBTransaction)=>leases.assertProjectWriter(tx,'p1',{projectId:'p1',tabId:lease.tabId,epoch:lease.epoch})));return 'unexpectedly-authorized';}catch(error){return error instanceof Error?error.message:'unrecognized-failure';}},before.lease)).toBe('lease_epoch_invalid');expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 6 | test('T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph',async({page,networkCounter})=>{const before=await state(page),errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await page.getByRole('button',{name:'接管编辑',exact:true}).click();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='leases')throw new DOMException('test-takeover-native-quota','QuotaExceededError');return put.apply(this,args);};});await page.getByRole('dialog',{name:'接管编辑',exact:true}).getByRole('button',{name:'确认接管',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'接管失败，原草稿及写权保留，请稍后重试。'})).toBeVisible();expect(await state(page)).toEqual(before);await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeDisabled();expect(errors).toEqual([]);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      7 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\writer-takeover-contracts.spec.ts:6:925
+
+    Error Context: test-results\writer-takeover-contracts--936b1-to-the-old-writer-and-graph\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\writer-takeover-contracts--936b1-to-the-old-writer-and-graph\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\writer-takeover-contracts--936b1-to-the-old-writer-and-graph\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\writer-takeover-contracts.spec.ts:5:1 › T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting 
+    tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph 
+  10 passed (33.2s)

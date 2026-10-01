@@ -1,0 +1,45 @@
+[WebServer] (node:25768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph (6.6s)
+
+
+  1) tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('alert').filter({ hasText: '接管失败，原草稿及写权保留，请稍后重试。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('alert').filter({ hasText: '接管失败，原草稿及写权保留，请稍后重试。' })[22m
+
+
+      4 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts',l='/src/infrastructure/storage/project-lease.ts';await(await import(g)).seedGeneration();await(await import(l)).acquireProjectLease('p1','original-other-writer',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权',{exact:true})).toBeVisible();});
+      5 | test('T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting',async({page,networkCounter})=>{const before=await state(page);await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeDisabled();await page.getByRole('button',{name:'接管编辑',exact:true}).click();let dialog=page.getByRole('dialog',{name:'接管编辑',exact:true});await dialog.getByRole('button',{name:'取消',exact:true}).click();expect(await state(page)).toEqual(before);await page.getByRole('button',{name:'接管编辑',exact:true}).click();dialog=page.getByRole('dialog',{name:'接管编辑',exact:true});await dialog.getByRole('button',{name:'确认接管',exact:true}).click();await expect(dialog).not.toBeVisible();await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeEditable();const after=await state(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.lease.epoch).toBe(before.lease.epoch+1);expect(after.lease.tabId).not.toBe(before.lease.tabId);expect(await page.evaluate(async lease=>{const d='/src/infrastructure/storage/database.ts',l='/src/infrastructure/storage/project-lease.ts',m=await import(d),leases=await import(l);try{await m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['leases'],'readonly',(tx:IDBTransaction)=>leases.assertProjectWriter(tx,'p1',{projectId:'p1',tabId:lease.tabId,epoch:lease.epoch})));return 'unexpectedly-authorized';}catch(error){return error instanceof Error?error.message:'unrecognized-failure';}},before.lease)).toBe('lease_epoch_invalid');expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 6 | test('T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph',async({page,networkCounter})=>{const before=await state(page),errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await page.getByRole('button',{name:'接管编辑',exact:true}).click();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='leases')throw new DOMException('test-takeover-native-quota','QuotaExceededError');return put.apply(this,args);};});await page.getByRole('dialog',{name:'接管编辑',exact:true}).getByRole('button',{name:'确认接管',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'接管失败，原草稿及写权保留，请稍后重试。'})).toBeVisible();expect(await state(page)).toEqual(before);await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeDisabled();expect(errors).toEqual([]);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+      7 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\writer-takeover-contracts.spec.ts:6:804
+
+    Error Context: test-results\writer-takeover-contracts--936b1-to-the-old-writer-and-graph\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\writer-takeover-contracts--936b1-to-the-old-writer-and-graph\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\writer-takeover-contracts--936b1-to-the-old-writer-and-graph\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph 

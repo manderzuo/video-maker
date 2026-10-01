@@ -1,0 +1,35 @@
+[WebServer] (node:19300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:28244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\asset-library.spec.ts:2:1 › T16 different content confirmation creates a new asset and retains original graph and source (2.3s)
+  ok  2 tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged (2.1s)
+  ok  3 tests\e2e\asset-library.spec.ts:4:1 › T16 player cleanup: hiding active media pauses the detached element and releases its object URL (1.2s)
+  ok  4 tests\e2e\asset-library.spec.ts:5:1 › T16 tags and metadata: shared limits reject invalid tags and stale undo instead of overwriting (1.4s)
+  ok  5 tests\e2e\asset-library.spec.ts:6:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state (2.0s)
+  ok  6 tests\e2e\asset-library.spec.ts:7:1 › T16 readonly target: insert is blocked by another writer without creating nodes or media (1.3s)
+  ok  7 tests\e2e\asset-library.spec.ts:10:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active (1.3s)
+  ok  8 tests\e2e\asset-library.spec.ts:11:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible (1.3s)
+  ok  9 tests\e2e\asset-library.spec.ts:12:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently (2.6s)
+  ok 10 tests\e2e\asset-library.spec.ts:13:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display (1.4s)
+  ok 11 tests\e2e\asset-library.spec.ts:14:1 › T16-M03/M08: image fit/original preview and insertion only adds an asset node (1.4s)
+paste diagnostic {
+  events: [
+    {
+      trusted: [33mtrue[39m,
+      files: [36m[Array][39m,
+      types: [36m[Array][39m,
+      target: [32m'<textarea data-interaction-id="T-01" aria-label="节点文本" style="font-size: 16px;">原创确认正文</textarea>'[39m
+    }
+  ],
+  clipboard: [ [ [32m'image/png'[39m ] ],
+  focus: [32m'canvas-stage'[39m
+}
+  ok 12 tests\e2e\canvas-native-paste-contracts.spec.ts:2:1 › T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload (1.9s)
+
+  12 passed (23.5s)

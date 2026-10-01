@@ -1,0 +1,58 @@
+[WebServer] (node:1236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:26400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+paste diagnostic {
+  events: [
+    {
+      trusted: [33mtrue[39m,
+      files: [36m[Array][39m,
+      types: [36m[Array][39m,
+      target: [32m'<textarea data-interaction-id="T-01" aria-label="节点文本" style="font-size: 16px;">原创确认正文</textarea>'[39m
+    }
+  ],
+  clipboard: [ [ [32m'image/png'[39m ] ],
+  focus: [32m'canvas-stage'[39m
+}
+  x  1 tests\e2e\canvas-native-paste-contracts.spec.ts:2:1 › T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload (6.6s)
+
+
+  1) tests\e2e\canvas-native-paste-contracts.spec.ts:2:1 › T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('[data-node-type="asset"]')
+    Expected: [32m1[39m
+    Received: [31m0[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-node-type="asset"]')[22m
+    [2m    9 × locator resolved to 0 elements[22m
+    [2m      - unexpected value "0"[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload',async({page,networkCounter})=>{await page.context().grantPermissions(['clipboard-read','clipboard-write']);await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.goto('/projects/p1/canvas');await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeEditable();await page.evaluate(async()=>{const canvas=document.createElement('canvas');canvas.width=8;canvas.height=8;const context=canvas.getContext('2d')!;context.fillStyle='#34d399';context.fillRect(0,0,8,8);const blob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(Error('owned_png_fixture_failed')),'image/png'));await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);});const stage=page.getByTestId('canvas-stage'),bounds=await stage.boundingBox();if(!bounds)throw Error('canvas_not_rendered');await stage.click({position:{x:bounds.width-8,y:bounds.height-8}});await expect(stage).toBeFocused();await page.evaluate(()=>{(window as Window&{pasteProbe?:unknown[]}).pasteProbe=[];document.addEventListener('paste',e=>(window as Window&{pasteProbe?:unknown[]}).pasteProbe!.push({trusted:e.isTrusted,files:[...e.clipboardData!.files].map(f=>({name:f.name,type:f.type,size:f.size})),types:[...e.clipboardData!.types],target:(e.target as Element).outerHTML.slice(0,150)}),true);});await page.keyboard.press('Control+V');console.log('paste diagnostic',await page.evaluate(async()=>({events:(window as Window&{pasteProbe?:unknown[]}).pasteProbe,clipboard:(await navigator.clipboard.read()).map(c=>c.types),focus:document.activeElement?.getAttribute('data-testid')})));await expect(page.locator('[data-node-type="asset"]')).toHaveCount(1);const saved=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs','assets','blobs','runs'],'readonly',async(tx:IDBTransaction)=>({graph:await m.requestResult(tx.objectStore('graphs').get('p1')),assets:await m.requestResult(tx.objectStore('assets').getAll()),blobs:(await m.requestResult(tx.objectStore('blobs').getAll())).map((b:{id:string;blob:Blob})=>({id:b.id,bytes:b.blob.size})),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});expect(saved.assets).toHaveLength(1);expect(saved.assets[0]).toMatchObject({mimeType:'image/png',width:8,height:8});expect(saved.blobs.find((b:{id:string})=>b.id===saved.assets[0].blobKey).bytes).toBe(saved.assets[0].bytes);expect(saved.graph.nodes.find((n:{type:string})=>n.type==='asset').data.assetId).toBe(saved.assets[0].id);expect(saved.graph.nodes.find((n:{id:string})=>n.id==='text-1').data.text).toBe('原创确认正文');expect(saved.graph.nodes.find((n:{id:string})=>n.id==='video-1').data.inputBindings).toEqual([{nodeId:'text-1',order:0,role:'text'}]);expect(saved.runs).toHaveLength(0);await page.reload();await expect(page.locator('[data-node-type="asset"]')).toHaveCount(1);expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      3 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-native-paste-contracts.spec.ts:2:1893
+
+    Error Context: test-results\canvas-native-paste-contra-55b3e-together-without-any-upload\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-native-paste-contra-55b3e-together-without-any-upload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-native-paste-contra-55b3e-together-without-any-upload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-native-paste-contracts.spec.ts:2:1 › T44 C11 actual browser clipboard PNG and keyboard paste save the native original blob, media identity and canvas node together without any upload 

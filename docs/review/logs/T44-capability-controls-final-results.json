@@ -1,0 +1,571 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 491
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 689
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 845
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 891
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 950
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 1002
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 600
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 652
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 593
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 755
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1205
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1315
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1368
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1426
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1483
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 276
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 367
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 459
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1102
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 498
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 565
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 606
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 704
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 929
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1132
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1215
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 412
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/help-navigation-contracts.spec.ts::T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests",
+      "file": "tests/e2e/help-navigation-contracts.spec.ts",
+      "title": "T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 269
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 481
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 574
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 682
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 770
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 822
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/help-navigation-contracts.spec.ts",
+          "line": 2,
+          "column": 454
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled",
+      "file": "tests/e2e/task-detail-contracts.spec.ts",
+      "title": "T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 652
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 813
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 895
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1084
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1441
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1586
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1695
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1747
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 4,
+          "column": 115,
+          "function": "details"
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 567
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 726
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 4,
+          "column": 115,
+          "function": "details"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-detail-contracts.spec.ts::T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records",
+      "file": "tests/e2e/task-detail-contracts.spec.ts",
+      "title": "T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 402
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 498
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 545
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 690
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 4,
+          "column": 115,
+          "function": "details"
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 375
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-detail-contracts.spec.ts::T44 V12 native query save failure is reported and preserves original identity, frozen request and all task records",
+      "file": "tests/e2e/task-detail-contracts.spec.ts",
+      "title": "T44 V12 native query save failure is reported and preserves original identity, frozen request and all task records",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 844
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 4,
+          "column": 115,
+          "function": "details"
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 647
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/task-detail-contracts.spec.ts::T44 V13 native pause save failure keeps the previous query state and never calls cancellation or refunds",
+      "file": "tests/e2e/task-detail-contracts.spec.ts",
+      "title": "T44 V13 native pause save failure keeps the previous query state and never calls cancellation or refunds",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 5,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 9,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 9,
+          "column": 654
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 9,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 9,
+          "column": 799
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 4,
+          "column": 115,
+          "function": "details"
+        },
+        {
+          "file": "tests/e2e/task-detail-contracts.spec.ts",
+          "line": 9,
+          "column": 521
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+      "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+      "title": "T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+      "status": "passed",
+      "assertions": 18,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 427
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 575
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 664
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 711
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 798
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 832
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 984
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 984
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 984
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 984
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 984
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1491
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1532
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1584
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1661
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1740
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1790
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 503
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 642
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/dialog-busy-contracts.spec.ts::T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed",
+      "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+      "title": "T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 561
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 810
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 857
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 989
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1070
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1149
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1221
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1691
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1726
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1765
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1834
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1917
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1996
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 2047
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/dialog-busy-contracts.spec.ts",
+          "line": 4,
+          "column": 1184
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/writer-takeover-contracts.spec.ts
+
+[WebServer] (node:4888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:20156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\writer-takeover-contracts.spec.ts:5:1 › T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting (1.7s)
+  ok 2 tests\e2e\writer-takeover-contracts.spec.ts:6:1 › T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph (1.4s)
+
+  2 passed (6.2s)

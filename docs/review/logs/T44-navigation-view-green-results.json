@@ -1,0 +1,798 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 3,
+          "column": 115
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 4,
+          "column": 76
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 6,
+          "column": 63
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 3,
+          "column": 88
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 193
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 174
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 211
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 12,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 12,
+          "column": 142
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 36
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 124
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 37
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11 global search uses local data and returns actual project titles without network",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11 global search uses local data and returns actual project titles without network",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 19,
+          "column": 121
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 188
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 19,
+          "column": 50
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 124
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C03: unknown routes show owned 404 and a working return",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C03: unknown routes show owned 404 and a working return",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 176
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 149
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 27,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 85
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 62
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 184
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 26,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 27,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 22
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C05: composing and editable targets do not trigger global keyboard commands",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C05: composing and editable targets do not trigger global keyboard commands",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 34,
+          "column": 109
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 35,
+          "column": 174
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 33,
+          "column": 99
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 33,
+          "column": 120
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 34,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 35,
+          "column": 91
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C06: entry/navigation never opens external links automatically",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C06: entry/navigation never opens external links automatically",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 40,
+          "column": 17
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 40,
+          "column": 161
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 39,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 39,
+          "column": 148
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11: accepted font size, dark/light themes and narrow layout remain readable",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11: accepted font size, dark/light themes and narrow layout remain readable",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 43,
+          "column": 120
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 44,
+          "column": 93
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 45,
+          "column": 133
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 46,
+          "column": 135
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 44,
+          "column": 50
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/navigation-memory.spec.ts::T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests",
+      "file": "tests/e2e/navigation-memory.spec.ts",
+      "title": "T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 257
+        },
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 363
+        },
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 483
+        },
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 685
+        },
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 752
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 185
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/navigation-storage-faults.spec.ts::T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation",
+      "file": "tests/e2e/navigation-storage-faults.spec.ts",
+      "title": "T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 658
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 868
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 997
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 1058
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 2,
+          "column": 970
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/navigation-storage-faults.spec.ts::T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact",
+      "file": "tests/e2e/navigation-storage-faults.spec.ts",
+      "title": "T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/navigation-storage-faults.spec.ts",
+          "line": 3,
+          "column": 691
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/viewport-preference-faults.spec.ts::T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+      "file": "tests/e2e/viewport-preference-faults.spec.ts",
+      "title": "T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph",
+      "status": "timedOut",
+      "assertions": 14,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 426
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1777
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1877
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1983
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 914
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        },
+        {
+          "file": "tests/e2e/viewport-preference-faults.spec.ts",
+          "line": 2,
+          "column": 1769
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

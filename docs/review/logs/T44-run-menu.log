@@ -1,0 +1,57 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/canvas-run-menu-contracts.spec.ts
+
+[WebServer] (node:19224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:25516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\canvas-run-menu-contracts.spec.ts:5:1 › T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request (1.7s)
+  x  2 tests\e2e\canvas-run-menu-contracts.spec.ts:6:1 › T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history (6.6s)
+(node:28876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\canvas-run-menu-contracts.spec.ts:7:1 › T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation (1.5s)
+
+
+  1) tests\e2e\canvas-run-menu-contracts.spec.ts:6:1 › T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '执行问题', exact: true })
+    Expected substring: [32m"预检无法读取当前输入、能力或写权"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '执行问题', exact: true })[22m
+
+
+      4 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';await(await import(p)).seedGeneration();});await page.goto('/projects/p1/canvas');await expect(page.getByTestId('node-text-1').getByRole('textbox',{name:'节点文本',exact:true})).toBeEditable();await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';(await import(p)).connectGeneration();});});
+      5 | test('T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request',async({page,networkCounter})=>{const before=await saved(page);await expect(page.getByRole('button',{name:'运行选中',exact:true})).toBeDisabled();await page.getByRole('checkbox',{name:'选择 确认视频',exact:true}).check();for(const name of ['运行选中','运行全部视频']){await page.getByRole('button',{name,exact:true}).click();const dialog=page.getByRole('dialog',{name:'生成确认单',exact:true});await expect(dialog).toContainText('原创确认正文');await expect(dialog).toContainText('1 项');await expect(dialog).toContainText('金额未知');await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();expect(await saved(page)).toEqual(before);}expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>['POST','PUT','PATCH','DELETE'].includes(r.method))).toHaveLength(0);});
+    > 6 | test('T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history',async({page,networkCounter})=>{const before=await saved(page);await page.getByRole('checkbox',{name:'选择 确认视频',exact:true}).check();await page.evaluate(()=>{const get=IDBObjectStore.prototype.get;IDBObjectStore.prototype.get=function(...args:Parameters<typeof get>){if(this.name==='projects')throw new DOMException('test-run-menu-read','UnknownError');return get.apply(this,args);};});for(const name of ['运行选中','运行全部视频']){await page.getByRole('button',{name,exact:true}).click();const issue=page.getByRole('dialog',{name:'执行问题',exact:true});await expect(issue).toContainText('预检无法读取当前输入、能力或写权');await expect(page.getByRole('dialog',{name:'生成确认单',exact:true})).not.toBeVisible();await page.keyboard.press('Escape');}expect(await saved(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/'))).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      7 | test('T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation',async({page,networkCounter})=>{const before=await saved(page);await page.getByRole('button',{name:'导出项目备份',exact:true}).click();await expect(page).toHaveURL(/\/projects\/packages\?projectId=p1$/);await expect(page.getByRole('button',{name:'导出项目包',exact:true})).toBeEnabled();expect(await saved(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+      8 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-run-menu-contracts.spec.ts:6:697
+
+    Error Context: test-results\canvas-run-menu-contracts--04fdb--altering-inputs-or-history\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-run-menu-contracts--04fdb--altering-inputs-or-history\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-run-menu-contracts--04fdb--altering-inputs-or-history\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-run-menu-contracts.spec.ts:6:1 › T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history 
+  2 passed (14.3s)

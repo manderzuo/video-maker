@@ -1,0 +1,23 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/capability-detail-contracts.spec.ts tests/e2e/task-detail-contracts.spec.ts tests/e2e/help-navigation-contracts.spec.ts
+
+[WebServer] (node:19988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:23440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\capability-detail-contracts.spec.ts:5:1 › T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared (1.4s)
+  ok 2 tests\e2e\capability-detail-contracts.spec.ts:6:1 › T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved (1.2s)
+  ok 3 tests\e2e\capability-detail-contracts.spec.ts:7:1 › T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation (1.3s)
+  ok 4 tests\e2e\help-navigation-contracts.spec.ts:2:1 › T44 Q03/Q04 help report and onboarding links open the actual owned pages without external feedback or business requests (1.2s)
+  ok 5 tests\e2e\task-detail-contracts.spec.ts:6:1 › T44 V12/V13 explicit original query and local pause preserve the frozen request and billing; pause persists and a second pause is disabled (2.0s)
+  ok 6 tests\e2e\task-detail-contracts.spec.ts:7:1 › T44 V12/J03 missing original authorization disables queries but locating an existing original node navigates without rewriting records (1.3s)
+  ok 7 tests\e2e\task-detail-contracts.spec.ts:8:1 › T44 V12 native query save failure is reported and preserves original identity, frozen request and all task records (1.4s)
+  ok 8 tests\e2e\task-detail-contracts.spec.ts:9:1 › T44 V13 native pause save failure keeps the previous query state and never calls cancellation or refunds (1.3s)
+
+  8 passed (14.4s)

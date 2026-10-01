@@ -1,0 +1,18 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/navigation-storage-faults.spec.ts tests/e2e/viewport-preference-faults.spec.ts
+
+[WebServer] (node:24592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:12368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\navigation-storage-faults.spec.ts:2:1 › T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation (900ms)
+  ok 2 tests\e2e\navigation-storage-faults.spec.ts:3:1 › T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact (1.5s)
+  ok 3 tests\e2e\viewport-preference-faults.spec.ts:2:1 › T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph (1.7s)
+
+  3 passed (7.3s)

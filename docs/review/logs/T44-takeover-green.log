@@ -1,0 +1,787 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/writer-takeover-contracts.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/canvas-tool-contracts.spec.ts
+
+[WebServer] (node:12064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:22004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 14:06:21 [vite] (client) Pre-transform error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+(node:22004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 14:06:22 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer] 14:06:23 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+  x   1 tests\e2e\canvas-tool-contracts.spec.ts:4:1 › T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed (5.8s)
+(node:7236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 14:06:30 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer] 14:06:30 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+  x   2 tests\e2e\canvas-tool-contracts.spec.ts:7:1 › T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data (30.1s)
+(node:21736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 14:07:01 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer] 14:07:01 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer] 14:07:02 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+  x   3 tests\e2e\canvas-tool-contracts.spec.ts:10:1 › T44 N10/N18/N19 existing group and result controls refuse a native foreign writer (6.0s)
+(node:3920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 14:07:09 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer] 14:07:09 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+  x   4 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (3.2s)
+(node:15620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 14:07:13 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer] 14:07:14 [vite] Internal server error: E:\trae-studio\TRAEWORK\aiwork-studio\src\features\canvas\CanvasPage.tsx: Unexpected token, expected "}" (180:1033)
+[WebServer] 
+[WebServer]   178 |  <Dialog open={resourcePicker!==null} title={resourcePicker==='result'?'选择结果引用':'选择素材节点'} onClose={()=>setResourcePicker(null)} footer={<Button data-interaction-id="ui:CanvasPage:Button:f3ce2ea07f1a" onClick={()=>setResourcePicker(null)}>取消</Button>}>{assets.filter(a=>!a.trashedAt&&(resourcePicker!=='result'||runs.some(r=>r.id===a.sourceRunId&&r.resultAssetId===a.id))).map(asset=><Button data-interaction-id="ui:CanvasPage:Button:9a94d667b468" key={asset.id} onClick={()=>addResource(asset,resourcePicker==='result'?runs.find(r=>r.id===asset.sourceRunId):undefined)}>{(resourcePicker==='result'?'引用 ':'插入 ')+asset.title}</Button>)}{!assets.length?<p>请先在素材库导入素材。</p>:null}</Dialog>
+[WebServer]   179 |  {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(undefined);setPromptMessage('提示词已入库；画布保存状态保持原样。');}}/>:null}
+[WebServer] > 180 |  <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<><Button data-interaction-id="ui:CanvasPage:Button:c0bb7861e10e" disabled={takeoverBusy} onClick={()=>setTakeoverOpen(false)}>取消</Button><Button data-interaction-id="ui:CanvasPage:Button:446bfa5ffbe7" busy={takeoverBusy} disabled={takeoverBusy} onClick={async()=>{if(takeoverPending.current)return;takeoverPending.current=true;setTakeoverBusy(true);let acquired=false;try{const result=await takeoverProjectLease(projectId,studioTabId,Date.now());if(result.ok){acquired=true;setLease(result.token);leaseRef.current=result.token;await reload();dirty.current=false;pendingOperations.current=[];setStatus('已保存');channel.current?.publish({type:'lease-changed',projectId,epoch:result.epoch,revision:result.revision});setTakeoverOpen(false);}else setError('接管失败，原草稿及写权保留，请稍后重试。');}catch{setError(acquired?'接管已取得写权，但显示刷新失败；原草稿保留，请重新读取。':'接管失败，原草稿及写权保留，请稍后重试。');}finally{takeoverPending.current=false;setTakeoverBusy(false);}}>确认接管</Button></>}><p>接管会使旧标签的写权失效。未保存草稿请先备份；任务追踪继续保留。</p></Dialog>
+[WebServer]       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+[WebServer]   181 |  <Dialog open={!!leavePath} title="离开前保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onClick={()=>setLeavePath('')}>继续编辑</Button><Button data-interaction-id="ui:CanvasPage:Button:44ed3aed1fa5" disabled={busy.current} onClick={()=>{dirty.current=false;setNavigationGuard(undefined);navigate(leavePath);}}>放弃本次未保存修改并离开</Button><Button data-interaction-id="ui:CanvasPage:Button:551126728626" disabled={saveBusy||!lease||composingInput} onClick={async()=>{await saveCurrentDraft();if(!dirty.current){setNavigationGuard(undefined);navigate(leavePath);}}}>保存并离开</Button></>}><p>本次修改尚未保存，离开可能丢失内存草稿。</p></Dialog>
+[WebServer]   182 |  {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefined);}} onConfirm={confirmGeneration}/>:null}
+[WebServer]   183 |  {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmission(undefined)} onRecovered={async run=>{setUnknownSubmission(undefined);await reload();setStatus(run.executionState==='submit_unknown'?'提交结果仍不明 · 原记录保留':'原任务已恢复 · 继续追踪');}}/>:null}
+[WebServer]   Plugin: vite:react-babel
+[WebServer]   File: E:/trae-studio/TRAEWORK/aiwork-studio/src/features/canvas/CanvasPage.tsx:180:1033
+[WebServer]   179 |   {promptSeed?<PromptEditor entry={promptSeed} onClose={()=>setPromptSeed(undefined)} onSaved={()=>{setPromptSeed(unde...
+[WebServer]   180 |   <Dialog open={takeoverOpen} title="接管编辑" dismissible={!takeoverBusy} onClose={()=>setTakeoverOpen(false)} footer={<>...
+[WebServer]   181 |  ...保存" onClose={()=>setLeavePath('')} footer={<><Button data-interaction-id="ui:CanvasPage:Button:8b780297d2ab" onCli...
+[WebServer]       |                                                                 ^
+[WebServer]   182 |   {runPlan?<GenerationConfirmDialog plan={runPlan} onClose={()=>{agentRunSession.current=undefined;setRunPlan(undefine...
+[WebServer]   183 |   {unknownSubmission?<UnknownSubmissionDialog run={unknownSubmission} tabId={studioTabId} onClose={()=>setUnknownSubmi...
+[WebServer]       at constructor (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:369:19)
+[WebServer]       at TypeScriptParserMixin.raise (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6622:19)
+[WebServer]       at TypeScriptParserMixin.unexpected (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6642:16)
+[WebServer]       at TypeScriptParserMixin.expect (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6922:12)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4655:10)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)
+[WebServer]       at TypeScriptParserMixin.parseExpressionBase (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10810:23)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:39
+[WebServer]       at TypeScriptParserMixin.allowInAnd (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:12460:12)
+[WebServer]       at TypeScriptParserMixin.parseExpression (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10806:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseExpressionContainer (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4650:31)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttributeValue (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4622:21)
+[WebServer]       at TypeScriptParserMixin.jsxParseAttribute (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4671:38)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4685:28)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAfterName (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10066:18)
+[WebServer]       at TypeScriptParserMixin.jsxParseOpeningElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4680:17)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4704:33)
+[WebServer]       at TypeScriptParserMixin.jsxParseElementAt (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4716:32)
+[WebServer]       at TypeScriptParserMixin.jsxParseElement (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4767:17)
+[WebServer]       at TypeScriptParserMixin.parseExprAtom (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:4777:19)
+[WebServer]       at TypeScriptParserMixin.parseExprSubscripts (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11107:23)
+[WebServer]       at TypeScriptParserMixin.parseUpdate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11092:21)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:11072:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnary (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9860:18)
+[WebServer]       at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10925:61)
+[WebServer]       at TypeScriptParserMixin.parseExprOps (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10930:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeConditional (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10907:23)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:10857:21)
+[WebServer]       at E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:39
+[WebServer]       at TypeScriptParserMixin.tryParse (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:6930:20)
+[WebServer]       at TypeScriptParserMixin.parseMaybeAssign (E:\trae-studio\TRAEWORK\aiwork-studio\node_modules\@babel\parser\lib\index.js:9798:18)

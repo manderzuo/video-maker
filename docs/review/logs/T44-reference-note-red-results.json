@@ -1,0 +1,40 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction",
+      "file": "tests/e2e/prompt-field-contracts.spec.ts",
+      "title": "T44 PG08 oversized external reference description is visibly rejected before insertion, preserves the raw note and becomes usable after correction",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 15,
+          "column": 49
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 15,
+          "column": 156
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/writer-takeover-contracts.spec.ts::T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting",
+      "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+      "title": "T44 F01/F02 actual readonly entry preserves the native graph; explicit takeover commits a new writer epoch and fences the original owner without submitting",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 4,
+          "column": 406
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 295
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 375
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 624
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 852
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 931
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 996
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 1037
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 1084
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 1141
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 1729
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 1793
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 465
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 590
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 696
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 5,
+          "column": 819
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/writer-takeover-contracts.spec.ts::T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph",
+      "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+      "title": "T44 F02 native takeover lease write failure is reported without an unhandled promise, writable controls or changes to the old writer and graph",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 4,
+          "column": 406
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 804
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 844
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 929
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 1009
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 1058
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 1106
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 343
+        },
+        {
+          "file": "tests/e2e/writer-takeover-contracts.spec.ts",
+          "line": 6,
+          "column": 717
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

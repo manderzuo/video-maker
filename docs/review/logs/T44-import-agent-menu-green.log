@@ -1,0 +1,29 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/import-report-contracts.spec.ts tests/e2e/agent-bulk-contracts.spec.ts tests/e2e/canvas-run-menu-contracts.spec.ts tests/e2e/canvas-viewport.spec.ts
+
+[WebServer] (node:9544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 14 tests using 1 worker
+
+(node:28588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\agent-bulk-contracts.spec.ts:10:1 › T44 A09/A15 accept-all requires its second confirmation and records one native decision; undo remains available and the model-host send stays gated (2.1s)
+  ok  2 tests\e2e\agent-bulk-contracts.spec.ts:11:1 › T44 A09 native proposal apply quota leaves the graph and proposal unchanged; revoked grant disables accept-all (1.9s)
+  ok  3 tests\e2e\agent-bulk-contracts.spec.ts:12:1 › T44 A16 native proposal refresh reports read failure and can retry without changing any proposal or creative history (1.4s)
+  ok  4 tests\e2e\canvas-run-menu-contracts.spec.ts:5:1 › T44 C15/C16 selected and all-video menus only open the actual frozen-input review; cancelling both leaves no Run or business request (1.5s)
+  ok  5 tests\e2e\canvas-run-menu-contracts.spec.ts:6:1 › T44 C15/C16 native preflight read failure is explained and blocks confirmation for both menus without altering inputs or history (1.4s)
+  ok  6 tests\e2e\canvas-run-menu-contracts.spec.ts:7:1 › T44 C19 canvas backup entry opens the owned exporter for the original project without editing its source or initiating a generation (1.3s)
+  ok  7 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (1.8s)
+  ok  8 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (1.4s)
+  ok  9 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (1.3s)
+  ok 10 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (1.4s)
+  ok 11 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (1.5s)
+  ok 12 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (2.0s)
+  ok 13 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (1.5s)
+  ok 14 tests\e2e\import-report-contracts.spec.ts:6:1 › T44 I05/I08 unknown-node preview and actual import report keep inert payload readonly, exclude secrets and preserve the original project (1.8s)
+
+  14 passed (25.9s)

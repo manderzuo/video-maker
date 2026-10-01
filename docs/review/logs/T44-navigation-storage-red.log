@@ -1,0 +1,45 @@
+[WebServer] (node:23392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:20364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\navigation-storage-faults.spec.ts:2:1 › T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation (5.9s)
+
+
+  1) tests\e2e\navigation-storage-faults.spec.ts:2:1 › T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: '本页已打开，导航偏好未能保存；重新打开后可能回到之前的页面。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: '本页已打开，导航偏好未能保存；重新打开后可能回到之前的页面。' })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation',async({page,networkCounter})=>{await page.goto('/projects');const before=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'));await page.evaluate(()=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){if(key==='aiwork-studio:preferences')throw new DOMException('test-last-page-preference-denied','QuotaExceededError');return set.call(this,key,value);};});await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'素材',exact:true}).click();await expect(page).toHaveURL(/\/assets$/);await expect(page.getByRole('status').filter({hasText:'本页已打开，导航偏好未能保存；重新打开后可能回到之前的页面。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(before);await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'项目',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      3 | test('T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact',async({page,networkCounter})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.reload();await page.evaluate(()=>{const getAll=IDBObjectStore.prototype.getAll;let once=true;IDBObjectStore.prototype.getAll=function(...args:Parameters<typeof getAll>){if(once&&this.name==='graphs'){once=false;throw new DOMException('test-global-search-native-read','UnknownError');}return getAll.apply(this,args);};});await page.getByRole('searchbox',{name:'全局搜索',exact:true}).fill('确认');await expect(page.getByText('本地搜索读取失败，请重试。',{exact:true})).toBeVisible();const graph=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('graphs').get('p1'))));});expect(graph.revision).toBe(1);expect(graph.nodes.map((node:{title:string})=>node.title)).toEqual(['确认正文','确认视频']);expect(networkCounter.paidRequests).toHaveLength(0);});
+      4 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\navigation-storage-faults.spec.ts:2:771
+
+    Error Context: test-results\navigation-storage-faults--b9b4b-ot-prevent-local-navigation\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\navigation-storage-faults--b9b4b-ot-prevent-local-navigation\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\navigation-storage-faults--b9b4b-ot-prevent-local-navigation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\navigation-storage-faults.spec.ts:2:1 › T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation 

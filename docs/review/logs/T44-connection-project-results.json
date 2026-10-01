@@ -1,0 +1,341 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+      "file": "tests/e2e/connection-busy-contracts.spec.ts",
+      "title": "T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+      "status": "passed",
+      "assertions": 24,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 987
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1068
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1149
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1464
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1848
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1933
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2015
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2085
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2136
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2245
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2326
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2410
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2479
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2584
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 3075
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 3144
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1221
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1302
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1389
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1525
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1609
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-write-contracts.spec.ts::T44 P04 actual project rename persists its approved Chinese title while keeping creative nodes and all history unchanged",
+      "file": "tests/e2e/project-write-contracts.spec.ts",
+      "title": "T44 P04 actual project rename persists its approved Chinese title while keeping creative nodes and all history unchanged",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 569
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 658
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 706
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 768
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 819
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 905
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 968
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 272
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 5,
+          "column": 477
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-write-contracts.spec.ts::T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data",
+      "file": "tests/e2e/project-write-contracts.spec.ts",
+      "title": "T44 D08 clear local projects requires the full confirmation phrase and native deletion removes only the explicitly listed safe creative data",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 4,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 404
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 496
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 663
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 772
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 839
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 876
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 911
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 1006
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 1057
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 308
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 578
+        },
+        {
+          "file": "tests/e2e/project-write-contracts.spec.ts",
+          "line": 6,
+          "column": 739
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

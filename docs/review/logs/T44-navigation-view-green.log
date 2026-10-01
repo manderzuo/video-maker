@@ -1,0 +1,91 @@
+
+> aiwork-studio@0.0.1 test:e2e
+> playwright test tests/e2e/navigation-storage-faults.spec.ts tests/e2e/viewport-preference-faults.spec.ts tests/e2e/navigation-memory.spec.ts tests/e2e/app-shell.spec.ts
+
+[WebServer] (node:18288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:5720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (951ms)
+  ok  2 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (727ms)
+  ok  3 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (1.1s)
+  ok  4 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (670ms)
+  ok  5 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (866ms)
+  ok  6 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (727ms)
+  ok  7 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (748ms)
+  ok  8 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (1.3s)
+  ok  9 tests\e2e\navigation-memory.spec.ts:2:1 › T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests (1.5s)
+  ok 10 tests\e2e\navigation-storage-faults.spec.ts:2:1 › T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation (767ms)
+  x  11 tests\e2e\navigation-storage-faults.spec.ts:3:1 › T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact (6.2s)
+(node:18248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  12 tests\e2e\viewport-preference-faults.spec.ts:2:1 › T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph (30.1s)
+
+
+  1) tests\e2e\navigation-storage-faults.spec.ts:3:1 › T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('本地内容读取失败，请稍后重试。', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('本地内容读取失败，请稍后重试。', { exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test('T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation',async({page,networkCounter})=>{await page.goto('/projects');const before=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'));await page.evaluate(()=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){if(key==='aiwork-studio:preferences')throw new DOMException('test-last-page-preference-denied','QuotaExceededError');return set.call(this,key,value);};});await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'素材',exact:true}).click();await expect(page).toHaveURL(/\/assets$/);await expect(page.getByRole('status').filter({hasText:'本页已打开，导航偏好未能保存；重新打开后可能回到之前的页面。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(before);await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'项目',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 3 | test('T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact',async({page,networkCounter})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.reload();await page.evaluate(()=>{const getAll=IDBObjectStore.prototype.getAll;let once=true;IDBObjectStore.prototype.getAll=function(...args:Parameters<typeof getAll>){if(once&&this.name==='graphs'){once=false;throw new DOMException('test-global-search-native-read','UnknownError');}return getAll.apply(this,args);};});await page.getByRole('searchbox',{name:'全局搜索',exact:true}).fill('确认');await expect(page.getByText('本地内容读取失败，请稍后重试。',{exact:true})).toBeVisible();const graph=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('graphs').get('p1'))));});expect(graph.revision).toBe(1);expect(graph.nodes.map((node:{title:string})=>node.title)).toEqual(['确认正文','确认视频']);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      4 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\navigation-storage-faults.spec.ts:3:763
+
+    Error Context: test-results\navigation-storage-faults--59e93-ts-and-source-graphs-intact\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\navigation-storage-faults--59e93-ts-and-source-graphs-intact\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\navigation-storage-faults--59e93-ts-and-source-graphs-intact\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\viewport-preference-faults.spec.ts:2:1 › T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('画布背景', { exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph',async({page,networkCounter})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.goto('/projects/p1/canvas');await expect(page.getByRole('textbox',{name:'节点文本',exact:true})).toBeEditable();const before=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs','runs'],'readonly',async(tx:IDBTransaction)=>({graph:await m.requestResult(tx.objectStore('graphs').get('p1')),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});await page.getByRole('checkbox',{name:'选择 确认视频',exact:true}).check();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='diagnostics'&&args[0]?.id==='viewport:p1'){Reflect.set(globalThis,'nativeViewPreferenceFailures',(Reflect.get(globalThis,'nativeViewPreferenceFailures')??0)+1);throw new DOMException('test-native-view-preference-quota','QuotaExceededError');}return put.apply(this,args);};const set=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){if(key==='aiwork-studio:viewport:p1')throw new DOMException('test-view-cache-denied','QuotaExceededError');return set.call(this,key,value);};});for(const name of ['放大','适配全部','定位选中','显示小地图']){const failureCount=await page.evaluate(()=>Reflect.get(globalThis,'nativeViewPreferenceFailures')??0);await page.getByRole('button',{name,exact:true}).click();await expect.poll(()=>page.evaluate(()=>Reflect.get(globalThis,'nativeViewPreferenceFailures')??0)).toBeGreaterThan(failureCount);await expect(page.getByRole('alert').filter({hasText:'视口偏好未保存，创作内容不受影响。'})).toBeVisible();}let failureCount=await page.evaluate(()=>Reflect.get(globalThis,'nativeViewPreferenceFailures')??0);await page.getByLabel('画布背景',{exact:true}).selectOption('grid');await expect.poll(()=>page.evaluate(()=>Reflect.get(globalThis,'nativeViewPreferenceFailures')??0)).toBeGreaterThan(failureCount);await expect(page.getByRole('alert').filter({hasText:'视口偏好未保存，创作内容不受影响。'})).toBeVisible();failureCount=await page.evaluate(()=>Reflect.get(globalThis,'nativeViewPreferenceFailures')??0);await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect.poll(()=>page.evaluate(()=>Reflect.get(globalThis,'nativeViewPreferenceFailures')??0)).toBeGreaterThan(failureCount);await expect(page.getByTestId('canvas-minimap')).toHaveCount(0);await expect(page.getByRole('alert').filter({hasText:'视口偏好未保存，创作内容不受影响。'})).toBeVisible();const after=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['graphs','runs'],'readonly',async(tx:IDBTransaction)=>({graph:await m.requestResult(tx.objectStore('graphs').get('p1')),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});expect(after).toEqual(before);await page.screenshot({path:'docs/review/screenshots/T44-viewport-preference-fault.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      3 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\viewport-preference-faults.spec.ts:2:2141
+
+    Error Context: test-results\viewport-preference-faults-b11fe-es-the-whole-creative-graph\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\viewport-preference-faults-b11fe-es-the-whole-creative-graph\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\viewport-preference-faults-b11fe-es-the-whole-creative-graph\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\navigation-storage-faults.spec.ts:3:1 › T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact 
+    tests\e2e\viewport-preference-faults.spec.ts:2:1 › T44 C04/C06/C07/C08/C09/G10 native view preference failure is visible for each actual viewport action and preserves the whole creative graph 
+  10 passed (50.4s)
