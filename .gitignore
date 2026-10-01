@@ -3,6 +3,7 @@ node_modules/
 dist/
 test-results/
 test-results-performance/
+test-results-live/
 playwright-report/
 .superpowers/
 artifacts/

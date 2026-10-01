@@ -17,7 +17,7 @@
     "test:security": "vitest run tests/security && node scripts/check-network-negative.mjs",
     "test:trace": "node --test tests/planning/*.test.mjs",
     "test:coverage": "node scripts/check-ui-identities.mjs && node scripts/check-traceability.mjs",
-    "test:live": "node --test tests/live/*.test.mjs",
+    "test:live": "node scripts/run-authorized-live.mjs",
     "verify": "npm run typecheck && npm run lint && npm run test:unit && npm run test:e2e && npm run test:coverage && npm run test:security && npm run test:trace && npm run build && npm run test:bundle && npm run companion:build && npm run test:distribution",
     "companion:build": "vite build --config companion/vite.config.ts",
     "companion:start": "node companion/dist/main.mjs",
@@ -25,7 +25,8 @@
     "test:performance": "playwright test --config tests/performance/performance.config.ts",
     "test:bundle": "node scripts/check-bundle-budget.mjs",
     "test:distribution": "playwright test --config playwright.distribution.config.ts",
-    "package:review": "node scripts/package-release.mjs --offline-review"
+    "package:review": "node scripts/package-release.mjs --offline-review",
+    "test:live-guard": "node --test tests/live/guard.test.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",

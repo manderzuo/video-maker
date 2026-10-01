@@ -1,0 +1,15 @@
+
+> aiwork-studio@0.0.1 test:live
+> node scripts/run-authorized-live.mjs tests/live/authorized-live.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:10136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  1 tests\live\authorized-live.spec.ts:3:1 › T48 actual authorized Core integration remains unverified until separately approved real probes produce evidence
+
+  1 skipped
+{"taskId":"T48","status":"not_authorized","source":"Actual Playwright conditional case; no real probe executed","reason":"allow_live_not_granted","passed":0,"failed":0,"skipped":1,"liveVerified":false,"actualBusinessCalls":0,"actualTextSubmissions":0,"actualVideoSubmissions":0,"requestIds":[],"taskIds":[],"billingState":"not_provided","creditHardLimitVerified":false,"keyRead":false,"executedReport":"docs/review/logs/T48-live-executed-tests.json"}

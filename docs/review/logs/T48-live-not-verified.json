@@ -1,0 +1,19 @@
+{
+  "taskId": "T48",
+  "status": "not_authorized",
+  "source": "Actual Playwright conditional case; no real probe executed",
+  "reason": "allow_live_not_granted",
+  "passed": 0,
+  "failed": 0,
+  "skipped": 1,
+  "liveVerified": false,
+  "actualBusinessCalls": 0,
+  "actualTextSubmissions": 0,
+  "actualVideoSubmissions": 0,
+  "requestIds": [],
+  "taskIds": [],
+  "billingState": "not_provided",
+  "creditHardLimitVerified": false,
+  "keyRead": false,
+  "executedReport": "docs/review/logs/T48-live-executed-tests.json"
+}

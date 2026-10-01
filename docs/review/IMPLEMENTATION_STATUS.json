@@ -1,5 +1,5 @@
 {
-  "currentTask": "T48",
+  "currentTask": "T49",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -375,18 +375,18 @@
     },
     {
       "evidenceFile": null,
-      "headCommit": null,
+      "headCommit": "1a7067de6dd3261c3d801a78ab509c8760daf435",
       "id": "T47",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
       "status": "本地启动与离线发行包实施完成，自检通过；正式发布许可/Nginx部署核验/用户验收/独立审查待进行",
       "title": "独立启动、部署与发行包扫描"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T48.json",
       "headCommit": null,
       "id": "T48",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
-      "status": "未开始",
+      "status": "待额外真实业务/收费授权，真实联调未验收；本地守卫已准备并自检",
       "title": "经授权的真实Core联调"
     },
     {

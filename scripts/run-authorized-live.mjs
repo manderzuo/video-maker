@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import {loadLiveApproval} from '../tests/helpers/live-approval.mjs';
+const {decision}=await loadLiveApproval();
+const executedPath='docs/review/logs/T48-live-executed-tests.json',result=spawnSync(process.execPath,['node_modules/@playwright/test/cli.js','test','--config','playwright.live.config.ts'],{stdio:'inherit',env:{...process.env,STUDIO_COVERAGE_REPORT:executedPath},windowsHide:true});
+if(result.error)throw Error('conditional_live_runner_unavailable');
+const executed=JSON.parse(fs.readFileSync(executedPath,'utf8'));
+const report={taskId:'T48',status:decision.allowed?'awaiting_authorized_real_execution':'not_authorized',source:'Actual Playwright conditional case; no real probe executed',reason:decision.reason,passed:executed.tests.filter(test=>test.status==='passed').length,failed:executed.tests.filter(test=>test.status==='failed').length,skipped:executed.tests.filter(test=>test.status==='skipped').length,liveVerified:false,actualBusinessCalls:0,actualTextSubmissions:0,actualVideoSubmissions:0,requestIds:[],taskIds:[],billingState:'not_provided',creditHardLimitVerified:false,keyRead:false,executedReport:executedPath};
+fs.mkdirSync('docs/review/logs',{recursive:true});fs.writeFileSync('docs/review/logs/T48-live-not-verified.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
+process.exitCode=result.status??1;

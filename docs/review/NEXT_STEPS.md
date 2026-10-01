@@ -13,3 +13,5 @@
 恢复工具链：在项目目录运行 . ./scripts/use-local-toolchain.ps1（Node22.23.3/npm11.6.2）；已有lock使用npm ci。自动浏览器测试使用独占4179和本地网络守卫；Chromium位于E盘，设置STUDIO_TEST_BROWSER=chromium。所有代码/依赖/日志/截图留在E盘。
 
 T47离线包当前为开发自检dirtySources=true；最终交接从已提交源码重新生成并核验SHA256。Windows入口、独立dist与打包companion/MCP已本地验证；正式发布许可仍阻断，Nginx部署未核验。
+
+T48真实联调保持待额外授权/未验收。纯本地守卫6项通过，真实条件用例实际跳过1项（不算通过），0真实请求/0Key读取；Core硬限/真实费用未知。继续T49/T50本地收尾。

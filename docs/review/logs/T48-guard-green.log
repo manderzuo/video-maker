@@ -1,0 +1,50 @@
+
+> aiwork-studio@0.0.1 test:live-guard
+> node --test tests/live/guard.test.mjs
+
+TAP version 13
+# Subtest: T48 local guard missing allow-live flag cannot authorize any business traffic
+ok 1 - T48 local guard missing allow-live flag cannot authorize any business traffic
+  ---
+  duration_ms: 0.7576
+  type: 'test'
+  ...
+# Subtest: T48 local guard missing approval cannot authorize any business traffic
+ok 2 - T48 local guard missing approval cannot authorize any business traffic
+  ---
+  duration_ms: 0.1156
+  type: 'test'
+  ...
+# Subtest: T48 local guard expired permission and unverified hard ceiling are rejected
+ok 3 - T48 local guard expired permission and unverified hard ceiling are rejected
+  ---
+  duration_ms: 0.96
+  type: 'test'
+  ...
+# Subtest: T48 local guard default one text + one video bound and credential exclusion are enforced
+ok 4 - T48 local guard default one text + one video bound and credential exclusion are enforced
+  ---
+  duration_ms: 0.2087
+  type: 'test'
+  ...
+# Subtest: T48 local call bound freezes each original attempt, consumes no new identity after uncertainty and stops further paid preparations
+ok 5 - T48 local call bound freezes each original attempt, consumes no new identity after uncertainty and stops further paid preparations
+  ---
+  duration_ms: 0.9399
+  type: 'test'
+  ...
+# Subtest: T48 local read/download bookkeeping does not reserve generation and approval validation never becomes real verification
+ok 6 - T48 local read/download bookkeeping does not reserve generation and approval validation never becomes real verification
+  ---
+  duration_ms: 0.2637
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102.4698
