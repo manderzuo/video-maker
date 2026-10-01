@@ -358,7 +358,7 @@
       "complete": false
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T45.json",
       "headCommit": "48bf6d2e807d42d4999002bdac8f9debce783788",
       "id": "T45",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
@@ -366,7 +366,7 @@
       "title": "安全与故障注入整链路测试"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T46.json",
       "headCommit": "2dcfb862b0612069a9a78251ae2e2cd455be02eb",
       "id": "T46",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp07-07-tasks.md",
@@ -374,7 +374,7 @@
       "title": "视觉、可访问性与性能验收"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T47.json",
       "headCommit": "1a7067de6dd3261c3d801a78ab509c8760daf435",
       "id": "T47",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
@@ -391,23 +391,25 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T49.json",
-      "headCommit": null,
+      "headCommit": "3110fec2fbf8325c3cd1c8f57444b2e1143fcb78",
       "id": "T49",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
       "status": "本地实施完成，自检通过；生产切换/统一验收/独立审查待进行",
       "title": "升级、备份与回滚演练"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T50.json",
       "headCommit": null,
       "id": "T50",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp08-08-tasks.md",
-      "status": "未开始",
+      "status": "已授权本地交接与自动自检完成，进入用户验收/独立审计，T48仍待授权",
       "title": "整分支独立审查与最终交接"
     }
   ],
   "projectRoot": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
   "authorizationFile": "docs/review/IMPLEMENTATION_AUTHORIZATION.md",
   "branch": "feat/aiwork-studio",
-  "userAcceptancePerformed": false
+  "userAcceptancePerformed": false,
+  "currentPhase": "user_acceptance_and_independent_audit",
+  "authorizedLocalWorkComplete": true
 }

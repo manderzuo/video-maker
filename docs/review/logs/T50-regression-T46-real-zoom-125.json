@@ -1,0 +1,77 @@
+{
+  "method": "Native chrome.tabs.setZoom/getZoom in disposable local test profile",
+  "before": {
+    "innerWidth": 1424,
+    "innerHeight": 905,
+    "dpr": 1,
+    "documentWidth": 1424,
+    "bodyFont": "16px",
+    "theme": "dark",
+    "dialogBounds": []
+  },
+  "confirmed": 1.25,
+  "records": [
+    {
+      "id": "P03",
+      "evidence": {
+        "innerWidth": 1139,
+        "innerHeight": 724,
+        "dpr": 1.25,
+        "documentWidth": 1139,
+        "bodyFont": "16px",
+        "theme": "dark",
+        "dialogBounds": []
+      },
+      "screenshot": "docs/review/screenshots/T46-zoom-125-P03.png",
+      "capture": "native Chromium viewport screenshot, physical pixels, fromSurface=true"
+    },
+    {
+      "id": "P13",
+      "evidence": {
+        "innerWidth": 1139,
+        "innerHeight": 724,
+        "dpr": 1.25,
+        "documentWidth": 1139,
+        "bodyFont": "16px",
+        "theme": "dark",
+        "dialogBounds": []
+      },
+      "screenshot": "docs/review/screenshots/T46-zoom-125-P13.png",
+      "capture": "native Chromium viewport screenshot, physical pixels, fromSurface=true"
+    },
+    {
+      "id": "P21",
+      "evidence": {
+        "innerWidth": 1139,
+        "innerHeight": 724,
+        "dpr": 1.25,
+        "documentWidth": 1139,
+        "bodyFont": "16px",
+        "theme": "dark",
+        "dialogBounds": []
+      },
+      "screenshot": "docs/review/screenshots/T46-zoom-125-P21.png",
+      "capture": "native Chromium viewport screenshot, physical pixels, fromSurface=true"
+    },
+    {
+      "id": "P22",
+      "evidence": {
+        "innerWidth": 1139,
+        "innerHeight": 724,
+        "dpr": 1.25,
+        "documentWidth": 1139,
+        "bodyFont": "16px",
+        "theme": "dark",
+        "dialogBounds": []
+      },
+      "screenshot": "docs/review/screenshots/T46-zoom-125-P22.png",
+      "capture": "native Chromium viewport screenshot, physical pixels, fromSurface=true"
+    }
+  ],
+  "network": {
+    "coreWrites": 0,
+    "paidRequests": 0,
+    "blockedRequests": 0
+  },
+  "userAcceptance": "pending"
+}

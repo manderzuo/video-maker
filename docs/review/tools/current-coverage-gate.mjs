@@ -1,0 +1,4 @@
+import fs from 'node:fs';import {spawnSync} from 'node:child_process';
+const names=['checkpoint6-full','storage-state-final','native-media-input-final','asset-busy','ai-recovery-pending','local-download-parser-final','prompt-native-reads','activity-native','checkpoint7-related','native-media-screenshot','empty-state-final','connection-transfer-final','k07-binding','media-relink-green','package-empty','queue-native','project-operation-green','agent-native-final','prompt-library-fault-green','asset-operation-final','review-native-final','cleanup-trash','creative-task-fixed'];
+const args=names.map(name=>'docs/review/logs/T44-'+name+'-results.json');for(const file of args)if(!fs.existsSync(file))throw Error('missing_actual_result:'+file);
+const result=spawnSync(process.execPath,['scripts/check-traceability.mjs',...args,...process.argv.slice(2)],{stdio:'inherit'});process.exit(result.status??1);

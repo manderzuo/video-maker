@@ -1,0 +1,13 @@
+file:///E:/trae-studio/TRAEWORK/aiwork-studio/[eval1]:2
+const report=JSON.parse(fs.readFileSync('docs/review/logs/T50-distribution-package.json','utf8'));const root=path.resolve('artifacts/acceptance-3110fec-5072e5fd2c0e');const entries=unzipSync(new Uint8Array(fs.readFileSync(report.output)));fs.mkdirSync(root,{recursive:true});for(const [name,bytes] of Object.entries(entries)){const target=path.resolve(root,name);if(!target.startsWith(root+path.sep)||name.includes('..')||name.includes('\\'))throw Error('archive_path_denied');fs.mkdirSync(path.dirname(target),{recursive:true});if(fs.existsSync(target)){if(!fs.readFileSync(target).equals(Buffer.from(bytes)))throw Error('existing_file_differs:'+name);}else fs.writeFileSync(target,bytes);}const manifest=JSON.parse(fs.readFileSync(path.join(root,'distribution-manifest.json'),'utf8'));for(const file of manifest.files){const bytes=fs.readFileSync(path.join(root,file.file));if(createHash('sha256').update(bytes).digest('hex')!==file.sha256)throw Error('unpacked_integrity_failed');}console.log(JSON.stringify({root,files:manifest.files.length,sourceCommit:manifest.sourceCommit,allHashesMatched:true}));fs.writeFileSync('docs/review/logs/T50-unpacked-integrity.json',JSON.stringify({root,files:manifest.files.length,sourceCommit:manifest.sourceCommit,allHashesMatched:true},null,2)+'\n');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+
+Error: archive_path_denied
+    at file:///E:/trae-studio/TRAEWORK/aiwork-studio/[eval1]:2:449
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.3

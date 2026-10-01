@@ -1,0 +1,260 @@
+{
+  "taskId": "T50",
+  "status": "已授权本地交接与自动自检完成，进入用户验收/独立审计，T48仍待授权",
+  "complete": false,
+  "implementationComplete": true,
+  "independentReviewPerformed": false,
+  "userAcceptancePerformed": false,
+  "reviewDecision": "待审查",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "3110fec2fbf8325c3cd1c8f57444b2e1143fcb78",
+  "headCommit": null,
+  "commands": [
+    {
+      "command": "node --test tests/planning/final-review.test.mjs",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-review-red.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T50-build.log"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T50-bundle.log"
+    },
+    {
+      "command": "npm run companion:build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T50-companion-build.log"
+    },
+    {
+      "command": "packageRelease({offlineReview:true})",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T50-package.log"
+    },
+    {
+      "command": "npm run test:e2e",
+      "exitCode": 0,
+      "passed": 412,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-full-browser.log",
+      "resultPath": "docs/review/logs/T50-full-browser-results.json"
+    },
+    {
+      "command": "npm run test:distribution",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-distribution.log",
+      "resultPath": "docs/review/logs/T50-distribution-results.json"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-security.log"
+    },
+    {
+      "command": "node --test tests/live/guard.test.mjs",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-live-guard.log"
+    },
+    {
+      "command": "node --test tests/companion/mcp-runtime.test.mjs",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-mcp-runtime.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.live.config.ts (AIWORK_ALLOW_LIVE=0)",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 1,
+      "logPath": "docs/review/logs/T50-live.log",
+      "resultPath": "docs/review/logs/T50-live-results.json"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-lint.log"
+    },
+    {
+      "command": "node scripts/check-ui-identities.mjs",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-ui-identities.log"
+    },
+    {
+      "command": "node work/t44-current-gate.mjs docs/review/logs/T46-complete-browser-results.json docs/review/logs/T47-related-browser-results.json docs/review/logs/T50-full-browser-results.json",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-coverage.log"
+    },
+    {
+      "command": "node --test tests/planning/final-review.test.mjs",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-review-green.log"
+    },
+    {
+      "command": "npm run test:trace",
+      "exitCode": 1,
+      "passed": 30,
+      "failed": 1,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T50-planning-gates.log"
+    },
+    {
+      "command": "scanBrand() and scanLicenses() for offline preservation",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-offline-scans.log"
+    },
+    {
+      "command": "scanLicenses() formal release permission gate",
+      "exitCode": 1,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-formal-license-gate.log"
+    },
+    {
+      "command": "read-only git rev-parse/status for five fixed source repositories",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-source-audit.log"
+    },
+    {
+      "command": "unpack and hash final archive (first tooling attempt rejected legal filename)",
+      "exitCode": 1,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-unpack-tooling-error.log"
+    },
+    {
+      "command": "unpack and hash final archive with segment containment checks",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-unpack.log"
+    },
+    {
+      "command": "owned extracted offline preview: GET projects/runtime/denied admin",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-preview-health.log"
+    },
+    {
+      "command": "preserve regenerated captures and restore historical evidence from exact committed source",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "logPath": "docs/review/logs/T50-capture-preservation.log"
+    }
+  ],
+  "actualBusinessCalls": 0,
+  "liveVerified": false,
+  "userAccepted": false,
+  "blockingDefectsVerifiedZero": false,
+  "completionScope": "authorized local handoff and author self-check only; independent branch review not performed",
+  "handoffPrepared": true,
+  "automatedChecksComplete": true,
+  "acceptanceComplete": false,
+  "reusedUnitEvidence": {
+    "command": "npm run test:unit",
+    "exitCode": 0,
+    "passed": 386,
+    "failed": 0,
+    "skipped": 0,
+    "logPath": "docs/review/logs/T49-unit-green.log",
+    "note": "Executed during T49 after final product fixes; current product sources unchanged since verified commit3110fec."
+  },
+  "coverage": {
+    "interactions": 260,
+    "pages": 23,
+    "dialogs": 30,
+    "complete": true,
+    "report": "docs/review/coverage-report.json"
+  },
+  "artifact": {
+    "report": "docs/review/logs/T50-distribution-package.json",
+    "sourceCommit": "3110fec2fbf8325c3cd1c8f57444b2e1143fcb78",
+    "dirtySources": false,
+    "formalReleaseApproved": false
+  },
+  "preview": {
+    "url": "http://127.0.0.1:4188/projects",
+    "coreConfigured": false,
+    "extractedArchive": true,
+    "healthReport": "docs/review/logs/T50-preview-health.json"
+  },
+  "knownLimitations": [
+    "User full visual approval, manual OS IME/keyboard acceptance and independent review pending.",
+    "T48 real Core/text/video/fees not verified; actual case skipped1, actual business calls0.",
+    "Model host adapter not configured/verified; controlled local Agent/MCP checks do not attest real model collaboration.",
+    "Frontend mark permission and formal release blocked; no nginx deployment/test.",
+    "Six historical T01/T02 commands missing exit/log evidence explicitly UNVERIFIED.",
+    "Zero blocking defects not independently verified; no claim of full release."
+  ],
+  "screenshotInspection": {
+    "viewed": [
+      "docs/review/screenshots/T49-newer-schema-preserved.png",
+      "docs/review/screenshots/T50-regression/T47-production-persisted-project.png"
+    ],
+    "regeneratedManifest": "docs/review/logs/T50-regenerated-captures.json",
+    "userApproved": false
+  },
+  "files": [
+    "docs/review/final-acceptance.md",
+    "docs/review/known-limitations.md",
+    "docs/review/task-evidence-index.json",
+    "docs/review/ACCEPTANCE_AUDIT.md",
+    "docs/review/AUTHOR_AUDIT.md",
+    "docs/agent/EXECUTION_HANDOFF.md",
+    "tests/planning/final-review.test.mjs"
+  ]
+}

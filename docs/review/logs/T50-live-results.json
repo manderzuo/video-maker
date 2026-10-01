@@ -1,0 +1,17 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/live/authorized-live.spec.ts::T48 actual authorized Core integration remains unverified until separately approved real probes produce evidence",
+      "file": "tests/live/authorized-live.spec.ts",
+      "title": "T48 actual authorized Core integration remains unverified until separately approved real probes produce evidence",
+      "status": "skipped",
+      "assertions": 0,
+      "actions": 0,
+      "assertionLocations": [],
+      "actionLocations": []
+    }
+  ]
+}

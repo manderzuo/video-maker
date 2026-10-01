@@ -1,0 +1,222 @@
+
+> aiwork-studio@0.0.1 test:trace
+> node --test tests/planning/*.test.mjs
+
+TAP version 13
+# Subtest: T50 fifty task records point to actual evidence, commits and executed command logs
+ok 1 - T50 fifty task records point to actual evidence, commits and executed command logs
+  ---
+  duration_ms: 2106.1886
+  type: 'test'
+  ...
+# Subtest: T50 live, collaboration, release and review limitations cannot be misrepresented as accepted
+ok 2 - T50 live, collaboration, release and review limitations cannot be misrepresented as accepted
+  ---
+  duration_ms: 1.6767
+  type: 'test'
+  ...
+# Subtest: T50 archive byte hashes and committed source correspond and contain no unapproved release claim
+ok 3 - T50 archive byte hashes and committed source correspond and contain no unapproved release claim
+  ---
+  duration_ms: 281.8982
+  type: 'test'
+  ...
+# Subtest: T50 interaction proof is actual assertion and action coverage, not screenshots alone
+ok 4 - T50 interaction proof is actual assertion and action coverage, not screenshots alone
+  ---
+  duration_ms: 9.9373
+  type: 'test'
+  ...
+# Subtest: T01-C01: resolved project belongs to the authorized TRAEWORK root
+ok 5 - T01-C01: resolved project belongs to the authorized TRAEWORK root
+  ---
+  duration_ms: 1.6974
+  type: 'test'
+  ...
+# Subtest: T01-C02: all five pinned revisions have independently verified snapshots
+ok 6 - T01-C02: all five pinned revisions have independently verified snapshots
+  ---
+  duration_ms: 1.4668
+  type: 'test'
+  ...
+# Subtest: T01-C03: every source has a license disposition and evidence
+ok 7 - T01-C03: every source has a license disposition and evidence
+  ---
+  duration_ms: 0.8308
+  type: 'test'
+  ...
+# Subtest: T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence
+ok 8 - T01-C04: canvas MIT copyright remains byte-for-byte in third-party evidence
+  ---
+  duration_ms: 0.7808
+  type: 'test'
+  ...
+# Subtest: T01-C05: write policy denies external/source paths, traversal and symlinks
+ok 9 - T01-C05: write policy denies external/source paths, traversal and symlinks
+  ---
+  duration_ms: 101.3411
+  type: 'test'
+  ...
+# Subtest: T03-C01: public and foreign-loopback requests fail closed
+ok 10 - T03-C01: public and foreign-loopback requests fail closed
+  ---
+  duration_ms: 0.949
+  type: 'test'
+  ...
+# Subtest: T03-C02: server reuse is disabled
+ok 11 - T03-C02: server reuse is disabled
+  ---
+  duration_ms: 0.5978
+  type: 'test'
+  ...
+# Subtest: T03-C03: isolated mock tooling exposes all commands without credentials
+ok 12 - T03-C03: isolated mock tooling exposes all commands without credentials
+  ---
+  duration_ms: 1.0353
+  type: 'test'
+  ...
+# Subtest: T03-C04: empty suites and missing dependencies cannot pass
+ok 13 - T03-C04: empty suites and missing dependencies cannot pass
+  ---
+  duration_ms: 0.331
+  type: 'test'
+  ...
+# Subtest: T03-C05: one npm lock contains exact declared dependencies
+ok 14 - T03-C05: one npm lock contains exact declared dependencies
+  ---
+  duration_ms: 2.8986
+  type: 'test'
+  ...
+# Subtest: T44 no phantom full coverage: unmapped interactions, pages and dialogs stop the gate
+ok 15 - T44 no phantom full coverage: unmapped interactions, pages and dialogs stop the gate
+  ---
+  duration_ms: 1.1625
+  type: 'test'
+  ...
+# Subtest: T44 skipped or unasserted tests cannot be promoted to evidence
+ok 16 - T44 skipped or unasserted tests cannot be promoted to evidence
+  ---
+  duration_ms: 0.348
+  type: 'test'
+  ...
+# Subtest: T44 task owner mismatch and duplicate canonical identity cannot silently pass
+ok 17 - T44 task owner mismatch and duplicate canonical identity cannot silently pass
+  ---
+  duration_ms: 0.146
+  type: 'test'
+  ...
+# Subtest: T44 coverage validator accepts matching executed assertion evidence without treating its own fixture as product coverage
+ok 18 - T44 coverage validator accepts matching executed assertion evidence without treating its own fixture as product coverage
+  ---
+  duration_ms: 0.1943
+  type: 'test'
+  ...
+# Subtest: T44 missing execution of claimed assertion line blocks even a passed test
+ok 19 - T44 missing execution of claimed assertion line blocks even a passed test
+  ---
+  duration_ms: 0.2024
+  type: 'test'
+  ...
+# Subtest: T44 tests skipped or expected-failed cannot satisfy coverage
+ok 20 - T44 tests skipped or expected-failed cannot satisfy coverage
+  ---
+  duration_ms: 0.1725
+  type: 'test'
+  ...
+# Subtest: T44 an unrelated helper assertion and zero UI action do not prove control coverage
+ok 21 - T44 an unrelated helper assertion and zero UI action do not prove control coverage
+  ---
+  duration_ms: 0.1855
+  type: 'test'
+  ...
+# Subtest: T44 missing side effects cannot be waived by a generic N/A explanation
+ok 22 - T44 missing side effects cannot be waived by a generic N/A explanation
+  ---
+  duration_ms: 0.128
+  type: 'test'
+  ...
+# Subtest: T44 an unobserved network count cannot be treated as zero merely because the UI assertion passed
+ok 23 - T44 an unobserved network count cannot be treated as zero merely because the UI assertion passed
+  ---
+  duration_ms: 0.3304
+  type: 'test'
+  ...
+# Subtest: T44 a hidden business write or blocked foreign request invalidates claimed local side effects
+ok 24 - T44 a hidden business write or blocked foreign request invalidates claimed local side effects
+  ---
+  duration_ms: 0.4172
+  type: 'test'
+  ...
+# Subtest: T44 literal tautologies are not observable assertions even when Playwright reports an expect step
+ok 25 - T44 literal tautologies are not observable assertions even when Playwright reports an expect step
+  ---
+  duration_ms: 6.9157
+  type: 'test'
+  ...
+# Subtest: T44 an executed line containing only a literal cannot satisfy the source assertion gate
+ok 26 - T44 an executed line containing only a literal cannot satisfy the source assertion gate
+  ---
+  duration_ms: 0.1539
+  type: 'test'
+  ...
+# Subtest: T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs
+ok 27 - T02-C01: 23 pages account for empty/loading/normal/error states and 30 dialogs
+  ---
+  duration_ms: 6.6445
+  type: 'test'
+  ...
+# Subtest: T02-C02: critical states have real captures at 1440/1280/1024 in both themes
+ok 28 - T02-C02: critical states have real captures at 1440/1280/1024 in both themes
+  ---
+  duration_ms: 2.1385
+  type: 'test'
+  ...
+# Subtest: T02-C03: payment and PG conflict material explicitly preserves constraints and gating
+ok 29 - T02-C03: payment and PG conflict material explicitly preserves constraints and gating
+  ---
+  duration_ms: 1.2517
+  type: 'test'
+  ...
+# Subtest: T02-C04: real browser review generated no business requests or storage writes
+ok 30 - T02-C04: real browser review generated no business requests or storage writes
+  ---
+  duration_ms: 0.916
+  type: 'test'
+  ...
+# Subtest: T02-G02: human approval is required before the visual baseline is accepted
+not ok 31 - T02-G02: human approval is required before the visual baseline is accepted
+  ---
+  duration_ms: 1.3738
+  type: 'test'
+  location: 'E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\planning\\visual-baseline.test.mjs:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    canvas-save-failed: human visual review pending
+    + actual - expected
+    
+    + 'pending'
+    - 'approved'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'approved'
+  actual: 'pending'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///E:/trae-studio/TRAEWORK/aiwork-studio/tests/planning/visual-baseline.test.mjs:42:46)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 30
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2511.9151

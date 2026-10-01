@@ -1,0 +1,705 @@
+{
+  "sourceCommit": "3110fec2fbf8325c3cd1c8f57444b2e1143fcb78",
+  "currentCaptureCopies": [
+    {
+      "source": "docs/review/logs/T46-real-zoom-125.json",
+      "target": "docs/review/logs/T50-regression-T46-real-zoom-125.json",
+      "sha256": "f2474be59673900f8b881196f536bd0eec1f30746b851f8804e97294f1b0038f"
+    },
+    {
+      "source": "docs/review/logs/T46-real-zoom-150.json",
+      "target": "docs/review/logs/T50-regression-T46-real-zoom-150.json",
+      "sha256": "eaa3e04cf6202e9ea6344debe98b19c793fa5b4fb75c7461f11717f6bb8bb6c6"
+    },
+    {
+      "source": "docs/review/screenshots/T03-bootstrap.png",
+      "target": "docs/review/screenshots/T50-regression/T03-bootstrap.png",
+      "sha256": "54932420587562351339a053250814052c3669b8e7776ceea97941e0c4a4aeac"
+    },
+    {
+      "source": "docs/review/screenshots/T07-local-import.png",
+      "target": "docs/review/screenshots/T50-regression/T07-local-import.png",
+      "sha256": "704690cbe5fe1c8b6b44a97510f65346a6f8d83f3db4dbe737c89e4f19a6e882"
+    },
+    {
+      "source": "docs/review/screenshots/T11-shell-dark.png",
+      "target": "docs/review/screenshots/T50-regression/T11-shell-dark.png",
+      "sha256": "46fb653a68c38c272fd927e6b770768cdc1a13ff6b9b7e6d010f1cc02ce1dbf1"
+    },
+    {
+      "source": "docs/review/screenshots/T11-shell-light.png",
+      "target": "docs/review/screenshots/T50-regression/T11-shell-light.png",
+      "sha256": "c134c7bd5de2e08b6eff305dc1b3a9980e07982333b92f65d0b6fbc760a71aa6"
+    },
+    {
+      "source": "docs/review/screenshots/T11-shell-narrow.png",
+      "target": "docs/review/screenshots/T50-regression/T11-shell-narrow.png",
+      "sha256": "f3bd6989c73ebf9763a495416b231378428639c24e5faf682fa77dd213a2bc50"
+    },
+    {
+      "source": "docs/review/screenshots/T12-project-library.png",
+      "target": "docs/review/screenshots/T50-regression/T12-project-library.png",
+      "sha256": "88f1101977e55a5b64723d1ca4eccecb29c9c9e492d5886715d4683930a47d6a"
+    },
+    {
+      "source": "docs/review/screenshots/T13-canvas.png",
+      "target": "docs/review/screenshots/T50-regression/T13-canvas.png",
+      "sha256": "42325007d9e4a1cdb4cc976a7fe99fd6fca13f75d360074488cc8a65670221f0"
+    },
+    {
+      "source": "docs/review/screenshots/T15-layout-preview.png",
+      "target": "docs/review/screenshots/T50-regression/T15-layout-preview.png",
+      "sha256": "40c7c1abc20418f803c8411b528e330ce3feac849a8444789a550d04da84faa4"
+    },
+    {
+      "source": "docs/review/screenshots/T16-asset-library.png",
+      "target": "docs/review/screenshots/T50-regression/T16-asset-library.png",
+      "sha256": "875b244a7920909f1a15b5a6ed30f6a7b1ee8737c49e79ea25b7108556f44099"
+    },
+    {
+      "source": "docs/review/screenshots/T17-prompt-inspector.png",
+      "target": "docs/review/screenshots/T50-regression/T17-prompt-inspector.png",
+      "sha256": "623f87214dc25dc12a3a1fa72612ba9179dd8d2224ecefd51f88c404dff78ed9"
+    },
+    {
+      "source": "docs/review/screenshots/T21-prompt-light.png",
+      "target": "docs/review/screenshots/T50-regression/T21-prompt-light.png",
+      "sha256": "5c58639453e650b626aff5fdc2bf152af2638a14098ebf8d3dadf35acf414167"
+    },
+    {
+      "source": "docs/review/screenshots/T21-prompt-narrow.png",
+      "target": "docs/review/screenshots/T50-regression/T21-prompt-narrow.png",
+      "sha256": "9deeb6974a03ba44c0a28d9036c1c15f907f217aab46eb5d4600fe05a12b50ae"
+    },
+    {
+      "source": "docs/review/screenshots/T21-prompt-panel.png",
+      "target": "docs/review/screenshots/T50-regression/T21-prompt-panel.png",
+      "sha256": "07f82556d061b27323c131e7e9f6ad2a60f06de4cf9b3dbef08da6864e1c42c8"
+    },
+    {
+      "source": "docs/review/screenshots/T21-prompt-workspace.png",
+      "target": "docs/review/screenshots/T50-regression/T21-prompt-workspace.png",
+      "sha256": "34ddcb9b021bb71f886eaff45cca4a68a370817fbef268b056b08178b80b8de6"
+    },
+    {
+      "source": "docs/review/screenshots/T22-apply-diff.png",
+      "target": "docs/review/screenshots/T50-regression/T22-apply-diff.png",
+      "sha256": "8fc125c7a8d7022cf47c9b4ac2921dbb00787a52cc8c73b7dea5937c99a55b2a"
+    },
+    {
+      "source": "docs/review/screenshots/T22-flow.png",
+      "target": "docs/review/screenshots/T50-regression/T22-flow.png",
+      "sha256": "8cff1fc740c08437919ab3aad4ec73eadb40a0f1a2560d1b6de8ceed60dfcf11"
+    },
+    {
+      "source": "docs/review/screenshots/T22-text-insert.png",
+      "target": "docs/review/screenshots/T50-regression/T22-text-insert.png",
+      "sha256": "bc3722e9befe351627d1f7cec88e4d1e3e816e789add6607534015bf9573e3c1"
+    },
+    {
+      "source": "docs/review/screenshots/T26-generation-confirm.png",
+      "target": "docs/review/screenshots/T50-regression/T26-generation-confirm.png",
+      "sha256": "e1b78c1cfe1ea170812f78d599de00ada238ce5cc5d3b7c7e7a0aa7ecd3438cc"
+    },
+    {
+      "source": "docs/review/screenshots/T27-submit-unknown.png",
+      "target": "docs/review/screenshots/T50-regression/T27-submit-unknown.png",
+      "sha256": "6ddeb1d4c67c440ae808a453124f122e3decdb29f99d214436100b9ccd066ba5"
+    },
+    {
+      "source": "docs/review/screenshots/T29-queue-paused.png",
+      "target": "docs/review/screenshots/T50-regression/T29-queue-paused.png",
+      "sha256": "801abef6f32308dfac6f57fa649c53d8daddd1bf1dea846357dd20f4ba3770f7"
+    },
+    {
+      "source": "docs/review/screenshots/T31-ai-candidate-diff.png",
+      "target": "docs/review/screenshots/T50-regression/T31-ai-candidate-diff.png",
+      "sha256": "ed9d2d351475564049e37b9ee40efadc0685f6cbc893ac7bccdbd79a8abd03e2"
+    },
+    {
+      "source": "docs/review/screenshots/T31-ai-confirm-cancelled.png",
+      "target": "docs/review/screenshots/T50-regression/T31-ai-confirm-cancelled.png",
+      "sha256": "32152f73e8dc85df5bc1d13a3b8a72a515b4f337480f330c5ce0aa67ba599eae"
+    },
+    {
+      "source": "docs/review/screenshots/T31-ai-confirm.png",
+      "target": "docs/review/screenshots/T50-regression/T31-ai-confirm.png",
+      "sha256": "add1913dc25595ecede89162cf43393dbb187457f094446ebd6c3ea6d44fcc78"
+    },
+    {
+      "source": "docs/review/screenshots/T32-work-limited.png",
+      "target": "docs/review/screenshots/T50-regression/T32-work-limited.png",
+      "sha256": "e497631af93e073bc85f3de2974a6a5e769e99082c431ba835e278652b80e25a"
+    },
+    {
+      "source": "docs/review/screenshots/T33-local-video.png",
+      "target": "docs/review/screenshots/T50-regression/T33-local-video.png",
+      "sha256": "0277a20007bba7e4d7fae3b27e6e269f29ee356e01d0d62691d8df40d5eb17ca"
+    },
+    {
+      "source": "docs/review/screenshots/T34-task-center.png",
+      "target": "docs/review/screenshots/T50-regression/T34-task-center.png",
+      "sha256": "670289c40336d418b4d9f030971c3b3e474a57bdca93dee797fc28cc86648129"
+    },
+    {
+      "source": "docs/review/screenshots/T34-task-detail.png",
+      "target": "docs/review/screenshots/T50-regression/T34-task-detail.png",
+      "sha256": "b8716b304687605370cc4e3e689085951c864eea3d47f10e475caa3fc6e1c940"
+    },
+    {
+      "source": "docs/review/screenshots/T34-task-drawer.png",
+      "target": "docs/review/screenshots/T50-regression/T34-task-drawer.png",
+      "sha256": "9affb9ea1abd9e90f34162fc7bd96134402b9724520afb133d115cb5492e7c3c"
+    },
+    {
+      "source": "docs/review/screenshots/T35-comparison.png",
+      "target": "docs/review/screenshots/T50-regression/T35-comparison.png",
+      "sha256": "5bf86a2393b8a575efd766dbd1b68bd19d73427b277813561e2b11306dc6e8ee"
+    },
+    {
+      "source": "docs/review/screenshots/T35-result-review.png",
+      "target": "docs/review/screenshots/T50-regression/T35-result-review.png",
+      "sha256": "94b502150f70b2ea09cc51640de97cd7e92c436d14c077d1b83344afea74e8a1"
+    },
+    {
+      "source": "docs/review/screenshots/T36-import-preview.png",
+      "target": "docs/review/screenshots/T50-regression/T36-import-preview.png",
+      "sha256": "cff472248e65eabfcc4c710319e6f5cb5760e7884efdf58bbe7adf58abb98daf"
+    },
+    {
+      "source": "docs/review/screenshots/T37-connection.png",
+      "target": "docs/review/screenshots/T50-regression/T37-connection.png",
+      "sha256": "23c04b44419079873fe20cfd5142cb5f1688f1ec31cca198b9c871bd87e8119d"
+    },
+    {
+      "source": "docs/review/screenshots/T37-storage.png",
+      "target": "docs/review/screenshots/T50-regression/T37-storage.png",
+      "sha256": "eb16be2a93bd8252702d109cc916b1ab31f7d2a439959b6b0d92828d504ce907"
+    },
+    {
+      "source": "docs/review/screenshots/T38-activity.png",
+      "target": "docs/review/screenshots/T50-regression/T38-activity.png",
+      "sha256": "3b2ba362be38d8b3a69993e8bf44aa17fe9c5a55c178d13c2a2a91c4379d1385"
+    },
+    {
+      "source": "docs/review/screenshots/T38-memory-draft.png",
+      "target": "docs/review/screenshots/T50-regression/T38-memory-draft.png",
+      "sha256": "503edb74da0c8648b1f5f3694ff4d2d47caafa5e9ae23c19eab7cfc5743fa667"
+    },
+    {
+      "source": "docs/review/screenshots/T40-proposal.png",
+      "target": "docs/review/screenshots/T50-regression/T40-proposal.png",
+      "sha256": "0932c4f9596045daaf2092cc69f67451d3d47df5b2c0fcc6c56ae6376a40f10d"
+    },
+    {
+      "source": "docs/review/screenshots/T40-review-dialog.png",
+      "target": "docs/review/screenshots/T50-regression/T40-review-dialog.png",
+      "sha256": "5017330f02e09d633d67fdf823d2349d4e91d96e8c253a9055280f72345d0485"
+    },
+    {
+      "source": "docs/review/screenshots/T41-mcp-confirmation.png",
+      "target": "docs/review/screenshots/T50-regression/T41-mcp-confirmation.png",
+      "sha256": "dcfdbde908d954061b1cb4cc3450faa4a321adf7524c22fb912af31e06b11b19"
+    },
+    {
+      "source": "docs/review/screenshots/T41-mcp-confirmed.png",
+      "target": "docs/review/screenshots/T50-regression/T41-mcp-confirmed.png",
+      "sha256": "35b9e1572aa95be980103e851701a80931bc5dfaa12646171aa1f7c1d0ef43c4"
+    },
+    {
+      "source": "docs/review/screenshots/T41-revoked-confirmation.png",
+      "target": "docs/review/screenshots/T50-regression/T41-revoked-confirmation.png",
+      "sha256": "f7b53deb23a084d2d81e7b4b626ace0cc8f2383b2da810e98f709ce775fc6747"
+    },
+    {
+      "source": "docs/review/screenshots/T42-applied-proposal.png",
+      "target": "docs/review/screenshots/T50-regression/T42-applied-proposal.png",
+      "sha256": "0f3240a5cfd4af5a1447bb3c0040e28297e7e6962223e372ee6d8fb00f2d711f"
+    },
+    {
+      "source": "docs/review/screenshots/T42-disconnected.png",
+      "target": "docs/review/screenshots/T50-regression/T42-disconnected.png",
+      "sha256": "ec959231f5916274592a59e0378bc481c60d570308629a5c1bbce68542e11469"
+    },
+    {
+      "source": "docs/review/screenshots/T42-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T42-light-1024.png",
+      "sha256": "2b9c86d64d707e98a2eceae1dec105e40a70a56ccb36ae04b6212de85e5db344"
+    },
+    {
+      "source": "docs/review/screenshots/T42-light-390.png",
+      "target": "docs/review/screenshots/T50-regression/T42-light-390.png",
+      "sha256": "85def5677a8a7cd4e828f93edff0f008c2bff2f308228bb6b21423bfd9d4212b"
+    },
+    {
+      "source": "docs/review/screenshots/T42-readonly-proposal.png",
+      "target": "docs/review/screenshots/T50-regression/T42-readonly-proposal.png",
+      "sha256": "a3b4f31a2da7fa21b922fec95d2b894f577d9296c071d1275464129309718e85"
+    },
+    {
+      "source": "docs/review/screenshots/T42-unconnected.png",
+      "target": "docs/review/screenshots/T50-regression/T42-unconnected.png",
+      "sha256": "813b5d622bf22a967b85d97e27f05e4740ffcfd6aaa7cc87b11974c5fb86f4ce"
+    },
+    {
+      "source": "docs/review/screenshots/T43-media-gate.png",
+      "target": "docs/review/screenshots/T50-regression/T43-media-gate.png",
+      "sha256": "439dbdafbdab95ab77ff8a06167a82ab2acbeb48f703fb2ad7d2087814cc6630"
+    },
+    {
+      "source": "docs/review/screenshots/T44-comparison.png",
+      "target": "docs/review/screenshots/T50-regression/T44-comparison.png",
+      "sha256": "0295c3aa35e7f3c0f00fb69bf9ef6d5813f8f65a4a4e7d31bfe65c33ea1cce1c"
+    },
+    {
+      "source": "docs/review/screenshots/T44-native-decode-disabled.png",
+      "target": "docs/review/screenshots/T50-regression/T44-native-decode-disabled.png",
+      "sha256": "62ce50b06d01984e1ec762fc9ee37c1ba3e93a791b12859c21e3eb1cf3fef31f"
+    },
+    {
+      "source": "docs/review/screenshots/T44-native-paste.png",
+      "target": "docs/review/screenshots/T50-regression/T44-native-paste.png",
+      "sha256": "311a4f016085afedece579a141ef0be309e812809bf4b26c022e607c0a2ad17f"
+    },
+    {
+      "source": "docs/review/screenshots/T44-queue-withdrawal.png",
+      "target": "docs/review/screenshots/T50-regression/T44-queue-withdrawal.png",
+      "sha256": "257d91a75413e94499a2893b807091f33a3529b101975e6a1513370aaf1974fd"
+    },
+    {
+      "source": "docs/review/screenshots/T44-result-native-quota.png",
+      "target": "docs/review/screenshots/T50-regression/T44-result-native-quota.png",
+      "sha256": "e2328cf4ca99e681fa7deb20d8876301ced953cf6d6de9318f79554d06bdf894"
+    },
+    {
+      "source": "docs/review/screenshots/T44-text-ai-entry.png",
+      "target": "docs/review/screenshots/T50-regression/T44-text-ai-entry.png",
+      "sha256": "ba2535ea1147c85e195e538302728159fc2e63e8ea181802d2f81ae000e8b89a"
+    },
+    {
+      "source": "docs/review/screenshots/T44-viewport-preference-fault.png",
+      "target": "docs/review/screenshots/T50-regression/T44-viewport-preference-fault.png",
+      "sha256": "2f96ff4b0e6973f283cb5f0ca90d2456eb7f34f8ebcbae87ff3ad67b804dc187"
+    },
+    {
+      "source": "docs/review/screenshots/T45-before-send-reopened.png",
+      "target": "docs/review/screenshots/T50-regression/T45-before-send-reopened.png",
+      "sha256": "feb4eb9954f4f557d6a8960556ce51457d890b0d70a6256ef2dd166323f646ac"
+    },
+    {
+      "source": "docs/review/screenshots/T45-unknown-reopened.png",
+      "target": "docs/review/screenshots/T50-regression/T45-unknown-reopened.png",
+      "sha256": "91b4aedfa9b703c9b0daf8df159dfba4434f92499b4c3d3737b493aeb28b39e5"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P03-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P03-dark-1280.png",
+      "sha256": "0f6413ad0f0c8ef39da5a95e8aa70bc6bdbd5eef3ea03cd0f77e36a271bc9eb3"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P03-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P03-light-1024.png",
+      "sha256": "45c8a264eec13d50f425aeb511c18077b5a50bb20ddb4164bad3f851150ccbf4"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P03-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P03-light-1280.png",
+      "sha256": "8b0361cf02588fbe1451dde18db71c3d713e655f2f59ae22c900a5748748ee07"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P03-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P03-light-1440.png",
+      "sha256": "6fb7d37fe3aad4bb1c5a1c5f8ff9974bc85d79379ca764902a78351270f82afe"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-dark-1024.png",
+      "sha256": "78744f0dcc755d9f25ff66260e2f6d77f7360303f133103398e193bebc50c9cb"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-dark-1280.png",
+      "sha256": "3303aeabf5ae28582cac5061ff428f9f7093da1c9c140d5ae3582183dd31d914"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-dark-1440.png",
+      "sha256": "a799da9153dddc580150b59f2df261333d8ca7408725951af3ab44275ad48b46"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-dark-720.png",
+      "sha256": "863ecae19a1c6cdfd75d4866caeb01ca7643839f8b957bc92c9ef6f65dd59d03"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-light-1024.png",
+      "sha256": "7a45d54fe36eea8b40801c55e3843b5170823031aa4ca036dd82ae4166878364"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-light-1280.png",
+      "sha256": "117c277b31c3e552c3308362501c68f5bccc6ac33548debc4c7fa1fe7fed0c38"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-light-1440.png",
+      "sha256": "4278f8f81f870195b9895e6778b8d5dae76ef98e419f0de01c03a615def767cb"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P04-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P04-light-720.png",
+      "sha256": "c8efb52c08c14c82ad3563df04f23f1e18cdfe5b819a8980f278014e676bae19"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-dark-1024.png",
+      "sha256": "54477bf2d2903fca51a211e2daa8795149aed1dafb2db5076158aff129e28b3a"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-dark-1280.png",
+      "sha256": "ec3d6570eace758abfe4d2474013fc7c4ebc52ae224889dd9ebcbd4c95123553"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-dark-1440.png",
+      "sha256": "5cb4b14211883fb1e9437d7632ea75040671fdd9c1a6a605dfe58f93c7999b7c"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-dark-720.png",
+      "sha256": "a79cee0e9913863ee46b3bb6ea72c3450fcc4258b4683908edc9759a5b869bea"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-light-1024.png",
+      "sha256": "3e323d091b5241eaa01ded819900de72d9d9c2a5c2da9761baad31db0d11bd8d"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-light-1280.png",
+      "sha256": "7e3c50195855ca2a20bca4aed04a19dc5049e83592295df210992a7a91f86284"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-light-1440.png",
+      "sha256": "a5db599880d9c470461b3147661ee4b50c61791ab03029caf8216baef60feef3"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P07-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P07-light-720.png",
+      "sha256": "2ac21c6c657aad605a9317b85eae02eb1f8bc00f71e5ed090717e1d5e0b20b09"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-dark-1024.png",
+      "sha256": "e3d1c3aecb60a4f7e316b26898003df39efa4d3e2081ff72de9f8ae3130416d0"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-dark-1280.png",
+      "sha256": "2d957353c5993d58eb3a04383a3be0b3468aa51e920dbbb0d7216cb39b5f5965"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-dark-1440.png",
+      "sha256": "d48829db845c30e76975ed5f66762c407c80c296df128af6e3c32660f9016acb"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-dark-720.png",
+      "sha256": "001b74992550ed5be80171c02c22a12ae994ba4a75b6e0de423fa20d5de43543"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-light-1024.png",
+      "sha256": "443f7d619ff03a3949bf2332b0dbc45ca3762ed046da733c5f728bfefdb92c00"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-light-1280.png",
+      "sha256": "e4aa41d5b27b37522dcd1a19728103c8af047c88c4d24e5ee487c512050f8ad2"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-light-1440.png",
+      "sha256": "d075446b40663dca847af65f12d36ac4a63111c8a198463b50670eb0af84e0d0"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P08-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P08-light-720.png",
+      "sha256": "75afa442e4d001f3a96836f53521da41cacf8dcde4e382182ca066ffc407c77d"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P09-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P09-dark-1280.png",
+      "sha256": "213f8397ea17136e51692eb6578a07a738e2d8619e898493cf74cfe07b174bc0"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P09-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P09-light-1024.png",
+      "sha256": "8a62db5c81678fa4fa05b0a455444024a8bfe205c113128292c2b5ca68769b0e"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P09-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P09-light-1280.png",
+      "sha256": "9085c7bbc39668b551462a4fa019c2b1bd486ee9e4d8f72c9ca390979e8bc2d5"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P09-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P09-light-1440.png",
+      "sha256": "5ffe4083ecf270d090c60da077696503e271ff5f33cd2fbe01c68cfbca29576d"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-dark-1024.png",
+      "sha256": "d1324d089d7dbd5a3ba0a6dc824c579b2f55a10b4b3804b2ca274b4ef6170fd3"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-dark-1280.png",
+      "sha256": "145ff68276d2a353f98e7fa1d1e7f8459a9bd55b3a4013d81499808902b7d5dc"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-dark-1440.png",
+      "sha256": "eb40e1cd8daa405569155de87c0bc519f7423735cacc4630310c8ea453913a11"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-dark-720.png",
+      "sha256": "3e56b728a5d4d02c4f995b11e524e9d1e4470e16c76c31f11be3593e0b0cbf01"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-light-1024.png",
+      "sha256": "5b40bec5a95e24bebf68c6e9e71f88170754c84a73eb33bcf59c4d38acf5a24e"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-light-1280.png",
+      "sha256": "6cfe5e1a5f3cf4ceb9b3e421d72a04eaed01e09dfc9233257055c7ff1ae7106c"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-light-1440.png",
+      "sha256": "86ef12133b5d45ab8b20e2eb6c883f01f130fd490b2377ea24017db3fcf45cbc"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P11-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P11-light-720.png",
+      "sha256": "197cbed00b41cd45e4e285e36a8ef914a2e6e6de464c821de41b813003eb8312"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-dark-1024.png",
+      "sha256": "6771a00b2bb24c6ab8eabb5955433d8f14c0ed60c02d1d3d26d806e8bb6f489e"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-dark-1280.png",
+      "sha256": "f3cc00537c8e27710927bfe5c93bd9d11e92b469307c87030283dd9e86b86d71"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-dark-1440.png",
+      "sha256": "c3a3dbcb7a61bd0236e28b76933505ffb1f1a682f5fe7efea5a5c52abef545b5"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-dark-720.png",
+      "sha256": "135c1174a4376c9d1dd48dfb759cbcf7355c61c49230c4957fc141cf45ba325b"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-light-1024.png",
+      "sha256": "e91cb6bd646bf00f0de70085d0d9d3008e839accbf40b454bf0f3d15b59a0bf8"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-light-1280.png",
+      "sha256": "6dd03892f878dc5bab0f6e7201d1026bc6a46b5ff158106ca6ee55e272b8ef1e"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-light-1440.png",
+      "sha256": "5c51ccaae30ede8fe80aa962e99c55dabf93f5d8f21acf5f5089bd66a73080c9"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P12-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P12-light-720.png",
+      "sha256": "d9ebc2026613e942b9671622f95ef1d419fa8cda7553802231cda25e9ed2f27d"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-dark-1024.png",
+      "sha256": "bcabf0a06dbdf8540d584d9eafd8309ae90402c6bfb168ec190fa02b4d04bec6"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-dark-1280.png",
+      "sha256": "bafe7d4a8c800f27ac626d2711c3844329444803715178ef9cc941eb235894cb"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-dark-1440.png",
+      "sha256": "ff1326e91536f96ee4fab0aaa090e0053170ea9dda25a6f4aa09ac48c3031700"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-dark-720.png",
+      "sha256": "884a5becb278d50a191a5be912be4b020cfc8553526cf3484bcb0e09fd378032"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-light-1024.png",
+      "sha256": "89cee16a50e31f2f447039c516ee9a8d8cabd0cd21701dcc1a7a137b89e6550c"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-light-1280.png",
+      "sha256": "38bab72e72ef1ab60784296a18335010486215163f53c81dc014465da42450d9"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-light-1440.png",
+      "sha256": "a019fe34ebe0422d6a4b29a26787691d328286de2e631c08617c30e1d2880efb"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P13-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P13-light-720.png",
+      "sha256": "821614e9dc972b385b6697f1aa2c4e4abc15f6f1c588207a6c4892f9973cf835"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P16-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P16-light-1024.png",
+      "sha256": "c925771487e14b18ea4878c6971ac1a75f38dfb8798ab0b968480c0cf65e2b1c"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-dark-1024.png",
+      "sha256": "d1324d089d7dbd5a3ba0a6dc824c579b2f55a10b4b3804b2ca274b4ef6170fd3"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-dark-1280.png",
+      "sha256": "145ff68276d2a353f98e7fa1d1e7f8459a9bd55b3a4013d81499808902b7d5dc"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-dark-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-dark-1440.png",
+      "sha256": "eb40e1cd8daa405569155de87c0bc519f7423735cacc4630310c8ea453913a11"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-dark-720.png",
+      "sha256": "3e56b728a5d4d02c4f995b11e524e9d1e4470e16c76c31f11be3593e0b0cbf01"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-light-1024.png",
+      "sha256": "5b40bec5a95e24bebf68c6e9e71f88170754c84a73eb33bcf59c4d38acf5a24e"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-light-1280.png",
+      "sha256": "6cfe5e1a5f3cf4ceb9b3e421d72a04eaed01e09dfc9233257055c7ff1ae7106c"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-light-1440.png",
+      "sha256": "86ef12133b5d45ab8b20e2eb6c883f01f130fd490b2377ea24017db3fcf45cbc"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P18-light-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P18-light-720.png",
+      "sha256": "197cbed00b41cd45e4e285e36a8ef914a2e6e6de464c821de41b813003eb8312"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P22-dark-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P22-dark-1280.png",
+      "sha256": "e66c0c29c6b5786f00f7d3cd8ad4079c9cee03e7ee9e33f52c80da1f1cfc448f"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P22-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P22-light-1024.png",
+      "sha256": "dd76107a6815c0cdd7e54d27ca5a6bf87bfa42927f7250f3f689e4c433f38975"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P22-light-1280.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P22-light-1280.png",
+      "sha256": "2ee094757b0a11dd44b253e1d5e1c711a8a4cd6577c5e5d70f27e4e208016ee5"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P22-light-1440.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P22-light-1440.png",
+      "sha256": "f2fef6b2dd23135a2d17733466bb4484d27b914f09457d6a0a4d2d67f05d369b"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P23-dark-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P23-dark-1024.png",
+      "sha256": "4d227aef27a715d7e5ce0f6322a97057e4eec8424f5c3b46e609efe119948f4f"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P23-dark-720.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P23-dark-720.png",
+      "sha256": "20d366f281b2988d6e2cc1655c523e5a8ab772def48da5eff6efa42f1a8ed32a"
+    },
+    {
+      "source": "docs/review/screenshots/T46-P23-light-1024.png",
+      "target": "docs/review/screenshots/T50-regression/T46-P23-light-1024.png",
+      "sha256": "f703388d475cffb7a0133665fbf9cc94fd649119ba1d614c442117ef8de94f46"
+    },
+    {
+      "source": "docs/review/screenshots/T46-keyboard-focus.webm",
+      "target": "docs/review/screenshots/T50-regression/T46-keyboard-focus.webm",
+      "sha256": "214a0dfa7dfb18882758600b3c00be8829259acad86ce4509166ef6edeae5ad5"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-125-P03.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-125-P03.png",
+      "sha256": "786541ed931f3cfa168f441d3c9cc5b8f2e4b4c58f686c4d7720943ae41af4c8"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-125-P13.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-125-P13.png",
+      "sha256": "0118011d63fe9c94547174a34b3bcc89c4783a553853b7ab115011bf7424996a"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-125-P21.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-125-P21.png",
+      "sha256": "24c303aa55f6ad86dcad1023a43daca480cebb8371b7c956572b2626f309794a"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-125-P22.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-125-P22.png",
+      "sha256": "1c2e5a5b7d7b976088341969524e59eb62425a60fe3b338847fb75ff6fff857b"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-150-P03.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-150-P03.png",
+      "sha256": "f4e18b314dcbd88ad2f545f90b8c2167d8f0c8e6f7c6f8c228d69eb5d9280107"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-150-P13.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-150-P13.png",
+      "sha256": "c74f026c90dcbf17703da11225419ed92e09886bbdfecc60e4e4effcc5896bb2"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-150-P21.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-150-P21.png",
+      "sha256": "f3d74486afa3788140e3fe6eb75265bf9872ed541ad858f2a0eedd3cd3986dfc"
+    },
+    {
+      "source": "docs/review/screenshots/T46-zoom-150-P22.png",
+      "target": "docs/review/screenshots/T50-regression/T46-zoom-150-P22.png",
+      "sha256": "924514bceddb2e0ed287dcab3add956183f1ec3034568eaf98984aa078177b4d"
+    },
+    {
+      "source": "docs/review/screenshots/T47-production-persisted-project.png",
+      "target": "docs/review/screenshots/T50-regression/T47-production-persisted-project.png",
+      "sha256": "fc1449c1b8b8ca8432efac43e4796630864ff6a33c7f6bdabb9338763a2dbe14"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[feat/aiwork-studio 315dafb] chore(t48): prepare live approval guards and record unverified authorization gate
+ 20 files changed, 387 insertions(+), 6 deletions(-)
+ create mode 100644 docs/review/evidence/T48.json
+ create mode 100644 docs/review/live-acceptance.md
+ create mode 100644 docs/review/logs/T48-guard-green.log
+ create mode 100644 docs/review/logs/T48-guard-red.log
+ create mode 100644 docs/review/logs/T48-lint.log
+ create mode 100644 docs/review/logs/T48-live-executed-tests.json
+ create mode 100644 docs/review/logs/T48-live-not-verified.json
+ create mode 100644 docs/review/logs/T48-live-not-verified.log
+ create mode 100644 docs/review/logs/T48-typecheck.log
+ create mode 100644 playwright.live.config.ts
+ create mode 100644 scripts/run-authorized-live.mjs
+ create mode 100644 tests/helpers/live-approval.mjs
+ create mode 100644 tests/live/approval.schema.json
+ create mode 100644 tests/live/authorized-live.spec.ts
+ create mode 100644 tests/live/guard.test.mjs

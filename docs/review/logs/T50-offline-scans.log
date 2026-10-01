@@ -1,0 +1,148 @@
+{
+  "brand": {
+    "passed": true,
+    "normalInterfaceFindings": [],
+    "legalAndMigrationExceptions": [
+      {
+        "file": "dist\\assets\\legacy-migration-CFvbPjms.js",
+        "value": "infinite-canvas",
+        "offset": 17893,
+        "reason": "explicit isolated legacy import format"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 269,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "infinite-canvas",
+        "offset": 280,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "https://github.com/basketikun/infinite-canvas/tree/dab19adc0847e32e39b7fc8ff90cb392561fb826\\r",
+        "offset": 353,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 11179,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "https://github.com/basketikun/infinite-canvas/blob/main/LICENSE).",
+        "offset": 12480,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "https://github.com/basketikun/infinite-canvas/blob/main/LICENSE)。任何个人、团队和企业都可以免费、自由地使用本项目，没有使用场景和商业用途限制。\\r",
+        "offset": 13254,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16526,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16566,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "infinite-canvas",
+        "offset": 16592,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16874,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 16914,
+        "reason": "explicit copyright/license text only"
+      },
+      {
+        "file": "dist\\assets\\legal-notices-DULDc9G1.js",
+        "value": "basketikun",
+        "offset": 17701,
+        "reason": "explicit copyright/license text only"
+      }
+    ],
+    "sourceMaps": [],
+    "credentialFindings": [],
+    "frontendMarkAuthorization": "unresolved",
+    "formalReleaseApproved": false
+  },
+  "license": {
+    "preservedAll": true,
+    "missing": [],
+    "modified": [],
+    "preserved": [
+      {
+        "file": "third-party/licenses/runtime-fflate-0.8.2.LICENSE",
+        "sha256": "805f6cb28bb8b6d3a0badd83c93bccd9671fa01a3b4b92b7042b0743325ac243"
+      },
+      {
+        "file": "third-party/licenses/runtime-react-19.2.8.LICENSE",
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-react-dom-19.2.8.LICENSE",
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-scheduler-0.27.0.LICENSE",
+        "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+      },
+      {
+        "file": "third-party/licenses/runtime-zod-4.3.6.LICENSE",
+        "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8"
+      },
+      {
+        "file": "third-party/licenses/runtime-zustand-5.0.15.LICENSE",
+        "sha256": "c1e6e266563517467b1bf874817d23e426f3149252bd7d42758cd697514b8417"
+      },
+      {
+        "file": "third-party\\THIRD_PARTY_NOTICES.txt",
+        "sha256": "c6326c8bbee7b55e98de30555a9a51691e09119062e28b8e458cb0d4923480a4"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas.LICENSE",
+        "sha256": "44e52203e61565877cc4685791343679f19c49f7b28288a2d0b9f7b9aced8009"
+      },
+      {
+        "file": "third-party\\licenses\\prompt-for-seedance-gptimage2.5.LICENSE",
+        "sha256": "9eb6f69d48a1dd764e8a33f14a584f460d3cec653477c136a95dd6df9c249211"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas.docs_content_docs_business_license.mdx",
+        "sha256": "6b22f5bcbfac57e7fa13da59865c66cfcafe1629e80562f0d7337309b81e74e5"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas.docs_content_docs_business_license.zh-CN.mdx",
+        "sha256": "e52082b2e7e0fbb64120c91ace0befadf89483b7f6e696099defed3ae2beacd4"
+      },
+      {
+        "file": "third-party\\licenses\\infinite-canvas..agents_skills_frontend-design_LICENSE.txt",
+        "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549"
+      }
+    ],
+    "frontendMarkAuthorization": "unresolved",
+    "releaseAllowed": false,
+    "reason": "Pinned upstream README/frontend mark exception remains pending human clarification; source reference repositories without licenses have not been copied into product."
+  }
+}
