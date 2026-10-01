@@ -1,0 +1,695 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B03 native verification evidence read failure is explicit and cannot erase saved capabilities or task records",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B03 native verification evidence read failure is explicit and cannot erase saved capabilities or task records",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 3,
+          "column": 366
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 3,
+          "column": 910
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 3,
+          "column": 953
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 3,
+          "column": 1005
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 3,
+          "column": 197
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 491
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 689
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 845
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 891
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 950
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 1002
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 600
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 6,
+          "column": 652
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 593
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 755
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1205
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1315
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1368
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1426
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1483
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 276
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 367
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 459
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 7,
+          "column": 1102
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 498
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 565
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 606
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 704
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 929
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 1132
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 1215
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 8,
+          "column": 412
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 564
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 661
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 703
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 755
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 222
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 461
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 645
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 742
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 784
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 836
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 221
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 313
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 538
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 12,
+          "column": 476
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 12,
+          "column": 573
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 12,
+          "column": 615
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 12,
+          "column": 667
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 12,
+          "column": 380
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B04 actual unavailable-capability display preference persists across reload without enabling any generation",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B04 actual unavailable-capability display preference persists across reload without enabling any generation",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 13,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 13,
+          "column": 477
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 13,
+          "column": 528
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 13,
+          "column": 586
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 13,
+          "column": 643
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 13,
+          "column": 248
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+      "file": "tests/e2e/project-busy-contracts.spec.ts",
+      "title": "T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+      "status": "failed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 604
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 709
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 709
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 709
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 788
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 413
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 519
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-preferences.spec.ts::T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient",
+      "file": "tests/e2e/project-preferences.spec.ts",
+      "title": "T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 351
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 436
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 501
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 559
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 610
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 206
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 257
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-preferences.spec.ts::T44 P12/P13 each denied native project-view preference save retains the last saved sorting and layout with no creative mutation",
+      "file": "tests/e2e/project-preferences.spec.ts",
+      "title": "T44 P12/P13 each denied native project-view preference save retains the last saved sorting and layout with no creative mutation",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 821
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 948
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1058
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1185
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1276
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1372
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1459
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1509
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 761
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 5,
+          "column": 1012
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

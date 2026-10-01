@@ -366,7 +366,8 @@
         }
       ],
       "notApplicable": {
-        "persistence": "Esc仅关闭当前最上层界面并恢复焦点，此控件没有独立持久化状态。"
+        "persistence": "Esc仅关闭当前最上层界面并恢复焦点，此控件没有独立持久化状态。",
+        "error": "Esc只请求关闭可关闭的最上层界面并恢复焦点；忙状态阻止关闭，不执行保存或业务请求；全屏异常由全屏预览入口报告。"
       },
       "plannedTestPath": "tests/e2e/app-shell.spec.ts",
       "review": "待审查"
@@ -466,6 +467,20 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 W01 local onboarding persists its acknowledgment, then remains navigable when that optional native flag is denied without changing any project",
+          "facets": [
+            "normal",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            7
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/app-shell.spec.ts::T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
           "facets": [
             "normal",
@@ -481,7 +496,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "进入本地模式始终允许导航；无需Core授权、联网或项目写权，入门完成标志保存失败也不阻止访问本地创作。"
+      },
       "plannedTestPath": "tests/e2e/app-shell.spec.ts",
       "review": "待审查"
     },
@@ -564,7 +581,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "error": "此字段只接受当前标签内存中的Key输入，不执行鉴权、查询或持久化；验证失败由显式权限测试W-05报告。"
+      },
       "plannedTestPath": "tests/e2e/app-shell.spec.ts",
       "review": "待审查"
     },
@@ -585,7 +604,6 @@
           "testId": "tests/e2e/app-shell.spec.ts::T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
           "facets": [
             "normal",
-            "persistence",
             "sideEffect"
           ],
           "expectedCoreWrites": 0,
@@ -598,7 +616,11 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "显示Key仅切换当前标签输入框类型，在无内容时仍可切换，验证忙时也不会执行请求或生成授权。",
+        "error": "显示切换同步改变输入框类型并恢复焦点，没有网络、存储、文件或用户输入解析。",
+        "persistence": "普通Key和显示状态严格保存在当前标签内存，离开或失焦重新隐藏，不能持久化到项目或日志。"
+      },
       "plannedTestPath": "tests/e2e/app-shell.spec.ts",
       "review": "待审查"
     },
@@ -662,6 +684,20 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 W06 creating from onboarding only opens the local project form, preserves its acknowledgment and remains usable when saving that optional flag is denied",
+          "facets": [
+            "normal",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            8
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/project-library.spec.ts::T12 / W06: welcome opens the real new-project dialog; rename Escape preserves the stored name",
           "facets": [
             "normal",
@@ -688,7 +724,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "本地新建入口始终允许打开空项目表单；点击不创建任务，项目实际保存另有名称、忙状态和存储检查。"
+      },
       "plannedTestPath": "tests/e2e/app-shell.spec.ts",
       "review": "待审查"
     },
@@ -722,7 +760,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "新建按钮只打开本地空项目表单；实际创建确认按有效名称和保存忙状态禁用，浏览器模态框同时阻止背后入口。"
+      },
       "plannedTestPath": "tests/e2e/project-library.spec.ts",
       "review": "待审查"
     },
@@ -752,7 +792,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "本地模板入口只打开原创结构说明；实际模板创建按钮按事务忙状态禁用，模态期间背后页面不能重复触发。"
+      },
       "plannedTestPath": "tests/e2e/project-library.spec.ts",
       "review": "待审查"
     },
@@ -830,7 +872,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "重命名入口仅打开已读取项目的本地编辑单；实际保存按标题和事务忙状态禁用，模态框阻止背后重复操作。"
+      },
       "plannedTestPath": "tests/e2e/project-library.spec.ts",
       "review": "待审查"
     },
@@ -863,7 +907,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "复制入口只打开已读取项目的确认单；实际复制按有效标题和事务忙状态禁用，不复制自动执行队列。"
+      },
       "plannedTestPath": "tests/e2e/project-library.spec.ts",
       "review": "待审查"
     },
@@ -880,6 +926,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-action-contracts.spec.ts::T44 P06/P07 favorite and archive toggle independently, survive reload and leave creative graphs and original tracking intact",
           "facets": [
@@ -925,6 +984,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/project-action-contracts.spec.ts::T44 P06/P07 favorite and archive toggle independently, survive reload and leave creative graphs and original tracking intact",
           "facets": [
             "normal",
@@ -968,6 +1040,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-library.spec.ts::T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked",
           "facets": [
@@ -1050,6 +1135,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/project-library.spec.ts::T12-C05: search, view changes and multi-select retain exact selection scope",
           "facets": [
             "normal",
@@ -1095,6 +1193,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/interaction-contracts.spec.ts::T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request",
           "facets": [
             "normal",
@@ -1131,6 +1242,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/project-preferences.spec.ts::T44 P12/P13 each denied native project-view preference save retains the last saved sorting and layout with no creative mutation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/project-library.spec.ts::T12-C05: search, view changes and multi-select retain exact selection scope",
           "facets": [
             "normal",
@@ -1164,6 +1288,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/project-preferences.spec.ts::T44 P12/P13 each denied native project-view preference save retains the last saved sorting and layout with no creative mutation",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/project-library.spec.ts::T12-C05: search, view changes and multi-select retain exact selection scope",
           "facets": [
@@ -1211,6 +1348,18 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/project-details-faults.spec.ts::T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            2
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist",
           "facets": [
             "normal",
@@ -1224,7 +1373,8 @@
         }
       ],
       "notApplicable": {
-        "disabled": "这是始终可访问的本地导航、只读检查或界面控件；保存、收费和写权限制在各自实际提交控件中验证。"
+        "disabled": "这是始终可访问的本地导航、只读检查或界面控件；保存、收费和写权限制在各自实际提交控件中验证。",
+        "persistence": "项目详情是对已保存项目、图、素材和备份回执的只读汇总，弹窗开闭没有独立持久化字段。"
       },
       "plannedTestPath": "tests/e2e/project-library.spec.ts",
       "review": "待审查"
@@ -1323,6 +1473,18 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/canvas-viewport.spec.ts::T13 navigation: quota failure retains draft and blocks browser Back until explicit discard",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            28
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection",
           "facets": [
@@ -1798,6 +1960,45 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C12 trusted clipboard URL paste creates editable local text and saves it without fetching the pasted address",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            10
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C12 trusted URL paste native quota retains the saved graph and exposes a recoverable local draft without fetching or submitting",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C12 another actual writer blocks trusted text paste with the original graph and execution records intact",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            12
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/canvas-viewport.spec.ts::T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
           "facets": [
             "normal",
@@ -1855,6 +2056,20 @@
             8
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-history-faults.spec.ts::T44 C13 actual native history quota abort retains the original graph and receipts, then retries the same local history without generation",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "实际本地重命名生成真实历史后，撤销或重做原生图事务失败保留图、项目、全部旧回执和Run，原操作可明确重试，无生成。"
         }
       ],
       "notApplicable": {},
@@ -1899,6 +2114,20 @@
             8
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-history-faults.spec.ts::T44 C14 actual native history quota abort retains the original graph and receipts, then retries the same local history without generation",
+          "facets": [
+            "disabled",
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            4
+          ],
+          "scope": "实际本地重命名生成真实历史后，撤销或重做原生图事务失败保留图、项目、全部旧回执和Run，原操作可明确重试，无生成。"
         }
       ],
       "notApplicable": {},
@@ -2197,6 +2426,19 @@
             21
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-02 native write failure while renaming a node rolls back creative changes and cannot submit",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            19
+          ],
+          "scope": "实际目标控件提交遭原生事务配额异常：图回滚、内存稿保留、无业务写入。"
         }
       ],
       "notApplicable": {},
@@ -2290,7 +2532,8 @@
         }
       ],
       "notApplicable": {
-        "persistence": "内部结构剪贴板仅保存在当前标签页内存；复制不产生独立持久化数据，粘贴的实际保存由N-04检查。"
+        "persistence": "内部结构剪贴板仅保存在当前标签页内存；复制不产生独立持久化数据，粘贴的实际保存由N-04检查。",
+        "error": "结构复制只将当前经过Schema验证的JSON节点与内部引用放入本标签内存；不访问系统剪贴板、数据库或远端。"
       },
       "plannedTestPath": "tests/e2e/canvas-layout.spec.ts",
       "review": "待审查"
@@ -3046,7 +3289,9 @@
         }
       ],
       "notApplicable": {
-        "persistence": "右键菜单只显示当前选区的操作入口，不保存菜单开闭和焦点状态；实际写入由所选命令负责。"
+        "persistence": "右键菜单只显示当前选区的操作入口，不保存菜单开闭和焦点状态；实际写入由所选命令负责。",
+        "disabled": "上下文菜单在只读画布仍允许打开浏览；其中各写入命令按写权和当前选择分别禁用。",
+        "error": "此入口只同步读取已加载节点ID与选区并显示菜单，没有存储、网络、剪贴板或文件操作。"
       },
       "plannedTestPath": "tests/e2e/canvas-layout.spec.ts",
       "review": "待审查",
@@ -3384,7 +3629,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "error": "该按钮只把已验证为非空且不超过64KiB的文本传给本地提示词编辑单；入库保存失败由编辑单的L-01保存入口报告。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -3940,7 +4187,11 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "素材类型筛选始终可对已加载素材使用，无原Key或项目写权时仍允许浏览。",
+        "error": "类型筛选只在已读取的素材列表中按固定类型值过滤，不读写文件、数据库或远端。",
+        "persistence": "素材筛选为当前页面状态，离开后恢复全部类型，不保存到素材身份或创作版本。"
+      },
       "plannedTestPath": "tests/e2e/asset-library.spec.ts",
       "review": "待审查"
     },
@@ -3975,7 +4226,11 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "列表和网格按钮始终用于本页显示，无授权或只读状态也可切换。",
+        "error": "素材视图切换只更新组件显示模式，不读写本地存储、文件、网络或执行数据。",
+        "persistence": "素材网格/列表是当前素材库页面的临时显示模式，离开后恢复默认网格；不保存独立偏好。"
+      },
       "plannedTestPath": "tests/e2e/asset-library.spec.ts",
       "review": "待审查"
     },
@@ -4010,7 +4265,10 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "素材详情始终可查看，包括缺失文件、未知来源或未核验规格；下载、重关联和修改分别检查条件。",
+        "persistence": "素材详情开闭与引用列表为当前页面的只读展示，不保存独立字段；原素材身份、来源和引用由各保存入口管理。"
+      },
       "plannedTestPath": "tests/e2e/asset-library.spec.ts",
       "review": "待审查"
     },
@@ -5383,7 +5641,10 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "四维筛选始终可调整以查看本地记录，不要求原Key；读取失败显示本地失败状态，筛选不提交任务。",
+        "persistence": "任务筛选为当前任务列表临时状态，重新打开恢复默认全部未归档记录，不保存自动查询范围。"
+      },
       "plannedTestPath": "tests/e2e/task-center.spec.ts",
       "review": "待审查"
     },
@@ -5413,7 +5674,11 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "本地历史详情始终可查看，包括缺少节点、授权或文件的记录；查询、下载及恢复由详情内各入口守卫。",
+        "error": "详情按钮只选择当前列表中已读取的原记录并显示其快照；异步查询和内容获取在各独立入口报告错误。",
+        "persistence": "详情开闭和选中项为当前页面状态，没有单独持久化字段；原执行记录在只读查看过程中保持原样。"
+      },
       "plannedTestPath": "tests/e2e/task-center.spec.ts",
       "review": "待审查"
     },
@@ -5468,7 +5733,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "error": "定位按钮只导航到当前已知原项目和节点的本地地址；节点缺失时禁用，不请求Core或重建原节点。"
+      },
       "plannedTestPath": "tests/e2e/task-center.spec.ts",
       "review": "待审查"
     },
@@ -5691,7 +5958,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "该核对入口仅在原记录为提交中或提交未知时显示；出现时始终允许打开，不代表允许重新提交。"
+      },
       "plannedTestPath": "tests/unit/video-submit.test.ts",
       "review": "待审查"
     },
@@ -5797,7 +6066,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "编辑入口只打开已读取的本地条目；正文和名称校验、存储和版本冲突在编辑单保存入口统一检查。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -5841,7 +6112,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "删除入口始终可预览本地引用与确认单，远端授权缺失不妨碍本地管理；实际删除在确认单明确选择。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -5872,7 +6145,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "收藏仅保存本地提示词元数据，不需要项目或Core授权；版本和存储失败明确保留旧条目。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -5902,7 +6177,11 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "提示词搜索始终可在已加载条目中使用，包括空库、离线或只读项目；不会调用远端来源。",
+        "error": "搜索只对已加载提示词名称、正文和标签做本地匹配，输入作为文本处理，不解析代码或写存储。",
+        "persistence": "搜索词为当前提示词库临时状态，离开清空，不保存为条目、执行记录或自动抓取条件。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -5932,7 +6211,11 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "详情入口显示已读取条目的正文和来源信息，包括未知许可；不需要项目写权或Core授权。",
+        "error": "该详情仅展示当前已加载条目，正文作为文本渲染，没有额外读取数据库、外链或执行脚本。",
+        "persistence": "详情开闭和所选条目为当前页面状态，不单独保存；提示词内容和许可元数据由条目保存入口管理。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -6084,7 +6367,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "导入JSON入口始终允许选择本地文件；文件格式、大小和条目校验在预检中拒绝无效内容，尚不入库。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -6145,7 +6430,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "来源管理始终允许查看本地来源状态，当前不自动联网抓取，来源读写失败单独明确报告。"
+      },
       "plannedTestPath": "tests/e2e/prompt-library.spec.ts",
       "review": "待审查"
     },
@@ -6260,7 +6547,10 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "创作权限下拉只调整尚未授予的确认参数，始终可在只读与允许提案之间选择；最终授予另有写权和全项目准入。",
+        "error": "权限选择同步修改待确认参数，不向中继提交授权；实际授予失败由A-02确认按钮报告。"
+      },
       "plannedTestPath": "tests/unit/agent-relay.test.ts",
       "review": "待审查"
     },
@@ -6337,7 +6627,10 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "上下文预览始终可在选区、指定节点和项目范围之间选择，不代表已发送或授予全项目权限。",
+        "error": "范围下拉只在已加载图内计算预览节点集合；刷新上下文读取失败与授予授权失败由各实际入口报告。"
+      },
       "plannedTestPath": "tests/e2e/agent-panel.spec.ts",
       "review": "待审查"
     },
@@ -6640,7 +6933,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "新本地会话始终允许主动创建，不要求模型宿主或Core授权；保存失败显示并保留原创作记录。"
+      },
       "plannedTestPath": "tests/e2e/agent-panel.spec.ts",
       "review": "待审查"
     },
@@ -7303,22 +7598,11 @@
             7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
-        },
-        {
-          "testId": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
-          "facets": [
-            "error",
-            "persistence",
-            "sideEffect"
-          ],
-          "expectedCoreWrites": 0,
-          "assertionLines": [
-            11
-          ],
-          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "默认文字模型始终可清空，未核验时不允许选入目录之外模型；下拉选择本身不需要执行授权。"
+      },
       "plannedTestPath": "tests/unit/text-optimization.test.ts",
       "review": "待审查"
     },
@@ -7335,6 +7619,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            10
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
           "facets": [
@@ -7360,22 +7657,11 @@
             13
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
-        },
-        {
-          "testId": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
-          "facets": [
-            "error",
-            "persistence",
-            "sideEffect"
-          ],
-          "expectedCoreWrites": 0,
-          "assertionLines": [
-            11
-          ],
-          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "默认视频模型始终可清空，未核验的旧值明确标记保留；该设置不改变已有节点或生成任务。"
+      },
       "plannedTestPath": "tests/e2e/storage-settings.spec.ts",
       "review": "待审查"
     },
@@ -7437,6 +7723,31 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution",
+          "facets": [
+            "error",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            12
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B04 actual unavailable-capability display preference persists across reload without enabling any generation",
+          "facets": [
+            "normal",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            13
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/optional-capabilities.spec.ts::T43 actual capability explanation opens with no media generation, admin route or network side effect",
           "facets": [
@@ -7514,6 +7825,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            11
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/capability-detail-contracts.spec.ts::T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved",
           "facets": [
             "normal",
@@ -7570,6 +7894,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 S01-S04/S06 each actual preference save denial keeps the native preferences and creative data while preserving usable session display",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs",
           "facets": [
             "normal",
@@ -7602,6 +7939,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 S01-S04/S06 each actual preference save denial keeps the native preferences and creative data while preserving usable session display",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs",
           "facets": [
@@ -7636,6 +7986,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 S01-S04/S06 each actual preference save denial keeps the native preferences and creative data while preserving usable session display",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs",
           "facets": [
             "normal",
@@ -7668,6 +8031,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 S01-S04/S06 each actual preference save denial keeps the native preferences and creative data while preserving usable session display",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-coverage.spec.ts::T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs",
           "facets": [
@@ -7735,6 +8111,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/local-preference-faults.spec.ts::T44 S01-S04/S06 each actual preference save denial keeps the native preferences and creative data while preserving usable session display",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/storage-settings.spec.ts::T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography",
           "facets": [
@@ -7830,6 +8219,32 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation",
+          "facets": [
+            "disabled",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            3
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
+          "testId": "tests/e2e/dialog-busy-contracts.spec.ts::T44 D03 actual immediate save native quota retains latest editable text, original graph and Run without pretending persistence succeeded",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            5
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/interaction-contracts.spec.ts::T44 G06/D03 immediate save reads actual commit status and flushes current text without charging",
           "facets": [
@@ -8436,7 +8851,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "活动项目ID筛选始终可调整，仅读取当前浏览器诊断记录，包含无Core授权时。"
+      },
       "plannedTestPath": "tests/e2e/recovery-diagnostics.spec.ts",
       "review": "待审查"
     },
@@ -8467,7 +8884,10 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "已读取活动的脱敏摘要始终允许查看，不要求原Key，也不代表获得远端账务权限。",
+        "error": "详情只显示已经读出的脱敏活动对象并生成静态恢复链接，没有异步读写或外部请求。"
+      },
       "plannedTestPath": "tests/e2e/recovery-diagnostics.spec.ts",
       "review": "待审查"
     },
@@ -8801,7 +9221,7 @@
       "sources": [
         {
           "file": "src/features/canvas/CanvasPage.tsx",
-          "anchor": "!lease?"
+          "anchor": "!lease&&!permanentReadonlyReason?"
         },
         {
           "file": "src/features/canvas/CanvasPage.tsx",
@@ -9082,7 +9502,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "恢复诊断导出始终可主动请求，无Key也可导出本地脱敏记录；读取或下载失败显示明确提示。"
+      },
       "plannedTestPath": "tests/e2e/recovery-diagnostics.spec.ts",
       "review": "待审查"
     },
@@ -9481,7 +9903,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "从文本或视频草稿打开本地提示词面板始终可整理需求；文字优化及视频生成的授权和收费守卫各自独立。"
+      },
       "plannedTestPath": "tests/e2e/prompt-workspace.spec.ts",
       "review": "待审查"
     },
@@ -9542,6 +9966,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
           "facets": [
             "normal",
@@ -9589,6 +10026,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
           "facets": [
@@ -9680,7 +10130,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "提示词库选择始终允许打开本地条目列表；导入需求仍按64KiB输入与保存检查，不请求远端来源。"
+      },
       "plannedTestPath": "tests/e2e/prompt-workspace.spec.ts",
       "review": "待审查"
     },
@@ -9855,6 +10307,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
           "facets": [
             "normal",
@@ -9902,6 +10367,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
           "facets": [
             "normal",
@@ -9947,6 +10425,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            17
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
           "facets": [
@@ -10027,6 +10518,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG14/PG16/PG22/PG29/PG32 native manual-output quota preserves the old result and blocks compile, navigation, application and clear until the draft is saved",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-workspace.spec.ts::T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh",
           "facets": [
             "normal",
@@ -10102,6 +10606,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG14/PG16/PG22/PG29/PG32 native manual-output quota preserves the old result and blocks compile, navigation, application and clear until the draft is saved",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-output-contracts.spec.ts::T44 PG16 connection navigation saves current input first and never sends a test chat",
           "facets": [
@@ -10294,7 +10811,6 @@
         {
           "testId": "tests/e2e/prompt-result-parser.spec.ts::T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request",
           "facets": [
-            "error",
             "persistence",
             "sideEffect"
           ],
@@ -10318,7 +10834,10 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "结果差异检查只展示现有结果、来源和参数，对未绑定目标或只读来源也允许查看。",
+        "error": "此按钮同步展示已加载AI结果的文本差异与规格字段，不选择结果、写入目标或发送请求。"
+      },
       "plannedTestPath": "tests/e2e/prompt-result-parser.spec.ts",
       "review": "待审查"
     },
@@ -10336,6 +10855,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG14/PG16/PG22/PG29/PG32 native manual-output quota preserves the old result and blocks compile, navigation, application and clear until the draft is saved",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-workspace.spec.ts::T21-C04: editing output persists a new manual result and invalidates previous checks",
           "facets": [
             "normal",
@@ -10349,7 +10881,9 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
       ],
-      "notApplicable": {},
+      "notApplicable": {
+        "disabled": "最终正文始终可手动编辑，AI响应作为独立候选保留；编辑会使检查过期，应用、保存和收费由各独立入口检查。"
+      },
       "plannedTestPath": "tests/unit/prompt-drafts.test.ts",
       "review": "待审查"
     },
@@ -10639,6 +11173,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG14/PG16/PG22/PG29/PG32 native manual-output quota preserves the old result and blocks compile, navigation, application and clear until the draft is saved",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
+        {
           "testId": "tests/e2e/prompt-canvas-commands.spec.ts::T22-C02: applying previews old/new text and rejects a revision changed after preview",
           "facets": [
             "normal",
@@ -10744,6 +11291,19 @@
         }
       ],
       "proofs": [
+        {
+          "testId": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG14/PG16/PG22/PG29/PG32 native manual-output quota preserves the old result and blocks compile, navigation, application and clear until the draft is saved",
+          "facets": [
+            "error",
+            "persistence",
+            "sideEffect"
+          ],
+          "expectedCoreWrites": 0,
+          "assertionLines": [
+            18
+          ],
+          "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
+        },
         {
           "testId": "tests/e2e/prompt-workspace.spec.ts::T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version",
           "facets": [

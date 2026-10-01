@@ -1,0 +1,12 @@
+[WebServer] (node:11676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-field-contracts.spec.ts:17:1 › T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request (2.0s)
+
+  1 passed (5.0s)

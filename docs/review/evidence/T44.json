@@ -1,6 +1,6 @@
 {
   "taskId": "T44",
-  "status": "实施中：260项交互均有实际证据，完整状态98项通过、269条缺口；待统一验收与独立审查",
+  "status": "实施中：313项浏览器回归全部通过；完整状态142项通过、176条缺口；待统一验收与独立审查",
   "baseCommit": "6d8e5b5f56c9151dbc79fe76c3de96c0971cbdfd",
   "headCommit": null,
   "branch": "feat/aiwork-studio",
@@ -19,8 +19,8 @@
     "interactionsWithSomeProof": 260,
     "pagesWithSomeProof": 23,
     "dialogsWithSomeProof": 30,
-    "interactionsAllFacetsPassed": 98,
-    "coverageErrors": 269,
+    "interactionsAllFacetsPassed": 142,
+    "coverageErrors": 176,
     "allFacetsPassed": false
   },
   "commands": [
@@ -277,6 +277,102 @@
       "passed": 98,
       "coverageErrors": 269,
       "limitation": "状态缺口保持阻断；没有用部分通过伪装全量验收。"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-checkpoint6-typecheck.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-checkpoint6-lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-checkpoint6-build.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "logPath": "docs/review/logs/T44-checkpoint6-unit.log",
+      "passed": 379,
+      "failed": 0,
+      "skipped": 0,
+      "files": 50
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-preferences-all-green.log",
+      "results": "docs/review/logs/T44-preferences-all-green-results.json"
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-project-detail-busy-green.log",
+      "results": "docs/review/logs/T44-project-detail-busy-green-results.json"
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-prompt-field-fault.log",
+      "results": "docs/review/logs/T44-prompt-field-fault-results.json"
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-prompt-manual-quota.log",
+      "results": "docs/review/logs/T44-prompt-manual-quota-results.json"
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-trusted-url-paste.log",
+      "results": "docs/review/logs/T44-trusted-url-paste-results.json"
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-history-receipts-final.log",
+      "results": "docs/review/logs/T44-history-receipts-final-results.json"
+    },
+    {
+      "command": "Playwright targeted actual browser contracts with native storage and network guard",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-immediate-save-final.log",
+      "results": "docs/review/logs/T44-immediate-save-final-results.json"
+    },
+    {
+      "command": "Playwright full browser regression; STUDIO_TEST_BROWSER=chromium",
+      "exitCode": 0,
+      "passed": 313,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T44-checkpoint6-full-browser.log",
+      "results": "docs/review/logs/T44-checkpoint6-full-results.json"
     }
   ],
   "implemented": [
@@ -301,16 +397,17 @@
     "docs/review/screenshots/T44-viewport-preference-fault.png"
   ],
   "limitations": [
-    "T44全量逐项行为追踪未齐，不提前进入T45",
-    "T45–T50未开始",
-    "真实Core/付费/外部模型宿主/发布/推送未授权或未核验",
-    "完整视觉与独立审查统一留给用户，前端标识许可发布门槛未解决",
-    "229项交互只有部分状态证据，当前完整五类状态通过35项，覆盖门槛仍有528条错误；T44未完成。",
-    "23页面与30弹窗均已关联实际测试，但这不表示用户视觉验收或独立审查完成。"
+    "T44严格状态覆盖仍受阻：142项完整状态通过，176条缺口；260项正常操作均有实际证据。",
+    "T45–T50尚未开始，继续顺序实施；不得以部分证据将T44标为完成。",
+    "真实Core、付费、外部模型宿主及部署尚未授权或未核验；后续仅完成已授权本地工作。",
+    "用户统一验收、全视觉与独立审查待进行；前端标识许可仍为发布门槛。",
+    "构建通过但约842kB主包大于500kB警告，T46需代码拆分，不提高警告上限。"
   ],
-  "next": "继续T44剩余31项正常交互及已关联交互的缺失状态，完成后按原顺序继续T45–T50；不得将覆盖受阻标为自检通过。",
+  "next": "继续补齐T44的176条状态缺口；313项最新全量浏览器已退出0。完成严格门槛后顺序T45–T50，保留用户统一验收、独立审查与许可门槛。",
   "files": [
+    "docs/review/EXECUTION_PROGRESS.md",
     "docs/review/IMPLEMENTATION_STATUS.json",
+    "docs/review/NEXT_STEPS.md",
     "docs/review/coverage-report.json",
     "docs/review/evidence/T43.json",
     "docs/review/evidence/T44.json",
@@ -345,8 +442,16 @@
     "docs/review/logs/T44-checkpoint4-build.log",
     "docs/review/logs/T44-checkpoint4-coverage.log",
     "docs/review/logs/T44-checkpoint4-lint.log",
+    "docs/review/logs/T44-checkpoint4-stage.log",
     "docs/review/logs/T44-checkpoint4-typecheck.log",
     "docs/review/logs/T44-checkpoint4-unit.log",
+    "docs/review/logs/T44-checkpoint5-coverage.log",
+    "docs/review/logs/T44-checkpoint6-build.log",
+    "docs/review/logs/T44-checkpoint6-coverage.log",
+    "docs/review/logs/T44-checkpoint6-full-browser.log",
+    "docs/review/logs/T44-checkpoint6-lint.log",
+    "docs/review/logs/T44-checkpoint6-typecheck.log",
+    "docs/review/logs/T44-checkpoint6-unit.log",
     "docs/review/logs/T44-cleanup-scope-green.log",
     "docs/review/logs/T44-cleanup-scope-red.log",
     "docs/review/logs/T44-cleanup-stale-withdrawal-red.log",
@@ -381,6 +486,8 @@
     "docs/review/logs/T44-current-lint.log",
     "docs/review/logs/T44-current-typecheck.log",
     "docs/review/logs/T44-current-unit.log",
+    "docs/review/logs/T44-defaults-all-save-red-results.json",
+    "docs/review/logs/T44-defaults-all-save-red.log",
     "docs/review/logs/T44-dialog-lifecycle-results.json",
     "docs/review/logs/T44-dialog-lifecycle.log",
     "docs/review/logs/T44-entries-navigation-batch-results.json",
@@ -396,7 +503,13 @@
     "docs/review/logs/T44-final-typecheck.log",
     "docs/review/logs/T44-full-browser-results.json",
     "docs/review/logs/T44-full-browser.log",
+    "docs/review/logs/T44-history-quota-results.json",
+    "docs/review/logs/T44-history-quota.log",
+    "docs/review/logs/T44-history-receipts-final-results.json",
+    "docs/review/logs/T44-history-receipts-final.log",
     "docs/review/logs/T44-identities.log",
+    "docs/review/logs/T44-immediate-save-final-results.json",
+    "docs/review/logs/T44-immediate-save-final.log",
     "docs/review/logs/T44-import-agent-menu-green-results.json",
     "docs/review/logs/T44-import-agent-menu-green.log",
     "docs/review/logs/T44-import-agent-menu-results.json",
@@ -451,8 +564,20 @@
     "docs/review/logs/T44-paste-agent-final.log",
     "docs/review/logs/T44-preference-red-results.json",
     "docs/review/logs/T44-preference-valid-red.log",
+    "docs/review/logs/T44-preferences-all-green-results.json",
+    "docs/review/logs/T44-preferences-all-green.log",
+    "docs/review/logs/T44-project-defaults-state-results.json",
+    "docs/review/logs/T44-project-defaults-state.log",
+    "docs/review/logs/T44-project-detail-busy-green-results.json",
+    "docs/review/logs/T44-project-detail-busy-green.log",
+    "docs/review/logs/T44-project-detail-red-results.json",
+    "docs/review/logs/T44-project-detail-red.log",
     "docs/review/logs/T44-project-write-final-results.json",
     "docs/review/logs/T44-project-write-final.log",
+    "docs/review/logs/T44-prompt-field-fault-results.json",
+    "docs/review/logs/T44-prompt-field-fault.log",
+    "docs/review/logs/T44-prompt-manual-quota-results.json",
+    "docs/review/logs/T44-prompt-manual-quota.log",
     "docs/review/logs/T44-prompt-mode-final-results.json",
     "docs/review/logs/T44-prompt-mode-final.log",
     "docs/review/logs/T44-prompt-mode-fixed-results.json",
@@ -523,6 +648,8 @@
     "docs/review/logs/T44-tools.log",
     "docs/review/logs/T44-trace-green.log",
     "docs/review/logs/T44-trace-red.log",
+    "docs/review/logs/T44-trusted-url-paste-results.json",
+    "docs/review/logs/T44-trusted-url-paste.log",
     "docs/review/logs/T44-typecheck-entries.log",
     "docs/review/logs/T44-typecheck-fourth.log",
     "docs/review/logs/T44-typecheck-identified.log",
@@ -539,6 +666,27 @@
     "docs/review/logs/T44-welcome-red.log",
     "docs/review/logs/T44-welcome-results.json",
     "docs/review/logs/T44-withdrawal-native-red.log",
+    "docs/review/screenshots/T03-bootstrap.png",
+    "docs/review/screenshots/T07-local-import.png",
+    "docs/review/screenshots/T12-project-library.png",
+    "docs/review/screenshots/T13-canvas.png",
+    "docs/review/screenshots/T15-layout-preview.png",
+    "docs/review/screenshots/T16-asset-library.png",
+    "docs/review/screenshots/T26-generation-confirm.png",
+    "docs/review/screenshots/T37-connection.png",
+    "docs/review/screenshots/T37-storage.png",
+    "docs/review/screenshots/T40-proposal.png",
+    "docs/review/screenshots/T40-review-dialog.png",
+    "docs/review/screenshots/T41-mcp-confirmation.png",
+    "docs/review/screenshots/T41-mcp-confirmed.png",
+    "docs/review/screenshots/T41-revoked-confirmation.png",
+    "docs/review/screenshots/T42-applied-proposal.png",
+    "docs/review/screenshots/T42-disconnected.png",
+    "docs/review/screenshots/T42-light-1024.png",
+    "docs/review/screenshots/T42-light-390.png",
+    "docs/review/screenshots/T42-readonly-proposal.png",
+    "docs/review/screenshots/T42-unconnected.png",
+    "docs/review/screenshots/T43-media-gate.png",
     "docs/review/screenshots/T44-comparison.png",
     "docs/review/screenshots/T44-invalid-text-dialog.png",
     "docs/review/screenshots/T44-native-paste.png",
@@ -591,7 +739,6 @@
     "docs/review/screenshots/T44-text-ai-entry.png",
     "docs/review/screenshots/T44-viewport-preference-fault.png",
     "docs/review/state-applicability.json",
-    "ocs/review/EXECUTION_PROGRESS.md",
     "package.json",
     "playwright.config.ts",
     "scripts/check-traceability.mjs",
@@ -671,6 +818,7 @@
     "src/ui/tokens.css",
     "tests/e2e/agent-bulk-contracts.spec.ts",
     "tests/e2e/asset-deletion-contract.spec.ts",
+    "tests/e2e/canvas-history-faults.spec.ts",
     "tests/e2e/canvas-mutation-failures.spec.ts",
     "tests/e2e/canvas-native-paste-contracts.spec.ts",
     "tests/e2e/canvas-run-menu-contracts.spec.ts",
@@ -687,10 +835,13 @@
     "tests/e2e/interaction-contracts.spec.ts",
     "tests/e2e/interaction-coverage.spec.ts",
     "tests/e2e/local-cleanup.spec.ts",
+    "tests/e2e/local-preference-faults.spec.ts",
     "tests/e2e/missing-entry-contracts.spec.ts",
     "tests/e2e/navigation-memory.spec.ts",
     "tests/e2e/navigation-storage-faults.spec.ts",
     "tests/e2e/project-action-contracts.spec.ts",
+    "tests/e2e/project-busy-contracts.spec.ts",
+    "tests/e2e/project-details-faults.spec.ts",
     "tests/e2e/project-preferences.spec.ts",
     "tests/e2e/project-write-contracts.spec.ts",
     "tests/e2e/prompt-candidate-contracts.spec.ts",
@@ -719,7 +870,7 @@
     "tests/unit/network-evidence.test.ts",
     "tests/unit/queue-withdrawal.test.ts"
   ],
-  "checkpointBeforeCommit": "c6e01be452f130190ab29708ee00066aa14fb9ae",
+  "checkpointBeforeCommit": "139c63a5689496a3193ddfee79fc32089b88ef2b",
   "screenshotInspection": {
     "inspected": [
       "docs/review/screenshots/T44-comparison.png",
@@ -757,5 +908,47 @@
     "nativeCommitHold": "仅延迟已真实提交IDBTransaction的原生oncomplete事件传递；无伪造IDB、虚构提交或人为UI忙状态。",
     "realApiVerified": false,
     "modelHostVerified": false
+  },
+  "checkpoint6": {
+    "sourceChanges": [
+      "默认视频模型、规格与未开放能力展示偏好保存失败统一提示",
+      "项目详情只读失败明确报告读取错误，不再误报名称非法"
+    ],
+    "validRedLogs": [
+      "docs/review/logs/T44-defaults-all-save-red.log（3项实际失败）",
+      "docs/review/logs/T44-project-detail-red.log（1项实际失败）"
+    ],
+    "invalidRun": "T44-project-defaults-state的初始项目忙测试截获租约获取事务，误以为已提交收藏；改为截获真实图与项目事务后重新通过，不算产品行为红灯。",
+    "checks": {
+      "typecheck": 0,
+      "lint": 0,
+      "build": 0,
+      "unit": {
+        "exitCode": 0,
+        "passed": 379,
+        "failed": 0,
+        "skipped": 0,
+        "files": 50
+      }
+    },
+    "browserFullRun": {
+      "plannedTests": 313,
+      "status": "passed",
+      "log": "docs/review/logs/T44-checkpoint6-full-browser.log",
+      "results": "docs/review/logs/T44-checkpoint6-full-results.json",
+      "exitCode": 0,
+      "passed": 313,
+      "failed": 0,
+      "skipped": 0
+    },
+    "coverage": {
+      "exitCode": 1,
+      "passed": 142,
+      "errors": 176,
+      "log": "docs/review/logs/T44-checkpoint6-full-coverage.log"
+    },
+    "screenshotInspected": "docs/review/screenshots/T44-native-paste.png",
+    "userVisualApproval": false,
+    "independentReview": false
   }
 }

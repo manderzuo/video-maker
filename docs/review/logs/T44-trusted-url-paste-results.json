@@ -1,0 +1,235 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C12 trusted clipboard URL paste creates editable local text and saves it without fetching the pasted address",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C12 trusted clipboard URL paste creates editable local text and saves it without fetching the pasted address",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 254,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 502
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 517
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 580
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 740
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 773
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 879
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 956
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 1065
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 10,
+          "column": 1117
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 179,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 288,
+          "function": "pasteIntoCanvas"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C12 trusted URL paste native quota retains the saved graph and exposes a recoverable local draft without fetching or submitting",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C12 trusted URL paste native quota retains the saved graph and exposes a recoverable local draft without fetching or submitting",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 11,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 254,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 11,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 11,
+          "column": 808
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 11,
+          "column": 1041
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 11,
+          "column": 1140
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 11,
+          "column": 1192
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 179,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 288,
+          "function": "pasteIntoCanvas"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-native-paste-contracts.spec.ts::T44 C12 another actual writer blocks trusted text paste with the original graph and execution records intact",
+      "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+      "title": "T44 C12 another actual writer blocks trusted text paste with the original graph and execution records intact",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 12,
+          "column": 421
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 254,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 12,
+          "column": 653
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 12,
+          "column": 694
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 12,
+          "column": 746
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 179,
+          "function": "pasteIntoCanvas"
+        },
+        {
+          "file": "tests/e2e/canvas-native-paste-contracts.spec.ts",
+          "line": 5,
+          "column": 288,
+          "function": "pasteIntoCanvas"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,350 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+      "file": "tests/e2e/prompt-field-contracts.spec.ts",
+      "title": "T44 PG04/PG05/PG10/PG11/PG12 each actual field mutation facing native draft quota preserves the last saved source, history and user input without any request",
+      "status": "passed",
+      "assertions": 47,
+      "actions": 18,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1329
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1374
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1901
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 2009
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 2055
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 2118
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 2168
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 2220
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1091
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1811
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 17,
+          "column": 1893
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

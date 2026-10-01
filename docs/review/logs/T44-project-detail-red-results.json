@@ -1,0 +1,40 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/project-details-faults.spec.ts::T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact",
+      "file": "tests/e2e/project-details-faults.spec.ts",
+      "title": "T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 392
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1260
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 222
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 10,
+          "column": 461
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 221
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 313
+        },
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 11,
+          "column": 538
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/capability-detail-contracts.spec.ts::T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution",
+      "file": "tests/e2e/capability-detail-contracts.spec.ts",
+      "title": "T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/capability-detail-contracts.spec.ts",
+          "line": 12,
+          "column": 380
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

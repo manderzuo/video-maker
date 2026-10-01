@@ -1,0 +1,52 @@
+[WebServer] (node:18048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:26112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\capability-detail-contracts.spec.ts:3:1 › T44 B03 native verification evidence read failure is explicit and cannot erase saved capabilities or task records (1.3s)
+  ok  2 tests\e2e\capability-detail-contracts.spec.ts:6:1 › T44 B03 readable capability details show the actual evidence and verification time, preserve native data and remain unknown after authorization is cleared (1.2s)
+  ok  3 tests\e2e\capability-detail-contracts.spec.ts:7:1 › T44 B01/B02/B06 actual reviewed defaults persist for future drafts; denied browser preference storage is explicit and source data is preserved (1.2s)
+  ok  4 tests\e2e\capability-detail-contracts.spec.ts:8:1 › T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation (1.2s)
+  ok  5 tests\e2e\capability-detail-contracts.spec.ts:10:1 › T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project (1.2s)
+  ok  6 tests\e2e\capability-detail-contracts.spec.ts:11:1 › T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project (1.2s)
+  ok  7 tests\e2e\capability-detail-contracts.spec.ts:12:1 › T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution (1.2s)
+  ok  8 tests\e2e\capability-detail-contracts.spec.ts:13:1 › T44 B04 actual unavailable-capability display preference persists across reload without enabling any generation (1.6s)
+  x   9 tests\e2e\project-busy-contracts.spec.ts:2:1 › T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions (1.2s)
+(node:8468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 10 tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient (1.7s)
+  ok 11 tests\e2e\project-preferences.spec.ts:5:1 › T44 P12/P13 each denied native project-view preference save retains the last saved sorting and layout with no creative mutation (1.6s)
+
+
+  1) tests\e2e\project-busy-contracts.spec.ts:2:1 › T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mundefined[39m
+
+      1 | import{test,expect}from'../helpers/network-guard';import{holdNextNativeCommit,nativeCommitProbe,releaseNativeCommit}from'../helpers/native-commit-hold';
+    > 2 | test('T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions',async({page,networkCounter})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.reload();const card=page.getByTestId('project-p1');await card.getByRole('checkbox').check();await holdNextNativeCommit(page,'projects');await card.getByRole('button',{name:'收藏',exact:true}).click();await expect.poll(async()=>(await nativeCommitProbe(page))?.nativeCommitted).toBe(true);for(const name of['收藏','归档','移入回收站'])await expect(card.getByRole('button',{name,exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'批量归档',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'批量导出所选项目',exact:true})).toBeDisabled();const saved=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['projects','graphs','runs'],'readonly',async(tx:IDBTransaction)=>({project:await m.requestResult(tx.objectStore('projects').get('p1')),graph:await m.requestResult(tx.objectStore('graphs').get('p1')),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});expect(saved.project.starred).toBe(true);expect(saved.graph.revision).toBe(2);expect(saved.graph.nodes.map((n:{title:string})=>n.title)).toEqual(['确认正文','确认视频']);expect(saved.runs).toHaveLength(0);await releaseNativeCommit(page);await expect(card.getByRole('button',{name:'取消收藏',exact:true})).toBeEnabled();await expect(page.getByRole('button',{name:'批量归档',exact:true})).toBeEnabled();expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+      3 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-busy-contracts.spec.ts:2:1406
+
+    Error Context: test-results\project-busy-contracts-T44-79c74--metadata-and-batch-actions\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-busy-contracts-T44-79c74--metadata-and-batch-actions\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-busy-contracts-T44-79c74--metadata-and-batch-actions\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\project-busy-contracts.spec.ts:2:1 › T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions 
+  10 passed (19.4s)

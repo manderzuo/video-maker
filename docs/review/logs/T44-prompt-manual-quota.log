@@ -1,0 +1,12 @@
+[WebServer] (node:23936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:11308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\prompt-field-contracts.spec.ts:18:1 › T44 PG14/PG16/PG22/PG29/PG32 native manual-output quota preserves the old result and blocks compile, navigation, application and clear until the draft is saved (1.8s)
+
+  1 passed (4.8s)

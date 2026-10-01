@@ -1,0 +1,258 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-history-faults.spec.ts::T44 C13 actual native history quota abort retains the original graph and receipts, then retries the same local history without generation",
+      "file": "tests/e2e/canvas-history-faults.spec.ts",
+      "title": "T44 C13 actual native history quota abort retains the original graph and receipts, then retries the same local history without generation",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 318
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 690
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 753
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1389
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1463
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1507
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1548
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1642
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1676
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1787
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1850
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1965
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 2043
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 610
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 682
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1319
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1779
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-history-faults.spec.ts::T44 C14 actual native history quota abort retains the original graph and receipts, then retries the same local history without generation",
+      "file": "tests/e2e/canvas-history-faults.spec.ts",
+      "title": "T44 C14 actual native history quota abort retains the original graph and receipts, then retries the same local history without generation",
+      "status": "passed",
+      "assertions": 17,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 318
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 395
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 690
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 753
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 846
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 909
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1389
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1463
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1507
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1548
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1642
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1676
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1787
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1850
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1965
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 2043
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 610
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 682
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 838
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1319
+        },
+        {
+          "file": "tests/e2e/canvas-history-faults.spec.ts",
+          "line": 4,
+          "column": 1779
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

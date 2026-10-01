@@ -1,0 +1,46 @@
+[WebServer] (node:10884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:21276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-details-faults.spec.ts:2:1 › T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact (6.3s)
+
+
+  1) tests\e2e\project-details-faults.spec.ts:2:1 › T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '项目详情', exact: true }).getByRole('alert')
+    Expected substring: [32m"本[7m地项目详情读取失败；原项目与执行记录保留[27m。"[39m
+    Received string:    [31m"本[7m次操作未保存。请检查名称为1–60字符，说明不超过500字符，或重试[27m。"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '项目详情', exact: true }).getByRole('alert')[22m
+    [2m    9 × locator resolved to <p role="alert">本次操作未保存。请检查名称为1–60字符，说明不超过500字符，或重试。</p>[22m
+    [2m      - unexpected value "本次操作未保存。请检查名称为1–60字符，说明不超过500字符，或重试。"[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+    > 2 | test('T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact',async({page,networkCounter})=>{await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.reload();const card=page.getByTestId('project-p1');await expect(card).toBeVisible();const before=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['projects','graphs','runs'],'readonly',async(tx:IDBTransaction)=>({projects:await m.requestResult(tx.objectStore('projects').getAll()),graphs:await m.requestResult(tx.objectStore('graphs').getAll()),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});await page.evaluate(()=>{const getAll=IDBObjectStore.prototype.getAll;let once=true;IDBObjectStore.prototype.getAll=function(...args:Parameters<typeof getAll>){if(once&&this.name==='projects'){once=false;throw new DOMException('native-project-detail-read','UnknownError');}return getAll.apply(this,args);};});await card.getByRole('button',{name:'详情',exact:true}).click();const dialog=page.getByRole('dialog',{name:'项目详情',exact:true});await expect(dialog.getByRole('alert')).toContainText('本地项目详情读取失败；原项目与执行记录保留。');await dialog.getByRole('button',{name:'关闭',exact:true}).click();await card.getByRole('button',{name:'详情',exact:true}).click();await expect(dialog).toContainText('测试项目');await expect(dialog.getByRole('alert')).toHaveCount(0);const after=await page.evaluate(async()=>{const d='/src/infrastructure/storage/database.ts',m=await import(d);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['projects','graphs','runs'],'readonly',async(tx:IDBTransaction)=>({projects:await m.requestResult(tx.objectStore('projects').getAll()),graphs:await m.requestResult(tx.objectStore('graphs').getAll()),runs:await m.requestResult(tx.objectStore('runs').getAll())})));});expect(after).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      3 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-details-faults.spec.ts:2:1371
+
+    Error Context: test-results\project-details-faults-T44-dedcc-nd-execution-records-intact\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-details-faults-T44-dedcc-nd-execution-records-intact\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-details-faults-T44-dedcc-nd-execution-records-intact\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\project-details-faults.spec.ts:2:1 › T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact 

@@ -1,0 +1,122 @@
+[WebServer] (node:22684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:24220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\capability-detail-contracts.spec.ts:10:1 › T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project (6.4s)
+(node:19192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\capability-detail-contracts.spec.ts:11:1 › T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project (6.4s)
+(node:19632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\capability-detail-contracts.spec.ts:12:1 › T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution (6.4s)
+
+
+  1) tests\e2e\capability-detail-contracts.spec.ts:10:1 › T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })[22m
+
+
+       8 | test('T44 B05 original model GET failure marks its catalog stale, keeps reviewed defaults and never submits a generation',async({page,networkCounter})=>{await page.route('**/core-api/v1/models',route=>route.fulfill({status:503,contentType:'application/json',body:'{"error":{"message":"local fixture unavailable"}}'}));const before=await snapshot(page);await page.getByRole('button',{name:'刷新能力与目录',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'目录刷新失败，上次缓存保留并标为过期'})).toBeVisible();const after=await snapshot(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.receipts.find((r:{id:string})=>r.id==='connection-catalog:c1')).toMatchObject({...before.receipts.find((r:{id:string})=>r.id==='connection-catalog:c1'),stale:true});expect(networkCounter.requests.filter(r=>r.url.endsWith('/v1/models'))).toHaveLength(1);expect(networkCounter.paidRequests).toHaveLength(0);await page.evaluate(async()=>{const p='/src/adapters/core/current-connection.ts';(await import(p)).clearActiveCore();});await expect(page.getByRole('button',{name:'刷新能力与目录',exact:true})).toBeDisabled();await expect(page.getByRole('combobox',{name:'默认视频规格',exact:true})).toBeDisabled();});
+       9 | async function denyPreferenceSave(page:Page){await page.evaluate(()=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(name,value){if(name==='aiwork-studio:preferences')throw new DOMException('test-all-defaults-save-denied','QuotaExceededError');return set.call(this,name,value);};});}
+    > 10 | test('T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project',async({page,networkCounter})=>{await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+      11 | test('T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project',async({page,networkCounter})=>{await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('0');const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('none');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+      12 | test('T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution',async({page,networkCounter})=>{const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('checkbox',{name:'显示未开放能力说明',exact:true}).uncheck();await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+      13 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\capability-detail-contracts.spec.ts:10:564
+
+    Error Context: test-results\capability-detail-contract-b5e73-ttings-and-original-project\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\capability-detail-contract-b5e73-ttings-and-original-project\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\capability-detail-contract-b5e73-ttings-and-original-project\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\capability-detail-contracts.spec.ts:11:1 › T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })[22m
+
+
+       9 | async function denyPreferenceSave(page:Page){await page.evaluate(()=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(name,value){if(name==='aiwork-studio:preferences')throw new DOMException('test-all-defaults-save-denied','QuotaExceededError');return set.call(this,name,value);};});}
+      10 | test('T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project',async({page,networkCounter})=>{await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 11 | test('T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project',async({page,networkCounter})=>{await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('0');const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('none');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      12 | test('T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution',async({page,networkCounter})=>{const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('checkbox',{name:'显示未开放能力说明',exact:true}).uncheck();await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+      13 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\capability-detail-contracts.spec.ts:11:645
+
+    Error Context: test-results\capability-detail-contract-68abf-ttings-and-original-project\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\capability-detail-contract-68abf-ttings-and-original-project\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\capability-detail-contract-68abf-ttings-and-original-project\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\capability-detail-contracts.spec.ts:12:1 › T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('status').filter({ hasText: '偏好未能保存；当前选择保留在本页，重新打开后请核对。' })[22m
+
+
+      10 | test('T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project',async({page,networkCounter})=>{await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+      11 | test('T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project',async({page,networkCounter})=>{await page.getByRole('combobox',{name:'默认视频模型',exact:true}).selectOption('fake-video-only');await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('0');const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('combobox',{name:'默认视频规格',exact:true}).selectOption('none');await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 12 | test('T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution',async({page,networkCounter})=>{const stored=await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences')),before=await snapshot(page);await denyPreferenceSave(page);await page.getByRole('checkbox',{name:'显示未开放能力说明',exact:true}).uncheck();await expect(page.getByRole('status').filter({hasText:'偏好未能保存；当前选择保留在本页，重新打开后请核对。'})).toBeVisible();expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe(stored);expect(await snapshot(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+      13 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\capability-detail-contracts.spec.ts:12:476
+
+    Error Context: test-results\capability-detail-contract-c2748--without-enabling-execution\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\capability-detail-contract-c2748--without-enabling-execution\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\capability-detail-contract-c2748--without-enabling-execution\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\capability-detail-contracts.spec.ts:10:1 › T44 B02 denied video-model preference save reports the failure and preserves the last native settings and original project 
+    tests\e2e\capability-detail-contracts.spec.ts:11:1 › T44 B06 denied video-spec preference save reports the failure and preserves the last native settings and original project 
+    tests\e2e\capability-detail-contracts.spec.ts:12:1 › T44 B04 denied gated-capability display preference save reports the failure and preserves original data without enabling execution 

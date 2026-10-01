@@ -1,0 +1,13 @@
+[WebServer] (node:18280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:19788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\project-busy-contracts.spec.ts:2:1 › T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions (1.4s)
+  ok 2 tests\e2e\project-details-faults.spec.ts:2:1 › T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact (1.2s)
+
+  2 passed (5.6s)

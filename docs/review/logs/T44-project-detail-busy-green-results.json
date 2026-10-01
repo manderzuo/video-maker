@@ -1,0 +1,178 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/project-busy-contracts.spec.ts::T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+      "file": "tests/e2e/project-busy-contracts.spec.ts",
+      "title": "T44 P06/P07/P08/P10/P11 native project metadata commit waiting for its actual acknowledgment disables further metadata and batch actions",
+      "status": "passed",
+      "assertions": 15,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 525
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 786
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 869
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1404
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1444
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1511
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1555
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1667
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1745
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 1795
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 413
+        },
+        {
+          "file": "tests/e2e/project-busy-contracts.spec.ts",
+          "line": 2,
+          "column": 517
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-details-faults.spec.ts::T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact",
+      "file": "tests/e2e/project-details-faults.spec.ts",
+      "title": "T44 P14 native project-details read failure identifies the failed read and leaves all saved creative and execution records intact",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 392
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1371
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1558
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1620
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 2139
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 2191
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1260
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1467
+        },
+        {
+          "file": "tests/e2e/project-details-faults.spec.ts",
+          "line": 2,
+          "column": 1529
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

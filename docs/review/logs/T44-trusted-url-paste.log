@@ -1,0 +1,14 @@
+[WebServer] (node:3252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:18480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\canvas-native-paste-contracts.spec.ts:10:1 › T44 C12 trusted clipboard URL paste creates editable local text and saves it without fetching the pasted address (2.0s)
+  ok 2 tests\e2e\canvas-native-paste-contracts.spec.ts:11:1 › T44 C12 trusted URL paste native quota retains the saved graph and exposes a recoverable local draft without fetching or submitting (1.3s)
+  ok 3 tests\e2e\canvas-native-paste-contracts.spec.ts:12:1 › T44 C12 another actual writer blocks trusted text paste with the original graph and execution records intact (1.3s)
+
+  3 passed (7.6s)

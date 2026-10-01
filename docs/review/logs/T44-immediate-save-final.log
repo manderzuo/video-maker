@@ -1,0 +1,14 @@
+[WebServer] (node:4636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:27524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\dialog-busy-contracts.spec.ts:3:1 › T44 T01/C10/C15/C16/V07/V08 native text commit acknowledgement blocks creative and run controls without granting a generation (2.0s)
+  ok 2 tests\e2e\dialog-busy-contracts.spec.ts:4:1 › T44 G08/F02 actual committed native takeover stays pending until its acknowledgement, closing is disabled and the original graph is never changed (1.4s)
+  ok 3 tests\e2e\dialog-busy-contracts.spec.ts:5:1 › T44 D03 actual immediate save native quota retains latest editable text, original graph and Run without pretending persistence succeeded (1.3s)
+
+  3 passed (7.7s)
