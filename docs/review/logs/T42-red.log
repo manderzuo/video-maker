@@ -1,0 +1,208 @@
+[WebServer] (node:7916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:8980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\agent-panel.spec.ts:8:1 › T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate (6.2s)
+(node:29088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\agent-panel.spec.ts:9:1 › T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission (6.2s)
+(node:11508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\agent-panel.spec.ts:10:1 › T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply (6.2s)
+(node:2336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\agent-panel.spec.ts:11:1 › T42-C04 stop feedback does not claim remote model cancellation or change the original Core task (6.2s)
+(node:11272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\agent-panel.spec.ts:12:1 › T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization (6.2s)
+
+
+  1) tests\e2e\agent-panel.spec.ts:8:1 › T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: 'Agent 协作', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: 'Agent 协作', exact: true })[22m
+
+
+      4 | import {startCompanion} from '../../companion/src/server';
+      5 | test.use({actionTimeout:2000});test.setTimeout(20000);
+    > 6 | async function boot(page:Page){await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/agent');await expect(page.getByRole('heading',{name:'Agent 协作',exact:true})).toBeVisible();}
+        |                                                                                                                                                                                          ^
+      7 | async function pair(page:Page){const relay=await startCompanion({allowedOrigins:['http://127.0.0.1:4179']});await page.route(new RegExp('^http://127[.]0[.]0[.]1:4179/canvas/(connect|authorize|heartbeat|disconnect|poll|reply)$'),async route=>{const req=route.request(),headers={...req.headers(),origin:'http://127.0.0.1:4179'};delete(headers as Record<string,string>).host;const response=await fetch(relay.url+new URL(req.url()).pathname,{method:req.method(),headers,body:req.postData(),redirect:'error'});await route.fulfill({status:response.status,contentType:'application/json',body:await response.text()});});await page.getByRole('button',{name:'连接本地 Agent',exact:true}).click();const dialog=page.getByRole('dialog',{name:'连接本地 Agent',exact:true});await dialog.getByLabel('本机连接地址',{exact:true}).fill('http://127.0.0.1:4179');await dialog.getByLabel('独立临时配对令牌',{exact:true}).fill(relay.token);await dialog.getByRole('button',{name:'连接并默认只读',exact:true}).click();await expect(page.getByText('已连接 · 只读',{exact:true})).toBeVisible();return relay;}
+      8 | test('T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate',async({page,networkCounter})=>{await boot(page);await expect(page.getByText('外部模型宿主尚未验收',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送任务描述',exact:true})).toBeDisabled();await expect(page.getByText('模型由外部宿主选择；成本未知，发送描述可能产生文字模型费用。',{exact:true})).toBeVisible();expect(await page.getByLabel('上下文范围',{exact:true}).inputValue()).toBe('selection');await page.screenshot({path:'docs/review/screenshots/T42-unconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+      9 | test('T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission',async({page,networkCounter})=>{await boot(page);const relay=await pair(page);try{await page.getByLabel('上下文范围',{exact:true}).selectOption('project');await page.getByRole('button',{name:'预览并管理授权',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Agent 项目授权',exact:true});await expect(dialog.getByRole('button',{name:'授予所列权限',exact:true})).toBeDisabled();await dialog.getByLabel('我明确允许读取整个项目的已保存节点',{exact:true}).check();await dialog.getByRole('button',{name:'授予所列权限',exact:true}).click();await expect(page.getByText('已授权 · 整个项目 · 只读',{exact:true})).toBeVisible();await page.locator('[data-interaction-id="A-12"]').click();await expect(page.getByText('已断开',{exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T42-disconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);}finally{await relay.close();}});
+        at boot (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:6:186)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:8:139
+
+    Error Context: test-results\agent-panel-T42-C01-C07-un-51618-ontext-and-honest-cost-gate\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-panel-T42-C01-C07-un-51618-ontext-and-honest-cost-gate\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-panel-T42-C01-C07-un-51618-ontext-and-honest-cost-gate\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\agent-panel.spec.ts:9:1 › T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: 'Agent 协作', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: 'Agent 协作', exact: true })[22m
+
+
+      4 | import {startCompanion} from '../../companion/src/server';
+      5 | test.use({actionTimeout:2000});test.setTimeout(20000);
+    > 6 | async function boot(page:Page){await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/agent');await expect(page.getByRole('heading',{name:'Agent 协作',exact:true})).toBeVisible();}
+        |                                                                                                                                                                                          ^
+      7 | async function pair(page:Page){const relay=await startCompanion({allowedOrigins:['http://127.0.0.1:4179']});await page.route(new RegExp('^http://127[.]0[.]0[.]1:4179/canvas/(connect|authorize|heartbeat|disconnect|poll|reply)$'),async route=>{const req=route.request(),headers={...req.headers(),origin:'http://127.0.0.1:4179'};delete(headers as Record<string,string>).host;const response=await fetch(relay.url+new URL(req.url()).pathname,{method:req.method(),headers,body:req.postData(),redirect:'error'});await route.fulfill({status:response.status,contentType:'application/json',body:await response.text()});});await page.getByRole('button',{name:'连接本地 Agent',exact:true}).click();const dialog=page.getByRole('dialog',{name:'连接本地 Agent',exact:true});await dialog.getByLabel('本机连接地址',{exact:true}).fill('http://127.0.0.1:4179');await dialog.getByLabel('独立临时配对令牌',{exact:true}).fill(relay.token);await dialog.getByRole('button',{name:'连接并默认只读',exact:true}).click();await expect(page.getByText('已连接 · 只读',{exact:true})).toBeVisible();return relay;}
+      8 | test('T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate',async({page,networkCounter})=>{await boot(page);await expect(page.getByText('外部模型宿主尚未验收',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送任务描述',exact:true})).toBeDisabled();await expect(page.getByText('模型由外部宿主选择；成本未知，发送描述可能产生文字模型费用。',{exact:true})).toBeVisible();expect(await page.getByLabel('上下文范围',{exact:true}).inputValue()).toBe('selection');await page.screenshot({path:'docs/review/screenshots/T42-unconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+      9 | test('T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission',async({page,networkCounter})=>{await boot(page);const relay=await pair(page);try{await page.getByLabel('上下文范围',{exact:true}).selectOption('project');await page.getByRole('button',{name:'预览并管理授权',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Agent 项目授权',exact:true});await expect(dialog.getByRole('button',{name:'授予所列权限',exact:true})).toBeDisabled();await dialog.getByLabel('我明确允许读取整个项目的已保存节点',{exact:true}).check();await dialog.getByRole('button',{name:'授予所列权限',exact:true}).click();await expect(page.getByText('已授权 · 整个项目 · 只读',{exact:true})).toBeVisible();await page.locator('[data-interaction-id="A-12"]').click();await expect(page.getByText('已断开',{exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T42-disconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);}finally{await relay.close();}});
+        at boot (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:6:186)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:9:144
+
+    Error Context: test-results\agent-panel-T42-C02-real-f-58fa1--visibly-revokes-permission\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-panel-T42-C02-real-f-58fa1--visibly-revokes-permission\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-panel-T42-C02-real-f-58fa1--visibly-revokes-permission\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\agent-panel.spec.ts:10:1 › T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: 'Agent 协作', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: 'Agent 协作', exact: true })[22m
+
+
+      4 | import {startCompanion} from '../../companion/src/server';
+      5 | test.use({actionTimeout:2000});test.setTimeout(20000);
+    > 6 | async function boot(page:Page){await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/agent');await expect(page.getByRole('heading',{name:'Agent 协作',exact:true})).toBeVisible();}
+        |                                                                                                                                                                                          ^
+      7 | async function pair(page:Page){const relay=await startCompanion({allowedOrigins:['http://127.0.0.1:4179']});await page.route(new RegExp('^http://127[.]0[.]0[.]1:4179/canvas/(connect|authorize|heartbeat|disconnect|poll|reply)$'),async route=>{const req=route.request(),headers={...req.headers(),origin:'http://127.0.0.1:4179'};delete(headers as Record<string,string>).host;const response=await fetch(relay.url+new URL(req.url()).pathname,{method:req.method(),headers,body:req.postData(),redirect:'error'});await route.fulfill({status:response.status,contentType:'application/json',body:await response.text()});});await page.getByRole('button',{name:'连接本地 Agent',exact:true}).click();const dialog=page.getByRole('dialog',{name:'连接本地 Agent',exact:true});await dialog.getByLabel('本机连接地址',{exact:true}).fill('http://127.0.0.1:4179');await dialog.getByLabel('独立临时配对令牌',{exact:true}).fill(relay.token);await dialog.getByRole('button',{name:'连接并默认只读',exact:true}).click();await expect(page.getByText('已连接 · 只读',{exact:true})).toBeVisible();return relay;}
+      8 | test('T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate',async({page,networkCounter})=>{await boot(page);await expect(page.getByText('外部模型宿主尚未验收',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送任务描述',exact:true})).toBeDisabled();await expect(page.getByText('模型由外部宿主选择；成本未知，发送描述可能产生文字模型费用。',{exact:true})).toBeVisible();expect(await page.getByLabel('上下文范围',{exact:true}).inputValue()).toBe('selection');await page.screenshot({path:'docs/review/screenshots/T42-unconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+      9 | test('T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission',async({page,networkCounter})=>{await boot(page);const relay=await pair(page);try{await page.getByLabel('上下文范围',{exact:true}).selectOption('project');await page.getByRole('button',{name:'预览并管理授权',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Agent 项目授权',exact:true});await expect(dialog.getByRole('button',{name:'授予所列权限',exact:true})).toBeDisabled();await dialog.getByLabel('我明确允许读取整个项目的已保存节点',{exact:true}).check();await dialog.getByRole('button',{name:'授予所列权限',exact:true}).click();await expect(page.getByText('已授权 · 整个项目 · 只读',{exact:true})).toBeVisible();await page.locator('[data-interaction-id="A-12"]').click();await expect(page.getByText('已断开',{exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T42-disconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);}finally{await relay.close();}});
+        at boot (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:6:186)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:10:128
+
+    Error Context: test-results\agent-panel-T42-C03-C05-ac-d9427-d-old-proposal-cannot-apply\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-panel-T42-C03-C05-ac-d9427-d-old-proposal-cannot-apply\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-panel-T42-C03-C05-ac-d9427-d-old-proposal-cannot-apply\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\agent-panel.spec.ts:11:1 › T42-C04 stop feedback does not claim remote model cancellation or change the original Core task 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: 'Agent 协作', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: 'Agent 协作', exact: true })[22m
+
+
+      4 | import {startCompanion} from '../../companion/src/server';
+      5 | test.use({actionTimeout:2000});test.setTimeout(20000);
+    > 6 | async function boot(page:Page){await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/agent');await expect(page.getByRole('heading',{name:'Agent 协作',exact:true})).toBeVisible();}
+        |                                                                                                                                                                                          ^
+      7 | async function pair(page:Page){const relay=await startCompanion({allowedOrigins:['http://127.0.0.1:4179']});await page.route(new RegExp('^http://127[.]0[.]0[.]1:4179/canvas/(connect|authorize|heartbeat|disconnect|poll|reply)$'),async route=>{const req=route.request(),headers={...req.headers(),origin:'http://127.0.0.1:4179'};delete(headers as Record<string,string>).host;const response=await fetch(relay.url+new URL(req.url()).pathname,{method:req.method(),headers,body:req.postData(),redirect:'error'});await route.fulfill({status:response.status,contentType:'application/json',body:await response.text()});});await page.getByRole('button',{name:'连接本地 Agent',exact:true}).click();const dialog=page.getByRole('dialog',{name:'连接本地 Agent',exact:true});await dialog.getByLabel('本机连接地址',{exact:true}).fill('http://127.0.0.1:4179');await dialog.getByLabel('独立临时配对令牌',{exact:true}).fill(relay.token);await dialog.getByRole('button',{name:'连接并默认只读',exact:true}).click();await expect(page.getByText('已连接 · 只读',{exact:true})).toBeVisible();return relay;}
+      8 | test('T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate',async({page,networkCounter})=>{await boot(page);await expect(page.getByText('外部模型宿主尚未验收',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送任务描述',exact:true})).toBeDisabled();await expect(page.getByText('模型由外部宿主选择；成本未知，发送描述可能产生文字模型费用。',{exact:true})).toBeVisible();expect(await page.getByLabel('上下文范围',{exact:true}).inputValue()).toBe('selection');await page.screenshot({path:'docs/review/screenshots/T42-unconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+      9 | test('T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission',async({page,networkCounter})=>{await boot(page);const relay=await pair(page);try{await page.getByLabel('上下文范围',{exact:true}).selectOption('project');await page.getByRole('button',{name:'预览并管理授权',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Agent 项目授权',exact:true});await expect(dialog.getByRole('button',{name:'授予所列权限',exact:true})).toBeDisabled();await dialog.getByLabel('我明确允许读取整个项目的已保存节点',{exact:true}).check();await dialog.getByRole('button',{name:'授予所列权限',exact:true}).click();await expect(page.getByText('已授权 · 整个项目 · 只读',{exact:true})).toBeVisible();await page.locator('[data-interaction-id="A-12"]').click();await expect(page.getByText('已断开',{exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T42-disconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);}finally{await relay.close();}});
+        at boot (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:6:186)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:11:135
+
+    Error Context: test-results\agent-panel-T42-C04-stop-f-ef201-ange-the-original-Core-task\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-panel-T42-C04-stop-f-ef201-ange-the-original-Core-task\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-panel-T42-C04-stop-f-ef201-ange-the-original-Core-task\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests\e2e\agent-panel.spec.ts:12:1 › T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: 'Agent 协作', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: 'Agent 协作', exact: true })[22m
+
+
+      4 | import {startCompanion} from '../../companion/src/server';
+      5 | test.use({actionTimeout:2000});test.setTimeout(20000);
+    > 6 | async function boot(page:Page){await seedStudio(page,'unverified-capability');await page.goto('/projects/p1/agent');await expect(page.getByRole('heading',{name:'Agent 协作',exact:true})).toBeVisible();}
+        |                                                                                                                                                                                          ^
+      7 | async function pair(page:Page){const relay=await startCompanion({allowedOrigins:['http://127.0.0.1:4179']});await page.route(new RegExp('^http://127[.]0[.]0[.]1:4179/canvas/(connect|authorize|heartbeat|disconnect|poll|reply)$'),async route=>{const req=route.request(),headers={...req.headers(),origin:'http://127.0.0.1:4179'};delete(headers as Record<string,string>).host;const response=await fetch(relay.url+new URL(req.url()).pathname,{method:req.method(),headers,body:req.postData(),redirect:'error'});await route.fulfill({status:response.status,contentType:'application/json',body:await response.text()});});await page.getByRole('button',{name:'连接本地 Agent',exact:true}).click();const dialog=page.getByRole('dialog',{name:'连接本地 Agent',exact:true});await dialog.getByLabel('本机连接地址',{exact:true}).fill('http://127.0.0.1:4179');await dialog.getByLabel('独立临时配对令牌',{exact:true}).fill(relay.token);await dialog.getByRole('button',{name:'连接并默认只读',exact:true}).click();await expect(page.getByText('已连接 · 只读',{exact:true})).toBeVisible();return relay;}
+      8 | test('T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate',async({page,networkCounter})=>{await boot(page);await expect(page.getByText('外部模型宿主尚未验收',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'发送任务描述',exact:true})).toBeDisabled();await expect(page.getByText('模型由外部宿主选择；成本未知，发送描述可能产生文字模型费用。',{exact:true})).toBeVisible();expect(await page.getByLabel('上下文范围',{exact:true}).inputValue()).toBe('selection');await page.screenshot({path:'docs/review/screenshots/T42-unconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+      9 | test('T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission',async({page,networkCounter})=>{await boot(page);const relay=await pair(page);try{await page.getByLabel('上下文范围',{exact:true}).selectOption('project');await page.getByRole('button',{name:'预览并管理授权',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Agent 项目授权',exact:true});await expect(dialog.getByRole('button',{name:'授予所列权限',exact:true})).toBeDisabled();await dialog.getByLabel('我明确允许读取整个项目的已保存节点',{exact:true}).check();await dialog.getByRole('button',{name:'授予所列权限',exact:true}).click();await expect(page.getByText('已授权 · 整个项目 · 只读',{exact:true})).toBeVisible();await page.locator('[data-interaction-id="A-12"]').click();await expect(page.getByText('已断开',{exact:true})).toBeVisible();await page.screenshot({path:'docs/review/screenshots/T42-disconnected.png'});expect(networkCounter.paidRequests).toHaveLength(0);}finally{await relay.close();}});
+        at boot (E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:6:186)
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\agent-panel.spec.ts:12:133
+
+    Error Context: test-results\agent-panel-T42-C06-second-a4371-native-writer-authorization\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\agent-panel-T42-C06-second-a4371-native-writer-authorization\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\agent-panel-T42-C06-second-a4371-native-writer-authorization\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    tests\e2e\agent-panel.spec.ts:8:1 › T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate 
+    tests\e2e\agent-panel.spec.ts:9:1 › T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission 
+    tests\e2e\agent-panel.spec.ts:10:1 › T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply 
+    tests\e2e\agent-panel.spec.ts:11:1 › T42-C04 stop feedback does not claim remote model cancellation or change the original Core task 
+    tests\e2e\agent-panel.spec.ts:12:1 › T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization 

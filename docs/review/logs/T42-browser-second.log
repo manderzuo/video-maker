@@ -1,0 +1,19 @@
+[WebServer] (node:10676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:19988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\agent-panel.spec.ts:8:1 › T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate (1.5s)
+  ok 2 tests\e2e\agent-panel.spec.ts:9:1 › T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission (1.6s)
+  ok 3 tests\e2e\agent-panel.spec.ts:10:1 › T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply (2.0s)
+  ok 4 tests\e2e\agent-panel.spec.ts:11:1 › T42-C04 stop feedback does not claim remote model cancellation or change the original Core task (1.5s)
+  ok 5 tests\e2e\agent-panel.spec.ts:12:1 › T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization (2.0s)
+  ok 6 tests\e2e\agent-panel.spec.ts:13:1 › T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation (2.1s)
+  ok 7 tests\e2e\agent-panel.spec.ts:14:72 › T42 real light-theme agent panel fits viewport 1024 (1.4s)
+  ok 8 tests\e2e\agent-panel.spec.ts:14:72 › T42 real light-theme agent panel fits viewport 390 (1.2s)
+
+  8 passed (16.5s)

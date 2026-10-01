@@ -1,0 +1,132 @@
+{
+  "taskId": "T42",
+  "status": "实施完成，本地自检通过，真实宿主/统一验收/独立审查待进行",
+  "baseCommit": "24d3f369c9710a97f5a40add25c3b9d362121ad2",
+  "headCommit": null,
+  "branch": "feat/canvas-agent",
+  "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "reviewDecision": "待审查",
+  "independentReviewPerformed": false,
+  "files": [
+    "src/features/agent/AgentPanel.tsx",
+    "src/features/agent/ContextPicker.tsx",
+    "src/features/agent/AgentHistory.tsx",
+    "src/features/agent/AgentPermissionDialog.tsx",
+    "src/features/agent/agent-history.ts",
+    "src/features/agent/agent-events.ts",
+    "src/features/agent/agent-client.ts",
+    "src/features/agent/ProposalReview.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/application/proposals/apply-proposal.ts",
+    "src/app/App.tsx",
+    "src/ui/tokens.css",
+    "tests/e2e/agent-panel.spec.ts",
+    "tests/unit/agent-history.test.ts"
+  ],
+  "commands": [
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-panel.spec.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 5,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-red.log",
+      "behavior": "实际页面缺少Agent协作面板"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-panel.spec.ts",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-browser-initial.log"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/agent-history.test.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-history-domain.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-panel.spec.ts",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-browser-second.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 366,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-unit.log"
+    },
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tests/e2e/agent-panel.spec.ts tests/e2e/agent-proposal-review.spec.ts tests/e2e/canvas-mcp.spec.ts tests/e2e/lease.spec.ts tests/e2e/generation-preflight.spec.ts",
+      "exitCode": 0,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-browser-final.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "logPath": "docs/review/logs/T42-build.log"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/T42-unconnected.png",
+    "docs/review/screenshots/T42-disconnected.png",
+    "docs/review/screenshots/T42-readonly-proposal.png",
+    "docs/review/screenshots/T42-applied-proposal.png",
+    "docs/review/screenshots/T42-light-1024.png",
+    "docs/review/screenshots/T42-light-390.png"
+  ],
+  "validation": [
+    "P09右栏400px与独立Agent路由同时打开实际画布，D13/D14实际渲染",
+    "真实relay连接默认只读空选区，全部项目额外勾选，权限/期限快照，不自动扩权",
+    "建议页接受/拒绝native可见；降权旧提案禁用，重新明确授予提案后用户应用，零收费",
+    "第二标签无令牌/授权继承，native写权不足连接按钮禁用",
+    "停止本地传输明确宿主回合状态未知，running/polling/pending_reconciliation原Run保持，未发送cancel",
+    "任务描述保存本地且正文默认隐藏，nativeQuota回滚；新会话保留画布，删除明确勾选且提案/批准/Run保留",
+    "已知秘密脱敏，Token仅输入DOM/当前标签内存，连接后清空，不保存CoreKey",
+    "深色实际页面、浅色1024/390运行截图已查看"
+  ],
+  "rulings": [
+    "设计主稿A-08拒绝/A-09全部接受与T40实现标识对应错误，按主稿在本任务修正；行为未更换",
+    "用户统一验收授权允许继续本地实现；真实宿主未配置时不发送描述，不内置通用LLM客户端或伪装模型成功"
+  ],
+  "limitations": [
+    "实际模型宿主尚未验收；A-04发送描述保持条件禁用，宿主配置/文字成本由实际宿主控制",
+    "停止入口只撤销本地传输，宿主无停止协议，不能保证远端Agent回合已停；视频/账务不修改",
+    "尚未统一视觉或独立审核；125/150真实浏览器缩放未验证，T46处理",
+    "构建包体787.09kB警告仍待T46分包/性能核验",
+    "右栏与画布遮挡/焦点和慢读事件排序在T45/T46全量异常与可访问性收敛",
+    "无真实Core/收费/生产/推送/部署授权"
+  ]
+}

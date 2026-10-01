@@ -1,5 +1,5 @@
 {
-  "currentTask": "T42",
+  "currentTask": "T43",
   "scope": "T01-T50，用户统一验收放在全部实现后",
   "independentReviewPerformed": false,
   "complete": false,
@@ -326,18 +326,18 @@
     },
     {
       "evidenceFile": "docs/review/evidence/T41.json",
-      "headCommit": null,
+      "headCommit": "24d3f369c9710a97f5a40add25c3b9d362121ad2",
       "id": "T41",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
       "status": "实施完成，自检通过，待统一验收/独立审查",
       "title": "画布MCP工具与唯一执行入口"
     },
     {
-      "evidenceFile": null,
+      "evidenceFile": "docs/review/evidence/T42.json",
       "headCommit": null,
       "id": "T42",
       "planFile": "docs/superpowers/plans\\2026-09-30-wp06-06-tasks.md",
-      "status": "未开始",
+      "status": "实施完成，本地自检通过，真实宿主/统一验收/独立审查待进行",
       "title": "Agent面板、上下文预览与停止行为"
     },
     {
