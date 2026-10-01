@@ -1,0 +1,42 @@
+[WebServer] (node:29372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:20876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft (30.1s)
+
+
+  1) tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '查看未校验文字结果', exact: true })[22m
+
+
+      4 | async function confirm(page:Page){await page.getByRole('button',{name:'AI优化',exact:true}).click();const dialog=page.getByRole('dialog',{name:'AI文字优化确认',exact:true});await dialog.getByLabel('文字模型',{exact:true}).selectOption('fake-text-only');await dialog.getByRole('button',{name:'预览文字请求',exact:true}).click();await dialog.getByLabel('我确认文字请求，并知悉可能产生费用且金额未知').check();return dialog;}
+      5 | test.beforeEach(async({page})=>boot(page));
+    > 6 | test('T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft',async({page,networkCounter})=>{const raw='{bad <svg onload="globalThis.attack=true">';await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({contentType:'application/json',body:JSON.stringify({id:'mock-invalid-t44',choices:[{message:{content:raw}}]})}));const fee=await confirm(page);await fee.getByRole('button',{name:'确认文字请求',exact:true}).click();await page.getByRole('button',{name:'查看未校验文字结果',exact:true}).click();const dialog=page.getByRole('dialog',{name:'未校验文字结果',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','PGD06');await expect(dialog).toContainText(raw);await expect(dialog.locator('svg')).toHaveCount(0);await expect(dialog.getByRole('button',{name:'重新付费重试'})).toHaveCount(0);await page.screenshot({path:'docs/review/screenshots/T44-invalid-text-dialog.png'});await dialog.getByRole('button',{name:'回到本地整理',exact:true}).click();await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(/康济健葆/);expect(networkCounter.paidRequests).toHaveLength(1);});
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+      7 | test('T31: actual candidate save quota preserves its response and explicit local parse retry sends no second request',async({page,networkCounter})=>{await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let once=true;IDBObjectStore.prototype.put=function(value,key){if(once&&this.name==='promptDrafts'&&value.resultVersions?.some((v:{origin:string})=>v.origin==='ai')){once=false;throw new DOMException('injected candidate quota','QuotaExceededError');}return key===undefined?original.call(this,value):original.call(this,value,key);};});await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-local-retry',choices:[{message:{content:JSON.stringify({finalPrompt:'康济健葆，1位人物，不切镜',shotPlan:[],improvements:[],warnings:[],suggestedSpec:{durationSeconds:5,ratio:'9:16'}})}}]})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await page.getByRole('button',{name:'重新解析已保存响应',exact:true}).click();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(1);const state=await page.evaluate(async()=>{const fixture='/tests/fixtures/prompt-workspace.ts';return(await import(fixture)).promptWorkspaceState();});expect(state.drafts[0].resultVersions).toHaveLength(1);expect(state.promptRuns).toHaveLength(1);});
+      8 | test('T31: invalid response and raw inspection restore from saved storage after refresh without a chat',async({page,networkCounter})=>{const raw='原响应 {invalid}';await page.route('**/core-api/v1/chat/completions',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'mock-refresh-invalid',choices:[{message:{content:raw}}]})}));const dialog=await confirm(page);await dialog.getByRole('button',{name:'确认文字请求',exact:true}).click();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await page.reload();await expect(page.getByText('结果待检查',{exact:true})).toBeVisible();await page.getByText('查看原始文字响应',{exact:true}).click();await expect(page.getByRole('region',{name:'AI结果差异'})).toContainText(raw);expect(networkCounter.paidRequests).toHaveLength(1);});
+      9 | test('T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns',async({page,networkCounter})=>{const dialog=await confirm(page);await expect(dialog).toContainText('康济健葆');await expect(dialog).toContainText('fake-text-only');expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-confirm.png'});await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'AI优化',exact:true})).toBeFocused();expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T31-ai-confirm-cancelled.png'});});
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-result-parser.spec.ts:6:536
+
+    Error Context: test-results\prompt-result-parser-T44-P-b3154--no-extra-fee-or-lost-draft\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-result-parser-T44-P-b3154--no-extra-fee-or-lost-draft\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-result-parser-T44-P-b3154--no-extra-fee-or-lost-draft\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft 

@@ -1,0 +1,34 @@
+[WebServer] (node:26776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 23 tests using 1 worker
+
+(node:21736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (2.0s)
+  ok  2 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (1.3s)
+  ok  3 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (1.2s)
+  ok  4 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (1.4s)
+  ok  5 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (1.5s)
+  ok  6 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (2.0s)
+  ok  7 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (1.5s)
+  ok  8 tests\e2e\dialog-contracts.spec.ts:5:1 › T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing (1.3s)
+  ok  9 tests\e2e\dialog-contracts.spec.ts:8:1 › T44 D01/D02/D03/D19 actual dialogs preserve identity and enforce destructive impact gates (1.7s)
+  ok 10 tests\e2e\dialog-contracts.spec.ts:11:1 › T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read (2.0s)
+  ok 11 tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging (1.8s)
+  ok 12 tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities (1.2s)
+  ok 13 tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request (1.3s)
+  ok 14 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (1.2s)
+  ok 15 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (2.7s)
+  ok 16 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.6s)
+  ok 17 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (1.2s)
+  ok 18 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (1.4s)
+  ok 19 tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected (1.3s)
+  ok 20 tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities (1.5s)
+  ok 21 tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer (2.4s)
+  ok 22 tests\e2e\typed-nodes.spec.ts:23:1 › T14 N13: real pointer drag from text output to text input creates one dependency (1.2s)
+  ok 23 tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity (1.8s)
+
+  23 passed (40.2s)

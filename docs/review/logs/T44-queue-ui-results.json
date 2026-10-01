@@ -1,0 +1,635 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/queue-withdrawal.spec.ts::T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it",
+      "file": "tests/e2e/queue-withdrawal.spec.ts",
+      "title": "T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it",
+      "status": "timedOut",
+      "assertions": 5,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 404
+        },
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 716
+        },
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 777
+        },
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 973
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 263
+        },
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 329
+        },
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 619
+        },
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 822
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/run-queue.spec.ts::T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST",
+      "file": "tests/e2e/run-queue.spec.ts",
+      "title": "T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 246
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 303
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 445
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 495
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 608
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 531
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/run-queue.spec.ts::T29: actual pause while the first request waits keeps its response and stops the second submission",
+      "file": "tests/e2e/run-queue.spec.ts",
+      "title": "T29: actual pause while the first request waits keeps its response and stops the second submission",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 811
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 965
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1009
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1063
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1130
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1205
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 579
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 701
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 924
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 287
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 488
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 548
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 755
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 815
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 891
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 433
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 619
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 5,
+          "column": 672
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 333
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 467
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 503
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 553
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 823
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 898
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 630
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 6,
+          "column": 785
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 789
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1002
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1190
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1297
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 1374
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 642
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 642
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 642
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 7,
+          "column": 710
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34-C06: local completed archive hides presentation but never removes Run or unknown history",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34-C06: local completed archive hides presentation but never removes Run or unknown history",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 285
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 407
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 518
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 688
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 788
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 865
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 223
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 8,
+          "column": 345
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 CSV: actual native export prevents title formula injection and omits request body and ordinary Key",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 CSV: actual native export prevents title formula injection and omits request body and ordinary Key",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 637
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 678
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 721
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 755
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 9,
+          "column": 354
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 442
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 510
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 848
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 923
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 10,
+          "column": 744
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34: original-bound ongoing task keeps polling after project archive and UI kind filtering, zero new POST",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34: original-bound ongoing task keeps polling after project archive and UI kind filtering, zero new POST",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 948
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 1159
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 1246
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 11,
+          "column": 1030
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/task-center.spec.ts::T34 unknown recovery: no invented task identity or replay, nested dialog Escape returns to the original row",
+      "file": "tests/e2e/task-center.spec.ts",
+      "title": "T34 unknown recovery: no invented task identity or replay, nested dialog Escape returns to the original row",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 462
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 544
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 692
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 322
+        },
+        {
+          "file": "tests/e2e/task-center.spec.ts",
+          "line": 12,
+          "column": 579
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[WebServer] (node:28336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:15960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\conditional-interaction-contracts.spec.ts:8:25 › T44 X-01 conditional media interaction remains absent and its actual explanation cannot authorize a business request (880ms)
+  ok 2 tests\e2e\conditional-interaction-contracts.spec.ts:8:25 › T44 X-02 conditional media interaction remains absent and its actual explanation cannot authorize a business request (741ms)
+  ok 3 tests\e2e\conditional-interaction-contracts.spec.ts:8:25 › T44 X-03 conditional media interaction remains absent and its actual explanation cannot authorize a business request (785ms)
+  ok 4 tests\e2e\conditional-interaction-contracts.spec.ts:8:25 › T44 X-04 conditional media interaction remains absent and its actual explanation cannot authorize a business request (731ms)
+  ok 5 tests\e2e\conditional-interaction-contracts.spec.ts:11:1 › T44 Y01/Y02/Y03/Y04/Y05 unverified WebDAV has an inspectable local explanation and no endpoint, sync, upload, restore or schedule controls (757ms)
+
+  5 passed (7.0s)

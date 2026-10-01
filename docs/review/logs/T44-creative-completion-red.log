@@ -1,0 +1,122 @@
+[WebServer] (node:8172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:28040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\creative-control-completion.spec.ts:4:1 › T44 N03/N04 actual copy and paste buttons produce a new structure identity and preserve original media and Run after reload (2.2s)
+  x  2 tests\e2e\creative-control-completion.spec.ts:7:1 › T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution (6.2s)
+(node:26916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\creative-control-completion.spec.ts:10:1 › T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run (2.3s)
+  x  4 tests\e2e\creative-control-completion.spec.ts:13:1 › T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path (30.1s)
+(node:27756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  5 tests\e2e\creative-control-completion.spec.ts:16:1 › T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable (6.6s)
+
+
+  1) tests\e2e\creative-control-completion.spec.ts:7:1 › T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '布局预览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '布局预览', exact: true })[22m
+
+
+       6 | });
+       7 | test('T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution',async({page,networkCounter})=>{
+    >  8 |  const before=await stored(page);await page.getByRole('button',{name:'整理布局',exact:true}).click();const dialog=page.getByRole('dialog',{name:'布局预览',exact:true});await expect(dialog).toBeVisible();expect((await stored(page)).graph).toEqual(before.graph);await dialog.getByRole('button',{name:'应用布局',exact:true}).click();await expect(page.locator('.canvas-heading [role="status"]')).toContainText('已保存');const changed=await stored(page);expect(changed.graph.revision).toBe(before.graph.revision+1);expect(changed.graph.edges).toEqual(before.graph.edges);expect(changed.runs).toEqual(before.runs);await page.reload();expect((await stored(page)).graph).toEqual(changed.graph);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                      ^
+       9 | });
+      10 | test('T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run',async({page,networkCounter})=>{
+      11 |  await page.getByLabel('选择 镜头组',{exact:true}).check();const before=await stored(page);await page.getByRole('button',{name:'镜头分组命名',exact:true}).click();const dialog=page.getByRole('dialog',{name:'编辑镜头分组',exact:true});await dialog.getByLabel('镜头分组名称',{exact:true}).fill('中'.repeat(61));await dialog.getByRole('button',{name:'保存镜头分组',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('1–60');expect((await stored(page)).graph).toEqual(before.graph);await dialog.getByLabel('镜头分组名称',{exact:true}).fill('原创镜头甲');await dialog.getByLabel('镜头序号',{exact:true}).fill('2');await dialog.getByRole('button',{name:'保存镜头分组',exact:true}).click();await page.reload();await expect(page.getByRole('button',{name:'编辑标题 原创镜头甲',exact:true})).toBeVisible();const after=await stored(page);expect(after.graph.nodes.find((n:{id:string})=>n.id==='group-1')).toMatchObject({title:'原创镜头甲',data:{shotOrder:2}});expect(after.runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\creative-control-completion.spec.ts:8:182
+
+    Error Context: test-results\creative-control-completio-2df22-nging-topology-or-execution\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\creative-control-completio-2df22-nging-topology-or-execution\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\creative-control-completio-2df22-nging-topology-or-execution\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\creative-control-completion.spec.ts:13:1 › T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('node-text-1').getByLabel('文本字号', { exact: true })[22m
+
+
+      12 | });
+      13 | test('T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path',async({page,networkCounter})=>{
+    > 14 |  const before=await stored(page),node=page.getByTestId('node-text-1');await node.getByLabel('文本字号',{exact:true}).selectOption('20');await page.reload();await expect(node.getByLabel('文本字号',{exact:true})).toHaveValue('20');await expect(node.getByLabel('节点文本',{exact:true})).toHaveCSS('font-size','20px');await page.evaluate(()=>{Object.defineProperty(navigator.clipboard,'writeText',{value:async()=>{throw new DOMException('test-clipboard-denied','NotAllowedError');},configurable:true});});await node.getByRole('button',{name:'复制文本',exact:true}).click();await expect(node.getByRole('status')).toContainText('手动复制');expect((await stored(page)).graph).toEqual(before.graph);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                  ^
+      15 | });
+      16 | test('T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable',async({page,networkCounter})=>{
+      17 |  await page.getByLabel('选择 参考一',{exact:true}).check();const node=page.getByTestId('node-text-1');await node.getByRole('button',{name:'插入参考 @',exact:true}).click();await node.getByRole('button',{name:'参考一',exact:true}).click();await expect(node.getByRole('alert')).toContainText('参考素材不可用');await expect.poll(async()=>(await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='text-1').data.referenceTokens[0]?.available).toBe(false);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\creative-control-completion.spec.ts:14:114
+
+    Error Context: test-results\creative-control-completio-7f1a1-nd-gives-a-manual-copy-path\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\creative-control-completio-7f1a1-nd-gives-a-manual-copy-path\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\creative-control-completio-7f1a1-nd-gives-a-manual-copy-path\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\creative-control-completion.spec.ts:16:1 › T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('node-text-1').getByRole('alert')
+    Expected substring: [32m"参考素材不可用"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('node-text-1').getByRole('alert')[22m
+
+
+      15 | });
+      16 | test('T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable',async({page,networkCounter})=>{
+    > 17 |  await page.getByLabel('选择 参考一',{exact:true}).check();const node=page.getByTestId('node-text-1');await node.getByRole('button',{name:'插入参考 @',exact:true}).click();await node.getByRole('button',{name:'参考一',exact:true}).click();await expect(node.getByRole('alert')).toContainText('参考素材不可用');await expect.poll(async()=>(await stored(page)).graph.nodes.find((n:{id:string})=>n.id==='text-1').data.referenceTokens[0]?.available).toBe(false);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                         ^
+      18 | });
+      19 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\creative-control-completion.spec.ts:17:265
+
+    Error Context: test-results\creative-control-completio-97423-ending-the-file-is-readable\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\creative-control-completio-97423-ending-the-file-is-readable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\creative-control-completio-97423-ending-the-file-is-readable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\creative-control-completion.spec.ts:7:1 › T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution 
+    tests\e2e\creative-control-completion.spec.ts:13:1 › T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path 
+    tests\e2e\creative-control-completion.spec.ts:16:1 › T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable 
+  2 passed (53.6s)

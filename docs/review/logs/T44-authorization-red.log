@@ -1,0 +1,41 @@
+[WebServer] (node:5020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:27140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\dialog-contracts.spec.ts:10:1 › T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read (30.1s)
+
+
+  1) tests\e2e\dialog-contracts.spec.ts:10:1 › T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '补充原授权', exact: true })[22m
+
+
+       9 | });
+      10 | test('T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read',async({page,networkCounter})=>{
+    > 11 |  await page.goto('/tasks');await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';await(await import(p)).seedTaskHistory();});await page.reload();await page.getByTestId('video-run-1').getByRole('button',{name:'详情',exact:true}).click();await page.getByRole('button',{name:'补充原授权',exact:true}).click();const dialog=page.getByRole('dialog',{name:'重新授权原任务',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D12');await expect(dialog.getByRole('button',{name:'只读验证原任务',exact:true})).toBeDisabled();await dialog.getByLabel('原任务普通 Key',{exact:true}).fill('fake-wrong-t44-key');await dialog.getByLabel('我确认此授权用于所列原任务，不改变其服务或归属',{exact:true}).check();await dialog.getByRole('button',{name:'只读验证原任务',exact:true}).click();await expect(dialog.getByRole('alert')).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);await page.keyboard.press('Escape');await page.reload();const stored=await page.evaluate(async()=>{const p='/tests/fixtures/task-history.ts';return(await import(p)).taskHistoryState();});expect(stored.runs.find((r:{id:string})=>r.id==='video-run-1').authBindingId).toBe('task-original-binding');expect(JSON.stringify(stored)).not.toContain('fake-wrong-t44-key');
+         |                                                                                                                                                                                                                                                                                                                      ^
+      12 | });
+      13 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\dialog-contracts.spec.ts:11:310
+
+    Error Context: test-results\dialog-contracts-T44-D12-J-b42d9-icit-original-resource-read\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\dialog-contracts-T44-D12-J-b42d9-icit-original-resource-read\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\dialog-contracts-T44-D12-J-b42d9-icit-original-resource-read\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\dialog-contracts.spec.ts:10:1 › T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read 

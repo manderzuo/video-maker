@@ -1,0 +1,24 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-mode.spec.ts::T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "file": "tests/e2e/prompt-mode.spec.ts",
+      "title": "T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    }
+  ]
+}

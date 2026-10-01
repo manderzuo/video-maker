@@ -1,0 +1,13 @@
+[WebServer] (node:29072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:21320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\asset-deletion-contract.spec.ts:3:1 › T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history (1.6s)
+  ok 2 tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft (1.6s)
+
+  2 passed (6.1s)

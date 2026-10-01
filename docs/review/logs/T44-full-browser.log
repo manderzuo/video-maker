@@ -1,0 +1,387 @@
+[WebServer] (node:14128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 188 tests using 1 worker
+
+(node:27076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   1 tests\e2e\agent-panel.spec.ts:8:1 › T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate (1.5s)
+  ok   2 tests\e2e\agent-panel.spec.ts:9:1 › T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission (1.6s)
+  ok   3 tests\e2e\agent-panel.spec.ts:10:1 › T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply (2.4s)
+  ok   4 tests\e2e\agent-panel.spec.ts:11:1 › T42-C04 stop feedback does not claim remote model cancellation or change the original Core task (2.4s)
+  ok   5 tests\e2e\agent-panel.spec.ts:12:1 › T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization (3.5s)
+  ok   6 tests\e2e\agent-panel.spec.ts:13:1 › T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation (2.2s)
+  ok   7 tests\e2e\agent-panel.spec.ts:14:72 › T42 real light-theme agent panel fits viewport 1024 (1.4s)
+  ok   8 tests\e2e\agent-panel.spec.ts:14:72 › T42 real light-theme agent panel fits viewport 390 (1.3s)
+  ok   9 tests\e2e\agent-proposal-review.spec.ts:4:1 › T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request (1.6s)
+  ok  10 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (745ms)
+  ok  11 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (714ms)
+  ok  12 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (1.1s)
+  ok  13 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (633ms)
+  ok  14 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (875ms)
+  ok  15 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (651ms)
+  ok  16 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (681ms)
+  ok  17 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (1.3s)
+  ok  18 tests\e2e\asset-deletion-contract.spec.ts:3:1 › T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history (1.4s)
+  ok  19 tests\e2e\asset-import.spec.ts:2:1 › T07 browser: worker hash, decoded metadata, thumbnail and individual corruption reporting without upload (431ms)
+  ok  20 tests\e2e\asset-library.spec.ts:2:1 › T16 different content confirmation creates a new asset and retains original graph and source (2.2s)
+  ok  21 tests\e2e\asset-library.spec.ts:3:1 › T16 input replacement previews downstream then changes draft binding with historical Run unchanged (2.5s)
+  ok  22 tests\e2e\asset-library.spec.ts:4:1 › T16 player cleanup: hiding active media pauses the detached element and releases its object URL (1.5s)
+  ok  23 tests\e2e\asset-library.spec.ts:5:1 › T16 tags and metadata: shared limits reject invalid tags and stale undo instead of overwriting (1.5s)
+  ok  24 tests\e2e\asset-library.spec.ts:6:1 › T16 canvas files: native file paste saves blob, identity and node together; quota rollback keeps original state (1.9s)
+  ok  25 tests\e2e\asset-library.spec.ts:7:1 › T16 readonly target: insert is blocked by another writer without creating nodes or media (1.2s)
+  ok  26 tests\e2e\asset-library.spec.ts:10:1 › T16-C01/C02: native audio is initially muted without autoplay and only one player stays active (1.3s)
+  ok  27 tests\e2e\asset-library.spec.ts:11:1 › T16-C05: filtering, selection, view switch and reference navigation are keyboard accessible (1.4s)
+  ok  28 tests\e2e\asset-library.spec.ts:12:1 › T16-C03: same hash restores original identity; same filename with different content does not replace silently (2.6s)
+  ok  29 tests\e2e\asset-library.spec.ts:13:1 › T16-M07: metadata saves and undo keeps content hash and synchronizes canvas display (1.5s)
+  ok  30 tests\e2e\asset-library.spec.ts:14:1 › T16-M03/M08: image fit/original preview and insertion only adds an asset node (1.4s)
+  ok  31 tests\e2e\canvas-layout.spec.ts:6:1 › T15-C01: duplicate uses new ID and 24px offset, without creating an execution (1.2s)
+  ok  32 tests\e2e\canvas-layout.spec.ts:7:1 › T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies (1.8s)
+  ok  33 tests\e2e\canvas-layout.spec.ts:8:1 › T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes (1.5s)
+  ok  34 tests\e2e\canvas-layout.spec.ts:9:1 › T15-C05: deleting a node preserves shared media and original Run, undo restores placement (1.4s)
+  ok  35 tests\e2e\canvas-layout.spec.ts:10:1 › T15-C06: marking a fixed result changes only selection revision and downstream drafts (1.3s)
+  ok  36 tests\e2e\canvas-layout.spec.ts:11:1 › T15 menu: lock rejects movement; branch duplicates draft inputs with no approval (1.4s)
+  ok  37 tests\e2e\canvas-layout.spec.ts:12:1 › T15 clipboard: omitted external inputs remain a persisted warning after refresh (1.9s)
+  ok  38 tests\e2e\canvas-layout.spec.ts:13:1 › T15 outline filters and sort preserve graph/references and indicate empty results (1.1s)
+  ok  39 tests\e2e\canvas-layout.spec.ts:14:1 › T15 save acknowledgement: a display read error after commit never reports an unsaved transaction (1.8s)
+  ok  40 tests\e2e\canvas-layout.spec.ts:15:1 › T15 edit protection: invalid local text is an unsaved draft and cannot silently leave (1.2s)
+  ok  41 tests\e2e\canvas-layout.spec.ts:16:1 › T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard (1.1s)
+  ok  42 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run (1.7s)
+  ok  43 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request denies approval after revocation (1.6s)
+  ok  44 tests\e2e\canvas-viewport.spec.ts:6:1 › T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision (1.7s)
+  ok  45 tests\e2e\canvas-viewport.spec.ts:10:1 › T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection (1.3s)
+  ok  46 tests\e2e\canvas-viewport.spec.ts:14:1 › T13-C04: space in input is retained and canvas pan is separate from graph edits (1.2s)
+  ok  47 tests\e2e\canvas-viewport.spec.ts:17:1 › T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit (1.4s)
+  x   48 tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog (1.2s)
+(node:432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  49 tests\e2e\canvas-viewport.spec.ts:23:1 › T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs (2.3s)
+  x   50 tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard (1.4s)
+(node:29432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  51 tests\e2e\core-transport.spec.ts:2:1 › T24 actual browser: readonly connection test uses same-origin health/catalog with no POST, URL Key or cookies (813ms)
+  ok  52 tests\e2e\core-transport.spec.ts:3:1 › T24 actual browser: an external redirect becomes an opaque denied response and never receives a second request (644ms)
+  ok  53 tests\e2e\credential-boundary.spec.ts:2:1 › T09 actual browser: refresh and second tab have no credential; storage, URL and console remain clean (485ms)
+  ok  54 tests\e2e\dialog-contracts.spec.ts:5:1 › T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing (1.4s)
+  ok  55 tests\e2e\dialog-contracts.spec.ts:8:1 › T44 D01/D02/D03/D19 actual dialogs preserve identity and enforce destructive impact gates (1.9s)
+  ok  56 tests\e2e\dialog-contracts.spec.ts:11:1 › T44 D12/J11 original authorization rejects a wrong Key without changing historical binding or allowing POST, then accepts explicit original-resource read (2.0s)
+  ok  57 tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests (1.3s)
+  ok  58 tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click preserves one approval and sends exactly one confirmed frozen request (1.5s)
+  ok  59 tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft (1.9s)
+  ok  60 tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run (1.3s)
+  ok  61 tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus (1.3s)
+  ok  62 tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected (1.3s)
+  ok  63 tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog (1.3s)
+  ok  64 tests\e2e\generation-preflight.spec.ts:17:1 › T26: quota failure atomically preserves draft and refuses approval/Run creation (1.3s)
+  ok  65 tests\e2e\generation-preflight.spec.ts:18:1 › T26: changing text even without revision bump invalidates the reviewed input snapshot (1.3s)
+  ok  66 tests\e2e\harness.spec.ts:2:1 › T03-C03: credential-free app bootstrap and local mock counting (782ms)
+  ok  67 tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging (1.8s)
+  ok  68 tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities (1.2s)
+  ok  69 tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request (1.4s)
+  ok  70 tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect (1.1s)
+  ok  71 tests\e2e\interaction-coverage.spec.ts:7:1 › T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit (2.2s)
+  ok  72 tests\e2e\interaction-coverage.spec.ts:10:1 › T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist (1.7s)
+  ok  73 tests\e2e\interaction-coverage.spec.ts:13:1 › T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs (1.2s)
+  ok  74 tests\e2e\lease.spec.ts:3:1 › F-01/F-02: real second tab is readonly; explicit takeover reloads and revokes first tab (573ms)
+  ok  75 tests\e2e\lease.spec.ts:14:1 › lost broadcasts and paused heartbeat cannot bypass epoch guard with stale UI (501ms)
+  ok  76 tests\e2e\lease.spec.ts:20:1 › simulated sleeping clock denies old lease and lets a new tab acquire a higher epoch (424ms)
+  ok  77 tests\e2e\lease.spec.ts:25:1 › one native dispatch claim; committed intent survives project takeover and clock advance (444ms)
+  ok  78 tests\e2e\optional-capabilities.spec.ts:3:1 › T43 actual capability explanation opens with no media generation, admin route or network side effect (745ms)
+  ok  79 tests\e2e\optional-capabilities.spec.ts:4:1 › T43 WebDAV explanation has no endpoint credentials, upload, probe or remote sync entry (761ms)
+  ok  80 tests\e2e\project-library.spec.ts:4:1 › T12-C01/C06: create validates name, survives reload and does not submit a model (1.6s)
+  ok  81 tests\e2e\project-library.spec.ts:10:1 › T12-C02: clone shares media but copies neither Run nor Key nor queue (1.3s)
+  ok  82 tests\e2e\project-library.spec.ts:17:1 › T12-C03/C04: soft deletion preserves unknown tracking and shared blob, permanent removal remains blocked (1.7s)
+  ok  83 tests\e2e\project-library.spec.ts:23:1 › T12-C05: search, view changes and multi-select retain exact selection scope (1.5s)
+  ok  84 tests\e2e\project-library.spec.ts:29:1 › T12 templates are original local structures and never come with execution approval (726ms)
+  ok  85 tests\e2e\project-library.spec.ts:32:1 › T12 Z03: batch permanent removal separately confirms safe items and reports blocked tracking (1.3s)
+  ok  86 tests\e2e\project-library.spec.ts:38:1 › T12 / W06: welcome opens the real new-project dialog; rename Escape preserves the stored name (1.2s)
+  ok  87 tests\e2e\project-library.spec.ts:43:1 › T12 batch archive: locked project is reported by name and remains unmodified (1.3s)
+  ok  88 tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient (1.6s)
+  ok  89 tests\e2e\prompt-canvas-commands.spec.ts:6:1 › T22: video-source diff keeps parameters unless explicitly accepted and replaces only text connections (2.1s)
+  ok  90 tests\e2e\prompt-canvas-commands.spec.ts:7:1 › T22-C03: browser storage fault leaves zero partial nodes and retries the same command safely (1.5s)
+  ok  91 tests\e2e\prompt-canvas-commands.spec.ts:8:1 › T22-C06: replaying an applied command in the actual browser never adds a second node (1.3s)
+  ok  92 tests\e2e\prompt-canvas-commands.spec.ts:9:1 › T22: applying from the canvas panel retains its writer lease and selected historical body (2.5s)
+  ok  93 tests\e2e\prompt-canvas-commands.spec.ts:10:1 › T22-C01: insertion requires an explicit project and previews position before committing (1.4s)
+  ok  94 tests\e2e\prompt-canvas-commands.spec.ts:11:1 › T22-C02: applying previews old/new text and rejects a revision changed after preview (1.5s)
+  ok  95 tests\e2e\prompt-canvas-commands.spec.ts:12:1 › T22-C04: reviewed local mock capability builds one atomic group with no POST or Run (1.9s)
+  ok  96 tests\e2e\prompt-canvas-commands.spec.ts:13:1 › T22-C05: unknown capabilities and unbound references cannot become executable flows (1.3s)
+  ok  97 tests\e2e\prompt-library.spec.ts:2:1 › T17 P05: prompt details use the source-preserving right inspector and category navigation stays keyboard reachable (1.2s)
+  ok  98 tests\e2e\prompt-library.spec.ts:3:1 › T17 delete impact: source-attributed inserted copies are counted and survive library soft deletion (1.1s)
+  ok  99 tests\e2e\prompt-library.spec.ts:4:1 › T17 L09: apply requires old/new diff and refuses a stale project revision (1.2s)
+  ok 100 tests\e2e\prompt-library.spec.ts:5:1 › T17 import boundaries: unknown credential fields fail without writes; literal HTML remains inert in preview (1.1s)
+  ok 101 tests\e2e\prompt-library.spec.ts:6:1 › T17 nested navigation: closing a prompt editor preserves the canvas invalid-draft leave guard (1.7s)
+  ok 102 tests\e2e\prompt-library.spec.ts:7:1 › T17 source preferences: disable survives refresh and removing source cache preserves user entries (1.6s)
+  ok 103 tests\e2e\prompt-library.spec.ts:8:1 › T17 editor: cancel asks to discard and clipboard denial retains filled final text without reading OS clipboard (1.3s)
+  ok 104 tests\e2e\prompt-library.spec.ts:11:1 › T17-C01/C02/C05: required variables gate final copy and insertion only creates a source-attributed text node (1.2s)
+  ok 105 tests\e2e\prompt-library.spec.ts:12:1 › T17-C04: create validates tag lengths/count and persists only after explicit save (1.7s)
+  ok 106 tests\e2e\prompt-library.spec.ts:13:1 › T17-C03/C05: JSON import previews and saves same-name entry under a new identity while retaining source (1.2s)
+  ok 107 tests\e2e\prompt-library.spec.ts:14:1 › T17-C06/L05: local debounced search and source management do not automatically load remote sources (1.6s)
+  ok 108 tests\e2e\prompt-library.spec.ts:15:1 › T17 L02/L03/L04: favorite, versioned edit, soft-delete and restore retain inserted data (1.3s)
+  ok 109 tests\e2e\prompt-library.spec.ts:16:1 › T17 T05: canvas save-to-library captures current local text without clearing unsaved canvas status or generating (1.6s)
+  ok 110 tests\e2e\prompt-result-parser.spec.ts:6:1 › T44 PGD06 invalid response has an explicit plain-text inspection dialog, no extra fee or lost draft (1.5s)
+  ok 111 tests\e2e\prompt-result-parser.spec.ts:7:1 › T31: actual candidate save quota preserves its response and explicit local parse retry sends no second request (1.5s)
+  ok 112 tests\e2e\prompt-result-parser.spec.ts:8:1 › T31: invalid response and raw inspection restore from saved storage after refresh without a chat (2.0s)
+  ok 113 tests\e2e\prompt-result-parser.spec.ts:9:1 › T31 PGD02: reviewed request is shown before charging; Escape restores focus and leaves zero PromptRuns (1.5s)
+  ok 114 tests\e2e\prompt-result-parser.spec.ts:10:1 › T31-C01/C04: parsed candidate keeps brand/dialogue changes visible and never submits a video (1.7s)
+  ok 115 tests\e2e\prompt-result-parser.spec.ts:11:1 › T31-C03: invalid actual response stays plain raw text, old draft retained and no automatic repair request (1.5s)
+  ok 116 tests\e2e\prompt-result-parser.spec.ts:12:1 › T31-C05: late response saves an original-revision candidate while newer input and manual output stay intact (1.5s)
+  ok 117 tests\e2e\prompt-result-parser.spec.ts:13:1 › T31-C06: stopping waiting preserves unknown billing and requires extra risk consent for a new request (1.5s)
+  ok 118 tests\e2e\prompt-workspace.spec.ts:4:1 › T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one (1.3s)
+  ok 119 tests\e2e\prompt-workspace.spec.ts:5:1 › T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text (1.8s)
+  ok 120 tests\e2e\prompt-workspace.spec.ts:6:1 › T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly (1.7s)
+  ok 121 tests\e2e\prompt-workspace.spec.ts:7:1 › T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound (1.7s)
+  ok 122 tests\e2e\prompt-workspace.spec.ts:8:1 › T21 PG05: composition input does not persist before composition ends (2.7s)
+  ok 123 tests\e2e\prompt-workspace.spec.ts:9:1 › T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice (1.3s)
+  ok 124 tests\e2e\prompt-workspace.spec.ts:10:1 › T21 P23: original input snapshot is shown independently of current edited input (1.2s)
+  ok 125 tests\e2e\prompt-workspace.spec.ts:11:1 › T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages (1.5s)
+  ok 126 tests\e2e\prompt-workspace.spec.ts:13:1 › T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh (1.9s)
+  ok 127 tests\e2e\prompt-workspace.spec.ts:14:1 › T21-C01: canvas panel expands the same saved draft identity without duplication (1.7s)
+  ok 128 tests\e2e\prompt-workspace.spec.ts:15:1 › T21-C04: editing output persists a new manual result and invalidates previous checks (2.2s)
+  ok 129 tests\e2e\prompt-workspace.spec.ts:16:1 › T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version (1.4s)
+  ok 130 tests\e2e\prompt-workspace.spec.ts:17:1 › T21-C06: unavailable AI cannot claim success or create either paid record type (1.2s)
+  ok 131 tests\e2e\prompt-workspace.spec.ts:18:1 › T21: original/form conflict has no preselected resolution and confirmed choices stay explicit (1.3s)
+  ok 132 tests\e2e\prompt-workspace.spec.ts:19:1 › T21: image placeholder saves independently and never activates video rules or image generation (1.2s)
+  ok 133 tests\e2e\result-review.spec.ts:4:1 › T35-C01/C03: exactly two local versions; swapping only presentation preserves fixed original runs and assets (3.2s)
+  ok 134 tests\e2e\result-review.spec.ts:5:1 › T35-C02: real native clips play together, shorter ending pauses both and warns approximate synchronization (3.6s)
+  ok 135 tests\e2e\result-review.spec.ts:6:1 › T35-C04/C05: choosing downstream shows exact impact then changes only draft result reference, history fixed; undo restores (2.7s)
+  ok 136 tests\e2e\result-review.spec.ts:7:1 › T35-C06: native keyboard playback and fullscreen can exit without playing other preview (2.7s)
+  ok 137 tests\e2e\review-dialog-contracts.spec.ts:3:1 › T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history (2.9s)
+  ok 138 tests\e2e\run-queue.spec.ts:4:1 › T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST (1.3s)
+  ok 139 tests\e2e\run-queue.spec.ts:12:1 › T29: actual pause while the first request waits keeps its response and stops the second submission (1.6s)
+  ok 140 tests\e2e\storage.spec.ts:4:1 › native commit ordering and refresh recovery with real clicks (470ms)
+  ok 141 tests\e2e\storage.spec.ts:11:1 › native request success plus abort rolls back all tables (262ms)
+  ok 142 tests\e2e\storage.spec.ts:18:1 › quota fault preserves visible draft, disables submission and recovers saved title (336ms)
+  ok 143 tests\e2e\storage.spec.ts:23:1 › real old connection blocks native upgrade and yields actionable error (239ms)
+  ok 144 tests\e2e\storage.spec.ts:26:1 › persisted unknown run survives page reopening with original idempotency and state (335ms)
+  ok 145 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (1.2s)
+  ok 146 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (2.6s)
+  ok 147 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.7s)
+  ok 148 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (1.2s)
+  ok 149 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (1.4s)
+  ok 150 tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected (1.3s)
+  ok 151 tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities (1.5s)
+  x  152 tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer (1.9s)
+(node:25032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 153 tests\e2e\typed-nodes.spec.ts:23:1 › T14 N13: real pointer drag from text output to text input creates one dependency (1.5s)
+  x  154 tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity (1.9s)
+(node:27808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 155 tests\e2e\ui-controls.spec.ts:2:1 › T11 buttons: busy is single flight, disabled reason remains accessible and error notification persists (477ms)
+  ok 156 tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable (1.6s)
+  ok 157 tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay (1.6s)
+  ok 158 tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment (1.7s)
+  ok 159 tests\e2e\video-submit.spec.ts:12:1 › T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission (1.7s)
+  ok 160 tests\e2e\video-work-context.spec.ts:3:1 › T32 D08: original result opens bounded work dialog; absent capability disables execution and Escape restores focus, zero POST (1.2s)
+(node:25220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 161 tests\e2e\asset-download.spec.ts:5:1 › T16-C04: original download acknowledges browser trigger and preserves bytes and filename (1.6s)
+(node:8440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 162 tests\e2e\media-delivery.spec.ts:4:1 › T33 actual native video: authenticated blob preview, local cache offline, original-byte download and cleanup; zero paid POST (1.2s)
+  ok 163 tests\e2e\media-delivery.spec.ts:14:1 › T33 actual transport: redirected media is blocked without any generation change or remote redirect request (413ms)
+(node:12716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 164 tests\e2e\project-package.spec.ts:7:1 › T36 actual full ZIP download and explicit new-project import preserve original and never restore runnable history (3.7s)
+  ok 165 tests\e2e\project-package.spec.ts:8:1 › T36 unsafe package produces clear rejection and no project writes; import is cancelable with focus restored (2.6s)
+  ok 166 tests\e2e\project-package.spec.ts:9:1 › T36 structure JSON backup clearly excludes media, can inspect/cancel and records only a triggered download (2.7s)
+(node:12400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 167 tests\e2e\prompt-download.spec.ts:4:1 › T17 L11: actual prompt export download contains only transfer fields and retains template/source (1.5s)
+(node:10396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 168 tests\e2e\prompt-draft-download.spec.ts:4:1 › T21 PG32/PG27: failed draft save offers a real recoverable JSON download without credentials or paid records (1.5s)
+(node:28120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 169 tests\e2e\recovery-diagnostics.spec.ts:6:1 › T38-C01/C03: unknown submission has only safe next steps; clearing local activity never removes the Run (2.8s)
+  ok 170 tests\e2e\recovery-diagnostics.spec.ts:7:1 › T38-C04: actual diagnostic download excludes full prompt, known Key, temporary URL and raw message (2.8s)
+  ok 171 tests\e2e\recovery-diagnostics.spec.ts:8:1 › T38-C05/C06: local help shows version, safe retry guidance and explicit license view without marketing or unconfigured feedback (2.6s)
+  ok 172 tests\e2e\recovery-diagnostics.spec.ts:9:1 › T38-C02/F06: actual native quota failure preserves latest textarea in an emergency memory download (3.6s)
+(node:27092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 173 tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate (2.7s)
+  ok 174 tests\e2e\storage-settings.spec.ts:7:1 › T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access (2.7s)
+  ok 175 tests\e2e\storage-settings.spec.ts:8:1 › T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history (2.7s)
+  ok 176 tests\e2e\storage-settings.spec.ts:9:1 › T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography (2.8s)
+  ok 177 tests\e2e\storage-settings.spec.ts:10:1 › T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity (2.7s)
+  ok 178 tests\e2e\storage-settings.spec.ts:11:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe (2.5s)
+  ok 179 tests\e2e\storage-settings.spec.ts:12:1 › T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection (3.1s)
+  ok 180 tests\e2e\storage-settings.spec.ts:13:1 › T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records (3.8s)
+(node:23572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 181 tests\e2e\task-center.spec.ts:5:1 › T34-C01/C02: local video and text records and independent filters, no full-Core claim or request on filtering (1.4s)
+  ok 182 tests\e2e\task-center.spec.ts:6:1 › T34 details: four dimensions, original IDs and deleted-node history, Escape restores focus (1.3s)
+  ok 183 tests\e2e\task-center.spec.ts:7:1 › T34-C03/C05: selected refresh groups original bindings, skips other Key and unknown submission, exactly one original GET and no paid retry (1.6s)
+  ok 184 tests\e2e\task-center.spec.ts:8:1 › T34-C06: local completed archive hides presentation but never removes Run or unknown history (1.3s)
+  ok 185 tests\e2e\task-center.spec.ts:9:1 › T34 CSV: actual native export prevents title formula injection and omits request body and ordinary Key (1.4s)
+  ok 186 tests\e2e\task-center.spec.ts:10:1 › T34 drawer: same persisted records limited to project, no duplicate records or paid operation after opening and refresh (2.5s)
+  ok 187 tests\e2e\task-center.spec.ts:11:1 › T34: original-bound ongoing task keeps polling after project archive and UI kind filtering, zero new POST (8.0s)
+  ok 188 tests\e2e\task-center.spec.ts:12:1 › T34 unknown recovery: no invented task identity or replay, nested dialog Escape returns to the original row (1.2s)
+
+
+  1) tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('只读 · 另一标签持有写权')
+    Expected: visible
+    Error: strict mode violation: getByText('只读 · 另一标签持有写权') resolved to 2 elements:
+        1) <span role="status">只读 · 另一标签持有写权</span> aka getByText('只读 · 另一标签持有写权', { exact: true })
+        2) <p>当前状态：只读 · 另一标签持有写权</p> aka getByText('当前状态：只读 · 另一标签持有写权')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('只读 · 另一标签持有写权')[22m
+
+
+      19 | });
+      20 | test('T13-C06: another writer makes canvas readonly; takeover requires explicit dialog',async({page})=>{
+    > 21 |  await page.evaluate(async()=>{const path='/src/infrastructure/storage/project-lease.ts';const {acquireProjectLease}=await import(path) as typeof import('../../src/infrastructure/storage/project-lease');await acquireProjectLease('p1','other-tab',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权')).toBeVisible();const box=await page.getByTestId('node-text-1').getByTestId('node-handle').boundingBox();await page.mouse.move(box!.x+20,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+80,box!.y+30);await page.mouse.up();expect((await graphState(page)).graph.nodes[0].x).toBe(80);await page.getByRole('button',{name:'接管编辑'}).click();await expect(page.getByRole('dialog',{name:'接管编辑'})).toBeVisible();await page.getByRole('button',{name:'取消',exact:true}).click();expect((await graphState(page)).graph.revision).toBe(1);
+         |                                                                                                                                                                                                                                                                                                                                                           ^
+      22 | });
+      23 | test('T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs',async({page,networkCounter})=>{
+      24 |  await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'添加节点'}).click();await page.getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.locator('[data-node-type="text"]')).toHaveCount(2);await page.getByTestId('canvas-stage').evaluate(element=>{const data=new DataTransfer();data.setData('text/plain','https://example.invalid/创作');element.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});await expect(page.locator('[data-node-type="text"]')).toHaveCount(3);await expect(page.getByText('https://example.invalid/创作',{exact:true})).toBeVisible();
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:21:347
+
+    Error Context: test-results\canvas-viewport-T13-C06-an-0525d-er-requires-explicit-dialog\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-C06-an-0525d-er-requires-explicit-dialog\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-C06-an-0525d-er-requires-explicit-dialog\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('尚未保存 · 内存草稿保留')
+    Expected: visible
+    Error: strict mode violation: getByText('尚未保存 · 内存草稿保留') resolved to 2 elements:
+        1) <span role="status">尚未保存 · 内存草稿保留</span> aka getByText('尚未保存 · 内存草稿保留', { exact: true })
+        2) <p>当前状态：尚未保存 · 内存草稿保留</p> aka getByText('当前状态：尚未保存 · 内存草稿保留')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('尚未保存 · 内存草稿保留')[22m
+
+
+      26 | });
+      27 | test('T13 navigation: quota failure retains draft and blocks browser Back until explicit discard',async({page})=>{
+    > 28 |  await page.goto('/projects');await page.getByRole('link',{name:'测试项目',exact:true}).click();await expect(page.getByTestId('node-text-1')).toBeVisible();await page.evaluate(()=>{const original=IDBObjectStore.prototype.put;let once=true;IDBObjectStore.prototype.put=function(...args:Parameters<IDBObjectStore['put']>){if(this.name==='graphs'&&once){once=false;throw new DOMException('test quota','QuotaExceededError');}return original.apply(this,args);};});const box=await page.getByTestId('node-text-1').getByTestId('node-handle').boundingBox();await page.mouse.move(box!.x+15,box!.y+15);await page.mouse.down();await page.mouse.move(box!.x+70,box!.y+30);await page.mouse.up();await expect(page.getByText('尚未保存 · 内存草稿保留')).toBeVisible();expect((await graphState(page)).graph.revision).toBe(1);await page.goBack();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();await page.getByRole('button',{name:'继续编辑',exact:true}).click();await expect(page).toHaveURL(/\/canvas$/);await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'离开前保存'})).toBeVisible();await page.getByRole('button',{name:'保存并离开',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect((await graphState(page)).graph.revision).toBe(2);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      29 | });
+      30 |
+      31 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-viewport.spec.ts:28:723
+
+    Error Context: test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-viewport-T13-naviga-4368a-Back-until-explicit-discard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('只读 · 另一标签持有写权')
+    Expected: visible
+    Error: strict mode violation: getByText('只读 · 另一标签持有写权') resolved to 2 elements:
+        1) <span role="status">只读 · 另一标签持有写权</span> aka getByText('只读 · 另一标签持有写权', { exact: true })
+        2) <p>当前状态：只读 · 另一标签持有写权</p> aka getByText('当前状态：只读 · 另一标签持有写权')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('只读 · 另一标签持有写权')[22m
+
+
+      20 | test('T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected',async({page})=>{await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).click();const video=page.getByTestId('node-video-1');await video.getByRole('button',{name:'接收图片',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'类型不匹配'})).toBeVisible();await expect(video.getByTestId('input-list').locator('li')).toHaveCount(0);await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).click();await video.getByRole('button',{name:'接收文本',exact:true}).click();await expect(video.getByTestId('input-list').locator('li')).toHaveCount(1);});
+      21 | test('T14 node creation: local asset and fixed result references use existing identities',async({page,networkCounter})=>{await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('button',{name:'素材节点',exact:true}).click();await page.getByRole('dialog',{name:'选择素材节点'}).getByRole('button',{name:'插入 参考一',exact:true}).click();await expect(page.locator('[data-node-type="asset"]')).toHaveCount(3);await page.getByRole('button',{name:'添加节点',exact:true}).click();await page.getByRole('button',{name:'结果引用节点',exact:true}).click();await page.getByRole('dialog',{name:'选择结果引用'}).getByRole('button',{name:'引用 固定结果素材',exact:true}).click();await expect(page.locator('[data-node-type="result"]')).toHaveCount(2);expect(networkCounter.paidRequests).toHaveLength(0);});
+    > 22 | test('T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer',async({page,context})=>{await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();const firstId=await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'));const other=await context.newPage();await other.addInitScript(id=>sessionStorage.setItem('aiwork-studio:tab-id',id!),firstId);await other.goto('/projects/p1/canvas');await expect(other.getByText('只读 · 另一标签持有写权')).toBeVisible();expect(await other.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).not.toBe(firstId);await page.reload();await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();expect(await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).toBe(firstId);await other.close();});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      23 | test('T14 N13: real pointer drag from text output to text input creates one dependency',async({page})=>{const from=await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).boundingBox(),to=await page.getByTestId('node-video-1').getByRole('button',{name:'接收文本',exact:true}).boundingBox();await page.mouse.move(from!.x+from!.width/2,from!.y+from!.height/2);await page.mouse.down();await page.mouse.move(to!.x+to!.width/2,to!.y+to!.height/2,{steps:6});await page.mouse.up();await expect(page.getByTestId('node-video-1').getByTestId('input-list').locator('li')).toHaveCount(1);});
+      24 | test('T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity',async({page,context})=>{await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();const firstId=await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'));const other=await context.newPage();await other.addInitScript(id=>{sessionStorage.setItem('aiwork-studio:tab-id',id!);Object.defineProperty(navigator,'locks',{value:undefined,configurable:true});},firstId);await other.goto('/projects/p1/canvas');await expect(other.getByText('只读 · 另一标签持有写权')).toBeVisible();expect(await other.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).not.toBe(firstId);await other.close();});
+      25 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:22:509
+
+    Error Context: test-results\typed-nodes-T14-tab-identi-b9222-d-keeps-the-original-writer\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-tab-identi-b9222-d-keeps-the-original-writer\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-tab-identi-b9222-d-keeps-the-original-writer\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('只读 · 另一标签持有写权')
+    Expected: visible
+    Error: strict mode violation: getByText('只读 · 另一标签持有写权') resolved to 2 elements:
+        1) <span role="status">只读 · 另一标签持有写权</span> aka getByText('只读 · 另一标签持有写权', { exact: true })
+        2) <p>当前状态：只读 · 另一标签持有写权</p> aka getByText('当前状态：只读 · 另一标签持有写权')
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('只读 · 另一标签持有写权')[22m
+
+
+      22 | test('T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer',async({page,context})=>{await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();const firstId=await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'));const other=await context.newPage();await other.addInitScript(id=>sessionStorage.setItem('aiwork-studio:tab-id',id!),firstId);await other.goto('/projects/p1/canvas');await expect(other.getByText('只读 · 另一标签持有写权')).toBeVisible();expect(await other.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).not.toBe(firstId);await page.reload();await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();expect(await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).toBe(firstId);await other.close();});
+      23 | test('T14 N13: real pointer drag from text output to text input creates one dependency',async({page})=>{const from=await page.getByTestId('node-text-1').getByRole('button',{name:'输出文本',exact:true}).boundingBox(),to=await page.getByTestId('node-video-1').getByRole('button',{name:'接收文本',exact:true}).boundingBox();await page.mouse.move(from!.x+from!.width/2,from!.y+from!.height/2);await page.mouse.down();await page.mouse.move(to!.x+to!.width/2,to!.y+to!.height/2,{steps:6});await page.mouse.up();await expect(page.getByTestId('node-video-1').getByTestId('input-list').locator('li')).toHaveCount(1);});
+    > 24 | test('T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity',async({page,context})=>{await expect(page.getByTestId('node-text-1').getByLabel('节点文本')).toBeEditable();const firstId=await page.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'));const other=await context.newPage();await other.addInitScript(id=>{sessionStorage.setItem('aiwork-studio:tab-id',id!);Object.defineProperty(navigator,'locks',{value:undefined,configurable:true});},firstId);await other.goto('/projects/p1/canvas');await expect(other.getByText('只读 · 另一标签持有写权')).toBeVisible();expect(await other.evaluate(()=>sessionStorage.getItem('aiwork-studio:tab-id'))).not.toBe(firstId);await other.close();});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+      25 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\typed-nodes.spec.ts:24:586
+
+    Error Context: test-results\typed-nodes-T14-identity-f-7ba12-use-another-writer-identity\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\typed-nodes-T14-identity-f-7ba12-use-another-writer-identity\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\typed-nodes-T14-identity-f-7ba12-use-another-writer-identity\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\e2e\canvas-viewport.spec.ts:20:1 › T13-C06: another writer makes canvas readonly; takeover requires explicit dialog 
+    tests\e2e\canvas-viewport.spec.ts:27:1 › T13 navigation: quota failure retains draft and blocks browser Back until explicit discard 
+    tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer 
+    tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity 
+  184 passed (5.5m)

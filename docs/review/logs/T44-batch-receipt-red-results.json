@@ -1,0 +1,70 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/interaction-contracts.spec.ts::T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request",
+      "file": "tests/e2e/interaction-contracts.spec.ts",
+      "title": "T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request",
+      "status": "failed",
+      "assertions": 5,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 772
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 861
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 911
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 146
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 228
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 296
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 444
+        },
+        {
+          "file": "tests/e2e/interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 578
+        }
+      ]
+    }
+  ]
+}

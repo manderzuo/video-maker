@@ -8,7 +8,8 @@ function result(row:RunLeaseRecord):ClaimResult{return {ok:true,epoch:row.epoch,
 export async function claimRunDispatch(runId:string,tabId:string,options:{db?:StudioDb;now?:number}={}):Promise<ClaimResult>{
  const now=options.now??Date.now();
  if(!runId||!tabId||!Number.isSafeInteger(now)||now<0)return {ok:false,errorCode:'run_claim_input_invalid'};
- return withDatabase(options.db,db=>transact(db,['runs','leases'],'readwrite',async tx=>{
+ return withDatabase(options.db,db=>transact(db,['runs','leases','receipts'],'readwrite',async tx=>{
+  if(await requestResult(tx.objectStore('receipts').get('run-withdrawal:'+runId)))return {ok:false,errorCode:'run_locally_withdrawn'};
   const raw:unknown=await requestResult(tx.objectStore('runs').get(runId)),parsed=runSchema.safeParse(raw);
   if(!parsed.success||parsed.data.executionState!=='persisted'||!parsed.data.finalBody||!parsed.data.finalBodyHash)return {ok:false,errorCode:'run_not_prepared'};
   const prior:RunLeaseRecord|undefined=await requestResult(tx.objectStore('leases').get(`dispatch:${runId}`));

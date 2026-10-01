@@ -1,0 +1,45 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/local-cleanup.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/local-cleanup.test.ts (3 tests | 3 failed) 7ms
+   × T44 D07 scans history before showing exact cleanup; only unreferenced original is removed 4ms
+   × T44 D07 new references after inspection deny cleanup instead of erasing a newly referenced original 1ms
+   × T44 D08 blocks unknown tracking; after a known result requires typed phrase and all project writer leases, preserves media/history 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D07 scans history before showing exact cleanup; only unreferenced original is removed
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D07 new references after inspection deny cleanup instead of erasing a newly referenced original
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D08 blocks unknown tracking; after a known result requires typed phrase and all project writer leases, preserves media/history
+ReferenceError: indexedDB is not defined
+ ❯ src/infrastructure/storage/database.ts:7:29
+      5|  return new Promise((resolve,reject)=>{
+      6|   let settled=false;
+      7|   const r=(options.factory??indexedDB).open(options.name??'aiwork-stud…
+       |                             ^
+      8|   r.onupgradeneeded=()=>migrateDatabase(r.result,r.transaction!);
+      9|   r.onsuccess=()=>{
+ ❯ openStudioDb src/infrastructure/storage/database.ts:5:9
+ ❯ tests/unit/local-cleanup.test.ts:3:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D07 scans history before showing exact cleanup; only unreferenced original is removed
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D07 new references after inspection deny cleanup instead of erasing a newly referenced original
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D08 blocks unknown tracking; after a known result requires typed phrase and all project writer leases, preserves media/history
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ tests/unit/local-cleanup.test.ts:3:686
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  10:34:11
+   Duration  360ms (transform 96ms, setup 43ms, import 125ms, tests 7ms, environment 0ms)
+

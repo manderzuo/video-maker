@@ -1,0 +1,41 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/local-cleanup.spec.ts::T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original",
+      "file": "tests/e2e/local-cleanup.spec.ts",
+      "title": "T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original",
+      "status": "timedOut",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    },
+    {
+      "id": "tests/e2e/local-cleanup.spec.ts::T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history",
+      "file": "tests/e2e/local-cleanup.spec.ts",
+      "title": "T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history",
+      "status": "timedOut",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    }
+  ]
+}

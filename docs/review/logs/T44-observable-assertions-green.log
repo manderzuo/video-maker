@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: T44 no phantom full coverage: unmapped interactions, pages and dialogs stop the gate
+ok 1 - T44 no phantom full coverage: unmapped interactions, pages and dialogs stop the gate
+  ---
+  duration_ms: 1.2144
+  type: 'test'
+  ...
+# Subtest: T44 skipped or unasserted tests cannot be promoted to evidence
+ok 2 - T44 skipped or unasserted tests cannot be promoted to evidence
+  ---
+  duration_ms: 0.3493
+  type: 'test'
+  ...
+# Subtest: T44 task owner mismatch and duplicate canonical identity cannot silently pass
+ok 3 - T44 task owner mismatch and duplicate canonical identity cannot silently pass
+  ---
+  duration_ms: 0.1462
+  type: 'test'
+  ...
+# Subtest: T44 coverage validator accepts matching executed assertion evidence without treating its own fixture as product coverage
+ok 4 - T44 coverage validator accepts matching executed assertion evidence without treating its own fixture as product coverage
+  ---
+  duration_ms: 0.1934
+  type: 'test'
+  ...
+# Subtest: T44 missing execution of claimed assertion line blocks even a passed test
+ok 5 - T44 missing execution of claimed assertion line blocks even a passed test
+  ---
+  duration_ms: 0.2005
+  type: 'test'
+  ...
+# Subtest: T44 tests skipped or expected-failed cannot satisfy coverage
+ok 6 - T44 tests skipped or expected-failed cannot satisfy coverage
+  ---
+  duration_ms: 0.1634
+  type: 'test'
+  ...
+# Subtest: T44 an unrelated helper assertion and zero UI action do not prove control coverage
+ok 7 - T44 an unrelated helper assertion and zero UI action do not prove control coverage
+  ---
+  duration_ms: 0.1788
+  type: 'test'
+  ...
+# Subtest: T44 missing side effects cannot be waived by a generic N/A explanation
+ok 8 - T44 missing side effects cannot be waived by a generic N/A explanation
+  ---
+  duration_ms: 0.1305
+  type: 'test'
+  ...
+# Subtest: T44 an unobserved network count cannot be treated as zero merely because the UI assertion passed
+ok 9 - T44 an unobserved network count cannot be treated as zero merely because the UI assertion passed
+  ---
+  duration_ms: 0.3124
+  type: 'test'
+  ...
+# Subtest: T44 a hidden business write or blocked foreign request invalidates claimed local side effects
+ok 10 - T44 a hidden business write or blocked foreign request invalidates claimed local side effects
+  ---
+  duration_ms: 0.394
+  type: 'test'
+  ...
+# Subtest: T44 literal tautologies are not observable assertions even when Playwright reports an expect step
+ok 11 - T44 literal tautologies are not observable assertions even when Playwright reports an expect step
+  ---
+  duration_ms: 6.9662
+  type: 'test'
+  ...
+# Subtest: T44 an executed line containing only a literal cannot satisfy the source assertion gate
+ok 12 - T44 an executed line containing only a literal cannot satisfy the source assertion gate
+  ---
+  duration_ms: 0.1477
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 398.1941

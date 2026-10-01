@@ -1,0 +1,153 @@
+[WebServer] (node:10956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:13432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect (5.8s)
+(node:29096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\interaction-coverage.spec.ts:7:1 › T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit (6.2s)
+(node:11592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\interaction-coverage.spec.ts:10:1 › T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist (30.1s)
+(node:4416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\e2e\interaction-coverage.spec.ts:13:1 › T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs (30.1s)
+
+
+  1) tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('[data-interaction-id="G-01"]')
+    Expected: [32m"/projects"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-interaction-id="G-01"]')[22m
+
+
+      2 | import {seedStudio} from '../helpers/seed-studio';
+      3 | test('T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect',async({page,networkCounter})=>{
+    > 4 |  await page.goto('/projects');await expect(page.locator('[data-interaction-id="G-01"]')).toHaveAttribute('href','/projects');await page.locator('[data-interaction-id="G-04"]').fill('不存在的本地项目');await expect(page.getByText('没有匹配内容',{exact:true})).toBeVisible();await page.getByRole('button',{name:'清除搜索',exact:true}).click();
+        |                                                                                          ^
+      5 |  await page.locator('[data-interaction-id="G-07"]').click();await expect(page.getByRole('dialog',{name:'当前区域帮助',exact:true})).toContainText('项目保存在当前浏览器');await page.keyboard.press('Escape');await expect(page.locator('[data-interaction-id="G-07"]')).toBeFocused();await page.locator('[data-interaction-id="G-09"]').click();await expect(page.getByRole('dialog',{name:'通知消息',exact:true})).toContainText('提交未知');expect(networkCounter.paidRequests).toHaveLength(0);
+      6 | });
+      7 | test('T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-coverage.spec.ts:4:90
+
+    Error Context: test-results\interaction-coverage-T44-g-10b85-ies-and-no-paid-side-effect\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-coverage-T44-g-10b85-ies-and-no-paid-side-effect\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-coverage-T44-g-10b85-ies-and-no-paid-side-effect\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\interaction-coverage.spec.ts:7:1 › T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator: locator('[data-interaction-id="C-13"]')
+    Expected: disabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-interaction-id="C-13"]')[22m
+
+
+       6 | });
+       7 | test('T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit',async({page,networkCounter})=>{
+    >  8 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await expect(page.locator('[data-interaction-id="C-13"]')).toBeDisabled();await expect(page.locator('[data-interaction-id="C-14"]')).toBeDisabled();await expect(page.locator('[data-interaction-id="C-07"]')).toBeDisabled();await page.locator('[data-interaction-id="C-05"]').fill('999');await page.locator('[data-interaction-id="C-05"]').press('Enter');await expect(page.getByRole('alert')).toContainText('25%–200%');await page.locator('[data-interaction-id="C-09"]').selectOption('grid');await page.locator('[data-interaction-id="C-08"]').click();await page.locator('[data-interaction-id="C-10"]').click();await page.getByRole('dialog',{name:'添加节点',exact:true}).getByRole('button',{name:'文本节点',exact:true}).click();await expect(page.locator('[data-interaction-id="C-13"]')).toBeEnabled();await page.locator('[data-interaction-id="C-13"]').click();await expect(page.locator('[data-interaction-id="C-14"]')).toBeEnabled();await page.locator('[data-interaction-id="C-14"]').click();await page.reload();await expect(page.locator('[data-interaction-id="C-09"]')).toHaveValue('grid');expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                            ^
+       9 | });
+      10 | test('T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist',async({page,networkCounter})=>{
+      11 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').locator('[data-interaction-id="P-09"]').check();await page.locator('[data-interaction-id="P-13"]').click();await expect(page.getByTestId('project-p1').locator('[data-interaction-id="P-09"]')).toBeChecked();await page.getByTestId('project-p1').locator('[data-interaction-id="P-14"]').click();await expect(page.getByRole('dialog')).toContainText('项目甲');await page.keyboard.press('Escape');await page.getByTestId('project-p1').locator('[data-interaction-id="P-04"]').click();await page.getByRole('dialog').getByLabel('项目名称').fill('');await page.getByRole('dialog').getByRole('button',{name:'保存名称',exact:true}).click();await expect(page.getByRole('dialog').getByRole('alert')).toBeVisible();await page.keyboard.press('Escape');await page.reload();await expect(page.getByRole('heading',{name:'项目甲',exact:true})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-coverage.spec.ts:8:140
+
+    Error Context: test-results\interaction-coverage-T44-v-d9404-ual-undo-redo-cannot-submit\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-coverage-T44-v-d9404-ual-undo-redo-cannot-submit\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-coverage-T44-v-d9404-ual-undo-redo-cannot-submit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\interaction-coverage.spec.ts:10:1 › T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.check: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByTestId('project-p1').locator('[data-interaction-id="P-09"]')[22m
+
+
+       9 | });
+      10 | test('T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist',async({page,networkCounter})=>{
+    > 11 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').locator('[data-interaction-id="P-09"]').check();await page.locator('[data-interaction-id="P-13"]').click();await expect(page.getByTestId('project-p1').locator('[data-interaction-id="P-09"]')).toBeChecked();await page.getByTestId('project-p1').locator('[data-interaction-id="P-14"]').click();await expect(page.getByRole('dialog')).toContainText('项目甲');await page.keyboard.press('Escape');await page.getByTestId('project-p1').locator('[data-interaction-id="P-04"]').click();await page.getByRole('dialog').getByLabel('项目名称').fill('');await page.getByRole('dialog').getByRole('button',{name:'保存名称',exact:true}).click();await expect(page.getByRole('dialog').getByRole('alert')).toBeVisible();await page.keyboard.press('Escape');await page.reload();await expect(page.getByRole('heading',{name:'项目甲',exact:true})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                     ^
+      12 | });
+      13 | test('T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs',async({page,networkCounter})=>{
+      14 |  await page.goto('/settings/appearance');await page.locator('[data-interaction-id="S-01"]').selectOption('light');await page.locator('[data-interaction-id="S-02"]').selectOption('compact');await page.locator('[data-interaction-id="S-03"]').check();await page.locator('[data-interaction-id="S-04"]').selectOption('reduced');await page.reload();await expect(page.locator('[data-interaction-id="S-01"]')).toHaveValue('light');await expect(page.locator('[data-interaction-id="S-02"]')).toHaveValue('compact');await expect(page.locator('[data-interaction-id="S-03"]')).toBeChecked();await expect(page.locator('[data-interaction-id="S-04"]')).toHaveValue('reduced');expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-coverage.spec.ts:11:149
+
+    Error Context: test-results\interaction-coverage-T44-p-8ef24-ailed-rename-cannot-persist\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-coverage-T44-p-8ef24-ailed-rename-cannot-persist\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-coverage-T44-p-8ef24-ailed-rename-cannot-persist\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\interaction-coverage.spec.ts:13:1 › T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[data-interaction-id="S-01"]')[22m
+
+
+      12 | });
+      13 | test('T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs',async({page,networkCounter})=>{
+    > 14 |  await page.goto('/settings/appearance');await page.locator('[data-interaction-id="S-01"]').selectOption('light');await page.locator('[data-interaction-id="S-02"]').selectOption('compact');await page.locator('[data-interaction-id="S-03"]').check();await page.locator('[data-interaction-id="S-04"]').selectOption('reduced');await page.reload();await expect(page.locator('[data-interaction-id="S-01"]')).toHaveValue('light');await expect(page.locator('[data-interaction-id="S-02"]')).toHaveValue('compact');await expect(page.locator('[data-interaction-id="S-03"]')).toBeChecked();await expect(page.locator('[data-interaction-id="S-04"]')).toHaveValue('reduced');expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                             ^
+      15 | });
+      16 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-coverage.spec.ts:14:93
+
+    Error Context: test-results\interaction-coverage-T44-p-d2ffb-sist-and-do-not-create-runs\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-coverage-T44-p-d2ffb-sist-and-do-not-create-runs\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-coverage-T44-p-d2ffb-sist-and-do-not-create-runs\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect 
+    tests\e2e\interaction-coverage.spec.ts:7:1 › T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit 
+    tests\e2e\interaction-coverage.spec.ts:10:1 › T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist 
+    tests\e2e\interaction-coverage.spec.ts:13:1 › T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs 

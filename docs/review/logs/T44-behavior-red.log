@@ -1,0 +1,109 @@
+[WebServer] (node:29168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:14124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:14124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging (30.1s)
+(node:6420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities (30.1s)
+(node:23592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request (30.1s)
+
+
+  1) tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '立即保存', exact: true })[22m
+
+
+      4 | import {unzipSync,strFromU8} from 'fflate';
+      5 | test('T44 G06/D03 immediate save reads actual commit status and flushes current text without charging',async({page,networkCounter})=>{
+    > 6 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'立即保存',exact:true}).click();await page.getByRole('button',{name:'保存详情',exact:true}).click();await expect(page.getByRole('dialog',{name:'保存详情',exact:true})).toContainText('上次成功保存');await page.keyboard.press('Escape');await page.getByLabel('节点文本',{exact:true}).fill('立即保存的最新中文稿');await page.getByRole('button',{name:'立即保存',exact:true}).click();await page.reload();await expect(page.getByLabel('节点文本',{exact:true})).toHaveValue('立即保存的最新中文稿');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                         ^
+      7 | });
+      8 | test('T44 G10 restore layout preserves all node coordinates, creative revision and task identities',async({page,networkCounter})=>{
+      9 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'显示小地图',exact:true}).click();const before=await page.getByTestId('node-text-1').getAttribute('style');await page.getByRole('button',{name:'Agent 协作',exact:true}).click();await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(page.getByRole('complementary',{name:'Agent 协作面板',exact:true})).toHaveCount(0);await expect(page.getByTestId('canvas-minimap')).toHaveCount(0);await expect(page.getByTestId('node-text-1')).toHaveAttribute('style',before!);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-contracts.spec.ts:6:137
+
+    Error Context: test-results\interaction-contracts-T44--82492-rrent-text-without-charging\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-contracts-T44--82492-rrent-text-without-charging\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-contracts-T44--82492-rrent-text-without-charging\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '恢复布局', exact: true })[22m
+
+
+       7 | });
+       8 | test('T44 G10 restore layout preserves all node coordinates, creative revision and task identities',async({page,networkCounter})=>{
+    >  9 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'显示小地图',exact:true}).click();const before=await page.getByTestId('node-text-1').getAttribute('style');await page.getByRole('button',{name:'Agent 协作',exact:true}).click();await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(page.getByRole('complementary',{name:'Agent 协作面板',exact:true})).toHaveCount(0);await expect(page.getByTestId('canvas-minimap')).toHaveCount(0);await expect(page.getByTestId('node-text-1')).toHaveAttribute('style',before!);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                       ^
+      10 | });
+      11 | test('T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request',async({page,networkCounter})=>{
+      12 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量导出所选项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'批量导出项目包',exact:true});await expect(dialog).toContainText('2 个');await dialog.getByLabel('备份范围').selectOption('structure');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出 2 个项目',exact:true}).click();const download=await pending,entries=unzipSync(new Uint8Array(await readFile((await download.path())!))),manifest=JSON.parse(strFromU8(entries['manifest.json']));expect(manifest.format).toBe('aiwork-studio-project-batch');expect(manifest.projects.map((p:{id:string})=>p.id)).toEqual(['p1','p2']);expect(Object.keys(entries)).toHaveLength(3);for(const project of manifest.projects){const data=JSON.parse(strFromU8(entries[project.path]));expect(data.project.id).toBe(project.id);expect(data.manifest.mode).toBe('structure');}expect(JSON.stringify(manifest)).not.toMatch(/apiKey|token|authorization/i);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-contracts.spec.ts:9:343
+
+    Error Context: test-results\interaction-contracts-T44--4814f-evision-and-task-identities\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-contracts-T44--4814f-evision-and-task-identities\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-contracts-T44--4814f-evision-and-task-identities\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '批量导出所选项目', exact: true })[22m
+
+
+      10 | });
+      11 | test('T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request',async({page,networkCounter})=>{
+    > 12 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量导出所选项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'批量导出项目包',exact:true});await expect(dialog).toContainText('2 个');await dialog.getByLabel('备份范围').selectOption('structure');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出 2 个项目',exact:true}).click();const download=await pending,entries=unzipSync(new Uint8Array(await readFile((await download.path())!))),manifest=JSON.parse(strFromU8(entries['manifest.json']));expect(manifest.format).toBe('aiwork-studio-project-batch');expect(manifest.projects.map((p:{id:string})=>p.id)).toEqual(['p1','p2']);expect(Object.keys(entries)).toHaveLength(3);for(const project of manifest.projects){const data=JSON.parse(strFromU8(entries[project.path]));expect(data.project.id).toBe(project.id);expect(data.manifest.mode).toBe('structure');}expect(JSON.stringify(manifest)).not.toMatch(/apiKey|token|authorization/i);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                        ^
+      13 | });
+      14 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-contracts.spec.ts:12:296
+
+    Error Context: test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging 
+    tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities 
+    tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request 

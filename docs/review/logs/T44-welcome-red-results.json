@@ -1,0 +1,29 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/welcome-connection.spec.ts::T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET",
+      "file": "tests/e2e/welcome-connection.spec.ts",
+      "title": "T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET",
+      "status": "timedOut",
+      "assertions": 2,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 522
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    }
+  ]
+}

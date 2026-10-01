@@ -1,0 +1,40 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/navigation-memory.spec.ts::T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests",
+      "file": "tests/e2e/navigation-memory.spec.ts",
+      "title": "T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests",
+      "status": "failed",
+      "assertions": 2,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 257
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/navigation-memory.spec.ts",
+          "line": 3,
+          "column": 185
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+[WebServer] (node:25244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:13068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\asset-deletion-contract.spec.ts:3:1 › T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history (6.5s)
+
+
+  1) tests\e2e\asset-deletion-contract.spec.ts:3:1 › T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '移入素材回收站', exact: true })
+    Expected: [32m"D03"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '移入素材回收站', exact: true })[22m
+
+
+      2 | const stored=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';return(await import(p)).storedAssets();});
+      3 | test('T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history',async({page,networkCounter})=>{
+    > 4 |  await page.goto('/assets');await page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';await(await import(p)).seedAssetLibrary();});await page.reload();const before=await stored(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await expect(page.getByRole('complementary',{name:'素材详情',exact:true})).toHaveAttribute('data-dialog-id','D07');await page.getByRole('button',{name:'移到回收站',exact:true}).click();const dialog=page.getByRole('dialog',{name:'移入素材回收站',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D03');await expect(dialog).toContainText('引用');expect(await stored(page)).toEqual(before);await page.keyboard.press('Escape');expect(await stored(page)).toEqual(before);await page.getByRole('button',{name:'移到回收站',exact:true}).click();await dialog.getByRole('button',{name:'确认移入素材回收站',exact:true}).click();await expect(page.getByRole('complementary',{name:'素材详情',exact:true})).not.toBeVisible();const after=await stored(page);expect(after.graph).toEqual(before.graph);expect(after.runs).toEqual(before.runs);expect(after.blobs).toEqual(before.blobs);expect(after.assets.find((a:{title:string})=>a.title==='参考.png').trashedAt).toBeGreaterThan(0);expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      5 | });
+      6 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\asset-deletion-contract.spec.ts:4:531
+
+    Error Context: test-results\asset-deletion-contract-T4-0c1c8-ft-delete-preserves-history\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\asset-deletion-contract-T4-0c1c8-ft-delete-preserves-history\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\asset-deletion-contract-T4-0c1c8-ft-delete-preserves-history\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\asset-deletion-contract.spec.ts:3:1 › T44 D03/D07/M12 removal shows reference impact; Escape leaves original intact and explicit soft delete preserves history 

@@ -1,0 +1,20 @@
+[WebServer] (node:9140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:21088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (879ms)
+  ok 2 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (700ms)
+  ok 3 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (1.1s)
+  ok 4 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (633ms)
+  ok 5 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (893ms)
+  ok 6 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (666ms)
+  ok 7 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (739ms)
+  ok 8 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (1.2s)
+  ok 9 tests\e2e\queue-withdrawal.spec.ts:2:1 › T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it (1.8s)
+
+  9 passed (11.6s)

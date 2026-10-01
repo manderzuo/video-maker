@@ -2,7 +2,7 @@
   "taskId": "T43",
   "status": "门控和说明实施完成，本地自检通过；条件能力执行受限，待审查",
   "baseCommit": "c1930610caf2cd30553ce1dc75b7cb5f2c030b65",
-  "headCommit": null,
+  "headCommit": "6d8e5b5f56c9151dbc79fe76c3de96c0971cbdfd",
   "branch": "feat/aiwork-studio",
   "actualProjectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
   "actualModel": "由用户在宿主选择，当前工具不可验证",

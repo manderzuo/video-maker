@@ -1,0 +1,447 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/interaction-coverage.spec.ts::T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect",
+      "file": "tests/e2e/interaction-coverage.spec.ts",
+      "title": "T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 4,
+          "column": 90
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 4,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 127
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 250
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 445
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 4,
+          "column": 177
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 4,
+          "column": 320
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 53
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 175
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 5,
+          "column": 315
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/interaction-coverage.spec.ts::T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit",
+      "file": "tests/e2e/interaction-coverage.spec.ts",
+      "title": "T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 214
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 288
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 470
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 854
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 986
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 1138
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 1194
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 417
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 547
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 619
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 678
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 787
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 919
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 8,
+          "column": 1051
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/interaction-coverage.spec.ts::T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist",
+      "file": "tests/e2e/interaction-coverage.spec.ts",
+      "title": "T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 439
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 780
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 914
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 964
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 149
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 208
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 392
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 480
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 573
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 714
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 11,
+          "column": 814
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/interaction-coverage.spec.ts::T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs",
+      "file": "tests/e2e/interaction-coverage.spec.ts",
+      "title": "T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 403
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 483
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 565
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 638
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 697
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 93
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 166
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 241
+        },
+        {
+          "file": "tests/e2e/interaction-coverage.spec.ts",
+          "line": 14,
+          "column": 300
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/text-ai-entry.spec.ts::T44 T06 text polish is gated by verified text capability and opens a saved-source fee preview without any request; cancellation preserves the source",
+      "file": "tests/e2e/text-ai-entry.spec.ts",
+      "title": "T44 T06 text polish is gated by verified text capability and opens a saved-source fee preview without any request; cancellation preserves the source",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 775
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 957
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 1022
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 1543
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 1570
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 1602
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 1721
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 1790
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 314
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 389
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 559
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 650
+        },
+        {
+          "file": "tests/e2e/text-ai-entry.spec.ts",
+          "line": 3,
+          "column": 924
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

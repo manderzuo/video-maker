@@ -1,0 +1,32 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/local-cleanup.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/local-cleanup.test.ts (5 tests | 1 failed) 44ms
+   × T44 D08 a stale withdrawal receipt never overrides a current unknown submission 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/local-cleanup.test.ts > T44 D08 a stale withdrawal receipt never overrides a current unknown submission
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/local-cleanup.test.ts:9:401
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  10:48:49
+   Duration  443ms (transform 123ms, setup 44ms, import 183ms, tests 44ms, environment 0ms)
+

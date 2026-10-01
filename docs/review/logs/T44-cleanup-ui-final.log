@@ -1,0 +1,13 @@
+[WebServer] (node:29564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:6028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\local-cleanup.spec.ts:3:1 › T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original (1.5s)
+  ok 2 tests\e2e\local-cleanup.spec.ts:6:1 › T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history (2.0s)
+
+  2 passed (6.5s)

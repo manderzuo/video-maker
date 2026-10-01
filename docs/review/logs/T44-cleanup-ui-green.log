@@ -1,0 +1,89 @@
+[WebServer] (node:12064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:18652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\local-cleanup.spec.ts:3:1 › T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original (6.4s)
+(node:23056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\local-cleanup.spec.ts:6:1 › T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history (7.2s)
+
+
+  1) tests\e2e\local-cleanup.spec.ts:3:1 › T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '清理未引用素材', exact: true })
+    Expected substring: [32m"声音660.wav"[39m
+    Received string:    [31m"清理未引用素材×本次影响 2 项。请先导出备份；操作不能撤销，不修改 Core 数据库，不取消生成或退款。先导出项目备份只删除没有画布、草稿、历史任务或回执引用的素材及其不再共享的原文件。受保护的已引用素材 1 项保留。声音220.wav · e42dad29-f716-4326-855c-28db5f29cb79声音440.wav · ecaa1739-df56-4288-8543-36fd470dc626返回保留数据确认清理未引用素材"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '清理未引用素材', exact: true })[22m
+    [2m    9 × locator resolved to <dialog open="" aria-modal="true" aria-labelledby="_r_c_" class="dialog dialog-640">…</dialog>[22m
+    [2m      - unexpected value "清理未引用素材×本次影响 2 项。请先导出备份；操作不能撤销，不修改 Core 数据库，不取消生成或退款。先导出项目备份只删除没有画布、草稿、历史任务或回执引用的素材及其不再共享的原文件。受保护的已引用素材 1 项保留。声音220.wav · e42dad29-f716-4326-855c-28db5f29cb79声音440.wav · ecaa1739-df56-4288-8543-36fd470dc626返回保留数据确认清理未引用素材"[22m
+
+
+      2 | const state=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';return(await import(p)).storedAssets();});
+      3 | test('T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original',async({page,networkCounter})=>{
+    > 4 |  await page.goto('/assets');await page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';await(await import(p)).seedAssetLibrary();});await page.goto('/settings/storage');const before=await state(page);await page.getByRole('button',{name:'清理未引用素材',exact:true}).click();const dialog=page.getByRole('dialog',{name:'清理未引用素材',exact:true});await expect(dialog).toContainText('声音440.wav');await expect(dialog).toContainText('声音660.wav');await page.keyboard.press('Escape');expect(await state(page)).toEqual(before);await page.getByRole('button',{name:'清理未引用素材',exact:true}).click();await page.evaluate(()=>{const original=IDBObjectStore.prototype.delete;let once=true;IDBObjectStore.prototype.delete=function(key){if(once&&this.name==='blobs'){once=false;throw new DOMException('test-native-delete-abort','QuotaExceededError');}return original.call(this,key);};});await dialog.getByRole('button',{name:'确认清理未引用素材',exact:true}).click();await expect(dialog.getByRole('alert')).toBeVisible();expect(await state(page)).toEqual(before);await dialog.getByRole('button',{name:'确认清理未引用素材',exact:true}).click();await expect(dialog).not.toBeVisible();const after=await state(page);expect(after.assets).toHaveLength(before.assets.length-2);expect(after.runs).toEqual(before.runs);expect(after.graph).toEqual(before.graph);expect(after.assets.find((a:{title:string})=>a.title==='参考.png')).toBeDefined();expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+      5 | });
+      6 | test('T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history',async({page,networkCounter})=>{
+      7 |  await seedStudio(page,'project-library');await page.goto('/settings/storage');await page.getByRole('button',{name:'清空本地项目数据',exact:true}).click();const dialog=page.getByRole('dialog',{name:'清空本地项目数据',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D19');await expect(dialog).toContainText('受保护视频追踪');await expect(dialog.getByRole('button',{name:'确认清空本地项目',exact:true})).toBeDisabled();await dialog.getByLabel('输入确认词 清空本地项目',{exact:true}).fill('清空本地项目');await expect(dialog.getByRole('button',{name:'确认清空本地项目',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await page.goto('/projects');await expect(page.getByTestId('project-p1')).toBeVisible();await page.goto('/tasks');await expect(page.getByTestId('r1')).toContainText('提交结果不明');expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\local-cleanup.spec.ts:4:417
+
+    Error Context: test-results\local-cleanup-T44-D07-clea-f9677-rt-preserves-every-original\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\local-cleanup-T44-D07-clea-f9677-rt-preserves-every-original\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\local-cleanup-T44-D07-clea-f9677-rt-preserves-every-original\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\local-cleanup.spec.ts:6:1 › T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('r1')
+    Expected substring: [32m"提交结果不明"[39m
+    Received string:    [31m"视频任务 · 历史节点 n1提交结果待确认 · 查询空闲 · 内容待获取 · 账务未提供项目甲详情归档记录尚有未明状态，保留在任务记录中"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('r1')[22m
+    [2m    9 × locator resolved to <article data-testid="r1" class="card task-row">…</article>[22m
+    [2m      - unexpected value "视频任务 · 历史节点 n1提交结果待确认 · 查询空闲 · 内容待获取 · 账务未提供项目甲详情归档记录尚有未明状态，保留在任务记录中"[22m
+
+
+      5 | });
+      6 | test('T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history',async({page,networkCounter})=>{
+    > 7 |  await seedStudio(page,'project-library');await page.goto('/settings/storage');await page.getByRole('button',{name:'清空本地项目数据',exact:true}).click();const dialog=page.getByRole('dialog',{name:'清空本地项目数据',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D19');await expect(dialog).toContainText('受保护视频追踪');await expect(dialog.getByRole('button',{name:'确认清空本地项目',exact:true})).toBeDisabled();await dialog.getByLabel('输入确认词 清空本地项目',{exact:true}).fill('清空本地项目');await expect(dialog.getByRole('button',{name:'确认清空本地项目',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await page.goto('/projects');await expect(page.getByTestId('project-p1')).toBeVisible();await page.goto('/tasks');await expect(page.getByTestId('r1')).toContainText('提交结果不明');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      8 | });
+      9 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\local-cleanup.spec.ts:7:747
+
+    Error Context: test-results\local-cleanup-T44-D08-D19--81afa-e-media-or-any-Core-history\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\local-cleanup-T44-D08-D19--81afa-e-media-or-any-Core-history\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\local-cleanup-T44-D08-D19--81afa-e-media-or-any-Core-history\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\local-cleanup.spec.ts:3:1 › T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original 
+    tests\e2e\local-cleanup.spec.ts:6:1 › T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history 

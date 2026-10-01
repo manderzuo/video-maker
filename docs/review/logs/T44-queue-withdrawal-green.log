@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/queue-withdrawal.test.ts tests/unit/run-queue.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  10:23:00
+   Duration  992ms (transform 557ms, setup 62ms, import 827ms, tests 435ms, environment 0ms)
+

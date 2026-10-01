@@ -1,0 +1,26 @@
+[WebServer] (node:19868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:10280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\creative-control-completion.spec.ts:4:1 › T44 N03/N04 actual copy and paste buttons produce a new structure identity and preserve original media and Run after reload (2.2s)
+  ok  2 tests\e2e\creative-control-completion.spec.ts:7:1 › T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution (1.7s)
+  ok  3 tests\e2e\creative-control-completion.spec.ts:10:1 › T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run (2.0s)
+  ok  4 tests\e2e\creative-control-completion.spec.ts:13:1 › T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path (1.7s)
+  ok  5 tests\e2e\creative-control-completion.spec.ts:16:1 › T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable (1.7s)
+  ok  6 tests\e2e\typed-nodes.spec.ts:5:1 › T14-C04: unknown capabilities keep video drafts editable without an execution button (1.2s)
+  ok  7 tests\e2e\typed-nodes.spec.ts:8:1 › T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact (2.7s)
+  ok  8 tests\e2e\typed-nodes.spec.ts:11:1 › T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run (1.6s)
+  ok  9 tests\e2e\typed-nodes.spec.ts:14:1 › T14-C03: result node displays fixed asset and run; preview does not replace history (1.2s)
+  ok 10 tests\e2e\typed-nodes.spec.ts:17:1 › T14 N02/T02: title validates Unicode length and display font does not edit content (1.4s)
+  ok 11 tests\e2e\typed-nodes.spec.ts:20:1 › T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected (1.4s)
+  ok 12 tests\e2e\typed-nodes.spec.ts:21:1 › T14 node creation: local asset and fixed result references use existing identities (1.4s)
+  ok 13 tests\e2e\typed-nodes.spec.ts:22:1 › T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer (2.4s)
+  ok 14 tests\e2e\typed-nodes.spec.ts:23:1 › T14 N13: real pointer drag from text output to text input creates one dependency (1.3s)
+  ok 15 tests\e2e\typed-nodes.spec.ts:24:1 › T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity (1.8s)
+
+  15 passed (29.0s)

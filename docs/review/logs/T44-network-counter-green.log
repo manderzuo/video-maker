@@ -1,0 +1,13 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/network-evidence.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  11:51:03
+   Duration  235ms (transform 41ms, setup 43ms, import 14ms, tests 4ms, environment 0ms)
+

@@ -1,0 +1,201 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-tool-contracts.spec.ts::T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed",
+      "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+      "title": "T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 300
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 686
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 841
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 1044
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 1079
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 1154
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 214
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 734
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 787
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-tool-contracts.spec.ts::T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data",
+      "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+      "title": "T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 865
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 916
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 968
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 590
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-tool-contracts.spec.ts::T44 N10/N18/N19 existing group and result controls refuse a native foreign writer",
+      "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+      "title": "T44 N10/N18/N19 existing group and result controls refuse a native foreign writer",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 298
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 489
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 489
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 672
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 713
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 765
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 388
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 549
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 605
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

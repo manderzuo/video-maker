@@ -1,0 +1,73 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/queue-withdrawal.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/queue-withdrawal.test.ts (2 tests | 2 failed) 122ms
+   × T44 J06 unsent withdrawal retains original Run, approval and billing evidence but permanently prevents this attempt from POST 91ms
+   × T44 J06 changed queue and already dispatched/unknown attempts cannot be locally removed 30ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/queue-withdrawal.test.ts > T44 J06 unsent withdrawal retains original Run, approval and billing evidence but permanently prevents this attempt from POST
+AssertionError: expected 'ready' to be 'withdrawn' // Object.is equality
+
+Expected: "withdrawn"
+Received: "ready"
+
+ ❯ tests/unit/queue-withdrawal.test.ts:8:346
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/queue-withdrawal.test.ts > T44 J06 changed queue and already dispatched/unknown attempts cannot be locally removed
+AssertionError: promise resolved "{ …(13) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "approvalId": "7e81ae52-11fc-4749-883f-08f47896b6cf",
++   "createdAt": 1790821227175,
++   "epoch": 0,
++   "id": "queue:b81bdc80-3b72-48bd-89c8-1217f7c76d2b",
++   "items": [
++     {
++       "dependencyNodeIds": [],
++       "dependencyRunIds": [],
++       "inputNodeIds": [
++         "text",
++       ],
++       "nodeId": "shot",
++       "requiresVisibleOutputs": [],
++       "runId": "3655bb47-4f90-4e7f-b626-b13ab8f5b62c",
++       "status": "ready",
++     },
++   ],
++   "planHashes": [
++     "1d9fbf36880b66d768479c658bb4cb51671cbae7dd1b37769dec40cd76848f4f",
++   ],
++   "preparationConcurrency": 1,
++   "projectId": "p1",
++   "queueId": "b81bdc80-3b72-48bd-89c8-1217f7c76d2b",
++   "revision": 1,
++   "state": "ready",
++   "supersededRunIds": [],
++   "updatedAt": 1790821227175,
+  }
+
+ ❯ tests/unit/queue-withdrawal.test.ts:9:236
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  10:20:26
+   Duration  915ms (transform 330ms, setup 64ms, import 463ms, tests 122ms, environment 0ms)
+

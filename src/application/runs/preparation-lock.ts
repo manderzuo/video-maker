@@ -5,7 +5,8 @@ import {assertRunIdentity} from '../../infrastructure/storage/run-repository';
 export type PreparationToken={id:string;owner:string;projectId:string;runId:string};
 type PreparationRecord=PreparationToken&{expiresAt:number};
 export async function claimPreparation(db:StudioDb,run:Run,lease?:ProjectLeaseToken):Promise<PreparationToken>{
- return transact(db,['projects','runs','leases'],'readwrite',async tx=>{
+ return transact(db,['projects','runs','leases','receipts'],'readwrite',async tx=>{
+  if(await requestResult(tx.objectStore('receipts').get('run-withdrawal:'+run.id)))throw Error('run_locally_withdrawn');
   await assertProjectWriter(tx,run.projectId,lease);
   const project:{revision:number;trashedAt:number|null;archived:boolean}|undefined=await requestResult(tx.objectStore('projects').get(run.projectId));
   if(project?.revision!==run.graphRevision)throw Error('project_revision_conflict');

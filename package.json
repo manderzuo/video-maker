@@ -16,8 +16,9 @@
     "test:e2e": "playwright test",
     "test:security": "vitest run tests/security && node scripts/check-network-negative.mjs",
     "test:trace": "node --test tests/planning/*.test.mjs",
+    "test:coverage": "node scripts/check-ui-identities.mjs && node scripts/check-traceability.mjs",
     "test:live": "node --test tests/live/*.test.mjs",
-    "verify": "npm run typecheck && npm run lint && npm run test:unit && npm run test:e2e && npm run test:security && npm run test:trace && npm run build",
+    "verify": "npm run typecheck && npm run lint && npm run test:unit && npm run test:e2e && npm run test:coverage && npm run test:security && npm run test:trace && npm run build",
     "companion:build": "vite build --config companion/vite.config.ts",
     "companion:start": "node companion/dist/main.mjs",
     "companion:mcp": "node companion/dist/mcp.mjs"

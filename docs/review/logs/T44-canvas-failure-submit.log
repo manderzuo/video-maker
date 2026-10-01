@@ -1,0 +1,40 @@
+[WebServer] (node:22724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 29 tests using 1 worker
+
+(node:5432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run (1.9s)
+  ok  2 tests\e2e\canvas-mcp.spec.ts:4:35 › T41 real browser relay request denies approval after revocation (1.6s)
+  ok  3 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 C-10 native write failure while adding a text node rolls back creative changes and cannot submit (1.3s)
+  ok  4 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-02 native write failure while renaming a node rolls back creative changes and cannot submit (1.4s)
+  ok  5 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-04 native write failure while pasting copied structure rolls back creative changes and cannot submit (1.3s)
+  ok  6 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-05 native write failure while creating a local branch rolls back creative changes and cannot submit (1.2s)
+  ok  7 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-06 native write failure while removing placement rolls back creative changes and cannot submit (1.4s)
+  ok  8 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-07 native write failure while locking a node rolls back creative changes and cannot submit (1.3s)
+  ok  9 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-08 native write failure while grouping selected nodes rolls back creative changes and cannot submit (1.4s)
+  ok 10 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-09 native write failure while ungrouping nodes rolls back creative changes and cannot submit (1.3s)
+  ok 11 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-10 native write failure while collapsing a group rolls back creative changes and cannot submit (1.3s)
+  ok 12 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-11 native write failure while aligning nodes rolls back creative changes and cannot submit (1.3s)
+  ok 13 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-12 native write failure while arranging the graph rolls back creative changes and cannot submit (1.2s)
+  ok 14 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-18 native write failure while editing shot group metadata rolls back creative changes and cannot submit (1.3s)
+  ok 15 tests\e2e\canvas-mutation-failures.spec.ts:18:29 › T44 N-19 native write failure while selecting a fixed result rolls back creative changes and cannot submit (1.3s)
+  ok 16 tests\e2e\canvas-mutation-failures.spec.ts:21:1 › T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph (1.8s)
+  ok 17 tests\e2e\generation-preflight.spec.ts:10:1 › T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests (1.4s)
+  ok 18 tests\e2e\generation-preflight.spec.ts:11:1 › T26-C02/C05: deliberate double click preserves one approval and sends exactly one confirmed frozen request (1.4s)
+  ok 19 tests\e2e\generation-preflight.spec.ts:12:1 › T26-C03: unsupported duration produces an explicit blocker without clamping the draft (1.7s)
+  ok 20 tests\e2e\generation-preflight.spec.ts:13:1 › T26-C04: persisted graph changes after preview invalidate the approval and create no Run (1.3s)
+  ok 21 tests\e2e\generation-preflight.spec.ts:14:1 › T26 V-10: Escape cancels without approval or Run and restores the preflight button focus (1.3s)
+  ok 22 tests\e2e\generation-preflight.spec.ts:15:1 › T26: confirmation remains disabled until the exact fee/input acknowledgment is selected (1.3s)
+  ok 23 tests\e2e\generation-preflight.spec.ts:16:1 › T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog (1.3s)
+  ok 24 tests\e2e\generation-preflight.spec.ts:17:1 › T26: quota failure atomically preserves draft and refuses approval/Run creation (1.4s)
+  ok 25 tests\e2e\generation-preflight.spec.ts:18:1 › T26: changing text even without revision bump invalidates the reviewed input snapshot (1.3s)
+  ok 26 tests\e2e\video-submit.spec.ts:5:1 › T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable (1.4s)
+  ok 27 tests\e2e\video-submit.spec.ts:10:1 › T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay (1.5s)
+  ok 28 tests\e2e\video-submit.spec.ts:11:1 › T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment (1.7s)
+  ok 29 tests\e2e\video-submit.spec.ts:12:1 › T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission (1.6s)
+
+  29 passed (44.7s)

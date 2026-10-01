@@ -1,0 +1,18 @@
+[WebServer] (node:10884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:23928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging (2.0s)
+  ok 2 tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities (1.2s)
+  ok 3 tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request (1.4s)
+  ok 4 tests\e2e\missing-entry-contracts.spec.ts:4:1 › T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key (792ms)
+  ok 5 tests\e2e\missing-entry-contracts.spec.ts:7:1 › T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged (954ms)
+  ok 6 tests\e2e\missing-entry-contracts.spec.ts:10:1 › T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request (1.3s)
+  ok 7 tests\e2e\navigation-memory.spec.ts:2:1 › T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests (1.5s)
+
+  7 passed (12.4s)

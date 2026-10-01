@@ -1,0 +1,103 @@
+[WebServer] (node:11912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:9804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-output-contracts.spec.ts:4:1 › T44 PG23/PG24 result tabs are local views; PG25 copies only the final body and PG26 saves an independent library entry without execution (6.6s)
+(node:27680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\prompt-output-contracts.spec.ts:7:1 › T44 PG25 clipboard denial leaves the original final body and stored result untouched (2.6s)
+  x  3 tests\e2e\prompt-output-contracts.spec.ts:10:1 › T44 PG26 native library quota failure retains its editor and source result with no partial prompt or request (30.1s)
+(node:23384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\prompt-output-contracts.spec.ts:13:1 › T44 PG16 connection navigation saves current input first and never sends a test chat (1.4s)
+  ok 5 tests\e2e\prompt-output-contracts.spec.ts:16:1 › T44 PG16 native draft failure prevents connection navigation and keeps the unsaved input visible (1.2s)
+  ok 6 tests\e2e\recovery-control-contracts.spec.ts:4:1 › T44 F03/D20 conflict copy after an actual native save failure preserves source project and saves the recoverable creative text under a new ID (1.5s)
+  ok 7 tests\e2e\recovery-control-contracts.spec.ts:7:1 › T44 F04 discard requires an explicit second choice, keeps the draft on return and restores the saved source without creating an execution (1.6s)
+  ok 8 tests\e2e\recovery-control-contracts.spec.ts:10:1 › T44 F03 conflict copy native quota failure retains the current memory draft and writes no partial copy (1.6s)
+  ok 9 tests\e2e\recovery-control-contracts.spec.ts:13:1 › T44 H01/H02/D22 local activity filter and detail show original unknown state without querying or changing the task (1.2s)
+
+
+  1) tests\e2e\prompt-output-contracts.spec.ts:4:1 › T44 PG23/PG24 result tabs are local views; PG25 copies only the final body and PG26 saves an independent library entry without execution 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveValue[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '新建提示词', exact: true }).getByLabel('提示词正文', { exact: true })
+    Expected: [32m"视频任务：康济健葆，1位人物，不切镜，5秒、9:16[39m
+    [32m创作方向：商品广告。优先呈现产品轮廓、材质、关键细节和使用方式，补充稳定的产品运动、光线和干净背景。[39m
+    [32m约束优先级：用户明确要求及已确认约束优先；下列写作建议仅在不冲突时适用。不得增改品牌汉字、人物数量或对白。[39m
+    [32m目标规格：时长 5 秒；画幅 9:16。这是创作目标，尚非执行许可。[39m
+    [32m主体与场景：明确主体身份、外观、位置、环境、时间、空间层级和情绪；只保留与任务有关的元素。[39m
+    [32m动作与叙事：按先后顺序写清动作起点、过程、结果和主体互动。[39m
+    [32m镜头与节奏：描述景别、视角、运镜方向、速度和焦点；只有用户允许时才安排切镜或转场。[39m
+    [32m连续性：保持主体外观、服装、道具、空间方向和光线逻辑稳定，除非用户明确要求变化。[39m
+    [32m参考素材：无已绑定参考素材；仅根据文字要求编写。[39m
+    [32m声音设计：无对白[39m
+    [32m负面约束：避免主体变形、身份漂移、道具凭空消失、动作跳跃和无关文字、水印；保留用户明确要求的文字与品牌。"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveValue" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '新建提示词', exact: true }).getByLabel('提示词正文', { exact: true })[22m
+
+
+      3 | test.beforeEach(async({page})=>{await page.goto('/prompt-generator');await page.evaluate(async()=>{const p='/tests/fixtures/prompt-workspace.ts';await(await import(p)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');});
+      4 | test('T44 PG23/PG24 result tabs are local views; PG25 copies only the final body and PG26 saves an independent library entry without execution',async({page,networkCounter})=>{
+    > 5 |  await expect(page.getByRole('button',{name:'复制正文',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'保存到库',exact:true})).toBeDisabled();await page.getByRole('button',{name:'本地整理',exact:true}).click();const before=await state(page),body=await page.getByLabel('最终提示词正文',{exact:true}).inputValue();await page.getByRole('tab',{name:'镜头草案',exact:true}).click();await expect(page.getByRole('tab',{name:'镜头草案',exact:true})).toHaveAttribute('aria-selected','true');await page.getByRole('tab',{name:'改动说明',exact:true}).click();await expect(page.getByRole('tab',{name:'改动说明',exact:true})).toHaveAttribute('aria-selected','true');expect(await state(page)).toEqual(before);await page.getByRole('tab',{name:'最终提示词',exact:true}).click();await page.evaluate(()=>Object.defineProperty(navigator.clipboard,'writeText',{value:async(text:string)=>{document.documentElement.dataset.testPromptCopy=text;},configurable:true}));await page.getByRole('button',{name:'复制正文',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'已复制最终提示词正文'})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.dataset.testPromptCopy)).toBe(body);await page.getByRole('button',{name:'保存到库',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建提示词',exact:true});await expect(dialog.getByLabel('提示词正文',{exact:true})).toHaveValue(body);await dialog.getByLabel('提示词名称',{exact:true}).fill('原创正文副本');await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect(dialog).not.toBeVisible();const after=await state(page);expect(after.prompts).toHaveLength(1);expect(after.prompts[0]).toMatchObject({title:'原创正文副本',body});expect(after.drafts).toEqual(before.drafts);expect(after.runs).toEqual([]);expect(after.promptRuns).toEqual([]);await page.reload();expect((await state(page)).prompts[0].body).toBe(body);expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^
+      6 | });
+      7 | test('T44 PG25 clipboard denial leaves the original final body and stored result untouched',async({page,networkCounter})=>{
+      8 |  await page.getByRole('button',{name:'本地整理',exact:true}).click();const before=await state(page),body=await page.getByLabel('最终提示词正文',{exact:true}).inputValue();await page.evaluate(()=>Object.defineProperty(navigator.clipboard,'writeText',{value:async()=>{throw new DOMException('test-prompt-copy-denied','NotAllowedError');},configurable:true}));await page.getByRole('button',{name:'复制正文',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'剪贴板权限被拒绝'})).toBeVisible();await expect(page.getByLabel('最终提示词正文',{exact:true})).toHaveValue(body);expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-output-contracts.spec.ts:5:1351
+
+    Error Context: test-results\prompt-output-contracts-T4-9a9bc-ary-entry-without-execution\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-output-contracts-T4-9a9bc-ary-entry-without-execution\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-output-contracts-T4-9a9bc-ary-entry-without-execution\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\prompt-output-contracts.spec.ts:10:1 › T44 PG26 native library quota failure retains its editor and source result with no partial prompt or request 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: '新建提示词', exact: true }).getByRole('button', { name: '保存提示词', exact: true })[22m
+
+
+       9 | });
+      10 | test('T44 PG26 native library quota failure retains its editor and source result with no partial prompt or request',async({page,networkCounter})=>{
+    > 11 |  await page.getByRole('button',{name:'本地整理',exact:true}).click();const before=await state(page);await page.getByRole('button',{name:'保存到库',exact:true}).click();const dialog=page.getByRole('dialog',{name:'新建提示词',exact:true});await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(...args:Parameters<typeof put>){if(this.name==='prompts')throw new DOMException('test-library-quota','QuotaExceededError');return put.apply(this,args);};});await dialog.getByRole('button',{name:'保存提示词',exact:true}).click();await expect(dialog.getByRole('alert')).toBeVisible();await expect(dialog).toBeVisible();expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+      12 | });
+      13 | test('T44 PG16 connection navigation saves current input first and never sends a test chat',async({page,networkCounter})=>{
+      14 |  await page.getByLabel('原始创意',{exact:true}).fill('转到连接前必须保存的原创输入');await page.getByRole('button',{name:'连接与只读测试',exact:true}).click();await expect(page).toHaveURL(/settings\/connections$/);expect((await state(page)).drafts[0].userRequest).toBe('转到连接前必须保存的原创输入');expect(networkCounter.paidRequests).toHaveLength(0);expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-output-contracts.spec.ts:11:542
+
+    Error Context: test-results\prompt-output-contracts-T4-6091c-o-partial-prompt-or-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-output-contracts-T4-6091c-o-partial-prompt-or-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-output-contracts-T4-6091c-o-partial-prompt-or-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\prompt-output-contracts.spec.ts:4:1 › T44 PG23/PG24 result tabs are local views; PG25 copies only the final body and PG26 saves an independent library entry without execution 
+    tests\e2e\prompt-output-contracts.spec.ts:10:1 › T44 PG26 native library quota failure retains its editor and source result with no partial prompt or request 
+  7 passed (54.1s)

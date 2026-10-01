@@ -1,0 +1,844 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 N03/N04 actual copy and paste buttons produce a new structure identity and preserve original media and Run after reload",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 N03/N04 actual copy and paste buttons produce a new structure identity and preserve original media and Run after reload",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 345
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 574
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 735
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 800
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 842
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 901
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 206
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 302
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 423
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 182
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 231
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 381
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 466
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 524
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 573
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 649
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 708
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 90
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 311
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 394
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 451
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 858
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 984
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 265
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 346
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 579
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 649
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 204
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 273
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 593
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 650
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 708
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 14,
+          "column": 546
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 265
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 290
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 425
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 473
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 156
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 219
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C04: unknown capabilities keep video drafts editable without an execution button",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C04: unknown capabilities keep video drafts editable without an execution button",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 184
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 237
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 435
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 41
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 151
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 364
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 422
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 239
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 532
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 750
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 885
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 936
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 102
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 222
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 286
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 620
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 675
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 818
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C03: result node displays fixed asset and run; preview does not replace history",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C03: result node displays fixed asset and run; preview does not replace history",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 169
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 303
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 61
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 N02/T02: title validates Unicode length and display font does not edit content",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 N02/T02: title validates Unicode length and display font does not edit content",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 318
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 508
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 685
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 83
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 193
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 385
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 454
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 560
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 451
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 682
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 195
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 549
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 614
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 node creation: local asset and fixed result references use existing identities",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 node creation: local asset and fixed result references use existing identities",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 407
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 713
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 764
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 178
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 344
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 544
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 649
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 195
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 802
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 N13: real pointer drag from text output to text input creates one dependency",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 N13: real pointer drag from text output to text input creates one dependency",
+      "status": "passed",
+      "assertions": 2,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 23,
+          "column": 585
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 24,
+          "column": 192
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 24,
+          "column": 586
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 24,
+          "column": 685
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    }
+  ]
+}

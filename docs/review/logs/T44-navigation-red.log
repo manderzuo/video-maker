@@ -1,0 +1,45 @@
+[WebServer] (node:20816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:24124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\navigation-memory.spec.ts:2:1 › T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests (6.8s)
+
+
+  1) tests\e2e\navigation-memory.spec.ts:2:1 › T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/\/assets$/[39m
+    Received string:  [31m"http://127.0.0.1:4179/welcome"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    9 × unexpected value "http://127.0.0.1:4179/welcome"[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test('T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests',async({page,networkCounter})=>{
+    > 3 |  await page.goto('/welcome');await page.getByRole('button',{name:'进入本地模式',exact:true}).click();await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'素材',exact:true}).click();await expect(page.getByRole('heading',{name:'素材库',exact:true})).toBeVisible();await page.goto('/assets?apiKey=fake-query-secret');await page.goto('/');await expect(page).toHaveURL(/\/assets$/);await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:'素材',exact:true})).toHaveAttribute('aria-current','page');const storage=await page.evaluate(()=>JSON.stringify(Object.fromEntries(Object.keys(localStorage).map(key=>[key,localStorage.getItem(key)]))));expect(storage).not.toContain('fake-query-secret');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                           ^
+      4 | });
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\navigation-memory.spec.ts:3:363
+
+    Error Context: test-results\navigation-memory-T44-G02--60255-redentials-or-paid-requests\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\navigation-memory-T44-G02--60255-redentials-or-paid-requests\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\navigation-memory-T44-G02--60255-redentials-or-paid-requests\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\navigation-memory.spec.ts:2:1 › T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests 

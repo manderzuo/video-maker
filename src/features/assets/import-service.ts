@@ -12,12 +12,20 @@ export type ImportOptions={db?:StudioDb;lease?:ProjectLeaseToken;expectedRevisio
 export async function importAssets(files:File[],projectId?:string,options:ImportOptions={}):Promise<ImportReport>{
  const report:ImportReport={successes:[],failures:[]};
  if(files.length>50)return {...report,errorCode:'import_file_count_exceeded'};
- const lease=options.lease?{...options.lease}:undefined;
  return withDatabase(options.db,async db=>{
   for(const file of files){
    try{
     const {metadata,sha256,thumbnail}=await prepareMedia(file);
-    const imported=await transact(db,['assets','blobs','references','projects','leases'],'readwrite',async tx=>{
+    const imported=await persistPrepared(db,{file,metadata,sha256,thumbnail},projectId,options);
+    report.successes.push({fileName:file.name,...imported});
+   }catch(error){report.failures.push({fileName:file.name,errorCode:storageErrorCode(error)});}
+  }
+  return report;
+ });
+}
+
+
+async function persistPrepared(db:StudioDb,prepared:PreparedMedia,projectId:string|undefined,options:ImportOptions){const {file,metadata,sha256,thumbnail}=prepared,lease=options.lease?{...options.lease}:undefined;return transact(db,['assets','blobs','references','projects','leases'],'readwrite',async tx=>{
      if(projectId){
       await assertProjectWriter(tx,projectId,lease);
       const project=projectSchema.parse(await requestResult(tx.objectStore('projects').get(projectId)));
@@ -34,11 +42,7 @@ export async function importAssets(files:File[],projectId?:string,options:Import
      }
      if(projectId)tx.objectStore('references').put({id:'import:'+projectId+':'+asset.id,projectId,assetId:asset.id,revision:options.expectedRevision,kind:'project-import'});
      return {asset,deduplicated:!!previous};
-    });
-    report.successes.push({fileName:file.name,...imported});
-   }catch(error){report.failures.push({fileName:file.name,errorCode:storageErrorCode(error)});}
-  }
-  return report;
- });
-}
-
+    });}
+export type ImportInspection={valid:PreparedMedia[];failures:{fileName:string;errorCode:string}[]};
+export async function inspectAssetFiles(files:File[]):Promise<ImportInspection>{const report:ImportInspection={valid:[],failures:[]};if(files.length>50)return {valid:[],failures:[{fileName:'所选文件',errorCode:'import_file_count_exceeded'}]};for(const file of files)try{report.valid.push(await prepareMedia(file));}catch(error){report.failures.push({fileName:file.name,errorCode:storageErrorCode(error)});}return report;}
+export async function commitInspectedAssets(inspection:ImportInspection,options:ImportOptions={}):Promise<ImportReport>{const report:ImportReport={successes:[],failures:[...inspection.failures]};return withDatabase(options.db,async db=>{for(const prepared of inspection.valid)try{report.successes.push({fileName:prepared.file.name,...await persistPrepared(db,prepared,undefined,options)});}catch(error){report.failures.push({fileName:prepared.file.name,errorCode:storageErrorCode(error)});}return report;});}

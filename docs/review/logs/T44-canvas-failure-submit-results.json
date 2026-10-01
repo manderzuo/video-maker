@@ -1,0 +1,1918 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3275
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3780
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3819
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3138
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3208
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request denies approval after revocation",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request denies approval after revocation",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2841
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2898
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2723
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2793
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 C-10 native write failure while adding a text node rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 C-10 native write failure while adding a text node rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-02 native write failure while renaming a node rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-02 native write failure while renaming a node rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1189
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1346
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-04 native write failure while pasting copied structure rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-04 native write failure while pasting copied structure rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 762
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-05 native write failure while creating a local branch rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-05 native write failure while creating a local branch rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-06 native write failure while removing placement rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-06 native write failure while removing placement rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-07 native write failure while locking a node rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-07 native write failure while locking a node rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-08 native write failure while grouping selected nodes rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-08 native write failure while grouping selected nodes rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-09 native write failure while ungrouping nodes rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-09 native write failure while ungrouping nodes rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-10 native write failure while collapsing a group rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-10 native write failure while collapsing a group rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-11 native write failure while aligning nodes rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-11 native write failure while aligning nodes rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-12 native write failure while arranging the graph rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-12 native write failure while arranging the graph rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-18 native write failure while editing shot group metadata rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-18 native write failure while editing shot group metadata rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 N-19 native write failure while selecting a fixed result rolls back creative changes and cannot submit",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 N-19 native write failure while selecting a fixed result rolls back creative changes and cannot submit",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1520
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1568
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1801
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1848
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 679
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 19,
+          "column": 1450
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
+      "status": "passed",
+      "assertions": 62,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 863
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1232
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1318
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1446
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1583
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1623
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1675
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 923
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 976
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 1498
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26-C01/C06: actual preflight lists visible inputs and unknown fee with zero uploads or paid requests",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 10,
+          "column": 192
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 10,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 10,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 10,
+          "column": 315
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 10,
+          "column": 357
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 10,
+          "column": 442
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26-C02/C05: deliberate double click preserves one approval and sends exactly one confirmed frozen request",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26-C02/C05: deliberate double click preserves one approval and sends exactly one confirmed frozen request",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 504
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1017
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1057
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1109
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1171
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1216
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1267
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1326
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1438
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 1491
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 11,
+          "column": 278
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26-C03: unsupported duration produces an explicit blocker without clamping the draft",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26-C03: unsupported duration produces an explicit blocker without clamping the draft",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 12,
+          "column": 876
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 12,
+          "column": 979
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 12,
+          "column": 1048
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 12,
+          "column": 793
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26-C04: persisted graph changes after preview invalidate the approval and create no Run",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26-C04: persisted graph changes after preview invalidate the approval and create no Run",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 13,
+          "column": 746
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 13,
+          "column": 628
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 13,
+          "column": 698
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26 V-10: Escape cancels without approval or Run and restores the preflight button focus",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26 V-10: Escape cancels without approval or Run and restores the preflight button focus",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 14,
+          "column": 179
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 14,
+          "column": 254
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 14,
+          "column": 355
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 14,
+          "column": 430
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 14,
+          "column": 213
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26: confirmation remains disabled until the exact fee/input acknowledgment is selected",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26: confirmation remains disabled until the exact fee/input acknowledgment is selected",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 15,
+          "column": 212
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26: readable checkbox stays beside its acknowledgment rather than spanning the dialog",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 16,
+          "column": 207
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 16,
+          "column": 284
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 16,
+          "column": 333
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26: quota failure atomically preserves draft and refuses approval/Run creation",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26: quota failure atomically preserves draft and refuses approval/Run creation",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 17,
+          "column": 596
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 17,
+          "column": 1120
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 17,
+          "column": 1186
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 17,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 17,
+          "column": 548
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/generation-preflight.spec.ts::T26: changing text even without revision bump invalidates the reviewed input snapshot",
+      "file": "tests/e2e/generation-preflight.spec.ts",
+      "title": "T26: changing text even without revision bump invalidates the reviewed input snapshot",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 7,
+          "column": 108,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 18,
+          "column": 756
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 8,
+          "column": 111,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 18,
+          "column": 638
+        },
+        {
+          "file": "tests/e2e/generation-preflight.spec.ts",
+          "line": 18,
+          "column": 708
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/video-submit.spec.ts::T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable",
+      "file": "tests/e2e/video-submit.spec.ts",
+      "title": "T27 actual UI: confirming frozen inputs sends exactly one same-origin fake video request after intent is durable",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 4,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 178
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 381
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 417
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 462
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 573
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 244
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 8,
+          "column": 314
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/video-submit.spec.ts::T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay",
+      "file": "tests/e2e/video-submit.spec.ts",
+      "title": "T27 D21: lost actual browser response preserves unknown state, original identity and disabled unverified replay",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 4,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 589
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 625
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 714
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 765
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 964
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 323
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 434
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 504
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 10,
+          "column": 920
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/video-submit.spec.ts::T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment",
+      "file": "tests/e2e/video-submit.spec.ts",
+      "title": "T27 V-14: a deliberate new attempt warns about the unknown prior charge and requires separate risk acknowledgment",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 4,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 716
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 870
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 1019
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 1135
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 334,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 456
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 526
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 627
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 334,
+          "function": "open"
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 792
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 941
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 11,
+          "column": 1091
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/video-submit.spec.ts::T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission",
+      "file": "tests/e2e/video-submit.spec.ts",
+      "title": "T27 D21: after a response save fault the durable journal enables querying the known original task without resubmission",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 4,
+          "column": 304
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1346
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1428
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1536
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1609
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1659
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1786
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1190
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1261
+        },
+        {
+          "file": "tests/e2e/video-submit.spec.ts",
+          "line": 12,
+          "column": 1502
+        }
+      ]
+    }
+  ]
+}

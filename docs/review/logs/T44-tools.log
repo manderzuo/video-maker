@@ -1,0 +1,14 @@
+[WebServer] (node:20876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:28408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\canvas-tool-contracts.spec.ts:4:1 › T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed (2.1s)
+  ok 2 tests\e2e\canvas-tool-contracts.spec.ts:7:1 › T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data (1.2s)
+  ok 3 tests\e2e\canvas-tool-contracts.spec.ts:10:1 › T44 N10/N18/N19 existing group and result controls refuse a native foreign writer (1.9s)
+
+  3 passed (8.1s)

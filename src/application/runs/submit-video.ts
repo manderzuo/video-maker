@@ -48,6 +48,7 @@ export async function persistSubmissionReply(db:StudioDb,run:Run,token:RunWriteT
 export async function submitVideo(runId:string,options:SubmitOptions={}):Promise<Run>{
  try{return await withDatabase(options.db,async db=>{
   const run=await readRun(runId,db);if(!run)throw Error('run_missing');
+  if(await transact(db,['receipts'],'readonly',tx=>requestResult(tx.objectStore('receipts').get('run-withdrawal:'+runId))))throw Error('run_locally_withdrawn');
   if(run.executionState!=='persisted')throw Error('submission_requires_recovery');
   const {client,capability}=submissionClient(options);assertAssetBinding(run,client);if(!hasSessionCredential(run.authBindingId))throw Error('session_credential_required');
   const approval=await originalVideoApproval(db,run);
@@ -58,6 +59,7 @@ export async function submitVideo(runId:string,options:SubmitOptions={}):Promise
   const preparedReceipt=await transact(db,['receipts'],'readonly',tx=>requestResult<unknown>(tx.objectStore('receipts').get(`prepared:${runId}`)));assertPreparedApproval(preparedReceipt,prepared);
   const claim=await claimRunDispatch(runId,tabId,{db});if(!claim.ok)throw Error(claim.errorCode);
   const marked=await markRunDispatched(claim.token,{db,beforeDispatch:async tx=>{
+   if(await requestResult(tx.objectStore('receipts').get('run-withdrawal:'+runId)))throw Error('run_locally_withdrawn');
    await options.dispatchGuard?.(tx);
    await assertProjectWriter(tx,run.projectId,options.lease);
    const project:{revision:number;archived:boolean;trashedAt:number|null}|undefined=await requestResult(tx.objectStore('projects').get(run.projectId));if(!project||project.archived||project.trashedAt!=null||project.revision!==run.graphRevision||approval.plan.expiresAt<=Date.now())throw Error('approval_expired');

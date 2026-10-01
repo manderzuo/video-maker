@@ -1,0 +1,43 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/queue-withdrawal.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/queue-withdrawal.test.ts (3 tests | 1 failed) 126ms
+   × T44 J06 a prepared but unsent withdrawal also fences the shared native dispatch claim 22ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/queue-withdrawal.test.ts > T44 J06 a prepared but unsent withdrawal also fences the shared native dispatch claim
+AssertionError: expected { ok: true, epoch: 1, …(2) } to deeply equal { ok: false, …(1) }
+
+- Expected
++ Received
+
+  {
+-   "errorCode": "run_locally_withdrawn",
+-   "ok": false,
++   "epoch": 1,
++   "expiresAt": 1790821456736,
++   "ok": true,
++   "token": {
++     "epoch": 1,
++     "revision": 0,
++     "runId": "83c274ca-43c8-4f85-a1bf-0729bed93614",
++     "tabId": "harness-tab",
++   },
+  }
+
+ ❯ tests/unit/queue-withdrawal.test.ts:11:369
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  10:23:46
+   Duration  698ms (transform 252ms, setup 43ms, import 355ms, tests 126ms, environment 0ms)
+

@@ -1,0 +1,55 @@
+[WebServer] (node:11288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:17384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect (5.9s)
+(node:24028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\interaction-coverage.spec.ts:7:1 › T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit (2.2s)
+  ok 3 tests\e2e\interaction-coverage.spec.ts:10:1 › T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist (1.8s)
+  ok 4 tests\e2e\interaction-coverage.spec.ts:13:1 › T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs (1.2s)
+
+
+  1) tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('没有匹配内容', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('没有匹配内容', { exact: true })[22m
+
+
+      2 | import {seedStudio} from '../helpers/seed-studio';
+      3 | test('T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect',async({page,networkCounter})=>{
+    > 4 |  await page.goto('/projects');await expect(page.locator('[data-interaction-id="G-01"]')).toHaveAttribute('href','/projects');await page.locator('[data-interaction-id="G-04"]').fill('不存在的本地项目');await expect(page.getByText('没有匹配内容',{exact:true})).toBeVisible();await page.getByRole('button',{name:'清除搜索',exact:true}).click();
+        |                                                                                                                                                                                                                                                      ^
+      5 |  await page.locator('[data-interaction-id="G-07"]').click();await expect(page.getByRole('dialog',{name:'当前区域帮助',exact:true})).toContainText('项目保存在当前浏览器');await page.keyboard.press('Escape');await expect(page.locator('[data-interaction-id="G-07"]')).toBeFocused();await page.locator('[data-interaction-id="G-09"]').click();await expect(page.getByRole('dialog',{name:'通知消息',exact:true})).toContainText('提交未知');expect(networkCounter.paidRequests).toHaveLength(0);
+      6 | });
+      7 | test('T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit',async({page,networkCounter})=>{
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-coverage.spec.ts:4:246
+
+    Error Context: test-results\interaction-coverage-T44-g-10b85-ies-and-no-paid-side-effect\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-coverage-T44-g-10b85-ies-and-no-paid-side-effect\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-coverage-T44-g-10b85-ies-and-no-paid-side-effect\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect 
+  3 passed (15.6s)

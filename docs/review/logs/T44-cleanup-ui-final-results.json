@@ -1,0 +1,173 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/local-cleanup.spec.ts::T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original",
+      "file": "tests/e2e/local-cleanup.spec.ts",
+      "title": "T44 D07 cleanup shows unreferenced file details, cancellation is inert and native transaction abort preserves every original",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 369
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 417
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 506
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 982
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1022
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1134
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1199
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1255
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1296
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1384
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1434
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 274
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 464
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 581
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 934
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 4,
+          "column": 1101
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/local-cleanup.spec.ts::T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history",
+      "file": "tests/e2e/local-cleanup.spec.ts",
+      "title": "T44 D08/D19 clear-project confirmation cannot erase unknown tracking, unique media or any Core history",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 392
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 545
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 670
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 808
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/local-cleanup.spec.ts",
+          "line": 7,
+          "column": 580
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[WebServer] (node:8448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\dialog-contracts.spec.ts:4:1 › T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing (5.9s)
+
+
+  1) tests\e2e\dialog-contracts.spec.ts:4:1 › T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '文件导入检查', exact: true })
+    Expected: [32m"D04"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '文件导入检查', exact: true })[22m
+
+
+      3 | async function countAssets(page:import('@playwright/test').Page){return page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['assets'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('assets').count()));}finally{db.close();}});}
+      4 | test('T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing',async({page,networkCounter})=>{
+    > 5 |  await page.goto('/assets');const bytes=await page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';return Array.from(new Uint8Array(await(await(await import(p)).imageFile()).arrayBuffer()));});const before=await countAssets(page);await page.getByLabel('导入素材',{exact:true}).setInputFiles([{name:'有效.png',mimeType:'image/png',buffer:Buffer.from(bytes)},{name:'恶意.svg',mimeType:'image/svg+xml',buffer:Buffer.from('<svg onload="globalThis.pwned=true"/>')}]);const dialog=page.getByRole('dialog',{name:'文件导入检查',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D04');await expect(dialog).toContainText('恶意.svg');await expect(dialog).toContainText('未写入');expect(await countAssets(page)).toBe(before);await page.keyboard.press('Escape');expect(await countAssets(page)).toBe(before);await page.getByLabel('导入素材',{exact:true}).setInputFiles({name:'有效.png',mimeType:'image/png',buffer:Buffer.from(bytes)});await page.getByRole('dialog',{name:'文件导入检查',exact:true}).getByRole('button',{name:'确认导入 1 个有效文件',exact:true}).click();await expect.poll(()=>countAssets(page)).toBe(before+1);await page.reload();expect(await countAssets(page)).toBe(before+1);expect(await page.evaluate(()=>(globalThis as unknown as {pwned?:boolean}).pwned)).toBeUndefined();expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | });
+      7 | test('T44 D01/D02/D03/D19 actual dialogs preserve identity and enforce destructive impact gates',async({page,networkCounter})=>{
+      8 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByRole('button',{name:'新建项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'新建项目',exact:true})).toHaveAttribute('data-dialog-id','D01');await page.keyboard.press('Escape');await page.getByTestId('project-p1').getByRole('button',{name:'复制项目',exact:true}).click();await expect(page.getByRole('dialog',{name:'复制项目',exact:true})).toHaveAttribute('data-dialog-id','D02');await page.keyboard.press('Escape');await page.getByTestId('project-p1').getByRole('button',{name:'移入回收站',exact:true}).click();await expect(page.getByRole('dialog',{name:'移入项目回收站',exact:true})).toHaveAttribute('data-dialog-id','D03');await page.getByRole('dialog',{name:'移入项目回收站',exact:true}).getByRole('button',{name:'移入回收站',exact:true}).click();await page.goto('/trash');await page.getByTestId('trash-p1').getByRole('button',{name:'永久删除本地副本',exact:true}).click();await expect(page.getByRole('dialog',{name:'永久删除本地副本',exact:true})).toHaveAttribute('data-dialog-id','D19');await expect(page.getByRole('dialog').getByRole('button',{name:'永久删除',exact:true})).toBeDisabled();expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\dialog-contracts.spec.ts:5:555
+
+    Error Context: test-results\dialog-contracts-T44-D04-M-aabbc-cancellation-writes-nothing\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\dialog-contracts-T44-D04-M-aabbc-cancellation-writes-nothing\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\dialog-contracts-T44-D04-M-aabbc-cancellation-writes-nothing\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\dialog-contracts.spec.ts:4:1 › T44 D04/M01/M02 import inspection rejects active content, waits for explicit commit, cancellation writes nothing 

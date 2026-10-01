@@ -1,0 +1,44 @@
+[WebServer] (node:26708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request (1.6s)
+
+
+  1) tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 0[39m
+
+    [2m  Array [[22m
+    [2m    "p1",[22m
+    [32m-   "p2",[39m
+    [2m  ][22m
+
+      10 | });
+      11 | test('T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request',async({page,networkCounter})=>{
+    > 12 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量导出所选项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'批量导出项目包',exact:true});await expect(dialog).toContainText('2 个');await dialog.getByLabel('备份范围').selectOption('structure');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出 2 个项目',exact:true}).click();const download=await pending,entries=unzipSync(new Uint8Array(await readFile((await download.path())!))),manifest=JSON.parse(strFromU8(entries['manifest.json']));expect(manifest.format).toBe('aiwork-studio-project-batch');expect(manifest.projects.map((p:{id:string})=>p.id)).toEqual(['p1','p2']);expect(Object.keys(entries)).toHaveLength(3);const backups=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p),db=await m.openStudioDb();try{return await m.transact(db,['receipts'],'readonly',(tx:IDBTransaction)=>m.requestResult(tx.objectStore('receipts').getAll()));}finally{db.close();}});expect(backups.filter((r:{kind:string})=>r.kind==='project-backup-download-triggered').map((r:{projectId:string})=>r.projectId).sort()).toEqual(['p1','p2']);for(const project of manifest.projects){const data=JSON.parse(strFromU8(entries[project.path]));expect(data.project.id).toBe(project.id);expect(data.manifest.mode).toBe('structure');}expect(JSON.stringify(manifest)).not.toMatch(/apiKey|token|authorization/i);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      13 | });
+      14 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-contracts.spec.ts:12:1355
+
+    Error Context: test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request 

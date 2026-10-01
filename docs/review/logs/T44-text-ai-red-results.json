@@ -1,0 +1,24 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/text-ai-entry.spec.ts::T44 T06 text polish is gated by verified text capability and opens a saved-source fee preview without any request; cancellation preserves the source",
+      "file": "tests/e2e/text-ai-entry.spec.ts",
+      "title": "T44 T06 text polish is gated by verified text capability and opens a saved-source fee preview without any request; cancellation preserves the source",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    }
+  ]
+}

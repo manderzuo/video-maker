@@ -1,0 +1,79 @@
+[WebServer] (node:28096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:27064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient (30.1s)
+(node:20756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\review-dialog-contracts.spec.ts:3:1 › T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history (8.0s)
+
+
+  1) tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('排序', { exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';import {seedStudio} from '../helpers/seed-studio';
+      2 | test('T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient',async({page,networkCounter})=>{
+    > 3 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByLabel('排序',{exact:true}).selectOption('title');await page.getByRole('button',{name:'列表视图',exact:true}).click();await page.getByLabel('搜索项目',{exact:true}).fill('原');await page.reload();await expect(page.getByLabel('排序',{exact:true})).toHaveValue('title');await expect(page.getByRole('button',{name:'网格视图',exact:true})).toBeVisible();await expect(page.getByLabel('搜索项目',{exact:true})).toHaveValue('');await expect(page.getByText(/已选择 \d+ 项/)).toHaveCount(0);expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                 ^
+      4 | });
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-preferences.spec.ts:3:113
+
+    Error Context: test-results\project-preferences-T44-P1-6c687--selection-remain-transient\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-preferences-T44-P1-6c687--selection-remain-transient\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-preferences-T44-P1-6c687--selection-remain-transient\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\review-dialog-contracts.spec.ts:3:1 › T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '对照版本选择', exact: true })
+    Expected: [32m"D11"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '对照版本选择', exact: true })[22m
+
+
+      2 | test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';await(await import(p)).seedResultReview();});});
+      3 | test('T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history',async({page,networkCounter})=>{
+    > 4 |  await page.goto('/projects/p1/results?runId=r1');const compare=page.getByRole('button',{name:'比较所选版本',exact:true});await expect(compare).toBeDisabled();await page.getByLabel('r1',{exact:true}).check();await expect(compare).toBeDisabled();await page.getByLabel('r2',{exact:true}).check();await compare.click();const dialog=page.getByRole('dialog',{name:'对照版本选择',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D11');await expect(dialog).toContainText('r1');await expect(dialog).toContainText('r2');await page.keyboard.press('Escape');await expect(compare).toBeFocused();await expect(page).toHaveURL(/results/);await compare.click();await dialog.getByRole('button',{name:'开始本地对照',exact:true}).click();await expect(page.getByTestId('comparison-left')).toHaveAttribute('data-run-id','r1');await expect(page.getByTestId('comparison-right')).toHaveAttribute('data-run-id','r2');await page.screenshot({path:'docs/review/screenshots/T44-comparison.png'});const stored=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';return(await import(p)).reviewStoredState();});expect(stored.graph.revision).toBe(1);expect(stored.runs).toHaveLength(2);expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      5 | });
+      6 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\review-dialog-contracts.spec.ts:4:397
+
+    Error Context: test-results\review-dialog-contracts-T4-670a8-cellation-preserves-history\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\review-dialog-contracts-T4-670a8-cellation-preserves-history\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\review-dialog-contracts-T4-670a8-cellation-preserves-history\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient 
+    tests\e2e\review-dialog-contracts.spec.ts:3:1 › T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history 

@@ -1,0 +1,85 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/prompt-mode.spec.ts::T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "file": "tests/e2e/prompt-mode.spec.ts",
+      "title": "T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 371
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 635
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 764
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 884
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1019
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1069
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1250
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1306
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 681
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 798
+        }
+      ]
+    }
+  ]
+}

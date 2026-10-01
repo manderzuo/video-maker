@@ -1,0 +1,342 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/conditional-interaction-contracts.spec.ts::T44 X-01 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+      "title": "T44 X-01 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "status": "failed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 319
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 534
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 501
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/conditional-interaction-contracts.spec.ts::T44 X-02 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+      "title": "T44 X-02 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "status": "failed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 319
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 534
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 501
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/conditional-interaction-contracts.spec.ts::T44 X-03 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+      "title": "T44 X-03 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "status": "failed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 319
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 534
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 501
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/conditional-interaction-contracts.spec.ts::T44 X-04 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+      "title": "T44 X-04 conditional media interaction remains absent and its actual explanation cannot authorize a business request",
+      "status": "failed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 319
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 428
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 534
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 9,
+          "column": 501
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/conditional-interaction-contracts.spec.ts::T44 Y01/Y02/Y03/Y04/Y05 unverified WebDAV has an inspectable local explanation and no endpoint, sync, upload, restore or schedule controls",
+      "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+      "title": "T44 Y01/Y02/Y03/Y04/Y05 unverified WebDAV has an inspectable local explanation and no endpoint, sync, upload, restore or schedule controls",
+      "status": "failed",
+      "assertions": 11,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 257
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 300
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 512
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 108
+        },
+        {
+          "file": "tests/e2e/conditional-interaction-contracts.spec.ts",
+          "line": 12,
+          "column": 585
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

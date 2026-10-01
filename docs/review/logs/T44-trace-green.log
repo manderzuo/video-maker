@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: T44 no phantom full coverage: unmapped interactions, pages and dialogs stop the gate
+ok 1 - T44 no phantom full coverage: unmapped interactions, pages and dialogs stop the gate
+  ---
+  duration_ms: 1.6491
+  type: 'test'
+  ...
+# Subtest: T44 skipped or unasserted tests cannot be promoted to evidence
+ok 2 - T44 skipped or unasserted tests cannot be promoted to evidence
+  ---
+  duration_ms: 0.3605
+  type: 'test'
+  ...
+# Subtest: T44 task owner mismatch and duplicate canonical identity cannot silently pass
+ok 3 - T44 task owner mismatch and duplicate canonical identity cannot silently pass
+  ---
+  duration_ms: 0.1385
+  type: 'test'
+  ...
+# Subtest: T44 coverage validator accepts matching executed assertion evidence without treating its own fixture as product coverage
+ok 4 - T44 coverage validator accepts matching executed assertion evidence without treating its own fixture as product coverage
+  ---
+  duration_ms: 0.1834
+  type: 'test'
+  ...
+# Subtest: T44 missing execution of claimed assertion line blocks even a passed test
+ok 5 - T44 missing execution of claimed assertion line blocks even a passed test
+  ---
+  duration_ms: 0.2147
+  type: 'test'
+  ...
+# Subtest: T44 tests skipped or expected-failed cannot satisfy coverage
+ok 6 - T44 tests skipped or expected-failed cannot satisfy coverage
+  ---
+  duration_ms: 0.1674
+  type: 'test'
+  ...
+# Subtest: T44 an unrelated helper assertion and zero UI action do not prove control coverage
+ok 7 - T44 an unrelated helper assertion and zero UI action do not prove control coverage
+  ---
+  duration_ms: 0.192
+  type: 'test'
+  ...
+# Subtest: T44 missing side effects cannot be waived by a generic N/A explanation
+ok 8 - T44 missing side effects cannot be waived by a generic N/A explanation
+  ---
+  duration_ms: 0.1337
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 104.0456

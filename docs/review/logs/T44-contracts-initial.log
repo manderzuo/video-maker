@@ -1,0 +1,148 @@
+[WebServer] (node:26780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:21540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\interaction-contracts.spec.ts:5:1 › T44 G06/D03 immediate save reads actual commit status and flushes current text without charging (2.1s)
+  x  2 tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities (30.2s)
+(node:17404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request (6.4s)
+(node:17740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 tests\e2e\interaction-coverage.spec.ts:3:1 › T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect (1.3s)
+  ok 5 tests\e2e\interaction-coverage.spec.ts:7:1 › T44 viewport control identities: disabled history, zoom errors, saved background and actual undo/redo cannot submit (2.1s)
+  ok 6 tests\e2e\interaction-coverage.spec.ts:10:1 › T44 project controls: selection and view changes preserve scope, details are readonly and failed rename cannot persist (1.8s)
+  ok 7 tests\e2e\interaction-coverage.spec.ts:13:1 › T44 preference identities: theme, density, autoplay and reduced motion persist and do not create runs (1.2s)
+
+
+  1) tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '恢复布局', exact: true })[22m
+    [2m    - locator resolved to <button aria-busy="false" class="button secondary " data-interaction-id="G-10">恢复布局</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <p>请明确启动本机 companion，再用其独立临时令牌配对；不能填 Core Key，不自动安装插…</p> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m    - element is visible, enabled and stable[22m
+    [2m    - scrolling into view if needed[22m
+    [2m    - done scrolling[22m
+    [2m    - <p>请明确启动本机 companion，再用其独立临时令牌配对；不能填 Core Key，不自动安装插…</p> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m  2 × retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <header class="agent-panel-heading">…</header> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m  13 × retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <p>请明确启动本机 companion，再用其独立临时令牌配对；不能填 Core Key，不自动安装插…</p> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <p>请明确启动本机 companion，再用其独立临时令牌配对；不能填 Core Key，不自动安装插…</p> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <header class="agent-panel-heading">…</header> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <header class="agent-panel-heading">…</header> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m  2 × retrying click action[22m
+    [2m      - waiting 500ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <p>请明确启动本机 companion，再用其独立临时令牌配对；不能填 Core Key，不自动安装插…</p> from <aside class="agent-panel" aria-label="Agent 协作面板">…</aside> subtree intercepts pointer events[22m
+    [2m  - retrying click action[22m
+    [2m    - waiting 500ms[22m
+
+
+       7 | });
+       8 | test('T44 G10 restore layout preserves all node coordinates, creative revision and task identities',async({page,networkCounter})=>{
+    >  9 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'显示小地图',exact:true}).click();const before=await page.getByTestId('node-text-1').getAttribute('style');await page.getByRole('button',{name:'Agent 协作',exact:true}).click();await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(page.getByRole('complementary',{name:'Agent 协作面板',exact:true})).toHaveCount(0);await expect(page.getByTestId('canvas-minimap')).toHaveCount(0);await expect(page.getByTestId('node-text-1')).toHaveAttribute('style',before!);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                       ^
+      10 | });
+      11 | test('T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request',async({page,networkCounter})=>{
+      12 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量导出所选项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'批量导出项目包',exact:true});await expect(dialog).toContainText('2 个');await dialog.getByLabel('备份范围').selectOption('structure');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出 2 个项目',exact:true}).click();const download=await pending,entries=unzipSync(new Uint8Array(await readFile((await download.path())!))),manifest=JSON.parse(strFromU8(entries['manifest.json']));expect(manifest.format).toBe('aiwork-studio-project-batch');expect(manifest.projects.map((p:{id:string})=>p.id)).toEqual(['p1','p2']);expect(Object.keys(entries)).toHaveLength(3);for(const project of manifest.projects){const data=JSON.parse(strFromU8(entries[project.path]));expect(data.project.id).toBe(project.id);expect(data.manifest.mode).toBe('structure');}expect(JSON.stringify(manifest)).not.toMatch(/apiKey|token|authorization/i);expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-contracts.spec.ts:9:343
+
+    Error Context: test-results\interaction-contracts-T44--4814f-evision-and-task-identities\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-contracts-T44--4814f-evision-and-task-identities\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-contracts-T44--4814f-evision-and-task-identities\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByRole('dialog', { name: '批量导出项目包', exact: true })
+    Expected substring: [32m"2 个"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: '批量导出项目包', exact: true })[22m
+
+
+      10 | });
+      11 | test('T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request',async({page,networkCounter})=>{
+    > 12 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();await page.getByTestId('project-p2').getByRole('checkbox',{name:'选择项目乙'}).check();await page.getByRole('button',{name:'批量导出所选项目',exact:true}).click();const dialog=page.getByRole('dialog',{name:'批量导出项目包',exact:true});await expect(dialog).toContainText('2 个');await dialog.getByLabel('备份范围').selectOption('structure');const pending=page.waitForEvent('download');await dialog.getByRole('button',{name:'确认导出 2 个项目',exact:true}).click();const download=await pending,entries=unzipSync(new Uint8Array(await readFile((await download.path())!))),manifest=JSON.parse(strFromU8(entries['manifest.json']));expect(manifest.format).toBe('aiwork-studio-project-batch');expect(manifest.projects.map((p:{id:string})=>p.id)).toEqual(['p1','p2']);expect(Object.keys(entries)).toHaveLength(3);for(const project of manifest.projects){const data=JSON.parse(strFromU8(entries[project.path]));expect(data.project.id).toBe(project.id);expect(data.manifest.mode).toBe('structure');}expect(JSON.stringify(manifest)).not.toMatch(/apiKey|token|authorization/i);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                       ^
+      13 | });
+      14 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\interaction-contracts.spec.ts:12:391
+
+    Error Context: test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\interaction-contracts-T44--cff4d-ce-mutation-or-paid-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\interaction-contracts.spec.ts:8:1 › T44 G10 restore layout preserves all node coordinates, creative revision and task identities 
+    tests\e2e\interaction-contracts.spec.ts:11:1 › T44 P11 batch export has an exact manifest and independently recoverable packages, no source mutation or paid request 
+  5 passed (51.2s)

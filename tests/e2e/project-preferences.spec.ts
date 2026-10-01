@@ -1,0 +1,4 @@
+import {test,expect} from '../helpers/network-guard';import {seedStudio} from '../helpers/seed-studio';
+test('T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient',async({page,networkCounter})=>{
+ await seedStudio(page,'project-library');await page.goto('/projects');await page.getByRole('combobox',{name:'排序',exact:true}).selectOption('title');await page.getByRole('button',{name:'列表视图',exact:true}).click();await page.getByLabel('搜索项目',{exact:true}).fill('原');await page.reload();await expect(page.getByRole('combobox',{name:'排序',exact:true})).toHaveValue('title');await expect(page.getByRole('button',{name:'网格视图',exact:true})).toBeVisible();await expect(page.getByLabel('搜索项目',{exact:true})).toHaveValue('');await expect(page.getByText(/已选择 \d+ 项/)).toHaveCount(0);expect(networkCounter.paidRequests).toHaveLength(0);
+});

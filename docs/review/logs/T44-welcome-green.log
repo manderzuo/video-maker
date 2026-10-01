@@ -1,0 +1,32 @@
+[WebServer] (node:27168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 17 tests using 1 worker
+
+(node:26484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\app-shell.spec.ts:2:1 › T11-C01/C02: local mode enters projects and eight owned navigation entries are available (965ms)
+  ok  2 tests\e2e\app-shell.spec.ts:8:1 › T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist (722ms)
+  ok  3 tests\e2e\app-shell.spec.ts:14:1 › T11 global search uses local data and returns actual project titles without network (1.1s)
+  ok  4 tests\e2e\app-shell.spec.ts:22:1 › T11-C03: unknown routes show owned 404 and a working return (636ms)
+  ok  5 tests\e2e\app-shell.spec.ts:25:1 › T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger (874ms)
+  ok  6 tests\e2e\app-shell.spec.ts:32:1 › T11-C05: composing and editable targets do not trigger global keyboard commands (693ms)
+  ok  7 tests\e2e\app-shell.spec.ts:37:1 › T11-C06: entry/navigation never opens external links automatically (695ms)
+  ok  8 tests\e2e\app-shell.spec.ts:42:1 › T11: accepted font size, dark/light themes and narrow layout remain readable (1.3s)
+  ok  9 tests\e2e\welcome-connection.spec.ts:2:1 › T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET (1.3s)
+(node:5016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 10 tests\e2e\storage-settings.spec.ts:6:1 › T37 system theme follows the actual browser preference and topbar action stays accurate (2.8s)
+  ok 11 tests\e2e\storage-settings.spec.ts:7:1 › T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access (2.5s)
+  ok 12 tests\e2e\storage-settings.spec.ts:8:1 › T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history (2.7s)
+  ok 13 tests\e2e\storage-settings.spec.ts:9:1 › T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography (2.7s)
+  ok 14 tests\e2e\storage-settings.spec.ts:10:1 › T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity (2.6s)
+  ok 15 tests\e2e\storage-settings.spec.ts:11:1 › T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe (2.5s)
+  ok 16 tests\e2e\storage-settings.spec.ts:12:1 › T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection (2.8s)
+  ok 17 tests\e2e\storage-settings.spec.ts:13:1 › T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records (3.3s)
+
+  17 passed (34.5s)

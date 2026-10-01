@@ -1,0 +1,95 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/missing-entry-contracts.spec.ts::T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key",
+      "file": "tests/e2e/missing-entry-contracts.spec.ts",
+      "title": "T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key",
+      "status": "timedOut",
+      "assertions": 2,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 5,
+          "column": 300
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 5,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 5,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 5,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 5,
+          "column": 363
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/missing-entry-contracts.spec.ts::T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged",
+      "file": "tests/e2e/missing-entry-contracts.spec.ts",
+      "title": "T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged",
+      "status": "timedOut",
+      "assertions": 2,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 8,
+          "column": 633
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/missing-entry-contracts.spec.ts",
+          "line": 8,
+          "column": 586
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/missing-entry-contracts.spec.ts::T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request",
+      "file": "tests/e2e/missing-entry-contracts.spec.ts",
+      "title": "T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request",
+      "status": "timedOut",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    }
+  ]
+}

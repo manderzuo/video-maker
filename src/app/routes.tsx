@@ -8,7 +8,7 @@ export function navigate(path:string){if(!path.startsWith('/')||path.startsWith(
 const subscribe=(callback:()=>void)=>{window.addEventListener('popstate',callback);return()=>window.removeEventListener('popstate',callback);};
 export const useRoute=()=>useSyncExternalStore(subscribe,()=>location.pathname+location.search);
 export function LocalLink({href='/',onClick,...props}:AnchorHTMLAttributes<HTMLAnchorElement>){
- return <a {...props} href={href} onClick={event=>{onClick?.(event);if(!event.defaultPrevented&&event.button===0&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.altKey){event.preventDefault();navigate(href);}}}/>;
+ return <a data-interaction-id="ui:routes:a:39b2b9a31a6b" {...props} href={href} onClick={event=>{onClick?.(event);if(!event.defaultPrevented&&event.button===0&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.altKey){event.preventDefault();navigate(href);}}}/>;
 }
 export const routeTitle=(pathname:string)=>{
  if(pathname==='/welcome')return '开始你的创作项目';

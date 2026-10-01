@@ -1,0 +1,175 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-mutation-failures.spec.ts::T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
+      "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+      "title": "T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph",
+      "status": "failed",
+      "assertions": 29,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 319
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 732
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/canvas-mutation-failures.spec.ts",
+          "line": 22,
+          "column": 432
+        }
+      ]
+    }
+  ]
+}

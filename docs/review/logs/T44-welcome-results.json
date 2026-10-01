@@ -1,0 +1,1252 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 3,
+          "column": 115
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 4,
+          "column": 76
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 6,
+          "column": 63
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 3,
+          "column": 88
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 193
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 174
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 211
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 12,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 12,
+          "column": 142
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 36
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 124
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 37
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11 global search uses local data and returns actual project titles without network",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11 global search uses local data and returns actual project titles without network",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 19,
+          "column": 121
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 188
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 19,
+          "column": 50
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 124
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C03: unknown routes show owned 404 and a working return",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C03: unknown routes show owned 404 and a working return",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 176
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 149
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 27,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 85
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 62
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 184
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 26,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 27,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 22
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C05: composing and editable targets do not trigger global keyboard commands",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C05: composing and editable targets do not trigger global keyboard commands",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 34,
+          "column": 109
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 35,
+          "column": 174
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 33,
+          "column": 99
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 33,
+          "column": 120
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 34,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 35,
+          "column": 91
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C06: entry/navigation never opens external links automatically",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C06: entry/navigation never opens external links automatically",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 40,
+          "column": 17
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 40,
+          "column": 161
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 39,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 39,
+          "column": 148
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11: accepted font size, dark/light themes and narrow layout remain readable",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11: accepted font size, dark/light themes and narrow layout remain readable",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 43,
+          "column": 120
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 44,
+          "column": 93
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 45,
+          "column": 133
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 46,
+          "column": 135
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 44,
+          "column": 50
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/welcome-connection.spec.ts::T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET",
+      "file": "tests/e2e/welcome-connection.spec.ts",
+      "title": "T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 522
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 786
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1059
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1167
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1270
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1494
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 2059
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 2103
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 2184
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 580
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 645
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 722
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 880
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 935
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1086
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1351
+        },
+        {
+          "file": "tests/e2e/welcome-connection.spec.ts",
+          "line": 3,
+          "column": 1431
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37 system theme follows the actual browser preference and topbar action stays accurate",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37 system theme follows the actual browser preference and topbar action stays accurate",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 401
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 497
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 602
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 193
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 724
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 867
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 945
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 1020
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 664
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 789
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 1287
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 259
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 438
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 434
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 553
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 780
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 919
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 1260
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 1329
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 237
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 375
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 624
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 737
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 876
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 564
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 645
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 969
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1019
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1521
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1561
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1670
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1775
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 260
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1101
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1203
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 563
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 648
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 715
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 805
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 448
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 512
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 987
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1118
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1259
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1357
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1445
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1719
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 310
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 748
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1075
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1216
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1461
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+      "status": "passed",
+      "assertions": 25,
+      "actions": 17,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2006
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2088
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2156
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2740
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2967
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3123
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3162
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3461
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3528
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4810
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4939
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5113
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5228
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1633
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1694
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1781
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1836
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1925
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2238
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2291
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2368
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2555
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2666
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3379
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3614
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3817
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4050
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4101
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4170
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4259
+        }
+      ]
+    }
+  ]
+}

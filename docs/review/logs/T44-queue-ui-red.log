@@ -1,0 +1,41 @@
+[WebServer] (node:6184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\queue-withdrawal.spec.ts:2:1 › T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it (30.1s)
+
+
+  1) tests\e2e\queue-withdrawal.spec.ts:2:1 › T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '停止后续提交', exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test('T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it',async({page,networkCounter})=>{
+    > 3 |  await page.goto('/projects');const ids=await page.evaluate(async()=>{const p='/tests/fixtures/pending-queue.ts';return(await import(p)).seedPendingQueue();});await page.goto('/tasks');await page.getByTestId(ids.runId).getByRole('button',{name:'详情',exact:true}).click();await page.getByRole('button',{name:'停止后续提交',exact:true}).click();await expect(page.getByRole('region',{name:'原任务本地队列',exact:true})).toContainText('已暂停');const before=await page.evaluate(async()=>{const p='/tests/fixtures/pending-queue.ts';return(await import(p)).pendingQueueState();});await page.getByRole('button',{name:'移出本地待提交队列',exact:true}).click();const dialog=page.getByRole('dialog',{name:'移出本地待提交队列',exact:true});await expect(dialog).toHaveAttribute('data-dialog-id','D03');await expect(dialog).toContainText(ids.runId);await page.keyboard.press('Escape');expect((await page.evaluate(async()=>{const p='/tests/fixtures/pending-queue.ts';return(await import(p)).pendingQueueState();})).runs).toEqual(before.runs);await page.getByRole('button',{name:'移出本地待提交队列',exact:true}).click();await dialog.getByRole('button',{name:'确认撤回本地未提交项',exact:true}).click();await expect(page.getByRole('region',{name:'原任务本地队列',exact:true})).toContainText('本地已撤回');await expect(page.getByRole('button',{name:'移出本地待提交队列',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await page.reload();await expect(page.getByTestId(ids.runId)).toContainText('本地待提交已撤回');const after=await page.evaluate(async()=>{const p='/tests/fixtures/pending-queue.ts';return(await import(p)).pendingQueueState();});expect(after.runs).toEqual(before.runs);expect(after.receipts.some((r:{id:string})=>r.id==='run-withdrawal:'+ids.runId)).toBe(true);expect(networkCounter.paidRequests).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T44-queue-withdrawal.png'});
+        |                                                                                                                                                                                                                                                                                                                                         ^
+      4 | });
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\queue-withdrawal.spec.ts:3:329
+
+    Error Context: test-results\queue-withdrawal-T44-J06-J-74d71-ed-refresh-cannot-resume-it\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\queue-withdrawal-T44-J06-J-74d71-ed-refresh-cannot-resume-it\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\queue-withdrawal-T44-J06-J-74d71-ed-refresh-cannot-resume-it\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\queue-withdrawal.spec.ts:2:1 › T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it 

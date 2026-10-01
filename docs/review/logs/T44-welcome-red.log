@@ -1,0 +1,41 @@
+[WebServer] (node:22544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:24584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\welcome-connection.spec.ts:2:1 › T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET (30.1s)
+
+
+  1) tests\e2e\welcome-connection.spec.ts:2:1 › T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByLabel('连接名称', { exact: true })[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';import {localDeployment} from '../helpers/deployment-fixture';
+      2 | test('T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET',async({page,networkCounter})=>{
+    > 3 |  await page.route('**/studio-deployment.json',route=>route.fulfill({contentType:'application/json',body:JSON.stringify(localDeployment)}));await page.route('**/core-api/healthz',route=>route.fulfill({contentType:'application/json',body:'{"status":"ok"}'}));await page.route('**/core-api/v1/models',route=>route.fulfill({contentType:'application/json',body:JSON.stringify({data:[{id:'fake-text-only'},{id:'fake-video-only'}]})}));await page.goto('/welcome');await expect(page.getByRole('button',{name:'测试连接',exact:true})).toBeDisabled();await page.getByLabel('连接名称',{exact:true}).fill('引导本地Mock');await page.getByLabel('Core 服务地址',{exact:true}).fill('https://core.invalid/');await page.getByLabel('普通用户 Key',{exact:true}).focus();await expect(page.getByLabel('Core 服务地址',{exact:true})).toHaveValue('https://core.invalid');await page.getByRole('button',{name:'保存连接地址',exact:true}).click();await page.getByLabel('普通用户 Key',{exact:true}).fill('fake-welcome-registered-t44-key');const button=page.getByRole('button',{name:'测试连接',exact:true});await expect(button).toBeEnabled();await button.click();await expect(page.getByRole('status').filter({hasText:'健康与模型目录只读核验成功'})).toBeVisible();expect(networkCounter.requests.filter(r=>r.url.includes('/core-api/')).map(r=>r.method)).toEqual(['GET','GET']);await page.getByRole('button',{name:'进入本地模式',exact:true}).click();await page.reload();await page.getByRole('link',{name:'设置',exact:true}).click();await expect(page.getByLabel('普通用户 Key',{exact:true})).toHaveValue('');const data=await page.evaluate(async()=>{const p='/src/infrastructure/storage/database.ts',m=await import(p);return m.withDatabase(undefined,(db:import('../../src/infrastructure/storage/database').StudioDb)=>m.transact(db,['connections','receipts'],'readonly',async(tx:IDBTransaction)=>({connections:await m.requestResult(tx.objectStore('connections').getAll()),receipts:await m.requestResult(tx.objectStore('receipts').getAll()),local:{...localStorage,...sessionStorage}})));});expect(data.connections.some((c:{name:string})=>c.name==='引导本地Mock')).toBe(true);expect(JSON.stringify(data)).not.toContain('fake-welcome-registered-t44-key');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+      4 | });
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\welcome-connection.spec.ts:3:580
+
+    Error Context: test-results\welcome-connection-T44-W02-1e05e-y-explicit-health-model-GET\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\welcome-connection-T44-W02-1e05e-y-explicit-health-model-GET\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\welcome-connection-T44-W02-1e05e-y-explicit-health-model-GET\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\welcome-connection.spec.ts:2:1 › T44 W02-W05 welcome reuses registered connection verification: address persists, Key stays in this tab, only explicit health/model GET 

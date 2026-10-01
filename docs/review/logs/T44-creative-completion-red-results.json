@@ -1,0 +1,241 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 N03/N04 actual copy and paste buttons produce a new structure identity and preserve original media and Run after reload",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 N03/N04 actual copy and paste buttons produce a new structure identity and preserve original media and Run after reload",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 345
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 485
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 574
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 735
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 800
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 842
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 901
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 206
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 302
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 5,
+          "column": 423
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 N12 arranging is previewed before a single native commit and survives reload without changing topology or execution",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 8,
+          "column": 90
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 N18 shot group name and order reject invalid input, save a native revision and survive reload without changing Run",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 394
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 451
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 858
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 984
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 265
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 346
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 579
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 11,
+          "column": 649
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 T02/T04 font preferences persist without editing text; clipboard rejection preserves source and gives a manual-copy path",
+      "status": "timedOut",
+      "assertions": 1,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": []
+    },
+    {
+      "id": "tests/e2e/creative-control-completion.spec.ts::T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable",
+      "file": "tests/e2e/creative-control-completion.spec.ts",
+      "title": "T44 T03 inserting a selected but missing original records an unavailable reference rather than pretending the file is readable",
+      "status": "failed",
+      "assertions": 1,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 156
+        },
+        {
+          "file": "tests/e2e/creative-control-completion.spec.ts",
+          "line": 17,
+          "column": 219
+        }
+      ]
+    }
+  ]
+}

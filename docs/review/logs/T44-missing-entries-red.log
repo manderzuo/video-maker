@@ -1,0 +1,137 @@
+[WebServer] (node:24364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\missing-entry-contracts.spec.ts:4:1 › T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key (30.2s)
+(node:26680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\missing-entry-contracts.spec.ts:7:1 › T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged (30.0s)
+(node:23512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\missing-entry-contracts.spec.ts:10:1 › T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request (30.1s)
+
+
+  1) tests\e2e\missing-entry-contracts.spec.ts:4:1 › T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.waitForEvent: Test timeout of 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for event "download"
+    ============================================================
+
+      3 | import {readFile} from 'node:fs/promises';
+      4 | test('T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key',async({page,networkCounter})=>{
+    > 5 |  await page.goto('/settings/connections');await page.getByLabel('连接名称',{exact:true}).fill('公开地址');await page.getByLabel('Core 服务地址',{exact:true}).fill('https://public.invalid');await page.getByRole('button',{name:'保存连接地址',exact:true}).click();await expect(page.getByLabel('已保存连接',{exact:true})).not.toHaveValue('');await page.getByLabel('普通用户 Key',{exact:true}).fill('fake-export-forbidden-key');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出连接配置',exact:true}).click();const download=await pending,document=JSON.parse(await readFile((await download.path())!,'utf8'));expect(document.connections).toHaveLength(1);expect(document.connections[0].originSnapshot).toBe('https://public.invalid');expect(JSON.stringify(document)).not.toContain('fake-export-forbidden-key');expect(Object.keys(document)).toEqual(['format','schemaVersion','preferences','connections']);await expect(page.getByLabel('普通用户 Key',{exact:true})).toHaveValue('fake-export-forbidden-key');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      6 | });
+      7 | test('T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged',async({page,networkCounter})=>{
+      8 |  await page.goto('/tests/fixtures/media-delivery.html');let calls=0;const bytes=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';const blob=await(await import(p)).originalReviewClip(350,'#22c55e');return Array.from(new Uint8Array(await blob.arrayBuffer()));});await page.route('**/core-api/v1/videos/mock-core-1/content',async route=>{calls++;await route.fulfill(calls===1?{status:302,headers:{Location:'https://untrusted.invalid/video'}}:{status:200,contentType:'video/webm',body:Buffer.from(bytes)});});await page.getByRole('button',{name:'下载结果',exact:true}).click();await expect(page.getByRole('status')).toContainText('未核验的下载跳转已阻止');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'重新下载',exact:true}).click();const download=await pending;expect(Array.from(await readFile((await download.path())!))).toEqual(bytes);expect(calls).toBe(2);const stored=await page.evaluate(async()=>{const p='/src/infrastructure/storage/run-repository.ts';return(await import(p)).readRun('media-original-run');});expect(stored).toMatchObject({executionState:'succeeded',billingState:'not_provided',taskId:'mock-core-1'});expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\missing-entry-contracts.spec.ts:5:416
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '导出连接配置', exact: true })[22m
+
+
+      3 | import {readFile} from 'node:fs/promises';
+      4 | test('T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key',async({page,networkCounter})=>{
+    > 5 |  await page.goto('/settings/connections');await page.getByLabel('连接名称',{exact:true}).fill('公开地址');await page.getByLabel('Core 服务地址',{exact:true}).fill('https://public.invalid');await page.getByRole('button',{name:'保存连接地址',exact:true}).click();await expect(page.getByLabel('已保存连接',{exact:true})).not.toHaveValue('');await page.getByLabel('普通用户 Key',{exact:true}).fill('fake-export-forbidden-key');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出连接配置',exact:true}).click();const download=await pending,document=JSON.parse(await readFile((await download.path())!,'utf8'));expect(document.connections).toHaveLength(1);expect(document.connections[0].originSnapshot).toBe('https://public.invalid');expect(JSON.stringify(document)).not.toContain('fake-export-forbidden-key');expect(Object.keys(document)).toEqual(['format','schemaVersion','preferences','connections']);await expect(page.getByLabel('普通用户 Key',{exact:true})).toHaveValue('fake-export-forbidden-key');expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      6 | });
+      7 | test('T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged',async({page,networkCounter})=>{
+      8 |  await page.goto('/tests/fixtures/media-delivery.html');let calls=0;const bytes=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';const blob=await(await import(p)).originalReviewClip(350,'#22c55e');return Array.from(new Uint8Array(await blob.arrayBuffer()));});await page.route('**/core-api/v1/videos/mock-core-1/content',async route=>{calls++;await route.fulfill(calls===1?{status:302,headers:{Location:'https://untrusted.invalid/video'}}:{status:200,contentType:'video/webm',body:Buffer.from(bytes)});});await page.getByRole('button',{name:'下载结果',exact:true}).click();await expect(page.getByRole('status')).toContainText('未核验的下载跳转已阻止');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'重新下载',exact:true}).click();const download=await pending;expect(Array.from(await readFile((await download.path())!))).toEqual(bytes);expect(calls).toBe(2);const stored=await page.evaluate(async()=>{const p='/src/infrastructure/storage/run-repository.ts';return(await import(p)).readRun('media-original-run');});expect(stored).toMatchObject({executionState:'succeeded',billingState:'not_provided',taskId:'mock-core-1'});expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\missing-entry-contracts.spec.ts:5:499
+
+    Error Context: test-results\missing-entry-contracts-T4-d289b-es-the-current-ordinary-Key\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\missing-entry-contracts-T4-d289b-es-the-current-ordinary-Key\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\missing-entry-contracts-T4-d289b-es-the-current-ordinary-Key\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\missing-entry-contracts.spec.ts:7:1 › T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: page.waitForEvent: Test timeout of 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for event "download"
+    ============================================================
+
+       6 | });
+       7 | test('T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged',async({page,networkCounter})=>{
+    >  8 |  await page.goto('/tests/fixtures/media-delivery.html');let calls=0;const bytes=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';const blob=await(await import(p)).originalReviewClip(350,'#22c55e');return Array.from(new Uint8Array(await blob.arrayBuffer()));});await page.route('**/core-api/v1/videos/mock-core-1/content',async route=>{calls++;await route.fulfill(calls===1?{status:302,headers:{Location:'https://untrusted.invalid/video'}}:{status:200,contentType:'video/webm',body:Buffer.from(bytes)});});await page.getByRole('button',{name:'下载结果',exact:true}).click();await expect(page.getByRole('status')).toContainText('未核验的下载跳转已阻止');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'重新下载',exact:true}).click();const download=await pending;expect(Array.from(await readFile((await download.path())!))).toEqual(bytes);expect(calls).toBe(2);const stored=await page.evaluate(async()=>{const p='/src/infrastructure/storage/run-repository.ts';return(await import(p)).readRun('media-original-run');});expect(stored).toMatchObject({executionState:'succeeded',billingState:'not_provided',taskId:'mock-core-1'});expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+       9 | });
+      10 | test('T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request',async({page,networkCounter})=>{
+      11 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'从文本创建视频流程',exact:true}).click();const dialog=page.getByRole('dialog',{name:'从文本创建视频流程',exact:true});await expect(dialog).toContainText('尚未核验');await dialog.getByRole('button',{name:'确认仅创建草稿',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.getByRole('button',{name:'生成预检',exact:true})).toHaveCount(0);const state=await page.evaluate(async()=>{const p='/src/infrastructure/storage/project-repository.ts';return(await import(p)).readGraph('p1');});expect(state.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('原创镜头');expect(state.edges).toHaveLength(1);expect(state.edges[0]).toMatchObject({sourceId:'text-1',port:'text'});await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(0);await expect(page.getByLabel('节点文本',{exact:true})).toHaveValue('原创镜头');expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\missing-entry-contracts.spec.ts:8:681
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '重新下载', exact: true })[22m
+
+
+       6 | });
+       7 | test('T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged',async({page,networkCounter})=>{
+    >  8 |  await page.goto('/tests/fixtures/media-delivery.html');let calls=0;const bytes=await page.evaluate(async()=>{const p='/tests/fixtures/result-review.ts';const blob=await(await import(p)).originalReviewClip(350,'#22c55e');return Array.from(new Uint8Array(await blob.arrayBuffer()));});await page.route('**/core-api/v1/videos/mock-core-1/content',async route=>{calls++;await route.fulfill(calls===1?{status:302,headers:{Location:'https://untrusted.invalid/video'}}:{status:200,contentType:'video/webm',body:Buffer.from(bytes)});});await page.getByRole('button',{name:'下载结果',exact:true}).click();await expect(page.getByRole('status')).toContainText('未核验的下载跳转已阻止');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'重新下载',exact:true}).click();const download=await pending;expect(Array.from(await readFile((await download.path())!))).toEqual(bytes);expect(calls).toBe(2);const stored=await page.evaluate(async()=>{const p='/src/infrastructure/storage/run-repository.ts';return(await import(p)).readRun('media-original-run');});expect(stored).toMatchObject({executionState:'succeeded',billingState:'not_provided',taskId:'mock-core-1'});expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+       9 | });
+      10 | test('T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request',async({page,networkCounter})=>{
+      11 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'从文本创建视频流程',exact:true}).click();const dialog=page.getByRole('dialog',{name:'从文本创建视频流程',exact:true});await expect(dialog).toContainText('尚未核验');await dialog.getByRole('button',{name:'确认仅创建草稿',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.getByRole('button',{name:'生成预检',exact:true})).toHaveCount(0);const state=await page.evaluate(async()=>{const p='/src/infrastructure/storage/project-repository.ts';return(await import(p)).readGraph('p1');});expect(state.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('原创镜头');expect(state.edges).toHaveLength(1);expect(state.edges[0]).toMatchObject({sourceId:'text-1',port:'text'});await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(0);await expect(page.getByLabel('节点文本',{exact:true})).toHaveValue('原创镜头');expect(networkCounter.paidRequests).toHaveLength(0);
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\missing-entry-contracts.spec.ts:8:762
+
+    Error Context: test-results\missing-entry-contracts-T4-448ea-lling-records-are-unchanged\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\missing-entry-contracts-T4-448ea-lling-records-are-unchanged\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\missing-entry-contracts-T4-448ea-lling-records-are-unchanged\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\missing-entry-contracts.spec.ts:10:1 › T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '从文本创建视频流程', exact: true })[22m
+
+
+       9 | });
+      10 | test('T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request',async({page,networkCounter})=>{
+    > 11 |  await seedStudio(page,'canvas-project');await page.goto('/projects/p1/canvas');await page.getByRole('button',{name:'从文本创建视频流程',exact:true}).click();const dialog=page.getByRole('dialog',{name:'从文本创建视频流程',exact:true});await expect(dialog).toContainText('尚未核验');await dialog.getByRole('button',{name:'确认仅创建草稿',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(1);await expect(page.getByRole('button',{name:'生成预检',exact:true})).toHaveCount(0);const state=await page.evaluate(async()=>{const p='/src/infrastructure/storage/project-repository.ts';return(await import(p)).readGraph('p1');});expect(state.nodes.find((n:{type:string})=>n.type==='text').data.text).toBe('原创镜头');expect(state.edges).toHaveLength(1);expect(state.edges[0]).toMatchObject({sourceId:'text-1',port:'text'});await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.locator('[data-node-type="video-generation"]')).toHaveCount(0);await expect(page.getByLabel('节点文本',{exact:true})).toHaveValue('原创镜头');expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                              ^
+      12 | });
+      13 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\missing-entry-contracts.spec.ts:11:142
+
+    Error Context: test-results\missing-entry-contracts-T4-e6e0d-source-and-sends-no-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\missing-entry-contracts-T4-e6e0d-source-and-sends-no-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\missing-entry-contracts-T4-e6e0d-source-and-sends-no-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\e2e\missing-entry-contracts.spec.ts:4:1 › T44 K10 connection configuration export contains saved public addresses but excludes the current ordinary Key 
+    tests\e2e\missing-entry-contracts.spec.ts:7:1 › T44 R04 after a content redirect failure retry downloads only the original content; the generation and billing records are unchanged 
+    tests\e2e\missing-entry-contracts.spec.ts:10:1 › T44 T08 a readable text creates a connected local video draft even before capability verification; undo preserves source and sends no request 

@@ -1,0 +1,48 @@
+[WebServer] (node:29300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:28140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient (6.8s)
+
+
+  1) tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveValue[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  getByRole('combobox', { name: '排序', exact: true })
+    Expected: [32m"title"[39m
+    Received: [31m"updated"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveValue" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('combobox', { name: '排序', exact: true })[22m
+    [2m    9 × locator resolved to <select>…</select>[22m
+    [2m      - unexpected value "updated"[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';import {seedStudio} from '../helpers/seed-studio';
+      2 | test('T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient',async({page,networkCounter})=>{
+    > 3 |  await seedStudio(page,'project-library');await page.goto('/projects');await page.getByRole('combobox',{name:'排序',exact:true}).selectOption('title');await page.getByRole('button',{name:'列表视图',exact:true}).click();await page.getByLabel('搜索项目',{exact:true}).fill('原');await page.reload();await expect(page.getByRole('combobox',{name:'排序',exact:true})).toHaveValue('title');await expect(page.getByRole('button',{name:'网格视图',exact:true})).toBeVisible();await expect(page.getByLabel('搜索项目',{exact:true})).toHaveValue('');await expect(page.getByText(/已选择 \d+ 项/)).toHaveCount(0);expect(networkCounter.paidRequests).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                               ^
+      4 | });
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\project-preferences.spec.ts:3:351
+
+    Error Context: test-results\project-preferences-T44-P1-6c687--selection-remain-transient\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\project-preferences-T44-P1-6c687--selection-remain-transient\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\project-preferences-T44-P1-6c687--selection-remain-transient\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\project-preferences.spec.ts:2:1 › T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient 

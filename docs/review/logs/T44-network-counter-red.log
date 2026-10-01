@@ -1,0 +1,51 @@
+
+> aiwork-studio@0.0.1 test:unit
+> vitest run tests/unit/network-evidence.test.ts
+
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/network-evidence.test.ts (2 tests | 2 failed) 10ms
+   × T44 network counts include work revision/continuation charges rather than silently treating them as local actions 7ms
+   × T44 evidence counts every business mutation and blocked request while ignoring harmless page and original task GETs 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/network-evidence.test.ts > T44 network counts include work revision/continuation charges rather than silently treating them as local actions
+AssertionError: expected [ { …(3) }, { …(3) } ] to have a length of 4 but got 2
+
+- Expected
++ Received
+
+- 4
++ 2
+
+ ❯ tests/unit/network-evidence.test.ts:2:384
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/network-evidence.test.ts > T44 evidence counts every business mutation and blocked request while ignoring harmless page and original task GETs
+AssertionError: expected undefined to deeply equal { coreWrites: 1, …(2) }
+
+- Expected:
+{
+  "blockedRequests": 1,
+  "coreWrites": 1,
+  "paidRequests": 0,
+}
+
++ Received:
+undefined
+
+ ❯ tests/unit/network-evidence.test.ts:3:513
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  11:50:11
+   Duration  249ms (transform 41ms, setup 44ms, import 14ms, tests 10ms, environment 0ms)
+

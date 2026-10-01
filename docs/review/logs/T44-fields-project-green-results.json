@@ -1,0 +1,558 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/project-action-contracts.spec.ts::T44 P03 opening an existing project preserves its creative revision, shared media and original unknown Run",
+      "file": "tests/e2e/project-action-contracts.spec.ts",
+      "title": "T44 P03 opening an existing project preserves its creative revision, shared media and original unknown Run",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 7,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 7,
+          "column": 224
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 7,
+          "column": 291
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 7,
+          "column": 333
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 7,
+          "column": 390
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 7,
+          "column": 114
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-action-contracts.spec.ts::T44 P06/P07 favorite and archive toggle independently, survive reload and leave creative graphs and original tracking intact",
+      "file": "tests/e2e/project-action-contracts.spec.ts",
+      "title": "T44 P06/P07 favorite and archive toggle independently, survive reload and leave creative graphs and original tracking intact",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 197
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 362
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 563
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 665
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 852
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 852
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 852
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 954
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 1289
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 125
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 290
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 1031
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 10,
+          "column": 1095
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-action-contracts.spec.ts::T44 P-06 native project write failure retains the prior state and reports an error without changing Run",
+      "file": "tests/e2e/project-action-contracts.spec.ts",
+      "title": "T44 P-06 native project write failure retains the prior state and reports an error without changing Run",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 492
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 603
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 653
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 404
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/project-action-contracts.spec.ts::T44 P-07 native project write failure retains the prior state and reports an error without changing Run",
+      "file": "tests/e2e/project-action-contracts.spec.ts",
+      "title": "T44 P-07 native project write failure retains the prior state and reports an error without changing Run",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 450
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 492
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 603
+        },
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 653
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-action-contracts.spec.ts",
+          "line": 13,
+          "column": 404
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
+      "file": "tests/e2e/prompt-field-contracts.spec.ts",
+      "title": "T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 10,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 786
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 947
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 1217
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 1309
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 1380
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 1583
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 1634
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 1682
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 109
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 247
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 300
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 370
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 447
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 517
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 584
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 654
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 6,
+          "column": 722
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG06/PG07/PG08/PG09 reference selection, roles, reorder and removal preserve stable IDs and never delete media",
+      "file": "tests/e2e/prompt-field-contracts.spec.ts",
+      "title": "T44 PG06/PG07/PG08/PG09 reference selection, roles, reorder and removal preserve stable IDs and never delete media",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 12,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 666
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1068
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1344
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1746
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1803
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 2174
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 2218
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 589
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 739
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 808
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 931
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 988
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1144
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1208
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1456
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1509
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1586
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 9,
+          "column": 1650
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-field-contracts.spec.ts::T44 PG05/PG11/PG12 native draft storage failure preserves saved fields and exposes the current recoverable input",
+      "file": "tests/e2e/prompt-field-contracts.spec.ts",
+      "title": "T44 PG05/PG11/PG12 native draft storage failure preserves saved fields and exposes the current recoverable input",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 628
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 676
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 743
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 900
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 950
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 360
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 437
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 511
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 582
+        },
+        {
+          "file": "tests/e2e/prompt-field-contracts.spec.ts",
+          "line": 12,
+          "column": 822
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

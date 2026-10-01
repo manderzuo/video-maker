@@ -1,0 +1,48 @@
+[WebServer] (node:26400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:20596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\prompt-mode.spec.ts:2:1 › T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request (6.3s)
+
+
+  1) tests\e2e\prompt-mode.spec.ts:2:1 › T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
+
+    Locator:  getByRole('combobox', { name: '整理模式', exact: true }).locator('option[value="ai"]')
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeDisabled" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('combobox', { name: '整理模式', exact: true }).locator('option[value="ai"]')[22m
+    [2m    9 × locator resolved to <option disabled value="ai">AI文字优化（请求前单独确认）</option>[22m
+    [2m      - unexpected value "enabled"[22m
+
+
+      1 | import {test,expect} from '../helpers/network-guard';
+      2 | test('T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request',async({page,networkCounter})=>{
+    > 3 |  await page.goto('/projects');await page.evaluate(async()=>{const p='/tests/fixtures/prompt-workspace.ts';await(await import(p)).seedPromptWorkspace();});await page.goto('/prompt-generator?type=video&draftId=d1');const input=page.getByLabel('原始创意',{exact:true}),before=await input.inputValue(),mode=page.getByRole('combobox',{name:'整理模式',exact:true});await expect(mode).toHaveValue('rules');await expect(mode.locator('option[value="ai"]')).toBeDisabled();await page.evaluate(async()=>{const p='/tests/fixtures/generation.ts';(await import(p)).connectGeneration();});await mode.selectOption('ai');await expect(page.getByRole('button',{name:'AI优化',exact:true})).toHaveClass(/primary/);await mode.selectOption('rules');await expect(page.getByRole('button',{name:'本地整理',exact:true})).toHaveClass(/primary/);await expect(input).toHaveValue(before);await expect(page.getByRole('dialog',{name:'AI文字优化确认',exact:true})).not.toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);const stored=await page.evaluate(async()=>{const p='/tests/fixtures/prompt-workspace.ts';return(await import(p)).promptWorkspaceState();});expect(stored.promptRuns).toHaveLength(0);expect(stored.drafts[0].resultVersions).toHaveLength(0);
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      4 | });
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\prompt-mode.spec.ts:3:441
+
+    Error Context: test-results\prompt-mode-T44-PG13-PG15--32c1d-y-and-sends-no-paid-request\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\prompt-mode-T44-PG13-PG15--32c1d-y-and-sends-no-paid-request\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\prompt-mode-T44-PG13-PG15--32c1d-y-and-sends-no-paid-request\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\prompt-mode.spec.ts:2:1 › T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request 

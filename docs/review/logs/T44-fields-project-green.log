@@ -1,0 +1,18 @@
+[WebServer] (node:12980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:2628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\project-action-contracts.spec.ts:6:1 › T44 P03 opening an existing project preserves its creative revision, shared media and original unknown Run (1.4s)
+  ok 2 tests\e2e\project-action-contracts.spec.ts:9:1 › T44 P06/P07 favorite and archive toggle independently, survive reload and leave creative graphs and original tracking intact (2.2s)
+  ok 3 tests\e2e\project-action-contracts.spec.ts:12:67 › T44 P-06 native project write failure retains the prior state and reports an error without changing Run (1.2s)
+  ok 4 tests\e2e\project-action-contracts.spec.ts:12:67 › T44 P-07 native project write failure retains the prior state and reports an error without changing Run (1.2s)
+  ok 5 tests\e2e\prompt-field-contracts.spec.ts:5:1 › T44 PG04/PG05/PG10/PG11/PG12 explicit writing fields persist together without changing the original source or calling a model (1.8s)
+  ok 6 tests\e2e\prompt-field-contracts.spec.ts:8:1 › T44 PG06/PG07/PG08/PG09 reference selection, roles, reorder and removal preserve stable IDs and never delete media (2.4s)
+  ok 7 tests\e2e\prompt-field-contracts.spec.ts:11:1 › T44 PG05/PG11/PG12 native draft storage failure preserves saved fields and exposes the current recoverable input (1.2s)
+
+  7 passed (14.5s)

@@ -1,0 +1,48 @@
+[WebServer] (node:17076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:26772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\canvas-mutation-failures.spec.ts:21:1 › T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph (6.9s)
+
+
+  1) tests\e2e\canvas-mutation-failures.spec.ts:21:1 › T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  getByRole('button', { name: '编辑标题 镜头文字', exact: true })
+    Expected: [32m"true"[39m
+    Received: [31m""[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: '编辑标题 镜头文字', exact: true })[22m
+    [2m    9 × locator resolved to <header tabindex="0" role="button" aria-label="编辑标题 镜头文字" data-testid="node-handle" data-interaction-id="N-02">镜头文字</header>[22m
+    [2m      - unexpected value "null"[22m
+
+
+      20 | });
+      21 | test('T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph',async({page,networkCounter})=>{
+    > 22 |  await seedStudio(page,'unverified-capability');await page.evaluate(async()=>{const p='/src/infrastructure/storage/project-lease.ts';await(await import(p)).acquireProjectLease('p1','another-actual-writer',Date.now());});await page.goto('/projects/p1/canvas');await expect(page.getByText('只读 · 另一标签持有写权',{exact:true})).toBeVisible();await page.getByLabel('选择 镜头文字',{exact:true}).check();await page.getByLabel('选择 参考一',{exact:true}).check();for(const id of ['C-10','N-04','N-05','N-06','N-07','N-08','N-09','N-11','N-12','N-13','N-14','N-15','N-16','T-03','T-08','V-01','V-02','V-03','V-04','V-07']){const controls=page.locator('[data-interaction-id="'+id+'"]');for(let i=0;i<await controls.count();i++)await expect(controls.nth(i)).toBeDisabled();}const before=await graph(page),title=page.getByRole('button',{name:'编辑标题 镜头文字',exact:true});await expect(title).toHaveAttribute('aria-disabled','true');await title.press('Enter');await expect(page.getByRole('dialog',{name:'编辑节点标题',exact:true})).not.toBeVisible();expect(await graph(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+      23 | });
+      24 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\canvas-mutation-failures.spec.ts:22:860
+
+    Error Context: test-results\canvas-mutation-failures-T-5de7b-d-entry-preserves-the-graph\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\canvas-mutation-failures-T-5de7b-d-entry-preserves-the-graph\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\canvas-mutation-failures-T-5de7b-d-entry-preserves-the-graph\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\canvas-mutation-failures.spec.ts:21:1 › T44 canvas readonly writer gate disables every visible creative mutation and title keyboard entry preserves the graph 

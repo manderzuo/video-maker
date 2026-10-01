@@ -2,6 +2,7 @@ import {z} from 'zod';
 import {withDatabase,transact,storageErrorCode,type StudioDb,type TableName} from '../../infrastructure/storage/database';
 import {assertProjectWriter,type ProjectLeaseToken} from '../../infrastructure/storage/project-lease';
 import {loadResourceSnapshot,referencesFor,snapshotAssetIds,type ResourceSnapshot} from '../assets/reference-index';
+import type {Asset} from '../../domain/asset';
 export type DeleteTarget={kind:'project'|'node'|'asset';id:string;mode:'soft'|'permanent';projectId?:string};
 export type DeletionImpact={target:DeleteTarget;blockers:string[];sharedAssets:string[];activeRuns:string[];referencedAssets:string[];deletable:boolean;impactHash:string;displayedCounts:{references:number;activeRuns:number;sharedAssets:number}};
 export type DeletionConfirmation={impactHash:string;displayedCounts:DeletionImpact['displayedCounts'];projectTitle?:string};
@@ -9,6 +10,19 @@ export type DeleteOptions={db?:StudioDb;lease?:ProjectLeaseToken;expectedRevisio
 export type DeleteResult={success:boolean;id:string;errorCode?:string;revision?:number};
 const targetSchema=z.strictObject({kind:z.enum(['project','node','asset']),id:z.string().min(1),mode:z.enum(['soft','permanent']),projectId:z.string().min(1).optional()});
 export const deletionTables:TableName[]=['projects','graphs','assets','blobs','runs','promptDrafts','references','receipts','leases'];
+function removeAssetRecords(tx:IDBTransaction,asset:Asset,snapshot:ResourceSnapshot,removedIds=new Set([asset.id])){
+ tx.objectStore('assets').delete(asset.id);
+ if(!snapshot.assets.some(a=>!removedIds.has(a.id)&&a.blobKey===asset.blobKey)){tx.objectStore('blobs').delete(asset.blobKey);tx.objectStore('blobs').delete('thumbnail:'+asset.sha256);}
+}
+export function removeUnreferencedAssetsInTransaction(tx:IDBTransaction,snapshot:ResourceSnapshot,ids:string[]){
+ const removed=new Set(ids);if(removed.size!==ids.length)throw Error('cleanup_targets_invalid');
+ const assets=ids.map(id=>snapshot.assets.find(asset=>asset.id===id));if(assets.some(asset=>!asset||referencesFor(snapshot,asset.id).length))throw Error('cleanup_asset_referenced');
+ for(const asset of assets)removeAssetRecords(tx,asset!,snapshot,removed);
+}
+export function removeProjectRecordsInTransaction(tx:IDBTransaction,projectId:string,snapshot:ResourceSnapshot){
+ tx.objectStore('projects').delete(projectId);tx.objectStore('graphs').delete(projectId);
+ for(const link of snapshot.links)if(link.projectId===projectId)tx.objectStore('references').delete(link.id);
+}
 const activeStates=new Set(['persisted','uploading','submitting','submit_unknown','accepted','running']);
 function deriveImpact(target:DeleteTarget,snapshot:ResourceSnapshot):Omit<DeletionImpact,'impactHash'>{
  const blockers:string[]=[],projectId=target.kind==='project'?target.id:target.projectId;
@@ -59,8 +73,7 @@ export async function deleteLocalResource(target:DeleteTarget,confirmation:Delet
     const asset=snapshot.assets.find(a=>a.id===target.id)!;
     if(target.mode==='soft')tx.objectStore('assets').put({...asset,trashedAt:Date.now()});
     else{
-     tx.objectStore('assets').delete(asset.id);
-     if(!snapshot.assets.some(a=>a.id!==asset.id&&a.blobKey===asset.blobKey)){tx.objectStore('blobs').delete(asset.blobKey);tx.objectStore('blobs').delete('thumbnail:'+asset.sha256);}
+     removeAssetRecords(tx,asset,snapshot);
     }
     return {success:true,id:target.id};
    }
@@ -70,8 +83,7 @@ export async function deleteLocalResource(target:DeleteTarget,confirmation:Delet
    if(project.revision!==options.expectedRevision)throw new Error('project_revision_conflict');
    if(target.kind==='project'&&target.mode==='permanent'){
     if(intent.projectTitle!==project.title)throw new Error('project_name_confirmation_required');
-    tx.objectStore('projects').delete(projectId);tx.objectStore('graphs').delete(projectId);
-    for(const link of snapshot.links)if(link.projectId===projectId)tx.objectStore('references').delete(link.id);
+    removeProjectRecordsInTransaction(tx,projectId,snapshot);
     // Runs and media remain in the global task/media library, including terminal evidence.
     return {success:true,id:target.id};
    }

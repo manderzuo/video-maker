@@ -1,0 +1,30 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/queue-withdrawal.spec.ts::T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it",
+      "file": "tests/e2e/queue-withdrawal.spec.ts",
+      "title": "T44 J06/J07 task center can pause unsent work and explicitly withdraw it with original Run retained; refresh cannot resume it",
+      "status": "timedOut",
+      "assertions": 1,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-withdrawal.spec.ts",
+          "line": 3,
+          "column": 263
+        }
+      ]
+    }
+  ]
+}

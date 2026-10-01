@@ -1,0 +1,173 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/project-preferences.spec.ts::T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient",
+      "file": "tests/e2e/project-preferences.spec.ts",
+      "title": "T44 P12/P13 project sorting and view persist; query and cross-filter selection remain transient",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 351
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 436
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 501
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 559
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 610
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 206
+        },
+        {
+          "file": "tests/e2e/project-preferences.spec.ts",
+          "line": 3,
+          "column": 257
+        }
+      ]
+    },
+    {
+      "id": "tests/e2e/review-dialog-contracts.spec.ts::T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history",
+      "file": "tests/e2e/review-dialog-contracts.spec.ts",
+      "title": "T44 D11/R08 compare requires two fixed versions and explicit confirmation; cancellation preserves history",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 139
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 225
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 397
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 458
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 577
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 610
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 858
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 1132
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 1160
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 1212
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 19,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 195
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 281
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 303
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 539
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 645
+        },
+        {
+          "file": "tests/e2e/review-dialog-contracts.spec.ts",
+          "line": 4,
+          "column": 713
+        }
+      ]
+    }
+  ]
+}
