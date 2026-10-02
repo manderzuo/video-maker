@@ -10,16 +10,18 @@ export type CredentialSession={binding:AuthBinding;withCredential:typeof withCre
 export type CoreReply<T>={ok:true;value:T}|{ok:false;error:CoreFailure};
 export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:()=>Promise<CoreReply<CoreModel[]>>;requestContent:(taskId:string,options:{maxBytes:number;signal?:AbortSignal})=>Promise<CoreReply<Blob>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string,options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreTaskView>>};
 export type TransportOptions={browserOrigin?:string;registry?:readonly ConnectionProfile[];fetch?:typeof fetch};
-export function createCoreClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{
- const copied=connectionSchema.parse(structuredClone(raw)),binding=Object.freeze(authBindingSchema.parse(structuredClone(session.binding))),base=normalizeCoreBase(copied.proxyBase),upstream=normalizeCoreBase(copied.originSnapshot);
- if(!base.ok||!base.value.startsWith('/core-api')||!upstream.ok||upstream.value.startsWith('/'))throw new Error('core_connection_invalid');
+export function createCoreClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{return createClient(raw,session,options,false);}
+export function createTextClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{return createClient(raw,session,options,true);}
+function createClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions,textOnly:boolean):CoreClient{
+ const copied=connectionSchema.parse(structuredClone(raw)),binding=Object.freeze(authBindingSchema.parse(structuredClone(session.binding))),base=textOnly&&/^\/text-api\/registered\/[A-Za-z0-9_-]+$/.test(copied.proxyBase)?{ok:true as const,value:copied.proxyBase}:normalizeCoreBase(copied.proxyBase),upstream=normalizeCoreBase(copied.originSnapshot);
+ if(!base.ok||!(textOnly?base.value.startsWith('/text-api/registered/'):base.value.startsWith('/core-api'))||binding.kind!==(textOnly?'text-api':'core-user')||!upstream.ok||upstream.value.startsWith('/'))throw new Error('core_connection_invalid');
  if(!options.registry?.some(p=>p.id===copied.id&&p.proxyBase===copied.proxyBase&&p.originSnapshot===copied.originSnapshot&&p.contractVersion===copied.contractVersion))throw new Error('core_connection_unregistered');
  if(binding.connectionId!==copied.id||binding.originSnapshot!==copied.originSnapshot)throw new Error('original_authorization_required');
  const origin=options.browserOrigin??(typeof location==='undefined'?'':location.origin),validOrigin=normalizeCoreBase(origin);if(!validOrigin.ok||new URL(origin).origin!==origin)throw new Error('core_browser_origin_invalid');
  const profile=Object.freeze({...copied,proxyBase:base.value}),send=options.fetch??globalThis.fetch.bind(globalThis),credential=session.withCredential;
  const failure=(code:string,category:CoreFailure['category']='unknown',outcome:CoreFailure['submissionOutcome']='unknown'):CoreReply<never>=>({ok:false,error:{httpStatus:0,category,errorCode:code,submissionOutcome:outcome}});
  const requestJson:CoreClient['requestJson']=async(method,path,body,requestOptions={})=>{
-  if(!allowedCorePath(path,method))return failure('core_route_denied','forbidden','not_sent');
+  if(!(textOnly?(method==='GET'&&path==='/v1/models'||method==='POST'&&path==='/v1/chat/completions'):allowedCorePath(path,method)))return failure('core_route_denied','forbidden','not_sent');
   let bodyValue=body;try{if(method==='POST'&&typeof body==='string')bodyValue=JSON.parse(body);}catch{return failure('core_request_body_invalid','invalid_request','not_sent');}
   if(method==='GET'&&body!==undefined||method==='POST'&&(bodyValue===undefined||!isSafeSnapshot(bodyValue)||!bodyValue||typeof bodyValue!=='object'||Array.isArray(bodyValue)))return failure('core_request_body_invalid','invalid_request','not_sent');
   const finalBody=method==='POST'?(typeof body==='string'?body:JSON.stringify(bodyValue)):undefined;
@@ -35,10 +37,10 @@ export function createCoreClient(raw:ConnectionProfile,session:CredentialSession
    return {ok:true,value};
   });}catch{return failure('session_credential_required','authentication','not_sent');}
  };
- const testConnection:CoreClient['testConnection']=async()=>{const health=await requestJson('GET','/healthz');if(!health.ok)return health;const catalog=await requestJson('GET','/v1/models');if(!catalog.ok)return catalog;try{return {ok:true,value:parseCoreModels(catalog.value)};}catch{return failure('core_models_protocol_invalid','protocol');}};
+ const testConnection:CoreClient['testConnection']=async()=>{if(!textOnly){const health=await requestJson('GET','/healthz');if(!health.ok)return health;}const catalog=await requestJson('GET','/v1/models');if(!catalog.ok)return catalog;try{return {ok:true,value:parseCoreModels(catalog.value)};}catch{return failure('core_models_protocol_invalid','protocol');}};
  const queryVideo:CoreClient['queryVideo']=async(taskId,queryOptions)=>{const reply=await requestJson('GET','/v1/videos/'+encodeURIComponent(taskId),undefined,queryOptions);if(!reply.ok)return reply;try{const value=parseVideoTask(reply.value);if(value.taskId!==taskId)return failure('core_task_identity_mismatch','protocol');return {ok:true,value};}catch{return failure('core_task_protocol_invalid','protocol');}};
  const requestContent:CoreClient['requestContent']=async(taskId,contentOptions)=>{
-  const path='/v1/videos/'+taskId+'/content';if(!allowedCorePath(path,'GET'))return failure('core_route_denied','forbidden','not_sent');
+  const path='/v1/videos/'+taskId+'/content';if(textOnly||!allowedCorePath(path,'GET'))return failure('core_route_denied','forbidden','not_sent');
   if(!Number.isSafeInteger(contentOptions.maxBytes)||contentOptions.maxBytes<=0||contentOptions.maxBytes>1024*1024*1024)return failure('media_budget_invalid','invalid_request','not_sent');
   try{return await credential(binding.id,async key=>{
    let response:Response;try{response=await send(origin+base.value+path,{method:'GET',headers:{Accept:'video/mp4,video/webm',Authorization:'Bearer '+key},redirect:'manual',credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',signal:contentOptions.signal});}catch{return failure('media_transport_failed');}

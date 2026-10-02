@@ -39,3 +39,45 @@ html[data-density=compact] .card{padding:16px}html[data-density=compact] .nav-li
 /* Keep keyboard and touch targets usable at the same narrow breakpoint. */
 label:has(>input[type=checkbox]),label:has(>input[type=radio]){min-height:32px}
 @media(pointer:coarse),(max-width:767px){.node-action-bar .button{min-width:44px;min-height:44px}label:has(>input[type=checkbox]),label:has(>input[type=radio]){min-height:44px}}
+
+/* Canvas occupies the viewport; panels and controls stay outside the creative surface. */
+@media(min-width:768px){
+ .canvas-shell{height:100dvh;min-height:0;grid-template-columns:64px minmax(0,1fr);overflow:hidden}
+ .canvas-shell .navigation{height:100dvh;padding:8px 6px;overflow:auto}
+ .canvas-shell .brand{font-size:0;padding:8px 0 14px;text-align:center}
+ .canvas-shell .brand::before{content:'AW';font-size:18px;color:var(--accent)}
+ .canvas-shell .brand span,.canvas-shell .nav-label,.canvas-shell .navigation-footer{display:none}
+ .canvas-shell .nav-link{justify-content:center;padding:8px;min-height:42px}
+ .canvas-shell .app-main{display:flex;flex-direction:column;min-height:0}
+ .canvas-shell .topbar{min-height:52px;padding:6px 12px;gap:8px;flex-wrap:nowrap}
+ .canvas-shell .topbar .button{min-height:36px;padding:5px 10px;white-space:nowrap}
+ .canvas-shell .global-search input{padding:6px 10px}
+ .canvas-shell .page-content{display:flex;flex-direction:column;flex:1;min-height:0;max-width:none;width:100%;margin:0;padding:0}
+ .canvas-shell .canvas-workspace{display:flex;flex-direction:column;flex:1;min-height:0;position:relative}
+ .canvas-shell .canvas-heading{padding:6px 10px;gap:8px;border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow-x:auto;min-height:48px;flex-shrink:0}
+ .canvas-shell .canvas-heading h2{font-size:18px;white-space:nowrap;flex:0 0 auto}
+ .canvas-shell .canvas-heading .button{white-space:nowrap;min-height:36px;padding:5px 10px}
+ .canvas-shell .canvas-heading [role=status]{white-space:nowrap;font-size:14px;margin-left:auto}
+ .canvas-shell .canvas-toolbar{margin:0;padding:6px 10px;gap:6px;border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow-x:auto;min-height:48px;flex-shrink:0}
+ .canvas-shell .canvas-toolbar label,.canvas-shell .canvas-toolbar .button{white-space:nowrap}
+ .canvas-shell .canvas-toolbar .button{min-height:34px;padding:4px 10px}
+ .canvas-shell .canvas-toolbar input,.canvas-shell .canvas-toolbar select{padding:4px 6px}
+ .canvas-shell .node-action-bar{height:46px;min-height:46px;padding:6px 10px;flex-shrink:0;border-bottom:1px solid var(--line)}
+ .canvas-shell .canvas-layout{flex:1;min-height:0;gap:0;grid-template-columns:minmax(0,1fr) 220px}
+ .canvas-shell .canvas-stage{height:100%;min-height:0;border-radius:0;border:0}
+ .canvas-shell .canvas-outline{overflow:auto;border-radius:0;border-width:0 0 0 1px}
+ .canvas-shell .canvas-outline ul{display:block}
+ .canvas-shell .outline-collapsed .canvas-layout{grid-template-columns:minmax(0,1fr)}
+ .canvas-shell .outline-collapsed .canvas-outline{display:none}
+ .canvas-shell .canvas-heading .disabled-reason,.canvas-shell .canvas-toolbar .disabled-reason,.canvas-shell .node-action-bar .disabled-reason{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+ .canvas-shell .button-group:focus-within .disabled-reason,.canvas-shell .button-group:hover .disabled-reason{position:fixed;clip-path:none;width:auto;height:auto;max-width:280px;max-height:120px;background:var(--float);padding:8px;border:1px solid var(--line);z-index:25;overflow:auto;margin-top:36px}
+ .canvas-shell .canvas-workspace:has(.agent-panel),.canvas-shell .canvas-workspace:has(.prompt-generator-panel){padding-right:400px}
+ .canvas-shell .agent-panel,.canvas-shell .prompt-generator-panel{position:absolute;top:0;right:0;bottom:0;width:400px;max-height:none;margin:0;border-radius:0;z-index:20}
+}
+@media(max-width:1100px) and (min-width:768px){.canvas-shell .global-search{max-width:260px}.canvas-shell .topbar .command-trigger{display:none}.canvas-shell .canvas-workspace:has(.agent-panel),.canvas-shell .canvas-workspace:has(.prompt-generator-panel){padding-right:0}}
+
+.connection-settings-stack{display:grid;gap:24px}.text-api-settings{display:grid;gap:14px}.text-api-settings p{margin:0}
+
+@media(min-width:768px){.canvas-shell .task-drawer{padding:0;margin:0;border:0}.canvas-shell .task-drawer-content{position:absolute;top:50px;right:0;max-height:70vh;width:min(700px,calc(100vw - 80px));overflow:auto;z-index:30;background:var(--panel);padding:20px;border:1px solid var(--line)}}
+
+.request-preview{white-space:pre-wrap;overflow-wrap:anywhere;max-height:45vh;overflow:auto}
