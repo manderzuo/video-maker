@@ -1,0 +1,328 @@
+{
+  "taskId": "ACC01",
+  "status": "本次验收反馈本地实施、自检通过，待用户与独立审查",
+  "implementationComplete": true,
+  "automatedChecksComplete": true,
+  "userAcceptancePerformed": false,
+  "independentReviewPerformed": false,
+  "reviewDecision": "待审查",
+  "actualModel": "由用户在宿主选择，当前工具不可验证",
+  "actualProjectPath": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "8588fe480f466350ccd249c0b0bfff0ecfe52dab",
+  "projectBaseCommit": "f811447b6867984b66e027de3b6326f479bb0f08",
+  "sourceCommit": "96cb76fc5831c826f502ea21a7365785d1804892",
+  "changedFiles": [
+    {
+      "path": "scripts/serve-local.mjs",
+      "sha256": "ac133f45e7b9cbaad552e404ef0265a52cbab3b1e93f54129fbc01b7f766ae3b"
+    },
+    {
+      "path": "src/adapters/core/http-client.ts",
+      "sha256": "a528089782d52bfe244e20b0593959580855e8b7dc722ebb3d1d1bf86438c026"
+    },
+    {
+      "path": "src/adapters/text/current-text.ts",
+      "sha256": "a18c32f28ec46cabc61ad5b2f4cbac2a7137f9c5b47e3d52b05c688c51d932e1"
+    },
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "8d196f7703995df399a7d3caff2aa7a219d51d58503b04afb21fde4cb67751d5"
+    },
+    {
+      "path": "src/application/prompts/optimize-text.ts",
+      "sha256": "c11a7b4b779306a5bfb0939c7b37d3a69ecd2367369ad4142fdc239f8c4786b1"
+    },
+    {
+      "path": "src/domain/authorization.ts",
+      "sha256": "f84c527867c85168c520e7bb3bbe9663fe31924f590f18e11795027098d18077"
+    },
+    {
+      "path": "src/features/agent/AgentPanel.tsx",
+      "sha256": "38aec16c8576bd2bcc9955c04dddcb57944b3a271e3f348a1092429bf1714d43"
+    },
+    {
+      "path": "src/features/agent/agent-client.ts",
+      "sha256": "8d5996c03d720000124dbe5b6a06784b8d7bf3defc6f6c3213971b338b5aba06"
+    },
+    {
+      "path": "src/features/agent/online-agent.ts",
+      "sha256": "b3462c0d0f1f0864043813ef03813cf5fb6dfc61adb9bef31f20356da0003aaf"
+    },
+    {
+      "path": "src/features/canvas/CanvasPage.tsx",
+      "sha256": "a23a8247711884bf42cd388cf0f56c7913baac7a2209bea0474f30350ec8bcc7"
+    },
+    {
+      "path": "src/features/prompt-generation/AIOptimizeDialog.tsx",
+      "sha256": "9fec5b31c43c38566d809eea2c7d14af61e5932e7730462583b50b1fa312e0e9"
+    },
+    {
+      "path": "src/features/prompt-generation/PromptGeneratorPanel.tsx",
+      "sha256": "5aa4aacab33c96c5f92522e2aa8963918e65cd5f13c3b854bf7bf7c861f36ef3"
+    },
+    {
+      "path": "src/features/settings/ConnectionSettings.tsx",
+      "sha256": "8bd80b04c23b9b353a9c593a0baad797b01966dd9637e75347d51674f6f94f6d"
+    },
+    {
+      "path": "src/features/settings/SettingsPage.tsx",
+      "sha256": "33f0a5f109c5ad86eab8f5fa038461c89e09efa9bf23c84bbe80d4e6662931a3"
+    },
+    {
+      "path": "src/features/settings/TextApiSettings.tsx",
+      "sha256": "b218af87d24f9b674a7201946a7d34ca07d7976daa69e06322e0b0401a1ebba2"
+    },
+    {
+      "path": "src/features/tasks/TaskDrawer.tsx",
+      "sha256": "ff053ed2e11032e2350db273c5fd02cb9a5c1bf158f1cc7e81c455c33257f434"
+    },
+    {
+      "path": "src/infrastructure/deployment/register-target.ts",
+      "sha256": "f79c2316f4fd252df522d346f1ccbd957b01ed2eb5558d8d7e051b83912679d9"
+    },
+    {
+      "path": "src/ui/tokens.css",
+      "sha256": "52c71595c20fc981ebd8bc9299ac5528c37aaaaafb92e917e451ae4514d5b033"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "6ac2815c0101ad8790a5653be23b959bf8095f9b888210f3e9cb6a11e798876b"
+    },
+    {
+      "path": "playwright.acceptance.config.ts",
+      "sha256": "5906e0e3a6e76a66ea0d0b06f685335a8261e5f6304f3c64918397197efcadb8"
+    },
+    {
+      "path": "tests/companion/settings-registration.test.mjs",
+      "sha256": "c840e6787051ad3298eebca39546ea16a3ddd0a82cc50de99e3573d01b2bbd3d"
+    },
+    {
+      "path": "tests/e2e/acceptance-workspace.spec.ts",
+      "sha256": "95643f2d4b923da6316990c81ec382302be67fda6de136049f043bbc725a1abd"
+    },
+    {
+      "path": "tests/e2e/acceptance-online.spec.ts",
+      "sha256": "ba84337a454953dd14d4dc953617b3e66aa208574b897093ee0befd4e0f9ea5c"
+    },
+    {
+      "path": "tests/unit/independent-text-agent.test.ts",
+      "sha256": "7f31f48eb1c29ee553a5a55a9cc5761ae59796c8dae69d7c062ce6910ea9195d"
+    },
+    {
+      "path": "tests/e2e/storage-settings.spec.ts",
+      "sha256": "6e891d546205edc026665d91e7fba931dd0297a8013676711c8b17e39a662268"
+    },
+    {
+      "path": "tests/e2e/agent-panel.spec.ts",
+      "sha256": "7e7648e105d642b4845c5780b51f7309b8736974c8c7928484670907ec9d15d8"
+    }
+  ],
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "docs/review/logs/acceptance-typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": "docs/review/logs/acceptance-lint-final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 391,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/review/logs/acceptance-unit-final.log"
+    },
+    {
+      "command": "npx playwright test tests/e2e/acceptance-workspace.spec.ts tests/e2e/app-shell.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/canvas-layout.spec.ts tests/e2e/canvas-tool-contracts.spec.ts tests/e2e/canvas-mcp.spec.ts tests/e2e/agent-panel.spec.ts tests/e2e/agent-proposal-review.spec.ts tests/e2e/prompt-mode.spec.ts tests/e2e/prompt-workspace.spec.ts tests/e2e/storage-settings.spec.ts tests/e2e/connection-selection-contracts.spec.ts tests/e2e/connection-busy-contracts.spec.ts tests/e2e/visual-a11y-performance.spec.ts tests/e2e/a11y.spec.ts",
+      "exitCode": 0,
+      "passed": 79,
+      "failed": 0,
+      "skipped": 0,
+      "report": "docs/review/logs/acceptance-related-executed-tests-fixed.json",
+      "log": "docs/review/logs/acceptance-related-browser-fixed.log",
+      "sha256": "f724dc005483afbfd07c87b499a6d0b01143176c1b185d82f35cb62b38396c56"
+    },
+    {
+      "command": "npx playwright test --config playwright.acceptance.config.ts",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "report": "docs/review/logs/acceptance-online-executed-tests-final.json",
+      "log": "docs/review/logs/acceptance-online-final.log",
+      "sha256": "bddb94ab9122197625b8806939c877450c22a602884445247e932ad6dd8548f1"
+    },
+    {
+      "command": "npm run test:distribution",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "report": "docs/review/logs/acceptance-distribution-executed-tests.json",
+      "log": "docs/review/logs/acceptance-distribution.log",
+      "sha256": "a48d6028de0a418a26fa9eac1ad55e63b2a153da493f9e47eca127025ab758c5"
+    },
+    {
+      "command": "node --test tests/companion/settings-registration.test.mjs",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/review/logs/acceptance-registration-final.log"
+    },
+    {
+      "command": "npm run test:security",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "negativeProbe": {
+        "expectedExitCode": 1,
+        "observedExitCode": 1,
+        "reason": "Unauthorized network requests must fail CI",
+        "log": "docs/review/logs/acceptance-network-negative.log"
+      },
+      "log": "docs/review/logs/acceptance-security.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "docs/review/logs/acceptance-build-final.log"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "log": "docs/review/logs/acceptance-bundle.log"
+    },
+    {
+      "command": "node scripts/check-ui-identities.mjs",
+      "exitCode": 0,
+      "missing": 0,
+      "log": "docs/review/logs/acceptance-ui-identities.log"
+    },
+    {
+      "command": "npm run companion:build",
+      "exitCode": 0,
+      "log": "docs/review/logs/acceptance-companion-build.log"
+    },
+    {
+      "command": "node --test tests/companion/mcp-runtime.test.mjs",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/review/logs/acceptance-mcp-runtime.log"
+    }
+  ],
+  "redEvidence": [
+    {
+      "command": "node --test tests/companion/settings-registration.test.mjs",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0,
+      "log": "docs/review/logs/acceptance-registration-red.log"
+    },
+    {
+      "command": "npx playwright test tests/e2e/acceptance-workspace.spec.ts --reporter=list",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "log": "docs/review/logs/acceptance-workspace-red.log"
+    },
+    {
+      "command": "npx vitest run tests/unit/independent-text-agent.test.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "log": "docs/review/logs/acceptance-online-guard-red.log"
+    }
+  ],
+  "correctedVerificationIssues": [
+    {
+      "log": "docs/review/logs/acceptance-online-red.log",
+      "description": "Agent 线上连接按钮尚未实现是真实行为失败；提示词用例最初通过整页导航清除了内存 Key，此部分属于错误验证步骤，改用真实 SPA 导航后检查，不算有效功能红灯。"
+    },
+    {
+      "log": "docs/review/logs/acceptance-related-browser.log",
+      "exitCode": 1,
+      "passed": 78,
+      "failed": 1,
+      "skipped": 0,
+      "description": "实际提案断开与权限断言已完成，但测试在关闭假服务时有未完成轮询导致 ECONNRESET；修复清理顺序，断开浏览器会话、等待路由完成后关闭假服务，保留全部断言。"
+    },
+    {
+      "log": "docs/review/logs/acceptance-node-controls-red.log",
+      "description": "文件名带 red，但实际为1个通过的回归检查；未声称出现失败或为其修改实现。"
+    }
+  ],
+  "screenshots": [
+    "docs/review/screenshots/acceptance-canvas-1440.png",
+    "docs/review/screenshots/acceptance-canvas-1280.png",
+    "docs/review/screenshots/acceptance-online-agent.png",
+    "docs/review/screenshots/acceptance-independent-prompt.png",
+    "docs/review/screenshots/acceptance-settings-connections.png"
+  ],
+  "historicalEvidence": [
+    "docs/review/acceptance-regression/screenshots/T11-shell-dark.png",
+    "docs/review/acceptance-regression/screenshots/T11-shell-light.png",
+    "docs/review/acceptance-regression/screenshots/T11-shell-narrow.png",
+    "docs/review/acceptance-regression/screenshots/T13-canvas.png",
+    "docs/review/acceptance-regression/screenshots/T15-layout-preview.png",
+    "docs/review/acceptance-regression/screenshots/T21-prompt-light.png",
+    "docs/review/acceptance-regression/screenshots/T21-prompt-narrow.png",
+    "docs/review/acceptance-regression/screenshots/T21-prompt-panel.png",
+    "docs/review/acceptance-regression/screenshots/T21-prompt-workspace.png",
+    "docs/review/acceptance-regression/screenshots/T37-connection.png",
+    "docs/review/acceptance-regression/screenshots/T37-storage.png",
+    "docs/review/acceptance-regression/screenshots/T40-proposal.png",
+    "docs/review/acceptance-regression/screenshots/T40-review-dialog.png",
+    "docs/review/acceptance-regression/screenshots/T41-mcp-confirmation.png",
+    "docs/review/acceptance-regression/screenshots/T41-mcp-confirmed.png",
+    "docs/review/acceptance-regression/screenshots/T41-revoked-confirmation.png",
+    "docs/review/acceptance-regression/screenshots/T42-applied-proposal.png",
+    "docs/review/acceptance-regression/screenshots/T42-disconnected.png",
+    "docs/review/acceptance-regression/screenshots/T42-light-1024.png",
+    "docs/review/acceptance-regression/screenshots/T42-light-390.png",
+    "docs/review/acceptance-regression/screenshots/T42-readonly-proposal.png",
+    "docs/review/acceptance-regression/screenshots/T42-unconnected.png",
+    "docs/review/acceptance-regression/screenshots/T46-initial-canvas-1024.png",
+    "docs/review/acceptance-regression/screenshots/T46-initial-canvas-1280.png",
+    "docs/review/acceptance-regression/screenshots/T46-initial-canvas-1440.png",
+    "docs/review/acceptance-regression/screenshots/T46-keyboard-focus.png",
+    "docs/review/acceptance-regression/screenshots/T46-keyboard-focus.webm",
+    "docs/review/acceptance-regression/screenshots/T46-native-ime-byte-boundary.png",
+    "docs/review/acceptance-regression/screenshots/T47-production-help.png",
+    "docs/review/acceptance-regression/screenshots/T47-production-persisted-project.png"
+  ],
+  "realCoreCalls": 0,
+  "realLlmCalls": 0,
+  "paidBusinessCalls": 0,
+  "frontendMarkAuthorization": "unresolved",
+  "limits": [
+    "只做本地假接口验证，真实线上服务/模型能力/价格与费用未联调。",
+    "普通 Core 登记仅允许只读健康和模型目录；视频执行仍需经过核验的部署契约与额外真实业务授权。",
+    "独立文字 API 仅支持 OpenAI 兼容 models/chat/completions；图片/音频/视频等模型不可用于此入口。",
+    "线上 Agent 仅允许授权范围内的文字/位置提案，应用沿用既有审阅与事务；本机 MCP 的完整外部模型宿主仍未配置。",
+    "Key 在当前标签内存，刷新后需重新输入；地址登记为服务内存状态，服务重启后点击测试连接重新登记。",
+    "未重跑全部412个历史浏览器用例；实际相关79、生产新用例3、发行11均通过。",
+    "T02完整用户视觉认可、人工IME、T48真实业务和许可/正式部署门槛仍未解除。"
+  ],
+  "permissions": {
+    "uiPreference": "用户截图显示完全访问",
+    "effectiveTools": "本会话仍下发 workspace-write，E盘不在可写根；普通执行实际返回 Access denied",
+    "resolution": "本次授权操作合并后通过宿主升级执行，不假称权限设置已修复"
+  },
+  "evidenceArchiveCheck": {
+    "reason": "Original tool stdout logs contain trailing whitespace/blank EOF lines; logs retained byte-for-byte. Source-only check exited 0; non-log archive check is performed separately.",
+    "exitCode": 2,
+    "command": "git diff --cached --check"
+  }
+}

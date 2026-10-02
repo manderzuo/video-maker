@@ -1,0 +1,14 @@
+[WebServer] (node:1072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:15332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\acceptance-online.spec.ts:5:1 › online text model returns a reviewable canvas proposal; fee confirmation, native saving, scope and no video remain enforced (3.9s)
+  ok 2 tests\e2e\acceptance-online.spec.ts:6:1 › independent API optimizes a prompt with separate confirmation and preserves Core capability isolation (1.6s)
+  ok 3 tests\e2e\acceptance-online.spec.ts:8:1 › saved Core address can be connected from settings without a deployment JSON edit; registration is read-only (955ms)
+
+  3 passed (9.0s)

@@ -1,0 +1,26 @@
+
+> aiwork-studio@0.0.1 test:distribution
+> playwright test --config playwright.distribution.config.ts
+
+[WebServer] (node:8132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:6376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\distribution.spec.ts:9:1 › T47 nonsecret runtime registration rejects credential aliases inside otherwise accepted contract metadata (213ms)
+  ok  2 tests\e2e\distribution.spec.ts:12:1 › T47 production CSP permits validated local creation and native persistence across full-page reload without generation (2.5s)
+  ok  3 tests\e2e\distribution.spec.ts:15:1 › T47 fixed target selection honors the longest registered service prefix alongside the default service (47ms)
+  ok  4 tests\e2e\distribution.spec.ts:19:1 › T47-C04 actual production build opens and refreshes its own nested routes without Core traffic (747ms)
+  ok  5 tests\e2e\distribution.spec.ts:22:1 › T47 Q02 production copyright dialog opens explicitly, retains original rights and returns focus without a default external channel (731ms)
+  ok  6 tests\e2e\distribution.spec.ts:25:1 › T47-C01/C02/C07 artifact scanners reject promotion, counterfeit legal chunks, source maps, sentinel credentials and modified license copies (499ms)
+  ok  7 tests\e2e\distribution.spec.ts:30:1 › T47-C03/C05 actual fixed loopback proxy refuses raw traversal/admin, follows no redirect, strips Cookie and never retries a lost POST (40ms)
+  ok  8 tests\e2e\distribution.spec.ts:39:1 › T47 offline ZIP has actual per-file and archive SHA256, complete licenses and starts from its extracted files without development dependencies (830ms)
+  ok  9 tests\e2e\distribution.spec.ts:49:1 › T47-C05 unknown Core, admin, absolute and encoded paths are denied by the actual local startup server (156ms)
+  ok 10 tests\e2e\distribution.spec.ts:52:1 › T47-C03 only loopback may be configured and foreign Host requests never render the application (151ms)
+  ok 11 tests\e2e\distribution.spec.ts:55:1 › T47-C06 runtime rejects credentials at every depth and browser runtime never exports a Key (148ms)
+
+  11 passed (8.6s)

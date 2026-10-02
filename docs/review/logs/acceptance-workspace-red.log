@@ -1,0 +1,68 @@
+[WebServer] (node:24128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:28756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\acceptance-workspace.spec.ts:4:32 › canvas uses the viewport at 1440 (6.1s)
+(node:19648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\e2e\acceptance-workspace.spec.ts:4:32 › canvas uses the viewport at 1280 (1.5s)
+
+
+  1) tests\e2e\acceptance-workspace.spec.ts:4:32 › canvas uses the viewport at 1440 ────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: <= [32m80[39m
+    Received:    [31m196[39m
+
+      2 | import {seedStudio} from '../helpers/seed-studio';
+      3 | test.beforeEach(async({page})=>{await seedStudio(page,'canvas-project');});
+    > 4 | for(const width of [1440,1280])test('canvas uses the viewport at '+width,async({page,networkCounter})=>{await page.setViewportSize({width,height:900});await page.goto('/projects/p1/canvas');const stage=page.getByTestId('canvas-stage');await expect(stage).toBeVisible();const box=(await stage.boundingBox())!;expect(box.x).toBeLessThanOrEqual(80);expect(box.width).toBeGreaterThanOrEqual(width-320);expect(box.height).toBeGreaterThanOrEqual(630);expect(box.y+box.height).toBeGreaterThanOrEqual(895);await page.getByRole('button',{name:'隐藏节点列表',exact:true}).click();const larger=(await stage.boundingBox())!;expect(larger.width).toBeGreaterThan(box.width+180);await page.getByRole('button',{name:'显示节点列表',exact:true}).click();await page.getByRole('button',{name:'Agent 协作',exact:true}).click();await expect(page.getByLabel('Agent 协作面板')).toBeVisible();await page.getByRole('button',{name:'关闭 Agent 面板'}).click();await stage.focus();await expect(stage).toBeFocused();await page.screenshot({path:'docs/review/screenshots/acceptance-canvas-'+width+'.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                   ^
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\acceptance-workspace.spec.ts:4:323
+
+    Error Context: test-results\acceptance-workspace-canvas-uses-the-viewport-at-1440\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\acceptance-workspace-canvas-uses-the-viewport-at-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\acceptance-workspace-canvas-uses-the-viewport-at-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\acceptance-workspace.spec.ts:4:32 › canvas uses the viewport at 1280 ────────────────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: <= [32m80[39m
+    Received:    [31m196[39m
+
+      2 | import {seedStudio} from '../helpers/seed-studio';
+      3 | test.beforeEach(async({page})=>{await seedStudio(page,'canvas-project');});
+    > 4 | for(const width of [1440,1280])test('canvas uses the viewport at '+width,async({page,networkCounter})=>{await page.setViewportSize({width,height:900});await page.goto('/projects/p1/canvas');const stage=page.getByTestId('canvas-stage');await expect(stage).toBeVisible();const box=(await stage.boundingBox())!;expect(box.x).toBeLessThanOrEqual(80);expect(box.width).toBeGreaterThanOrEqual(width-320);expect(box.height).toBeGreaterThanOrEqual(630);expect(box.y+box.height).toBeGreaterThanOrEqual(895);await page.getByRole('button',{name:'隐藏节点列表',exact:true}).click();const larger=(await stage.boundingBox())!;expect(larger.width).toBeGreaterThan(box.width+180);await page.getByRole('button',{name:'显示节点列表',exact:true}).click();await page.getByRole('button',{name:'Agent 协作',exact:true}).click();await expect(page.getByLabel('Agent 协作面板')).toBeVisible();await page.getByRole('button',{name:'关闭 Agent 面板'}).click();await stage.focus();await expect(stage).toBeFocused();await page.screenshot({path:'docs/review/screenshots/acceptance-canvas-'+width+'.png'});expect(networkCounter.paidRequests).toHaveLength(0);});
+        |                                                                                                                                                                                                                                                                                                                                   ^
+      5 |
+        at E:\trae-studio\TRAEWORK\aiwork-studio\tests\e2e\acceptance-workspace.spec.ts:4:323
+
+    Error Context: test-results\acceptance-workspace-canvas-uses-the-viewport-at-1280\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\acceptance-workspace-canvas-uses-the-viewport-at-1280\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\acceptance-workspace-canvas-uses-the-viewport-at-1280\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\acceptance-workspace.spec.ts:4:32 › canvas uses the viewport at 1440 ─────────────────
+    tests\e2e\acceptance-workspace.spec.ts:4:32 › canvas uses the viewport at 1280 ─────────────────

@@ -1,0 +1,21 @@
+
+ RUN  v4.1.11 E:/trae-studio/TRAEWORK/aiwork-studio
+
+ ❯ tests/unit/independent-text-agent.test.ts (5 tests | 1 failed) 42ms
+   × online proposal rejects readonly, expired and disconnected grants 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/independent-text-agent.test.ts > online proposal rejects readonly, expired and disconnected grants
+AssertionError: expected [Function] to throw an error
+ ❯ tests/unit/independent-text-agent.test.ts:13:296
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  16:51:03
+   Duration  692ms (transform 316ms, setup 51ms, import 401ms, tests 42ms, environment 0ms)
+

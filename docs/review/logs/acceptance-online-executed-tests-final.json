@@ -1,0 +1,475 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/acceptance-online.spec.ts::online text model returns a reviewable canvas proposal; fee confirmation, native saving, scope and no video remain enforced",
+      "file": "tests/e2e/acceptance-online.spec.ts",
+      "title": "online text model returns a reviewable canvas proposal; fee confirmation, native saving, scope and no video remain enforced",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 31,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 814
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2186
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2258
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2471
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2555
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2627
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2669
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3229
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3417
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3482
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3608
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3679
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 167,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 235,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 333,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 386,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 471,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 539,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 890
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 954
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1068
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1141
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1205
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1269
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1320
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1468
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1536
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1588
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1643
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1710
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1826
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1910
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 1961
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2040
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2400
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2759
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2823
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 2886
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3012
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3080
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 5,
+          "column": 3151
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/acceptance-online.spec.ts::independent API optimizes a prompt with separate confirmation and preserves Core capability isolation",
+      "file": "tests/e2e/acceptance-online.spec.ts",
+      "title": "independent API optimizes a prompt with separate confirmation and preserves Core capability isolation",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 16,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 620,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1068
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1317
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1345
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1664
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1722
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 167,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 235,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 333,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 386,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 471,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 4,
+          "column": 539,
+          "function": "setupText"
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 648
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 699
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 776
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 840
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 960
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1046
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1179
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1247
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1534
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 6,
+          "column": 1597
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/acceptance-online.spec.ts::saved Core address can be connected from settings without a deployment JSON edit; registration is read-only",
+      "file": "tests/e2e/acceptance-online.spec.ts",
+      "title": "saved Core address can be connected from settings without a deployment JSON edit; registration is read-only",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 752
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 780
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 936
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 964
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 1054
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 1284
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 470
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 540
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 611
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 666
+        },
+        {
+          "file": "tests/e2e/acceptance-online.spec.ts",
+          "line": 8,
+          "column": 848
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

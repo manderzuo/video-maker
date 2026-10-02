@@ -1,0 +1,5765 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "failed",
+  "tests": [
+    {
+      "id": "tests/e2e/a11y.spec.ts::T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary",
+      "file": "tests/e2e/a11y.spec.ts",
+      "title": "T46-C04 actual native Chromium IME composition defers commit, blocks shortcuts and persists Chinese/emoji exactly at the UTF8 boundary",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 5,
+          "column": 324,
+          "function": "setup"
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 695
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 813
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 911
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 9,
+          "column": 17
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 146
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 228
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 260
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 393
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 500
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 537
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 588
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 134
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 438
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 8,
+          "column": 730
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 10,
+          "column": 76
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/a11y.spec.ts::T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape",
+      "file": "tests/e2e/a11y.spec.ts",
+      "title": "T46 keyboard focus traverses a native dialog, stays visible, wraps at both ends and returns to the exact opener on Escape",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 474
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 644
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 690
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 774
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 811
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 861
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 109
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 137
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 402
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 430
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 508
+        },
+        {
+          "file": "tests/e2e/a11y.spec.ts",
+          "line": 13,
+          "column": 737
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/acceptance-workspace.spec.ts::canvas uses the viewport at 1440",
+      "file": "tests/e2e/acceptance-workspace.spec.ts",
+      "title": "canvas uses the viewport at 1440",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 323
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 365
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 418
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 628
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 951
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 1089
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 717
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 903
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 923
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/acceptance-workspace.spec.ts::canvas uses the viewport at 1280",
+      "file": "tests/e2e/acceptance-workspace.spec.ts",
+      "title": "canvas uses the viewport at 1280",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 323
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 365
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 418
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 628
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 837
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 951
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 1089
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 717
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 903
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 4,
+          "column": 923
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/acceptance-workspace.spec.ts::text node controls remain reachable within the fixed node geometry",
+      "file": "tests/e2e/acceptance-workspace.spec.ts",
+      "title": "text node controls remain reachable within the fixed node geometry",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 6,
+          "column": 257
+        },
+        {
+          "file": "tests/e2e/acceptance-workspace.spec.ts",
+          "line": 6,
+          "column": 415
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42-C01/C07 unconfigured host shows pairing guidance, default selected context and honest cost gate",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 8,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 8,
+          "column": 292
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 8,
+          "column": 383
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 8,
+          "column": 462
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 8,
+          "column": 592
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42-C02 real full-project grant requires separate confirmation and disconnect visibly revokes permission",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 1019,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 466
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 676
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 798
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 925
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 675,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 799,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 878,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 957,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 539
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 607
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 9,
+          "column": 741
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42-C03/C05 actual propose grant can review/reject; downgraded old proposal cannot apply",
+      "status": "failed",
+      "assertions": 8,
+      "actions": 24,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 1019,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1414
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1900
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2672
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2750
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2892
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 675,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 799,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 878,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 957,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 222
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 293
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 360
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 480
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 564
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1078
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1142
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1216
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1345
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1487
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1603
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1684
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 1761
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2063
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2130
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2246
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2407
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2532
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 10,
+          "column": 2600
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42-C04 stop feedback does not claim remote model cancellation or change the original Core task",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42-C04 stop feedback does not claim remote model cancellation or change the original Core task",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 1019,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 11,
+          "column": 1105
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 11,
+          "column": 1152
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 11,
+          "column": 1204
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 11,
+          "column": 1284
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 675,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 799,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 878,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 957,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 11,
+          "column": 1059
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42-C06 second browser tab cannot inherit memory pairing token or native writer authorization",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 1019,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 12,
+          "column": 338
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 12,
+          "column": 424
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 12,
+          "column": 502
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 12,
+          "column": 659
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 12,
+          "column": 711
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 675,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 799,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 878,
+          "function": "pair"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 7,
+          "column": 957,
+          "function": "pair"
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42 real local description saves and reopens hidden, new conversation preserves graph, and deletion requires explicit confirmation",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 9,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 383
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 688
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 812
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1039
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1121
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1214
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1502
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1720
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1770
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 308
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 614
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 967
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1271
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1352
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1571
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 13,
+          "column": 1641
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42 real light-theme agent panel fits viewport 1024",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42 real light-theme agent panel fits viewport 1024",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 14,
+          "column": 445
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 14,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 14,
+          "column": 574
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-panel.spec.ts::T42 real light-theme agent panel fits viewport 390",
+      "file": "tests/e2e/agent-panel.spec.ts",
+      "title": "T42 real light-theme agent panel fits viewport 390",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 6,
+          "column": 186,
+          "function": "boot"
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 14,
+          "column": 445
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 14,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/agent-panel.spec.ts",
+          "line": 14,
+          "column": 574
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/agent-proposal-review.spec.ts::T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request",
+      "file": "tests/e2e/agent-proposal-review.spec.ts",
+      "title": "T40 actual proposal review checkbox, delete count and native receipt apply exactly once without a paid request",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 903
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2184
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2276
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2567
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2617
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2010
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2086
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2352
+        },
+        {
+          "file": "tests/e2e/agent-proposal-review.spec.ts",
+          "line": 4,
+          "column": 2498
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C01/C02: local mode enters projects and eight owned navigation entries are available",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 3,
+          "column": 115
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 4,
+          "column": 76
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 5,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 6,
+          "column": 63
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 3,
+          "column": 88
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 193
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 174
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 211
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 12,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 12,
+          "column": 142
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 9,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 36
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 10,
+          "column": 124
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 11,
+          "column": 37
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11 global search uses local data and returns actual project titles without network",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11 global search uses local data and returns actual project titles without network",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 19,
+          "column": 121
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 188
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 19,
+          "column": 50
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 20,
+          "column": 124
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C03: unknown routes show owned 404 and a working return",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C03: unknown routes show owned 404 and a working return",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 92
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 176
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 23,
+          "column": 149
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 11,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 27,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 85
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 62
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 184
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 26,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 27,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 28,
+          "column": 140
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 29,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 30,
+          "column": 22
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C05: composing and editable targets do not trigger global keyboard commands",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C05: composing and editable targets do not trigger global keyboard commands",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 34,
+          "column": 109
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 35,
+          "column": 174
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 33,
+          "column": 99
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 33,
+          "column": 120
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 34,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 35,
+          "column": 91
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11-C06: entry/navigation never opens external links automatically",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11-C06: entry/navigation never opens external links automatically",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 40,
+          "column": 17
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 40,
+          "column": 161
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 39,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 39,
+          "column": 148
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/app-shell.spec.ts::T11: accepted font size, dark/light themes and narrow layout remain readable",
+      "file": "tests/e2e/app-shell.spec.ts",
+      "title": "T11: accepted font size, dark/light themes and narrow layout remain readable",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 43,
+          "column": 120
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 44,
+          "column": 93
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 45,
+          "column": 133
+        },
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 46,
+          "column": 135
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/app-shell.spec.ts",
+          "line": 44,
+          "column": 50
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15-C01: duplicate uses new ID and 24px offset, without creating an execution",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15-C01: duplicate uses new ID and 24px offset, without creating an execution",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 311
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 461
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 507
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 559
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 163
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 210
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 6,
+          "column": 238
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15-C02/C03: grouping/ungrouping preserves world positions; collapse preserves dependencies",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 550
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 752
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 904
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 960
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 1206
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 162
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 216
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 312
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 419
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 489
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 850
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 1044
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 7,
+          "column": 1108
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15-C04: layout is previewed, Cancel preserves revision, Apply commits once without topology changes",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 369
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 427
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 622
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 824
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 915
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 965
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 224
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 288
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 570
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 686
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 8,
+          "column": 752
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15-C05: deleting a node preserves shared media and original Run, undo restores placement",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15-C05: deleting a node preserves shared media and original Run, undo restores placement",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 386
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 515
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 564
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 621
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 753
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 258
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 9,
+          "column": 698
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15-C06: marking a fixed result changes only selection revision and downstream drafts",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15-C06: marking a fixed result changes only selection revision and downstream drafts",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 396
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 460
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 502
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 610
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 707
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 171
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 268
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 10,
+          "column": 388
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15 menu: lock rejects movement; branch duplicates draft inputs with no approval",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15 menu: lock rejects movement; branch duplicates draft inputs with no approval",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 440
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 647
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 704
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 186
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 317
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 502
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 11,
+          "column": 566
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15 clipboard: omitted external inputs remain a persisted warning after refresh",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15 clipboard: omitted external inputs remain a persisted warning after refresh",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 521
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 621
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 206
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 307
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 361
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 408
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 12,
+          "column": 436
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15 outline filters and sort preserve graph/references and indicate empty results",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15 outline filters and sort preserve graph/references and indicate empty results",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 273
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 341
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 546
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 595
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 196
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 414
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 13,
+          "column": 479
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15 save acknowledgement: a display read error after commit never reports an unsaved transaction",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15 save acknowledgement: a display read error after commit never reports an unsaved transaction",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 14,
+          "column": 625
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 14,
+          "column": 683
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 14,
+          "column": 765
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 14,
+          "column": 167
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 14,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 14,
+          "column": 548
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15 edit protection: invalid local text is an unsaved draft and cannot silently leave",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15 edit protection: invalid local text is an unsaved draft and cannot silently leave",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 15,
+          "column": 256
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 15,
+          "column": 393
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 15,
+          "column": 497
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 15,
+          "column": 167
+        },
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 15,
+          "column": 331
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-layout.spec.ts::T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard",
+      "file": "tests/e2e/canvas-layout.spec.ts",
+      "title": "T15 clipboard routing: an empty internal clipboard leaves external paste available without reading OS clipboard",
+      "status": "passed",
+      "assertions": 2,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-layout.spec.ts",
+          "line": 16,
+          "column": 328
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request waits for explicit fee approval and duplicate request creates one original Run",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3275
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3780
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3819
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3138
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 3208
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-mcp.spec.ts::T41 real browser relay request denies approval after revocation",
+      "file": "tests/e2e/canvas-mcp.spec.ts",
+      "title": "T41 real browser relay request denies approval after revocation",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 1094
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2157
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2280
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2330
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2490
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2841
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2898
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2723
+        },
+        {
+          "file": "tests/e2e/canvas-mcp.spec.ts",
+          "line": 4,
+          "column": 2793
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-tool-contracts.spec.ts::T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed",
+      "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+      "title": "T44 C01/C02 actual tool buttons select and pan independently; only the viewport persists and creative revision remains fixed",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 240
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 300
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 686
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 841
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 1044
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 1079
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 1154
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 214
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 734
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 5,
+          "column": 787
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-tool-contracts.spec.ts::T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data",
+      "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+      "title": "T44 C02 native and optional viewport storage denial reports an error while allowing pan without writing creative data",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 865
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 916
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 968
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 8,
+          "column": 590
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-tool-contracts.spec.ts::T44 N10/N18/N19 existing group and result controls refuse a native foreign writer",
+      "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+      "title": "T44 N10/N18/N19 existing group and result controls refuse a native foreign writer",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 298
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 489
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 489
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 672
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 713
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 765
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 388
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 549
+        },
+        {
+          "file": "tests/e2e/canvas-tool-contracts.spec.ts",
+          "line": 11,
+          "column": 605
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C01: invalid zoom restores value; bounds disable buttons and persist without creative revision",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 112
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 238
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 292
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 359
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 7,
+          "column": 111
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 13
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 35
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 138
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 8,
+          "column": 161
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C02: fit leaves 48px and keyboard outline is equivalent to box selection",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 234
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 464
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 11,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 281
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 12,
+          "column": 410
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C04: space in input is retained and canvas pan is separate from graph edits",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C04: space in input is retained and canvas pan is separate from graph edits",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 497
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 112
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 15,
+          "column": 233
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C05: dragging previews in memory, mouseup commits once; undo/redo does not submit",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 313
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 343
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 411
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 512
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 590
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 660
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 731
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 801
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 847
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 582
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 18,
+          "column": 723
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13-C06: another writer makes canvas readonly; takeover requires explicit dialog",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 347
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 632
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 747
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 871
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 686
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 21,
+          "column": 815
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13 controls: text paste treats URL as text, minimap/background persist and no fetch occurs",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 212
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 529
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 616
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 156
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 368
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 418
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 24,
+          "column": 150
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 32
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 25,
+          "column": 99
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-viewport.spec.ts::T13 navigation: quota failure retains draft and blocks browser Back until explicit discard",
+      "file": "tests/e2e/canvas-viewport.spec.ts",
+      "title": "T13 navigation: quota failure retains draft and blocks browser Back until explicit discard",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 139
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 723
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 785
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 867
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 964
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1101
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1199
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1272
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 85
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 937
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1039
+        },
+        {
+          "file": "tests/e2e/canvas-viewport.spec.ts",
+          "line": 28,
+          "column": 1172
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-busy-contracts.spec.ts::T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+      "file": "tests/e2e/connection-busy-contracts.spec.ts",
+      "title": "T44 K01/K02/K03/K04/K06/K08/K09/K10 an actual pending readonly model response disables connection mutations until its verified GET completes",
+      "status": "passed",
+      "assertions": 24,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 906
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 987
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1068
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1149
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1464
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1768
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1848
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1933
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2015
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2085
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2136
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2245
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2326
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2410
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2479
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 2584
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 3075
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 3144
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1221
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1302
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1389
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1525
+        },
+        {
+          "file": "tests/e2e/connection-busy-contracts.spec.ts",
+          "line": 3,
+          "column": 1609
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03 native history read failure is reported, keeps the prior selection and never mixes another connection with old binding options",
+      "file": "tests/e2e/connection-selection-contracts.spec.ts",
+      "title": "T44 K03 native history read failure is reported, keeps the prior selection and never mixes another connection with old binding options",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 827
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 960
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 730
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 811
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 899
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 950
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 988
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 1040
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 5,
+          "column": 645
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-selection-contracts.spec.ts::T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+      "file": "tests/e2e/connection-selection-contracts.spec.ts",
+      "title": "T44 K03/K05/K09 switching and clearing only the memory authorization preserves old tasks; public copy failure is recoverable",
+      "status": "passed",
+      "assertions": 14,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 827
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 960
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 263
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 528
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 610
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 966
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1320
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1482
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1635
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1676
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1779
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1823
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1875
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 452
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 871
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1239
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 6,
+          "column": 1393
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-selection-contracts.spec.ts::T44 K06 deleting a used connection requires confirmation and keeps a readonly original profile and all task bindings",
+      "file": "tests/e2e/connection-selection-contracts.spec.ts",
+      "title": "T44 K06 deleting a used connection requires confirmation and keeps a readonly original profile and all task bindings",
+      "status": "passed",
+      "assertions": 13,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 827
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 960
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 337
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 453
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 687
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 792
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 888
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 970
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 1016
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 1138
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 1185
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 1242
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 245
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 419
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 527
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 7,
+          "column": 654
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/connection-selection-contracts.spec.ts::T44 K06 native archive receipt quota aborts deletion and preserves the original connection and task history",
+      "file": "tests/e2e/connection-selection-contracts.spec.ts",
+      "title": "T44 K06 native archive receipt quota aborts deletion and preserves the original connection and task history",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 827
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 4,
+          "column": 960
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 8,
+          "column": 692
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 8,
+          "column": 772
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 8,
+          "column": 812
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 8,
+          "column": 864
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 8,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/connection-selection-contracts.spec.ts",
+          "line": 8,
+          "column": 618
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-mode.spec.ts::T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "file": "tests/e2e/prompt-mode.spec.ts",
+      "title": "T44 PG13/PG15 choosing rule or verified AI mode alone preserves input/history and sends no paid request",
+      "status": "passed",
+      "assertions": 11,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 371
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 635
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 764
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 884
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 927
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1019
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1069
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1250
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 1306
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 681
+        },
+        {
+          "file": "tests/e2e/prompt-mode.spec.ts",
+          "line": 3,
+          "column": 798
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 PG01: navigation restores the currently active source draft instead of silently creating a blank one",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 4,
+          "column": 180
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 4,
+          "column": 344
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 4,
+          "column": 419
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 4,
+          "column": 475
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 4,
+          "column": 254
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 4,
+          "column": 317
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 PG02: video config opens the shared panel and snapshots only its specification and chosen upstream text",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 1074
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 1143
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 1339
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 1393
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 939
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 1207
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 5,
+          "column": 1279
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 PG02: opening from text preserves an existing draft and offers the current unsaved text explicitly",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 6,
+          "column": 458
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 6,
+          "column": 600
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 6,
+          "column": 252
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 6,
+          "column": 326
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 6,
+          "column": 540
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 PG06/PG08: canvas source excludes unrelated library assets until explicit selection; external notes stay unbound",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 689
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 818
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 1095
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 1127
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 1222
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 631
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 760
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 877
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 957
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 7,
+          "column": 1021
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 PG05: composition input does not persist before composition ends",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 PG05: composition input does not persist before composition ends",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 8,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 8,
+          "column": 351
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 8,
+          "column": 422
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 8,
+          "column": 154
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 8,
+          "column": 200
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 8,
+          "column": 319
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 PG32: invalid unsaved input retains old storage and navigation requires an explicit choice",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 288
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 361
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 616
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 835
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 906
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 162
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 433
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 557
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 701
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 9,
+          "column": 808
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 P23: original input snapshot is shown independently of current edited input",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 P23: original input snapshot is shown independently of current edited input",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 518
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 595
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 211
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 280
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 344
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 10,
+          "column": 455
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21 P21/P22: responsive check drawer and shared typography work in actual light and narrow pages",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 487
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 714
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 859
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 1068
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 230
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 786
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 11,
+          "column": 978
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21-C02/C03: native offline local rules preserve identity, labelled fields and history after refresh",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 199
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 482
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 550
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 676
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 750
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 802
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 262
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 13,
+          "column": 422
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21-C01: canvas panel expands the same saved draft identity without duplication",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21-C01: canvas panel expands the same saved draft identity without duplication",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 14,
+          "column": 359
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 14,
+          "column": 555
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 14,
+          "column": 615
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 14,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 14,
+          "column": 528
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21-C04: editing output persists a new manual result and invalidates previous checks",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21-C04: editing output persists a new manual result and invalidates previous checks",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 290
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 431
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 445
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 526
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 622
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 663
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 714
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 806
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 231
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 15,
+          "column": 350
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21-C05: clear requires confirmation, preserves history and restoring creates a new manual version",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 423
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 661
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 731
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 920
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 1001
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 1060
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 179
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 243
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 364
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 499
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 803
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 16,
+          "column": 912
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21-C06: unavailable AI cannot claim success or create either paid record type",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21-C06: unavailable AI cannot claim success or create either paid record type",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 17,
+          "column": 182
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 17,
+          "column": 273
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 17,
+          "column": 327
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 17,
+          "column": 373
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 17,
+          "column": 421
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21: original/form conflict has no preselected resolution and confirmed choices stay explicit",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21: original/form conflict has no preselected resolution and confirmed choices stay explicit",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 419
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 687
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 825
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 164
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 218
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 287
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 480
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 545
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 18,
+          "column": 625
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/prompt-workspace.spec.ts::T21: image placeholder saves independently and never activates video rules or image generation",
+      "file": "tests/e2e/prompt-workspace.spec.ts",
+      "title": "T21: image placeholder saves independently and never activates video rules or image generation",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 376
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 449
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 569
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 651
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 182
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 233
+        },
+        {
+          "file": "tests/e2e/prompt-workspace.spec.ts",
+          "line": 19,
+          "column": 304
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 a 767px actual narrow canvas has no enabled batch fee entry even with verified local capability and writer lease",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 7,
+          "column": 131
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 7,
+          "column": 259
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 7,
+          "column": 310
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 7,
+          "column": 408
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 7,
+          "column": 192
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46 touch canvas action hit areas remain at least 44 CSS pixels without granting a paid execution",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 12,
+          "column": 339
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 12,
+          "column": 409
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 12,
+          "column": 457
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 12,
+          "column": 68
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C01 actual canvas has no document overflow at desktop visual breakpoints and preserves the approved 16px base",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 16,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 16,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 16,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 16,
+          "column": 401
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 resizing an open unsubmitted confirmation into narrow mode closes fee approval and updates batch controls immediately",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 19,
+          "column": 145
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 19,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 19,
+          "column": 349
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 19,
+          "column": 400
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 19,
+          "column": 72
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/visual-a11y-performance.spec.ts::T46-C02 resizing during a real durable approval acknowledgment preserves the original record without dispatch or queue insertion",
+      "file": "tests/e2e/visual-a11y-performance.spec.ts",
+      "title": "T46-C02 resizing during a real durable approval acknowledgment preserves the original record without dispatch or queue insertion",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 22,
+          "column": 340
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 22,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 182
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 236
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 275
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 363
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 480
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 664
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 24,
+          "column": 716
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 22,
+          "column": 100
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 22,
+          "column": 222
+        },
+        {
+          "file": "tests/e2e/visual-a11y-performance.spec.ts",
+          "line": 22,
+          "column": 332
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37 system theme follows the actual browser preference and topbar action stays accurate",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37 system theme follows the actual browser preference and topbar action stays accurate",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 297
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 401
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 497
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 602
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 6,
+          "column": 193
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C03/C04: unavailable capacity stays unknown and denied persistence still permits actual backup access",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 724
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 867
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 945
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 1020
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 664
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 7,
+          "column": 789
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C05: clearing only rebuildable thumbnails never deletes a uniquely stored original, task, project or immutable history",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 1099
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 1287
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 259
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 8,
+          "column": 438
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C06: system/light theme, density and reset apply without deleting creative data or shrinking approved typography",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 294
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 434
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 553
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 780
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 919
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 1260
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 1329
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 237
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 375
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 624
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 737
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 9,
+          "column": 876
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C01: explicit address save never registers an arbitrary proxy target or persists the ordinary Key; address edit creates new identity",
+      "status": "passed",
+      "assertions": 10,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 564
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 672
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1097
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1147
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1649
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1689
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1798
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1903
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 260
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 321
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 471
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1229
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 10,
+          "column": 1331
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37-C02: obsolete saved default model stays visible as invalid; no silent replacement or billable probe",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 563
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 648
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 715
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 11,
+          "column": 805
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37/D09/D10 actual settings export, selective import and undo exclude secrets, restore preferences and never authorize a connection",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 448
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 512
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 987
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1118
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1259
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1357
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1445
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1719
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 310
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 748
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1075
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1216
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 12,
+          "column": 1461
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+      "file": "tests/e2e/storage-settings.spec.ts",
+      "title": "T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records",
+      "status": "passed",
+      "assertions": 27,
+      "actions": 17,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2006
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2088
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2156
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2740
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2967
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3123
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3162
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3461
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3528
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1077
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1137
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1400
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4340
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4505
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5069
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5114
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5243
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5417
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 5532
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 20,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1633
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1694
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1781
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1836
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 1925
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2238
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2291
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2368
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2555
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 2666
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3379
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3614
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 3817
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4050
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4101
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4170
+        },
+        {
+          "file": "tests/e2e/storage-settings.spec.ts",
+          "line": 13,
+          "column": 4259
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

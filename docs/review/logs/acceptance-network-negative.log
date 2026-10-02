@@ -1,0 +1,53 @@
+
+Running 1 test using 1 worker
+
+  x  1 tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught (3.8s)
+
+
+  1) tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught 
+
+    Error: Unauthorized network requests must fail CI
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 7[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   Object {[39m
+    [31m+     "blocked": true,[39m
+    [31m+     "method": "POST",[39m
+    [31m+     "url": "https://business.invalid/v1/videos/generations",[39m
+    [31m+   },[39m
+    [31m+ ][39m
+
+       at ..\helpers\network-guard.ts:20
+
+      18 |   await use();
+      19 |   testInfo.annotations.push({type:'studio:network-evidence',description:JSON.stringify(networkCounter.evidence)});
+    > 20 |   expect(networkCounter.requests.filter(r=>r.blocked),'Unauthorized network requests must fail CI').toEqual([]);
+         |                                                                                                     ^
+      21 |  },{auto:true}],
+      22 | });
+      23 | export {expect};
+        at Object.base.extend.networkGuard.auto (E:\trae-studio\TRAEWORK\aiwork-studio\tests\helpers\network-guard.ts:20:101)
+
+    Error Context: tests\fixtures\test-results\public-request-intentional-4f0a6--when-fetch-error-is-caught\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests\fixtures\test-results\public-request-intentional-4f0a6--when-fetch-error-is-caught\trace.zip
+    Usage:
+
+        npx playwright show-trace tests\fixtures\test-results\public-request-intentional-4f0a6--when-fetch-error-is-caught\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\fixtures\public-request.spec.ts:2:1 › intentional negative probe must fail CI even when fetch error is caught 
+[2m[WebServer] [22m(node:6328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
