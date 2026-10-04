@@ -14,7 +14,7 @@ export type AssetReference={kind:'graph'|'run'|'draft'|'attachment'|'receipt';id
 export function snapshotAssetIds(input:unknown):Set<string>{
  const ids=new Set<string>(),seen=new Set<object>();
  function visit(value:unknown){if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);
-  for(const [key,item]of Object.entries(value)){if(['assetId','resultAssetId'].includes(key)&&typeof item==='string')ids.add(item);else if(key==='assetIds'&&Array.isArray(item))for(const id of item)if(typeof id==='string')ids.add(id);else continue;visit(item);}
+  for(const [key,item]of Object.entries(value)){if(['assetId','sourceAssetId','resultAssetId'].includes(key)&&typeof item==='string')ids.add(item);else if(key==='assetIds'&&Array.isArray(item))for(const id of item)if(typeof id==='string')ids.add(id);else continue;visit(item);}
  }
  visit(input);return ids;
 }

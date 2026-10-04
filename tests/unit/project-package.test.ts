@@ -9,7 +9,24 @@ import {digestBlob} from '../../src/features/assets/hash-worker';
 import {setSessionCredential,forgetSessionCredential} from '../../src/security/credential-session';
 import {acquireProjectLease} from '../../src/infrastructure/storage/project-lease';
 import {readPackageZip} from '../../src/infrastructure/packages/package-limits';
+import {applyUiCommand} from '../../src/application/commands/apply-command';
+import {snapshotAssetIds} from '../../src/features/assets/reference-index';
 const node:import('../../src/domain/graph').CanvasNode={id:'old-text',type:'text',title:'原始文本',x:1,y:2,locked:false,data:{kind:'text',text:'康济健葆，保持汉字',referenceTokens:[]}};
+it('QA50 forged portable provenance cannot attribute a fixed result to another draft',async()=>{
+ const video=f.asset({mediaType:'video',mimeType:'video/mp4',sourceRunId:'r1'}),graph=f.graph({nodes:[{id:'wrong-producer',type:'video-generation',title:'其他草稿',x:0,y:0,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5},inputBindings:[],stale:true}},{id:'clip',type:'result',title:'原片',x:500,y:0,locked:false,data:{kind:'result',assetId:'a1',runId:'r1',generationLinked:true}}],edges:[{id:'forged-source',sourceId:'wrong-producer',targetId:'clip',port:'video',order:0,relation:'result'}]});
+ expect(await inspectImport(archive({assets:[video]},{'graph.json':strToU8(JSON.stringify(graph)),'runs.json':strToU8(JSON.stringify([f.run({nodeId:'actual-producer',executionState:'succeeded',resultAssetId:'a1'})]))}))).toMatchObject({ok:false,errorCode:'import_unsafe'});
+});
+it('QA50 reference index retains a tail frame origin even after its visible source node was removed',()=>{expect(snapshotAssetIds({kind:'asset',assetId:'frame',sourceVideo:{assetId:'frame',sourceAssetId:'original',sourceRunId:'r1',timeSeconds:4.9}})).toEqual(new Set(['frame','original']));});
+it('QA50 imported immutable result provenance supports editing its new local draft without enabling imported dispatch',async()=>{
+ const db=await openStudioDb({factory:new IDBFactory(),name:'imported-result-source'});
+ try{
+  const video=f.asset({mediaType:'video',mimeType:'video/mp4',sourceRunId:'r1'}),graph=f.graph({nodes:[{id:'producer',type:'video-generation',title:'草稿',x:0,y:0,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5},inputBindings:[],stale:true}},{id:'clip',type:'result',title:'原片',x:500,y:0,locked:false,data:{kind:'result',assetId:'a1',runId:'r1',generationLinked:true}}],edges:[{id:'source',sourceId:'producer',targetId:'clip',port:'video',order:0,relation:'result'}]});
+  const report=await inspectImport(archive({assets:[video]},{'graph.json':strToU8(JSON.stringify(graph)),'runs.json':strToU8(JSON.stringify([f.run({nodeId:'producer',executionState:'succeeded',resultAssetId:'a1'})]))}));expect(report.ok).toBe(true);
+  const imported=await commitImport(report.plan!,{db}),saved=await transact(db,['graphs'],'readonly',tx=>requestResult(tx.objectStore('graphs').get(imported.id))),producer=saved.nodes.find((n:{type:string})=>n.type==='video-generation'),lease=await acquireProjectLease(imported.id,'import-test',Date.now(),{db});if(!lease.ok)throw Error('writer');
+  expect(await applyUiCommand({id:'edit-import',projectId:imported.id,baseRevision:1,operations:[{id:'edit',type:'update_node',payload:{nodeId:producer.id,patch:{data:{...producer.data,draft:{modelId:'seedance',durationSeconds:6}}}}}]},{db,lease:lease.token})).toMatchObject({status:'applied'});
+  expect(await transact(db,['runs'],'readonly',tx=>requestResult(tx.objectStore('runs').count()))).toBe(0);
+ }finally{db.close();}
+});
 it('QA48 imported tail-frame sources remap original video, frame and run identities together',async()=>{
  const db=await openStudioDb({factory:new IDBFactory(),name:'tail-source-package'});
  try{

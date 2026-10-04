@@ -10,7 +10,7 @@ import {graphSchema} from '../domain/graph';
 import {ConnectionSettings} from '../features/settings/ConnectionSettings';
 import {usePreferences,useSystemDark,savePreferences,applyPreferencesToDocument} from '../features/settings/preferences-store';
 import {ConnectionStatus} from '../features/settings/ConnectionStatus';
-import {hydrateConnectionStatuses,videoStatusSpec} from '../features/settings/connection-status';
+import {hydrateConnectionStatuses,videoStatusSpec,subscribeConnectionStatus} from '../features/settings/connection-status';
 import {getActiveCore,subscribeActiveCore} from '../adapters/core/current-connection';
 import '../ui/tokens.css';
 const CanvasEntryPage=lazy(()=>import('../features/canvas/CanvasEntryPage').then(module=>({default:module.CanvasEntryPage})));
@@ -40,7 +40,7 @@ export function App():ReactElement{
  const route=useRoute(),pathname=route.split('?')[0],title=routeTitle(pathname);
  const preferences=usePreferences(),systemDark=useSystemDark(),activeCore=getActiveCore(),theme=preferences.theme==='system'?(systemDark?'dark':'light'):preferences.theme;const setTheme=(theme:'dark'|'light')=>{savePreferences({theme});};
  useEffect(()=>{void hydrateConnectionStatuses().catch(()=>{});},[]);
- const [,refreshConnection]=useState(0);useEffect(()=>subscribeActiveCore(()=>refreshConnection(v=>v+1)),[]);
+ const [,refreshConnection]=useState(0);useEffect(()=>{const refresh=()=>refreshConnection(v=>v+1),stopCore=subscribeActiveCore(refresh),stopStatus=subscribeConnectionStatus(refresh);return()=>{stopCore();stopStatus();};},[]);
  const [commandOpen,setCommandOpen]=useState(false),[shortcutOpen,setShortcutOpen]=useState(false),[helpOpen,setHelpOpen]=useState(false),[connectionOpen,setConnectionOpen]=useState(false),[notificationOpen,setNotificationOpen]=useState(false);
  const [navigationMessage,setNavigationMessage]=useState('');
  const [commandQuery,setCommandQuery]=useState(''),[query,setQuery]=useState(''),[results,setResults]=useState<SearchItem[]>([]),[searchState,setSearchState]=useState<'idle'|'loading'|'ready'|'failed'>('idle');

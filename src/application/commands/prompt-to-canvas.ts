@@ -13,6 +13,7 @@ import {compileInput} from '../../features/prompt-generation/workspace-service';
 import type {DraftVersionReceipt} from '../../features/prompt-generation/draft-repository';
 import {applyUiCommand,type CommandContext} from './apply-command';
 import type {CommandReceipt,GraphOperation} from './registry';
+import {nodeRect,nodeSize} from '../../features/canvas/geometry';
 const positionSchema=z.strictObject({x:z.number().finite(),y:z.number().finite()});
 export const applyPromptInputSchema=z.strictObject({draftId:id,resultVersionId:id,targetProjectId:id,targetNodeId:id.optional(),baseRevision:revision,mode:z.enum(['insert','apply']),commandId:id,position:positionSchema.optional(),sourceRevision:revision.optional(),acceptedVideoSpec:videoSpecSchema.optional(),flow:z.strictObject({spec:videoSpecSchema,capabilityVersion:id}).optional()});
 export type ApplyPromptInput=z.infer<typeof applyPromptInputSchema>;
@@ -58,9 +59,12 @@ async function prepare(tx:IDBTransaction,input:ApplyPromptInput){
   if(node.type==='text'){if(input.acceptedVideoSpec)throw new Error('prompt_text_target_spec_forbidden');return [{id:input.commandId+':apply',type:'update_node',payload:{nodeId:node.id,patch:{data:{...node.data,text:result.finalPrompt,referenceTokens:draft.references,promptGenerationSource:provenance(draft,result)}}}}] satisfies GraphOperation[];}
   if(node.type!=='video-generation')throw new Error('prompt_target_not_editable');
   if(input.acceptedVideoSpec){const caps=await currentCapability(tx);if(caps.verification==='unknown'||!caps.videoModels.includes(input.acceptedVideoSpec.modelId)||!caps.videoSpecs.some(s=>JSON.stringify(s)===JSON.stringify(input.acceptedVideoSpec))||input.acceptedVideoSpec.durationSeconds!==result.suggestedSpec.durationSeconds||input.acceptedVideoSpec.ratio!==result.suggestedSpec.ratio)throw new Error('prompt_video_spec_unverified');}
-  const prompt=textNode({...input,position:{x:node.x-420,y:node.y}},draft,result),oldTextEdges=graph.edges.filter(e=>e.targetId===node.id&&e.port==='text'),other=graph.edges.filter(e=>e.targetId===node.id&&e.port!=='text');
+  const prompt=textNode({...input,position:{x:node.x-420,y:node.y}},draft,result),oldTextEdges=graph.edges.filter(e=>e.targetId===node.id&&e.port==='text'&&!e.relation),other=graph.edges.filter(e=>e.targetId===node.id&&e.port!=='text'&&!e.relation);
+  const target=nodeRect(node,graph);prompt.x=target.left-420;prompt.y=target.top;
+  const size=nodeSize(prompt),occupied=graph.nodes.map(existing=>nodeRect(existing,graph));
+  for(let i=0;i<occupied.length;i++){const collision=occupied.find(r=>prompt.x<r.right&&prompt.x+size.width>r.left&&prompt.y<r.bottom&&prompt.y+size.height>r.top);if(!collision)break;prompt.y=collision.bottom+48;}
   const operations:GraphOperation[]=oldTextEdges.map(edge=>({id:input.commandId+':remove:'+edge.id,type:'remove_edge',payload:{edgeId:edge.id}}));
-  const videoData={kind:'video-generation' as const,draft:input.acceptedVideoSpec??node.data.draft,inputBindings:node.data.inputBindings,stale:true,...(node.data.missingInputNodeIds!==undefined?{missingInputNodeIds:node.data.missingInputNodeIds}:{})};
+  const videoData={...node.data,draft:input.acceptedVideoSpec??node.data.draft,stale:true};
   operations.push({id:input.commandId+':prompt:add',type:'add_node',payload:{node:prompt}},{id:input.commandId+':video:update',type:'update_node',payload:{nodeId:node.id,patch:{data:videoData}}},{id:input.commandId+':link:add',type:'add_edge',payload:{edge:{id:input.commandId+':edge:apply',sourceId:prompt.id,targetId:node.id,port:'text',order:Math.max(-1,...other.map(e=>e.order))+1}}});return operations;
  }
  if(input.targetNodeId||input.acceptedVideoSpec)throw new Error('prompt_insert_target_node_forbidden');

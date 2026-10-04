@@ -48,7 +48,7 @@ export function executeGraphOperations(graph:Graph,operations:GraphOperation[]):
    }else if(operation.type==='move_node'){node.x=operation.payload.x;node.y=operation.payload.y;}
    else if(operation.type==='update_node'){next.nodes[next.nodes.indexOf(node)]=nodeSchema.parse({...node,...operation.payload.patch});}
    else if(operation.type==='ungroup'){ungroup(node.id);}
-   else if(operation.type==='select_result'){if(node.type!=='result')throw new Error('command_result_node_required');const data={...node.data};delete data.tailFrame;node.data={...data,kind:'result',assetId:operation.payload.assetId,runId:operation.payload.runId,selectionRevision:(node.data.selectionRevision??0)+1};}
+   else if(operation.type==='select_result'){if(node.type!=='result')throw new Error('command_result_node_required');const data={...node.data};delete data.tailFrame;node.data={...data,kind:'result',assetId:operation.payload.assetId,runId:operation.payload.runId,selectionRevision:(node.data.selectionRevision??0)+1};next.edges=next.edges.filter(edge=>!edge.relation||edge.sourceId!==node.id&&edge.targetId!==node.id);}
   }
  }
  const validated=graphSchema.parse(next);

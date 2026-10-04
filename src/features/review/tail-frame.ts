@@ -1,3 +1,4 @@
+import {resultSourceLink} from './result-source-link';
 import type {Run} from '../../domain/run';
 import {runSchema} from '../../domain/run';
 import {assetSchema,type Asset} from '../../domain/asset';
@@ -42,13 +43,17 @@ export async function createTailFrameDraft(input:{projectId:string;baseRevision:
   const prepared=await prepareCanvasFiles([input.frame.file],{x,y:0},db),assetOp=prepared.operations[0];if(assetOp.type!=='add_node')throw Error('tail_frame_node_missing');const imageNode=nodeSchema.parse(assetOp.payload.node);if(imageNode.type!=='asset')throw Error('tail_frame_node_missing');
   const tailFrame={assetId:imageNode.data.assetId,sourceAssetId:source.asset.id,sourceRunId:source.run.id,timeSeconds:input.frame.timeSeconds};
   const existing=graph.nodes.find(n=>(n.type==='asset'||n.type==='result')&&n.data.assetId===source.asset.id&&!n.locked&&(n.type!=='result'||n.data.runId===source.run.id)),sourceId=existing?.id??crypto.randomUUID(),videoId=crypto.randomUUID(),textId=crypto.randomUUID();
-  const sourceOp:GraphOperation=existing?{id:crypto.randomUUID(),type:'update_node',payload:{nodeId:existing.id,patch:{data:{...existing.data,tailFrame}}}}:{id:crypto.randomUUID(),type:'add_node',payload:{node:{id:sourceId,type:'result',title:'原视频 · '+[...source.asset.title].slice(0,50).join(''),x,y:0,locked:false,data:{kind:'result',assetId:source.asset.id,runId:source.run.id,tailFrame}}}};
+  const sourceOps:GraphOperation[]=existing?[]:[{id:crypto.randomUUID(),type:'add_node',payload:{node:{id:sourceId,type:'result',title:'原视频 · '+[...source.asset.title].slice(0,50).join(''),x,y:0,locked:false,data:{kind:'result',assetId:source.asset.id,runId:source.run.id}}}}];
   const draft=structuredClone(source.run.executionSpec??source.run.requestedSpec??videoRunSnapshotSchema.parse(source.run.inputSnapshot).spec);
-  const operations:GraphOperation[]=[sourceOp,
-   {id:crypto.randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'续写提示词',x,y:340,locked:false,data:{kind:'text',text:prompt,referenceTokens:[]}}}},
-   {id:crypto.randomUUID(),type:'add_node',payload:{node:{id:videoId,type:'video-generation',title:'尾帧续写视频',x:x+460,y:0,locked:false,data:{kind:'video-generation',draft,inputBindings:[],stale:true}}}},
-   {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId,targetId:videoId,port:'image',order:0}}},
+  const operations:GraphOperation[]=[...sourceOps,
+   {id:crypto.randomUUID(),type:'add_node',payload:{node:{...imageNode,title:'尾帧参考',x:x+460,y:0,data:{...imageNode.data,sourceVideo:tailFrame}}}},
+   {id:crypto.randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'续写提示词',x:x+460,y:340,locked:false,data:{kind:'text',text:prompt,referenceTokens:[]}}}},
+   {id:crypto.randomUUID(),type:'add_node',payload:{node:{id:videoId,type:'video-generation',title:'尾帧续写视频',x:x+920,y:0,locked:false,data:{kind:'video-generation',draft,inputBindings:[],stale:true}}}},
+   {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId,targetId:imageNode.id,port:'video',order:0,relation:'tail-frame'}}},
+   {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId:imageNode.id,targetId:videoId,port:'image',order:0}}},
    {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId:textId,targetId:videoId,port:'text',order:1}}}];
+  const sourceNode=existing??sourceOps.flatMap(op=>op.type==='add_node'?[nodeSchema.parse(op.payload.node)]:[])[0];
+  if(sourceNode)operations.push(...resultSourceLink(graph,sourceNode,source.run));
   const lease=options.lease??await getProjectWriter(input.projectId,db);
   try{const receipt=await applyUiCommand({id:input.commandId,projectId:input.projectId,baseRevision:input.baseRevision,operations},{db,lease,beforeCreativeCommit:async tx=>{
    const project=projectSchema.parse(await requestResult(tx.objectStore('projects').get(input.projectId))),run=runSchema.parse(await requestResult(tx.objectStore('runs').get(source.run.id))),asset=assetSchema.parse(await requestResult(tx.objectStore('assets').get(source.asset.id))),blob=await requestResult<{blob:Blob}|undefined>(tx.objectStore('blobs').get(asset.blobKey));

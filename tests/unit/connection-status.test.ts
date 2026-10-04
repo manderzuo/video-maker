@@ -109,3 +109,12 @@ it('multiple reviewed resolutions retain only the actually observed current-gene
  const scope='[5,"9:16","480p"]';expect(status!.observeGeneration(c,'video','fake-video-only',scope)()).toBe(true);expect(status!.videoStatusSpec('fake-video-only',5,'9:16')).toBe(scope);expect(status!.connectionStatusView('video',{model:'fake-video-only',spec:status!.videoStatusSpec('fake-video-only',5,'9:16')}).code).toBe('generated');expect(status!.connectionStatusView('video',{model:'fake-video-only',spec:'[5,"9:16","720p"]'}).code).not.toBe('generated');expect(status!.videoStatusSpec('fake-video-only',8,'9:16')).toBeUndefined();
  credentials.forgetSessionCredential(c.binding.id);expect(status!.videoStatusSpec('fake-video-only',5,'9:16')).toBeUndefined();credentials.setSessionCredential(c.binding.id,'fake-check-'+c.binding.id);expect(status!.videoStatusSpec('fake-video-only',5,'9:16')).toBeUndefined();
 });
+it('QA50 an unset default duration and ratio summarize the exact current successful video scope',()=>{
+ const c=client(),spec={modelId:'fake-video-only',durationSeconds:5,ratio:'16:9',resolution:'480p'};
+ setActiveCore(c,f.caps({videoSpecs:[spec]}));status!.rememberReadonlyStatus('video',c,['fake-video-only']);
+ const scope='[5,"16:9","480p"]';expect(status!.observeGeneration(c,'video','fake-video-only',scope)()).toBe(true);
+ expect(status!.videoStatusSpec('fake-video-only',null,'')).toBe(scope);
+ expect(status!.connectionStatusView('video',{model:'fake-video-only',spec:status!.videoStatusSpec('fake-video-only',null,'')}).code).toBe('generated');
+ expect(status!.videoStatusSpec('fake-video-only',8,'16:9')).toBeUndefined();
+ credentials.forgetSessionCredential(c.binding.id);expect(status!.videoStatusSpec('fake-video-only',null,'')).toBeUndefined();
+});

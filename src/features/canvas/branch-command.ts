@@ -6,7 +6,7 @@ import {worldPosition,nodeRect,nodeSize} from './geometry';
 export type NodeClipboard={nodes:CanvasNode[];edges:Edge[];externalInputs:number;positions:Record<string,{x:number;y:number}>;missingInputs:Record<string,string[]>};
 export function copyNodes(graph:Graph,ids:string[]):NodeClipboard{
  const all=new Set(ids);let changed=true;while(changed){changed=false;for(const node of graph.nodes)if(node.type==='group'&&all.has(node.id))for(const id of node.data.childIds)if(!all.has(id)){all.add(id);changed=true;}}
- const external=graph.edges.filter(e=>!all.has(e.sourceId)&&all.has(e.targetId));
+ const external=graph.edges.filter(e=>!e.relation&&!all.has(e.sourceId)&&all.has(e.targetId));
  return {nodes:structuredClone(graph.nodes.filter(n=>all.has(n.id))),edges:structuredClone(graph.edges.filter(e=>all.has(e.sourceId)&&all.has(e.targetId))),externalInputs:external.length,positions:Object.fromEntries(graph.nodes.filter(n=>all.has(n.id)).map(n=>[n.id,worldPosition(n,graph)])),missingInputs:Object.fromEntries(graph.nodes.filter(n=>all.has(n.id)).map(n=>[n.id,external.filter(e=>e.targetId===n.id).map(e=>e.sourceId)]))};
 }
 export function pasteNodes(clipboard:NodeClipboard,sourceGraph:Graph):GraphOperation[]{
@@ -18,7 +18,8 @@ export function pasteNodes(clipboard:NodeClipboard,sourceGraph:Graph):GraphOpera
   ops.push({id:crypto.randomUUID(),type:'add_node',payload:{node}});
  }
  const pending=groups.slice();while(pending.length){const index=pending.findIndex(group=>group.type==='group'&&!group.data.childIds.some(id=>pending.some(other=>other.id===id)));if(index<0)throw new Error('clipboard_group_cycle');const old=pending.splice(index,1)[0];if(old.type!=='group')continue;const p=clipboard.positions[old.id]??worldPosition(old,sourceGraph),childIds=old.data.childIds.flatMap(id=>ids.has(id)?[ids.get(id)!]:[]);const node:CanvasNode={...structuredClone(old),id:ids.get(old.id)!,x:p.x+24,y:p.y+24,locked:false,data:{...old.data,childIds}};ops.push({id:crypto.randomUUID(),type:childIds.length?'group':'add_node',payload:{node}});}
- for(const edge of clipboard.edges)ops.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),sourceId:ids.get(edge.sourceId)!,targetId:ids.get(edge.targetId)!}}});return ops;
+ // The copied draft has a new identity; the fixed historic result still belongs to its original Run.
+ for(const edge of clipboard.edges.filter(edge=>edge.relation!=='result'))ops.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),sourceId:ids.get(edge.sourceId)!,targetId:ids.get(edge.targetId)!}}});return ops;
 }
 export function branchSpec(graph:Graph,sourceId:string,options:{sourceRun?:Run;defaultDraft?:VideoSpec}={}):VideoSpec|undefined{
  const source=graph.nodes.find(n=>n.id===sourceId);if(source?.type==='video-generation')return source.data.draft;
@@ -37,7 +38,7 @@ export function createBranch(graph:Graph,sourceId:string,options:{sourceRun?:Run
   node.y=collision.bottom+48;
  }
  const operations:GraphOperation[]=[{id:crypto.randomUUID(),type:'add_node',payload:{node}}];
- if(source.type==='video-generation')for(const edge of graph.edges.filter(e=>e.targetId===source.id))operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),targetId:node.id}}});
+ if(source.type==='video-generation')for(const edge of graph.edges.filter(e=>e.targetId===source.id&&!e.relation))operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),targetId:node.id}}});
  else operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId,targetId:node.id,port:source.type==='text'?'text':'video',order:0}}});return operations;
 }
 

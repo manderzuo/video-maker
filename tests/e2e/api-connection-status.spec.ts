@@ -1,6 +1,21 @@
 import {test,expect} from '../helpers/network-guard';
 import {localDeployment} from '../helpers/deployment-fixture';
 import {f} from '../helpers/fixtures';
+
+test('QA50 topbar immediately reflects a completed approved video with unset default parameters, without navigating or broadening proof',async({page,networkCounter})=>{
+ test.setTimeout(30000);
+ await page.goto('/projects');await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts';await(await import(g)).seedGeneration();});await page.goto('/projects/p1/canvas');
+ await expect(page.getByTestId('node-video-1')).toBeVisible();
+ const bytes=await page.evaluate(async()=>{const g='/tests/fixtures/generation.ts',s='/src/features/settings/connection-status.ts',p='/src/features/settings/preferences-store.ts',r='/tests/fixtures/result-review.ts';const {client}= (await import(g)).connectGeneration();(await import(s)).rememberReadonlyStatus('video',client,['fake-video-only']);(await import(p)).savePreferences({defaultVideoModel:'fake-video-only',defaultDuration:null,defaultRatio:''});const blob=await(await import(r)).originalReviewClip(400,'#22c55e');return [...new Uint8Array(await blob.arrayBuffer())];});
+ await page.route('**/core-api/v1/videos/generations',route=>route.fulfill({status:202,contentType:'application/json',body:JSON.stringify({task:{id:'mock-status-video',status:'queued'}})}));
+ await page.route('**/core-api/v1/videos/mock-status-video',route=>route.fulfill({contentType:'application/json',body:JSON.stringify({task:{id:'mock-status-video',status:'completed',content_url:'/core-api/v1/videos/mock-status-video/content'}})}));
+ await page.route('**/core-api/v1/videos/mock-status-video/content',route=>route.fulfill({contentType:'video/webm',body:Buffer.from(bytes)}));
+ const global=page.locator('[data-interaction-id="G-05"]');await expect(global).toContainText('视频：已连接 · 生成待验证');
+ await page.getByTestId('node-video-1').getByRole('button',{name:'生成视频',exact:true}).click();const confirm=page.getByRole('dialog',{name:'生成确认单',exact:true});await confirm.getByLabel('我确认以上输入，并知悉可能消耗积分且金额未知',{exact:true}).check();await confirm.getByRole('button',{name:'确认提交 1 项',exact:true}).click();await expect(confirm).not.toBeVisible();
+ await page.getByRole('button',{name:'展开任务记录',exact:true}).click();const records=page.getByRole('region',{name:'当前项目任务记录',exact:true});await expect(records).toContainText('视频已完成');await records.getByRole('button',{name:'详情',exact:true}).click();const details=page.getByRole('dialog',{name:'任务详情',exact:true});await details.getByRole('button',{name:'获取并缓存结果',exact:true}).click();await expect(details.getByRole('region',{name:'结果内容与下载',exact:true}).getByRole('status')).toContainText('已缓存到当前浏览器');
+ await expect(global).toContainText('视频：真实生成已验证');
+ await page.evaluate(async()=>{const p='/src/features/settings/preferences-store.ts';(await import(p)).savePreferences({defaultDuration:8,defaultRatio:'9:16'});});await expect(global).not.toContainText('视频：真实生成已验证');expect(networkCounter.paidRequests).toHaveLength(1);
+});
 test('API status separates text/video, permits memory-Key recheck and invalidates on clear/reload without paid requests',async({page,networkCounter},testInfo)=>{
  await page.route('**/studio-deployment.json',route=>route.fulfill({contentType:'application/json',body:JSON.stringify(localDeployment)}));
  await page.route('**/core-api/healthz',route=>route.fulfill({contentType:'application/json',body:'{"status":"ok"}'}));

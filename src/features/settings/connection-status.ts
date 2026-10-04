@@ -61,13 +61,14 @@ export function registerSubmittedVideo(runId:string,spec:string,complete:()=>boo
 export function completeSubmittedVideo(runId:string,spec:string){const observed=submittedVideos.get(runId);submittedVideos.delete(runId);return !!observed&&observed.spec===spec&&observed.complete();}
 const recordId=(channel:ConnectionChannel,profile:ConnectionProfile)=>channel+':'+profile.id;
 export function videoStatusSpec(model:string,duration:number|null,ratio:string){
- const active=getActiveCore(),specs=active?.capability.videoSpecs.filter(s=>s.modelId===model&&(s.durationSeconds??null)===duration&&(s.ratio??'')===ratio)??[];
- if(specs.length===1)return JSON.stringify([duration,ratio,specs[0].resolution??'']);
+ const active=getActiveCore(),unset=duration===null&&!ratio,specs=active?.capability.videoSpecs.filter(s=>s.modelId===model&&(unset||(s.durationSeconds??null)===duration&&(s.ratio??'')===ratio))??[];
+ const scope=(s:typeof specs[number])=>JSON.stringify([s.durationSeconds??null,s.ratio??'',s.resolution??'']);
+ if(!unset&&specs.length===1)return scope(specs[0]);
  if(!active||!hasSessionCredential(active.client.binding.id))return undefined;
  const record=records.get(recordId('video',active.client.profile)),stamp=identity(active.client),generation=record?.generation;
  // Multiple resolutions cannot broaden a successful request into proof for every option.
  if(record?.stamp!==stamp||record.stale||record.mock||generation?.stamp!==stamp||generation.model!==model)return undefined;
- return specs.some(s=>JSON.stringify([duration,ratio,s.resolution??''])===generation.spec)?generation.spec:undefined;
+ return specs.some(s=>scope(s)===generation.spec)?generation.spec:undefined;
 }
 export function configureConnectionStatus(channel:ConnectionChannel,profile:ConnectionProfile){selected.set(channel,profile);notify();}
 export function setConnectionStatusCandidate(channel:ConnectionChannel,client?:CoreClient){if(client){candidates.set(channel,client);configureConnectionStatus(channel,client.profile);}else candidates.delete(channel);notify();}

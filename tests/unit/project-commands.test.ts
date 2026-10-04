@@ -19,6 +19,14 @@ it('T10-C01: unknown executable operations, HTML payload and secret fields are r
  }
  expect((await read('graphs','p1')).nodes).toHaveLength(0);
 });
+it('QA50 changing a revision binding cannot leave an incoming source wire pointing at unrelated video',async()=>{
+ const source={projectId:'p1',runId:'r1',assetId:'a1'};
+ await put('assets',f.asset({mediaType:'video',mimeType:'video/mp4',sourceRunId:'r1'}));
+ const graph=f.graph({nodes:[{id:'clip',type:'asset',title:'原视频',x:0,y:0,locked:false,data:{kind:'asset',assetId:'a1'}},{id:'draft',type:'video-generation',title:'修改',x:500,y:0,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance'},inputBindings:[],stale:true,revisionSource:source}}],edges:[{id:'source',sourceId:'clip',targetId:'draft',port:'video',order:0,relation:'revision'}]});await put('graphs',graph);
+ const before=await read('graphs','p1'),draft=nodeSchema.parse(graph.nodes[1]);
+ expect(await applyCommand({...add(),operations:[{id:'mutate',type:'update_node',payload:{nodeId:'draft',patch:{data:{...draft.data,revisionSource:{...source,runId:'unrelated'}}}}}]},context)).toMatchObject({status:'rejected',errorCode:'lineage_revision_mismatch'});
+ expect(await read('graphs','p1')).toEqual(before);
+});
 it('T10-C02: UI and authorized Agent use the same commit path; Agent cannot spoof UI origin',async()=>{
  expect((await applyCommand(add(),context)).status).toBe('applied');
  const agent={...add('cmd-agent',2,'text-2'),origin:'mcp' as const};

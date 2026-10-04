@@ -41,7 +41,7 @@ export function TailFrameContinuationDialog({frame,frameUrl,revision,onClose}:{f
   catch{if(alive.current)setError('续写草稿未保存，请检查画布版本、写权或本地空间后重试。原视频保留。');}finally{if(alive.current)setCreating(false);}
  }
  return <><Dialog open title="尾帧续写" width={720} dismissible={!creating} onClose={close} footer={<><Button data-interaction-id="result:cancel-tail" disabled={creating} onClick={close}>取消</Button><Button variant="primary" data-interaction-id="result:create-tail-draft" disabled={creating||polishing||!validText||!!issues.length} busy={creating} onClick={()=>void create()}>{result?'确认并进入画布':'创建续写草稿'}</Button></>}>
-  <img className="result-tail-frame" src={frameUrl} alt="提取的尾帧"/><p>从原视频的尾帧输出连线，生成下一段视频；执行使用提取的尾帧图片参考。原视频保留，不自动拼接；不保证严格首帧锁定。</p>
+  <img className="result-tail-frame" src={frameUrl} alt="提取的尾帧"/><p>画布连接为：原视频 → 尾帧参考 → 续写草稿；执行使用提取的尾帧图片参考。原视频保留，不自动拼接；不保证严格首帧锁定。</p>
   <label>下一段内容<textarea aria-label="下一段内容" data-interaction-id="result:tail-prompt" rows={3} value={idea} onChange={event=>{setIdea(event.target.value);setResult(undefined);setOutput('');setError('');}} placeholder="描述接下来发生的动作与镜头…" disabled={polishing||creating}/></label>
   <div className="actions"><Button data-interaction-id="result:tail-polish" busy={polishing} disabled={creating||!canPolish||!idea.trim()||!localText.safeParse(idea).success} disabledReason={!canPolish?'请先在本标签页启用文字 API；刷新后需重新输入 Key。':undefined} onClick={()=>void polish()}>AI润色</Button>{!canPolish?<Button data-interaction-id="result:tail-connect-text" disabled={creating} onClick={()=>{close();navigate('/settings/connections#text-api');}}>连接文字 API</Button>:null}</div>
   <small>AI润色使用设置中的文字模型，仅发送文字，不上传尾帧，可能产生文字调用费用。</small>{polishing?<p role="status">正在润色下一段内容…</p>:null}

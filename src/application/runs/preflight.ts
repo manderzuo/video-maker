@@ -19,7 +19,7 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
  if(!graphSchema.safeParse(input.graph).success)add('graph_invalid','画布数据无效');
  if(!input.canWrite)add('project_writer_required','当前画布只读，请先取得写权');
  if(input.dirty)add('unsaved_changes','请先保存当前修改，再重新预检');
- if(!input.credentialAvailable)add('session_credential_required','当前标签页未连接视频 API。刷新页面后 Key 会清除；请到设置重新输入视频网关 Key 并测试连接，再返回生成。');
+ if(!input.credentialAvailable)add('session_credential_required','当前标签页缺少视频 API 授权（Key）。刷新页面后 Key 会清除；请到设置重新输入视频网关 Key 并测试连接，再返回生成。');
  const {capability:cap,connection,binding,graph}=input;
  if(cap.verification==='unknown'||!cap.videoSpecs.length||connection&&cap.contractVersion!==connection.contractVersion)add('capability_unverified','服务能力尚未核验，无法批准执行');
  if(input.credentialAvailable&&(!binding||!connection)||binding&&connection&&(binding.connectionId!==connection.id||binding.originSnapshot!==connection.originSnapshot))add('original_authorization_required','服务与授权身份不匹配');
@@ -32,7 +32,7 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
   if(node.data.missingInputNodeIds?.length)add('upstream_output_unseen','缺少原输入；新产生的上游输出必须在可见后重新确认',nodeId);
   const spec=node.data.draft;
   if(!cap.videoModels.includes(spec.modelId)&&!cap.videoAliases.includes(spec.modelId)||!Number.isInteger(spec.durationSeconds)||!spec.ratio||!cap.videoSpecs.some(s=>s.modelId===spec.modelId&&s.durationSeconds===spec.durationSeconds&&s.ratio===spec.ratio&&s.resolution===spec.resolution))add('video_spec_unsupported','模型、时长或比例不在已核验规格中；保留原值，请明确修改',nodeId);
-  const edges=graph.edges.filter(e=>e.targetId===node.id).slice().sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)),texts:string[]=[],references:VideoRunSnapshot['references']=[],plannedAssets:PlannedVideo['assets']=[],tokens:{alias:string;assetId?:string;unbound:boolean;available:boolean}[]=[];
+  const edges=graph.edges.filter(e=>e.targetId===node.id&&!e.relation).slice().sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)),texts:string[]=[],references:VideoRunSnapshot['references']=[],plannedAssets:PlannedVideo['assets']=[],tokens:{alias:string;assetId?:string;unbound:boolean;available:boolean}[]=[];
   for(const edge of edges){
    const checked=validateConnection(graph,edge,cap,{assets:input.assets,limits:{image:cap.limits?.imageReferences,video:cap.limits?.videoReferences}});if(!checked.ok)for(const issue of checked.issues){const closed=issue.code==='edge_limit_exceeded'&&(edge.port==='image'&&cap.limits?.imageReferences===0||edge.port==='video'&&cap.limits?.videoReferences===0);if(!closed)add(issue.code,issue.message,nodeId);}
    const source=graph.nodes.find(n=>n.id===edge.sourceId);
@@ -59,7 +59,7 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
   for(const mediaType of ['image','video'] as const){const count=references.filter(r=>r.mediaType===mediaType).length,limit=cap.limits?.[mediaType==='image'?'imageReferences':'videoReferences'];if(count&&limit===0)add('reference_service_unavailable',`当前视频网关尚未开放${mediaType==='image'?'图片':'视频'}参考，已连接的素材暂不能用于生成。需要核验并接通网关素材上传与参考生成链路；素材和连线已保留。`,nodeId);else if(count&&(limit===undefined||count>limit))add('reference_limit_unverified_or_exceeded','参考数量超限或上限尚未核验',nodeId);}
   if(new Set(references.map(r=>r.assetId)).size!==references.length||new Set(references.map(r=>r.alias)).size!==references.length)add('reference_identity_duplicate','参考素材或别名重复，请明确整理',nodeId);
   const snapshot=videoRunSnapshotSchema.safeParse({prompt,spec,references});if(!snapshot.success)add('input_snapshot_invalid','执行输入快照无效',nodeId);
-  else nodes.push({nodeId,title:node.title,inputSnapshot:snapshot.data,assets:plannedAssets,dependencies:graph.edges.filter(e=>e.sourceId===nodeId).map(e=>e.targetId)});
+  else nodes.push({nodeId,title:node.title,inputSnapshot:snapshot.data,assets:plannedAssets,dependencies:graph.edges.filter(e=>e.sourceId===nodeId&&!e.relation).map(e=>e.targetId)});
  }
  if(issues.length||!connection||!binding)return {status:'blocked',issues};
  const priorUnknownRunIds=(input.priorRuns??[]).filter(r=>r.projectId===graph.projectId&&input.nodeIds.includes(r.nodeId)&&['submitting','submit_unknown'].includes(r.executionState)).map(r=>r.id).sort();

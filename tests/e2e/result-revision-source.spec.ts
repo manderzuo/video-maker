@@ -1,20 +1,53 @@
 import {test,expect} from '../helpers/network-guard';
 const stored=(page:import('@playwright/test').Page)=>page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';return(await import(path)).reviewStoredState();});
 test.beforeEach(async({page})=>{await page.goto('/projects');await page.evaluate(async()=>{const path='/tests/fixtures/result-review.ts';await(await import(path)).seedResultReview();});await page.goto('/projects/p1/results?runId=r1');});
-test('QA48 continuation connects original Video A and extracts an image without a disconnected frame node',async({page,networkCounter})=>{
+test('QA49 a missing original video node is created and linked to its producing draft in the same atomic save',async({page,networkCounter})=>{
+ await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',d=await import(path),db=await d.openStudioDb();try{await d.transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const g=await d.requestResult(tx.objectStore('graphs').get('p1'));g.nodes=g.nodes.filter((n:{id:string})=>n.id!=='result-ref');g.edges=[];g.nodes.push({id:'origin-video',type:'video-generation',title:'原生成节点',x:0,y:20,locked:false,data:{kind:'video-generation',draft:{modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'},inputBindings:[],stale:true}});tx.objectStore('graphs').put(g);});}finally{db.close();}});
+ await page.getByRole('button',{name:'尾帧续写',exact:true}).click();const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('继续前进');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=/,{timeout:5000});
+ await expect(page.getByRole('button',{name:/连线 原生成节点 → 原视频 .* · 生成结果/})).toBeVisible();await expect(page.getByRole('button',{name:/连线 原视频 .* → 尾帧参考 · 尾帧来源/})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+});
+test('QA49 generating draft links to exact result and the source port reconnects after deletion',async({page,networkCounter})=>{
+ await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',d=await import(path),db=await d.openStudioDb();try{await d.transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const g=await d.requestResult(tx.objectStore('graphs').get('p1'));g.nodes.push({id:'origin-video',type:'video-generation',title:'原生成节点',x:-460,y:20,locked:false,data:{kind:'video-generation',draft:{modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'},inputBindings:[],stale:true}});tx.objectStore('graphs').put(g);});}finally{db.close();}});
+ await page.getByRole('button',{name:'尾帧续写',exact:true}).click();const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('继续前进');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=/);
+ const wire=page.getByRole('button',{name:'连线 原生成节点 → 选用的结果 · 生成结果',exact:true});await expect(wire).toBeVisible();await wire.press('Enter');await page.keyboard.press('Delete');await expect(wire).not.toBeVisible();
+ await page.getByRole('button',{name:'适配全部',exact:true}).click();await page.getByTestId('node-origin-video').getByRole('button',{name:'输出生成结果',exact:true}).press('Enter');await page.getByTestId('node-result-ref').getByRole('button',{name:'关联生成来源',exact:true}).click();await expect(wire).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+});
+test('QA49 identical frames from two videos remain unlinked because provenance is ambiguous',async({page,networkCounter})=>{
+ await page.getByRole('button',{name:'尾帧续写',exact:true}).click();const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('继续');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=/);
+ await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',d=await import(path),db=await d.openStudioDb();try{await d.transact(db,['graphs','assets'],'readwrite',async(tx:IDBTransaction)=>{const g=await d.requestResult(tx.objectStore('graphs').get('p1')),frame=g.nodes.find((n:{title:string})=>n.title==='尾帧参考'),first=await d.requestResult(tx.objectStore('assets').get('result-asset-1'));delete frame.data.sourceVideo;g.edges=g.edges.filter((e:{relation?:string})=>!e.relation);tx.objectStore('graphs').put(g);tx.objectStore('assets').put({...first,id:'result-asset-2',sourceRunId:'r2'});});}finally{db.close();}});await page.reload();await page.getByRole('button',{name:'补齐来源连线',exact:true}).click();await expect(page.getByRole('alert')).toContainText('不唯一');await expect(page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/})).not.toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+});
+test('QA49 source line can be manually reconnected with ports after disconnect without authorizing generation',async({page,networkCounter})=>{
+ await page.getByRole('button',{name:'尾帧续写',exact:true}).click();const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('继续前进');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=/);
+ const before=await stored(page);await page.getByRole('button',{name:/连线 选用的结果 → 尾帧参考 · 尾帧来源/}).press('Enter');await page.keyboard.press('Delete');
+ await page.getByRole('button',{name:'适配全部',exact:true}).click();await page.getByTestId('node-result-ref').getByRole('button',{name:'输出视频',exact:true}).press('Enter');await page.getByRole('button',{name:'关联尾帧来源',exact:true}).click();await expect(page.getByRole('button',{name:/连线 选用的结果 → 尾帧参考 · 尾帧来源/})).toBeVisible();
+ const after=await stored(page);expect(after.runs).toEqual(before.runs);expect(after.assets).toEqual(before.assets);expect(networkCounter.paidRequests).toHaveLength(0);
+});
+test('QA49 corrupt cached frame cannot be assigned a video source by its manifest hash alone',async({page,networkCounter})=>{
+ await page.getByRole('button',{name:'尾帧续写',exact:true}).click();const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('继续');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=/);
+ await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',d=await import(path),db=await d.openStudioDb();try{await d.transact(db,['graphs','assets','blobs'],'readwrite',async(tx:IDBTransaction)=>{const g=await d.requestResult(tx.objectStore('graphs').get('p1')),frame=g.nodes.find((n:{title:string})=>n.title==='尾帧参考'),asset=await d.requestResult(tx.objectStore('assets').get(frame.data.assetId));delete frame.data.sourceVideo;g.edges=g.edges.filter((e:{relation?:string})=>!e.relation);tx.objectStore('graphs').put(g);tx.objectStore('blobs').put({id:asset.blobKey,blob:new Blob([new Uint8Array(asset.bytes)],{type:'image/png'})});});}finally{db.close();}});await page.reload();
+ await page.getByRole('button',{name:'补齐来源连线',exact:true}).click();await expect(page.getByText(/来源连线已补齐|没有需要补齐的来源连线/)).toBeVisible();await expect(page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/})).not.toBeVisible();await expect(page.getByRole('alert')).toContainText('尾帧');expect(networkCounter.paidRequests).toHaveLength(0);
+});
+test('QA49 repairs legacy frame by exact decoded hash and does not reconnect a deleted modern source line',async({page,networkCounter})=>{
+ await page.getByRole('button',{name:'尾帧续写',exact:true}).click();const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('继续前进');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/canvas\?node=/);
+ await page.evaluate(async()=>{const path='/src/infrastructure/storage/database.ts',d=await import(path),db=await d.openStudioDb();try{await d.transact(db,['graphs'],'readwrite',async(tx:IDBTransaction)=>{const g=await d.requestResult(tx.objectStore('graphs').get('p1'));const frame=g.nodes.find((n:{title:string})=>n.title==='尾帧参考');delete frame.data.sourceVideo;g.edges=g.edges.filter((e:{relation?:string})=>!e.relation);tx.objectStore('graphs').put(g);});}finally{db.close();}});await page.reload();
+ await page.getByRole('button',{name:'补齐来源连线',exact:true}).click({timeout:3000});await expect(page.getByRole('button',{name:/连线 选用的结果 → 尾帧参考 · 尾帧来源/})).toBeVisible();expect(networkCounter.paidRequests).toHaveLength(0);
+ await page.getByRole('button',{name:/连线 选用的结果 → 尾帧参考 · 尾帧来源/}).press('Enter');await page.keyboard.press('Delete');await page.getByRole('button',{name:'补齐来源连线',exact:true}).click();await expect(page.getByRole('button',{name:/连线 选用的结果 → 尾帧参考 · 尾帧来源/})).not.toBeVisible();
+});
+test('QA49 continuation draws Video A to its frame to Video B, with removable source relationship',async({page,networkCounter})=>{
  const before=await stored(page);await page.getByRole('button',{name:'尾帧续写',exact:true}).click();
- const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await dialog.getByLabel('下一段内容',{exact:true}).fill('人物继续推开大门');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/\/canvas\?node=/);
+ const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await expect(dialog).toContainText('原视频 → 尾帧参考 → 续写草稿');await dialog.getByLabel('下一段内容',{exact:true}).fill('人物继续推开大门');await dialog.getByRole('button',{name:'创建续写草稿',exact:true}).click();await expect(page).toHaveURL(/\/canvas\?node=/);
  const after=await stored(page),video=after.graph.nodes.find((n:{title:string})=>n.title==='尾帧续写视频'),edge=after.graph.edges.find((e:{targetId:string;port:string})=>e.targetId===video.id&&e.port==='image'),source=after.graph.nodes.find((n:{id:string})=>n.id===edge.sourceId);
- expect(source.data.assetId).toBe('result-asset-1');expect(source.data.tailFrame).toMatchObject({sourceRunId:'r1',sourceAssetId:'result-asset-1'});expect(after.assets.find((a:{id:string})=>a.id===source.data.tailFrame.assetId).mediaType).toBe('image');
- expect(after.graph.nodes.filter((n:{title:string})=>n.title==='尾帧参考')).toHaveLength(0);await expect(page.getByRole('button',{name:'输出尾帧',exact:true})).toBeVisible();
- await expect(page.getByRole('button',{name:/连线 .* → 尾帧续写视频 · 尾帧/})).toBeVisible();
+ expect(source.title).toBe('尾帧参考');expect(source.data.sourceVideo).toMatchObject({sourceRunId:'r1',sourceAssetId:'result-asset-1'});expect(after.assets.find((a:{id:string})=>a.id===source.data.assetId).mediaType).toBe('image');
+ expect(after.graph.edges).toContainEqual(expect.objectContaining({sourceId:'result-ref',targetId:source.id,relation:'tail-frame'}));
+ await expect(page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/})).toBeVisible();
  expect(after.runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);
- await page.getByRole('button',{name:/连线 .* → 尾帧续写视频 · 尾帧/}).press('Enter');await page.keyboard.press('Delete');
- await expect(page.getByRole('button',{name:/连线 .* → 尾帧续写视频 · 尾帧/})).not.toBeVisible();
- await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByRole('button',{name:/连线 .* → 尾帧续写视频 · 尾帧/})).toBeVisible();
- await page.reload();await expect(page.getByRole('button',{name:'输出尾帧',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/}).press('Enter');await page.keyboard.press('Delete');
+ await expect(page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/})).not.toBeVisible();
+ await page.reload();await expect(page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/})).not.toBeVisible();
+ await expect(page.getByRole('button',{name:/连线 尾帧参考 → 尾帧续写视频 · 图片/})).toBeVisible();
+ await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByRole('button',{name:/连线 .* → 尾帧参考 · 尾帧来源/})).toBeVisible();
  await page.getByRole('button',{name:'隐藏节点列表',exact:true}).click();await page.getByRole('button',{name:'适配全部',exact:true}).click();
- await page.screenshot({path:'work/qa-20261005/video-lineage/isolated-tail-source.png'});
+ await page.screenshot({path:'work/qa-20261005/visible-lineage/isolated-tail-chain.png'});
 });
 test('QA48 modify result restores frozen prompt and creates editable new version without modifying original or submitting',async({page,networkCounter})=>{
  const before=await stored(page);await page.getByRole('button',{name:'修改并重新生成',exact:true}).click({timeout:4000});
@@ -22,7 +55,13 @@ test('QA48 modify result restores frozen prompt and creates editable new version
  await dialog.getByLabel('修改后的提示词',{exact:true}).fill('人物微笑着推开大门，保留品牌汉字康济健葆');await dialog.getByRole('button',{name:'确认修改并进入画布',exact:true}).click();await expect(page).toHaveURL(/\/canvas\?node=/);
  const after=await stored(page),text=after.graph.nodes.find((n:{title:string})=>n.title==='修改提示词'),video=after.graph.nodes.find((n:{title:string})=>n.title==='修改后的视频');expect(text.data.text).toContain('微笑着推开');expect(video.data.draft).toEqual({modelId:'fake-video-only',durationSeconds:5,ratio:'9:16'});expect(video.data.revisionSource).toMatchObject({runId:'r1',assetId:'result-asset-1'});
  expect(after.runs).toEqual(before.runs);expect(after.assets).toEqual(before.assets);expect(after.graph.nodes.find((n:{id:string})=>n.id==='result-ref')).toEqual(before.graph.nodes.find((n:{id:string})=>n.id==='result-ref'));expect(networkCounter.paidRequests).toHaveLength(0);
- await expect(page.getByRole('link',{name:'查看原版本',exact:true})).toBeVisible();await page.getByRole('link',{name:'查看原版本',exact:true}).click();await expect(page).toHaveURL(/results\?runId=r1$/);
+ await expect(page.getByRole('button',{name:/连线 选用的结果 → 修改后的视频 · 修改来源/})).toBeVisible();
+ await expect(page.getByRole('link',{name:'查看原版本',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:/连线 选用的结果 → 修改后的视频 · 修改来源/}).press('Enter');await page.keyboard.press('Delete');await expect(page.getByRole('link',{name:'查看原版本',exact:true})).not.toBeVisible();
+ await page.reload();await expect(page.getByRole('button',{name:/连线 选用的结果 → 修改后的视频 · 修改来源/})).not.toBeVisible();
+ await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByRole('link',{name:'查看原版本',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'隐藏节点列表',exact:true}).click();await page.getByRole('button',{name:'适配全部',exact:true}).click();await page.screenshot({path:'work/qa-20261005/visible-lineage/isolated-revision-chain.png'});
+ await page.getByRole('link',{name:'查看原版本',exact:true}).click();await expect(page).toHaveURL(/results\?runId=r1$/);
 });
 test('QA48 modify cancel and transaction quota failure preserve original clip, graph and history',async({page,networkCounter})=>{
  const before=await stored(page);await page.getByRole('button',{name:'修改并重新生成',exact:true}).click();let dialog=page.getByRole('dialog',{name:'修改并重新生成',exact:true});await dialog.getByLabel('修改后的提示词',{exact:true}).fill('不保存的修改');await dialog.getByRole('button',{name:'取消',exact:true}).click();expect(await stored(page)).toEqual(before);

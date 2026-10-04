@@ -1,12 +1,14 @@
 import {projectSchema} from '../../domain/project';
-import {graphSchema,type Graph} from '../../domain/graph';
+import {graphSchema,nodeSchema,type Graph} from '../../domain/graph';
 import {requestResult,transact,withDatabase,storageErrorCode,type StudioDb,type TableName} from '../../infrastructure/storage/database';
 import {assertProjectWriter,type ProjectLeaseToken} from '../../infrastructure/storage/project-lease';
 import {snapshotAssetIds} from '../../features/assets/reference-index';
 import {commandEnvelopeSchema,executeGraphOperations,type CommandEnvelope,type CommandReceipt} from './registry';
 import {validateConnection,getOrderedInputs,type ReferenceLimits} from '../../domain/graph-validation';
 import {unverifiedCapabilities,type CapabilityProfile} from '../../domain/connection';
+import {runSchema} from '../../domain/run';
 import {assetSchema} from '../../domain/asset';
+import {readResultSourceHistory} from '../../infrastructure/storage/result-source-history';
 export type CommandContext={db?:StudioDb;lease?:ProjectLeaseToken;origin:'ui'|'mcp';authorize?:(envelope:CommandEnvelope)=>void;capability?:CapabilityProfile;referenceLimits?:ReferenceLimits;beforeCreativeCommit?:(tx:IDBTransaction)=>Promise<void>};
 export type StoredCommandReceipt={id:string;projectId:string;status:'applied';revision:number;fingerprint:string;beforeGraph:Graph;afterGraph:Graph;origin:'ui'|'mcp';createdAt:number};
 export type HistoryState={id:string;projectId:string;undoStack:string[];redoStack:string[]};
@@ -43,24 +45,26 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
    }
    const graph=executeGraphOperations(before,input.operations);graph.revision=project.revision+1;
    const assets=(await requestResult<unknown[]>(tx.objectStore('assets').getAll())).map(a=>assetSchema.parse(a));
+   const runs=[...(await requestResult<unknown[]>(tx.objectStore('runs').getAll())).map(r=>runSchema.parse(r)),...await readResultSourceHistory(tx,input.projectId)];
    for(const operation of input.operations)if(operation.type==='update_node'&&'data'in operation.payload.patch){
     const changed=graph.nodes.find(n=>n.id===operation.payload.nodeId)!;
     if(changed.type==='asset'&&!assets.some(a=>a.id===changed.data.assetId&&!a.trashedAt))throw new Error('asset_reference_missing');
     if(changed.type==='result'){
-     const previous=before.nodes.find(n=>n.id===changed.id);if(previous?.type!=='result')throw new Error('use_explicit_select_result');
-     const withoutFrame=(data:typeof changed.data)=>{const copy={...data};delete copy.tailFrame;return copy;};
+     const added=input.operations.find(op=>op.type==='add_node'&&(op.payload.node as {id:string}).id===changed.id);
+     const previous=before.nodes.find(n=>n.id===changed.id)??(added?.type==='add_node'?nodeSchema.parse(added.payload.node):undefined);if(previous?.type!=='result')throw new Error('use_explicit_select_result');
+     const withoutFrame=(data:typeof changed.data)=>{const copy={...data};delete copy.tailFrame;delete copy.generationLinked;return copy;};
      if(JSON.stringify(withoutFrame(previous.data))!==JSON.stringify(withoutFrame(changed.data)))throw new Error('use_explicit_select_result');
     }
-    for(const edge of graph.edges.filter(e=>e.sourceId===changed.id)){const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);}
+    for(const edge of graph.edges.filter(e=>e.sourceId===changed.id||e.targetId===changed.id&&e.relation)){const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,runs,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);}
    }
    for(const operation of input.operations)if(operation.type==='add_node'){
     const added=graph.nodes.find(n=>n.id===(operation.payload.node as {id:string}).id)!;
     if(added.type==='asset'&&!assets.some(a=>a.id===added.data.assetId&&!a.trashedAt))throw new Error('asset_reference_missing');
-    if(added.type==='result'){const asset=assets.find(a=>a.id===added.data.assetId),run=await requestResult(tx.objectStore('runs').get(added.data.runId));if(!asset||!run||asset.sourceRunId!==run.id||run.resultAssetId!==asset.id)throw new Error('result_binding_mismatch');}
+    if(added.type==='result'){const asset=assets.find(a=>a.id===added.data.assetId),run=runs.find(r=>r.id===added.data.runId);if(!asset||!run||asset.sourceRunId!==run.id||run.resultAssetId!==asset.id)throw new Error('result_binding_mismatch');}
    }
    for(const operation of input.operations)if(operation.type==='add_edge'){
     const edge=graph.edges.find(e=>e.id===(operation.payload.edge as {id:string}).id)!;
-    const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);
+    const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,runs,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);
    }
    const changedTargets=new Set(input.operations.flatMap(op=>op.type==='add_edge'?[(op.payload.edge as {targetId:string}).targetId]:op.type==='remove_edge'?before.edges.filter(e=>e.id===op.payload.edgeId).map(e=>e.targetId):op.type==='remove_node'?before.edges.filter(e=>e.sourceId===op.payload.nodeId).map(e=>e.targetId):[]));
    const changedSources=new Set(input.operations.flatMap(op=>op.type==='update_node'&&'data'in op.payload.patch||op.type==='select_result'?[op.payload.nodeId]:[]));

@@ -9,7 +9,7 @@ export function planGraphRuns(graph:Graph,selected:string[]):ValidationResult<Gr
  const visiting=new Set<string>(),visited=new Set<string>();
  function visit(id:string):boolean{if(visiting.has(id))return false;if(visited.has(id))return true;visiting.add(id);for(const e of graph.edges.filter(e=>e.targetId===id))if(!visit(e.sourceId))return false;visiting.delete(id);visited.add(id);return true;}
  if(graph.nodes.some(n=>!visit(n.id)))return invalid('queue_graph_cycle','画布依赖存在循环');
- const plans=selected.map(nodeId=>{const inputs=graph.edges.filter(e=>e.targetId===nodeId).sort((a,b)=>a.order-b.order).map(e=>graph.nodes.find(n=>n.id===e.sourceId)!);return {nodeId,inputNodeIds:inputs.map(n=>n.id),dependencyNodeIds:inputs.filter(n=>n.type==='video-generation').map(n=>n.id),dependencyRunIds:[...new Set(inputs.flatMap(n=>n.type==='result'?[n.data.runId]:[]))],requiresVisibleOutputs:inputs.filter(n=>n.type==='video-generation').map(n=>n.id)};});
+ const plans=selected.map(nodeId=>{const inputs=graph.edges.filter(e=>e.targetId===nodeId&&!e.relation).sort((a,b)=>a.order-b.order).map(e=>graph.nodes.find(n=>n.id===e.sourceId)!);return {nodeId,inputNodeIds:inputs.map(n=>n.id),dependencyNodeIds:inputs.filter(n=>n.type==='video-generation').map(n=>n.id),dependencyRunIds:[...new Set(inputs.flatMap(n=>n.type==='result'?[n.data.runId]:[]))],requiresVisibleOutputs:inputs.filter(n=>n.type==='video-generation').map(n=>n.id)};});
  const ordered:GraphNodePlan[]=[],done=new Set<string>();
  function append(plan:GraphNodePlan){if(done.has(plan.nodeId))return;for(const id of plan.dependencyNodeIds){const parent=plans.find(p=>p.nodeId===id);if(parent)append(parent);}done.add(plan.nodeId);ordered.push(plan);}
  plans.forEach(append);return {ok:true,value:ordered};
