@@ -60,7 +60,15 @@ const submittedVideos=new Map<string,{spec:string;complete:()=>boolean}>();
 export function registerSubmittedVideo(runId:string,spec:string,complete:()=>boolean){if(submittedVideos.size>=200)submittedVideos.delete(submittedVideos.keys().next().value!);submittedVideos.set(runId,{spec,complete});}
 export function completeSubmittedVideo(runId:string,spec:string){const observed=submittedVideos.get(runId);submittedVideos.delete(runId);return !!observed&&observed.spec===spec&&observed.complete();}
 const recordId=(channel:ConnectionChannel,profile:ConnectionProfile)=>channel+':'+profile.id;
-export function videoStatusSpec(model:string,duration:number|null,ratio:string){const specs=getActiveCore()?.capability.videoSpecs.filter(s=>s.modelId===model&&(s.durationSeconds??null)===duration&&(s.ratio??'')===ratio)??[];return specs.length===1?JSON.stringify([duration,ratio,specs[0].resolution??'']):undefined;}
+export function videoStatusSpec(model:string,duration:number|null,ratio:string){
+ const active=getActiveCore(),specs=active?.capability.videoSpecs.filter(s=>s.modelId===model&&(s.durationSeconds??null)===duration&&(s.ratio??'')===ratio)??[];
+ if(specs.length===1)return JSON.stringify([duration,ratio,specs[0].resolution??'']);
+ if(!active||!hasSessionCredential(active.client.binding.id))return undefined;
+ const record=records.get(recordId('video',active.client.profile)),stamp=identity(active.client),generation=record?.generation;
+ // Multiple resolutions cannot broaden a successful request into proof for every option.
+ if(record?.stamp!==stamp||record.stale||record.mock||generation?.stamp!==stamp||generation.model!==model)return undefined;
+ return specs.some(s=>JSON.stringify([duration,ratio,s.resolution??''])===generation.spec)?generation.spec:undefined;
+}
 export function configureConnectionStatus(channel:ConnectionChannel,profile:ConnectionProfile){selected.set(channel,profile);notify();}
 export function setConnectionStatusCandidate(channel:ConnectionChannel,client?:CoreClient){if(client){candidates.set(channel,client);configureConnectionStatus(channel,client.profile);}else candidates.delete(channel);notify();}
 export function rememberReadonlyStatus(channel:ConnectionChannel,client:CoreClient,models:string[],options:{verifiedAt?:number;mock?:boolean;scope?:string}={}){

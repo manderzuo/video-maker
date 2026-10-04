@@ -173,3 +173,7 @@ npm run test:e2e
 视频界面选择的时长、画幅和清晰度决定最终执行规格，提示词中的旧规格不会覆盖选择。支持范围以服务登记为准。Seedance固定Core源码审阅范围为2–15秒、6种比例及480p/720p/1080p/4K；仅5秒、16:9、480p已验证真实成片，其他组合仍需实际生成验收。
 
 既有本机网关可以通过 `node --experimental-strip-types scripts/apply-seedance-spec-review.mjs <runtime.json> <固定Core源码的user_routes.rs>` 应用参数清单；脚本核验源码哈希，不改变服务目标、原授权、路由或写入许可。详情见 [调整记录](docs/superpowers/specs/AIWORK_Studio_Continuation_Polish_2026-10-04.md)。
+
+图片参考需要网关提供 `/v1/assets`、普通用户 `assets:write` 权限和 `image_asset_ids` 视频请求字段。本机单图参考登记见 [契约记录](deploy/seedance-image-reference-review.json)；对既有网关可运行 `node --experimental-strip-types scripts/apply-seedance-image-reference-review.mjs <runtime.json> <固定Core源码src目录>`，源码哈希不符会拒绝应用。脚本保留服务/授权身份、视频规格与写入许可，仅登记单张图片和32 MiB上传上限；视频参考、远端续写和取消继续门控。当前图参考不保证严格首帧锁定，也不自动拼接。
+
+2026-10-04 已在用户原项目实际完成一次尾帧 PNG 上传及 Seedance 图片参考生成，5秒/16:9/480p 请求成功、成片本地缓存并播放。实际媒体为5.088秒、864×496，账务响应未提供扣点信息；其他规格没有因此获得真实验证。结果证据见 `docs/review/evidence/QA45.json`。

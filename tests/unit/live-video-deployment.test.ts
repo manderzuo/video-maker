@@ -17,7 +17,9 @@ it('QA43 the gateway enables the reviewed input tuples without claiming every ou
  expect(contract.evidence.some(e=>e.kind==='live_probe')).toBe(true);
  expect(caps.textModels).toEqual([]);
  expect([caps.workContext,caps.continuation,caps.imageGeneration,caps.audioGeneration,caps.cancelVideo,caps.videoIdempotencyReplay]).toEqual([false,false,false,false,false,false]);
- expect(caps.limits).toMatchObject({promptBytes:12288,imageReferences:0,videoReferences:0});
+ expect(caps.limits).toMatchObject({promptBytes:12288,assetBytes:33554432,imageReferences:1,videoReferences:0});
+ expect(contract.routes.assets).toBe(true);
+ expect(contract.evidence.some(e=>e.kind==='deployment_review'&&e.reference.includes('cc2d99038f37fe7775da358acef9f33bdc97e6ab0368ff31d559828fcdaea202'))).toBe(true);
  expect(runtime.coreTargets.find((t:{origin:string})=>t.origin==='https://api.gemstory.cn').allowWrites).toBe(true);
  expect(resolveCapabilities(contract,[{id:'unrelated'}]).videoModels).toEqual([]);
 });

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "verification": "reviewed",
+  "sourceCommit": "345670bb3c4e6eb673afcb412e7a1dbd17eeffae",
+  "sources": {
+    "assets.rs": "cc2d99038f37fe7775da358acef9f33bdc97e6ab0368ff31d559828fcdaea202",
+    "user_routes.rs": "fca8c5a85148e0b17a58bc47f6e18f41e905c867074f52b9231f0697b8a3e7a4"
+  },
+  "route": "/v1/assets",
+  "scope": "assets:write",
+  "assetBytes": 33554432,
+  "imageReferences": 1,
+  "videoReferences": 0,
+  "requestField": "image_asset_ids",
+  "limitations": ["只开放本次核验所需的单张图片参考，视频参考继续门控", "固定源码审阅不代表当前服务上传权限与成片已验证，真实结果另记", "不开放远端continuation、取消或图片生成"]
+}
