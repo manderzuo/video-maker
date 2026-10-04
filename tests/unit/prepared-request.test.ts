@@ -31,6 +31,24 @@ it('T25-C03: new authorization gets a new asset identity without changing previo
 it('T25: expired mapping may refresh for a new Run but never for frozen original',async()=>{const first=await prepareVideoRequest('r1',options());await transact(db,['receipts'],'readwrite',async tx=>{const rows=await requestResult(tx.objectStore('receipts').getAll());for(const row of rows)if(row.id.startsWith('core-asset:'))tx.objectStore('receipts').put({...row,mapping:{...row.mapping,expiresAt:1}});});await saveRun({...run,id:'r2',idempotencyKey:'fake-r2'},{db,lease,expectedProjectRevision:1});const next=await prepareVideoRequest('r2',options());expect(next.assetMappings[0].coreAssetId).not.toBe(first.assetMappings[0].coreAssetId);expect((await prepareVideoRequest('r1',options())).finalBody).toBe(first.finalBody);expect(posts()).toHaveLength(2);});
 it('T25: lost upload response cannot auto-reupload or degrade into a text-only request',async()=>{mock.faults.loseAssetResponse=true;await expect(prepareVideoRequest('r1',options())).rejects.toThrow('core_transport_unknown');await expect(prepareVideoRequest('r1',options())).rejects.toThrow('asset_upload_outcome_unknown');expect(posts()).toHaveLength(1);expect((await readRun('r1',db))?.finalBody).toBeUndefined();});
 it('T25: mismatched upload checksum remains unknown and is never auto-retried',async()=>{mock.faults.malformedAsset=true;await expect(prepareVideoRequest('r1',options())).rejects.toThrow('asset_upload_protocol_unknown');await expect(prepareVideoRequest('r1',options())).rejects.toThrow('asset_upload_outcome_unknown');expect(posts()).toHaveLength(1);});
+it('QA29: an upload response cannot persist a credential echoed as its remote asset identity',async()=>{
+ const original=client.requestJson;
+ const echoing:CoreClient={...client,requestJson:async(...args)=>{const reply=await original(...args);return reply.ok&&args[1]==='/v1/assets'?{ok:true,value:{...(reply.value as Record<string,unknown>),id:'fake-prepare-key'}}:reply;}};
+ await expect(prepareVideoRequest('r1',{...options(),client:echoing})).rejects.toThrow('asset_upload_protocol_unknown');
+ const receipts=await transact(db,['receipts'],'readonly',tx=>requestResult(tx.objectStore('receipts').getAll()));
+ expect(JSON.stringify(receipts)).not.toContain('fake-prepare-key');
+ expect((await readRun('r1',db))?.finalBody).toBeUndefined();
+ await expect(prepareVideoRequest('r1',{...options(),client:echoing})).rejects.toThrow('asset_upload_outcome_unknown');
+ expect(posts().map(r=>r.path)).toEqual(['/v1/assets']);
+});
+it('QA29: a tainted cached identity is blocked without refreshing the upload or constructing another Run body',async()=>{
+ await prepareVideoRequest('r1',options());
+ await transact(db,['receipts'],'readwrite',async tx=>{const rows=await requestResult(tx.objectStore('receipts').getAll());for(const row of rows)if(row.id.startsWith('core-asset:'))tx.objectStore('receipts').put({...row,mapping:{...row.mapping,coreAssetId:'fake-prepare-key'}});});
+ await saveRun({...run,id:'r2',idempotencyKey:'fake-r2'},{db,lease,expectedProjectRevision:1});
+ await expect(prepareVideoRequest('r2',options())).rejects.toThrow('asset_mapping_protocol_invalid');
+ expect((await readRun('r2',db))?.finalBody).toBeUndefined();
+ expect(posts().map(r=>r.path)).toEqual(['/v1/assets']);
+});
 it('T25-C02: corrupt last reference hash denies all uploads',async()=>{await transact(db,['assets','blobs','runs'],'readwrite',tx=>{tx.objectStore('assets').put(f.asset({id:'a2',sha256:'b'.repeat(64),mediaType:'image',mimeType:'image/png',bytes:png.byteLength,blobKey:'blob-a2'}));tx.objectStore('blobs').put({id:'blob-a2',blob:new Blob([png],{type:'image/png'})});tx.objectStore('runs').put({...run,inputSnapshot:{prompt:'原创',spec,references:[{assetId:'a1',mediaType:'image',role:'参考',alias:'@图片1'},{assetId:'a2',mediaType:'image',role:'参考',alias:'@图片2'}]}});});await expect(prepareVideoRequest('r1',options())).rejects.toThrow('reference_hash_mismatch');expect(posts()).toHaveLength(0);});
 it('T25: capability property order does not change the reviewed video specification',async()=>{await expect(prepareVideoRequest('r1',{...options(),capability:{...caps,videoSpecs:[{ratio:'9:16',durationSeconds:5,modelId:'fake-video-only'}]}})).resolves.toMatchObject({runId:'r1'});});
 it('T25: stale approved graph revision denies upload before any side effect',async()=>{await transact(db,['projects'],'readwrite',tx=>tx.objectStore('projects').put(f.project({revision:2})));await expect(prepareVideoRequest('r1',options())).rejects.toThrow('project_revision_conflict');expect(posts()).toEqual([]);});

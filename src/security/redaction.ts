@@ -1,6 +1,6 @@
 import {sanitizeKnownSecrets} from './credential-session';
 // Diagnostic exports intentionally exclude body, prompt, inputSnapshot, raw responses and credentials.
-const allowed=new Set(['id','kind','projectId','nodeId','runId','draftId','taskId','requestId','coreRequestId','connectionId','authBindingId','originSnapshot','errorCode','message','httpStatus','at','createdAt','updatedAt','revision','epoch','executionState','queryState','deliveryState','billingState','status','count','succeeded','failed','skipped','durationMs','contractVersion','schemaVersion','source','url','warnings','issues','code','path']);
+const allowed=new Set(['id','kind','projectId','nodeId','runId','draftId','taskId','requestId','coreRequestId','connectionId','authBindingId','originSnapshot','errorCode','message','httpStatus','at','createdAt','updatedAt','startedAt','revision','epoch','executionState','queryState','deliveryState','billingState','status','count','succeeded','failed','skipped','durationMs','contractVersion','schemaVersion','source','url','warnings','issues','code','path']);
 function cleanString(value:string){
  const clean=sanitizeKnownSecrets(value);
  return clean.replace(/https?:\/\/[^\s<>"']+/gi,value=>{try{const url=new URL(value);url.username='';url.password='';url.search='';url.hash='';return url.href;}catch{return '[已脱敏链接]';}});

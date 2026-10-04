@@ -7,3 +7,18 @@ test-results-live/
 playwright-report/
 .superpowers/
 artifacts/
+
+# Local connections, credentials, downloads and browser profiles
+deploy/local/
+downloads/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+browser-profiles/
+
+# Machine-specific acceptance raw data (retain locally)
+docs/review/qa-*/
+docs/review/manual-ui-*/
+docs/review/ui-audit-*/

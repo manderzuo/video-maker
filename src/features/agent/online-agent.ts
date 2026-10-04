@@ -1,3 +1,4 @@
+import {observeGeneration} from '../settings/connection-status';
 import {z} from 'zod';
 import {localText} from '../../domain/common';
 import type {AgentSession} from '../../domain/agent-session';
@@ -8,7 +9,8 @@ import {sendCoreText} from '../../adapters/core/text';
 import {getAgentSession,heartbeatAgent,isOnlineAgent} from './agent-client';
 import {readGraph} from '../../infrastructure/storage/project-repository';
 import {withDatabase,transact,requestResult} from '../../infrastructure/storage/database';
-import {fingerprintText} from '../../application/runs/fingerprint';
+import {fingerprintText,createTextSessionId} from '../../application/runs/fingerprint';
+import {textFailureMessage} from '../../ui/text-failure-message';
 import {receiveProposal} from '../../application/proposals/apply-proposal';
 import {sanitizeKnownSecrets} from '../../security/credential-session';
 export type OnlineAgentPreview={id:string;sessionId:string;projectId:string;revision:number;grantSnapshot:string;connectionId:string;authBindingId:string;body:string;hash:string;expiresAt:number;priorUnknownIds:string[]};
@@ -44,8 +46,9 @@ export async function sendOnlineAgent(preview:OnlineAgentPreview,decision:{confi
  const save=(value:AgentRun)=>withDatabase(undefined,db=>transact(db,['receipts'],'readwrite',tx=>{tx.objectStore('receipts').put(value);}));
  await heartbeatAgent(preview.sessionId);const now=getIndependentText();if(!now||now.client.binding.id!==preview.authBindingId||JSON.stringify(exactSession(preview.sessionId).grant)!==preview.grantSnapshot||signal?.aborted)throw Error('agent_authorization_changed');
  await save({...run,executionState:'sending'});
- const reply=await sendCoreText(active.client,active.capability,run.requestSnapshot,run.idempotencyKey,signal);
- if(!reply.ok){await save({...run,executionState:reply.error.submissionOutcome==='not_sent'?'failed_confirmed':'response_unknown',errorCode:'agent_text_response_unknown'});return {status:'response_unknown'};}
- const observed:AgentRun={...run,executionState:'succeeded',content:reply.value.content};await save(observed);
+ const observedGeneration=observeGeneration(active.client,'text',JSON.parse(run.requestSnapshot).model as string);
+ const reply=await sendCoreText(active.client,active.capability,run.requestSnapshot,run.idempotencyKey,signal,await createTextSessionId('agent',run.connectionId,run.sessionId));
+ if(!reply.ok){const errorCode=/^[a-z][a-z0-9_]{0,95}$/.test(reply.error.errorCode)&&sanitizeKnownSecrets(reply.error.errorCode)===reply.error.errorCode?reply.error.errorCode:'agent_text_response_unknown';await save({...run,executionState:reply.error.submissionOutcome==='not_sent'?'failed_confirmed':'response_unknown',errorCode});return {status:'response_unknown',message:textFailureMessage(reply.error)};}
+ const observed:AgentRun={...run,executionState:'succeeded',content:reply.value.content};await save(observed);observedGeneration();
  try{await heartbeatAgent(session.id);if(JSON.stringify(exactSession(session.id).grant)!==preview.grantSnapshot)throw Error('agent_permission_changed');const parsed=parseOnlineProposal(reply.value.content,graph,session,crypto.randomUUID());if(parsed.proposal){await receiveProposal(parsed.proposal);await save({...observed,proposalId:parsed.proposal.id});return {status:'proposed',message:parsed.message,proposalId:parsed.proposal.id};}return {status:'advice',message:parsed.message};}catch{await save({...observed,errorCode:'agent_output_or_permission_invalid'});return {status:'invalid_result'};}
 }

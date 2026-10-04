@@ -8,6 +8,7 @@ import type {CoreReply} from '../../adapters/core/http-client';
 import type {CoreTaskView} from '../../adapters/core/contracts';
 import {hasSessionCredential,sanitizeKnownSecrets} from '../../security/credential-session';
 import {applyQueryObservation} from '../../domain/run-status';
+import {safeVideoFailureCode} from '../../domain/video-failure';
 import {studioTabId} from '../../features/projects/project-service';
 import {nextPollDelay} from '../../adapters/core/retry-policy';
 import {z} from 'zod';
@@ -35,7 +36,7 @@ export async function pollVideoOnce(runId:string,options:PollOptions={}):Promise
     await assertRunWriter(tx,runId,intent.token);const lock:PollLock|undefined=await requestResult(tx.objectStore('leases').get(lockId));if(!lock||lock.owner!==owner||lock.expiresAt<=Date.now())throw Error('run_query_fence_expired');
     const current=runSchema.parse(await requestResult(tx.objectStore('runs').get(runId)));let next:Run;try{next=applyQueryObservation(current,reply);}catch{next={...current,queryState:'interrupted',updatedAt:Date.now()};reply={ok:false,error:{httpStatus:200,category:'protocol',errorCode:'core_task_identity_mismatch',submissionOutcome:'unknown'}};}
     await putRunInTransaction(tx,next,{runToken:intent.token});
-    const summary:PollSummary={id:`poll-summary:${runId}`,runId,ok:reply.ok&&reply.value.status!=='unknown',at:Date.now(),...(reply.ok?{contentAvailable:reply.value.contentAvailable}:{httpStatus:reply.error.httpStatus,errorCode:/^[a-z][a-z0-9_]{0,95}$/.test(reply.error.errorCode)&&sanitizeKnownSecrets(reply.error.errorCode)===reply.error.errorCode?reply.error.errorCode:'core_query_failed',...(reply.error.retryAfterMs===undefined?{}:{retryAfterMs:reply.error.retryAfterMs})})};
+    const summary:PollSummary={id:`poll-summary:${runId}`,runId,ok:reply.ok&&reply.value.status!=='unknown',at:Date.now(),...(reply.ok?{contentAvailable:reply.value.contentAvailable,...(reply.value.status==='failed'?{errorCode:safeVideoFailureCode(reply.value.errorCode)}:{})}:{httpStatus:reply.error.httpStatus,errorCode:/^[a-z][a-z0-9_]{0,95}$/.test(reply.error.errorCode)&&sanitizeKnownSecrets(reply.error.errorCode)===reply.error.errorCode?reply.error.errorCode:'core_query_failed',...(reply.error.retryAfterMs===undefined?{}:{retryAfterMs:reply.error.retryAfterMs})})};
     tx.objectStore('diagnostics').put(summary);return next;
    });}catch(error){const current=await readRun(runId,db);if(current?.queryState==='paused_by_user')return current;throw error;}
   }finally{options.signal?.removeEventListener('abort',abort);if(inFlight.get(key)===controller)inFlight.delete(key);if(owner)await transact(db,['leases'],'readwrite',async tx=>{const row:PollLock|undefined=await requestResult(tx.objectStore('leases').get(`poll:${runId}`));if(row&&row.owner===owner)tx.objectStore('leases').delete(row.id);});}

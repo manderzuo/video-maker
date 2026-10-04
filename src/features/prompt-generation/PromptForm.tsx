@@ -5,7 +5,7 @@ import type {Asset} from '../../domain/asset';
 import {VIDEO_SCENES} from '../../domain/prompt-engine/video-scenes';
 import {normalizeReferenceAliases,rewriteReferenceAliases} from '../../domain/prompt-engine/reference-alias';
 import {Button} from '../../ui/Button';
-const fields=[['brand','品牌原文'],['personCount','人物数量'],['dialogue','对白原文'],['noCuts','动作禁止项']] as const;
+const fields=[['brand','品牌原文'],['personCount','人物数量'],['dialogue','对白原文'],['forbiddenAction','动作禁止项']] as const;
 export function PromptForm({draft,assets,availableIds,onChange,onComposing,onChooseLibrary,contextTexts}:{draft:PromptDraft;assets:Asset[];availableIds:Set<string>;onChange:(patch:Partial<PromptDraft>)=>void;onComposing:(active:boolean)=>void;onChooseLibrary:()=>Promise<void>;contextTexts:{id:string;title:string;text:string}[]}){
  const [note,setNote]=useState(''),[noteType,setNoteType]=useState<'image'|'video'|'audio'>('image');
  const noteError=note&&!localText.safeParse(note).success?'外部参考说明超过本地64KiB限制；原输入保留，请缩短后再新增。':'';

@@ -1,6 +1,7 @@
 import {test,expect} from '../helpers/network-guard';
 import {holdNextNativeCommit,releaseNativeCommit,nativeCommitProbe} from '../helpers/native-commit-hold';
 import type {Page} from '@playwright/test';
+import {createHash} from 'node:crypto';
 const state=(page:Page)=>page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';return (await import(p)).storedAssets();});
 test.beforeEach(async({page})=>{await page.goto('/assets');await page.evaluate(async()=>{const p='/tests/fixtures/asset-library.ts';await (await import(p)).seedAssetLibrary();});await page.reload();});
 
@@ -15,5 +16,9 @@ test('T44 M07 actual native metadata save pending disables its submit while orig
 });
 
 test('T44 M11 actual native original read acknowledgement disables only its local download until the same bytes are available',async({page,networkCounter})=>{
- const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await expect(page.getByRole('complementary',{name:'素材详情',exact:true}).getByRole('img',{name:'参考.png',exact:true})).toBeVisible();await holdNextNativeCommit(page,'blobs','readonly');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();await expect.poll(()=>nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});try{await expect(page.getByRole('button',{name:'下载原素材',exact:true})).toBeDisabled();expect(await state(page)).toEqual(before);}finally{await releaseNativeCommit(page);}const download=await pending;expect(download.suggestedFilename()).toBe('参考.png');await expect(page.getByRole('button',{name:'下载原素材',exact:true})).toBeEnabled();expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
+ const before=await state(page);await page.getByRole('button',{name:'详情 参考.png',exact:true}).click();await expect(page.getByRole('complementary',{name:'素材详情',exact:true}).getByRole('img',{name:'参考.png',exact:true})).toBeVisible();await holdNextNativeCommit(page,'blobs','readonly');const pending=page.waitForEvent('download');await page.getByRole('button',{name:'下载原素材',exact:true}).click();await expect.poll(()=>nativeCommitProbe(page)).toMatchObject({nativeCommitted:true,awaitingDelivery:true});try{await expect(page.getByRole('button',{name:'下载原素材',exact:true})).toBeDisabled();expect(await state(page)).toEqual(before);}finally{await releaseNativeCommit(page);}const download=await pending;expect(download.suggestedFilename()).toBe('参考.png');
+ const stream=await download.createReadStream();if(!stream)throw Error('native original download stream unavailable');
+ const chunks:Buffer[]=[];for await(const chunk of stream)chunks.push(Buffer.from(chunk));const downloaded=Buffer.concat(chunks),original=before.assets.find((asset:{title:string})=>asset.title==='参考.png');
+ expect(downloaded.length).toBe(original.bytes);expect(createHash('sha256').update(downloaded).digest('hex')).toBe(original.sha256);
+ await expect(page.getByRole('button',{name:'下载原素材',exact:true})).toBeEnabled();expect(await state(page)).toEqual(before);expect(networkCounter.paidRequests).toHaveLength(0);
 });

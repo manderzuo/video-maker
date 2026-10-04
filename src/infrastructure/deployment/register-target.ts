@@ -7,7 +7,7 @@ export async function registerConnectionTarget(kind:'core'|'text',name:string,or
  if(!session.ok)throw Error('local_settings_service_required');
  const data:unknown=await session.json();if(!data||typeof data!=='object'||!('nonce' in data)||typeof data.nonce!=='string'||!/^[a-f0-9]{64}$/.test(data.nonce))throw Error('settings_session_invalid');
  const response=await fetch('/studio-api/connections',{...options,method:'POST',headers:{'Content-Type':'application/json','X-Studio-Session':data.nonce},body:JSON.stringify({kind,name,origin})});
- if(!response.ok)throw Error('connection_registration_failed');
+ if(!response.ok)throw Object.assign(Error('connection_registration_failed'),{httpStatus:response.status});
  const value:unknown=await response.json();if(!value||typeof value!=='object'||!('profile' in value))throw Error('connection_registration_invalid');
  return connectionSchema.parse(value.profile);
 }

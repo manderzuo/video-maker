@@ -1,4 +1,5 @@
 import type {Run} from '../../domain/run';
+import {observeGeneration,registerSubmittedVideo} from '../../features/settings/connection-status';
 import {prepareVideoRequest,buildVideoRequestBody,videoRunSnapshotSchema,type PrepareOptions} from './prepare-request';
 import {getActiveCore} from '../../adapters/core/current-connection';
 import {assertAssetBinding,coreAssetRefSchema} from '../../adapters/core/assets';
@@ -73,6 +74,8 @@ export async function submitVideo(runId:string,options:SubmitOptions={}):Promise
    assertPreparedApproval(await requestResult(tx.objectStore('receipts').get(`prepared:${runId}`)),now);
   }});if(!marked.ok)throw Error(marked.errorCode);
   const dispatching=(await readRun(runId,db))!;
-  return persistSubmissionReply(db,dispatching,marked.token,await sendFrozenVideo(client,dispatching));
+  const spec=videoRunSnapshotSchema.parse(dispatching.inputSnapshot).spec,scope=JSON.stringify([spec.durationSeconds??null,spec.ratio??'',spec.resolution??'']),complete=observeGeneration(client,'video',spec.modelId,scope);
+  const reply=await sendFrozenVideo(client,dispatching),next=await persistSubmissionReply(db,dispatching,marked.token,reply);
+  if(reply.ok&&next.taskId)registerSubmittedVideo(next.id,scope,complete);return next;
  });}catch(error){throw Error(storageErrorCode(error));}
 }

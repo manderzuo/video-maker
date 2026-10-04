@@ -6,9 +6,10 @@ import {isSafeSnapshot} from '../../domain/common';
 import {classifyCoreError,parseCoreModels,parseVideoTask,type CoreFailure,type CoreModel,type CoreTaskView} from './contracts';
 import {allowedCorePath,requiresCoreIdempotency} from './route-policy';
 import {normalizeCoreBase} from './url';
+import {isOpenCodeGoTarget,isValidTextSessionId} from '../text/session-policy';
 export type CredentialSession={binding:AuthBinding;withCredential:typeof withCredential};
 export type CoreReply<T>={ok:true;value:T}|{ok:false;error:CoreFailure};
-export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:()=>Promise<CoreReply<CoreModel[]>>;requestContent:(taskId:string,options:{maxBytes:number;signal?:AbortSignal})=>Promise<CoreReply<Blob>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string,options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreTaskView>>};
+export type CoreClient={profile:ConnectionProfile;binding:AuthBinding;testConnection:(options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreModel[]>>;requestContent:(taskId:string,options:{maxBytes:number;signal?:AbortSignal})=>Promise<CoreReply<Blob>>;requestJson:(method:'GET'|'POST',path:string,body?:unknown,options?:{idempotencyKey?:string;signal?:AbortSignal;textSessionId?:string})=>Promise<CoreReply<unknown>>;queryVideo:(taskId:string,options?:{signal?:AbortSignal})=>Promise<CoreReply<CoreTaskView>>};
 export type TransportOptions={browserOrigin?:string;registry?:readonly ConnectionProfile[];fetch?:typeof fetch};
 export function createCoreClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{return createClient(raw,session,options,false);}
 export function createTextClient(raw:ConnectionProfile,session:CredentialSession,options:TransportOptions={}):CoreClient{return createClient(raw,session,options,true);}
@@ -22,6 +23,8 @@ function createClient(raw:ConnectionProfile,session:CredentialSession,options:Tr
  const failure=(code:string,category:CoreFailure['category']='unknown',outcome:CoreFailure['submissionOutcome']='unknown'):CoreReply<never>=>({ok:false,error:{httpStatus:0,category,errorCode:code,submissionOutcome:outcome}});
  const requestJson:CoreClient['requestJson']=async(method,path,body,requestOptions={})=>{
   if(!(textOnly?(method==='GET'&&path==='/v1/models'||method==='POST'&&path==='/v1/chat/completions'):allowedCorePath(path,method)))return failure('core_route_denied','forbidden','not_sent');
+  if(requestOptions.textSessionId!==undefined&&(!textOnly||method!=='POST'||!isValidTextSessionId(requestOptions.textSessionId)))return failure('text_session_invalid','invalid_request','not_sent');
+  if(textOnly&&method==='POST'&&isOpenCodeGoTarget(profile.originSnapshot)&&requestOptions.textSessionId===undefined)return failure('text_session_required','invalid_request','not_sent');
   let bodyValue=body;try{if(method==='POST'&&typeof body==='string')bodyValue=JSON.parse(body);}catch{return failure('core_request_body_invalid','invalid_request','not_sent');}
   if(method==='GET'&&body!==undefined||method==='POST'&&(bodyValue===undefined||!isSafeSnapshot(bodyValue)||!bodyValue||typeof bodyValue!=='object'||Array.isArray(bodyValue)))return failure('core_request_body_invalid','invalid_request','not_sent');
   const finalBody=method==='POST'?(typeof body==='string'?body:JSON.stringify(bodyValue)):undefined;
@@ -30,6 +33,7 @@ function createClient(raw:ConnectionProfile,session:CredentialSession,options:Tr
   if(method==='POST'&&requiresCoreIdempotency(path)&&(!requestOptions.idempotencyKey||!/^[-A-Za-z0-9._~]{1,256}$/.test(requestOptions.idempotencyKey)))return failure('core_idempotency_required','invalid_request','not_sent');
   try{return await credential(binding.id,async key=>{
    const headers=new Headers({Accept:'application/json',Authorization:'Bearer '+key});if(method==='POST')headers.set('Content-Type','application/json');if(requestOptions.idempotencyKey)headers.set('Idempotency-Key',requestOptions.idempotencyKey);
+   if(textOnly&&requestOptions.textSessionId!==undefined)headers.set('x-opencode-session',requestOptions.textSessionId);
    let response:Response;try{response=await send(origin+base.value+path,{method,headers,body:finalBody,redirect:'manual',credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',signal:requestOptions.signal});}catch{return failure(requestOptions.signal?.aborted?'core_request_aborted':'core_transport_unknown');}
    if(response.type==='opaqueredirect'||response.status>=300&&response.status<400)return failure('core_redirect_denied','forbidden');
    let value:unknown;try{value=await readJsonBounded(response);}catch(error){if(!response.ok)return {ok:false,error:classifyCoreError(response.status,undefined,response.headers.get('retry-after')??undefined)};return failure(error instanceof Error?error.message:'core_response_invalid','protocol');}
@@ -37,7 +41,7 @@ function createClient(raw:ConnectionProfile,session:CredentialSession,options:Tr
    return {ok:true,value};
   });}catch{return failure('session_credential_required','authentication','not_sent');}
  };
- const testConnection:CoreClient['testConnection']=async()=>{if(!textOnly){const health=await requestJson('GET','/healthz');if(!health.ok)return health;}const catalog=await requestJson('GET','/v1/models');if(!catalog.ok)return catalog;try{return {ok:true,value:parseCoreModels(catalog.value)};}catch{return failure('core_models_protocol_invalid','protocol');}};
+ const testConnection:CoreClient['testConnection']=async(options)=>{if(!textOnly){const health=await requestJson('GET','/healthz',undefined,options);if(!health.ok)return health;}const catalog=await requestJson('GET','/v1/models',undefined,options);if(!catalog.ok)return catalog;try{return {ok:true,value:parseCoreModels(catalog.value)};}catch{return failure('core_models_protocol_invalid','protocol');}};
  const queryVideo:CoreClient['queryVideo']=async(taskId,queryOptions)=>{const reply=await requestJson('GET','/v1/videos/'+encodeURIComponent(taskId),undefined,queryOptions);if(!reply.ok)return reply;try{const value=parseVideoTask(reply.value);if(value.taskId!==taskId)return failure('core_task_identity_mismatch','protocol');return {ok:true,value};}catch{return failure('core_task_protocol_invalid','protocol');}};
  const requestContent:CoreClient['requestContent']=async(taskId,contentOptions)=>{
   const path='/v1/videos/'+taskId+'/content';if(textOnly||!allowedCorePath(path,'GET'))return failure('core_route_denied','forbidden','not_sent');

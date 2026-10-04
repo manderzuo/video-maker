@@ -10,11 +10,13 @@ import {digestBlob} from '../../features/assets/hash-worker';
 import {probeMedia} from '../../features/assets/media-probe';
 import type {Run} from '../../domain/run';
 import {fingerprintText} from '../../application/runs/fingerprint';
+import {sanitizeKnownSecrets} from '../../security/credential-session';
 export type CoreAssetRef=RunBinding&{assetId:string;sha256:string;coreAssetId:string;expiresAt:number;createdAt:number};
-export const coreAssetRefSchema=bindingSchema.extend({assetId:id,sha256:z.string().regex(/^[a-f0-9]{64}$/),coreAssetId:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),expiresAt:timestamp,createdAt:timestamp});
+const remoteAssetId=z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/).refine(value=>sanitizeKnownSecrets(value)===value,'asset_identity_contains_credential');
+export const coreAssetRefSchema=bindingSchema.extend({assetId:id,sha256:z.string().regex(/^[a-f0-9]{64}$/),coreAssetId:remoteAssetId,expiresAt:timestamp,createdAt:timestamp});
 export type AssetUploadInput={runId:string;asset:Asset;blob:Blob;binding:RunBinding;client:CoreClient;capability:CapabilityProfile;db?:StudioDb;lease?:ProjectLeaseToken;preparation?:PreparationToken};
 const supported=new Map([['image/png','png'],['image/jpeg','jpg'],['image/gif','gif'],['image/webp','webp'],['video/mp4','mp4'],['video/webm','webm']]);
-const responseSchema=z.object({object:z.literal('asset'),id:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),mime_type:z.string(),bytes:z.number().int().positive(),sha256:z.string().regex(/^[a-f0-9]{64}$/),created_at:z.number().int().nonnegative(),expires_at:z.number().int().positive()});
+const responseSchema=z.object({object:z.literal('asset'),id:remoteAssetId,mime_type:z.string(),bytes:z.number().int().positive(),sha256:z.string().regex(/^[a-f0-9]{64}$/),created_at:z.number().int().nonnegative(),expires_at:z.number().int().positive()});
 type UploadJournal={id:string;owner:string;state:'pending'|'response_unknown'|'succeeded';mapping?:CoreAssetRef};
 export function assertAssetBinding(binding:RunBinding,client:CoreClient){if(client.binding.id!==binding.authBindingId||client.profile.id!==binding.connectionId||client.binding.originSnapshot!==binding.originSnapshot)throw Error('original_authorization_required');}
 export async function validateUploadAsset(asset:Asset,blob:Blob,capability:CapabilityProfile){
@@ -36,7 +38,11 @@ export async function uploadCoreAsset(input:AssetUploadInput):Promise<CoreAssetR
    await assertProjectWriter(tx,run.projectId,input.lease);await assertPreparation(tx,input.preparation);
    const project:{revision:number;trashedAt:number|null;archived:boolean}|undefined=await requestResult(tx.objectStore('projects').get(run.projectId));if(project?.revision!==run.graphRevision)throw Error('project_revision_conflict');if(project.trashedAt!=null||project.archived)throw Error('project_not_runnable');
    const row:UploadJournal|undefined=await requestResult(tx.objectStore('receipts').get(id));
-   if(row?.state==='succeeded'&&row.mapping&&row.mapping.expiresAt>Date.now()+5000)return {...row.mapping,assetId:asset.id};
+   if(row?.state==='succeeded'&&row.mapping){
+    const cached=coreAssetRefSchema.safeParse(row.mapping);
+    if(!cached.success||cached.data.sha256!==asset.sha256||cached.data.connectionId!==binding.connectionId||cached.data.authBindingId!==binding.authBindingId||cached.data.originSnapshot!==binding.originSnapshot)throw Error('asset_mapping_protocol_invalid');
+    if(cached.data.expiresAt>Date.now()+5000)return {...cached.data,assetId:asset.id};
+   }
    if(row&&row.state!=='succeeded')throw Error('asset_upload_outcome_unknown');
    tx.objectStore('receipts').put({id,owner,state:'pending',runId:run.id,assetId:asset.id});return undefined;
   });

@@ -252,7 +252,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            14
+            26
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -870,7 +870,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            7
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -1011,7 +1011,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            10
+            25
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -1024,7 +1024,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            13
+            28
           ],
           "scope": "具体收藏或归档按钮遇到原生事务异常：项目、图与原Run均保持失败前状态。"
         }
@@ -1068,7 +1068,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            10
+            25
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -1081,7 +1081,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            13
+            28
           ],
           "scope": "具体收藏或归档按钮遇到原生事务异常：项目、图与原Run均保持失败前状态。"
         }
@@ -2513,7 +2513,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            13
+            25
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -3928,7 +3928,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            11
+            20
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -4043,9 +4043,9 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            8,
             9,
-            10
+            10,
+            11
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -4090,9 +4090,9 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            8,
             9,
-            10
+            10,
+            11
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -4358,7 +4358,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            14
+            15
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -4567,7 +4567,9 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            18
+            19,
+            22,
+            23
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -5347,7 +5349,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            6
+            7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -5679,7 +5681,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            6
+            7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6295,7 +6297,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            14
+            18
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6426,7 +6428,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            6
+            7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6485,7 +6487,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            6
+            7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6532,7 +6534,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            7
+            8
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6577,7 +6579,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            7
+            8
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6734,7 +6736,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            8
+            9
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6790,7 +6792,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            9
+            10
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -6834,7 +6836,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            12
+            13
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7406,7 +7408,7 @@
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
         {
-          "testId": "tests/e2e/prompt-library.spec.ts::T17 source preferences: disable survives refresh and removing source cache preserves user entries",
+          "testId": "tests/e2e/prompt-library.spec.ts::T17 source preferences: disabled source stays disabled after cache removal and refresh, preserving user entries",
           "facets": [
             "normal",
             "persistence",
@@ -7458,7 +7460,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            9
+            10
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -7470,7 +7472,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            12
+            13
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7516,7 +7518,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            9
+            10
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -7528,7 +7530,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            9
+            10
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7559,7 +7561,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            10
+            11
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7626,7 +7628,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            9
+            10
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -7639,7 +7641,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            10
+            11
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7734,7 +7736,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            10
+            11
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -7806,7 +7808,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            10
+            11
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7943,7 +7945,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            11
+            12
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -7999,7 +8001,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            9
+            10
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -8045,7 +8047,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            13
+            14
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -8091,7 +8093,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            13
+            14
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -8103,7 +8105,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            13
+            14
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -10341,7 +10343,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            21
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -10917,7 +10919,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            25
+            26
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -10974,7 +10976,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            25
+            26
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -11000,7 +11002,7 @@
           ],
           "expectedCoreWrites": 0,
           "assertionLines": [
-            18
+            19
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -12198,7 +12200,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            12
+            21
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -12345,7 +12347,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            12
+            21
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -12414,7 +12416,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            13
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -12442,7 +12444,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            10
+            19
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -12487,7 +12489,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            12
+            21
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -12519,7 +12521,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            13
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -12532,7 +12534,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            13
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -12581,7 +12583,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            13
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -12593,7 +12595,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            13
+            22
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -12629,7 +12631,7 @@
           ],
           "expectedCoreWrites": 1,
           "assertionLines": [
-            11
+            20
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         },
@@ -13462,7 +13464,7 @@
             "normal"
           ],
           "assertionLines": [
-            13
+            14
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -14179,7 +14181,7 @@
             "normal"
           ],
           "assertionLines": [
-            6
+            7
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -14205,7 +14207,7 @@
             "persistence"
           ],
           "assertionLines": [
-            12
+            13
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }
@@ -14448,7 +14450,7 @@
             "normal"
           ],
           "assertionLines": [
-            15
+            27
           ],
           "scope": "具体测试内的可观察页面、原生存储或网络断言；副作用必须有实际请求观测，未执行与缺少状态继续阻断。"
         }

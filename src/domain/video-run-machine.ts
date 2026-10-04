@@ -9,6 +9,7 @@ export function applySubmissionOutcome(run:Run,reply:CoreReply<CoreTaskView>):Ru
 export function observeVideoTask(run:Run,task:CoreTaskView):Run{
  if(run.taskId&&run.taskId!==task.taskId)throw Error('core_task_identity_mismatch');
  if(run.workContext&&task.workContext&&(run.workContext.workId!==task.workContext.workId||run.workContext.baseVersionId&&run.workContext.baseVersionId!==task.workContext.baseVersionId))throw Error('video_work_identity_frozen');
- if(['succeeded','failed_confirmed'].includes(run.executionState))return {...run,queryState:'idle',updatedAt:Date.now()};
- return {...run,taskId:task.taskId,...(task.workContext?{workContext:task.workContext}:{}),...(task.requestId?{coreRequestId:task.requestId}:{}),executionState:task.status==='completed'?'succeeded':task.status==='failed'?'failed_confirmed':task.status==='processing'?'running':'accepted',queryState:['completed','failed'].includes(task.status)?'idle':'polling',updatedAt:Date.now()};
+ const billingState=task.billingState==='not_provided'?run.billingState:task.billingState;
+ if(['succeeded','failed_confirmed'].includes(run.executionState))return {...run,billingState,queryState:task.status==='unknown'?'interrupted':'idle',updatedAt:Date.now()};
+ return {...run,taskId:task.taskId,...(task.workContext?{workContext:task.workContext}:{}),...(task.requestId?{coreRequestId:task.requestId}:{}),executionState:task.status==='completed'?'succeeded':task.status==='failed'?'failed_confirmed':task.status==='processing'?'running':'accepted',billingState,queryState:task.status==='unknown'?'interrupted':['completed','failed'].includes(task.status)?'idle':'polling',updatedAt:Date.now()};
 }

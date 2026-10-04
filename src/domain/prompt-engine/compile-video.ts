@@ -27,7 +27,11 @@ export function compileVideoPrompt(raw:PromptCompileInput):PromptCompileResult{
   '连续性：保持主体外观、服装、道具、空间方向和光线逻辑稳定，除非用户明确要求变化。',
   `参考素材：${references.length?references.join('\n'):'无已绑定参考素材；仅根据文字要求编写。'}`,
   `声音设计：${input.audioPlan||'未指定；不得擅自添加对白。'}`,
-  ...input.lockedConstraints.filter(c=>c.locked).map(c=>`已锁定 ${c.field}：${c.acceptedValue??c.originalValue}`),
+  ...input.lockedConstraints.filter(c=>c.locked).map(c=>{
+   const value=c.acceptedValue??c.originalValue;
+   if(c.field==='personCount'&&/^(?:\d+|[一二三四五六七八九十]+)$/.test(value))return `已锁定人物数量：${value}位人物`;
+   return `已锁定 ${c.field}：${value}`;
+  }),
   '负面约束：避免主体变形、身份漂移、道具凭空消失、动作跳跃和无关文字、水印；保留用户明确要求的文字与品牌。',
  ].join('\n');
  if(byteLength(finalPrompt)>65536)throw new Error('prompt_compiled_too_large');

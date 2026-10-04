@@ -1,3 +1,4 @@
+import {completeSubmittedVideo} from '../settings/connection-status';
 import {withDatabase,transact,requestResult,storageErrorCode,type StudioDb} from '../../infrastructure/storage/database';
 import type {CoreClient} from '../../adapters/core/http-client';
 import {getActiveCore} from '../../adapters/core/current-connection';
@@ -24,6 +25,8 @@ export async function fetchRunMedia(runId:string,intent:MediaIntent,options:Medi
   if(initial.run.executionState!=='succeeded')throw Error('media_not_ready');
   if(initial.cached){await verifyLocal(initial.cached.asset,initial.cached.blob);return delivery(initial.cached.asset,initial.cached.blob,intent);}
   const client=options.client??getActiveCore()?.client;if(!client||initial.run.authBindingId!==client.binding.id||initial.run.connectionId!==client.profile.id||initial.run.originSnapshot!==client.profile.originSnapshot)throw Error('original_authorization_required');
+  const spec=initial.run.executionSpec;
+  const observedGeneration=()=>spec?completeSubmittedVideo(runId,JSON.stringify([spec.durationSeconds??null,spec.ratio??'',spec.resolution??''])):false;
   const owner=crypto.randomUUID(),leaseId='media:'+runId,controller=new AbortController();
   const claim=await transact(db,['leases','runs','blobs'],'readwrite',async tx=>{
    const prior=await requestResult<MediaLease|undefined>(tx.objectStore('leases').get(leaseId));if(prior&&prior.expiresAt>Date.now())throw Error('media_fetch_busy');
@@ -40,7 +43,7 @@ export async function fetchRunMedia(runId:string,intent:MediaIntent,options:Medi
     const existing=await requestResult<Asset|undefined>(tx.objectStore('assets').get(asset.id));if(existing&&(existing.sourceRunId!==runId||existing.sha256!==sha256))throw Error('media_source_binding_mismatch');
     const existingBlob=await requestResult(tx.objectStore('blobs').get(asset.blobKey));if(!existingBlob&&await cacheSize(tx)+blob.size>budget)throw Error('media_cache_budget_exceeded');
     tx.objectStore('blobs').put({id:asset.blobKey,blob});tx.objectStore('assets').put(existing??asset);tx.objectStore('runs').put({...run,resultAssetId:asset.id,deliveryState:'cached_local',updatedAt:Date.now()});tx.objectStore('leases').put({...currentLease,expiresAt:0});tx.objectStore('diagnostics').put({id:crypto.randomUUID(),kind:'media_cached',runId,assetId:asset.id,bytes:blob.size,at:Date.now()});
-   });return delivery(asset,blob,intent);
+   });observedGeneration();return delivery(asset,blob,intent);
   }catch(error){await transact(db,['leases','runs'],'readwrite',async tx=>{const current=await requestResult<MediaLease|undefined>(tx.objectStore('leases').get(leaseId));if(current?.owner!==owner||current.epoch!==claim.lease.epoch)return;const run=runSchema.parse(await requestResult(tx.objectStore('runs').get(runId)));tx.objectStore('runs').put({...run,deliveryState:'download_failed',updatedAt:Date.now()});tx.objectStore('leases').put({...current,expiresAt:0});}).catch(()=>{});throw Error(storageErrorCode(error));}
   finally{clearInterval(timer);controller.abort();}
  });

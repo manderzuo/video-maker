@@ -1,5 +1,7 @@
 # TRAEWORK / AI WORK Studio 计划包
 
+> 此文件保留最初计划包的交付说明，以下状态描述仅对应计划包生成时。当前项目启动方式和功能请阅读根目录 `README.md`。
+
 打开 `docs/review/AIWORK_Studio_Implementation_Plan.html` 阅读总计划与九个逐任务分计划。
 Excel任务与交互表位于 `docs/review/AIWORK_Studio_Implementation_Tracker.xlsx`。
 执行代理首先阅读 `docs/agent/EXECUTION_HANDOFF.md`。

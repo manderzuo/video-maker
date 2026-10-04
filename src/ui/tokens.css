@@ -81,3 +81,7 @@ label:has(>input[type=checkbox]),label:has(>input[type=radio]){min-height:32px}
 @media(min-width:768px){.canvas-shell .task-drawer{padding:0;margin:0;border:0}.canvas-shell .task-drawer-content{position:absolute;top:50px;right:0;max-height:70vh;width:min(700px,calc(100vw - 80px));overflow:auto;z-index:30;background:var(--panel);padding:20px;border:1px solid var(--line)}}
 
 .request-preview{white-space:pre-wrap;overflow-wrap:anywhere;max-height:45vh;overflow:auto}
+
+.api-status-trigger{display:flex;flex-wrap:wrap;gap:4px 10px;max-width:100%;white-space:normal;text-align:left}.api-status-chip{font-size:12px;overflow-wrap:anywhere}.api-status{border-left:3px solid var(--border,#667085);padding:4px 12px;margin:10px 0;overflow-wrap:anywhere}.api-status p{margin:5px 0}.api-status-pending{border-color:#b88925}.api-status-checking,.api-status-readonly{border-color:#3b82c4}.api-status-failed{border-color:#cc5555}.api-status-success{border-color:#3b9165}
+
+.video-generation-entry{position:sticky;top:0;z-index:3;background:var(--float);display:flex;flex-direction:column;gap:6px;padding:8px 0;margin-bottom:12px}.video-generation-entry .button-group{width:100%}.video-generation-entry .button{width:100%;font-size:16px;min-height:44px;font-weight:600}.video-generation-entry>small{font-size:13px;line-height:1.4;color:var(--muted)}

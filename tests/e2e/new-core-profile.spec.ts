@@ -1,0 +1,33 @@
+import {test,expect} from '../helpers/network-guard';
+import {localDeployment} from '../helpers/deployment-fixture';
+
+test('new address profile clears only the form and saves a second identity without touching the old connection',async({page,networkCounter})=>{
+ await page.route('**/studio-deployment.json',route=>route.fulfill({contentType:'application/json',body:JSON.stringify(localDeployment)}));
+ await page.route('**/core-api/healthz',route=>route.fulfill({contentType:'application/json',body:'{"status":"ok"}'}));
+ await page.route('**/core-api/v1/models',route=>route.fulfill({contentType:'application/json',body:'{"data":[{"id":"fake-video-only"}]}'}));
+ await page.goto('/settings/connections');
+ const saved=page.getByLabel('已保存连接',{exact:true});
+ await page.getByLabel('连接名称',{exact:true}).fill('原有地址');
+ await page.getByLabel('Core 服务地址',{exact:true}).fill('https://core.invalid');
+ await page.getByRole('button',{name:'保存连接地址',exact:true}).click();
+ await expect(saved).toContainText('原有地址');
+ await page.getByLabel('普通用户 Key',{exact:true}).fill('fake-new-profile-key');
+ await page.getByRole('button',{name:'测试连接',exact:true}).click();
+ await expect(page.getByLabel('视频 API 状态',{exact:true})).toContainText('上次只读验证');
+ await saved.selectOption('');
+ await expect(saved).toHaveValue('');
+ await expect(page.getByLabel('连接名称',{exact:true})).toHaveValue('');
+ await expect(page.getByLabel('Core 服务地址',{exact:true})).toHaveValue('');
+ await expect(page.getByLabel('视频 API 状态',{exact:true})).toContainText('配置缺失');
+ await expect(page.getByLabel('视频 API 状态',{exact:true})).not.toContainText('上次只读验证');
+ await page.getByLabel('连接名称',{exact:true}).fill('第二个地址');
+ await page.getByLabel('Core 服务地址',{exact:true}).fill('https://other-core.invalid');
+ await expect(page.getByLabel('视频 API 状态',{exact:true})).toContainText('配置已变更 · 待只读核验');
+ await expect(page.getByLabel('视频 API 状态',{exact:true})).not.toContainText('上次只读验证');
+ await page.getByRole('button',{name:'保存连接地址',exact:true}).click();
+ await expect(saved).toContainText('原有地址');
+ await expect(saved).toContainText('第二个地址');
+ await saved.selectOption({label:'原有地址 · https://core.invalid'});
+ await expect(page.getByLabel('Core 服务地址',{exact:true})).toHaveValue('https://core.invalid');
+ expect(networkCounter.paidRequests).toHaveLength(0);
+});

@@ -1,0 +1,36 @@
+import {test,expect} from '../helpers/network-guard';
+
+test('QA32 resuming an original video from the canvas drawer continues polling without changing the request or generating again',async({page,networkCounter})=>{
+ test.setTimeout(60000);
+ let completed=false,queries=0;
+ await page.route('**/core-api/v1/videos/mock-core-1',route=>{queries++;return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({task:{id:'mock-core-1',status:completed?'completed':'processing'}})});});
+ await page.goto('/projects');
+ await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';await (await import(path)).seedTaskHistory();});
+ await page.reload();
+ await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';(await import(path)).connectTaskHistory();});
+ await page.getByRole('link',{name:'测试项目',exact:true}).click();
+ await expect(page.getByTestId('canvas-stage')).toBeVisible();
+ await expect.poll(()=>queries,{timeout:8000}).toBeGreaterThan(0);
+ const before=await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';return (await import(path)).taskHistoryState();});
+ await page.getByRole('button',{name:'展开任务记录',exact:true}).click();
+ await page.getByTestId('video-run-1').getByRole('button',{name:'详情',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'任务详情',exact:true});
+ await dialog.getByRole('button',{name:'停止本地查询',exact:true}).click();
+ await expect(dialog).toContainText('已停止本地查询');
+ await page.waitForTimeout(4000);
+ const pausedQueries=queries;
+ await page.waitForTimeout(3500);
+ expect(queries).toBe(pausedQueries);
+ await dialog.getByRole('button',{name:'重新查询原任务',exact:true}).click();
+ await expect(dialog).toContainText('已查询原任务，没有创建新任务。');
+ expect(queries).toBeGreaterThan(pausedQueries);
+ const manualQueryCount=queries;
+ completed=true;
+ await expect.poll(()=>queries,{timeout:8000}).toBeGreaterThan(manualQueryCount);
+ await expect(dialog).toContainText('视频已完成');
+ const after=await page.evaluate(async()=>{const path='/tests/fixtures/task-history.ts';return (await import(path)).taskHistoryState();});
+ const old=before.runs.find((run:{id:string})=>run.id==='video-run-1');
+ const current=after.runs.find((run:{id:string})=>run.id==='video-run-1');
+ expect(current).toMatchObject({taskId:old.taskId,coreRequestId:old.coreRequestId,idempotencyKey:old.idempotencyKey,inputSnapshot:old.inputSnapshot});
+ expect(networkCounter.requests.filter(request=>request.method==='POST')).toHaveLength(0);
+});

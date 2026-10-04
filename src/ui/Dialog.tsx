@@ -1,15 +1,15 @@
-import {useId,useLayoutEffect,useRef,type ReactNode} from 'react';
+import {useId,useLayoutEffect,useRef,type ReactNode,type RefObject} from 'react';
 import {createPortal} from 'react-dom';
 import {Button} from './Button';
 import {dialogContracts} from './dialog-contracts';
-export function Dialog({open,title,onClose,children,footer,dismissible=true,width=640}:{open:boolean;title:string;onClose:()=>void;children:ReactNode;footer?:ReactNode;dismissible?:boolean;width?:number}){
+export function Dialog({open,title,onClose,children,footer,dismissible=true,width=640,returnFocusRef}:{open:boolean;title:string;onClose:()=>void;children:ReactNode;footer?:ReactNode;dismissible?:boolean;width?:number;returnFocusRef?:RefObject<HTMLElement|null>}){
  const ref=useRef<HTMLDialogElement>(null),previous=useRef<HTMLElement|null>(null),titleId=useId();
  useLayoutEffect(()=>{
   const dialog=ref.current!;
-  if(open&&!dialog.open){previous.current=document.activeElement instanceof HTMLElement?document.activeElement:null;dialog.showModal();}
+  if(open&&!dialog.open){previous.current=returnFocusRef?.current??(document.activeElement instanceof HTMLElement?document.activeElement:null);dialog.showModal();}
   if(!open&&dialog.open){dialog.close();previous.current?.focus();}
   return()=>{if(dialog.open){dialog.close();previous.current?.focus();}};
- },[open]);
+ },[open,returnFocusRef]);
  return createPortal(<dialog data-dialog-id={dialogContracts[title]} ref={ref} className={'dialog dialog-'+width} aria-labelledby={titleId} aria-modal="true" onCancel={event=>{event.preventDefault();event.stopPropagation();if(dismissible)onClose();}} onKeyDown={event=>{
   if(event.key!=='Tab')return;
   event.stopPropagation();

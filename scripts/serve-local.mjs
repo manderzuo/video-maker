@@ -5,6 +5,7 @@ import {readFile,realpath,stat} from 'node:fs/promises';
 import {resolve,relative,isAbsolute,extname,sep} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {allowedCorePath,requiresCoreIdempotency} from '../src/adapters/core/route-policy.ts';
+import {isOpenCodeGoTarget,isValidTextSessionId} from '../src/adapters/text/session-policy.ts';
 const own=(v,keys)=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).every(k=>keys.includes(k));
 function noSecrets(value){if(!value||typeof value!=='object')return;for(const [name,child] of Object.entries(value)){if(/key|token|jwt|authorization|cookie|password|secret|credential/i.test(name))throw Error('runtime_credentials_denied');noSecrets(child);}}
 function fixedOrigin(value){const url=new URL(value);if(url.origin!==value||url.username||url.password||url.hash||url.search||!(url.protocol==='https:'||url.protocol==='http:'&&['127.0.0.1','localhost'].includes(url.hostname)))throw Error('fixed_core_origin_required');return value;}
@@ -25,12 +26,18 @@ function securityHeaders(res){res.setHeader('X-Content-Type-Options','nosniff');
 async function proxy(req,res,target,path){
  const allowed=target.kind==='text'?(req.method==='GET'&&path==='/v1/models'||req.method==='POST'&&path==='/v1/chat/completions'):allowedCorePath(path,req.method);
  if(!allowed)return reply(res,403,'core_route_denied');if(req.method==='POST'&&!target.allowWrites)return reply(res,403,'runtime_writes_disabled');
+ const textSession=req.headers['x-opencode-session'];if(target.kind==='text'&&textSession!==undefined&&!isValidTextSessionId(textSession))return reply(res,400,'text_session_invalid');
+ if(target.kind==='text'&&req.method==='POST'&&isOpenCodeGoTarget(target.origin)&&textSession===undefined)return reply(res,400,'text_session_required');
  if(req.method==='POST'&&requiresCoreIdempotency(path)&&!/^[-A-Za-z0-9._~]{1,256}$/.test(req.headers['idempotency-key']??''))return reply(res,400,'core_idempotency_required');
  if(req.method==='POST'&&req.headers['content-type']?.split(';')[0]!=='application/json'||req.headers['content-encoding'])return reply(res,415,'request_encoding_denied');
  const parts=[];let length=0;const max=path==='/v1/assets'?46*1024*1024:8*1024*1024;for await(const part of req){length+=part.length;if(length>max)return reply(res,413,'request_too_large');parts.push(part);}if(req.method==='GET'&&length)return reply(res,400,'get_body_denied');
  const headers={Accept:'application/json','Accept-Encoding':'identity'};for(const key of ['authorization','content-type','idempotency-key'])if(typeof req.headers[key]==='string')headers[key]=req.headers[key];if(length)headers['Content-Length']=String(length);
+ if(target.kind==='text'){headers['User-Agent']='AIWorkStudio/0.0.1';if(textSession!==undefined)headers['x-opencode-session']=textSession;}
  const url=new URL(target.origin+path),send=url.protocol==='https:'?httpsRequest:httpRequest;
- await new Promise(resolveRequest=>{const upstream=send(url,{method:req.method,headers},incoming=>{const status=incoming.statusCode??502;if(status>=300&&status<400){incoming.resume();reply(res,502,'core_redirect_denied');resolveRequest();return;}for(const name of ['content-type','content-length','content-encoding','retry-after'])if(incoming.headers[name]!==undefined)res.setHeader(name,incoming.headers[name]);res.statusCode=status;incoming.on('error',()=>{res.destroy();resolveRequest();});incoming.on('end',resolveRequest);incoming.pipe(res);});upstream.setTimeout(30000,()=>upstream.destroy(Error('timeout')));upstream.on('error',()=>{if(!res.headersSent)reply(res,502,'core_transport_unknown');else res.destroy();resolveRequest();});res.on('close',()=>{if(!res.writableFinished)upstream.destroy();});upstream.end(length?Buffer.concat(parts):undefined);});
+ // Non-stream text generation can outlast 30s. Cover the application's bounded
+ // 60s default / 120s maximum; caller abort still closes its upstream socket.
+ const idleTimeoutMs=target.kind==='text'&&req.method==='POST'&&path==='/v1/chat/completions'?120000:30000;
+ await new Promise(resolveRequest=>{const upstream=send(url,{method:req.method,headers},incoming=>{const status=incoming.statusCode??502;if(status>=300&&status<400){incoming.resume();reply(res,502,'core_redirect_denied');resolveRequest();return;}for(const name of ['content-type','content-length','content-encoding','retry-after'])if(incoming.headers[name]!==undefined)res.setHeader(name,incoming.headers[name]);res.statusCode=status;incoming.on('error',()=>{res.destroy();resolveRequest();});incoming.on('end',resolveRequest);incoming.pipe(res);});upstream.setTimeout(idleTimeoutMs,()=>upstream.destroy(Error('timeout')));upstream.on('error',()=>{if(!res.headersSent)reply(res,502,'core_transport_unknown');else res.destroy();resolveRequest();});res.on('close',()=>{if(!res.writableFinished)upstream.destroy();});upstream.end(length?Buffer.concat(parts):undefined);});
 }
 
 function registrationInput(raw){
@@ -40,7 +47,8 @@ function registrationInput(raw){
  const url=new URL(raw.origin),local=['127.0.0.1','localhost'].includes(url.hostname);
  if(url.username||url.password||!(url.protocol==='https:'||url.protocol==='http:'&&local)||url.hash||url.search||url.pathname.includes('//')||url.pathname.split('/').some(p=>['.','..','admin','internal','bridge'].includes(p.toLowerCase())))throw Error('registration_invalid');
  if(!local&&(/^\d+(?:\.\d+){3}$/.test(url.hostname)||url.hostname.startsWith('[')||url.hostname.endsWith('.localhost')))throw Error('public_hostname_required');
- const base=url.origin+url.pathname.replace(/\/$/,'').replace(/\/v1$/,'');
+ const pathname=url.pathname.replace(/\/$/,''),textPath=raw.kind==='text'?pathname.replace(/\/v1\/chat\/completions$/,'/v1'):pathname;
+ const base=url.origin+textPath.replace(/\/v1$/,'');
  if(raw.kind==='core'&&base!==url.origin)throw Error('core_origin_required');
  return {kind:raw.kind,name:raw.name.trim(),origin:base};
 }

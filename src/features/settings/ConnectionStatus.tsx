@@ -1,0 +1,7 @@
+import {useEffect,useState} from 'react';
+import {connectionStatusView,subscribeConnectionStatus,type ConnectionChannel,type StatusOptions} from './connection-status';
+export function ConnectionStatus({channel,compact=false,...options}:StatusOptions&{channel:ConnectionChannel;compact?:boolean}){
+ const [,refresh]=useState(0);useEffect(()=>subscribeConnectionStatus(()=>refresh(v=>v+1)),[]);const view=connectionStatusView(channel,options),label=channel==='text'?(view.fallback&&view.code!=='missing'?'文字（Core回退）':view.code==='missing'?'独立文字':'文字'):'视频';
+ if(compact)return <span className={'api-status-chip api-status-'+view.tone}>{label+'：'+view.label}</span>;
+ return <div className={'api-status api-status-'+view.tone} aria-label={(channel==='text'?'文字':'视频')+' API 状态'}><p aria-live="polite"><strong>{label+'：'+view.label}</strong></p><p>{view.fallback?'当前标签页持有 Core Key；独立文字 Key 未启用':view.authorized?'当前标签页已持有内存授权':'当前标签页没有此连接的 Key'}{view.model&&view.code!=='missing'?' · 模型 '+view.model:''}</p>{view.fallback?<p>Core 网关仅用于提示词回退；Agent 需启用独立文字连接。</p>:null}{view.verifiedAt&&view.code!=='missing'?<p>上次只读验证：{new Date(view.verifiedAt).toLocaleString()} · 范围：{view.readonlyScope??'范围未记录'}{view.mock?' · 模拟服务':''}</p>:null}{view.failure?<p>上次检查：{view.failure}</p>:null}{view.generation&&view.code!=='missing'?<p>历史业务成功记录：{new Date(view.generation.at).toLocaleString()} · {view.generation.scope}；仅适用于该次授权和范围。</p>:null}{['readonly','capability-unverified'].includes(view.code)?<p>连接检查通过，生成待验证。</p>:null}<p>只读目录不代表生成成功或费用许可；每次生成仍需确认。</p></div>;
+}

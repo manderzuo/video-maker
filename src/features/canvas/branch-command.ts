@@ -2,7 +2,7 @@ import type {Graph,CanvasNode,Edge} from '../../domain/graph';
 import type {VideoSpec} from '../../domain/common';
 import type {Run} from '../../domain/run';
 import type {GraphOperation} from '../../application/commands/registry';
-import {worldPosition} from './geometry';
+import {worldPosition,nodeRect,nodeSize} from './geometry';
 export type NodeClipboard={nodes:CanvasNode[];edges:Edge[];externalInputs:number;positions:Record<string,{x:number;y:number}>;missingInputs:Record<string,string[]>};
 export function copyNodes(graph:Graph,ids:string[]):NodeClipboard{
  const all=new Set(ids);let changed=true;while(changed){changed=false;for(const node of graph.nodes)if(node.type==='group'&&all.has(node.id))for(const id of node.data.childIds)if(!all.has(id)){all.add(id);changed=true;}}
@@ -28,7 +28,15 @@ export function branchSpec(graph:Graph,sourceId:string,options:{sourceRun?:Run;d
 }
 export function createBranch(graph:Graph,sourceId:string,options:{sourceRun?:Run;defaultDraft?:VideoSpec}={}):GraphOperation[]{
  const source=graph.nodes.find(n=>n.id===sourceId),draft=branchSpec(graph,sourceId,options);if(!source||!draft)throw new Error('branch_video_parameters_missing');
- const p=worldPosition(source,graph),node:CanvasNode={id:crypto.randomUUID(),title:'新分支',type:'video-generation',x:p.x+24,y:p.y+24,locked:false,data:{kind:'video-generation',draft:structuredClone(draft),inputBindings:[],stale:true}},operations:GraphOperation[]=[{id:crypto.randomUUID(),type:'add_node',payload:{node}}];
+ const bounds=nodeRect(source,graph),node:CanvasNode={id:crypto.randomUUID(),title:'新分支',type:'video-generation',x:bounds.right+48,y:bounds.top,locked:false,data:{kind:'video-generation',draft:structuredClone(draft),inputBindings:[],stale:true}};
+ const size=nodeSize(node,graph),occupied=graph.nodes.map(existing=>nodeRect(existing,graph));
+ // Keep the input and parameter editors visible without moving any existing work.
+ for(let i=0;i<occupied.length;i++){
+  const collision=occupied.find(rect=>node.x<rect.right&&node.x+size.width>rect.left&&node.y<rect.bottom&&node.y+size.height>rect.top);
+  if(!collision)break;
+  node.y=collision.bottom+48;
+ }
+ const operations:GraphOperation[]=[{id:crypto.randomUUID(),type:'add_node',payload:{node}}];
  if(source.type==='video-generation')for(const edge of graph.edges.filter(e=>e.targetId===source.id))operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),targetId:node.id}}});
  else operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId,targetId:node.id,port:source.type==='text'?'text':'video',order:0}}});return operations;
 }

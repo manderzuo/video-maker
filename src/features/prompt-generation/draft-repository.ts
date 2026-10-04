@@ -1,6 +1,7 @@
 import {promptDraftSchema,type PromptDraft} from '../../domain/prompt';
 import type {SaveResult} from '../../domain/common';
 import {transact,requestResult,withDatabase,storageErrorCode,type StudioDb} from '../../infrastructure/storage/database';
+import {normalizeLegacyActionLock} from './legacy-action-lock';
 export type DraftVersionReceipt={id:string;kind:'prompt-draft-version';draftId:string;revision:number;draft:PromptDraft};
 export async function saveDraft(draft:PromptDraft,expectedRevision:number,options:{db?:StudioDb}={}):Promise<SaveResult>{
  const parsed=promptDraftSchema.safeParse(draft);if(!parsed.success)return {status:'failed',code:'prompt_draft_invalid'};
@@ -17,6 +18,6 @@ export async function saveDraft(draft:PromptDraft,expectedRevision:number,option
   return {status:'saved',revision:saved.revision};
  }));}catch(error){return {status:'failed',code:storageErrorCode(error)};}
 }
-export async function readDraft(id:string,db?:StudioDb):Promise<PromptDraft|undefined>{return withDatabase(db,c=>transact(c,['promptDrafts'],'readonly',async tx=>{const raw:unknown=await requestResult(tx.objectStore('promptDrafts').get(id));return raw===undefined?undefined:promptDraftSchema.parse(raw);}));}
-export async function listDrafts(db?:StudioDb):Promise<PromptDraft[]>{return withDatabase(db,c=>transact(c,['promptDrafts'],'readonly',async tx=>(await requestResult<unknown[]>(tx.objectStore('promptDrafts').getAll())).map(row=>promptDraftSchema.parse(row))));}
+export async function readDraft(id:string,db?:StudioDb):Promise<PromptDraft|undefined>{return withDatabase(db,c=>transact(c,['promptDrafts'],'readonly',async tx=>{const raw:unknown=await requestResult(tx.objectStore('promptDrafts').get(id));return raw===undefined?undefined:normalizeLegacyActionLock(promptDraftSchema.parse(raw));}));}
+export async function listDrafts(db?:StudioDb):Promise<PromptDraft[]>{return withDatabase(db,c=>transact(c,['promptDrafts'],'readonly',async tx=>(await requestResult<unknown[]>(tx.objectStore('promptDrafts').getAll())).map(row=>normalizeLegacyActionLock(promptDraftSchema.parse(row)))));}
 export async function readDraftRevision(id:string,revision:number,db?:StudioDb):Promise<PromptDraft|undefined>{return withDatabase(db,c=>transact(c,['promptDrafts','receipts'],'readonly',async tx=>{const record:DraftVersionReceipt|undefined=await requestResult(tx.objectStore('receipts').get(`prompt-draft:${id}:${revision}`));if(!record||record.kind!=='prompt-draft-version')return undefined;const current:unknown=await requestResult(tx.objectStore('promptDrafts').get(id));const history=current===undefined?[]:promptDraftSchema.parse(current).resultVersions.filter(v=>v.sourceRevision<=revision);return promptDraftSchema.parse({...record.draft,resultVersions:history});}));}

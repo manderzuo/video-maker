@@ -61,7 +61,11 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
    const changedTargets=new Set(input.operations.flatMap(op=>op.type==='add_edge'?[(op.payload.edge as {targetId:string}).targetId]:op.type==='remove_edge'?before.edges.filter(e=>e.id===op.payload.edgeId).map(e=>e.targetId):op.type==='remove_node'?before.edges.filter(e=>e.sourceId===op.payload.nodeId).map(e=>e.targetId):[]));
    const changedSources=new Set(input.operations.flatMap(op=>op.type==='update_node'&&'data'in op.payload.patch||op.type==='select_result'?[op.payload.nodeId]:[]));
    for(const node of graph.nodes)if(node.type==='video-generation'){
-    if(changedTargets.has(node.id))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true,missingInputNodeIds:node.data.missingInputNodeIds?.filter(id=>!graph.edges.some(edge=>edge.targetId===node.id&&edge.sourceId===id))};
+    if(changedTargets.has(node.id)){
+     const missing=node.data.missingInputNodeIds?.filter(id=>!graph.edges.some(edge=>edge.targetId===node.id&&edge.sourceId===id));
+     const data={...node.data};delete data.missingInputNodeIds;
+     node.data={...data,inputBindings:getOrderedInputs(graph,node.id),stale:true,...(missing!==undefined?{missingInputNodeIds:missing}:{})};
+    }
     if(graph.edges.some(e=>e.targetId===node.id&&changedSources.has(e.sourceId)))node.data={...node.data,inputBindings:getOrderedInputs(graph,node.id),stale:true};
    }
    context.authorize?.(input);

@@ -32,7 +32,7 @@ async function persistPrepared(db:StudioDb,prepared:PreparedMedia,projectId:stri
       if(project.revision!==options.expectedRevision)throw new Error('project_revision_conflict');
      }
      const existing=await requestResult<Asset[]>(tx.objectStore('assets').getAll());
-     const previous=existing.find(a=>a.sha256===sha256);
+     const previous=existing.find(a=>a.sha256===sha256&&!a.trashedAt);
      const asset=previous??assetSchema.parse({id:crypto.randomUUID(),sha256,blobKey:'sha256:'+sha256,title:file.name,mediaType:metadata.mimeType.split('/')[0],...metadata,createdAt:Date.now()});
      if(!previous||!await requestResult(tx.objectStore('blobs').get(asset.blobKey))){
       // Blob and identity become visible together only after transaction completion.

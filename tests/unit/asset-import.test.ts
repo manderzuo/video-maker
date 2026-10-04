@@ -37,3 +37,28 @@ it('blob failure aborts asset association atomically and reports the item failur
 it('concurrent imports cannot create two asset identities for one hash',async()=>{
  await Promise.all([importAssets([file()],undefined,{db}),importAssets([file()],undefined,{db})]);expect(await rows('assets')).toHaveLength(1);expect(await rows('blobs')).toHaveLength(1);
 });
+it('QA047 importing content already in trash creates a visible identity and preserves the recoverable trashed asset',async()=>{
+ const first=(await importAssets([file('原回收站图片.png')],undefined,{db})).successes[0].asset;
+ const trashed={...first,trashedAt:1234};
+ await transact(db,['assets'],'readwrite',tx=>tx.objectStore('assets').put(trashed));
+ const result=await importAssets([file('重新导入图片.png')],undefined,{db});
+ expect(result.failures).toEqual([]);
+ expect(result.successes).toHaveLength(1);
+ expect(result.successes[0].asset.trashedAt??null).toBeNull();
+ expect(result.successes[0].asset.id).not.toBe(first.id);
+ expect(result.successes[0].asset.title).toBe('重新导入图片.png');
+ const assets=await rows('assets');
+ expect(assets).toContainEqual(trashed);
+ expect(assets.filter((a:{trashedAt?:number|null})=>!a.trashedAt)).toHaveLength(1);
+ expect(await rows('blobs')).toHaveLength(1);
+});
+it('QA047 concurrent reimports reuse the same active identity without resurrecting the trashed one',async()=>{
+ const first=(await importAssets([file()],undefined,{db})).successes[0].asset;
+ await transact(db,['assets'],'readwrite',tx=>tx.objectStore('assets').put({...first,trashedAt:1234}));
+ const results=await Promise.all([importAssets([file('副本A.png')],undefined,{db}),importAssets([file('副本B.png')],undefined,{db})]);
+ expect(results.flatMap(r=>r.failures)).toEqual([]);
+ expect(results[0].successes[0].asset.id).toBe(results[1].successes[0].asset.id);
+ expect(results[0].successes[0].asset.id).not.toBe(first.id);
+ expect(await rows('assets')).toHaveLength(2);
+ expect(await rows('blobs')).toHaveLength(1);
+});

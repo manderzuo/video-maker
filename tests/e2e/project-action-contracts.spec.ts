@@ -3,6 +3,21 @@ import {seedStudio} from '../helpers/seed-studio';
 import type {Page} from '@playwright/test';
 const records=(page:Page)=>page.evaluate(async()=>{const url='/src/infrastructure/storage/database.ts',m=await import(url),db=await m.openStudioDb();try{return await m.transact(db,['projects','graphs','runs'],'readonly',async(tx:IDBTransaction)=>({projects:await m.requestResult(tx.objectStore('projects').getAll()),graphs:await m.requestResult(tx.objectStore('graphs').getAll()),runs:await m.requestResult(tx.objectStore('runs').getAll())}));}finally{db.close();}});
 test.beforeEach(async({page})=>{await seedStudio(page,'project-library');await page.goto('/projects');});
+test('QA08 batch selection describes hidden projects only when a selected project is outside the current filter',async({page,networkCounter})=>{
+ await page.getByTestId('project-p1').getByRole('checkbox',{name:'选择项目甲'}).check();
+ await expect(page.getByText('已选择 1 项',{exact:true})).toBeVisible();
+ await expect(page.getByText(/包含筛选范围外已选项目/)).toHaveCount(0);
+ await page.getByRole('button',{name:'批量归档',exact:true}).click();
+ await expect(page.getByRole('dialog',{name:'批量归档'})).not.toContainText('包含当前筛选范围外');
+ await page.getByRole('dialog',{name:'批量归档'}).getByRole('button',{name:'返回'}).click();
+ await page.getByRole('searchbox',{name:'搜索项目'}).fill('项目乙');
+ await expect(page.getByTestId('project-p1')).not.toBeVisible();
+ await expect(page.getByText('已选择 1 项',{exact:true})).toBeVisible();
+ await expect(page.getByText('包含筛选范围外 1 项')).toBeVisible();
+ await page.getByRole('button',{name:'批量归档',exact:true}).click();
+ await expect(page.getByRole('dialog',{name:'批量归档'})).toContainText('包含当前筛选范围外 1 项');
+ expect(networkCounter.paidRequests).toHaveLength(0);
+});
 test('T44 P03 opening an existing project preserves its creative revision, shared media and original unknown Run',async({page,networkCounter})=>{
  const before=await records(page);await page.getByTestId('project-p1').getByRole('link',{name:'项目甲',exact:true}).click();await expect(page).toHaveURL(/projects\/p1\/canvas$/);await expect(page.getByTestId('node-asset-p1')).toBeVisible();const after=await records(page);expect(after.graphs).toEqual(before.graphs);expect(after.runs).toEqual(before.runs);expect(networkCounter.paidRequests).toHaveLength(0);
 });

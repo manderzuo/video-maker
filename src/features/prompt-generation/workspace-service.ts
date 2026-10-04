@@ -16,8 +16,16 @@ export function exportWritingDraft(draft:PromptDraft,currentBody:string){
 export async function ensurePromptDraft(type:'video'|'image',id?:string,source:PromptSource={},options:{fresh?:boolean}={}):Promise<PromptDraft>{
  if(id){const draft=await readDraft(id);if(!draft)throw new Error('prompt_draft_missing');if(draft.type!==type)throw new Error('prompt_draft_type_mismatch');return draft;}
  if(!source.projectId&&!source.nodeId){const active=await withDatabase(undefined,db=>transact(db,['diagnostics'],'readonly',tx=>requestResult<{draftId?:string}|undefined>(tx.objectStore('diagnostics').get('prompt-active:'+type))));if(active?.draftId){const previous=await readDraft(active.draftId);if(previous?.type===type)return previous;}}
- const existing=(await listDrafts()).find(d=>d.type===type&&d.sourceProjectId===source.projectId&&d.sourceNodeId===source.nodeId&&d.sourceRevision===source.revision);
- if(existing&&!options.fresh)return existing;
+ const drafts=await listDrafts();
+ const existing=drafts.find(d=>d.type===type&&d.sourceProjectId===source.projectId&&d.sourceNodeId===source.nodeId&&d.sourceRevision===source.revision);
+ if(!options.fresh){
+  if(existing&&(!source.nodeId||existing.revision>1||existing.userRequest.trim()||existing.resultVersions.length))return existing;
+  if(source.projectId&&source.nodeId){
+   const previous=drafts.filter(d=>d.type===type&&d.sourceProjectId===source.projectId&&d.sourceNodeId===source.nodeId&&d.id!==existing?.id&&(d.revision>1||!!d.userRequest.trim()||d.resultVersions.length>0)).sort((a,b)=>(b.sourceRevision??-1)-(a.sourceRevision??-1)||b.revision-a.revision)[0];
+   if(previous)return previous;
+  }
+  if(existing)return existing;
+ }
  let userRequest='';let requestedSpec:PromptDraft['requestedSpec']={};
  if(source.projectId){const graph=await readGraph(source.projectId);if(!graph||source.revision!==undefined&&graph.revision!==source.revision)throw new Error('prompt_source_revision_conflict');const node=graph.nodes.find(n=>n.id===source.nodeId);if(source.nodeId&&!node)throw new Error('prompt_source_node_missing');if(node?.type==='text')userRequest=source.currentText??node.data.text;if(node?.type==='video-generation')requestedSpec={durationSeconds:node.data.draft.durationSeconds,ratio:node.data.draft.ratio};}
  const draft=promptDraftSchema.parse({id:crypto.randomUUID(),revision:0,type,ruleVersion:VIDEO_RULE_VERSION,userRequest,sceneId:'text',requestedSpec,audioPlan:'',lockedConstraints:[],references:[],resultVersions:[],...(source.projectId?{sourceProjectId:source.projectId}:{}),...(source.nodeId?{sourceNodeId:source.nodeId}:{}),...(source.revision!==undefined?{sourceRevision:source.revision}:{})});
