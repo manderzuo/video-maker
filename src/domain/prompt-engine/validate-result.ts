@@ -1,5 +1,5 @@
 import {promptCompileInputSchema,promptResultVersionSchema,type PromptCompileInput,type PromptResultVersion} from '../prompt';
-import type {CapabilityProfile} from '../connection';
+import {unverifiedCapabilities,type CapabilityProfile} from '../connection';
 import type {ValidationIssue} from '../common';
 import {resolveConstraints} from './constraints';
 export function validatePromptResult(raw:PromptResultVersion,input:PromptCompileInput,caps:CapabilityProfile):ValidationIssue[]{
@@ -36,4 +36,10 @@ export function validatePromptResult(raw:PromptResultVersion,input:PromptCompile
  for(const ref of input.references){if(aliases.has(ref.alias))issue('reference_alias_duplicate','references','引用别名重复。');aliases.add(ref.alias);if(ref.assetId){if(assets.has(ref.assetId))issue('reference_asset_duplicate','references','素材重复引用。');assets.add(ref.assetId);}if(!ref.assetId||!ref.available||ref.unbound)issue('reference_unbound',`references.${ref.alias}`,'引用没有可用的本地素材。');if(ref.mediaType==='audio'||/首帧|尾帧/.test(ref.role))issue('reference_role_unverified',`references.${ref.alias}`,'此引用角色需另行核验Core契约，当前仅用于写作。');}
  for(const token of new Set(segments.flatMap(text=>[...text.matchAll(/@(图片|视频|音频)\d+/g)].map(m=>m[0]))))if(!aliases.has(token))issue('reference_dangling','finalPrompt',`引用 ${token} 未关联素材。`);
  return issues;
+}
+// Writing can be used without a video execution contract. Keep all text, lock,
+// duration and reference-token checks; execution eligibility is checked separately.
+export function validatePromptTextResult(result:PromptResultVersion,input:PromptCompileInput):ValidationIssue[]{
+ const executionOnly=new Set(['capabilities_unverified','shot_duration_unsupported','execution_spec_unsupported','reference_unbound','reference_role_unverified']);
+ return validatePromptResult(result,input,unverifiedCapabilities()).filter(issue=>!executionOnly.has(issue.code));
 }

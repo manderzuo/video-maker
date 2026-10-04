@@ -36,8 +36,8 @@ test('new independent text profile clears the old address and model while preser
  await expect(page.getByLabel('文字 API 状态',{exact:true})).toContainText('配置缺失');
  await expect(saved).toContainText('已有文字档案');
  await page.getByLabel('文字 API 地址',{exact:true}).fill('https://new-text.example.invalid/v1');
- await expect(page.getByLabel('文字 API 状态',{exact:true})).toContainText('配置已变更 · 待只读核验');
- await expect(page.getByLabel('文字 API 状态',{exact:true})).not.toContainText('上次只读验证');
+ await expect(page.getByLabel('文字 API 状态',{exact:true})).toContainText('配置已变更 · 待连接测试');
+ await expect(page.getByLabel('文字 API 状态',{exact:true})).not.toContainText('上次连接测试');
  await saved.selectOption('text-profile:'+profile.id);
  await expect(page.getByLabel('文字 API 地址',{exact:true})).toHaveValue(profile.originSnapshot);
  await expect(page.locator('.text-api-settings').getByRole('status')).not.toContainText('正在新增独立文字连接');

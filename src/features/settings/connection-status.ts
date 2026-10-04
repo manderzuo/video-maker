@@ -10,7 +10,7 @@ type StatusInput={configured:boolean;authorized:boolean;channel?:ConnectionChann
 export function deriveConnectionStatus(input:StatusInput){
  const result=(code:string,label:string,tone='neutral')=>({code,label,tone});
  if(!input.configured)return result('missing','配置缺失');
- if(input.draftChanged)return result('unverified','配置已变更 · 待只读核验','pending');
+ if(input.draftChanged)return result('unverified','配置已变更 · 待连接测试','pending');
  if(input.checking)return result('checking','检测中…','checking');
  if(input.failure)return result('failed','检测失败','failed');
  if(!input.authorized)return result('unauthorized','已配置 · 本标签页未授权','pending');
@@ -21,13 +21,13 @@ export function deriveConnectionStatus(input:StatusInput){
  if(input.channel==='video'&&input.capabilityVerified===false)return result('capability-unverified','目录可用 · 视频能力待核验','pending');
  if(input.channel==='text'&&input.enabled===false)return result('enable-required','目录可用 · 待启用文字','pending');
  if(input.generationVerified)return result('generated','真实生成已验证','success');
- return result('readonly','只读连接成功 · 目录可用','readonly');
+ return result('readonly','已连接 · 生成待验证','success');
 }
 export function safeConnectionFailure(error:unknown){
  const value=error&&typeof error==='object'?error as {httpStatus?:unknown;category?:unknown;message?:unknown}:{};
  const status=typeof value.httpStatus==='number'&&Number.isInteger(value.httpStatus)&&value.httpStatus>=100&&value.httpStatus<=599?'HTTP '+value.httpStatus+' · ':'';
  const reasons:Record<string,string>={authentication:'凭据未通过验证',forbidden:'服务拒绝访问',quota:'额度受限',rate_limited:'服务限流',not_found:'接口或模型未找到',unavailable:'服务暂不可用',protocol:'响应协议无效'};
- return status+(value.message==='connection_check_timeout'?'只读检查超时':typeof value.category==='string'&&Object.hasOwn(reasons,value.category)?reasons[value.category]:'未取得可核验结果');
+ return status+(value.message==='connection_check_timeout'?'连接测试超时':typeof value.category==='string'&&Object.hasOwn(reasons,value.category)?reasons[value.category]:'未取得可核验结果');
 }
 const listeners=new Set<()=>void>();
 const notify=()=>{for(const listener of listeners)listener();};
@@ -88,6 +88,13 @@ export function connectionStatusView(channel:ConnectionChannel,options:StatusOpt
 }
 // Called only from successful, explicitly approved business flows, never checks or imports.
 export function observeGeneration(client:CoreClient,channel:ConnectionChannel,model:string,spec?:string){
- const stamp=identity(client);return()=>{const active=channel==='text'?getIndependentText()??getActiveCore():getActiveCore(),record=records.get(recordId(channel,client.profile));if(!hasSessionCredential(client.binding.id)||identity(client)!==stamp||active?.client.binding.id!==client.binding.id||!record||record.stamp!==stamp||record.mock||record.stale||!record.models.includes(model))return false;const at=Date.now(),scope=(channel==='text'?'文字模型 ':'视频模型 ')+model+(spec?' · '+spec:'');record.generation={stamp,model,spec,at,scope};record.generationHistory={at,scope};notify();void withDatabase(undefined,db=>transact(db,['diagnostics'],'readwrite',async tx=>{const id='connection-status:'+recordId(channel,client.profile),previous=await requestResult<Record<string,unknown>|undefined>(tx.objectStore('diagnostics').get(id));if(previous&&identity(client)===stamp&&hasSessionCredential(client.binding.id))tx.objectStore('diagnostics').put({...previous,generationHistory:{at,scope}});})).catch(()=>{});return true;};
+ const stamp=identity(client);return()=>{const active=channel==='text'?getIndependentText()??getActiveCore():getActiveCore(),record=records.get(recordId(channel,client.profile));if(!hasSessionCredential(client.binding.id)||identity(client)!==stamp||active?.client.binding.id!==client.binding.id||!record||record.stamp!==stamp||record.mock||!record.models.includes(model))return false;record.stale=false;record.failure=undefined;const at=Date.now(),scope=(channel==='text'?'文字模型 ':'视频模型 ')+model+(spec?' · '+spec:'');record.generation={stamp,model,spec,at,scope};record.generationHistory={at,scope};notify();void withDatabase(undefined,db=>transact(db,['diagnostics'],'readwrite',async tx=>{const id='connection-status:'+recordId(channel,client.profile),previous=await requestResult<Record<string,unknown>|undefined>(tx.objectStore('diagnostics').get(id));if(previous&&identity(client)===stamp&&hasSessionCredential(client.binding.id))tx.objectStore('diagnostics').put({...previous,generationHistory:{at,scope}});})).catch(()=>{});return true;};
 }
 export function resetConnectionStatus(){for(const channel of checks.keys())cancelConnectionCheck(channel);checks.clear();records.clear();selected.clear();candidates.clear();submittedVideos.clear();}
+// Capture authorization before dispatch: an old response cannot change a new Key's state.
+export function observeGenerationFailure(client:CoreClient,channel:ConnectionChannel){
+ const stamp=identity(client);return(failure:{httpStatus?:number})=>{const active=channel==='text'?getIndependentText()??getActiveCore():getActiveCore(),record=records.get(recordId(channel,client.profile));if(!hasSessionCredential(client.binding.id)||identity(client)!==stamp||active?.client.binding.id!==client.binding.id||!record||record.stamp!==stamp||record.mock)return false;
+  const categories:Record<number,string>={401:'authentication',403:'forbidden',402:'quota',404:'not_found',429:'rate_limited',500:'unavailable',502:'unavailable',503:'unavailable',504:'unavailable'};
+  record.failure=safeConnectionFailure({httpStatus:failure.httpStatus,category:categories[failure.httpStatus??0]});record.stale=true;record.generation=undefined;notify();return true;
+ };
+}

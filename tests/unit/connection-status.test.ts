@@ -9,6 +9,12 @@ import {unverifiedCapabilities} from '../../src/domain/connection';
 const modulePath='../../src/features/settings/connection-status';
 const status=await import(/* @vite-ignore */ modulePath).catch(()=>undefined);
 beforeEach(()=>{credentials.clearSessionCredentials();clearActiveCore();clearActiveText();status?.resetConnectionStatus();});
+it('connection success clearly separates API access from actual generation verification',()=>{
+ const base={configured:true,authorized:true,readonlyVerified:true};
+ expect(status!.deriveConnectionStatus(base).label).toBe('已连接 · 生成待验证');
+ expect(status!.deriveConnectionStatus({...base,generationVerified:true}).label).toBe('真实生成已验证');
+ expect(status!.deriveConnectionStatus({...base,authorized:false}).label).not.toContain('已连接');
+});
 it('credential changes notify observers without exposing Key material',()=>{
  const api=credentials as typeof credentials&{subscribeSessionCredentials?:(f:()=>void)=>()=>void;credentialRevision?:(id:string)=>number};
  expect(api.subscribeSessionCredentials).toBeTypeOf('function');expect(api.credentialRevision).toBeTypeOf('function');
@@ -74,6 +80,21 @@ it('catalog membership alone cannot declare a model available when the reviewed 
 it('approved completion upgrades only matching current authorization/model and ignores mock or obsolete completion',()=>{
  const c=client();setActiveCore(c,f.caps());status!.rememberReadonlyStatus('video',c,['fake-text-only','fake-video-only'],{mock:true});expect(status!.observeGeneration(c,'text','fake-text-only')()).toBe(false);
  status!.rememberReadonlyStatus('video',c,['fake-text-only','fake-video-only']);const complete=status!.observeGeneration(c,'text','fake-text-only');expect(complete()).toBe(true);expect(status!.connectionStatusView('text',{model:'fake-text-only'}).code).toBe('generated');expect(status!.connectionStatusView('text',{model:'other'}).code).not.toBe('generated');credentials.forgetSessionCredential(c.binding.id);expect(complete()).toBe(false);expect(status!.connectionStatusView('text').code).toBe('unauthorized');
+});
+it('actual authentication rejection invalidates catalog success and a subsequent successful text request recovers it',()=>{
+ const c=client();setActiveCore(c,f.caps());status!.rememberReadonlyStatus('video',c,['fake-text-only','fake-video-only']);
+ expect(status?.observeGenerationFailure).toBeTypeOf('function');
+ const fail=status!.observeGenerationFailure(c,'text'),complete=status!.observeGeneration(c,'text','fake-text-only');
+ expect(fail({httpStatus:401})).toBe(true);const view=status!.connectionStatusView('text');
+ expect(view.code).toBe('failed');expect(view.failure).toContain('401');expect(view.label).not.toContain('已连接');
+ expect(complete()).toBe(true);expect(status!.connectionStatusView('text').code).toBe('generated');
+});
+it('a late failure cannot invalidate replacement authorization or a mock connection',()=>{
+ const c=client();setActiveCore(c,f.caps());status!.rememberReadonlyStatus('video',c,['fake-text-only']);
+ expect(status?.observeGenerationFailure).toBeTypeOf('function');const fail=status!.observeGenerationFailure(c,'text');
+ const replacement=client();setActiveCore(replacement,f.caps());status!.rememberReadonlyStatus('video',replacement,['fake-text-only']);
+ expect(fail({httpStatus:401})).toBe(false);expect(status!.connectionStatusView('text').code).toBe('readonly');
+ status!.rememberReadonlyStatus('video',replacement,['fake-text-only'],{mock:true});expect(status!.observeGenerationFailure(replacement,'text')({httpStatus:401})).toBe(false);
 });
 it('enabling a new text model on the same current binding preserves its in-memory Key',()=>{
  const c=client();c.binding={...c.binding,kind:'text-api'};const caps=f.caps({videoModels:[],videoSpecs:[]});setActiveText(c,caps);setActiveText(c,{...caps,textModels:['other-text']});expect(credentials.hasSessionCredential(c.binding.id)).toBe(true);
