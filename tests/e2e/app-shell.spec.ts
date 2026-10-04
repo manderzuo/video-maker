@@ -1,8 +1,8 @@
 import {test,expect} from '../helpers/network-guard';
-test('T11-C01/C02: local mode enters projects and eight owned navigation entries are available',async({page,networkCounter})=>{
+test('T11-C01/C02: local mode enters projects and nine owned navigation entries are available',async({page,networkCounter})=>{
  await page.goto('/welcome');await page.getByRole('button',{name:'进入本地模式',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);
- await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link')).toHaveCount(8);
- for(const name of ['项目','素材','提示词生成','提示词库','任务','活动','设置','帮助'])await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name,exact:true})).toBeVisible();
+ await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link')).toHaveCount(9);
+ for(const name of ['项目','画布','素材','提示词生成','提示词库','任务','活动','设置','帮助'])await expect(page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name,exact:true})).toBeVisible();
  expect(networkCounter.requests.filter(r=>r.method==='POST')).toHaveLength(0);await page.screenshot({path:'docs/review/screenshots/T11-shell-dark.png'});
 });
 test('T11 welcome: unsafe address is rejected, Key visibility resets on blur and no credentials persist',async({page,networkCounter})=>{

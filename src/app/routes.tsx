@@ -13,6 +13,7 @@ export function LocalLink({href='/',onClick,...props}:AnchorHTMLAttributes<HTMLA
 export const routeTitle=(pathname:string)=>{
  if(pathname==='/welcome')return '开始你的创作项目';
  if(pathname==='/projects')return '项目';
+ if(pathname==='/canvas')return '画布';
  if(pathname==='/projects/packages')return '项目导入导出';
  if(pathname==='/assets')return '素材库';
  if(pathname==='/prompt-generator')return '提示词生成';
