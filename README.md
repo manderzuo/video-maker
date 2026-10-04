@@ -177,3 +177,5 @@ npm run test:e2e
 图片参考需要网关提供 `/v1/assets`、普通用户 `assets:write` 权限和 `image_asset_ids` 视频请求字段。本机单图参考登记见 [契约记录](deploy/seedance-image-reference-review.json)；对既有网关可运行 `node --experimental-strip-types scripts/apply-seedance-image-reference-review.mjs <runtime.json> <固定Core源码src目录>`，源码哈希不符会拒绝应用。脚本保留服务/授权身份、视频规格与写入许可，仅登记单张图片和32 MiB上传上限；视频参考、远端续写和取消继续门控。当前图参考不保证严格首帧锁定，也不自动拼接。
 
 2026-10-04 已在用户原项目实际完成一次尾帧 PNG 上传及 Seedance 图片参考生成，5秒/16:9/480p 请求成功、成片本地缓存并播放。实际媒体为5.088秒、864×496，账务响应未提供扣点信息；其他规格没有因此获得真实验证。结果证据见 `docs/review/evidence/QA45.json`。
+
+“尾帧续写”窗口支持直接点击“AI润色”，使用设置中已启用的文字模型。原始想法保留，润色结果在同一窗口显示并可编辑；点击“确认并进入画布”后才创建连接尾帧图片、文本和视频参数的草稿。润色仅发送文字、不上传尾帧，视频生成另行确认。关闭窗口不创建画布节点；未知文字请求在再次调用前必须核对，不自动重发。
