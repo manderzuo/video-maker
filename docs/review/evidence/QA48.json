@@ -21,7 +21,7 @@
   {"command":"npm run test:unit","exitCode":0,"passed":480,"failed":0,"skipped":0,"files":66,"log":"work/qa-20261005/video-lineage/unit-verified.log"},
   {"command":"npm run test:e2e -- tests/e2e/result-revision-source.spec.ts tests/e2e/project-package.spec.ts","exitCode":0,"passed":7,"failed":0,"skipped":0,"log":"work/qa-20261005/video-lineage/package-regression.log"},
   {"command":"npm run typecheck","exitCode":0,"log":"work/qa-20261005/video-lineage/typecheck-verified.log"},
-  {"command":"npx eslint [本轮修改的20个TypeScript文件，完整命令见REPORT.md]","exitCode":0,"log":"work/qa-20261005/video-lineage/lint-verified.log"},
+  {"command":"npx eslint src/domain/graph.ts src/domain/graph-validation.ts src/application/runs/preflight.ts src/application/commands/apply-command.ts src/application/commands/registry.ts src/infrastructure/storage/project-repository.ts src/infrastructure/packages/import-project.ts src/features/review/tail-frame.ts src/features/review/TailFrameContinuationDialog.tsx src/features/review/result-revision.ts src/features/review/ResultRevisionDialog.tsx src/features/review/ResultPrimaryActions.tsx src/features/canvas/CanvasConnections.tsx src/features/canvas/InputInspector.tsx src/features/canvas/nodes/VideoNode.tsx src/features/prompt-generation/workspace-service.ts tests/unit/tail-source-input.test.ts tests/unit/project-package.test.ts tests/e2e/result-revision-source.spec.ts tests/e2e/continuation-polish.spec.ts","exitCode":0,"log":"work/qa-20261005/video-lineage/lint-verified.log"},
   {"command":"node scripts/check-ui-identities.mjs","exitCode":0,"missing":0,"log":"work/qa-20261005/video-lineage/ui-identities-verified.log"},
   {"command":"npm run build","exitCode":0,"log":"work/qa-20261005/video-lineage/build-verified.log"}
  ],
