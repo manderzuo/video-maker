@@ -1,0 +1,62 @@
+{
+  "id": "QA47",
+  "date": "2026-10-04",
+  "request": "画布独立入口，进入后选择项目",
+  "status": "完成，自检通过；待用户及独立审查",
+  "review": "待审查",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "8402ca823826f276318e0f31c98e9cc6b5fb3463",
+  "implementationCommit": "51c57be62d95809cbfe6966aae030293380f8f18",
+  "changes": [
+    "主导航新增画布，独立/canvas路由先选择项目，再进入原项目画布",
+    "画布顶栏新增切换项目，复用未保存修改拦截和写者租约",
+    "项目列表读取失败可刷新重试，回收站项目不列出，归档项目明确标记",
+    "空列表可进入已有新建项目窗口，保留项目管理页原入口",
+    "导航高亮归属画布，导航偏好可以保存/canvas且不保存项目ID或URL查询"
+  ],
+  "modifiedFiles": [
+    "README.md", "src/app/App.tsx", "src/app/navigation.ts", "src/app/routes.tsx",
+    "src/features/canvas/CanvasEntryPage.tsx", "src/features/canvas/CanvasPage.tsx",
+    "src/features/settings/preferences-store.ts", "tests/e2e/canvas-entry.spec.ts", "tests/e2e/app-shell.spec.ts",
+    "docs/review/evidence/QA47.json"
+  ],
+  "checks": [
+    {"command": "npm run test:e2e -- tests/e2e/canvas-entry.spec.ts -g 'chooses and switches'", "exitCode": 1, "passed": 0, "failed": 1, "skipped": 0, "reason": "修改前主导航没有画布，真实点击目标缺失", "log": "work/qa-20261004/canvas-entry/red.log"},
+    {"command": "npm run test:e2e -- tests/e2e/canvas-entry.spec.ts", "exitCode": 1, "passed": 1, "failed": 2, "skipped": 0, "reason": "初始选择器隐式标签包含选项文本，精确标签查找失败；实现改为显式label/htmlFor后通过，未降低断言", "log": "work/qa-20261004/canvas-entry/green.log"},
+    {"command": "npm run test:e2e -- tests/e2e/canvas-entry.spec.ts", "exitCode": 0, "passed": 3, "failed": 0, "skipped": 0, "log": "work/qa-20261004/canvas-entry/green2.log"},
+    {"command": "npm run test:e2e -- tests/e2e/canvas-entry.spec.ts tests/e2e/app-shell.spec.ts tests/e2e/navigation-memory.spec.ts tests/e2e/navigation-storage-faults.spec.ts tests/e2e/project-library.spec.ts", "exitCode": 0, "passed": 24, "failed": 0, "skipped": 0, "log": "work/qa-20261004/canvas-entry/browser-final.log"},
+    {"command": "npm run test:unit", "exitCode": 0, "passed": 477, "failed": 0, "skipped": 0, "files": 65, "log": "work/qa-20261004/canvas-entry/unit.log"},
+    {"command": "npm run typecheck", "exitCode": 0, "log": "work/qa-20261004/canvas-entry/typecheck-final.log"},
+    {"command": "npx eslint src/app/App.tsx src/app/navigation.ts src/app/routes.tsx src/features/canvas/CanvasEntryPage.tsx src/features/canvas/CanvasPage.tsx src/features/settings/preferences-store.ts tests/e2e/canvas-entry.spec.ts tests/e2e/app-shell.spec.ts", "exitCode": 0, "log": "work/qa-20261004/canvas-entry/lint-final.log"},
+    {"command": "node scripts/check-ui-identities.mjs", "exitCode": 0, "missing": 0, "log": "work/qa-20261004/canvas-entry/ui-identities.log"},
+    {"command": "npm run build", "exitCode": 0, "log": "work/qa-20261004/canvas-entry/build.log"}
+  ],
+  "live": {
+    "browser": "Chrome原浏览器，新建验收标签页；原项目标签页未刷新",
+    "url": "http://127.0.0.1:4188/canvas",
+    "projectId": "0bff3b09-ffc5-4fa7-aab1-436b95710e2b",
+    "projectTitle": "按钮综合测试",
+    "clicks": ["画布导航", "项目下拉选择", "进入画布", "切换项目", "刷新项目列表", "新建项目", "取消创建", "管理项目"],
+    "result": "入口可见，选择后进入原画布、切换后返回入口；新建打开已有窗口；其他标签持有写权时保持只读",
+    "originalTabPreserved": true,
+    "projectOrGraphEdits": 0,
+    "textGenerations": 0,
+    "videoGenerations": 0,
+    "mediaUploads": 0,
+    "screenshot": "work/qa-20261004/canvas-entry/live-entry-selected.png",
+    "screenshotLimitation": "一次fullPage截图超时，改为文档支持的视口截图成功，未改换浏览器通道"
+  },
+  "serving": {"port": 4188, "statusCode": 200, "bundle": "index-CwhFeXGF.js"},
+  "limitations": [
+    "仅本轮相关回归通过，不等于全项目所有按钮或完整verify通过",
+    "用户原页面运行旧包且保持内存授权；新标签页运行新包，不继承原Key",
+    "原项目只有一个，实际跨两个项目切换使用隔离浏览器里的项目甲/乙验证",
+    "既有全局交互映射未覆盖或宣称完成，新控件由本文件与新浏览器用例记录",
+    "未进行独立审查；既有视频参数确认稳定性、视觉、许可及其他遗留验收门槛继续保留",
+    "仅本地提交本轮文件，未推送，保留既有未提交审计资料"
+  ],
+  "report": "work/qa-20261004/canvas-entry/REPORT.md",
+  "nextSteps": "docs/review/NEXT_STEPS.md"
+}
