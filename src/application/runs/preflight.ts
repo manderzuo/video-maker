@@ -18,10 +18,10 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
  if(!graphSchema.safeParse(input.graph).success)add('graph_invalid','画布数据无效');
  if(!input.canWrite)add('project_writer_required','当前画布只读，请先取得写权');
  if(input.dirty)add('unsaved_changes','请先保存当前修改，再重新预检');
- if(!input.credentialAvailable)add('session_credential_required','请在当前标签连接普通用户授权');
+ if(!input.credentialAvailable)add('session_credential_required','当前标签页未连接视频 API。刷新页面后 Key 会清除；请到设置重新输入视频网关 Key 并测试连接，再返回生成。');
  const {capability:cap,connection,binding,graph}=input;
- if(cap.verification==='unknown'||!cap.videoSpecs.length||!connection||cap.contractVersion!==connection.contractVersion)add('capability_unverified','服务能力尚未核验，无法批准执行');
- if(!binding||!connection||binding.connectionId!==connection.id||binding.originSnapshot!==connection.originSnapshot)add('original_authorization_required','服务与授权身份不匹配');
+ if(cap.verification==='unknown'||!cap.videoSpecs.length||connection&&cap.contractVersion!==connection.contractVersion)add('capability_unverified','服务能力尚未核验，无法批准执行');
+ if(input.credentialAvailable&&(!binding||!connection)||binding&&connection&&(binding.connectionId!==connection.id||binding.originSnapshot!==connection.originSnapshot))add('original_authorization_required','服务与授权身份不匹配');
  if(!input.nodeIds.length)add('selection_empty','请选择视频配置节点');
  if(new Set(input.nodeIds).size!==input.nodeIds.length)add('selection_duplicate','执行节点重复');
  const nodes:PlannedVideo[]=[];
