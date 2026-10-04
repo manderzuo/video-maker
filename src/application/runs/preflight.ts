@@ -8,6 +8,7 @@ import {validateConnection} from '../../domain/graph-validation';
 import {videoRunSnapshotSchema} from './prepare-request';
 import {fingerprintText} from './fingerprint';
 import type {Run} from '../../domain/run';
+import {executionPrompt} from './execution-prompt';
 export type RunDraftInput={graph:Graph;nodeIds:string[];assets:Asset[];readableAssetIds:string[];capability:CapabilityProfile;connection?:ConnectionProfile;binding?:AuthBinding;canWrite:boolean;dirty?:boolean;credentialAvailable:boolean;priorRuns?:Run[]};
 export type PlannedVideo={nodeId:string;title:string;inputSnapshot:VideoRunSnapshot;assets:{assetId:string;sha256:string;bytes:number;mimeType:string;title:string}[];dependencies:string[]};
 export type RunPlan={approvalId:string;projectId:string;revision:number;connection:ConnectionProfile;binding:AuthBinding;capability:CapabilityProfile;nodes:PlannedVideo[];priorUnknownRunIds:string[];planHash:string;expiresAt:number};
@@ -48,9 +49,9 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
    }else add('upstream_output_unseen','执行输入必须是已看见的文字、素材或固定结果，不能提前批准未见输出',nodeId);
   }
   for(const token of tokens){if(token.unbound||!token.available||!token.assetId||!references.some(r=>r.assetId===token.assetId))add('reference_unbound','提示词参考未绑定到本次明确连接的素材',nodeId);else {const ref=references.find(r=>r.assetId===token.assetId)!;ref.alias=token.alias;}}
-  const prompt=texts.join('\n\n');
+  const originalPrompt=texts.join('\n\n'),prompt=executionPrompt(originalPrompt,spec);
   for(const match of prompt.matchAll(/@(?:图片|视频|音频)[0-9]+/g))if(!references.some(r=>r.alias===match[0]))add('reference_alias_unbound','提示词中的 '+match[0]+' 没有明确绑定到本次素材',nodeId);
-  if(!prompt.trim())add('prompt_empty','缺少明确连接的提示词正文',nodeId);
+  if(!originalPrompt.trim())add('prompt_empty','缺少明确连接的提示词正文',nodeId);
   if(!cap.limits?.promptBytes||new TextEncoder().encode(prompt).byteLength>Math.min(cap.limits.promptBytes,65536))add('prompt_limit_unverified_or_exceeded','提示词字节超限或上限尚未核验',nodeId);
   for(const mediaType of ['image','video'] as const){const count=references.filter(r=>r.mediaType===mediaType).length,limit=cap.limits?.[mediaType==='image'?'imageReferences':'videoReferences'];if(count&&(limit===undefined||count>limit))add('reference_limit_unverified_or_exceeded','参考数量超限或上限尚未核验',nodeId);}
   if(new Set(references.map(r=>r.assetId)).size!==references.length||new Set(references.map(r=>r.alias)).size!==references.length)add('reference_identity_duplicate','参考素材或别名重复，请明确整理',nodeId);

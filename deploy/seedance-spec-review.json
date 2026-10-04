@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "modelId": "seedance",
+  "verification": "reviewed",
+  "sourceCommit": "345670bb3c4e6eb673afcb412e7a1dbd17eeffae",
+  "sourceFile": "starlink-dimension-router/src/user_routes.rs",
+  "sourceSha256": "fca8c5a85148e0b17a58bc47f6e18f41e905c867074f52b9231f0697b8a3e7a4",
+  "durationSeconds": [2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+  "ratios": ["16:9","9:16","1:1","4:3","3:4","21:9"],
+  "resolutions": ["480p","720p","1080p","4k"],
+  "liveVerifiedSpec": {"modelId":"seedance","durationSeconds":5,"ratio":"16:9","resolution":"480p"},
+  "limitations": ["其他规格仅完成固定源码契约审阅，尚未逐项真实生成验证；服务最终准入和成片规格以实际回执为准", "不开放未经核验的素材上传、远端续写或取消能力"]
+}

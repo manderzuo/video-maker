@@ -48,7 +48,8 @@ export function PromptWorkspace({draftId,source,initialAI=false,compact=false,on
   if(!canApply())return false;
   choose(version);setOutput(version.finalPrompt);body.current=version.finalPrompt;dirtyOutput.current=false;setChecked(false);setChecks([]);return true;
  }
- const composing=useRef(false);
+ const composing=useRef(false),initialAIStarted=useRef(false);
+ useEffect(()=>{if(initialAI&&draft&&!initialAIStarted.current){initialAIStarted.current=true;void beginAI();}},[initialAI,draft]);
  const current=useRef<PromptDraft|undefined>(undefined),body=useRef(''),dirtyInput=useRef(false),dirtyOutput=useRef(false),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),saving=useRef<Promise<boolean>|undefined>(undefined),mounted=useRef(false),restoreGuard=useRef<()=>void>(()=>{}),leave=useRef<()=>void>(()=>{});
  const update=(next:PromptDraft)=>{current.current=next;if(mounted.current)setDraft(next);};
  const showError=(text:string)=>{if(mounted.current){setError(text);setStatus('尚未保存 · 草稿保留');}};
@@ -78,8 +79,8 @@ useEffect(()=>{mounted.current=true;let active=true;void(async()=>{try{const d=a
   if(JSON.stringify(resolution.resolved.requestedSpec)!==JSON.stringify(current.current!.requestedSpec)){change({requestedSpec:resolution.resolved.requestedSpec});if(!await flush())return;}
   const frozen=current.current!;const compiled=compileVideoPrompt(compileInput(frozen));const version:PromptResultVersion={...compiled,id:crypto.randomUUID(),sourceRevision:frozen.revision,origin:'local',validationState:'unchecked',createdAt:Date.now()};await appendPromptResult(draftId,frozen.revision,version);const latest=(await readDraft(draftId))!;update({...current.current!,resultVersions:latest.resultVersions});if(!await showSavedResult(version))return;setTab('prompt');setStatus('已保存');}catch{setError('本地整理失败：请检查创意非空、规格和编译后文本64KiB限制。原结果保留。');}
  }
- async function beginAI(event:MouseEvent<HTMLButtonElement>){
-  aiTrigger.current=event.currentTarget;if(aiPending.current)return;aiPending.current=true;setAiSending(true);
+ async function beginAI(event?:MouseEvent<HTMLButtonElement>){
+  aiTrigger.current=event?.currentTarget;if(aiPending.current)return;aiPending.current=true;setAiSending(true);
   try{if(!await flush())return;const active=getPromptTextConnection(),model=active?.capability.textModels.find(id=>isTextOnlyModel(id,active.capability));if(!active||!model){setError('请先在设置中启用文字连接，普通Key仅在当前标签页内存。');return;}
    const frozen=structuredClone(current.current!),preview=await preparePromptOptimization(draftId,{textModelId:model,referenceAliases:[]},active);
    if(preview.priorUnknownRunIds.length){setAiSource(frozen);setAiPreview(preview);return;}

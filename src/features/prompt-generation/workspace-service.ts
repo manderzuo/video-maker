@@ -26,9 +26,14 @@ export async function ensurePromptDraft(type:'video'|'image',id?:string,source:P
   }
   if(existing)return existing;
  }
- let userRequest='';let requestedSpec:PromptDraft['requestedSpec']={};
- if(source.projectId){const graph=await readGraph(source.projectId);if(!graph||source.revision!==undefined&&graph.revision!==source.revision)throw new Error('prompt_source_revision_conflict');const node=graph.nodes.find(n=>n.id===source.nodeId);if(source.nodeId&&!node)throw new Error('prompt_source_node_missing');if(node?.type==='text')userRequest=source.currentText??node.data.text;if(node?.type==='video-generation')requestedSpec={durationSeconds:node.data.draft.durationSeconds,ratio:node.data.draft.ratio};}
- const draft=promptDraftSchema.parse({id:crypto.randomUUID(),revision:0,type,ruleVersion:VIDEO_RULE_VERSION,userRequest,sceneId:'text',requestedSpec,audioPlan:'',lockedConstraints:[],references:[],resultVersions:[],...(source.projectId?{sourceProjectId:source.projectId}:{}),...(source.nodeId?{sourceNodeId:source.nodeId}:{}),...(source.revision!==undefined?{sourceRevision:source.revision}:{})});
+ let userRequest='';let requestedSpec:PromptDraft['requestedSpec']={};const lockedConstraints:PromptDraft['lockedConstraints']=[];let sceneId='text';
+ if(source.projectId){const graph=await readGraph(source.projectId);if(!graph||source.revision!==undefined&&graph.revision!==source.revision)throw new Error('prompt_source_revision_conflict');const node=graph.nodes.find(n=>n.id===source.nodeId);if(source.nodeId&&!node)throw new Error('prompt_source_node_missing');if(node?.type==='text')userRequest=source.currentText??node.data.text;if(node?.type==='video-generation'){
+  userRequest=graph.edges.filter(e=>e.targetId===node.id&&e.port==='text').sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)).map(e=>graph.nodes.find(n=>n.id===e.sourceId)).map(n=>n?.type==='text'?n.data.text:'').filter(Boolean).join('\n\n');
+  requestedSpec={durationSeconds:node.data.draft.durationSeconds,ratio:node.data.draft.ratio};
+  for(const field of ['durationSeconds','ratio'] as const){const value=requestedSpec[field];if(value!==undefined)lockedConstraints.push({id:'video-selection:'+field,field,originalValue:String(value),acceptedValue:String(value),locked:true});}
+  if(/续写|延长/.test(node.title))sceneId='extension';
+ }}
+ const draft=promptDraftSchema.parse({id:crypto.randomUUID(),revision:0,type,ruleVersion:VIDEO_RULE_VERSION,userRequest,sceneId,requestedSpec,audioPlan:'',lockedConstraints,references:[],resultVersions:[],...(source.projectId?{sourceProjectId:source.projectId}:{}),...(source.nodeId?{sourceNodeId:source.nodeId}:{}),...(source.revision!==undefined?{sourceRevision:source.revision}:{})});
  const saved=await saveDraft(draft,0);if(saved.status!=='saved')throw new Error('prompt_draft_save_failed');return {...draft,revision:saved.revision};
 }
 export async function readPromptResources(source:PromptSource={},includeLibrary=false){
