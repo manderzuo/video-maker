@@ -1,0 +1,35 @@
+{
+  "samples": [
+    {
+      "nodeCount": 50,
+      "panP95Ms": 7,
+      "inputP95Ms": 8.199999988079071,
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "nodeCount": 200,
+      "panP95Ms": 14.900000000000091,
+      "inputP95Ms": 7.199999988079071,
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ],
+  "save": {
+    "graphBytes": 1048576,
+    "samples": 20,
+    "p95Ms": 20.299999982118607,
+    "network": {
+      "coreWrites": 0,
+      "paidRequests": 0,
+      "blockedRequests": 0
+    }
+  },
+  "executedReport": "docs/review/logs/QA50-performance-executed.json"
+}

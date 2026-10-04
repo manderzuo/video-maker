@@ -1,0 +1,389 @@
+{
+  "id": "QA50",
+  "date": "2026-10-05",
+  "status": "代码修复与可执行自动化/真实流程自检完成；人工视觉与独立审查待进行",
+  "review": "待审查",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "495315bbf9b4a2fc549373be3eba7021b9ce89f4",
+  "implementationCommit": "04362ef4118473cec5788ae6379c2763cd7f6bfd",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "remotePush": false,
+  "formalRelease": false,
+  "audit": {
+    "mode": "单实施者整体风险自审",
+    "findingsClosed": 17,
+    "scope": "领域、命令事务、来源关联、输入/队列/执行身份、未知提交恢复、文字/Agent、媒体交付、导入导出、租约、凭据脱敏与Companion门控；非全部历史代码逐行或独立安全审计"
+  },
+  "modifiedFiles": [
+    "README.md",
+    "docs/superpowers/specs/AIWORK_Studio_Video_Lineage_2026-10-05.md",
+    "playwright.distribution.config.ts",
+    "src/app/App.tsx",
+    "src/application/commands/apply-command.ts",
+    "src/application/commands/prompt-to-canvas.ts",
+    "src/application/commands/registry.ts",
+    "src/application/runs/graph-plan.ts",
+    "src/application/runs/preflight.ts",
+    "src/domain/graph-validation.ts",
+    "src/domain/graph.ts",
+    "src/features/assets/reference-index.ts",
+    "src/features/canvas/CanvasConnections.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/InputInspector.tsx",
+    "src/features/canvas/branch-command.ts",
+    "src/features/canvas/nodes/VideoNode.tsx",
+    "src/features/prompt-generation/workspace-service.ts",
+    "src/features/review/TailFrameContinuationDialog.tsx",
+    "src/features/review/result-revision.ts",
+    "src/features/review/tail-frame.ts",
+    "src/features/settings/connection-status.ts",
+    "src/infrastructure/packages/import-project.ts",
+    "src/ui/tokens.css",
+    "tests/e2e/api-connection-status.spec.ts",
+    "tests/e2e/prompt-workspace.spec.ts",
+    "tests/e2e/result-revision-source.spec.ts",
+    "tests/unit/connection-status.test.ts",
+    "tests/unit/project-commands.test.ts",
+    "tests/unit/project-package.test.ts",
+    "tests/unit/prompt-canvas.test.ts",
+    "src/features/review/lineage-repair.ts",
+    "src/features/review/result-source-link.ts",
+    "src/infrastructure/storage/result-source-history.ts",
+    "tests/unit/lineage-edges.test.ts",
+    "tests/unit/result-revision-placement.test.ts",
+    "tests/unit/distribution-evidence.test.ts"
+  ],
+  "checks": [
+    {
+      "command": "npm run verify",
+      "exitCode": 1,
+      "log": "work/qa-20261005/overall-audit/verify-final.log",
+      "stages": [
+        {
+          "command": "npm run typecheck",
+          "exitCode": 0
+        },
+        {
+          "command": "npm run lint",
+          "exitCode": 0
+        },
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "passed": 492,
+          "failed": 0,
+          "skipped": 0,
+          "files": 69
+        },
+        {
+          "command": "npm run test:e2e",
+          "exitCode": 0,
+          "passed": 521,
+          "failed": 0,
+          "skipped": 0,
+          "executedReport": "docs/review/logs/QA50-browser-executed.json"
+        },
+        {
+          "command": "npm run test:coverage",
+          "exitCode": 0,
+          "report": "docs/review/logs/QA50-coverage.json"
+        },
+        {
+          "command": "npm run test:security",
+          "exitCode": 0,
+          "passed": 8,
+          "failed": 0,
+          "skipped": 0,
+          "negativeGuard": "inner rejection exit1 expected; harness exit0"
+        },
+        {
+          "command": "npm run test:trace",
+          "exitCode": 1,
+          "passed": 35,
+          "failed": 1,
+          "skipped": 0,
+          "gate": {
+            "test": "T02-G02",
+            "file": "tests/planning/visual-baseline.test.mjs",
+            "line": 40,
+            "required": "human visual state approvals and independent review approval",
+            "pendingCriticalStates": 48,
+            "independentReview": "pending"
+          }
+        },
+        {
+          "command": "build/bundle/companion/distribution in verify",
+          "status": "未执行，&&在人工门槛停止；后续独立执行见下项"
+        }
+      ]
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/api-connection-status.spec.ts --grep QA50 topbar immediately",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/red-topbar-valid.log"
+    },
+    {
+      "command": "vitest run tests/unit/distribution-evidence.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/red-distribution-evidence.log"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/api-connection-status.spec.ts",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/green-topbar.log"
+    },
+    {
+      "command": "vitest run tests/unit/distribution-evidence.test.ts",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/green-distribution-evidence.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "work/qa-20261005/overall-audit/build-final.log"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "log": "work/qa-20261005/overall-audit/bundle-final.log"
+    },
+    {
+      "command": "npm run companion:build",
+      "exitCode": 0,
+      "log": "work/qa-20261005/overall-audit/companion-final.log"
+    },
+    {
+      "command": "npm run test:distribution",
+      "exitCode": 0,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/distribution-final.log",
+      "executedReport": "docs/review/logs/QA50-distribution-executed.json"
+    },
+    {
+      "command": "npm run test:live-guard",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/live-guard-final.log"
+    },
+    {
+      "command": "npm run test:performance",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/performance-final.log",
+      "executedReport": "docs/review/logs/QA50-performance-executed.json"
+    },
+    {
+      "command": "npm run verify (toolchain bootstrap omitted in this attempt)",
+      "exitCode": 1,
+      "passedBrowserTests": 518,
+      "failedBrowserTests": 3,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/verify-final-environment-failed.log",
+      "executedReport": "work/qa-20261005/overall-audit/environment-full-executed.json",
+      "failureKind": "environment; zero actions before browser context closed / missing executable path",
+      "traces": "work/qa-20261005/overall-audit/environment-failures/failures.json"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/preferences-reset-scope.spec.ts tests/e2e/real-browser-zoom.spec.ts",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/overall-audit/environment-recheck.log"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "log": "work/qa-20261005/overall-audit/diff-check-final.log"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exitCode": 0,
+      "log": "work/qa-20261005/overall-audit/staged-code-check.log"
+    },
+    {
+      "command": "git commit (only this batch code/spec/README/tests)",
+      "exitCode": 0,
+      "commit": "04362ef4118473cec5788ae6379c2763cd7f6bfd",
+      "log": "work/qa-20261005/overall-audit/code-commit.log"
+    }
+  ],
+  "coverage": {
+    "complete": true,
+    "errors": [],
+    "summary": {
+      "interactions": 260,
+      "pages": 23,
+      "dialogs": 30,
+      "passed": 260
+    },
+    "review": "待用户统一验收与独立审查",
+    "report": "docs/review/logs/QA50-coverage.json"
+  },
+  "supplementalControls": "docs/review/evidence/QA50-controls.json",
+  "live": {
+    "projectId": "0bff3b09-ffc5-4fa7-aab1-436b95710e2b",
+    "projectTitle": "按钮综合测试",
+    "url": "http://127.0.0.1:4188",
+    "revision": 44,
+    "nodes": 20,
+    "edges": 17,
+    "textGenerations": 3,
+    "videoGenerations": 2,
+    "PNGUploads": 2,
+    "spec": {
+      "modelId": "seedance",
+      "durationSeconds": 5,
+      "ratio": "16:9",
+      "resolution": "480p"
+    },
+    "actualMedia": {
+      "seconds": 5.088,
+      "width": 864,
+      "height": 496,
+      "cached": true,
+      "playedToEnd": true
+    },
+    "billingState": "not_provided",
+    "realFlowBundle": "index-AEf4QXJR.js",
+    "finalServed": {
+      "checkedAt": "2026-10-04T19:30:05.7434686Z",
+      "bundle": "/assets/index-QEvzZiKi.js",
+      "bundleStatus": 200,
+      "status": 200
+    },
+    "finalStatusReactiveFix": "原生Mock完整提交/轮询/缓存证明；未为此重发真实视频",
+    "originalFrozenRunsUnchanged": {
+      "revision": 44,
+      "checks": [
+        {
+          "id": "7f20363f-dedd-4ae0-9e60-ae0704171562",
+          "beforeHash": "5ef4084d7d3c8440a5d2aa0085b0e17be0863a557a601315a29620014da6a01a",
+          "afterHash": "5ef4084d7d3c8440a5d2aa0085b0e17be0863a557a601315a29620014da6a01a",
+          "unchanged": true
+        },
+        {
+          "id": "907abfe7-72ab-4b92-98fd-d5a50859c1d8",
+          "beforeHash": "3ec32d0b9eea37a700cf66d0a23fae61df8653820c4c107bc308205308d9fce1",
+          "afterHash": "3ec32d0b9eea37a700cf66d0a23fae61df8653820c4c107bc308205308d9fce1",
+          "unchanged": true
+        },
+        {
+          "id": "ddfe93a9-312c-49f9-94cf-4d7427978851",
+          "beforeHash": "2b4c45275b289915e0c003e6b5bacfcbf64abe1a8dcb2e7399e6272d2f456b87",
+          "afterHash": "2b4c45275b289915e0c003e6b5bacfcbf64abe1a8dcb2e7399e6272d2f456b87",
+          "unchanged": true
+        },
+        {
+          "id": "ea25c560-d0de-4678-b942-667a961996ee",
+          "beforeHash": "3760c3472f87f99538ce6612a52cad01c39c540121a87498c40fe6da86f196db",
+          "afterHash": "3760c3472f87f99538ce6612a52cad01c39c540121a87498c40fe6da86f196db",
+          "unchanged": true
+        }
+      ],
+      "allUnchanged": true
+    },
+    "textRuns": "work/qa-20261005/overall-audit/live-text-runs.json",
+    "network": [
+      "work/qa-20261005/overall-audit/live-network.json",
+      "work/qa-20261005/overall-audit/live-revision-network.json"
+    ]
+  },
+  "screenshots": [
+    "work/qa-20261005/overall-audit/live-complete-source-chain.png",
+    "work/qa-20261005/overall-audit/live-revision-polished.png",
+    "work/qa-20261005/overall-audit/live-revision-video-confirm.png",
+    "work/qa-20261005/overall-audit/live-revision-video-result.png",
+    "work/qa-20261005/overall-audit/live-tail-dialog-polished.png",
+    "work/qa-20261005/overall-audit/live-api-verified.png"
+  ],
+  "limitations": [
+    "完整verify因人工视觉48状态及独立审查尚未批准exit1；不伪造通过",
+    "用户原Chrome新成片下载落地未核验；隔离测试原创媒体下载通过不替代它",
+    "实际扣点明细未提供，不声称费用或退款已核验",
+    "只真实验证5秒16:9 480p组合，其他线上规格未全部成片验证",
+    "前端标识授权继续为正式发布门槛",
+    "原片局部编辑、远端取消和未核验图片/音频能力继续门控",
+    "曾误写报告环境变量覆盖一轮JSON，保留原日志及真实失败JSON；最终以新完整521例记录为准"
+  ],
+  "report": "docs/review/QA50_REPORT.md",
+  "nextSteps": "docs/review/NEXT_STEPS.md",
+  "executionEnvironment": {
+    "bootstrap": ". ./scripts/use-local-toolchain.ps1",
+    "node": "v22.23.3",
+    "npm": "11.6.2",
+    "browser": "chromium",
+    "browserPath": "E:/trae-studio/tools/playwright-browsers",
+    "temporaryDirectory": "E:/trae-studio/tools/temp"
+  },
+  "performance": {
+    "samples": [
+      {
+        "nodeCount": 50,
+        "panP95Ms": 7,
+        "inputP95Ms": 8.199999988079071,
+        "network": {
+          "coreWrites": 0,
+          "paidRequests": 0,
+          "blockedRequests": 0
+        }
+      },
+      {
+        "nodeCount": 200,
+        "panP95Ms": 14.900000000000091,
+        "inputP95Ms": 7.199999988079071,
+        "network": {
+          "coreWrites": 0,
+          "paidRequests": 0,
+          "blockedRequests": 0
+        }
+      }
+    ],
+    "save": {
+      "graphBytes": 1048576,
+      "samples": 20,
+      "p95Ms": 20.299999982118607,
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    "executedReport": "docs/review/logs/QA50-performance-executed.json"
+  },
+  "credentialLeakCheck": {
+    "checked": 3483,
+    "matchedFiles": [],
+    "passed": true,
+    "scope": [
+      "src",
+      "tests",
+      "dist",
+      "companion/dist",
+      "docs/review/evidence",
+      "docs/review/logs",
+      "work/qa-20261005/overall-audit",
+      "work/qa-20261005/visible-lineage"
+    ],
+    "excludes": "User credential input file, cookies, browser profiles and production databases are not scanned."
+  }
+}

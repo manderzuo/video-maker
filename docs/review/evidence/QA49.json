@@ -1,0 +1,157 @@
+{
+  "id": "QA49",
+  "date": "2026-10-05",
+  "request": "画布真实串联生成来源、视频、尾帧、续写及修改关系；删除关联即断线",
+  "status": "完成、自检通过；待用户与独立审查",
+  "review": "待审查",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "495315bbf9b4a2fc549373be3eba7021b9ce89f4",
+  "implementationCommit": "04362ef4118473cec5788ae6379c2763cd7f6bfd",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "changes": [
+    "真实可编辑的生成结果、尾帧来源、修改来源连线",
+    "来源线与执行参考隔离",
+    "准确原Run生成归属与显式本地旧尾帧补齐",
+    "来源端口重新连接、删除、撤销与保存恢复",
+    "同事务新增原结果与来源更新；损坏及歧义阻断"
+  ],
+  "checks": [
+    {
+      "command": "vitest run tests/unit/lineage-edges.test.ts",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/red-unit.log"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/result-revision-source.spec.ts",
+      "exitCode": 1,
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/red-browser.log"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/result-revision-source.spec.ts",
+      "exitCode": 1,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/red-repair-browser.log"
+    },
+    {
+      "command": "vitest run tests/unit/lineage-edges.test.ts",
+      "exitCode": 1,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/red-result-line.log"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/result-revision-source.spec.ts --grep corrupt cached",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/red-integrity-browser-valid.log"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/result-revision-source.spec.ts tests/e2e/continuation-polish.spec.ts tests/e2e/tail-frame-polish.spec.ts tests/e2e/canvas-connections.spec.ts tests/e2e/result-review.spec.ts tests/e2e/project-package.spec.ts",
+      "exitCode": 0,
+      "passed": 40,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/browser-final.log",
+      "limitation": "在最后新来源节点事务修复前"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/result-revision-source.spec.ts --grep missing original video node",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/red-new-source-transaction.log"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/result-revision-source.spec.ts --grep missing original video node",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/visible-lineage/green-new-source-transaction.log"
+    },
+    {
+      "command": "vitest run",
+      "exitCode": 0,
+      "passed": 482,
+      "failed": 0,
+      "skipped": 0,
+      "files": 67,
+      "log": "work/qa-20261005/visible-lineage/unit-final.log"
+    },
+    {
+      "command": "tsc --noEmit",
+      "exitCode": 0,
+      "log": "work/qa-20261005/visible-lineage/typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": "work/qa-20261005/visible-lineage/lint.log"
+    },
+    {
+      "command": "vite build",
+      "exitCode": 0,
+      "log": "work/qa-20261005/visible-lineage/build-fixed.log"
+    }
+  ],
+  "live": {
+    "url": "http://127.0.0.1:4188/projects/0bff3b09-ffc5-4fa7-aab1-436b95710e2b/canvas",
+    "projectTitle": "按钮综合测试",
+    "browser": "用户原 Chrome 浏览器的验收标签页",
+    "revisionBefore": 31,
+    "revisionAfterRepair": 32,
+    "revisionAfterUndo": 33,
+    "revisionAfterRedoReload": 34,
+    "nodesBefore": 10,
+    "nodesAfter": 11,
+    "edgesBefore": 5,
+    "edgesAfter": 9,
+    "actions": [
+      "明确补齐来源连线",
+      "实际查看原生成草稿—视频—帧—续写链",
+      "撤销恢复原创作关系",
+      "重做并刷新恢复来源关系"
+    ],
+    "textGenerations": 0,
+    "videoGenerations": 0,
+    "uploads": 0,
+    "generationNote": "后续QA50真实调用另计"
+  },
+  "screenshots": [
+    {
+      "path": "work/qa-20261005/visible-lineage/live-source-chain.png",
+      "kind": "4188实际用户项目"
+    },
+    {
+      "path": "work/qa-20261005/visible-lineage/isolated-tail-chain.png",
+      "kind": "原生隔离浏览器原创媒体"
+    },
+    {
+      "path": "work/qa-20261005/visible-lineage/isolated-revision-chain.png",
+      "kind": "原生隔离浏览器原创媒体"
+    }
+  ],
+  "limitations": [
+    "人工视觉和独立审查待进行",
+    "许可及未核验上游原片编辑能力保留门槛",
+    "定位器/视口导致的无效初次失败保留在REPORT中，不算行为红灯",
+    "未确认旧备份下载落地，不写成成功备份",
+    "完整最终回归、真实业务与补充交互证据由QA50汇总"
+  ],
+  "report": "work/qa-20261005/visible-lineage/REPORT.md",
+  "nextSteps": "docs/review/NEXT_STEPS.md",
+  "finalValidation": "最终同版本整体回归见QA50：492单元、521浏览器通过；人工门槛未豁免"
+}

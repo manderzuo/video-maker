@@ -1,0 +1,826 @@
+{
+  "format": "supplemental-source-lineage-controls",
+  "review": "待审查",
+  "executedReport": "docs/review/logs/QA50-browser-executed.json",
+  "note": "新增控件单独证明；未将其伪计入原计划260交互。隔离浏览器使用原生媒体和本地Mock，非真实业务调用。",
+  "controls": [
+    {
+      "id": "canvas:repair-lineage",
+      "file": "src/features/canvas/CanvasPage.tsx",
+      "sourceLine": 201,
+      "tests": [
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 identical frames from two videos remain unlinked because provenance is ambiguous",
+          "status": "passed",
+          "actions": 4,
+          "assertions": 5,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 16,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 16,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 16,
+              "column": 246
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 17,
+              "column": 719
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 16,
+              "column": 273
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 17,
+              "column": 765
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 17,
+              "column": 858
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 17,
+              "column": 908
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        },
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 corrupt cached frame cannot be assigned a video source by its manifest hash alone",
+          "status": "passed",
+          "actions": 4,
+          "assertions": 6,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 26,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 26,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 26,
+              "column": 246
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 28,
+              "column": 60
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 26,
+              "column": 273
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 28,
+              "column": 120
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 28,
+              "column": 206
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 28,
+              "column": 258
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 28,
+              "column": 314
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        },
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 repairs legacy frame by exact decoded hash and does not reconnect a deleted modern source line",
+          "status": "passed",
+          "actions": 7,
+          "assertions": 5,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 31,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 31,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 31,
+              "column": 248
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 33,
+              "column": 60
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 34,
+              "column": 65
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 34,
+              "column": 100
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 34,
+              "column": 174
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 31,
+              "column": 275
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 33,
+              "column": 153
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 33,
+              "column": 203
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 34,
+              "column": 257
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "canvas:result-output",
+      "file": "src/features/canvas/CanvasConnections.tsx",
+      "sourceLine": 77,
+      "tests": [
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 a missing original video node is created and linked to its producing draft in the same atomic save",
+          "status": "passed",
+          "actions": 3,
+          "assertions": 5,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 6,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 6,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 6,
+              "column": 248
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 6,
+              "column": 275
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 7,
+              "column": 75
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 7,
+              "column": 161
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 7,
+              "column": 211
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        },
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 generating draft links to exact result and the source port reconnects after deletion",
+          "status": "passed",
+          "actions": 8,
+          "assertions": 6,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 248
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 126
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 161
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 157
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 261
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 275
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 101
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 200
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 288
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 338
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "canvas:source-input",
+      "file": "src/features/canvas/CanvasConnections.tsx",
+      "sourceLine": 77,
+      "tests": [
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 generating draft links to exact result and the source port reconnects after deletion",
+          "status": "passed",
+          "actions": 8,
+          "assertions": 6,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 248
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 126
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 161
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 157
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 261
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 11,
+              "column": 275
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 101
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 12,
+              "column": 200
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 288
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 13,
+              "column": 338
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        },
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 source line can be manually reconnected with ports after disconnect without authorizing generation",
+          "status": "passed",
+          "actions": 8,
+          "assertions": 6,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 20,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 20,
+              "column": 175
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 20,
+              "column": 248
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 21,
+              "column": 97
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 21,
+              "column": 132
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 22,
+              "column": 58
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 22,
+              "column": 153
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 22,
+              "column": 226
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 20,
+              "column": 275
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 22,
+              "column": 305
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 23,
+              "column": 52
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 23,
+              "column": 94
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 23,
+              "column": 153
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        },
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA49 continuation draws Video A to its frame to Video B, with removable source relationship",
+          "status": "passed",
+          "actions": 8,
+          "assertions": 14,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 37,
+              "column": 90
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 38,
+              "column": 167
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 38,
+              "column": 244
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 44,
+              "column": 62
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 44,
+              "column": 97
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 48,
+              "column": 56
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 49,
+              "column": 60
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 49,
+              "column": 124
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 38,
+              "column": 86
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 38,
+              "column": 271
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 40,
+              "column": 23
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 40,
+              "column": 68
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 40,
+              "column": 214
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 41,
+              "column": 28
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 42,
+              "column": 70
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 43,
+              "column": 21
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 43,
+              "column": 78
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 45,
+              "column": 74
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 46,
+              "column": 94
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 47,
+              "column": 72
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 48,
+              "column": 132
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        },
+        {
+          "id": "tests/e2e/result-revision-source.spec.ts::QA48 modify result restores frozen prompt and creates editable new version without modifying original or submitting",
+          "status": "passed",
+          "actions": 9,
+          "assertions": 16,
+          "actionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 53,
+              "column": 93
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 55,
+              "column": 50
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 55,
+              "column": 142
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 60,
+              "column": 67
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 60,
+              "column": 102
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 62,
+              "column": 56
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 63,
+              "column": 60
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 63,
+              "column": 124
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 64,
+              "column": 57
+            }
+          ],
+          "assertionLocations": [
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 54,
+              "column": 124
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 55,
+              "column": 169
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 56,
+              "column": 192
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 56,
+              "column": 236
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 56,
+              "column": 338
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 57,
+              "column": 21
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 57,
+              "column": 63
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 57,
+              "column": 155
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 57,
+              "column": 262
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 58,
+              "column": 75
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 59,
+              "column": 65
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 60,
+              "column": 185
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 61,
+              "column": 99
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 62,
+              "column": 127
+            },
+            {
+              "file": "tests/e2e/result-revision-source.spec.ts",
+              "line": 64,
+              "column": 84
+            },
+            {
+              "file": "tests/helpers/network-guard.ts",
+              "line": 23,
+              "column": 101,
+              "function": "Object.base.extend.networkGuard.auto"
+            }
+          ],
+          "network": {
+            "coreWrites": 0,
+            "paidRequests": 0,
+            "blockedRequests": 0
+          }
+        }
+      ]
+    }
+  ],
+  "realProject": {
+    "revision": 44,
+    "actions": [
+      "删除D视频→新尾帧来源线",
+      "补齐操作未恢复主动删除的来源线",
+      "用D视频输出与尾帧来源端口明确重连",
+      "删除修改草稿→D固定视频归属线",
+      "用草稿结果输出与固定视频来源端口明确重连"
+    ],
+    "newGenerationsDuringTheseActions": 0,
+    "frozenProof": "work/qa-20261005/overall-audit/live-frozen-identity-check.json",
+    "screenshot": "work/qa-20261005/overall-audit/live-complete-source-chain.png"
+  }
+}
