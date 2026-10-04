@@ -4,7 +4,7 @@ import type {CapabilityProfile,ConnectionProfile} from '../../domain/connection'
 import type {AuthBinding} from '../../domain/authorization';
 import type {VideoRunSnapshot} from './prepare-request';
 import type {ValidationIssue} from '../../domain/common';
-import {validateConnection} from '../../domain/graph-validation';
+import {validateConnection,resolvedInputAssetId,tailFrameInput} from '../../domain/graph-validation';
 import {videoRunSnapshotSchema} from './prepare-request';
 import {fingerprintText} from './fingerprint';
 import type {Run} from '../../domain/run';
@@ -38,16 +38,16 @@ export function preflightRun(input:RunDraftInput):PreflightResult{
    const source=graph.nodes.find(n=>n.id===edge.sourceId);
    if(source?.type==='text'){texts.push(source.data.text);tokens.push(...source.data.referenceTokens);}
    else if(source?.type==='asset'||source?.type==='result'){
-    const asset=input.assets.find(a=>a.id===source.data.assetId);
+    const frame=tailFrameInput(source,edge.port),asset=input.assets.find(a=>a.id===resolvedInputAssetId(source,edge.port));
     // The unauthenticated UI path has not read blobs yet. Do not call an
     // unperformed check a missing file; authorized execution still checks it.
     if(!asset||asset.trashedAt!=null||input.credentialAvailable&&!input.readableAssetIds.includes(asset.id)){add('reference_blob_missing','参考素材缺失或本地文件不可读',nodeId);continue;}
     if(asset.mediaType!=='image'&&asset.mediaType!=='video'){add('reference_media_unsupported','此素材类型尚未开放执行',nodeId);continue;}
     const closed=cap.limits?.[asset.mediaType==='image'?'imageReferences':'videoReferences']===0;
     if(asset.bytes<=0||cap.limits?.assetBytes&&asset.bytes>Math.min(cap.limits.assetBytes,32*1024*1024)||!closed&&!cap.limits?.assetBytes)add('reference_size_invalid','素材大小超限或上限尚未核验',nodeId);
-    if(source.type==='result'&&asset.sourceRunId!==source.data.runId)add('result_binding_mismatch','结果素材与原任务绑定不匹配',nodeId);
+    if(source.type==='result'&&!frame&&asset.sourceRunId!==source.data.runId)add('result_binding_mismatch','结果素材与原任务绑定不匹配',nodeId);
     const count=references.filter(r=>r.mediaType===asset.mediaType).length+1;
-    references.push({assetId:asset.id,mediaType:asset.mediaType,role:'参考',alias:'@'+(asset.mediaType==='image'?'图片':'视频')+count,nodeId:source.id,...(source.type==='result'?{runId:source.data.runId}:{}),sha256:asset.sha256,bytes:asset.bytes});
+    references.push({assetId:asset.id,mediaType:asset.mediaType,role:'参考',alias:'@'+(asset.mediaType==='image'?'图片':'视频')+count,nodeId:source.id,...(frame?{runId:frame.sourceRunId}:source.type==='result'?{runId:source.data.runId}:{}),sha256:asset.sha256,bytes:asset.bytes});
     plannedAssets.push({assetId:asset.id,sha256:asset.sha256,bytes:asset.bytes,mimeType:asset.mimeType,title:asset.title});
    }else add('upstream_output_unseen','执行输入必须是已看见的文字、素材或固定结果，不能提前批准未见输出',nodeId);
   }

@@ -39,12 +39,15 @@ export async function createTailFrameDraft(input:{projectId:string;baseRevision:
  return withDatabase(options.db,async db=>{
   const source=await readSource(input.frame.sourceRun.id,db);if(JSON.stringify(source.run)!==JSON.stringify(input.frame.sourceRun)||JSON.stringify(source.asset)!==JSON.stringify(input.frame.sourceAsset)||await hashBlob(source.blob)!==source.asset.sha256)throw Error('result_source_changed');
   const graph=await readGraph(input.projectId,db);if(!graph)throw Error('graph_missing');const x=Math.max(0,...graph.nodes.map(n=>nodeRect(n,graph).right))+64;
-  const prepared=await prepareCanvasFiles([input.frame.file],{x,y:0},db),assetOp=prepared.operations[0];if(assetOp.type!=='add_node')throw Error('tail_frame_node_missing');const imageNode=nodeSchema.parse(assetOp.payload.node),imageId=imageNode.id,videoId=crypto.randomUUID(),textId=crypto.randomUUID();assetOp.payload.node={...imageNode,title:'尾帧参考'};
+  const prepared=await prepareCanvasFiles([input.frame.file],{x,y:0},db),assetOp=prepared.operations[0];if(assetOp.type!=='add_node')throw Error('tail_frame_node_missing');const imageNode=nodeSchema.parse(assetOp.payload.node);if(imageNode.type!=='asset')throw Error('tail_frame_node_missing');
+  const tailFrame={assetId:imageNode.data.assetId,sourceAssetId:source.asset.id,sourceRunId:source.run.id,timeSeconds:input.frame.timeSeconds};
+  const existing=graph.nodes.find(n=>(n.type==='asset'||n.type==='result')&&n.data.assetId===source.asset.id&&!n.locked&&(n.type!=='result'||n.data.runId===source.run.id)),sourceId=existing?.id??crypto.randomUUID(),videoId=crypto.randomUUID(),textId=crypto.randomUUID();
+  const sourceOp:GraphOperation=existing?{id:crypto.randomUUID(),type:'update_node',payload:{nodeId:existing.id,patch:{data:{...existing.data,tailFrame}}}}:{id:crypto.randomUUID(),type:'add_node',payload:{node:{id:sourceId,type:'result',title:'原视频 · '+[...source.asset.title].slice(0,50).join(''),x,y:0,locked:false,data:{kind:'result',assetId:source.asset.id,runId:source.run.id,tailFrame}}}};
   const draft=structuredClone(source.run.executionSpec??source.run.requestedSpec??videoRunSnapshotSchema.parse(source.run.inputSnapshot).spec);
-  const operations:GraphOperation[]=[...prepared.operations,
+  const operations:GraphOperation[]=[sourceOp,
    {id:crypto.randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'续写提示词',x,y:340,locked:false,data:{kind:'text',text:prompt,referenceTokens:[]}}}},
    {id:crypto.randomUUID(),type:'add_node',payload:{node:{id:videoId,type:'video-generation',title:'尾帧续写视频',x:x+460,y:0,locked:false,data:{kind:'video-generation',draft,inputBindings:[],stale:true}}}},
-   {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId:imageId,targetId:videoId,port:'image',order:0}}},
+   {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId,targetId:videoId,port:'image',order:0}}},
    {id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId:textId,targetId:videoId,port:'text',order:1}}}];
   const lease=options.lease??await getProjectWriter(input.projectId,db);
   try{const receipt=await applyUiCommand({id:input.commandId,projectId:input.projectId,baseRevision:input.baseRevision,operations},{db,lease,beforeCreativeCommit:async tx=>{

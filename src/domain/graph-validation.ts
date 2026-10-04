@@ -1,9 +1,11 @@
-import {edgeSchema,type Edge,type Graph,type InputBinding} from './graph';
+import {edgeSchema,type Edge,type Graph,type InputBinding,type CanvasNode} from './graph';
 import type {CapabilityProfile} from './connection';
 import type {Asset} from './asset';
 import type {ValidationResult} from './common';
 export type ReferenceLimits=Partial<Record<'text'|'image'|'video',number>>;
 export type ConnectionResources={assets?:Asset[];limits?:ReferenceLimits};
+export function tailFrameInput(node:CanvasNode,port:Edge['port']){return (node.type==='asset'||node.type==='result')&&port==='image'?node.data.tailFrame:undefined;}
+export function resolvedInputAssetId(node:CanvasNode,port:Edge['port']){return tailFrameInput(node,port)?.assetId??((node.type==='asset'||node.type==='result')?node.data.assetId:undefined);}
 export function validateConnection(graph:Graph,edge:Edge,caps:CapabilityProfile,resources:ConnectionResources={}):ValidationResult<Edge>{
  const fail=(code:string,message:string):ValidationResult<Edge>=>({ok:false,issues:[{code,path:'edge',message}]});
  if(!edgeSchema.safeParse(edge).success)return fail('edge_invalid','连线字段无效');
@@ -12,7 +14,9 @@ export function validateConnection(graph:Graph,edge:Edge,caps:CapabilityProfile,
  if(target.type!=='video-generation')return fail('edge_target_type','仅视频草稿接收显式执行输入');
  if(source.type==='group'||source.type==='video-generation')return fail('edge_source_type','请选择文字、素材或已固定的结果，组不自动发送成员');
  const asset=source.type==='asset'||source.type==='result'?resources.assets?.find(a=>a.id===source.data.assetId):undefined;
- if(source.type==='text'&&edge.port!=='text'||source.type!=='text'&&(!asset||asset.trashedAt||asset.mediaType!==edge.port))return fail('edge_port_type','输出与输入类型不匹配或素材尚不可读');
+ const frame=tailFrameInput(source,edge.port),image=frame?resources.assets?.find(a=>a.id===frame.assetId):undefined;
+ if(frame&&(!asset||asset.trashedAt!=null||asset.mediaType!=='video'||frame.sourceAssetId!==asset.id||frame.sourceRunId!==asset.sourceRunId||source.type==='result'&&source.data.runId!==frame.sourceRunId||!image||image.trashedAt!=null||image.mediaType!=='image'))return fail('tail_frame_source_mismatch','尾帧与原视频绑定已变化或文件缺失，请重新从该视频提取尾帧');
+ if(source.type==='text'&&edge.port!=='text'||source.type!=='text'&&(!asset||asset.trashedAt!=null||!frame&&asset.mediaType!==edge.port))return fail('edge_port_type','输出与输入类型不匹配或素材尚不可读');
  const other=graph.edges.filter(e=>e.id!==edge.id),incoming=other.filter(e=>e.targetId===target.id);
  if(incoming.some(e=>e.sourceId===source.id&&e.port===edge.port))return fail('edge_duplicate','该输入已连接');
  if(incoming.some(e=>e.order===edge.order))return fail('edge_order_duplicate','输入序号重复，请明确重新排序');
@@ -22,5 +26,5 @@ export function validateConnection(graph:Graph,edge:Edge,caps:CapabilityProfile,
  return {ok:true,value:edge};
 }
 export function getOrderedInputs(graph:Graph,nodeId:string):InputBinding[]{
- return graph.edges.filter(e=>e.targetId===nodeId).slice().sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)).map(edge=>{const node=graph.nodes.find(n=>n.id===edge.sourceId);return {nodeId:edge.sourceId,order:edge.order,role:edge.port,...(node?.type==='asset'?{assetId:node.data.assetId}:node?.type==='result'?{assetId:node.data.assetId,runId:node.data.runId}:{})};});
+ return graph.edges.filter(e=>e.targetId===nodeId).slice().sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)).map(edge=>{const node=graph.nodes.find(n=>n.id===edge.sourceId),frame=node?tailFrameInput(node,edge.port):undefined;return {nodeId:edge.sourceId,order:edge.order,role:edge.port,...(frame?{assetId:frame.assetId,runId:frame.sourceRunId}:node?.type==='asset'?{assetId:node.data.assetId}:node?.type==='result'?{assetId:node.data.assetId,runId:node.data.runId}:{})};});
 }

@@ -3,6 +3,7 @@ import {promptDraftSchema,promptCompileInputSchema,type PromptDraft} from '../..
 import {VIDEO_RULE_VERSION} from '../../domain/prompt-engine/compile-video';
 import {withDatabase,transact,requestResult} from '../../infrastructure/storage/database';
 import {readGraph} from '../../infrastructure/storage/project-repository';
+import {resolvedInputAssetId} from '../../domain/graph-validation';
 import {listDrafts,saveDraft,readDraft} from './draft-repository';
 export type PromptSource={projectId?:string;nodeId?:string;revision?:number;currentText?:string};
 export async function rememberPromptDraft(draft:PromptDraft){await withDatabase(undefined,db=>transact(db,['diagnostics'],'readwrite',tx=>{tx.objectStore('diagnostics').put({id:'prompt-active:'+draft.type,kind:'prompt-active',draftId:draft.id});}));}
@@ -39,7 +40,7 @@ export async function ensurePromptDraft(type:'video'|'image',id?:string,source:P
 export async function readPromptResources(source:PromptSource={},includeLibrary=false){
  const ids=new Set<string>();const texts:{id:string;title:string;text:string}[]=[];
  if(source.projectId){const graph=await readGraph(source.projectId);const node=graph?.nodes.find(n=>n.id===source.nodeId);if(node?.type==='text')for(const r of node.data.referenceTokens)if(r.assetId)ids.add(r.assetId);
-  for(const edge of graph?.edges.filter(e=>e.targetId===source.nodeId)??[]){const upstream=graph?.nodes.find(n=>n.id===edge.sourceId);if(upstream?.type==='asset'||upstream?.type==='result')ids.add(upstream.data.assetId);if(upstream?.type==='text')texts.push({id:upstream.id,title:upstream.title,text:upstream.data.text});}
+  for(const edge of graph?.edges.filter(e=>e.targetId===source.nodeId)??[]){const upstream=graph?.nodes.find(n=>n.id===edge.sourceId);if(upstream?.type==='asset'||upstream?.type==='result'){const assetId=resolvedInputAssetId(upstream,edge.port);if(assetId)ids.add(assetId);}if(upstream?.type==='text')texts.push({id:upstream.id,title:upstream.title,text:upstream.data.text});}
  }
  return withDatabase(undefined,db=>transact(db,['assets','blobs','diagnostics'],'readonly',async tx=>({assets:includeLibrary?await requestResult<unknown[]>(tx.objectStore('assets').getAll()):(await Promise.all([...ids].map(id=>requestResult<unknown>(tx.objectStore('assets').get(id))))).filter(a=>a!==undefined),blobKeys:await requestResult(tx.objectStore('blobs').getAllKeys()),texts,capability:getActiveCore()?{capability:getActiveCore()!.capability}:await requestResult<{capability?:unknown}|undefined>(tx.objectStore('diagnostics').get('capability:current'))})));
 }

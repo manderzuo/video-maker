@@ -46,7 +46,11 @@ export async function applyCommand(envelope:unknown,context:CommandContext):Prom
    for(const operation of input.operations)if(operation.type==='update_node'&&'data'in operation.payload.patch){
     const changed=graph.nodes.find(n=>n.id===operation.payload.nodeId)!;
     if(changed.type==='asset'&&!assets.some(a=>a.id===changed.data.assetId&&!a.trashedAt))throw new Error('asset_reference_missing');
-    if(changed.type==='result')throw new Error('use_explicit_select_result');
+    if(changed.type==='result'){
+     const previous=before.nodes.find(n=>n.id===changed.id);if(previous?.type!=='result')throw new Error('use_explicit_select_result');
+     const withoutFrame=(data:typeof changed.data)=>{const copy={...data};delete copy.tailFrame;return copy;};
+     if(JSON.stringify(withoutFrame(previous.data))!==JSON.stringify(withoutFrame(changed.data)))throw new Error('use_explicit_select_result');
+    }
     for(const edge of graph.edges.filter(e=>e.sourceId===changed.id)){const valid=validateConnection(graph,edge,context.capability??unverifiedCapabilities(),{assets,limits:context.referenceLimits});if(!valid.ok)throw new Error(valid.issues[0].code);}
    }
    for(const operation of input.operations)if(operation.type==='add_node'){

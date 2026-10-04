@@ -5,9 +5,10 @@ export type ReferenceToken=z.infer<typeof referenceTokenSchema>;
 export const inputBindingSchema=z.strictObject({nodeId:id,assetId:id.optional(),runId:id.optional(),order:z.number().int().nonnegative(),role:z.string()});
 export type InputBinding=z.infer<typeof inputBindingSchema>;
 const textData=z.strictObject({kind:z.literal('text'),text:localText,referenceTokens:z.array(referenceTokenSchema),promptLibrarySource:z.strictObject({entryId:id,revision,source:z.string(),license:z.string()}).optional(),promptGenerationSource:z.strictObject({draftId:id,resultVersionId:id,sourceRevision:revision,origin:z.enum(['local','ai','manual']),ruleVersion:id}).optional()});
-const assetData=z.strictObject({kind:z.literal('asset'),assetId:id});
-const generationData=z.strictObject({kind:z.literal('video-generation'),draft:videoSpecSchema,inputBindings:z.array(inputBindingSchema),stale:z.boolean(),missingInputNodeIds:z.array(id).optional()});
-const resultData=z.strictObject({kind:z.literal('result'),assetId:id,runId:id,selectionRevision:revision.optional()});
+export const tailFrameSourceSchema=z.strictObject({assetId:id,sourceAssetId:id,sourceRunId:id,timeSeconds:z.number().finite().nonnegative()});
+const assetData=z.strictObject({kind:z.literal('asset'),assetId:id,tailFrame:tailFrameSourceSchema.optional()});
+const generationData=z.strictObject({kind:z.literal('video-generation'),draft:videoSpecSchema,inputBindings:z.array(inputBindingSchema),stale:z.boolean(),missingInputNodeIds:z.array(id).optional(),revisionSource:z.strictObject({projectId:id,runId:id,assetId:id.optional()}).optional()});
+const resultData=z.strictObject({kind:z.literal('result'),assetId:id,runId:id,selectionRevision:revision.optional(),tailFrame:tailFrameSourceSchema.optional()});
 const groupData=z.strictObject({kind:z.literal('group'),childIds:z.array(id),collapsed:z.boolean(),shotOrder:z.number().int().positive().optional()});
 const nodeBase={id,title:boundedText(1,60).refine(title=>!!title.trim(),'标题不能为空'),x:z.number(),y:z.number(),locked:z.boolean()};
 export const nodeSchema=z.discriminatedUnion('type',[

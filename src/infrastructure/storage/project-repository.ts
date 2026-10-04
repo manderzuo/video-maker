@@ -29,7 +29,7 @@ export async function saveProject(project:Project,expectedRevision:number,option
    tx.objectStore('projects').put(input);tx.objectStore('graphs').put(graph);
    const refs=tx.objectStore('references');
    const oldRows=await requestResult<{id:string;kind?:string}[]>(refs.index('projectId').getAll(input.id));for(const row of oldRows)if(row.kind!=='project-import')refs.delete(row.id);
-   const ids=new Set<string>();for(const node of graph.nodes){if(node.type==='asset'||node.type==='result')ids.add(node.data.assetId);if(node.type==='text')for(const ref of node.data.referenceTokens)if(ref.assetId)ids.add(ref.assetId);}
+   const ids=new Set<string>();for(const node of graph.nodes){if(node.type==='asset'||node.type==='result'){ids.add(node.data.assetId);if(node.data.tailFrame)ids.add(node.data.tailFrame.assetId)};if(node.type==='text')for(const ref of node.data.referenceTokens)if(ref.assetId)ids.add(ref.assetId);}
    for(const assetId of ids)refs.put({id:`${input.id}:${assetId}`,projectId:input.id,assetId,revision:input.revision});
    for(const assetId of importedIds)refs.put({id:`import:${input.id}:${assetId}`,projectId:input.id,assetId,revision:input.revision,kind:'project-import'});
    for(const run of runs)await putRunInTransaction(tx,run,{lease,expectedProjectRevision:input.revision});

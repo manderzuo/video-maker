@@ -30,7 +30,7 @@ export async function inspectImport(file:Blob,options:{legacy?:boolean}={}):Prom
  }catch{return {ok:false,errorCode:'import_unsafe',original:file};}
 }
 function remapCreative(value:unknown,maps:{project:Map<string,string>;node:Map<string,string>;asset:Map<string,string>;run:Map<string,string>;draft:Map<string,string>},key=''):unknown{
- if(typeof value==='string'){const map=['projectId','sourceProjectId'].includes(key)?maps.project:['nodeId','sourceNodeId','sourceId','targetId','childIds','missingInputNodeIds'].includes(key)?maps.node:['assetId','resultAssetId','assetIds'].includes(key)?maps.asset:['runId','sourceRunId'].includes(key)?maps.run:key==='draftId'?maps.draft:undefined;return map?map.get(value)??value:value;}
+ if(typeof value==='string'){const map=['projectId','sourceProjectId'].includes(key)?maps.project:['nodeId','sourceNodeId','sourceId','targetId','childIds','missingInputNodeIds'].includes(key)?maps.node:['assetId','sourceAssetId','resultAssetId','assetIds'].includes(key)?maps.asset:['runId','sourceRunId'].includes(key)?maps.run:key==='draftId'?maps.draft:undefined;return map?map.get(value)??value:value;}
  if(Array.isArray(value))return value.map(v=>remapCreative(v,maps,key));if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,remapCreative(v,maps,k)]));return value;
 }
 export async function commitImport(plan:ImportPlan,options:{db?:StudioDb}={}):Promise<Project>{
