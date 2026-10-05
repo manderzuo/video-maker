@@ -1,0 +1,42 @@
+{
+  "projectId": "0bff3b09-ffc5-4fa7-aab1-436b95710e2b",
+  "runId": "7f20363f-dedd-4ae0-9e60-ae0704171562",
+  "script": "index-Dlrr4Va5.js",
+  "play": {
+    "currentTime": 0.017655,
+    "displayWidth": 590,
+    "duration": 5.088,
+    "localBlob": true,
+    "paused": false,
+    "readyState": 4,
+    "videoHeight": 496,
+    "videoWidth": 864
+  },
+  "pause": {
+    "currentTime": 1.03352,
+    "paused": true
+  },
+  "seek": {
+    "currentTime": 0.088,
+    "paused": true
+  },
+  "close": {
+    "focusedButton": "▶ 播放视频",
+    "openDialogs": 0,
+    "playingVideos": 0
+  },
+  "unchanged": {
+    "runs": true,
+    "assets": true,
+    "nodes": true,
+    "edges": true
+  },
+  "network": {
+    "remoteHttpRequests": [],
+    "localBlobRequests": 14,
+    "extensionRequests": 1,
+    "truncated": false,
+    "hasMore": false
+  },
+  "review": "实施者自检，待用户审阅"
+}

@@ -1,0 +1,141 @@
+{
+  "id": "QA51",
+  "date": "2026-10-05",
+  "status": "画布视频播放实现与自检通过",
+  "review": "待审查",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "eb5891d8fd80f82d0c5918e7c42849d08282e494",
+  "implementationCommit": "ef81a79ad60fb57f115565b74fc90b1ac9fb9ef6",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "remotePush": false,
+  "formalRelease": false,
+  "modifiedFiles": [
+    "README.md",
+    "src/features/assets/AssetPreview.tsx",
+    "src/features/canvas/nodes/AssetNode.tsx",
+    "src/ui/dialog-contracts.ts",
+    "tests/e2e/canvas-video-play.spec.ts",
+    "tests/fixtures/result-review.ts"
+  ],
+  "behavior": [
+    "视频素材与固定结果节点显式播放按钮",
+    "点击后在画布内打开播放器，播放已有本地缓存；被浏览器策略拒绝时保留手动播放",
+    "只读历史或锁定素材也可播放；图片预览与音频默认行为保留",
+    "暂停、进度定位、关闭停止播放与焦点返回",
+    "缺失和损坏文件明确恢复提示；不上传或重新生成"
+  ],
+  "toolchain": {
+    "node": "22.23.3",
+    "npm": "11.6.2",
+    "browser": "Chromium",
+    "bootstrap": ". ./scripts/use-local-toolchain.ps1",
+    "browserEnvironment": {
+      "STUDIO_TEST_BROWSER": "chromium",
+      "STUDIO_COVERAGE_REPORT": "work/qa-20261005/canvas-video-play/<phase>-executed.json"
+    }
+  },
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-video-play.spec.ts -g 'result node click'",
+      "phase": "red",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "reason": "已渲染结果节点缺少播放视频按钮；不是环境失败",
+      "log": "work/qa-20261005/canvas-video-play/red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-video-play.spec.ts",
+      "phase": "green",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/canvas-video-play/green.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/canvas-video-play.spec.ts",
+      "phase": "final",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/canvas-video-play/final.log",
+      "evidence": "docs/review/logs/QA51-browser-executed.json"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/asset-library.spec.ts tests/e2e/result-review.spec.ts tests/e2e/result-studio.spec.ts tests/e2e/result-revision-source.spec.ts",
+      "exitCode": 0,
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0,
+      "log": "work/qa-20261005/canvas-video-play/regression.log",
+      "evidence": "docs/review/logs/QA51-regression-executed.json",
+      "versionNote": "播放控制为最终实现；之后只复用 review-media 样式和 compact 标签，最终五例已重跑"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 492,
+      "failed": 0,
+      "skipped": 0,
+      "files": 69,
+      "log": "work/qa-20261005/canvas-video-play/unit.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "work/qa-20261005/canvas-video-play/typecheck-final.log"
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "log": "work/qa-20261005/canvas-video-play/lint-final.log"
+    },
+    {
+      "command": "node scripts/check-ui-identities.mjs",
+      "exitCode": 0,
+      "missingIdentities": 0,
+      "log": "work/qa-20261005/canvas-video-play/ui-identities.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "work/qa-20261005/canvas-video-play/build-final.log"
+    }
+  ],
+  "actualUi": {
+    "origin": "http://127.0.0.1:4188",
+    "projectName": "按钮综合测试",
+    "runId": "7f20363f-dedd-4ae0-9e60-ae0704171562",
+    "script": "index-Dlrr4Va5.js",
+    "evidence": "docs/review/logs/QA51-actual-proof.json",
+    "durationSeconds": 5.088,
+    "width": 864,
+    "height": 496,
+    "displayWidth": 590,
+    "localBlob": true,
+    "clickPlaySucceeded": true,
+    "pauseSucceeded": true,
+    "keyboardSeekSucceeded": true,
+    "closeStoppedPlayback": true,
+    "focusReturned": true,
+    "originalNodesEdgesAssetsRunsUnchanged": true,
+    "remoteHttpCalls": 0,
+    "newPaidGenerations": 0,
+    "method": "Chrome连接器新标签使用原项目同源缓存；原用户标签未强制刷新"
+  },
+  "screenshots": [
+    "E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261005/canvas-video-play/actual-video-player.png",
+    "E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261005/canvas-video-play/actual-canvas-button.png",
+    "E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261005/canvas-video-play/isolated-player.png"
+  ],
+  "limitations": [
+    "本次为播放按钮变更的必要回归，未重新运行完整 verify 或全部521例",
+    "浏览器可拒绝开始播放，保留手动播放入口；文件缺失不自动联网取回",
+    "实施者自检不代替人工视觉和独立审查；既有发布门槛保留",
+    "只本地提交，未推送或正式发布"
+  ]
+}

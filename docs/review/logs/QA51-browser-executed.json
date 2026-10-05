@@ -1,0 +1,327 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/canvas-video-play.spec.ts::QA51 result node click plays cached video, supports pause and seek, and closes without changing content",
+      "file": "tests/e2e/canvas-video-play.spec.ts",
+      "title": "QA51 result node click plays cached video, supports pause and seek, and closes without changing content",
+      "status": "passed",
+      "assertions": 19,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 15,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 15,
+          "column": 107
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 16,
+          "column": 77
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 16,
+          "column": 147
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 17,
+          "column": 105
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 17,
+          "column": 180
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 18,
+          "column": 77
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 18,
+          "column": 148
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 21,
+          "column": 27
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 21,
+          "column": 62
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 21,
+          "column": 218
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 22,
+          "column": 52
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 22,
+          "column": 94
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 22,
+          "column": 143
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 22,
+          "column": 197
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 23,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 23,
+          "column": 172
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 23,
+          "column": 219
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 14,
+          "column": 15
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 16,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 17,
+          "column": 95
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 18,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 20,
+          "column": 130
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 23,
+          "column": 15
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-video-play.spec.ts::QA51 locked video asset node still plays when automatic playback preference is off",
+      "file": "tests/e2e/canvas-video-play.spec.ts",
+      "title": "QA51 locked video asset node still plays when automatic playback preference is off",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 29,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 29,
+          "column": 151
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 29,
+          "column": 198
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 28,
+          "column": 109
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-video-play.spec.ts::QA51 missing cached video gives an honest recovery message without remote calls",
+      "file": "tests/e2e/canvas-video-play.spec.ts",
+      "title": "QA51 missing cached video gives an honest recovery message without remote calls",
+      "status": "passed",
+      "assertions": 3,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 35,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 37,
+          "column": 38
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 34,
+          "column": 89
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-video-play.spec.ts::QA51 corrupt cached video gives an honest recovery message without remote calls",
+      "file": "tests/e2e/canvas-video-play.spec.ts",
+      "title": "QA51 corrupt cached video gives an honest recovery message without remote calls",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 35,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 36,
+          "column": 102
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 37,
+          "column": 38
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 34,
+          "column": 89
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/canvas-video-play.spec.ts::QA51 browser playback policy rejection retains usable manual play without a decode error",
+      "file": "tests/e2e/canvas-video-play.spec.ts",
+      "title": "QA51 browser playback policy rejection retains usable manual play without a decode error",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 42,
+          "column": 198
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 43,
+          "column": 42
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 44,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 44,
+          "column": 108
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 42,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/canvas-video-play.spec.ts",
+          "line": 43,
+          "column": 124
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}
