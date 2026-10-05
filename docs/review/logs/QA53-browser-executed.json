@@ -1,0 +1,1108 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 J06/J07 real native pause and withdrawal failures preserve original attempts; retries disable both controls until completion",
+      "status": "passed",
+      "assertions": 22,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 358
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 580
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 620
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 114
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 161
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 293
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 379
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 427
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 513
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 602
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 277
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 326
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 118
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 386
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 434
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 520
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 614
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 662
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 721
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 263
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 8,
+          "column": 497
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 9,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 10,
+          "column": 229
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 11,
+          "column": 110
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 C17/C18 restored queue cannot pause again and native resume preflight read failure preserves its frozen attempt without sending",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 387
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 983
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1023
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1104
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 1155
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 15,
+          "column": 899
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/queue-native-fault-contracts.spec.ts::T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+      "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+      "title": "T44 C17/C18 native pause failure keeps the pending original HTTP request and explicit retry stops later work without a new fee",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1505
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1675
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1850
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1890
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2003
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2060
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2119
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2170
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2215
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 2259
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1273
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1395
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1465
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1776
+        },
+        {
+          "file": "tests/e2e/queue-native-fault-contracts.spec.ts",
+          "line": 19,
+          "column": 1972
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/run-queue.spec.ts::T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST",
+      "file": "tests/e2e/run-queue.spec.ts",
+      "title": "T29: refreshed pending queue is visible and paused; resume opens fresh confirmation with zero POST",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 246
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 303
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 445
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 495
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 608
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 10,
+          "column": 531
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/run-queue.spec.ts::T29: actual pause while the first request waits keeps its response and stops the second submission",
+      "file": "tests/e2e/run-queue.spec.ts",
+      "title": "T29: actual pause while the first request waits keeps its response and stops the second submission",
+      "status": "passed",
+      "assertions": 8,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 811
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 965
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1009
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1060
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1124
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 1199
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 579
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 701
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 771
+        },
+        {
+          "file": "tests/e2e/run-queue.spec.ts",
+          "line": 14,
+          "column": 924
+        }
+      ],
+      "network": {
+        "coreWrites": 1,
+        "paidRequests": 1,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C04: unknown capabilities keep video drafts editable without an execution button",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C04: unknown capabilities keep video drafts editable without an execution button",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 184
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 237
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 299
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 435
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 6,
+          "column": 41
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C05: debounced local text saves; UTF-8 overflow keeps persisted text intact",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 151
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 301
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 364
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 422
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 9,
+          "column": 239
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C01/C02: explicit ordered inputs persist through layout; disconnect never rewrites Run",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 532
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 750
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 885
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 936
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 102
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 222
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 286
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 354
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 420
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 620
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 675
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 12,
+          "column": 818
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14-C03: result node displays fixed asset and run; preview does not replace history",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14-C03: result node displays fixed asset and run; preview does not replace history",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 169
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 252
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 335
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 423
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 15,
+          "column": 61
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 N02/T02: title validates Unicode length and display font does not edit content",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 N02/T02: title validates Unicode length and display font does not edit content",
+      "status": "passed",
+      "assertions": 5,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 318
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 508
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 617
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 685
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 83
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 193
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 270
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 385
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 454
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 18,
+          "column": 560
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 N13: ports support keyboard and pointer equivalents; invalid type stays unconnected",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 377
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 451
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 682
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 195
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 305
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 549
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 20,
+          "column": 614
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 node creation: local asset and fixed result references use existing identities",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 node creation: local asset and fixed result references use existing identities",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 407
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 713
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 764
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 178
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 242
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 344
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 478
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 544
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 21,
+          "column": 649
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 tab identity: a duplicated session identity is fenced, while reload keeps the original writer",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 195
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 509
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 608
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 707
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 22,
+          "column": 802
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 N13: real pointer drag from text output to text input creates one dependency",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 N13: real pointer drag from text output to text input creates one dependency",
+      "status": "passed",
+      "assertions": 2,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 23,
+          "column": 585
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/typed-nodes.spec.ts::T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity",
+      "file": "tests/e2e/typed-nodes.spec.ts",
+      "title": "T14 identity fallback: without Web Locks a copied session cannot reuse another writer identity",
+      "status": "passed",
+      "assertions": 4,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 24,
+          "column": 192
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 24,
+          "column": 586
+        },
+        {
+          "file": "tests/e2e/typed-nodes.spec.ts",
+          "line": 24,
+          "column": 685
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-number.spec.ts::QA53 queue shows the node name and a stable timestamp video number without replacing stored IDs",
+      "file": "tests/e2e/video-number.spec.ts",
+      "title": "QA53 queue shows the node name and a stable timestamp video number without replacing stored IDs",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 12,
+          "column": 25
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 13,
+          "column": 25
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 14,
+          "column": 29
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 15,
+          "column": 112
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 17,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 17,
+          "column": 78
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/video-number.spec.ts::QA53 historical result nodes show timestamp video numbers while preserving original source bindings",
+      "file": "tests/e2e/video-number.spec.ts",
+      "title": "QA53 historical result nodes show timestamp video numbers while preserving original source bindings",
+      "status": "passed",
+      "assertions": 6,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 23,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 24,
+          "column": 57
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 26,
+          "column": 83
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 27,
+          "column": 71
+        },
+        {
+          "file": "tests/e2e/video-number.spec.ts",
+          "line": 28,
+          "column": 38
+        },
+        {
+          "file": "tests/helpers/network-guard.ts",
+          "line": 23,
+          "column": 101,
+          "function": "Object.base.extend.networkGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}

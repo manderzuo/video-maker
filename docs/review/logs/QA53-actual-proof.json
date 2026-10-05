@@ -1,0 +1,9 @@
+{
+  "queue": "执行队列 · 队列已结束\n本地准备并行\n1\n2\n3\n\n此数量只控制本地准备；服务准入由 Core 决定。暂停不会取消已发出的任务，也不表示退款。\n\n修改后的视频 · 已提交 · 视频-20261005-021052-7F2036\n暂停待提交项\n重新确认待提交项\n待提交项需要重新确认；结果不明的请求请先核对原记录。",
+  "graphUnchanged": true,
+  "assetsUnchanged": true,
+  "runsUnchanged": true,
+  "nodeId": "2f8ed827-2c25-4bec-8da5-4675d3dbb4e7",
+  "runId": "7f20363f-dedd-4ae0-9e60-ae0704171562",
+  "realApiCalls": 0
+}

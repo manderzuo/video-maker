@@ -1,0 +1,91 @@
+{
+  "id": "QA53",
+  "date": "2026-10-05",
+  "status": "易读视频编号实施、自检通过",
+  "review": "待审查",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "11a62223305c8fae77f946b22c605dd0c53537b5",
+  "implementationCommit": "74178be93fa6805152ff060240fb002c0f622245",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "toolchain": {
+    "browser": "Chromium",
+    "node": "22.23.3",
+    "npm": "11.6.2",
+    "bootstrap": ". ./scripts/use-local-toolchain.ps1"
+  },
+  "modifiedFiles": [
+    "src/features/tasks/video-number.ts",
+    "src/features/tasks/QueueControls.tsx",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/nodes/ResultNode.tsx",
+    "tests/unit/video-number.test.ts",
+    "tests/e2e/video-number.spec.ts",
+    "tests/e2e/run-queue.spec.ts",
+    "tests/e2e/queue-native-fault-contracts.spec.ts",
+    "tests/e2e/typed-nodes.spec.ts"
+  ],
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/video-number.spec.ts",
+      "failed": 2,
+      "skipped": 0,
+      "phase": "red",
+      "passed": 0,
+      "exitCode": 1,
+      "log": "work/qa-20261005/video-number/red.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/video-number.spec.ts tests/e2e/run-queue.spec.ts tests/e2e/queue-native-fault-contracts.spec.ts tests/e2e/typed-nodes.spec.ts",
+      "failed": 1,
+      "skipped": 0,
+      "phase": "first-fix",
+      "passed": 16,
+      "exitCode": 1,
+      "log": "work/qa-20261005/video-number/green.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/video-number.spec.ts tests/e2e/run-queue.spec.ts tests/e2e/queue-native-fault-contracts.spec.ts tests/e2e/typed-nodes.spec.ts",
+      "failed": 0,
+      "skipped": 0,
+      "phase": "final",
+      "passed": 17,
+      "exitCode": 0,
+      "log": "work/qa-20261005/video-number/final.log"
+    },
+    {
+      "command": "npm run test:unit",
+      "failed": 0,
+      "skipped": 0,
+      "passed": 495,
+      "exitCode": 0,
+      "log": "work/qa-20261005/video-number/unit.log"
+    },
+    {
+      "log": "work/qa-20261005/video-number/typecheck.log",
+      "exitCode": 0,
+      "command": "npm run typecheck"
+    },
+    {
+      "log": "work/qa-20261005/video-number/lint.log",
+      "exitCode": 0,
+      "command": "npx --no-install eslint src/features/tasks/video-number.ts src/features/tasks/QueueControls.tsx src/features/canvas/CanvasPage.tsx src/features/canvas/nodes/ResultNode.tsx tests/unit/video-number.test.ts tests/e2e/video-number.spec.ts tests/e2e/run-queue.spec.ts tests/e2e/queue-native-fault-contracts.spec.ts tests/e2e/typed-nodes.spec.ts"
+    },
+    {
+      "log": "work/qa-20261005/video-number/build.log",
+      "exitCode": 0,
+      "command": "npm run build"
+    }
+  ],
+  "actualProjectProof": "docs/review/logs/QA53-actual-proof.json",
+  "screenshot": "docs/review/screenshots/QA53-video-number.png",
+  "realApiCalls": 0,
+  "remotePush": false,
+  "formalRelease": false,
+  "limitations": [
+    "未完整重跑verify",
+    "短码不是唯一性保证，底层UUID继续负责身份",
+    "旧素材文件名与用户自定义标题未迁移",
+    "人工视觉和独立审查待进行"
+  ]
+}
