@@ -1,0 +1,70 @@
+{
+  "projectId": "187c7b2e-10e8-4e6c-a2ca-af525c7a9e85",
+  "before": {
+    "assetsHash": "3103e0fca5451f71f032571b2aab9706b2ed1dfe6fe5180a5dd0452cfdfdc5cf",
+    "graphHash": "88b96dbfad6d3cb63e96f3fbc6d4a37fef72a4beae9d83e80e293d215f57642a",
+    "run": [
+      {
+        "deliveryState": "not_ready",
+        "executionState": "failed_confirmed",
+        "id": "093a397a-6c16-49fd-8971-43863f27f55a",
+        "queryState": "idle"
+      }
+    ],
+    "runsHash": "874b4a0f16d62c00c81e4b66d4873828946065bdc3b70a9c99716b526c15665e",
+    "summary": {
+      "at": 1791173752487,
+      "contentAvailable": false,
+      "errorCode": "video_execution_failed",
+      "id": "poll-summary:093a397a-6c16-49fd-8971-43863f27f55a",
+      "ok": true,
+      "runId": "093a397a-6c16-49fd-8971-43863f27f55a"
+    }
+  },
+  "after": {
+    "assetsHash": "3103e0fca5451f71f032571b2aab9706b2ed1dfe6fe5180a5dd0452cfdfdc5cf",
+    "graphHash": "88b96dbfad6d3cb63e96f3fbc6d4a37fef72a4beae9d83e80e293d215f57642a",
+    "runsHash": "874b4a0f16d62c00c81e4b66d4873828946065bdc3b70a9c99716b526c15665e"
+  },
+  "bindings": [
+    {
+      "bindingId": "bc1be1e2-606c-4e64-b9d8-58684610171e",
+      "channel": "video",
+      "models": []
+    },
+    {
+      "bindingId": "58bebe95-f637-48af-b974-4d33490cf8fd",
+      "channel": "text",
+      "models": [
+        "deepseek-v4.1-flash"
+      ]
+    }
+  ],
+  "expectedGreen": true,
+  "decodedThumbnail": {
+    "width": 192,
+    "height": 256
+  },
+  "reloads": 2,
+  "noResubmission": true,
+  "liveTask": {
+    "billingState": "pending_reconciliation",
+    "contentAvailable": false,
+    "errorCode": "video_execution_failed",
+    "ok": true,
+    "status": "failed"
+  },
+  "finalLights": {
+    "text": "success",
+    "video": "success"
+  },
+  "actualBundle": "/assets/index-lvt_fwuD.js",
+  "observedRequests": [],
+  "eventLog": {
+    "hasMore": false,
+    "truncated": false
+  },
+  "viewport": "适配全部：56%，仅视口调整",
+  "note": "最终核验曾误引用旧构建模块，立即刷新并改用页面实际脚本；最终检查来自实际加载构建。未保存或输出Key。",
+  "eventCoverage": "未捕获请求事件，空列表不证明没有请求；liveTask是实际只读查询返回"
+}

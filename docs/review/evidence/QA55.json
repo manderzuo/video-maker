@@ -1,0 +1,149 @@
+{
+  "id": "QA55",
+  "date": "2026-10-05",
+  "status": "四项实施、自检通过",
+  "review": "待审查",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "d64982b590234798085e05501b4ded58369cac5a",
+  "implementationCommit": "a25ef42472c6f8b55f74a5ef8fa6dbae06213aaf",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "commands": [
+    {
+      "command": "npm run test:e2e -- tests/e2e/api-persistence-preview.spec.ts",
+      "log": "work/qa-20261005/connection-progress/red.log",
+      "exitCode": 1,
+      "phase": "red",
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/queue-live-state.test.ts",
+      "log": "work/qa-20261005/connection-progress/queue-red.log",
+      "exitCode": 1,
+      "phase": "red",
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/text-deployment-registration.test.ts",
+      "log": "work/qa-20261005/connection-progress/registration-red.log",
+      "exitCode": 1,
+      "phase": "red",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/companion/settings-registration.test.mjs",
+      "log": "work/qa-20261005/connection-progress/server-red.log",
+      "exitCode": 1,
+      "phase": "red",
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/api-persistence-preview.spec.ts -g \"text credentials\"",
+      "log": "work/qa-20261005/connection-progress/restart-red.log",
+      "exitCode": 1,
+      "phase": "red",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:unit",
+      "log": "work/qa-20261005/connection-progress/unit-final.log",
+      "exitCode": 0,
+      "phase": "green",
+      "passed": 504,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/api-persistence-preview.spec.ts tests/e2e/api-connection-status.spec.ts tests/e2e/credential-boundary.spec.ts tests/e2e/run-queue.spec.ts tests/e2e/video-number.spec.ts tests/e2e/canvas-video-play.spec.ts tests/e2e/asset-library.spec.ts tests/e2e/result-review.spec.ts tests/e2e/app-shell.spec.ts",
+      "log": "work/qa-20261005/connection-progress/final.log",
+      "exitCode": 0,
+      "phase": "green",
+      "passed": 41,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "node --experimental-strip-types --test tests/companion/settings-registration.test.mjs tests/companion/deepseek-registration.test.mjs tests/companion/text-proxy-timeout.test.mjs",
+      "log": "work/qa-20261005/connection-progress/server-green.log",
+      "exitCode": 0,
+      "phase": "green",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "log": "work/qa-20261005/connection-progress/typecheck-final.log",
+      "exitCode": 0,
+      "phase": "green"
+    },
+    {
+      "command": "npm run lint",
+      "log": "work/qa-20261005/connection-progress/lint-final.log",
+      "exitCode": 0,
+      "phase": "green"
+    },
+    {
+      "command": "npm run build",
+      "log": "work/qa-20261005/connection-progress/build-final.log",
+      "exitCode": 0,
+      "phase": "green"
+    }
+  ],
+  "modifiedFiles": [
+    "README.md",
+    "scripts/serve-local.mjs",
+    "src/adapters/core/current-connection.ts",
+    "src/app/App.tsx",
+    "src/application/runs/poll-video.ts",
+    "src/features/assets/AssetPreview.tsx",
+    "src/features/canvas/nodes/AssetNode.tsx",
+    "src/features/canvas/nodes/TextNode.tsx",
+    "src/features/canvas/nodes/VideoNode.tsx",
+    "src/features/help/HelpPage.tsx",
+    "src/features/settings/ConnectionLights.tsx",
+    "src/features/settings/ConnectionSettings.tsx",
+    "src/features/settings/ConnectionStatus.tsx",
+    "src/features/settings/TextApiSettings.tsx",
+    "src/features/settings/remember-connections.ts",
+    "src/features/tasks/QueueControls.tsx",
+    "src/features/tasks/QueueRunProgress.tsx",
+    "src/infrastructure/deployment/registration.ts",
+    "src/security/credential-vault.ts",
+    "src/ui/tokens.css",
+    "tests/companion/settings-registration.test.mjs",
+    "tests/e2e/api-persistence-preview.spec.ts",
+    "tests/unit/credential-vault.test.ts",
+    "tests/unit/queue-live-state.test.ts",
+    "tests/unit/text-deployment-registration.test.ts"
+  ],
+  "toolchain": {
+    "bootstrap": ". ./scripts/use-local-toolchain.ps1",
+    "node": "22.23.3",
+    "npm": "11.6.2",
+    "browser": "Chromium / 用户原Chrome"
+  },
+  "actualProjectProof": "docs/review/logs/QA55-actual-proof.json",
+  "screenshot": "docs/review/screenshots/QA55-connections-progress-preview.png",
+  "paidGenerationCalls": 0,
+  "realApiActivity": "自动只读健康/模型检查、原视频任务只读查询；未进行文字或视频生成",
+  "limitations": [
+    "未完整重跑verify与全部浏览器套件",
+    "未独立审查",
+    "实际视频失败根因及账务待核对",
+    "浏览器加密存储不是操作系统密码库",
+    "DevTools流量事件未捕获，空列表不作为无网络证据"
+  ],
+  "remotePush": false,
+  "formalRelease": false
+}
