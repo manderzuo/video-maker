@@ -1,0 +1,65 @@
+{
+  "runId": "ddfe93a9-312c-49f9-94cf-4d7427978851",
+  "build": "index-RP-Scuqd.js",
+  "before": [
+    {
+      "border": "0.8px",
+      "label": "视频-ddfe93a9-312c-49f9-94cf-4d7427978851.mp4 音量",
+      "margin": "2px",
+      "max": "1",
+      "padding": "10px 12px",
+      "step": ".1",
+      "value": "1"
+    },
+    {
+      "border": "0.8px",
+      "label": "视频-ddfe93a9-312c-49f9-94cf-4d7427978851.mp4 播放进度",
+      "margin": "2px",
+      "max": "5.088",
+      "padding": "10px 12px",
+      "step": "1",
+      "value": "5"
+    }
+  ],
+  "ended": {
+    "currentTime": 5.088,
+    "duration": 5.088,
+    "ended": true,
+    "paused": true
+  },
+  "after": [
+    {
+      "border": "0px",
+      "label": "视频-ddfe93a9-312c-49f9-94cf-4d7427978851.mp4 音量",
+      "margin": "0px",
+      "max": "1",
+      "padding": "0px",
+      "step": ".1",
+      "value": "1"
+    },
+    {
+      "border": "0px",
+      "label": "视频-ddfe93a9-312c-49f9-94cf-4d7427978851.mp4 播放进度",
+      "margin": "0px",
+      "max": "5.088",
+      "padding": "0px",
+      "step": "any",
+      "value": "5.088"
+    }
+  ],
+  "fractionalSeek": {
+    "currentTime": 0.05088,
+    "paused": true
+  },
+  "volumeZero": 0,
+  "unchanged": {
+    "runs": true,
+    "assets": true,
+    "graph": true
+  },
+  "remoteHttpRequests": [],
+  "networkObservationTruncated": false,
+  "networkHasMore": false,
+  "review": "实施者自检，待审查",
+  "volumeFull": 1
+}
