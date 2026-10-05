@@ -1,0 +1,86 @@
+{
+  "id": "QA54",
+  "date": "2026-10-05",
+  "status": "Alt滚轮缩放实施、自检通过",
+  "review": "待审查",
+  "projectPath": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "5ca790fa453c780ae8a5477d98265b133e6d92a3",
+  "implementationCommit": "3affb26ba5b48e9fb749a7fd862683970a766fa1",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "toolchain": {
+    "bootstrap": ". ./scripts/use-local-toolchain.ps1",
+    "npm": "11.6.2",
+    "node": "22.23.3",
+    "browser": "Chromium"
+  },
+  "modifiedFiles": [
+    "src/features/canvas/viewport.ts",
+    "src/features/canvas/CanvasPage.tsx",
+    "src/features/canvas/CanvasToolbar.tsx",
+    "tests/unit/canvas-viewport.test.ts",
+    "tests/e2e/canvas-alt-wheel.spec.ts"
+  ],
+  "commands": [
+    {
+      "passed": 1,
+      "skipped": 0,
+      "command": "npm run test:e2e -- tests/e2e/canvas-alt-wheel.spec.ts",
+      "phase": "red",
+      "failed": 2,
+      "log": "work/qa-20261005/alt-wheel/red.log",
+      "exitCode": 1
+    },
+    {
+      "passed": 5,
+      "skipped": 0,
+      "command": "npm run test:unit -- tests/unit/canvas-viewport.test.ts",
+      "phase": "red",
+      "failed": 1,
+      "log": "work/qa-20261005/alt-wheel/unit-red.log",
+      "exitCode": 1
+    },
+    {
+      "passed": 14,
+      "skipped": 0,
+      "command": "npm run test:e2e -- tests/e2e/canvas-alt-wheel.spec.ts tests/e2e/canvas-viewport.spec.ts tests/e2e/canvas-tool-contracts.spec.ts tests/e2e/viewport-preference-faults.spec.ts",
+      "phase": "green",
+      "failed": 0,
+      "log": "work/qa-20261005/alt-wheel/green.log",
+      "exitCode": 0
+    },
+    {
+      "passed": 496,
+      "skipped": 0,
+      "command": "npm run test:unit",
+      "failed": 0,
+      "log": "work/qa-20261005/alt-wheel/unit.log",
+      "exitCode": 0
+    },
+    {
+      "log": "work/qa-20261005/alt-wheel/typecheck.log",
+      "exitCode": 0,
+      "command": "npm run typecheck"
+    },
+    {
+      "log": "work/qa-20261005/alt-wheel/lint.log",
+      "exitCode": 0,
+      "command": "npx --no-install eslint src/features/canvas/viewport.ts src/features/canvas/CanvasPage.tsx src/features/canvas/CanvasToolbar.tsx tests/unit/canvas-viewport.test.ts tests/e2e/canvas-alt-wheel.spec.ts"
+    },
+    {
+      "log": "work/qa-20261005/alt-wheel/build.log",
+      "exitCode": 0,
+      "command": "npm run build"
+    }
+  ],
+  "actualProjectProof": "docs/review/logs/QA54-actual-proof.json",
+  "screenshot": "docs/review/screenshots/QA54-alt-wheel.png",
+  "realApiCalls": 0,
+  "remotePush": false,
+  "formalRelease": false,
+  "limitations": [
+    "未完整重跑verify",
+    "人工与独立审查待进行",
+    "未验证macOS设备的Command滚轮"
+  ]
+}
