@@ -56,6 +56,10 @@ function readOnlyContract(){return {version:'unverified',verification:'unknown',
 export function createSettingsHandler(config){
  const nonce=randomBytes(32).toString('hex'),texts=new Map();
  return async function handle(req,res,decoded,port){
+  if(decoded==='/studio-deployment.json'&&['GET','HEAD'].includes(req.method)){
+   const connections=[...config.connections,...[...texts.values()].map(entry=>({profile:entry.profile,contract:{...readOnlyContract(),version:entry.profile.contractVersion,routes:{...readOnlyContract().routes,chat:true}}}))];
+   res.setHeader('Content-Type','application/json; charset=utf-8');res.end(req.method==='HEAD'?undefined:JSON.stringify({schemaVersion:1,connections}));return true;
+  }
   if(decoded==='/studio-session.json'){
    if(req.method!=='GET'||req.headers['x-studio-settings']!=='1')return reply(res,403,'settings_session_denied'),true;
    res.setHeader('Content-Type','application/json; charset=utf-8');res.end(JSON.stringify({nonce}));return true;

@@ -12,6 +12,7 @@ import {safeVideoFailureCode} from '../../domain/video-failure';
 import {studioTabId} from '../../features/projects/project-service';
 import {nextPollDelay} from '../../adapters/core/retry-policy';
 import {z} from 'zod';
+import {observeGenerationFailure} from '../../features/settings/connection-status';
 export type PollOptions=SubmitOptions&{signal?:AbortSignal};
 type PollLock={id:string;owner:string;expiresAt:number};
 export type PollSummary={id:string;runId:string;ok:boolean;at:number;httpStatus?:number;errorCode?:string;retryAfterMs?:number;contentAvailable?:boolean};
@@ -29,9 +30,10 @@ export async function pollVideoOnce(runId:string,options:PollOptions={}):Promise
     const prior:PollLock|undefined=await requestResult(tx.objectStore('leases').get(lockId));if(prior&&prior.expiresAt>Date.now())throw Error('run_query_busy');
     owner=crypto.randomUUID();tx.objectStore('leases').put({id:lockId,owner,expiresAt:Date.now()+30000});const run={...current,queryState:'polling' as const,updatedAt:Date.now()};await putRunInTransaction(tx,run,{runToken:claimed});return {run,token:{...claimed,revision:claimed.revision+1}};
    });if(!intent.token)return intent.run;
-   let reply:CoreReply<CoreTaskView>;
-   try{const {client}=submissionClient(options);assertAssetBinding(intent.run,client);if(!hasSessionCredential(intent.run.authBindingId))throw Error('session_credential_required');reply=await client.queryVideo(intent.run.taskId!,{signal:controller.signal});}
+   let reply:CoreReply<CoreTaskView>,reportFailure:ReturnType<typeof observeGenerationFailure>|undefined;
+   try{const {client}=submissionClient(options);assertAssetBinding(intent.run,client);if(!hasSessionCredential(intent.run.authBindingId))throw Error('session_credential_required');reportFailure=observeGenerationFailure(client,'video');reply=await client.queryVideo(intent.run.taskId!,{signal:controller.signal});}
    catch{reply={ok:false,error:{httpStatus:0,category:'authentication',errorCode:'original_authorization_required',submissionOutcome:'not_sent'}};}
+   if(!reply.ok&&(reply.error.httpStatus===0||['authentication','forbidden','unavailable'].includes(reply.error.category)))reportFailure?.(reply.error);
    try{return await transact(db,['runs','leases','diagnostics'],'readwrite',async tx=>{
     await assertRunWriter(tx,runId,intent.token);const lock:PollLock|undefined=await requestResult(tx.objectStore('leases').get(lockId));if(!lock||lock.owner!==owner||lock.expiresAt<=Date.now())throw Error('run_query_fence_expired');
     const current=runSchema.parse(await requestResult(tx.objectStore('runs').get(runId)));let next:Run;try{next=applyQueryObservation(current,reply);}catch{next={...current,queryState:'interrupted',updatedAt:Date.now()};reply={ok:false,error:{httpStatus:200,category:'protocol',errorCode:'core_task_identity_mismatch',submissionOutcome:'unknown'}};}

@@ -1,6 +1,6 @@
 import type {CoreClient} from './http-client';
 import {capabilitySchema,type CapabilityProfile} from '../../domain/connection';
-// Runtime connection selection and its ordinary Key remain in this tab's memory.
+// Runtime clients use tab memory. The isolated encrypted vault can restore their original binding.
 let current:{client:CoreClient;capability:CapabilityProfile}|undefined;
 const listeners=new Set<()=>void>();
 const notify=()=>{for(const listener of listeners)listener();};
