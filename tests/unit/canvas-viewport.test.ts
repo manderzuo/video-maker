@@ -5,6 +5,12 @@ import {selectNodes} from '../../src/features/canvas/selection';
 import {nodeBounds} from '../../src/features/canvas/geometry';
 const text={id:'t1',title:'文本',type:'text' as const,x:20,y:30,locked:true,data:{kind:'text' as const,text:'原创',referenceTokens:[]}};
 describe('T13 geometry and viewport',()=>{
+ it('wheel zoom preserves the world point underneath an explicit mouse anchor',()=>{
+  const view={x:20,y:-30,scale:.5},anchor={x:720,y:510};
+  const next=updateViewport(view,{type:'zoom',scale:1,width:1000,height:800,anchor});
+  expect((anchor.x-next.x)/next.scale).toBe((anchor.x-view.x)/view.scale);
+  expect((anchor.y-next.y)/next.scale).toBe((anchor.y-view.y)/view.scale);
+ });
  it('rejects NaN and out of range scales without moving the view',()=>{const view={x:20,y:30,scale:1};for(const scale of [NaN,Infinity,.24,2.01])expect(updateViewport(view,{type:'zoom',scale,width:1000,height:800})).toEqual(view);});
  it('zoom preserves the world point at the center',()=>{expect(updateViewport({x:100,y:100,scale:1},{type:'zoom',scale:2,width:1000,height:800})).toEqual({x:-300,y:-200,scale:2});});
  it('fit uses exact 48px margin and empty canvas returns 100%',()=>{expect(updateViewport({x:2,y:3,scale:1},{type:'fit',bounds:{left:0,top:0,right:1000,bottom:500},width:1096,height:596})).toEqual({x:48,y:48,scale:1});expect(updateViewport({x:2,y:3,scale:2},{type:'fit',bounds:null,width:900,height:600})).toEqual({x:0,y:0,scale:1});});
