@@ -1,7 +1,7 @@
 import {randomUUID} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import pg from 'pg';
-import {expect} from 'vitest';
+import assert from 'node:assert/strict';
 import {buildStudioApp} from '../src/app.js';
 import type {ApiSettingsDependencies} from '../src/settings/service.js';
 export const origin='https://studio.test';
@@ -9,7 +9,7 @@ export const fakePassword='  Fake password 测试 123  ';
 export type SessionView={user:{id:string;username:string};contextId:string;csrfToken:string;onboardingCompletedAt:string|null};
 export type Account={cookie:string;view:SessionView;ip:string};
 const connection={host:'127.0.0.1',port:55432,database:'aiwork_studio_test',user:'aiwork_test',password:'aiwork_local_test_only',connectionTimeoutMillis:3000};
-export async function fixture(options:{apiSettings?:ApiSettingsDependencies;schemaPrefix?:'api_test';workspace?:true}={}){
+export async function fixture(options:{apiSettings?:ApiSettingsDependencies;schemaPrefix?:'api_test';workspace?:true;assets?:{root:string;maxAssetBytes:number;userQuotaBytes:number;maxThumbnailBytes:number}}={}){
  const control=new pg.Client(connection);await control.connect();
  const identity=await control.query('SELECT current_database() AS db,current_user AS role');
  if(identity.rows[0].db!=='aiwork_studio_test'||identity.rows[0].role!=='aiwork_test')throw new Error('Dedicated fake test database required');
@@ -24,7 +24,7 @@ export async function fixture(options:{apiSettings?:ApiSettingsDependencies;sche
   await pool.query(await readFile(new URL('../src/db/migrations/001-users.sql',import.meta.url),'utf8'));
   if(options.apiSettings)await pool.query(await readFile(new URL('../src/db/migrations/002-api-configs.sql',import.meta.url),'utf8'));
   if(options.workspace)await pool.query(await readFile(new URL('../src/db/migrations/003-workspace.sql',import.meta.url),'utf8'));
-  app=await buildStudioApp({pool,origin,now:()=>new Date(time),apiSettings:options.apiSettings,...(options.workspace?{workspace:true as const}:{})});
+  app=await buildStudioApp({pool,origin,now:()=>new Date(time),apiSettings:options.apiSettings,...(options.workspace?{workspace:true as const}:{}),assets:options.assets});
  }catch(error){await pool.end();await control.query(`DROP SCHEMA "${schema}" CASCADE`);await control.end();throw error;}
  // Test-only adapter proves resource-ID ownership using the real auth hook/repository.
  try{
@@ -47,10 +47,10 @@ export async function fixture(options:{apiSettings?:ApiSettingsDependencies;sche
   return app.inject({method,url,payload:options.payload===undefined?undefined:JSON.stringify(options.payload),headers,remoteAddress:options.ip??'127.0.0.1'});
  };
  const cookie=(response:{cookies:Array<{name:string;value:string}>},name:string)=>{
-  const value=response.cookies.find(item=>item.name===name&&item.value);expect(value).toBeDefined();return `${name}=${value!.value}`;
+  const value=response.cookies.find(item=>item.name===name&&item.value);assert.ok(value);return `${name}=${value!.value}`;
  };
- const bootstrap=async(ip=newIp())=>{const response=await call('GET','/studio-api/auth/bootstrap',{ip});expect(response.statusCode).toBe(200);return {cookie:cookie(response,'__Host-aiwork-preauth'),csrf:response.json<{csrfToken:string}>().csrfToken,ip};};
- const signup=async(username='FakeUser_A',password=fakePassword)=>{const boot=await bootstrap();const response=await call('POST','/studio-api/auth/register',{...boot,payload:{username,password}});expect(response.statusCode).toBe(201);return {cookie:cookie(response,'__Host-aiwork-session'),view:response.json<SessionView>(),ip:boot.ip};};
+ const bootstrap=async(ip=newIp())=>{const response=await call('GET','/studio-api/auth/bootstrap',{ip});assert.equal(response.statusCode,200);return {cookie:cookie(response,'__Host-aiwork-preauth'),csrf:response.json<{csrfToken:string}>().csrfToken,ip};};
+ const signup=async(username='FakeUser_A',password=fakePassword)=>{const boot=await bootstrap();const response=await call('POST','/studio-api/auth/register',{...boot,payload:{username,password}});assert.equal(response.statusCode,201);return {cookie:cookie(response,'__Host-aiwork-session'),view:response.json<SessionView>(),ip:boot.ip};};
  const headers=(account:Account)=>({cookie:account.cookie,context:account.view.contextId,csrf:account.view.csrfToken,ip:account.ip});
  return {app,pool,schema,call,cookie,bootstrap,signup,headers,newIp,advance:(ms:number)=>{time=new Date(time.getTime()+ms);},close:async()=>{await app.close();await pool.end();await control.query(`DROP SCHEMA "${schema}" CASCADE`);await control.end();}};
 }

@@ -33,6 +33,13 @@ function configureFactory(owner,options){
  // context's true ignoreHTTPSErrors (server uses an OR condition).
  return {...options,baseURL:owner.origin,ignoreHTTPSErrors:false,maxRedirects:0,proxy:undefined,httpCredentials:undefined,clientCertificates:undefined,storageState:undefined,extraHTTPHeaders:headers(options.extraHTTPHeaders,owner.origin)};
 }
+// Playwright 1.58.2's official test instrumentation merges browser UI defaults
+// into APIRequest options too. They are not API protocol fields: remove only
+// these known UI keys after instrumentation, never from caller input.
+const ignoredRequestUiKeys=new Set(['acceptDownloads','viewport','screen','deviceScaleFactor','isMobile','hasTouch','colorScheme','reducedMotion','forcedColors','contrast','serviceWorkers','locale','timezoneId','javaScriptEnabled','bypassCSP','offline','permissions']);
+function configureInstrumentedFactory(owner,options){
+ const api={};for(const [key,value] of Object.entries(options)){if(ignoredRequestUiKeys.has(key))continue;api[key]=value;}return configureFactory(owner,api);
+}
 function configureBrowser(owner,browser,options){
  if(!(browser instanceof Browser)||!browser._options)throw fail('unreviewed browser implementation');
  strictOptions(options);for(const key of ['proxy','httpCredentials','clientCertificates','storageState'])if(options[key]!==undefined&&!(key==='clientCertificates'&&Array.isArray(options[key])&&options[key].length===0))throw fail('unsafe browser context default');
@@ -55,7 +62,7 @@ function install(mode){
   try{
    const mutable=configureFactory(owner,options);
    await this._playwright._instrumentation.runBeforeCreateRequestContext(mutable);currentOwner(owner);
-   const sanitized=configureFactory(owner,mutable);
+   const sanitized=configureInstrumentedFactory(owner,mutable);
    const response=await this._playwright._channel.newRequest({...sanitized,extraHTTPHeaders:headersObjectToArray(sanitized.extraHTTPHeaders),tracesDir:this._playwright._defaultLaunchOptions?.tracesDir});
    context=APIRequestContext.from(response.request);currentOwner(owner);
    this._contexts.add(context);context._request=this;

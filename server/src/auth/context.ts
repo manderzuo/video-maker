@@ -23,7 +23,8 @@ export function installAuthGuard(app:FastifyInstance,pool:Pool,origin:string,now
   if(authEndpoint)await enforceRate(pool,rateKey('auth-ip',request.ip),30,60000,now());
   if(publicBootstrap)return;if(publicAuth){requireOrigin(request,origin);return;}
   const session=await readSession(pool,request.cookies[sessionCookie],now());
-  if(!(matchedApi&&path==='/studio-api/session'&&['GET','HEAD'].includes(request.method))&&request.headers['x-workspace-context']!==session.row.context_id)throw new HttpError(409,'SESSION_CHANGED');
+  const cookieRead=matchedApi&&['/studio-api/session','/studio-api/assets/:id/content'].includes(path)&&['GET','HEAD'].includes(request.method);
+  if(!cookieRead&&request.headers['x-workspace-context']!==session.row.context_id)throw new HttpError(409,'SESSION_CHANGED');
   if(!['GET','HEAD','OPTIONS'].includes(request.method)){
    requireOrigin(request,origin);if(!equalToken(request.headers['x-csrf-token'],csrfToken(session.raw,'session')))throw new HttpError(403,'CSRF_INVALID');
   }

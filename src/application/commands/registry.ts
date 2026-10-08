@@ -1,6 +1,6 @@
 import {z} from 'zod';
-import {graphSchema,nodeSchema,edgeSchema,canvasNodeSizeSchema,type Graph} from '../../domain/graph';
-import {id,revision,snapshotSchema} from '../../domain/common';
+import {graphSchema,nodeSchema,edgeSchema,canvasNodeSizeSchema,type Graph} from '../../domain/graph.js';
+import {id,revision,snapshotSchema} from '../../domain/common.js';
 export type GraphOperation={id:string;type:'add_node'|'update_node'|'remove_node'|'add_edge'|'remove_edge'|'move_node'|'group'|'ungroup'|'select_result';payload:Record<string,unknown>};
 const operationSchema=z.discriminatedUnion('type',[
  z.strictObject({id,type:z.literal('add_node'),payload:z.strictObject({node:nodeSchema})}),

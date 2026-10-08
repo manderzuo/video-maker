@@ -1,4 +1,6 @@
 import {z} from 'zod';
+import {graphSchema,viewportSchema} from '../../../src/domain/graph.js';
+import {commandEnvelopeSchema} from '../../../src/application/commands/registry.js';
 // Same field limits and view shape as the existing frontend project domain.
 // Server DTOs stay self-contained for the NodeNext runtime.
 const text=(min:number,max:number)=>z.string().refine(value=>[...value].length>=min&&[...value].length<=max);
@@ -10,7 +12,13 @@ export const projectPatchSchema=z.strictObject({expectedRevision:z.number().int(
 export const projectDeleteSchema=z.strictObject({expectedRevision:z.number().int().min(0)});
 export const projectListSchema=z.strictObject({trashed:z.enum(['true','false']).optional()});
 export const projectViewSchema=z.strictObject({id:z.uuid(),schemaVersion:z.literal(1),...editable,revision:z.number().int().min(0),createdAt:z.number().int().min(0),updatedAt:z.number().int().min(0),trashedAt:z.number().int().min(0).nullable()});
-export const workspaceGraphSchema=z.strictObject({projectId:z.uuid(),revision:z.number().int().min(0),nodes:z.array(z.unknown()),edges:z.array(z.unknown()),viewport:z.strictObject({x:z.number().finite(),y:z.number().finite(),scale:z.number().min(.25).max(2)})});
+export const workspaceGraphSchema=graphSchema;
+export const projectCommandSchema=z.strictObject({expectedRevision:z.number().int().min(0),idempotencyKey:z.uuid(),command:z.discriminatedUnion('type',[
+ z.strictObject({type:z.literal('operations'),operations:commandEnvelopeSchema.shape.operations.max(500),viewport:viewportSchema.optional()}),
+ z.strictObject({type:z.enum(['undo','redo'])}),
+ z.strictObject({type:z.literal('viewport'),viewport:viewportSchema})
+])});
+export type ProjectCommand=z.infer<typeof projectCommandSchema>;
 export type ProjectView=z.infer<typeof projectViewSchema>;
 export type ProjectCreate=z.infer<typeof createProjectSchema>;
 export type ProjectPatch=z.infer<typeof projectPatchSchema>;

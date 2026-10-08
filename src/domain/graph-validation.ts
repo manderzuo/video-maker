@@ -1,8 +1,8 @@
-import {edgeSchema,type Edge,type Graph,type InputBinding,type CanvasNode} from './graph';
-import type {Run} from './run';
-import type {CapabilityProfile} from './connection';
-import type {Asset} from './asset';
-import type {ValidationResult} from './common';
+import {edgeSchema,type Edge,type Graph,type InputBinding,type CanvasNode} from './graph.js';
+import type {Run} from './run.js';
+import type {CapabilityProfile} from './connection.js';
+import type {Asset} from './asset.js';
+import type {ValidationResult} from './common.js';
 export type ReferenceLimits=Partial<Record<'text'|'image'|'video',number>>;
 export type ResultSourceRun=Pick<Run,'id'|'projectId'|'nodeId'|'resultAssetId'|'executionState'>;
 export type ConnectionResources={assets?:Asset[];runs?:ResultSourceRun[];limits?:ReferenceLimits};

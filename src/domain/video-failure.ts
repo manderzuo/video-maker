@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import type {BillingState} from './run';
+import type {BillingState} from './run.js';
 const messages:Readonly<Record<string,string>>={
  video_reference_real_person_rejected:'生成失败：上游判定参考图片可能包含真人，拒绝生成。',
  budget_policy_expired:'执行网关的视频预算策略已过期，视频尚未提交。请更新网关预算配置；已发生的辅助费用和预冻结以 Core 核对结果为准。',

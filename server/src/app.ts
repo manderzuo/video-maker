@@ -9,7 +9,9 @@ import {registerUserRoutes} from './users/routes.js';
 import {registerApiSettingsRoutes} from './settings/routes.js';
 import type {ApiSettingsDependencies} from './settings/service.js';
 import {registerProjectRoutes} from './projects/routes.js';
-export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>Date;apiSettings?:ApiSettingsDependencies;workspace?:true}){
+import {registerAssetRoutes} from './assets/routes.js';
+import type {AssetStorageOptions} from './assets/storage.js';
+export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>Date;apiSettings?:ApiSettingsDependencies;workspace?:true;assets?:AssetStorageOptions}){
  const configured=new URL(options.origin);if(configured.protocol!=='https:'||configured.origin!==options.origin)throw new Error('Exact HTTPS origin required');
  const now=options.now??(()=>new Date());const app=Fastify({logger:false,bodyLimit:16384,trustProxy:false,frameworkErrors(error:FastifyError,_request:FastifyRequest,reply:FastifyReply){
   reply.header('Cache-Control','no-store');
@@ -28,5 +30,6 @@ export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>D
  app.setNotFoundHandler((_request,reply)=>reply.code(404).send({code:'NOT_FOUND'}));
  registerAuthRoutes(app,options.pool,options.origin,now);registerUserRoutes(app,options.pool,now);
  if(options.apiSettings)registerApiSettingsRoutes(app,options.pool,options.apiSettings,now);
- if(options.workspace)registerProjectRoutes(app,options.pool,now);return app;
+ if(options.workspace)registerProjectRoutes(app,options.pool,now);
+ if(options.assets){if(!options.workspace)throw new Error('Workspace required for private assets');registerAssetRoutes(app,options.pool,options.assets,now);}return app;
 }

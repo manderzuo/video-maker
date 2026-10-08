@@ -1,6 +1,6 @@
 import {z} from 'zod';
-import {videoFailureInfoSchema} from './video-failure';
-import {id,timestamp,revision,bindingSchema,snapshotSchema,videoSpecSchema,jsonSnapshotText} from './common';
+import {videoFailureInfoSchema} from './video-failure.js';
+import {id,timestamp,revision,bindingSchema,snapshotSchema,videoSpecSchema,jsonSnapshotText} from './common.js';
 export const runWorkContextSchema=z.strictObject({workId:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),baseVersionId:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/).optional()});
 export const executionStateSchema=z.enum(['draft','preflight_blocked','awaiting_confirmation','persisted','uploading','submitting','submit_unknown','accepted','running','succeeded','failed_confirmed']);
 export const queryStateSchema=z.enum(['idle','polling','paused_by_user','interrupted','auth_required']);
