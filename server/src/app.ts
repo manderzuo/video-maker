@@ -6,7 +6,9 @@ import {HttpError} from './errors.js';
 import {installAuthGuard} from './auth/context.js';
 import {registerAuthRoutes} from './auth/routes.js';
 import {registerUserRoutes} from './users/routes.js';
-export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>Date}){
+import {registerApiSettingsRoutes} from './settings/routes.js';
+import type {ApiSettingsDependencies} from './settings/service.js';
+export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>Date;apiSettings?:ApiSettingsDependencies}){
  const configured=new URL(options.origin);if(configured.protocol!=='https:'||configured.origin!==options.origin)throw new Error('Exact HTTPS origin required');
  const now=options.now??(()=>new Date());const app=Fastify({logger:false,bodyLimit:16384,trustProxy:false,frameworkErrors(error:FastifyError,_request:FastifyRequest,reply:FastifyReply){
   reply.header('Cache-Control','no-store');
@@ -23,5 +25,6 @@ export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>D
   return reply.code(500).send({code:'INTERNAL_ERROR'});
  });
  app.setNotFoundHandler((_request,reply)=>reply.code(404).send({code:'NOT_FOUND'}));
- registerAuthRoutes(app,options.pool,options.origin,now);registerUserRoutes(app,options.pool,now);return app;
+ registerAuthRoutes(app,options.pool,options.origin,now);registerUserRoutes(app,options.pool,now);
+ if(options.apiSettings)registerApiSettingsRoutes(app,options.pool,options.apiSettings,now);return app;
 }

@@ -23,10 +23,15 @@ describe('independent text provider profile',()=>{
   const catalog=['deepseek-v4.1-flash'];
   expect(resolveTextModelId('https://opencode.ai/zen/go','opencode-go/deepseek-v4.1-flash',catalog)).toEqual({ok:true,value:'deepseek-v4.1-flash'});
   expect(resolveTextModelId('https://opencode.ai/zen/go','deepseek-v4.1-flash',catalog)).toEqual({ok:true,value:'deepseek-v4.1-flash'});
-  expect(resolveTextModelId('https://opencode.ai/zen/go','openai/deepseek-v4.1-flash',catalog).ok).toBe(false);
-  expect(resolveTextModelId('https://opencode.ai/zen/go','opencode-go/not-in-catalog',catalog).ok).toBe(false);
+  expect(resolveTextModelId('https://opencode.ai/zen/go','openai/deepseek-v4.1-flash',catalog)).toEqual({ok:true,value:'openai/deepseek-v4.1-flash'});
+  expect(resolveTextModelId('https://opencode.ai/zen/go','opencode-go/not-in-catalog',catalog)).toEqual({ok:true,value:'not-in-catalog'});
  });
  it('preserves slash-containing model IDs for other providers',()=>{
   expect(resolveTextModelId('https://example.org/custom','vendor/model',['vendor/model'])).toEqual({ok:true,value:'vendor/model'});
+ });
+ it('permits manually named models before any catalog and rejects invalid names',()=>{
+  expect(resolveTextModelId('https://example.org',' Vendor/Case-Model ',[])).toEqual({ok:true,value:'Vendor/Case-Model'});
+  expect(resolveTextModelId('https://example.org','opencode-go/Other',[])).toEqual({ok:true,value:'opencode-go/Other'});
+  for(const name of ['', 'x'.repeat(257), 'bad\nname'])expect(resolveTextModelId('https://example.org',name,[]).ok).toBe(false);
  });
 });

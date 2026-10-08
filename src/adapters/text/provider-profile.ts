@@ -11,8 +11,9 @@ export function normalizeTextApiBase(value:string):ValidationResult<string>{
 }
 export function sameTextApiBase(left:string,right:string){const a=normalizeTextApiBase(left),b=normalizeTextApiBase(right);return a.ok&&b.ok&&a.value===b.value;}
 export function resolveTextModelId(base:string,input:string,catalog:readonly string[]):ValidationResult<string>{
+ void catalog;
  const normalized=normalizeTextApiBase(base),id=input.trim();
  const resolved=normalized.ok&&isOpenCodeGoTarget(normalized.value)&&id.startsWith('opencode-go/')?id.slice('opencode-go/'.length):id;
- if(!resolved||!catalog.includes(resolved)||normalized.ok&&isOpenCodeGoTarget(normalized.value)&&id.includes('/')&&!id.startsWith('opencode-go/'))return {ok:false,issues:[{code:'text_model_unavailable',path:'model',message:'所选模型不在当前文字服务目录中。'}]};
+ if(!normalized.ok||!resolved||resolved.length>256||/[\u0000-\u001f\u007f-\u009f]/.test(resolved))return {ok:false,issues:[{code:'text_model_invalid',path:'model',message:'模型名称须为 1–256 字符且不含控制字符。'}]};
  return {ok:true,value:resolved};
 }
