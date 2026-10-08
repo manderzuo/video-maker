@@ -11,6 +11,8 @@ export function LocalLink({href='/',onClick,...props}:AnchorHTMLAttributes<HTMLA
  return <a data-interaction-id="ui:routes:a:39b2b9a31a6b" {...props} href={href} onClick={event=>{onClick?.(event);if(!event.defaultPrevented&&event.button===0&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.altKey){event.preventDefault();navigate(href);}}}/>;
 }
 export const routeTitle=(pathname:string)=>{
+ if(pathname==='/register')return '注册';
+ if(pathname==='/login')return '登录';
  if(pathname==='/welcome')return '开始你的创作项目';
  if(pathname==='/projects')return '项目';
  if(pathname==='/canvas')return '画布';

@@ -1,0 +1,8 @@
+import {test,expect} from '../helpers/account-api-ui-fixture';
+import {assertAuthenticatedWelcome} from '../helpers/account-welcome-assertions';
+test('Welcome exposes shared forms while preserving legacy data, then enters only the guarded workspace',async({page,apiModel})=>{
+ await page.addInitScript(()=>{localStorage.setItem('aiwork-studio:preferences','FAKE_OLD_OWNER_PREFS');localStorage.setItem('aiwork-studio:onboarding','1');const original=indexedDB.open.bind(indexedDB);(window as Window&{legacyOpenNames?:string[]}).legacyOpenNames=[];indexedDB.open=((name:string,version?:number)=>{(window as Window&{legacyOpenNames?:string[]}).legacyOpenNames!.push(name);return original(name,version);}) as typeof indexedDB.open;});
+ await page.goto('/welcome');await assertAuthenticatedWelcome(page);
+ expect(await page.evaluate(()=>(window as Window&{legacyOpenNames?:string[]}).legacyOpenNames)).toEqual([]);expect(await page.evaluate(()=>localStorage.getItem('aiwork-studio:preferences'))).toBe('FAKE_OLD_OWNER_PREFS');expect(apiModel.configWrites).toEqual([]);expect(apiModel.probes).toEqual([]);
+ await page.getByRole('button',{name:'\u8fdb\u5165\u5de5\u4f5c\u53f0',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);await expect(page.getByRole('heading',{name:'\u8d26\u53f7\u5de5\u4f5c\u533a',exact:true})).toBeVisible();await expect(page.getByText('\u521b\u4f5c\u5de5\u4f5c\u533a\u6682\u672a\u5f00\u653e\u3002',{exact:true})).toBeVisible();expect(await page.evaluate(()=>(window as Window&{legacyOpenNames?:string[]}).legacyOpenNames)).toEqual([]);expect(apiModel.onboardingWrites).toHaveLength(1);expect(apiModel.configWrites).toEqual([]);expect(apiModel.probes).toEqual([]);
+});

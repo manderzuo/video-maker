@@ -1,0 +1,20 @@
+import {beforeAll,afterAll,expect,it} from 'vitest';
+import {browserBackend} from './browser-fixture.js';
+const origin='https://127.0.0.1:4180',base='http://127.0.0.1:4181';
+let backend:Awaited<ReturnType<typeof browserBackend>>;
+beforeAll(async()=>{backend=await browserBackend(origin);});
+afterAll(async()=>{await backend?.close();});
+it('real browser backend lists, saves and probes settings with isolated migrations and synthetic upstream only',async()=>{
+ const bootstrap=await fetch(base+'/studio-api/auth/bootstrap');expect(bootstrap.status).toBe(200);
+ const boot=await bootstrap.json() as {csrfToken:string};const preauth=bootstrap.headers.getSetCookie().find(value=>value.startsWith('__Host-aiwork-preauth='))!.split(';')[0];
+ const register=await fetch(base+'/studio-api/auth/register',{method:'POST',headers:{Origin:origin,Cookie:preauth,'X-CSRF-Token':boot.csrfToken,'Content-Type':'application/json'},body:JSON.stringify({username:'Fake_BrowserFixture_A',password:'Fake browser fixture password 2026'})});
+ expect(register.status).toBe(201);const session=await register.json() as {contextId:string;csrfToken:string};const cookie=register.headers.getSetCookie().find(value=>value.startsWith('__Host-aiwork-session='))!.split(';')[0];
+ const headers={Origin:origin,Cookie:cookie,'X-Workspace-Context':session.contextId,'X-CSRF-Token':session.csrfToken,'Content-Type':'application/json'};
+ const list=await fetch(base+'/studio-api/me/model-configs',{headers});expect(list.status).toBe(200);expect(await list.json()).toEqual({configs:[]});
+ const saved=await fetch(base+'/studio-api/me/model-configs/text',{method:'PATCH',headers,body:JSON.stringify({apiBase:'https://api.account-fixture.test',model:'FAKE_MANUAL_MODEL',apiKey:'FAKE_BROWSER_FIXTURE_KEY',expectedRevision:null})});
+ expect(saved.status).toBe(200);expect(await saved.json()).toMatchObject({channel:'text',revision:1,hasKey:true});
+ const probe=await fetch(base+'/studio-api/me/model-configs/text/test',{method:'POST',headers,body:JSON.stringify({apiBase:'https://api.account-fixture.test',requestId:'fixture-proof'})});
+ expect(probe.status).toBe(200);expect(await probe.json()).toMatchObject({requestId:'fixture-proof',connection:'verified',models:['FAKE_BROWSER_TEXT_MODEL']});
+ const configs=await fetch(base+'/studio-api/me/model-configs',{headers});expect(await configs.text()).not.toContain('FAKE_BROWSER_FIXTURE_KEY');
+ expect((await backend.pool.query('SELECT count(*)::int AS n FROM api_configs')).rows[0].n).toBe(1);expect((await backend.pool.query('SELECT count(*)::int AS n FROM api_secret_versions')).rows[0].n).toBe(1);
+});
