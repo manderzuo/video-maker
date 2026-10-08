@@ -1,0 +1,63 @@
+{
+  "id": "QA60",
+  "date": "2026-10-08",
+  "projectRoot": "E:/trae-studio/TRAEWORK/aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "baseCommit": "849526739c2350022e6e9ba988b671f64802b0bb",
+  "sourceCommit": "0099115cbab0c1f3f1978bb31b08062f02809356",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "status": "实施完成；自检通过；独立审查待进行",
+  "changedFiles": [
+    "README.md", "src/application/commands/registry.ts", "src/domain/graph.ts",
+    "src/features/canvas/CanvasPage.tsx", "src/features/canvas/NodeResizeHandles.tsx",
+    "src/features/canvas/geometry.ts", "src/features/canvas/node-resize.css",
+    "src/features/canvas/nodes/AssetNode.tsx", "tests/e2e/canvas-resize.spec.ts",
+    "tests/unit/canvas-resize.test.ts"
+  ],
+  "logRoot": "E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261008/node-resize",
+  "checks": [
+    {"command":"npm run test:unit -- tests/unit/canvas-resize.test.ts", "phase":"behavior-red", "exitCode":1, "passed":2, "failed":4, "skipped":0, "log":"unit-red.log"},
+    {"command":"npx playwright test tests/e2e/canvas-resize.spec.ts（单用例筛选）", "exactFilterArguments":"未知；原日志未保存完整启动参数", "phase":"behavior-red", "exitCode":1, "passed":0, "failed":1, "skipped":0, "log":"browser-red-retry.log", "failure":"页面确实缺少尺寸手柄"},
+    {"command":"npx playwright test tests/e2e/canvas-resize.spec.ts（租约单用例筛选）", "exactFilterArguments":"未知；原日志未保存完整启动参数", "phase":"behavior-red", "exitCode":1, "passed":0, "failed":1, "skipped":0, "log":"lease-behavior-red.log", "failure":"租约失效后取消尺寸操作错误显示可写状态"},
+    {"command":"npm run test:unit", "exitCode":0, "passed":521, "failed":0, "skipped":0, "filesPassed":76, "log":"unit-final.log"},
+    {"command":"npx playwright test tests/e2e/canvas-resize.spec.ts tests/e2e/canvas-connections.spec.ts tests/e2e/canvas-alt-wheel.spec.ts tests/e2e/canvas-video-play.spec.ts tests/e2e/typed-nodes.spec.ts --reporter=list,json --output work/qa-20261008/node-resize/browser-verified", "exitCode":0, "passed":36, "failed":0, "skipped":0, "flaky":0, "log":"browser-verified.log", "report":"browser-verified.json"},
+    {"command":"npm run typecheck", "exitCode":0, "log":"typecheck-verified.log"},
+    {"command":"npx eslint src/domain/graph.ts src/application/commands/registry.ts src/features/canvas/geometry.ts src/features/canvas/CanvasPage.tsx src/features/canvas/NodeResizeHandles.tsx src/features/canvas/nodes/AssetNode.tsx tests/unit/canvas-resize.test.ts tests/e2e/canvas-resize.spec.ts", "exitCode":0, "log":"lint-verified.log"},
+    {"command":"npm run build", "exitCode":0, "log":"build.log"},
+    {"command":"npm run test:bundle", "exitCode":0, "log":"bundle.log", "report":"bundle-budget.json", "perChunkBytes":500000},
+    {"command":"git diff --check", "exitCode":0}
+  ],
+  "liveUI": {
+    "url":"http://127.0.0.1:4188",
+    "bundle":"index-BvJRxfrj.js",
+    "httpStatus":200,
+    "projectId":"1565101b-d8a4-4ff4-9f44-ed472481034d",
+    "projectName":"QA60 节点大小验收 · 2026-10-08",
+    "nodeId":"7b80c4a4-a92c-42c2-b9a4-3bd777f1d66b",
+    "before":{"width":469,"height":544,"previewHeight":337},
+    "after":{"width":619,"height":664,"previewHeight":457},
+    "actions":["真实鼠标拖动右下手柄","撤销","重做","刷新后恢复尺寸","重新选择与定位素材卡，确认完整图片"],
+    "proof":"live-resize-proof.json",
+    "screenshot":"live-node-resize-detail.png"
+  },
+  "originalVideo": {
+    "requestId":"request_muEQqrv76WDxXdsioYVNwg",
+    "displayId":"视频-20261008-131915-772C62",
+    "userRequestedLocalPause":true,
+    "localPauseVerified":true,
+    "remoteCancelled":false,
+    "latestRead":{"at":"2026-10-08T06:36:11.675Z","httpStatus":200,"state":"queued","hasContent":false},
+    "historicalLogError":"upstream_capacity_insufficient",
+    "latestLogError":"reference_asset_unavailable",
+    "diagnosisRoot":"E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261008/manual-task-131915",
+    "pauseProof":"user-paused-query.png",
+    "capacityRecovery":"docs/review/QA61_CAPACITY_RECOVERY.md"
+  },
+  "limitations":[
+    "首次页面加载超时、错误租约测试消息结构属于无效红灯，未作为行为失败证据",
+    "中间相关浏览器回归35通过/1失败；恢复素材编号可见内容后原断言通过，未删除断言",
+    "当前轮新增收费请求0；真实视频结果、费用核对仍未通过",
+    "原篮球任务标签页未刷新以保留原授权；新尺寸项目需要本次或更新的客户端",
+    "未替代全部历史按钮验收、完整verify或独立审查；未新增依赖、推送或正式发布"
+  ]
+}

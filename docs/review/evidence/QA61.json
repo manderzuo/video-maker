@@ -1,0 +1,290 @@
+{
+  "id": "QA61",
+  "date": "2026-10-08",
+  "status": "已实施；本机容量恢复已核验；自检通过；独立审查待进行",
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "studio": {
+    "root": "E:/trae-studio/TRAEWORK/aiwork-studio",
+    "branch": "feat/aiwork-studio",
+    "nodeResizeSourceCommit": "0099115cbab0c1f3f1978bb31b08062f02809356",
+    "documentationHeadBeforeThisEvidenceCommit": "5477e7683c223c00c8bf4113a5e5c010a6c96024",
+    "finalGitState": "work/qa-20261008/capacity-recovery/final-git-state.json"
+  },
+  "upstream": {
+    "root": "E:/trae-studio/work/aiwork-capacity-qa61",
+    "branch": "fix/aiwork-capacity-recovery",
+    "baseCommit": "9cf5f98c7b969f767d821a06792df1462ae0769b",
+    "capacityCommit": "cd1127c4ca69bfae0144b1405e20eb9baaecf249",
+    "headCommit": "c2520c05ec16a429de0d8d299fca11cd980d8d71",
+    "changedFiles": [
+      "docs/qa61-capacity-recovery.md",
+      "src-tauri/src/api_server/balance_refresh.rs",
+      "src-tauri/src/api_server/bridge_capacity_source.rs",
+      "src-tauri/src/api_server/bridge_planner.rs",
+      "src-tauri/src/api_server/bridge_runtime.rs",
+      "src-tauri/src/api_server/server.rs",
+      "src-tauri/src/api_server/usage_refresh.rs",
+      "src-tauri/src/main.rs"
+    ],
+    "dependenciesChanged": false,
+    "packageLockSha256": "6F7270765C44A08F7AD3B767C6418C419CC65838D586D40EBD01663FEF318557",
+    "sourceMainChanged": false,
+    "pushed": false
+  },
+  "logRoot": "E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261008/capacity-recovery",
+  "verifiedRootCauses": [
+    "明确原生未使用权益status=1、ent_status=0、usage={}被排除，漏认3650通用积分",
+    "已耗尽并到期的旧月包消失，旧精确覆盖证明拒绝capacity_source_missing_pack",
+    "无P/R和未覆盖D的闲置专用账号缺少新增容量受控核对路径；原规划路径未保留具体失败码"
+  ],
+  "checks": [
+    {
+      "phase": "behavior-red",
+      "exactCommandKnown": false,
+      "command": "未知；完整早期启动参数未保存在日志中",
+      "target": "api_server::bridge_capacity_source::tests::qa61_",
+      "exitCode": 101,
+      "passed": 0,
+      "failed": 2,
+      "ignored": 0,
+      "log": "behavior-red.log",
+      "cases": [
+        "qa61_native_unused_rewards_are_capacity_with_their_explicit_source_status",
+        "qa61_expired_exhausted_monthly_pack_can_roll_over_without_a_fabricated_debit"
+      ]
+    },
+    {
+      "phase": "behavior-red",
+      "exactCommandKnown": false,
+      "command": "未知；完整早期启动参数未保存在日志中",
+      "target": "qa61_idle_unused_rewards_refresh_capacity_without_a_receipt_or_charged_request",
+      "exitCode": 101,
+      "passed": 0,
+      "failed": 1,
+      "ignored": 0,
+      "log": "idle-behavior-red-valid.log"
+    },
+    {
+      "phase": "behavior-red",
+      "exactCommandKnown": false,
+      "command": "未知；完整早期启动参数未保存在日志中",
+      "target": "api_server::bridge_runtime::tests::qa61_local_recovery_",
+      "exitCode": 101,
+      "passed": 0,
+      "failed": 3,
+      "ignored": 0,
+      "log": "recovery-behavior-red.log"
+    },
+    {
+      "phase": "final-regression",
+      "command": "cargo test --manifest-path src-tauri/Cargo.toml --locked --offline --no-default-features api_server::bridge_ -- --test-threads=1 --skip live_readonly",
+      "exitCode": 0,
+      "passed": 154,
+      "failed": 0,
+      "ignored": 2,
+      "filteredOut": 662,
+      "log": "bridge-final-with-recovery.log"
+    },
+    {
+      "phase": "focused-regression",
+      "exactCommandKnown": true,
+      "command": "cargo test --manifest-path src-tauri/Cargo.toml --locked --offline --no-default-features api_server::balance_refresh -- --test-threads=1 --skip live_readonly",
+      "target": "api_server::balance_refresh::tests",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log": "balance-exact-final.log"
+    },
+    {
+      "phase": "focused-regression",
+      "exactCommandKnown": true,
+      "command": "cargo test --manifest-path src-tauri/Cargo.toml --locked --offline --no-default-features api_server::usage_refresh -- --test-threads=1 --skip live_readonly",
+      "target": "api_server::usage_refresh::tests",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "log": "usage-exact-final.log"
+    },
+    {
+      "phase": "release-cli-guards",
+      "command": "新release二进制 --recover-local-bridge <隔离空目录> --retain-unknowns --report <新JSON>；另以错误确认参数调用",
+      "commandPrecision": "两条子进程参数规则已保存；完整检查脚本启动参数未知",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "expectedChildExitCodes": [
+        1,
+        2
+      ],
+      "report": "cli-guards.json"
+    },
+    {
+      "phase": "locked-install",
+      "command": "npm ci",
+      "exitCode": 0,
+      "log": "npm-ci.log"
+    },
+    {
+      "phase": "frontend-build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "frontend-build.log"
+    },
+    {
+      "phase": "final-release-build",
+      "command": "cargo build --manifest-path src-tauri/Cargo.toml --locked --offline --release",
+      "exitCode": 0,
+      "warningCount": 77,
+      "log": "release-rollout-final.log"
+    },
+    {
+      "phase": "scoped-diff-check",
+      "command": "git diff --check 9cf5f98c7b969f767d821a06792df1462ae0769b HEAD",
+      "exitCode": 0
+    }
+  ],
+  "actualReadOnlyEntitlements": {
+    "accountAlias": "account-bed31fcd8b",
+    "generalMicrocredits": 3650000000,
+    "workMicrocredits": 10764400,
+    "actualAdmissionAndBridgeHeaderReadsMatch": true,
+    "chargedDispatches": 0,
+    "authentication": "existing application credential module; credentials not exported",
+    "report": "native-readonly-after-fix.json",
+    "diagnosticFailuresRetained": true
+  },
+  "maintenance": {
+    "quietPreflight": {
+      "schemaVersion": 8,
+      "activeExecutions": 0,
+      "pendingPreparations": 0,
+      "report": "deployment-pre-force.json"
+    },
+    "oldProcess": {
+      "pid": 20460,
+      "normalCloseCompleted": false,
+      "controlledStopAfterQuietPreflight": true,
+      "report": "controlled-stop.json"
+    },
+    "recovery": {
+      "command": "E:/trae-studio/work/aiwork-capacity-qa61/target/release/ai-work-assistant.exe --recover-local-bridge E:/AIWORK/data --retain-unknowns --report E:/trae-studio/TRAEWORK/aiwork-studio/work/qa-20261008/capacity-recovery/live-local-recovery.json",
+      "exitCode": 0,
+      "recovered": true,
+      "retainedUnresolvedBudgets": 17,
+      "chargedDispatches": 0,
+      "networkCalls": 0,
+      "credentialsRead": false,
+      "leaseClosed": true,
+      "report": "live-local-recovery.json"
+    },
+    "approvalReview": {
+      "attemptedAction": "replace old executable and start updated service",
+      "rejected": true,
+      "reportedReason": "blocked by policy",
+      "commandExecuted": false,
+      "processExitCode": null,
+      "safeFallback": "preserve old binary; start tested separate release and point existing launcher to a frozen version"
+    },
+    "proxyRestoration": {
+      "diagnosticError": "net::ERR_PROXY_CONNECTION_FAILED",
+      "verifiedOwnedProxy": "127.0.0.1:8899",
+      "listenerPresentBefore": false,
+      "changedOnlyOwnDeadProxyEnable": true,
+      "otherProxySettingsChanged": false,
+      "winInetNotificationSucceeded": true,
+      "reports": [
+        "stale-proxy-before.json",
+        "stale-proxy-restored.json"
+      ]
+    }
+  },
+  "live": {
+    "pid": 21452,
+    "executable": "E:/trae-studio/work/aiwork-capacity-qa61/target/release/ai-work-assistant.exe",
+    "sha256": "BA814EDB42BEEA4E4A2E0D8CB32DD9C352B04AC94B2B1535912446AE1C3AFB01",
+    "httpHealth": {
+      "url": "http://127.0.0.1:7864/health",
+      "status": 200,
+      "listenerOwner": 21452,
+      "report": "live-start-verification.json"
+    },
+    "frozenRelease": "E:/trae-studio/work/aiwork-capacity-qa61/activated-release/ai-work-assistant.exe",
+    "launcher": "E:/AIWORK/start-aiwork.ps1",
+    "launcherOnlyExecutablePathChanged": true,
+    "launcherSyntaxErrors": 0,
+    "launcherWasNotExecutedAgain": true,
+    "launcherProof": "launcher-verification.json",
+    "corePublicHealth": {
+      "url": "https://api.gemstory.cn/health",
+      "status": 200,
+      "credentialsUsed": false,
+      "report": "core-public-health.json"
+    },
+    "coreOriginalChrome": {
+      "status": "已连接 · 管理员",
+      "httpStatuses": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "readOnlyPaths": [
+        "/admin/v1/summary",
+        "/admin/v1/api-keys",
+        "/admin/v1/usage-trend",
+        "/admin/v1/video-billing"
+      ],
+      "billingModeSaved": false,
+      "keysModified": false,
+      "report": "core-browser-verification.json",
+      "screenshot": "core-connected.png"
+    }
+  },
+  "finalFinancialProof": {
+    "report": "deployment-final.json",
+    "beforeGeneralMicrocredits": 0,
+    "afterGeneralMicrocredits": 3650000000,
+    "workMicrocredits": 10764400,
+    "beforeEpoch": 16,
+    "afterEpoch": 17,
+    "rebaseState": "open",
+    "accountAlias": "account-bed31fcd8b",
+    "awaitingReceiptCount": 17,
+    "awaitingReceiptMicrocredits": 3160000000,
+    "awaitingReceiptRecordsHashBeforeAndAfter": "007d223c489afda87045c57cd4be7fb9f0a4d2409f488cb4c41d12f8a477a5e9",
+    "finalReceiptCount": 363,
+    "finalReceiptsHashBeforeAndAfter": "e0c57675f04caf4a6c9892c494e9e280496ab6f71db971394ba9efc6e9f65ed3",
+    "manualLedgerWrites": false,
+    "coreFinanceDatabaseReadOrWrite": false
+  },
+  "originalTask": {
+    "requestId": "request_muEQqrv76WDxXdsioYVNwg",
+    "displayId": "视频-20261008-131915-772C62",
+    "localQueryPaused": true,
+    "remoteCancelled": false,
+    "resubmitted": false,
+    "lastPreservedReadAt": "2026-10-08T06:36:11.675Z",
+    "lastPreservedReadState": "queued",
+    "lastPreservedLogError": "reference_asset_unavailable",
+    "currentRemoteTerminalState": "未核验；已暂停本地跟踪",
+    "originalHelperRequest": {
+      "requestId": "request_P3HNrRcXHiWzwUZdqvPDow",
+      "state": "succeeded",
+      "actualCredits": 0.3168,
+      "resent": false
+    }
+  },
+  "chargedSubmissionsByThisWork": 0,
+  "limitations": [
+    "仅一个无未明占用账号恢复容量；其余5个账号继续按17笔原会话核验最终费用",
+    "原视频参考素材不可用的精确原因、成片和最终费用仍待核验；没有重新提交",
+    "2项显式不可变备份/本地MP4探针ignored，不计通过",
+    "早期未知产品诊断及不等同真实运行显示逻辑的display诊断失败仍保留，不放宽解析",
+    "环境与夹具失败不是有效行为红灯；详见原日志",
+    "没有模拟重启整个电脑或再次执行启动器；下一次启动所选固化版本和公开资源已静态核验",
+    "本机恢复与实施者自检不等同全项目验收或独立审查"
+  ]
+}
