@@ -1,0 +1,23 @@
+import {build} from 'esbuild';
+import {cp,mkdir,readFile,writeFile,readdir} from 'node:fs/promises';
+import {resolve,relative} from 'node:path';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {validateRuntime} from './serve-local.mjs';
+const option=name=>{const at=process.argv.indexOf(name);if(at<0||!process.argv[at+1])throw Error(name+' required');return process.argv[at+1];};
+const output=resolve(option('--output')),runtimePath=option('--runtime');
+await readFile(resolve(output,'dist/index.html'));
+const runtime=validateRuntime(JSON.parse(await readFile(runtimePath,'utf8')));
+runtime.port=4189;
+for(const entry of runtime.connections)if(entry.profile.originSnapshot==='https://api.gemstory.cn')entry.profile.name='AI Work 视频网关';
+await mkdir(output,{recursive:true});
+await build({entryPoints:['scripts/serve-local.mjs'],outfile:resolve(output,'server.mjs'),bundle:true,platform:'node',format:'esm',target:'node20',sourcemap:false,legalComments:'inline'});
+await cp('third-party',resolve(output,'third-party'),{recursive:true,errorOnExist:true,force:false});
+await cp('deploy/hosted-allowed-targets.json',resolve(output,'allowed-targets.json'));
+await writeFile(resolve(output,'runtime.json'),JSON.stringify(runtime,null,2)+'\n');
+const files=[];
+async function walk(directory){for(const entry of await readdir(directory,{withFileTypes:true})){const file=resolve(directory,entry.name);if(entry.isDirectory())await walk(file);else{const bytes=await readFile(file);files.push({path:relative(output,file).replaceAll('\\','/'),bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});}}}
+await walk(output);
+const manifest={kind:'user-authorized-server-deployment',createdAt:new Date().toISOString(),sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceChanges:execFileSync('git',['diff','--stat','--','scripts/serve-local.mjs'],{encoding:'utf8'}).trim(),userDomain:'studio.gemstory.cn',independentReviewPerformed:false,frontendMarkAuthorization:'unresolved',files};
+await writeFile(resolve(output,'deployment-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+console.log(JSON.stringify({output,fileCount:files.length,totalBytes:files.reduce((n,f)=>n+f.bytes,0),sourceCommit:manifest.sourceCommit}));

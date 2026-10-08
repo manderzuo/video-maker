@@ -1,0 +1,26 @@
+[Unit]
+Description=AI WORK Studio
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/aiwork-studio/current
+ExecStart=/opt/aiwork-studio/runtime/node-v22.23.3-linux-x64/bin/node server.mjs --root /opt/aiwork-studio/current/dist --runtime /etc/aiwork-studio/runtime.json --allowed-targets /opt/aiwork-studio/current/allowed-targets.json
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+UMask=0077
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

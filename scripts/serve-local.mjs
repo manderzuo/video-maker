@@ -53,7 +53,9 @@ function registrationInput(raw){
  return {kind:raw.kind,name:raw.name.trim(),origin:base};
 }
 function readOnlyContract(){return {version:'unverified',verification:'unknown',evidence:[],routes:{models:true,videoSubmit:false,videoQuery:false,videoContent:false,chat:false,assets:false,workContext:false,continuation:false,backup:false},textModels:[],videoModels:[],videoAliases:[],videoSpecs:[],limits:{}};}
-export function createSettingsHandler(config){
+export function createSettingsHandler(config,{allowedRegistrationTargets}={}){
+ if(allowedRegistrationTargets!==undefined&&!Array.isArray(allowedRegistrationTargets))throw Error('registration_allowlist_invalid');
+ const allowed=allowedRegistrationTargets?.map(registrationInput);
  const nonce=randomBytes(32).toString('hex'),texts=new Map();
  return async function handle(req,res,decoded,port){
   if(decoded==='/studio-deployment.json'&&['GET','HEAD'].includes(req.method)){
@@ -70,6 +72,7 @@ export function createSettingsHandler(config){
    if(req.headers['content-type']?.split(';')[0]!=='application/json'||req.headers['content-encoding'])return reply(res,415,'request_encoding_denied'),true;
    let bytes=0;const parts=[];for await(const part of req){bytes+=part.length;if(bytes>65536)return reply(res,413,'registration_too_large'),true;parts.push(part);}
    let input;try{input=registrationInput(JSON.parse(Buffer.concat(parts).toString('utf8')));}catch{return reply(res,400,'registration_invalid'),true;}
+   if(allowed&&!allowed.some(target=>target.kind===input.kind&&target.origin===input.origin))return reply(res,403,'registration_target_not_allowed'),true;
    const existing=input.kind==='core'?config.connections.find(e=>e.profile.originSnapshot===input.origin):[...texts.values()].find(e=>e.profile.originSnapshot===input.origin);
    if(existing){res.writeHead(201,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(existing));return true;}
    if(config.connections.length+texts.size>=20)return reply(res,409,'registration_limit'),true;
@@ -87,8 +90,8 @@ export function createSettingsHandler(config){
  };
 }
 
-export function createLocalServer({root='dist',runtime=offlineRuntime}={}){
- const config=validateRuntime(runtime),absolute=resolve(root),settings=createSettingsHandler(config);const server=createServer(async(req,res)=>{securityHeaders(res);try{
+export function createLocalServer({root='dist',runtime=offlineRuntime,allowedRegistrationTargets}={}){
+ const config=validateRuntime(runtime),absolute=resolve(root),settings=createSettingsHandler(config,{allowedRegistrationTargets});const server=createServer(async(req,res)=>{securityHeaders(res);try{
   const address=server.address(),port=address&&typeof address==='object'?address.port:config.port;
   if(!['127.0.0.1:'+port,'localhost:'+port].includes(req.headers.host)||req.headers.origin&&!['http://127.0.0.1:'+port,'http://localhost:'+port].includes(req.headers.origin))return reply(res,403,'host_or_origin_denied');
   const raw=req.url??'/';if(!raw.startsWith('/')||raw.startsWith('//')||/[\\\u0000-\u001f]/.test(raw))return reply(res,403,'path_denied');const decoded=decodeURIComponent(raw.split('?')[0]);if(decoded.split('/').some(part=>part==='..'||part==='.')||decoded.includes('\\'))return reply(res,403,'path_denied');
@@ -99,4 +102,12 @@ export function createLocalServer({root='dist',runtime=offlineRuntime}={}){
   const realRoot=await realpath(absolute);let file=resolve(absolute,'.'+(decoded==='/'?'/index.html':decoded));if(!inside(absolute,file))return reply(res,403,'path_denied');try{if(!(await stat(file)).isFile())throw Error('not_file');}catch{if(extname(decoded))return reply(res,404,'static_not_found');file=resolve(absolute,'index.html');}const actual=await realpath(file);if(!inside(realRoot,actual)||!mime[extname(actual)])return reply(res,404,'static_not_found');const bytes=await readFile(actual);res.setHeader('Content-Type',mime[extname(actual)]);res.setHeader('Content-Length',bytes.length);res.end(req.method==='HEAD'?undefined:bytes);
  }catch{if(!res.headersSent)reply(res,400,'request_rejected');else res.destroy();}});server.requestTimeout=35000;server.headersTimeout=10000;return server;
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const option=(name,fallback)=>{const at=process.argv.indexOf(name);return at<0?fallback:process.argv[at+1];};const file=option('--runtime',undefined),runtime=file?validateRuntime(JSON.parse(await readFile(file,'utf8'))):structuredClone(offlineRuntime);runtime.port=Number(option('--port',runtime.port));validateRuntime(runtime);const server=createLocalServer({root:option('--root','dist'),runtime});server.on('error',()=>{console.error('Local startup failed; no alternate host or port selected.');process.exitCode=1;});server.listen(runtime.port,'127.0.0.1',()=>console.log('AI WORK Studio http://127.0.0.1:'+server.address().port+' · '+(runtime.coreTargets.length?'fixed registered Core targets':'offline, Core disabled')));}
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
+ const option=(name,fallback)=>{const at=process.argv.indexOf(name);return at<0?fallback:process.argv[at+1];};
+ const file=option('--runtime',undefined),runtime=file?validateRuntime(JSON.parse(await readFile(file,'utf8'))):structuredClone(offlineRuntime);
+ const allowFile=option('--allowed-targets',undefined),allowedRegistrationTargets=allowFile?JSON.parse(await readFile(allowFile,'utf8')):undefined;
+ runtime.port=Number(option('--port',runtime.port));validateRuntime(runtime);
+ const server=createLocalServer({root:option('--root','dist'),runtime,allowedRegistrationTargets});
+ server.on('error',()=>{console.error('Local startup failed; no alternate host or port selected.');process.exitCode=1;});
+ server.listen(runtime.port,'127.0.0.1',()=>console.log('AI WORK Studio http://127.0.0.1:'+server.address().port+' · '+(runtime.coreTargets.length?'fixed registered Core targets':'offline, Core disabled')));
+}
