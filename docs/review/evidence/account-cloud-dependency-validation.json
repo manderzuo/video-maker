@@ -1,0 +1,200 @@
+{
+  "recordedAtUtc": "2026-10-08T11:25:18.540098+00:00",
+  "status": "local_dependency_prerequisite_verified",
+  "fullTask0Complete": false,
+  "accountImplementationStarted": false,
+  "branch": "feat/account-api-cloud",
+  "base": "6bc1e50ed7321181971b0485b4c65164c2c4ede1",
+  "commitIdentity": "recorded in Git history and work/account-api-cloud/task0-dependency-handoff.json after scoped commit",
+  "allowedCommitPaths": [
+    "server/package.json",
+    "server/package-lock.json",
+    "server/tsconfig.json",
+    "server/vitest.config.ts",
+    "server/README.md",
+    "server/tests/dependency-smoke.test.ts",
+    "server/tests/database-driver.test.ts",
+    "docs/review/account-cloud-environment-mapping.md",
+    "docs/review/ACCOUNT_DEPENDENCY_CHECKPOINT.md",
+    "docs/review/evidence/account-cloud-dependency-validation.json"
+  ],
+  "packages": [
+    {
+      "name": "@fastify/cookie",
+      "version": "11.1.2",
+      "integrity": "sha512-Dtrpk/YOGUsbRMvP/8ZqPpwnMRv0qSqodFdoQ2B589Obc7jw4s4Qla+cV72Bsm7WsZJnqlYFX/i7uSBq0xzg6g==",
+      "tarball": "https://registry.npmjs.org/@fastify/cookie/-/cookie-11.1.2.tgz",
+      "repository": "git+https://github.com/fastify/fastify-cookie.git"
+    },
+    {
+      "name": "argon2",
+      "version": "0.45.1",
+      "integrity": "sha512-skm+/WCjkGqCQxF7FG1LuZXM5yvbFjgbfiCGsud2oLgaDhh6b6dbH0b1EkghbM+xx4Bj8Ape+KKgixoIlWZicQ==",
+      "tarball": "https://registry.npmjs.org/argon2/-/argon2-0.45.1.tgz",
+      "repository": "git+https://github.com/ranisalt/node-argon2.git"
+    },
+    {
+      "name": "fastify",
+      "version": "5.12.5",
+      "integrity": "sha512-OB2k1dlxs5/NAABqeKV2FUHkSD2BbENsCak8yULVcymn3fHIPDVa9TI3SDnJSWYSllZmSYuZXy2gTnsT+Sut1A==",
+      "tarball": "https://registry.npmjs.org/fastify/-/fastify-5.12.5.tgz",
+      "repository": "git+https://github.com/fastify/fastify.git"
+    },
+    {
+      "name": "pg",
+      "version": "8.23.1",
+      "integrity": "sha512-aL96AHANtWjPLDOLqnhx+ngp9+UK7ETEU8VJrDCGvsSSi/mGLcWYsS6Herg7lmaBJe4uwrfqsa7gTEFaSizDoQ==",
+      "tarball": "https://registry.npmjs.org/pg/-/pg-8.23.1.tgz",
+      "repository": "git://github.com/brianc/node-postgres.git"
+    },
+    {
+      "name": "zod",
+      "version": "4.3.6",
+      "integrity": "sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==",
+      "tarball": "https://registry.npmjs.org/zod/-/zod-4.3.6.tgz",
+      "repository": "git+https://github.com/colinhacks/zod.git"
+    },
+    {
+      "name": "@types/node",
+      "version": "22.20.4",
+      "integrity": "sha512-zJRE40jpHtKqE/C4fgHrAKQLJuSpzEnP9ff9Y7YtoR3Wd2pwqzlekDeEuUQXjRd+QCYnVnNwuJYmhdk9XV8gvA==",
+      "tarball": "https://registry.npmjs.org/@types/node/-/node-22.20.4.tgz",
+      "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    {
+      "name": "@types/pg",
+      "version": "8.23.1",
+      "integrity": "sha512-fKVHpikPdg4GKks3JuLEhvwSyvwzF23hnabPy6DD8ljVbC7+6J5dQzdv4arV6jqq57djnMgs1HKBxX4P8aBI3A==",
+      "tarball": "https://registry.npmjs.org/@types/pg/-/pg-8.23.1.tgz",
+      "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "tarball": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",
+      "repository": "git+https://github.com/microsoft/TypeScript.git"
+    },
+    {
+      "name": "vitest",
+      "version": "4.1.11",
+      "integrity": "sha512-fhACrNXUidIbGSBr5FlbuBkO7VWC1ZyLl0DO4CU2DrQoAPxX84Ysxs+HeGQpii5lZWV1Q4gBZTTu49mF+A6Edw==",
+      "tarball": "https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz",
+      "repository": "git+https://github.com/vitest-dev/vitest.git"
+    }
+  ],
+  "resolvedLockEntries": 150,
+  "installedApplicablePackages": 125,
+  "lifecycleScriptsExecuted": false,
+  "runtime": {
+    "node": "v22.23.3",
+    "platform": "win32",
+    "architecture": "x64",
+    "entry": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\account-api-cloud-20261008\\dev\\server\\node_modules\\argon2\\argon2.cjs",
+    "nativeBinding": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\account-api-cloud-20261008\\dev\\server\\node_modules\\argon2\\prebuilds\\win32-x64\\argon2.glibc.node",
+    "nativeSha256": "7d1716c8eafe32d54a12af5c0d3024cd715a7e1fdc8092eea84fd369d267075c",
+    "dependencyDirectoryIsReparsePoint": false
+  },
+  "checks": [
+    {
+      "command": "npm --prefix server install --package-lock-only --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/task0-backend-lock.log",
+      "sha256": "1314b2acf2d0803a87e42adec26e9c235c0f7ee84be990b35d4e33ed3e06750e"
+    },
+    {
+      "command": "npm --prefix server ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/task0-backend-ci.log",
+      "sha256": "e9c0a96f55327fce607976cb015dcf83c8eaefff81ea1c6b95bfc150af2f8652"
+    },
+    {
+      "command": "npm --prefix server run test",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/task0-backend-smoke.log",
+      "sha256": "cbd1b08243f2e3e32fe84c7fedc2c8b46c4c74a91be04c328e4663315f5f46eb"
+    },
+    {
+      "command": "npm --prefix server run typecheck",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/task0-backend-typecheck.log",
+      "sha256": "46ecff3eab4ac246de95c80ab0d84536b1114e2c2dee9d8ee709dd0a9854d6a8"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/task0-frontend-typecheck.log",
+      "sha256": "5f13e85216560882d2a1e52f1b7db24d5e5b74f0c715254e0460b1c4d4c02b3d"
+    }
+  ],
+  "smokeTestsPassed": 6,
+  "smokeTestsFailed": 0,
+  "database": {
+    "container": "aiwork-studio-account-test-20261008",
+    "postgresVersion": "16.14",
+    "endpoint": "127.0.0.1:55432",
+    "name": "aiwork_studio_test",
+    "storage": "tmpfs",
+    "operations": "transaction-local TEMP parameterized fake A/B rows, unique constraint failure, rollback and absence assertion",
+    "accountAuthorizationVerified": false,
+    "durableStorageVerified": false
+  },
+  "audit": {
+    "command": "npm --prefix server audit --package-lock-only --json --registry=https://registry.npmjs.org",
+    "exitCode": 0,
+    "knownVulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "raw": "work/account-api-cloud/task0-backend-audit.json",
+    "sha256": "5340413a0c0b6a38ca8105f751b9b5b56c9d575ce1a4d3c0ff22618afa67999b"
+  },
+  "registryMetadata": {
+    "raw": "work/account-api-cloud/task0-registry-source-check.json",
+    "sha256": "69ba7219aac40d4456166a96f6b9757e4091a2256bc6e1347d1309f43f460743"
+  },
+  "initialSmokeFailure": "5 passed/1 invalid PHC order assertion; corrected named parameter map. Initial typecheck widened type; immutable literal options corrected. No weaker costs.",
+  "artifactSha256": {
+    "server/package.json": "24ffd2b70f00138e0f5bcf5a49e60c2e46d0630ed721c3978a0acbe7c7fc2805",
+    "server/package-lock.json": "ef56190ff5c4cd6657864966526f8cc00324a41bda7acd5ec2a7b0957d161b76",
+    "server/tsconfig.json": "aa8dc2a5ecf3fa2114ea35b1d4de96c5484f7595f0fbddf44ab1ba7601e12ed6",
+    "server/vitest.config.ts": "8b8c3d4a225ff83918a3de7a460ae4fa3a78c8766c9095e65a456a692cc77db3",
+    "server/README.md": "b0a90035c2a080130ba5aa9c063bfc120b95cfa8187cf877188c654fc5e9ea87",
+    "server/tests/dependency-smoke.test.ts": "97a73f1818e4f9c79fd4361cf355e1e7897f9e4f794fcac64e1713f7d5703db3",
+    "server/tests/database-driver.test.ts": "7b67b5e34df67f9f165b1f841cb4c9724a79d8193293173a6a5031c985e48b10",
+    "docs/review/account-cloud-environment-mapping.md": "3267f8ab54b31377d7aef13d1139563f34f69e3db4f3e0295392032a93d22b57",
+    "docs/review/ACCOUNT_DEPENDENCY_CHECKPOINT.md": "5d41b8c293c52a35bbe9237bb501c1899c0dd3dd039603580cd09edf120a58e3"
+  },
+  "unchangedDependencyFiles": {
+    "recordedAtUtc": "2026-10-08T11:16:50.776618+00:00",
+    "rootPackageSha256": "4362c7517bf034755f37b55a9580ca0d014b017a20857a37f7e3ea784cdd5b12",
+    "rootLockSha256": "97bc3483601ed50cdf3da3a7559c15d00c8a4939a9c54c59772e5243795f069b",
+    "originalPackageSha256": "da4b1b2bc30ae8a2098085fedad91810e353011bfd9e62bd5b4037a9dce44930",
+    "originalLockSha256": "97bc3483601ed50cdf3da3a7559c15d00c8a4939a9c54c59772e5243795f069b",
+    "backendDirectory": "server",
+    "installScripts": false
+  },
+  "originalHead": "24d78bc8b5f5c13bffda0150dd60824caadd7cfd",
+  "boundaries": {
+    "productionConnectedOrModified": false,
+    "paidApiCalls": 0,
+    "pushMergeDeployment": false,
+    "globalInstall": false,
+    "newSystemServices": false,
+    "networkSecurityConfigurationChanged": false,
+    "frontendSourceModified": false
+  },
+  "pending": [
+    "minimum account/bootstrap/session service and DB schema",
+    "CSRF/origin/context/session-change tests",
+    "actual two-user resource isolation acceptance",
+    "frontend authentication barrier before private workspace",
+    "production source/DB/private storage/backups/encryption key verification",
+    "actual production Linux native dependency compatibility"
+  ],
+  "nextCheckpoint": "Implement minimum account/session slice and pass real A/B authorization/context tests in the isolated test database"
+}
