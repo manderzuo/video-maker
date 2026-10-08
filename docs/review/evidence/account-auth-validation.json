@@ -1,0 +1,163 @@
+{
+  "observedAtUtc": "2026-10-08T12:14:47.056617+00:00",
+  "status": "backend_reviewed_and_verified_precommit",
+  "base": "b91fc6e24750a962c6801d41d4b069a475f52f43",
+  "branch": "feat/account-api-cloud",
+  "scope": [
+    "docs/review/ACCOUNT_AUTH_INDEPENDENT_REVIEW.md",
+    "docs/review/ACCOUNT_AUTH_REPORT.md",
+    "docs/review/evidence/account-auth-validation.json",
+    "server/README.md",
+    "server/src/app.ts",
+    "server/src/auth/context.ts",
+    "server/src/auth/rate-limit.ts",
+    "server/src/auth/routes.ts",
+    "server/src/auth/service.ts",
+    "server/src/auth/session.ts",
+    "server/src/db/migrations/001-users.sql",
+    "server/src/db/transaction.ts",
+    "server/src/errors.ts",
+    "server/src/security/password.ts",
+    "server/src/users/contracts.ts",
+    "server/src/users/document-repository.ts",
+    "server/src/users/routes.ts",
+    "server/tests/account-fixture.ts",
+    "server/tests/auth-path-encoding.test.ts",
+    "server/tests/auth.test.ts",
+    "server/tests/user-document.test.ts",
+    "server/tests/user-scope.test.ts"
+  ],
+  "sourceAndTestSha256": {
+    "server/src/app.ts": "90fb4baa516f362a0d6c1d018d16129030b9694b9389350e17f181b994702c80",
+    "server/src/errors.ts": "27c2ea98185152d42a13471c03b93493e817443f781bc34941b7a80bb869b368",
+    "server/src/db/transaction.ts": "738f4f7810617e960b1bb9c65291d4ebd42ed8548511dc4b3aeb8b1b88de37a6",
+    "server/src/db/migrations/001-users.sql": "292380465c7491e3da34fd3277811ee83e0ff446bb15ae42f7655df9c40006b6",
+    "server/src/security/password.ts": "4d2abd03c17caa0ebdfeb5d2f0e97ed6d639bd79383d9a6dde544c50a60848ec",
+    "server/src/auth/context.ts": "01f3bfdd204ca2a031e1d7c4211c4c97319790111bceaf85979c67aa5ca69124",
+    "server/src/auth/session.ts": "6efd3ad4e14323c5352119fdba147adbc709a0b3ea2dc7283651eeef546cb79e",
+    "server/src/auth/rate-limit.ts": "027b61bdd05045f7f6d88d7d94257b701341927a7448fea997f142980856a3b1",
+    "server/src/auth/service.ts": "7af9f2d18dc6e702323ea9b9c47e86d473e9e6a8bb86ebd4373f265b6fc8c035",
+    "server/src/auth/routes.ts": "53f47d9112a16977f722d2620f75027dda79fc18f42118e16f64978a69d40b21",
+    "server/src/users/contracts.ts": "efa12fb7f142634ca6e9793cc84cc89fbd4a7a2ee35378767e01d16108b2b5fb",
+    "server/src/users/document-repository.ts": "b40e1b5fe70fa3477b39070583e307b7b3185390a0b07dba5ec16bf54a70e79f",
+    "server/src/users/routes.ts": "df3eabea0bf22cb1b23975f960982fb7c991b626783bea6eca4ae56c02013d62",
+    "server/tests/account-fixture.ts": "22dfc96aafb6c5ddd80542d63eefd97996bc41fa2c668a6b1d7058f1babdda44",
+    "server/tests/auth.test.ts": "9ebe3bcba0d6891dbbd013b33daee0f543e2aaa14e5ef0247459b387328fdef9",
+    "server/tests/user-scope.test.ts": "e518cb6ae399d6be923a803d9d513dcd3ab2e6fd2df14b282af0bd4c159d8d31",
+    "server/tests/user-document.test.ts": "30fad8e33bc2a8de3a9087ca5b8fd2d5d18976df469e8d3f2a5cfd4e3da8f6f4",
+    "server/tests/auth-path-encoding.test.ts": "4cdbb77a3238eff4f5d630f02a660c54c38dc7d5dc77158407c6b24af4287308"
+  },
+  "readmeSha256": "858573c4435e6786b56e41ae181e212aa7f3cfe9cb0b751ae32971435f2952aa",
+  "checks": [
+    {
+      "command": "npm --prefix server run test",
+      "exitCode": 0,
+      "passed": 65,
+      "filesPassed": 6,
+      "log": "work/account-api-cloud/logs/account-review-server-verified.log",
+      "sha256": "267884afcace734b6940bce7406b98510d4d51aaf00e32361b719a73dccdf3a3",
+      "logModifiedAtUtc": "2026-10-08T12:12:25.745293+00:00"
+    },
+    {
+      "command": "npm --prefix server run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "filesPassed": null,
+      "log": "work/account-api-cloud/logs/account-review-server-typecheck-verified.log",
+      "sha256": "191a21a1686f8c6264afc2ef76f65735bd76dc18a7c1b3664f5c7faee9af6f39",
+      "logModifiedAtUtc": "2026-10-08T12:12:15.053555+00:00"
+    },
+    {
+      "command": "npx --no-install eslint server/src server/tests",
+      "exitCode": 0,
+      "passed": null,
+      "filesPassed": null,
+      "evidence": "Silent command actual tool output: lintExit0 in final validation."
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "passed": 559,
+      "filesPassed": 77,
+      "log": "work/account-api-cloud/logs/account-review-frontend-unit.log",
+      "sha256": "804dbf4b81d67b762bc8fd22dd8cf50942d24edcbab8f6d3f9d8aa882c1f47c3",
+      "logModifiedAtUtc": "2026-10-08T11:54:31.860790+00:00"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/welcome-connection.spec.ts tests/e2e/connection-selection-contracts.spec.ts --output=work/account-api-cloud/account-review-api-browser",
+      "exitCode": 0,
+      "passed": 5,
+      "filesPassed": 2,
+      "log": "work/account-api-cloud/logs/account-review-api-browser.log",
+      "sha256": "725168f7bcad18f51fc1822362bff19d53af4cddf529b5f1e1d4249cd99b2ab5",
+      "logModifiedAtUtc": "2026-10-08T11:54:43.615762+00:00"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "passed": null,
+      "filesPassed": null,
+      "log": "work/account-api-cloud/logs/account-review-frontend-typecheck.log",
+      "sha256": "5f13e85216560882d2a1e52f1b7db24d5e5b74f0c715254e0460b1c4d4c02b3d",
+      "logModifiedAtUtc": "2026-10-08T11:54:41.568145+00:00"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "passed": null,
+      "filesPassed": null,
+      "log": "work/account-api-cloud/logs/account-review-frontend-build.log",
+      "sha256": "f4749b10c804d50b5e87d2992016ddc71f2e45e142311abddc6477fb38b33a11",
+      "logModifiedAtUtc": "2026-10-08T11:54:44.635450+00:00"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "passed": null,
+      "filesPassed": null,
+      "log": "work/account-api-cloud/logs/account-review-frontend-bundle.log",
+      "sha256": "e8714ee060693be4f4aa432780049ca9b9e0f6c37f7ba1f7ab4587ad8bcc2bf6",
+      "logModifiedAtUtc": "2026-10-08T11:54:44.929602+00:00"
+    }
+  ],
+  "redAndIntermediateLogSha256": {
+    "account-auth-red.log": "c72153f54e6e45c681678a63174b5c8fb0a0f1f7f0b978daefa1a6964095bf13",
+    "account-auth-token-red.log": "4dd620aae1fe95da63b3df72a6a2d50dd08057056a732a543dcdca5488358e84",
+    "account-review-url-red.log": "a0478d68929639e696090492067e49d342bdc76bf5f88fdbd78e236de6391636",
+    "account-review-findings-red.log": "d2ce08a7ef2e8cfd117d281dbc667d6b0ff2d6e048e1fa2b773c3fd53fc65de3",
+    "account-review-findings-green.log": "c094e938f018a93a8e2e7ac64dc9d0986357b6a5bdd9f3e2075e0d1c0f9f640b",
+    "account-review-framework-red.log": "5cafccd930a44cc71033b8d4d9f07fe32d59660c03c998c6a9fe8ff7842e6cb1",
+    "account-review-server-typecheck-final.log": "be5f3a8210883f2aae881cb8224df4aabaeeaf342e3355d66150e00676b431f8"
+  },
+  "independentReview": {
+    "agent": "/root/auth_readonly_review",
+    "initialImportant": 1,
+    "initialMinor": 1,
+    "followupMinor": 1,
+    "allFindingsClosedBySourceReview": true,
+    "reviewerExecutedTests": false
+  },
+  "originalHead": "24d78bc8b5f5c13bffda0150dd60824caadd7cfd",
+  "originalCodeAndTestStatusClean": true,
+  "packageHashMatches": {
+    "rootPackageSha256": true,
+    "rootLockSha256": true,
+    "originalPackageSha256": true,
+    "originalLockSha256": true
+  },
+  "isolatedTestSchemasRemaining": 0,
+  "pending": [
+    "frontend authentication boundary and account forms",
+    "per-user preferences integration",
+    "API and Welcome form changes",
+    "broader resource ownership and old proxy migration",
+    "production mixed-source mapping and environment verification"
+  ],
+  "boundaries": {
+    "productionModified": false,
+    "realCredentialsRead": false,
+    "paidApiCalled": false,
+    "pushedOrMerged": false,
+    "deployed": false
+  }
+}
