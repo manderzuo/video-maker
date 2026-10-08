@@ -1,3 +1,4 @@
+import {mergeVideoFailure} from './video-failure';
 import type {Run} from './run';
 import type {CoreReply} from '../adapters/core/http-client';
 import type {CoreTaskView} from '../adapters/core/contracts';
@@ -9,8 +10,9 @@ export function applySubmissionOutcome(run:Run,reply:CoreReply<CoreTaskView>):Ru
 export function observeVideoTask(run:Run,task:CoreTaskView):Run{
  if(run.taskId&&run.taskId!==task.taskId)throw Error('core_task_identity_mismatch');
  if(run.workContext&&task.workContext&&(run.workContext.workId!==task.workContext.workId||run.workContext.baseVersionId&&run.workContext.baseVersionId!==task.workContext.baseVersionId))throw Error('video_work_identity_frozen');
+ const failure=mergeVideoFailure(run.failure,run.executionState!=='succeeded'&&task.status==='failed'?task.failure:undefined);
  const billingState=task.billingState==='not_provided'?run.billingState:task.billingState;
- if(['succeeded','failed_confirmed'].includes(run.executionState))return {...run,billingState,queryState:task.status==='unknown'?'interrupted':'idle',updatedAt:Date.now()};
+ if(['succeeded','failed_confirmed'].includes(run.executionState))return {...run,...(failure?{failure}:{}),billingState,queryState:task.status==='unknown'?'interrupted':'idle',updatedAt:Date.now()};
  const now=Date.now(),terminal=['completed','failed'].includes(task.status);
- return {...run,taskId:task.taskId,...(task.workContext?{workContext:task.workContext}:{}),...(task.requestId?{coreRequestId:task.requestId}:{}),executionState:task.status==='completed'?'succeeded':task.status==='failed'?'failed_confirmed':task.status==='processing'?'running':'accepted',...(terminal?{executionFinishedAt:now}:{}),billingState,queryState:task.status==='unknown'?'interrupted':terminal?'idle':'polling',updatedAt:now};
+ return {...run,...(failure?{failure}:{}),taskId:task.taskId,...(task.workContext?{workContext:task.workContext}:{}),...(task.requestId&&!run.coreRequestId?{coreRequestId:task.requestId}:{}),executionState:task.status==='completed'?'succeeded':task.status==='failed'?'failed_confirmed':task.status==='processing'?'running':'accepted',...(terminal?{executionFinishedAt:now}:{}),billingState,queryState:task.status==='unknown'?'interrupted':terminal?'idle':'polling',updatedAt:now};
 }

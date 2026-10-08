@@ -1,3 +1,4 @@
+import {mergeVideoFailure} from './video-failure';
 import type {Run} from './run';
 import type {CoreReply} from '../adapters/core/http-client';
 import type {CoreTaskView} from '../adapters/core/contracts';
@@ -16,6 +17,7 @@ export function applyQueryObservation(run:Run,reply:CoreReply<CoreTaskView>):Run
  if(task.status==='unknown')return {...run,billingState,queryState:'interrupted',updatedAt:Date.now()};
  const terminal=['succeeded','failed_confirmed'].includes(run.executionState),executionState=terminal?run.executionState:task.status==='completed'?'succeeded':task.status==='failed'?'failed_confirmed':task.status==='processing'||run.executionState==='running'?'running':'accepted';
  // Query transport IDs do not replace the original submission request identity.
+ const failure=mergeVideoFailure(run.failure,executionState==='failed_confirmed'&&task.status==='failed'?task.failure:undefined);
  const now=Date.now(),firstTerminal=!terminal&&['succeeded','failed_confirmed'].includes(executionState);
- return {...run,...(task.workContext?{workContext:{...run.workContext,...task.workContext}}:{}),executionState,...(firstTerminal?{executionFinishedAt:now}:{}),billingState,queryState:['completed','failed'].includes(task.status)?'idle':'polling',updatedAt:now};
+ return {...run,...(failure?{failure}:{}),...(task.workContext?{workContext:{...run.workContext,...task.workContext}}:{}),executionState,...(firstTerminal?{executionFinishedAt:now}:{}),billingState,queryState:['completed','failed'].includes(task.status)?'idle':'polling',updatedAt:now};
 }

@@ -32,3 +32,19 @@ it('QA58: final billing can arrive after failure without changing the original e
  expect(next).toMatchObject({executionState:'failed_confirmed',billingState:'settled',coreRequestId:'original-request',idempotencyKey:run.idempotencyKey});
  expect(next.inputSnapshot).toEqual(run.inputSnapshot);
 });
+
+
+it('F0: query records the safe reason and preserves original identity through every billing update',()=>{
+ const run=f.run({taskId:'task-1',coreRequestId:'original-request',executionState:'running',billingState:'pending_reconciliation'});
+ const task=parseVideoTask({task:{id:'task-1',status:'failed',error:{code:'video_execution_failed',billing_state:'pending',upstream:{code:3003,message:'input image content[1] may contain real person'}}}});
+ let next=applyQueryObservation(run,{ok:true,value:task});
+ expect(next).toMatchObject({failure:task.failure,executionState:'failed_confirmed'});
+ const finished=next.executionFinishedAt;
+ for(const billing_state of ['pending','settled','released']){
+  next=applyQueryObservation(next,{ok:true,value:parseVideoTask({task:{id:'task-1',status:'failed',error:{code:'video_execution_failed',billing_state}}})});
+  expect(next).toMatchObject({failure:task.failure,taskId:run.taskId,coreRequestId:run.coreRequestId,idempotencyKey:run.idempotencyKey,executionFinishedAt:finished});
+  expect(next.inputSnapshot).toEqual(run.inputSnapshot);
+ }
+ next=applyQueryObservation(next,{ok:false,error:{httpStatus:503,category:'unavailable',errorCode:'core_http_error',submissionOutcome:'unknown'}});
+ expect(next).toMatchObject({failure:task.failure,executionState:'failed_confirmed',billingState:'released'});
+});

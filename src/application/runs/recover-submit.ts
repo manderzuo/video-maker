@@ -1,5 +1,6 @@
 import {originalVideoApproval,submissionClient,sendFrozenVideo,persistSubmissionReply,type SubmitOptions} from './submit-video';
-import type {Run} from '../../domain/run';
+import {billingStateSchema,runWorkContextSchema,type Run} from '../../domain/run';
+import {videoFailureInfoSchema} from '../../domain/video-failure';
 import {withDatabase,transact,requestResult,storageErrorCode,type StudioDb} from '../../infrastructure/storage/database';
 import {readRun,saveRun,putRunInTransaction,validateFrozenBody} from '../../infrastructure/storage/run-repository';
 import {assertAssetBinding} from '../../adapters/core/assets';
@@ -14,7 +15,7 @@ export type RecoveryDecision={action:'manual_check'|'query_original'|'replay_ori
 export type RecoveryResult={status:'manual_check'|'queried'|'replayed';run:Run;reason?:string};
 const safeIdentity=z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/).refine(value=>sanitizeKnownSecrets(value)===value);
 const replySchema=z.discriminatedUnion('ok',[
- z.strictObject({ok:z.literal(true),value:z.strictObject({taskId:safeIdentity,requestId:safeIdentity.optional(),status:z.enum(['queued','processing','completed','failed','unknown']),errorCode:z.string().regex(/^[a-z][a-z0-9_]{0,95}$/).optional(),contentAvailable:z.boolean(),billingState:z.literal('not_provided')})}),
+ z.strictObject({ok:z.literal(true),value:z.strictObject({taskId:safeIdentity,requestId:safeIdentity.optional(),status:z.enum(['queued','processing','completed','failed','unknown']),errorCode:z.string().regex(/^[a-z][a-z0-9_]{0,95}$/).optional(),contentAvailable:z.boolean(),billingState:billingStateSchema,workContext:runWorkContextSchema.optional(),failure:videoFailureInfoSchema.optional()})}),
  z.strictObject({ok:z.literal(false),error:z.strictObject({httpStatus:z.number().int().min(0).max(599),category:z.enum(['quota','forbidden','conflict','rate_limited','unavailable','invalid_request','authentication','not_found','protocol','unknown']),errorCode:z.string().regex(/^[a-z][a-z0-9_]{0,95}$/),requestId:safeIdentity.optional(),retryAfterMs:z.number().nonnegative().optional(),submissionOutcome:z.enum(['not_sent','unknown'])})})
 ]);
 const journalSchema=z.object({runId:z.string(),bodyHash:z.string(),idempotencyKey:z.string(),binding:bindingSchema,reply:replySchema});

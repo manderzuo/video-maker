@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {videoFailureInfoSchema} from './video-failure';
 import {id,timestamp,revision,bindingSchema,snapshotSchema,videoSpecSchema,jsonSnapshotText} from './common';
 export const runWorkContextSchema=z.strictObject({workId:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),baseVersionId:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/).optional()});
 export const executionStateSchema=z.enum(['draft','preflight_blocked','awaiting_confirmation','persisted','uploading','submitting','submit_unknown','accepted','running','succeeded','failed_confirmed']);
@@ -9,5 +10,5 @@ export type ExecutionState=z.infer<typeof executionStateSchema>;
 export type QueryState=z.infer<typeof queryStateSchema>;
 export type DeliveryState=z.infer<typeof deliveryStateSchema>;
 export type BillingState=z.infer<typeof billingStateSchema>;
-export const runSchema=bindingSchema.extend({id,projectId:id,nodeId:id,graphRevision:revision,idempotencyKey:id,inputSnapshot:snapshotSchema,finalBody:jsonSnapshotText.optional(),finalBodyHash:z.string().regex(/^[a-f0-9]{64}$/).optional(),requestedSpec:videoSpecSchema.optional(),executionSpec:videoSpecSchema.optional(),executionState:executionStateSchema,queryState:queryStateSchema,deliveryState:deliveryStateSchema,billingState:billingStateSchema,taskId:id.optional(),coreRequestId:id.optional(),resultAssetId:id.optional(),workContext:runWorkContextSchema.optional(),executionFinishedAt:timestamp.optional(),createdAt:timestamp,updatedAt:timestamp});
+export const runSchema=bindingSchema.extend({id,projectId:id,nodeId:id,graphRevision:revision,idempotencyKey:id,inputSnapshot:snapshotSchema,finalBody:jsonSnapshotText.optional(),finalBodyHash:z.string().regex(/^[a-f0-9]{64}$/).optional(),requestedSpec:videoSpecSchema.optional(),executionSpec:videoSpecSchema.optional(),executionState:executionStateSchema,queryState:queryStateSchema,deliveryState:deliveryStateSchema,billingState:billingStateSchema,taskId:id.optional(),coreRequestId:id.optional(),resultAssetId:id.optional(),workContext:runWorkContextSchema.optional(),failure:videoFailureInfoSchema.optional(),executionFinishedAt:timestamp.optional(),createdAt:timestamp,updatedAt:timestamp});
 export type Run=z.infer<typeof runSchema>;

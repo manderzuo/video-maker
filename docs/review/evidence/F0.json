@@ -1,0 +1,172 @@
+{
+  "recordedAtUtc": "2026-10-08T11:10:04.786429+00:00",
+  "status": "locally_verified_and_independently_reviewed",
+  "branch": "feat/account-api-cloud",
+  "completeLocalBase": "24d78bc8b5f5c13bffda0150dd60824caadd7cfd",
+  "commitIdentity": "recorded in Git history and work/account-api-cloud/F0-final-handoff.json after scoped commit",
+  "allowedCommitPaths": [
+    "src/domain/video-failure.ts",
+    "src/adapters/core/contracts.ts",
+    "src/domain/run.ts",
+    "src/domain/run-status.ts",
+    "src/domain/video-run-machine.ts",
+    "src/application/runs/poll-video.ts",
+    "src/application/runs/recover-submit.ts",
+    "src/features/tasks/QueueRunProgress.tsx",
+    "src/features/tasks/TaskDetail.tsx",
+    "src/ui/tokens.css",
+    "tests/unit/video-polling.test.ts",
+    "tests/unit/video-submit.test.ts",
+    "tests/unit/video-terminal-billing.test.ts",
+    "tests/unit/video-failure-reason.test.ts",
+    "tests/e2e/video-failure-reason-progress.spec.ts",
+    "tests/fixtures/video-failure-reason.ts",
+    "docs/review/F0_REPORT.md",
+    "docs/review/F0_INDEPENDENT_REVIEW.md",
+    "docs/review/evidence/F0.json"
+  ],
+  "sourceAndReviewSha256": {
+    "src/domain/video-failure.ts": "29934b51cb3a2c9fdbc3a87bd462c4ffd90ad40837c4c4b11b5e7398bf3589a2",
+    "src/adapters/core/contracts.ts": "60b48cbf946c537d692578972bdaee6502122255c9a5d8bb1d8d4c37c43880a3",
+    "src/domain/run.ts": "f4a18c7850fec46b51985621fdcc634e46cc975549886902f27775fbf287a8d9",
+    "src/domain/run-status.ts": "9b41a45ff17a3dac1a135826675bb31cd855adcbf6a26882fb17268dd9d4667c",
+    "src/domain/video-run-machine.ts": "2a71da67d371de591f630565fb3b384a88effed82ad7358577e4d46cfade9af7",
+    "src/application/runs/poll-video.ts": "b25303d0a13084bdfe9f5f93ce436b91ce13de246854ba3c781dc02decd0003a",
+    "src/application/runs/recover-submit.ts": "3ac6407d2fb2a1c6cee6214e24d02b451f8b204ca7201e6f4260c9bd95e42e7d",
+    "src/features/tasks/QueueRunProgress.tsx": "8f01c9d285941c1b4fde524dd7fdf7ca88c8ec669969178388b0dc43963fdf1f",
+    "src/features/tasks/TaskDetail.tsx": "7963d67d3cbc1afb95585e4e792c19133bd97d3b3c51745b610692fc3ae35739",
+    "src/ui/tokens.css": "3fe7f596e24ac1449030d7ede7959587554eea7ab01728a298d54b34b0864058",
+    "tests/unit/video-polling.test.ts": "36c1fb1f284c05cb92f05c9646b425ac3f153260488b3a36ec50d4a866aae9b5",
+    "tests/unit/video-submit.test.ts": "8db0d32a0637a6b88815d6555ae5ffff73d9dc576990caecbe572b036de327d6",
+    "tests/unit/video-terminal-billing.test.ts": "dbadfcb49ea7c92f13d8677f2a60cf968555fea15b6676d0f1c3f29571ee5293",
+    "tests/unit/video-failure-reason.test.ts": "7e263935bab9abc5b66392a7aa44d80979f5773c86c8563284a0e7df1bdef35f",
+    "tests/e2e/video-failure-reason-progress.spec.ts": "94584f1447fcc9cec36a4145b7af355e8bb2ccbaea908d1ef3e05dfeeacae9db",
+    "tests/fixtures/video-failure-reason.ts": "e2a4052d1d0b7340f514cb74e62ed749b99e1226fb4d2dc8993972506db4d0f6",
+    "docs/review/F0_REPORT.md": "ec338f0650228df32acdd5630d84b4d4b239489c9cecf35753c06ebf56b101b2",
+    "docs/review/F0_INDEPENDENT_REVIEW.md": "9fc1fe101800b0b6dcaf00f25fb7f6f28b1cda116d375326e7e7bd8a3230e40b"
+  },
+  "checks": [
+    {
+      "command": "npm run test:unit",
+      "result": "passed",
+      "testFiles": 77,
+      "testsPassed": 559,
+      "testsFailed": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-unit.log",
+      "logSha256": "149b54193ea087e2d131b5cf1ff6009c33c45e27b4d720fe0eb2296cf34f1345"
+    },
+    {
+      "command": "npx --no-install eslint <changed TS/TSX paths>",
+      "result": "passed",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-lint.log",
+      "logSha256": "92f6bb6b0409448bb18f8a35e50845f1ee00f186694e4953ea8153a9cf46c613"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "passed",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-typecheck.log",
+      "logSha256": "876c6817bb8ec33a9a95776762b953cd013a1218ee8b985717f256640d7ed7b1"
+    },
+    {
+      "command": "npm run build",
+      "result": "passed",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-build.log",
+      "logSha256": "1d6d015769834c1e4e251b2ce83f1212af149723e98751a07dd03f309b848623"
+    },
+    {
+      "command": "npm run test:bundle",
+      "result": "passed",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-bundle.log",
+      "logSha256": "f8dc49c80c6a5eb51748fa9b4b01dacb959528fa9a169b9e556972683fac14fb"
+    },
+    {
+      "command": "npm run build -- --outDir work/account-api-cloud/f0-final-reviewed-dist",
+      "result": "passed",
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-candidate-build.log",
+      "logSha256": "acd4f0ccd25a0d0d536f979b288faf49e91db4ad2d751e1fb134503dec7957e0"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/task-failure-reason.spec.ts tests/e2e/video-failure-reason-progress.spec.ts tests/e2e/terminal-billing-recovery.spec.ts --output=work/account-api-cloud/f0-final-reviewed-browser",
+      "result": "passed",
+      "testsPassed": 6,
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-final-reviewed-browser.log",
+      "logSha256": "c756313a2abe00d65d9fda1da73debf08c84488daf057f1f07feb61c2fce2d3f"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-failure-reason.test.ts tests/unit/video-submit.test.ts",
+      "result": "passed",
+      "testsPassed": 52,
+      "exitCode": 0,
+      "log": "work/account-api-cloud/logs/f0-independent-review-green.log",
+      "logSha256": "718ec302cd908870b5650f6a9cfbb6d162e97041048cd4cb904f7de4655a181c"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/welcome-connection.spec.ts tests/e2e/connection-selection-contracts.spec.ts --output=work/account-api-cloud/task0-api-baseline",
+      "result": "passed",
+      "testsPassed": 5,
+      "exitCode": 0,
+      "scope": "Task 0 existing UI baseline, not new API form implementation",
+      "log": "work/account-api-cloud/logs/task0-api-baseline.log",
+      "logSha256": "5bbce6f8af556c6a286ce1a8c285f9ac4aab77ebf3c8f1e0702cb6e03a6d60b0"
+    }
+  ],
+  "whitespaceCheck": {
+    "command": "git diff --check -- src tests",
+    "exitCode": 0
+  },
+  "independentReview": {
+    "agent": "/root/f0_readonly_review",
+    "initialFindings": [
+      "P2 semantic false positives in permissive reference-image matcher",
+      "Run-save-fault recovery coverage gap"
+    ],
+    "regressionRed": {
+      "failed": 5,
+      "passed": 46,
+      "exitCode": 1,
+      "log": "work/account-api-cloud/logs/f0-independent-review-red.log"
+    },
+    "targetedReReview": "no remaining findings; local F0 scope approved",
+    "rootBrowserRerun": true
+  },
+  "candidate": {
+    "path": "work/account-api-cloud/F0-reviewed-candidate.zip",
+    "sha256": "4c49a9a1b8260c8287706c8bf16986a0babd3ad44ba14f7cac32f802109b2fa1",
+    "deploymentReady": false
+  },
+  "browserScreenshotsInspected": [
+    "work/account-api-cloud/f0-final-reviewed-browser/video-failure-reason-progr-56bb8-lling-reopening-and-refresh/f0-canvas-768-pending.png",
+    "work/account-api-cloud/f0-final-reviewed-browser/video-failure-reason-progr-446a7-lling-reopening-and-refresh/f0-tasks-restored.png"
+  ],
+  "boundaries": {
+    "paidApiCalls": 0,
+    "browserGenerationUploadPOSTs": 0,
+    "productionCredentialAccess": false,
+    "pushMergeDeployment": false,
+    "productionMigration": false,
+    "inheritedUserDocumentsStaged": false
+  },
+  "productionBaselineCorrection": "Historical QA62 package sourceBase2e61b9f plus only3 source files from ca7e248; complete local24d78bc candidate may include unreleased local changes. Current production source is not freshly verified.",
+  "task0": {
+    "existingApiWelcomeBaselinePassed": 5,
+    "environmentMapping": "docs/review/account-cloud-environment-mapping.md",
+    "dependencyCandidates": "docs/review/evidence/account-cloud-dependency-candidates.json",
+    "dependencyLockInstalled": false,
+    "accountApiImplemented": false,
+    "dockerTestDatabase": "PostgreSQL16.14, aiwork-studio-account-test-20261008,127.0.0.1:55432,tmpfs",
+    "smoke": "pg_isready and transaction write/rollback passed",
+    "productionUnknown": [
+      "database services/version/Studio DB existence",
+      "private content storage and backup mapping",
+      "encryption-key configuration",
+      "current live source and release"
+    ],
+    "next": "exact server dependency lock/install and native hashing/driver smoke, then account/session slice"
+  }
+}

@@ -1,12 +1,13 @@
 import {z} from 'zod';
+import {normalizeVideoFailure,type VideoFailureInfo} from '../../domain/video-failure';
 import {parseRetryAfter} from './retry-policy';
 import {runWorkContextSchema,type Run,type BillingState} from '../../domain/run';
 import {sanitizeKnownSecrets} from '../../security/credential-session';
 export type CoreModel={id:string};
-export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;contentAvailable:boolean;billingState:BillingState;workContext?:Run['workContext']};
+export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;failure?:VideoFailureInfo;contentAvailable:boolean;billingState:BillingState;workContext?:Run['workContext']};
 export type CoreFailure={httpStatus:number;category:'quota'|'forbidden'|'conflict'|'rate_limited'|'unavailable'|'invalid_request'|'authentication'|'not_found'|'protocol'|'unknown';errorCode:string;requestId?:string;retryAfterMs?:number;submissionOutcome:'not_sent'|'unknown'};
 const nonempty=z.string().trim().min(1).max(256);
-const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional()}).optional()});
+const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional(),message:z.unknown().optional(),upstream:z.unknown().optional()}).optional()});
 const replySchema=z.object({task:taskShape.optional(),video_task:taskShape.optional(),data:z.object({task:taskShape.optional()}).optional(),id:nonempty.optional(),status:z.string().optional(),request_id:nonempty.optional(),content_url:z.string().nullable().optional(),work_context:z.object({work_id:nonempty,base_version_id:nonempty.nullable().optional()}).nullable().optional()});
 export function parseVideoTask(input:unknown):CoreTaskView{
  const parsed=replySchema.safeParse(input);if(!parsed.success)throw new Error('core_task_protocol_invalid');const reply=parsed.data;
@@ -21,7 +22,9 @@ export function parseVideoTask(input:unknown):CoreTaskView{
  // Content is an observation, never proof of download success or settled billing.
  const billing:Readonly<Record<string,BillingState>>={pending:'pending_reconciliation',settled:'settled',released:'released'},wireBilling=task.error?.billing_state;
  const billingState=wireBilling&&Object.hasOwn(billing,wireBilling)?billing[wireBilling]:'not_provided';
- return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState,...(workContext?{workContext}:{})};
+ const rawUpstream=task.error?.upstream,upstream=rawUpstream&&typeof rawUpstream==='object'&&!Array.isArray(rawUpstream)?rawUpstream as Record<string,unknown>:undefined;
+ const failure=status==='failed'?normalizeVideoFailure({gatewayCode:code,message:task.error?.message,upstreamCode:upstream?.code,upstreamMessage:upstream?.message}):undefined;
+ return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),...(failure?{failure}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState,...(workContext?{workContext}:{})};
 }
 export function parseCoreModels(input:unknown):CoreModel[]{const reply=z.object({data:z.array(z.object({id:nonempty}))}).parse(input);if(new Set(reply.data.map(m=>m.id)).size!==reply.data.length)throw new Error('core_model_duplicate');return reply.data.map(({id})=>({id}));}
 export function classifyCoreError(status:number,body:unknown,retryAfter?:string):CoreFailure{

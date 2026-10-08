@@ -6,7 +6,7 @@ import {readRun} from '../../src/infrastructure/storage/run-repository';
 import {preflightRun,sealRunPlan} from '../../src/application/runs/preflight';
 import {approveRun} from '../../src/application/runs/approval';
 import {submitVideo} from '../../src/application/runs/submit-video';
-import {recoverSubmission} from '../../src/application/runs/recover-submit';
+import {readSavedSubmissionReply,recoverSubmission} from '../../src/application/runs/recover-submit';
 import {prepareVideoRequest} from '../../src/application/runs/prepare-request';
 import {createCoreClient,type CoreClient} from '../../src/adapters/core/http-client';
 import {createAuthBinding} from '../../src/domain/authorization';
@@ -38,3 +38,30 @@ it('T27: concurrent verified recovery also sends at most one original replay',as
 it('T27: replay rejects changed authorization with no new POST or asset upload',async()=>{mock.faults.loseSubmitResponse=true;const before=await submitVideo(runId,options()),profile=f.connection(),binding=createAuthBinding(profile);setSessionCredential(binding.id,'fake-other-recovery-key');const other=createCoreClient(profile,{binding,withCredential},{registry:[profile],browserOrigin:'http://127.0.0.1:4179',fetch:async(url,init)=>fetch(mock.origin+new URL(String(url)).pathname.replace(/^\/core-api/,''),init)});await expect(recoverSubmission(runId,{action:'replay_original',confirmed:true},{...options(),client:other,capability:{...capability,videoIdempotencyReplay:true}})).rejects.toThrow('original_authorization_required');expect(posts()).toHaveLength(1);expect((await readRun(runId,db))?.finalBody).toBe(before.finalBody);});
 it('T27: echoed ordinary Key never enters task identity, Run or response journal',async()=>{const original=client.requestJson,echo:CoreClient={...client,requestJson:async(...args)=>{const reply=await original(...args);return args[1]==='/v1/videos/generations'&&reply.ok?{ok:true,value:{task:{id:'fake-video-key',status:'queued'},request_id:'fake-video-key'}}:reply;}};const result=await submitVideo(runId,{...options(),client:echo});expect(result.executionState).toBe('submit_unknown');const stored=await transact(db,['runs','receipts','diagnostics'],'readonly',async tx=>({runs:await requestResult(tx.objectStore('runs').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll()),logs:await requestResult(tx.objectStore('diagnostics').getAll())}));expect(JSON.stringify(stored)).not.toContain('fake-video-key');expect(posts()).toHaveLength(1);});
 it('T27: new attempt after an unknown prior Run cannot bypass a separate risk acknowledgment',async()=>{mock.faults.loseSubmitResponse=true;const old=await submitVideo(runId,options()),result=preflightRun({graph:graph(),nodeIds:['v1'],assets:[],readableAssetIds:[],capability,connection:client.profile,binding:client.binding,canWrite:true,credentialAvailable:true,priorRuns:[old]});if(result.status!=='ready')throw Error('test plan');const plan=await sealRunPlan(result.plan);await expect(approveRun(plan,{confirmed:true,kind:'video',planHash:plan.planHash,nodeCount:1,acknowledgeUnknownFee:true},options())).rejects.toThrow('prior_unknown_risk_confirmation_required');expect((await transact(db,['runs'],'readonly',tx=>requestResult(tx.objectStore('runs').getAll())))).toHaveLength(1);expect(posts()).toHaveLength(1);});
+
+it('F0: immediate failed submission persists a safe journal that is readable for recovery',async()=>{
+ const original=client.requestJson,special:CoreClient={...client,requestJson:async(...args)=>{const reply=await original(...args);return args[1]==='/v1/videos/generations'&&reply.ok?{ok:true,value:{task:{id:'mock-core-1',status:'failed',error:{code:'video_execution_failed',billing_state:'pending',message:'FAKE_PRIVATE_DO_NOT_STORE',upstream:{code:3003,message:'input image content[1] may contain real person'}}},request_id:'original-request'}}:reply;}};
+ const run=await submitVideo(runId,{...options(),client:special});
+ const wanted={reasonCode:'video_reference_real_person_rejected',gatewayCode:'video_execution_failed',upstreamCode:'3003'};
+ expect(run).toMatchObject({executionState:'failed_confirmed',failure:wanted,billingState:'pending_reconciliation'});
+ expect(await readSavedSubmissionReply(run,db)).toMatchObject({ok:true,value:{failure:wanted,billingState:'pending_reconciliation'}});
+ const stored=await transact(db,['runs','receipts'],'readonly',async tx=>({runs:await requestResult(tx.objectStore('runs').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll())}));expect(JSON.stringify(stored)).not.toMatch(/FAKE_PRIVATE_DO_NOT_STORE|input image/);expect(posts()).toHaveLength(1);
+});
+
+it('F0 review: failed-response journal recovers after a Run-save fault without a second POST',async()=>{
+ const prepared=await prepareVideoRequest(runId,options()),originalRequest=client.requestJson;
+ const special:CoreClient={...client,requestJson:async(...args)=>{const reply=await originalRequest(...args);return args[1]==='/v1/videos/generations'&&reply.ok?{ok:true,value:{task:{id:'mock-core-1',status:'failed',error:{code:'video_execution_failed',billing_state:'pending',message:'FAKE_PRIVATE_RECOVERY_DO_NOT_STORE',upstream:{code:3003,message:'input image content[1] may contain real person'}}},request_id:'original-request'}}:reply;}};
+ const originalPut=IDBObjectStore.prototype.put;
+ const fault=vi.spyOn(IDBObjectStore.prototype,'put').mockImplementation(function(this:IDBObjectStore,...args:Parameters<typeof originalPut>){if(this.name==='runs'&&(args[0] as Run).executionState==='failed_confirmed')throw new DOMException('injected failed response save quota','QuotaExceededError');return originalPut.apply(this,args);});
+ await expect(submitVideo(runId,{...options(),client:special})).rejects.toThrow('submission_result_save_failed_check_original');
+ const interrupted=(await readRun(runId,db))!;
+ expect(interrupted.executionState).toBe('submitting');
+ const wanted={reasonCode:'video_reference_real_person_rejected',gatewayCode:'video_execution_failed',upstreamCode:'3003'};
+ expect(await readSavedSubmissionReply(interrupted,db)).toMatchObject({ok:true,value:{failure:wanted,taskId:'mock-core-1',billingState:'pending_reconciliation'}});
+ fault.mockRestore();mock.faults.queryStatus='failed';
+ const recovered=await recoverSubmission(runId,{action:'query_original'},{...options(),client:special});
+ expect(recovered).toMatchObject({status:'queried',run:{executionState:'failed_confirmed',failure:wanted,billingState:'pending_reconciliation',taskId:'mock-core-1',coreRequestId:'original-request',finalBody:prepared.finalBody,idempotencyKey:prepared.idempotencyKey}});
+ expect(posts()).toHaveLength(1);expect(mock.requests.filter(r=>r.method==='GET')).toHaveLength(1);expect(mock.taskCount()).toBe(1);
+ const stored=await transact(db,['runs','receipts','diagnostics'],'readonly',async tx=>({runs:await requestResult(tx.objectStore('runs').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll()),diagnostics:await requestResult(tx.objectStore('diagnostics').getAll())}));
+ expect(JSON.stringify(stored)).not.toMatch(/FAKE_PRIVATE_RECOVERY|input image/);
+});

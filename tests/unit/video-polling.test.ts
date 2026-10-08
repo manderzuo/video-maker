@@ -2,7 +2,7 @@ import {it,expect,beforeEach,afterEach,vi} from 'vitest';
 import {videoHarness} from '../helpers/video-harness';
 import {pollVideoOnce,pausePolling,resumePolling,startVideoPolling,readPollSummary,type PollScheduler} from '../../src/application/runs/poll-video';
 import {nextPollDelay,parseRetryAfter} from '../../src/adapters/core/retry-policy';
-import {classifyCoreError} from '../../src/adapters/core/contracts';
+import {parseVideoTask,classifyCoreError} from '../../src/adapters/core/contracts';
 import {readRun} from '../../src/infrastructure/storage/run-repository';
 import {transact,requestResult} from '../../src/infrastructure/storage/database';
 import {IDBObjectStore} from 'fake-indexeddb';
@@ -45,4 +45,12 @@ it.each(['completed','failed'] as const)('QA58: %s execution keeps tracking pend
   expect((await readRun(h.runId,h.db))?.idempotencyKey).toBe(h.run.idempotencyKey);
   expect(videoPosts()).toHaveLength(1);
  }finally{loop.stop();}
+});
+
+it('F0: durable Run and poll summary retain the reason after billing-only replies and a transport error',async()=>{
+ let reads=0;const failure=parseVideoTask({task:{id:h.run.taskId,status:'failed',error:{code:'video_execution_failed',billing_state:'pending',message:'FAKE_PRIVATE_DO_NOT_STORE',upstream:{code:3003,message:'input image content[1] may contain real person'}}}});
+ const client={...h.client,queryVideo:async()=>++reads===1?{ok:true as const,value:failure}:reads===2?{ok:true as const,value:parseVideoTask({task:{id:h.run.taskId,status:'failed',error:{code:'video_execution_failed',billing_state:'settled'}}})}:{ok:false as const,error:{httpStatus:503,category:'unavailable' as const,errorCode:'core_http_error',submissionOutcome:'unknown' as const}}};
+ for(let i=0;i<3;i++){await pollVideoOnce(h.runId,{...h.options,client});expect(await readRun(h.runId,h.db)).toMatchObject({failure:failure.failure,taskId:h.run.taskId,coreRequestId:h.run.coreRequestId,idempotencyKey:h.run.idempotencyKey});expect(await readPollSummary(h.runId,h.db)).toMatchObject({failure:failure.failure});}
+ const stored=await transact(h.db,['runs','diagnostics','receipts'],'readonly',async tx=>({runs:await requestResult(tx.objectStore('runs').getAll()),diagnostics:await requestResult(tx.objectStore('diagnostics').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll())}));
+ expect(JSON.stringify(stored)).not.toMatch(/FAKE_PRIVATE_DO_NOT_STORE|input image/);expect(videoPosts()).toHaveLength(1);
 });
