@@ -4,6 +4,7 @@
 import type {CanvasNode,Graph} from '../../domain/graph';
 export type Rect={left:number;top:number;right:number;bottom:number};
 export function nodeSize(node:CanvasNode,graph?:Graph,seen=new Set<string>()):{width:number;height:number}{
+ if(node.type!=='group'&&node.size)return node.size;
  if(node.type==='group'&&graph&&!node.data.collapsed&&!seen.has(node.id)&&node.data.childIds.length){const nextSeen=new Set([...seen,node.id]),members=graph.nodes.filter(n=>node.data.childIds.includes(n.id));return {width:Math.max(320,...members.map(n=>n.x+nodeSize(n,graph,nextSeen).width+24)),height:Math.max(100,...members.map(n=>n.y+nodeSize(n,graph,nextSeen).height+24))};}
  return {width:node.type==='video-generation'?360:node.type==='group'?400:320,height:node.type==='group'?(node.data.collapsed?64:260):node.type==='text'?380:node.type==='video-generation'?600:200};
 }

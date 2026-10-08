@@ -10,9 +10,11 @@ const assetData=z.strictObject({kind:z.literal('asset'),assetId:id,generationLin
 const generationData=z.strictObject({kind:z.literal('video-generation'),draft:videoSpecSchema,inputBindings:z.array(inputBindingSchema),stale:z.boolean(),lineageRecorded:z.boolean().optional(),missingInputNodeIds:z.array(id).optional(),revisionSource:z.strictObject({projectId:id,runId:id,assetId:id.optional()}).optional()});
 const resultData=z.strictObject({kind:z.literal('result'),assetId:id,runId:id,selectionRevision:revision.optional(),generationLinked:z.boolean().optional(),tailFrame:tailFrameSourceSchema.optional()});
 const groupData=z.strictObject({kind:z.literal('group'),childIds:z.array(id),collapsed:z.boolean(),shotOrder:z.number().int().positive().optional()});
-const nodeBase={id,title:boundedText(1,60).refine(title=>!!title.trim(),'标题不能为空'),x:z.number(),y:z.number(),locked:z.boolean()};
+export const canvasNodeSizeSchema=z.strictObject({width:z.number().int().min(160).max(2400),height:z.number().int().min(160).max(2400)});
+export type CanvasNodeSize=z.infer<typeof canvasNodeSizeSchema>;
+const nodeBase={id,title:boundedText(1,60).refine(title=>!!title.trim(),'标题不能为空'),x:z.number(),y:z.number(),locked:z.boolean(),size:canvasNodeSizeSchema.optional()};
 export const nodeSchema=z.discriminatedUnion('type',[
- z.strictObject({...nodeBase,type:z.literal('text'),data:textData}),z.strictObject({...nodeBase,type:z.literal('asset'),data:assetData}),z.strictObject({...nodeBase,type:z.literal('video-generation'),data:generationData}),z.strictObject({...nodeBase,type:z.literal('result'),data:resultData}),z.strictObject({...nodeBase,type:z.literal('group'),data:groupData}),
+ z.strictObject({...nodeBase,type:z.literal('text'),data:textData}),z.strictObject({...nodeBase,type:z.literal('asset'),data:assetData}),z.strictObject({...nodeBase,type:z.literal('video-generation'),data:generationData}),z.strictObject({...nodeBase,type:z.literal('result'),data:resultData}),z.strictObject({...nodeBase,size:z.never().optional(),type:z.literal('group'),data:groupData}),
 ]);
 export type CanvasNode=z.infer<typeof nodeSchema>;
 export type NodeData=CanvasNode['data'];

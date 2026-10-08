@@ -1,10 +1,10 @@
 import {z} from 'zod';
-import {graphSchema,nodeSchema,edgeSchema,type Graph} from '../../domain/graph';
+import {graphSchema,nodeSchema,edgeSchema,canvasNodeSizeSchema,type Graph} from '../../domain/graph';
 import {id,revision,snapshotSchema} from '../../domain/common';
 export type GraphOperation={id:string;type:'add_node'|'update_node'|'remove_node'|'add_edge'|'remove_edge'|'move_node'|'group'|'ungroup'|'select_result';payload:Record<string,unknown>};
 const operationSchema=z.discriminatedUnion('type',[
  z.strictObject({id,type:z.literal('add_node'),payload:z.strictObject({node:nodeSchema})}),
- z.strictObject({id,type:z.literal('update_node'),payload:z.strictObject({nodeId:id,patch:z.strictObject({title:z.string().optional(),locked:z.boolean().optional(),data:nodeSchema.options[0].shape.data.or(nodeSchema.options[1].shape.data).or(nodeSchema.options[2].shape.data).or(nodeSchema.options[3].shape.data).or(nodeSchema.options[4].shape.data).optional()})})}),
+ z.strictObject({id,type:z.literal('update_node'),payload:z.strictObject({nodeId:id,patch:z.strictObject({title:z.string().optional(),locked:z.boolean().optional(),size:canvasNodeSizeSchema.optional(),data:nodeSchema.options[0].shape.data.or(nodeSchema.options[1].shape.data).or(nodeSchema.options[2].shape.data).or(nodeSchema.options[3].shape.data).or(nodeSchema.options[4].shape.data).optional()})})}),
  z.strictObject({id,type:z.literal('remove_node'),payload:z.strictObject({nodeId:id})}),
  z.strictObject({id,type:z.literal('add_edge'),payload:z.strictObject({edge:edgeSchema})}),
  z.strictObject({id,type:z.literal('remove_edge'),payload:z.strictObject({edgeId:id})}),
