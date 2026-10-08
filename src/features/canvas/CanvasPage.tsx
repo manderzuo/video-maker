@@ -60,6 +60,7 @@ import {assertProjectWriter} from '../../infrastructure/storage/project-lease';
 import {GenerationConfirmDialog} from './GenerationConfirmDialog';
 import {createRunQueue,executeQueue,listProjectQueues,restoreQueue,pauseQueue,resumeQueue,readQueue,setQueuePreparationConcurrency,type RunQueue} from '../../application/runs/queue';
 import {startVideoPolling} from '../../application/runs/poll-video';
+import {videoNeedsTracking} from '../../domain/run-status';
 import {QueueControls} from '../tasks/QueueControls';
 import {UnknownSubmissionDialog} from './UnknownSubmissionDialog';
 import type {ConfirmDecision,ApprovedRun} from '../../application/runs/approval';
@@ -121,7 +122,7 @@ export function CanvasPage({projectId}:{projectId:string}){
  const polling=useRef(new Map<string,{client:object;handle:ReturnType<typeof startVideoPolling>}>());
  useEffect(()=>()=>{for(const entry of polling.current.values())entry.handle.stop();polling.current.clear();},[projectId]);
  useEffect(()=>{
-  const active=getActiveCore(),eligible=active?runs.filter(run=>run.projectId===projectId&&run.taskId&&['accepted','running'].includes(run.executionState)&&!['paused_by_user','auth_required'].includes(run.queryState)):[],ids=new Set(eligible.map(run=>run.id));
+  const active=getActiveCore(),eligible=active?runs.filter(run=>run.projectId===projectId&&videoNeedsTracking(run)&&run.connectionId===active.client.profile.id&&run.authBindingId===active.client.binding.id&&run.originSnapshot===active.client.profile.originSnapshot):[],ids=new Set(eligible.map(run=>run.id));
   for(const [id,entry] of polling.current)if(!ids.has(id)||entry.client!==active?.client){entry.handle.stop();polling.current.delete(id);}
   if(!active)return;
   for(const run of eligible)if(!polling.current.has(run.id))polling.current.set(run.id,{client:active.client,handle:startVideoPolling(run.id,{...active,tabId:studioTabId,onUpdate:updated=>setRuns(current=>current.map(r=>r.id===updated.id?updated:r))})});

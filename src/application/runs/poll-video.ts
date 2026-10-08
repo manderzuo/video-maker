@@ -7,7 +7,7 @@ import {assertAssetBinding} from '../../adapters/core/assets';
 import type {CoreReply} from '../../adapters/core/http-client';
 import type {CoreTaskView} from '../../adapters/core/contracts';
 import {hasSessionCredential,sanitizeKnownSecrets} from '../../security/credential-session';
-import {applyQueryObservation} from '../../domain/run-status';
+import {applyQueryObservation,videoNeedsTracking} from '../../domain/run-status';
 import {safeVideoFailureCode} from '../../domain/video-failure';
 import {studioTabId} from '../../features/projects/project-service';
 import {nextPollDelay} from '../../adapters/core/retry-policy';
@@ -65,7 +65,7 @@ export function startVideoPolling(runId:string,options:PollLoopOptions={}):{stop
   try{
    const run=await pollVideoOnce(runId,{...options,signal:controller.signal});
    try{await options.onUpdate?.(run);}catch{/* A display refresh cannot change remote execution. */}
-   if(['paused_by_user','auth_required'].includes(run.queryState)||['succeeded','failed_confirmed'].includes(run.executionState)||!run.taskId){handle.stop();return;}
+   if(!videoNeedsTracking(run)){handle.stop();return;}
    const summary=await readPollSummary(runId,options.db),ok=summary?.ok??run.queryState==='polling';
    if(ok)attempt=0;delay=nextPollDelay({ok,hidden:!foreground(),retryAfterMs:summary?.retryAfterMs,random:options.random},attempt);if(!ok)attempt++;
   }catch{delay=nextPollDelay({ok:false,hidden:!foreground(),random:options.random},attempt++);}

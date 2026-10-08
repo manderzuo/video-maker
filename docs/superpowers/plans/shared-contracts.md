@@ -83,6 +83,8 @@ type ToolResult = { status:"ok"|"awaiting_browser_confirmation"|"rejected"; erro
 
 以上是最小结构，敏感字段不允许“灵活扩展”。`unknown`只出现在不可执行的输入快照/校验边界，使用前必须schema检查。回执不能自带新授权。所有接口公开输入/结果都用判别联合或具体Schema，不以any跳过。
 
+QA58兼容性补充：Run可选`executionFinishedAt:number`是本地首次观测执行终态的时间，与后续查询/账务/下载的`updatedAt`分开。旧记录缺省时不反推结束时间；此字段不构成Core财务事实。Core明确返回的pending/settled/released须保留，缺失字段继续按未提供处理；账务查询不改变最终请求或获得新收费授权。
+
 ## 各任务补充输入输出类型
 
 | 类型 | 决定的结构 / 规则 |

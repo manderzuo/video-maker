@@ -1,9 +1,9 @@
 import {z} from 'zod';
 import {parseRetryAfter} from './retry-policy';
-import {runWorkContextSchema,type Run} from '../../domain/run';
+import {runWorkContextSchema,type Run,type BillingState} from '../../domain/run';
 import {sanitizeKnownSecrets} from '../../security/credential-session';
 export type CoreModel={id:string};
-export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;contentAvailable:boolean;billingState:'not_provided'|'pending_reconciliation';workContext?:Run['workContext']};
+export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;contentAvailable:boolean;billingState:BillingState;workContext?:Run['workContext']};
 export type CoreFailure={httpStatus:number;category:'quota'|'forbidden'|'conflict'|'rate_limited'|'unavailable'|'invalid_request'|'authentication'|'not_found'|'protocol'|'unknown';errorCode:string;requestId?:string;retryAfterMs?:number;submissionOutcome:'not_sent'|'unknown'};
 const nonempty=z.string().trim().min(1).max(256);
 const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional()}).optional()});
@@ -19,7 +19,9 @@ export function parseVideoTask(input:unknown):CoreTaskView{
  const workContext=reply.work_context?runWorkContextSchema.parse({workId:reply.work_context.work_id,...(status==='completed'&&reply.work_context.base_version_id?{baseVersionId:reply.work_context.base_version_id}:{})}):undefined;
  if(workContext&&sanitizeKnownSecrets(JSON.stringify(workContext))!==JSON.stringify(workContext))throw Error('core_task_protocol_invalid');
  // Content is an observation, never proof of download success or settled billing.
- return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState:task.error?.billing_state==='pending'?'pending_reconciliation':'not_provided',...(workContext?{workContext}:{})};
+ const billing:Readonly<Record<string,BillingState>>={pending:'pending_reconciliation',settled:'settled',released:'released'},wireBilling=task.error?.billing_state;
+ const billingState=wireBilling&&Object.hasOwn(billing,wireBilling)?billing[wireBilling]:'not_provided';
+ return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState,...(workContext?{workContext}:{})};
 }
 export function parseCoreModels(input:unknown):CoreModel[]{const reply=z.object({data:z.array(z.object({id:nonempty}))}).parse(input);if(new Set(reply.data.map(m=>m.id)).size!==reply.data.length)throw new Error('core_model_duplicate');return reply.data.map(({id})=>({id}));}
 export function classifyCoreError(status:number,body:unknown,retryAfter?:string):CoreFailure{

@@ -27,3 +27,22 @@ it('T28: an active persisted query fence denies another GET even when the caller
 it('T28: query save quota failure keeps original execution and only retries the GET after storage recovers',async()=>{const original=IDBObjectStore.prototype.put,fault=vi.spyOn(IDBObjectStore.prototype,'put').mockImplementation(function(this:IDBObjectStore,...args:Parameters<typeof original>){if(this.name==='runs'&&(args[0] as Run).executionState==='succeeded')throw new DOMException('injected query save quota','QuotaExceededError');return original.apply(this,args);});await expect(pollVideoOnce(h.runId,h.options)).rejects.toThrow('storage_quota_exceeded');expect((await readRun(h.runId,h.db))?.executionState).toBe('accepted');fault.mockRestore();expect((await pollVideoOnce(h.runId,h.options)).executionState).toBe('succeeded');expect(videoPosts()).toHaveLength(1);expect(h.mock.requests.filter(r=>r.method==='GET')).toHaveLength(2);});
 it('T28: a forgotten ordinary Key becomes auth_required without contacting a different identity',async()=>{forgetSessionCredential(h.run.authBindingId);const run=await pollVideoOnce(h.runId,h.options);expect(run.queryState).toBe('auth_required');expect(run.executionState).toBe('accepted');expect(h.mock.requests.filter(r=>r.method==='GET')).toHaveLength(0);});
 it.each(['aw_live_fake_terminal','constructor','unrecognized_provider_failure'])('QA042: unknown terminal code %s is not persisted or treated as a billing result',async code=>{const client={...h.client,queryVideo:async()=>({ok:true as const,value:{taskId:h.run.taskId!,status:'failed' as const,contentAvailable:false,billingState:'not_provided' as const,errorCode:code}})};const run=await pollVideoOnce(h.runId,{...h.options,client});expect(run).toMatchObject({executionState:'failed_confirmed',taskId:h.run.taskId,coreRequestId:h.run.coreRequestId,billingState:'not_provided',idempotencyKey:h.run.idempotencyKey});const summary=await readPollSummary(h.runId,h.db);expect(summary).toMatchObject({ok:true,errorCode:'video_failure_reason_unavailable'});expect(JSON.stringify(summary)).not.toContain(code);expect(videoPosts()).toHaveLength(1);});
+
+it.each(['completed','failed'] as const)('QA58: %s execution keeps tracking pending billing and stops after final settlement without resubmitting',async status=>{
+ const scheduled:{action:()=>Promise<void>;delay:number}[]=[],updates:Run[]=[];
+ let reads=0;
+ // Only the external read boundary is replaced. Real leases, transactions,
+ // run state transitions and scheduling remain active.
+ const client={...h.client,queryVideo:async()=>({ok:true as const,value:{taskId:h.run.taskId!,status,contentAvailable:status==='completed',billingState:reads++===0?'pending_reconciliation' as const:'settled' as const}})};
+ const loop=startVideoPolling(h.runId,{...h.options,client,scheduler:{set:(action,delay)=>{scheduled.push({action,delay});return scheduled.length;},clear:()=>{}},onUpdate:run=>{updates.push(run);}});
+ try{
+  await scheduled[0].action();
+  expect(updates[0]).toMatchObject({executionState:status==='completed'?'succeeded':'failed_confirmed',billingState:'pending_reconciliation'});
+  expect(scheduled).toHaveLength(2);
+  await scheduled[1].action();
+  expect(updates[1]).toMatchObject({executionState:status==='completed'?'succeeded':'failed_confirmed',billingState:'settled'});
+  expect(scheduled).toHaveLength(2);
+  expect((await readRun(h.runId,h.db))?.idempotencyKey).toBe(h.run.idempotencyKey);
+  expect(videoPosts()).toHaveLength(1);
+ }finally{loop.stop();}
+});

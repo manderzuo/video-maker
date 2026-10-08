@@ -3,6 +3,10 @@ import type {CoreReply} from '../adapters/core/http-client';
 import type {CoreTaskView} from '../adapters/core/contracts';
 import {sanitizeKnownSecrets} from '../security/credential-session';
 import {allowedCorePath} from '../adapters/core/route-policy';
+export function videoNeedsTracking(run:Pick<Run,'taskId'|'executionState'|'billingState'|'queryState'>):boolean{
+ if(!run.taskId||['paused_by_user','auth_required'].includes(run.queryState))return false;
+ return ['accepted','running'].includes(run.executionState)||(['succeeded','failed_confirmed'].includes(run.executionState)&&['reserved','pending_reconciliation'].includes(run.billingState));
+}
 export function applyQueryObservation(run:Run,reply:CoreReply<CoreTaskView>):Run{
  if(!reply.ok)return {...run,queryState:reply.error.category==='authentication'||reply.error.category==='forbidden'?'auth_required':'interrupted',updatedAt:Date.now()};
  const task=reply.value;
@@ -12,5 +16,6 @@ export function applyQueryObservation(run:Run,reply:CoreReply<CoreTaskView>):Run
  if(task.status==='unknown')return {...run,billingState,queryState:'interrupted',updatedAt:Date.now()};
  const terminal=['succeeded','failed_confirmed'].includes(run.executionState),executionState=terminal?run.executionState:task.status==='completed'?'succeeded':task.status==='failed'?'failed_confirmed':task.status==='processing'||run.executionState==='running'?'running':'accepted';
  // Query transport IDs do not replace the original submission request identity.
- return {...run,...(task.workContext?{workContext:{...run.workContext,...task.workContext}}:{}),executionState,billingState,queryState:['completed','failed'].includes(task.status)?'idle':'polling',updatedAt:Date.now()};
+ const now=Date.now(),firstTerminal=!terminal&&['succeeded','failed_confirmed'].includes(executionState);
+ return {...run,...(task.workContext?{workContext:{...run.workContext,...task.workContext}}:{}),executionState,...(firstTerminal?{executionFinishedAt:now}:{}),billingState,queryState:['completed','failed'].includes(task.status)?'idle':'polling',updatedAt:now};
 }

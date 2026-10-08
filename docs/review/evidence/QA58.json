@@ -1,0 +1,331 @@
+{
+  "id": "QA58",
+  "createdAt": "2026-10-08T05:10:53.159205+00:00",
+  "status": "local_fix_self_checked; historical_reconciliation_and_successful_video_blocked",
+  "reviewStatus": "待审查",
+  "independentReview": false,
+  "projectRoot": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+  "branch": "feat/aiwork-studio",
+  "initialBaseCommit": "4231f4edc7bca9c53c948283c1060b07a9700954",
+  "commitParent": "2e61b9fd8401c707a00b2607781dd37b65cb308d",
+  "patchCommit": null,
+  "modelVerification": "由用户在宿主选择，当前工具不可验证",
+  "singleExecutor": true,
+  "sourceFiles": [
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\adapters\\core\\contracts.ts",
+      "sha256": "2cbdd44f2b02b21bdf94570452ba6043ff495a3ab1c70cf2849efc5de656ad39"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\application\\runs\\poll-video.ts",
+      "sha256": "ddc308abc72e1936c1e7d6f9d7e989aa3165b525b0add0633997786f77640aa1"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\domain\\run-status.ts",
+      "sha256": "0f4429b23635c7f387b68dd6817065825863030d50cf2e97e058a247944be2fb"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\domain\\run.ts",
+      "sha256": "695670480c3372e9ecd39fc682ffdea4be9060718c83ef012603f574e9d89919"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\domain\\video-failure.ts",
+      "sha256": "27df7729b522de5af70ca095b1a09d8ae877f2ef8914b6f1366f834ff13d2129"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\domain\\video-run-machine.ts",
+      "sha256": "789c29b5dc20978dc4f68d246115bab186351637687d5f8c03e0c606ec5fa7fb"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\features\\canvas\\CanvasPage.tsx",
+      "sha256": "6a7eac9fc590a060c1c5e0e0bc64e554cde44998461029e6fb0b0486d038fac8"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\features\\tasks\\TaskTracking.tsx",
+      "sha256": "00d63a47eb0d543b77f77c6f02888b066f6ad6ea3a4d4b34b007d3dd5d5a4c34"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\features\\tasks\\TaskDetail.tsx",
+      "sha256": "34410fc140a390d2b45f234e6292d0679fb8052d8e21bb558c34dac10282a640"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\src\\features\\tasks\\QueueRunProgress.tsx",
+      "sha256": "88d6162596e0ca32bae0c739f2275a3ca470a1129fad0d1b9a94fbf41ad98bef"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\unit\\video-terminal-billing.test.ts",
+      "sha256": "fba9e8d6c205300fa530ea1bd507a49c147196e1ea282b7d0a9839591765d3ab"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\unit\\video-execution-time.test.ts",
+      "sha256": "1c520bb3d5e0e00669d467aabac28921c156f3fbc31484a7093a5e6281eecd46"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\unit\\video-polling.test.ts",
+      "sha256": "aa311d96f7b2f5cdd6ace7fdacc8304886d55ee6f382300dcc53c21fdb807033"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\tests\\e2e\\terminal-billing-recovery.spec.ts",
+      "sha256": "21261e70d6aea77fa840927eda47f4370ac0d5bc931c6a8d3ba04b03066050c0"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\docs\\review\\QA58_IMPLEMENTATION.md",
+      "sha256": "6fafc8f433c90b2e0b93d28820774411aa9465304ba54280479272c064ebc096"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\docs\\review\\QA58_REPORT.md",
+      "sha256": "bc916076af6e195edbd1dffcaea49e75a658d0a68209f474e2cfe75bc581f194"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\docs\\review\\QA58_NEXT_STEPS.md",
+      "sha256": "effb09683df8bf7d1578738f824636d84dd5594c6ef5f905bdc65659f1a5b1cd"
+    },
+    {
+      "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\docs\\superpowers\\plans\\shared-contracts.md",
+      "sha256": "4142f683eaba3ae23b49612d887021509ba6eded83b9b58e089c56f904c4cdb5"
+    }
+  ],
+  "nextStepsAppend": {
+    "path": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\docs\\review\\NEXT_STEPS.md",
+    "scope": "Only appended QA58 section; prior unstaged text preserved and excluded from this patch"
+  },
+  "checks": [
+    {
+      "command": "npm run test:unit -- tests/unit/video-terminal-billing.test.ts tests/unit/video-polling.test.ts --reporter=json --outputFile=work/qa-20261008/budget-recovery/studio-red.json",
+      "cwd": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+      "exitCode": 1,
+      "passed": 18,
+      "failed": 6,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\studio-red.log",
+      "report": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\studio-red.json"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-terminal-billing.test.ts --reporter=json --outputFile=work/qa-20261008/budget-recovery/reason-red.json",
+      "cwd": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 5,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\reason-red.log",
+      "report": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\reason-red.json"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-execution-time.test.ts --reporter=json --outputFile=work/qa-20261008/budget-recovery/time-red.json",
+      "cwd": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 4,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\time-red.log",
+      "report": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\time-red.json"
+    },
+    {
+      "command": "npm run test:unit -- tests/unit/video-terminal-billing.test.ts tests/unit/video-polling.test.ts tests/unit/video-billing-observation.test.ts --reporter=json --outputFile=work/qa-20261008/budget-recovery/studio-focused-green.json",
+      "cwd": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+      "exitCode": 0,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\studio-focused-green.log",
+      "report": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\studio-focused-green.json"
+    },
+    {
+      "command": "npm run test:unit -- --reporter=json --outputFile=work/qa-20261008/budget-recovery/studio-final-green.json",
+      "cwd": "E:\\trae-studio\\TRAEWORK\\aiwork-studio",
+      "exitCode": 0,
+      "passed": 515,
+      "failed": 0,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\studio-final-green.log",
+      "report": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\studio-final-green.json"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/terminal-billing-recovery.spec.ts --grep 'QA58 tasks' --reporter=list --output=work/qa-20261008/budget-recovery/browser-red-corrected",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\browser-red-corrected.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/terminal-billing-recovery.spec.ts --grep 'explicitly stopped' --reporter=list --output=work/qa-20261008/budget-recovery/pause-red-corrected",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\pause-red-corrected.log"
+    },
+    {
+      "command": "npm run test:e2e -- tests/e2e/terminal-billing-recovery.spec.ts tests/e2e/task-failure-reason.spec.ts tests/e2e/canvas-multitask-polling.spec.ts --reporter=list --output=work/qa-20261008/budget-recovery/browser-final-green",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\browser-final-green.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\typecheck-final.log"
+    },
+    {
+      "command": "npm exec -- eslint src/adapters/core/contracts.ts src/application/runs/poll-video.ts src/domain/run-status.ts src/domain/run.ts src/domain/video-run-machine.ts src/domain/video-failure.ts src/features/canvas/CanvasPage.tsx src/features/tasks/TaskTracking.tsx src/features/tasks/TaskDetail.tsx src/features/tasks/QueueRunProgress.tsx tests/unit/video-terminal-billing.test.ts tests/unit/video-execution-time.test.ts tests/unit/video-polling.test.ts tests/e2e/terminal-billing-recovery.spec.ts",
+      "exitCode": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\lint-final.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\build-final.log"
+    },
+    {
+      "command": "npm run test:bundle",
+      "exitCode": 0,
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\bundle-final.log",
+      "oversized": 0,
+      "thresholdBytes": 500000,
+      "note": "Checks retained dist assets; no recursive cleanup; current entry index-BKaYD2Hv.js"
+    },
+    {
+      "command": "C:/Users/StarLink/.cargo/bin/cargo.exe test --manifest-path src-core/Cargo.toml --locked",
+      "cwd": "E:/trae-studio/work/core-qa32-345670b",
+      "exitCode": 0,
+      "passed": 275,
+      "failed": 0,
+      "skipped": 1,
+      "ignoredTests": [
+        "production_backup_migrates_without_changing_historical_rows"
+      ],
+      "log": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\core-regression-direct.log",
+      "environment": {
+        "CARGO_HOME": "E:/trae-studio/tools/rust-1.90.0/cargo-home",
+        "CARGO_TARGET_DIR": "E:/trae-studio/work/qa58-rust-target",
+        "TEMP_and_TMP": "E disk via use-local-toolchain.ps1",
+        "CARGO_HTTP_PROXY": "",
+        "HTTP_PROXY": "",
+        "HTTPS_PROXY": "",
+        "ALL_PROXY": ""
+      }
+    }
+  ],
+  "policy": {
+    "runtimePath": "E:/AIWORK/data/bridge-budget-policy.json",
+    "backup": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\bridge-budget-policy.before.json",
+    "atomicBackup": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\bridge-budget-policy.atomic-backup.json",
+    "beforeSha256": "87E2C553D0A0B592DB1D021CB4E785111984AC97B345952365CB3549DC5D935D",
+    "afterSha256": "D54302A8A7B7A2541CE4014DFFCEEBCCB9C96AF87430D5DDC88594403C39FC5C",
+    "profilesPreserved": true,
+    "profiles": 29,
+    "holdCredits": 397,
+    "policyVersion": "administrator-renewal-20261008-v1",
+    "expiresAt": "2026-10-15 23:59:59 +08:00",
+    "basis": "explicit user-authorized finite risk allowance renewal; no new price claim",
+    "databaseAccess": false,
+    "restart": false,
+    "redExitCode": 1,
+    "greenExitCode": 0,
+    "verificationScript": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\verify-risk-policy.ps1"
+  },
+  "live": {
+    "site": "http://127.0.0.1:4188",
+    "finalBundle": "/assets/index-BKaYD2Hv.js",
+    "projectId": "934dd8a6-6d30-462a-ba9c-b235050d20fb",
+    "runId": "ea0c7741-bcd8-4d6d-821b-b05f419b40bd",
+    "taskId": "request_rZw7NSohchnYbKEGsd2mWA",
+    "spec": {
+      "modelId": "seedance",
+      "durationSeconds": 15,
+      "ratio": "16:9",
+      "resolution": "480p"
+    },
+    "generationPosts": 1,
+    "assetPosts": 1,
+    "textGenerationPosts": 0,
+    "result": "failed",
+    "coreErrorCode": "video_execution_failed",
+    "upstreamErrorCode": "3003",
+    "upstreamHttpStatus": 400,
+    "reason": "input image content[1] may contain real person",
+    "billingState": "pending",
+    "quotaBefore": {
+      "observedAt": "2026-10-08T04:44:15.227Z",
+      "allocatedCredits": 13000,
+      "spentCredits": 5878.6416,
+      "availableCredits": 5229.3584,
+      "heldCredits": 1892,
+      "active": 0,
+      "limit": 5,
+      "source": "Core admin current supplied video Key usage card; credentials omitted"
+    },
+    "quotaAfter": {
+      "observedAt": "2026-10-08T04:56:37.206Z",
+      "allocatedCredits": 13000,
+      "spentCredits": 5878.8708,
+      "availableCredits": 4832.1292,
+      "heldCredits": 2289,
+      "spentDeltaCredits": 0.2292,
+      "heldDeltaCredits": 397,
+      "source": "Core admin current supplied video Key usage card; aggregate difference, not an individual final video receipt"
+    },
+    "newHeldCredits": 397,
+    "oldHeldCredits": 1892,
+    "exactFinalVideoChargeCredits": null,
+    "feeInterpretation": "Aggregate Key spent delta 0.2292, not a per-request final video invoice",
+    "networkEvidence": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\live-network.json",
+    "failureEvidence": "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\live-failure.json"
+  },
+  "originalTasks": {
+    "todayExpiredTask": {
+      "taskId": "request_05gECpJzkzaRiOqGsiPzyw",
+      "executionState": "failed",
+      "billingState": "settled",
+      "generationResubmitted": false
+    },
+    "historicalFailedTask": {
+      "taskId": "request_NvkwJCeDKxnWuiZGcsAskg",
+      "code": "video_not_submitted",
+      "billingState": "settled"
+    },
+    "historicalSuccessTaskIds": [
+      "request_1blj1m9YI6NCcLZwpOgftA",
+      "request_0WDuRUlZiaaoquTG1WS7Mw",
+      "request_Jen6xc4LIKTkY3eazw3xqQ",
+      "request_SWnqFIXjKap5v5lAzjGE1Q"
+    ],
+    "successBillingFieldsProvided": false
+  },
+  "screenshots": [
+    "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\original-task-settled.png",
+    "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\basketball-confirm.png",
+    "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\live-terminal-pending.png",
+    "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\live-final-canvas.png",
+    "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\browser-final-green\\terminal-billing-recovery--be9a5-tion-after-terminal-failure\\terminal-billing-tasks.png",
+    "E:\\trae-studio\\TRAEWORK\\aiwork-studio\\work\\qa-20261008\\budget-recovery\\browser-final-green\\terminal-billing-recovery--d8bdb-tion-after-terminal-failure\\terminal-billing-canvas.png"
+  ],
+  "environmentAndHarnessFailures": [
+    {
+      "kind": "environment",
+      "exitCode": 101,
+      "detail": "Initial Cargo attempt used inherited unavailable proxy 127.0.0.1:10809; per-process proxy cleared for locked retry; not TDD red"
+    },
+    {
+      "kind": "harness",
+      "detail": "Initial browser task navigation label and later pending billing text were incorrect; both corrected before valid behavior red; assertions not reduced"
+    },
+    {
+      "kind": "policy_mutation_attempt",
+      "detail": "File.Replace with null backup path failed at PowerShell binding; live original hash unchanged; explicit backup path then succeeded"
+    }
+  ],
+  "limits": [
+    "Core actual deployed source/build version not established; isolated crate regression cannot prove production ledger settlement",
+    "Historic 1892 and new397 still held without trustworthy final receipts",
+    "Successful Core task replies omit billing fields",
+    "Basketball image was rejected; no output, preview or download success",
+    "Private immutable production-backup migration test ignored; production financial DB not opened",
+    "AI Work policy finite expiry 2026-10-15 23:59:59 UTC+8; no new price calibration",
+    "Full historical browser suite, complete verify and independent review not performed",
+    "No new hosted deployment, remote push, API-key rotation or account quota edits performed by this executor"
+  ]
+}
