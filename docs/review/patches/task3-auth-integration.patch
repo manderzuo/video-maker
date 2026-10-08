@@ -1,0 +1,110 @@
+diff --git a/src/features/auth/AuthBoundary.tsx b/src/features/auth/AuthBoundary.tsx
+index 86e57a5..a3d4d96 100644
+--- a/src/features/auth/AuthBoundary.tsx
++++ b/src/features/auth/AuthBoundary.tsx
+@@ -1,22 +1,26 @@
+ import {useEffect,useState,useSyncExternalStore,useId,useRef} from 'react';
+ import {sessionStore,type AuthState} from '../../infrastructure/api/session';
+-import {apiMessage} from '../../infrastructure/api/client';
++import {ApiError,apiMessage} from '../../infrastructure/api/client';
+ import {createPageMemory} from './page-memory';
+ import {applyPreferencesToDocument,defaultPreferences,getPreferences} from '../settings/preferences-store';
+ import {LocalLink,navigate,useRoute} from '../../app/routes';
+ import {LoginPage} from './LoginPage';
+ import {RegisterPage} from './RegisterPage';
++import {ApiSettingsPanel} from '../settings/ApiSettingsPanel';
++import {ApiSettingsError} from '../settings/api-settings-client';
++import type {ApiSettingsBridge} from '../settings/use-api-settings';
++const accountApiBridge:ApiSettingsBridge={getIdentity(){const state=sessionStore.getState();return state.status==='authenticated'?{userId:state.session.user.id,contextId:state.session.contextId,csrfToken:state.session.csrfToken}:null;},subscribe:sessionStore.subscribe,refresh:sessionStore.refresh};
+ function AccountPreferences({state}:{state:Extract<AuthState,{status:'authenticated'}>}){
+  const themeId=useId(),sortId=useId();const {document:doc}=state;const [theme,setTheme]=useState(doc.preferences.theme),[sort,setSort]=useState(doc.preferences.projectSort),[message,setMessage]=useState(''),[error,setError]=useState(''),[reloadVersion,setReloadVersion]=useState(0);
+  useEffect(()=>{setTheme(doc.preferences.theme);setSort(doc.preferences.projectSort);setMessage('');setError('');},[doc.revision,doc.preferences.theme,doc.preferences.projectSort,reloadVersion]);
+  async function save(){setMessage('');setError('');try{await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:{...doc.preferences,theme,projectSort:sort},lastVisitedPage:'/settings/appearance'});setMessage('偏好已保存');}catch(failure){setError(apiMessage(failure));}}
+- return <section className="card"><h1>账号偏好</h1><p className="muted">保存到当前账号，可在其他设备恢复。</p><fieldset className="form-stack account-fields" disabled={state.busy}><legend>外观与列表</legend><label htmlFor={themeId}>主题</label><select id={themeId} value={theme} onChange={event=>setTheme(event.target.value as typeof theme)}><option value="dark">深色</option><option value="light">浅色</option><option value="system">跟随系统</option></select><label htmlFor={sortId}>项目排序</label><select id={sortId} value={sort} onChange={event=>setSort(event.target.value as typeof sort)}><option value="updated">最近更新</option><option value="title">名称</option></select><button className="button primary" onClick={()=>{void save();}}>保存偏好</button></fieldset>{message?<p className="banner" role="status">{message}</p>:null}{error?<p className="banner error" role="alert">{error}</p>:null}<button className="button" disabled={state.busy} onClick={()=>{setError('');void sessionStore.reloadDocument().then(()=>setReloadVersion(version=>version+1)).catch(failure=>setError(apiMessage(failure)));}}>重新加载偏好</button></section>;
++ return <section className="card"><h1>账号偏好</h1><p className="muted">保存到当前账号，可在其他设备恢复。</p><fieldset className="form-stack account-fields" disabled={state.busy}><legend>外观与列表</legend><label htmlFor={themeId}>主题</label><select data-interaction-id="account:preferences:theme" id={themeId} value={theme} onChange={event=>setTheme(event.target.value as typeof theme)}><option value="dark">深色</option><option value="light">浅色</option><option value="system">跟随系统</option></select><label htmlFor={sortId}>项目排序</label><select data-interaction-id="account:preferences:sort" id={sortId} value={sort} onChange={event=>setSort(event.target.value as typeof sort)}><option value="updated">最近更新</option><option value="title">名称</option></select><button data-interaction-id="account:preferences:save" className="button primary" onClick={()=>{void save();}}>保存偏好</button></fieldset>{message?<p className="banner" role="status">{message}</p>:null}{error?<p className="banner error" role="alert">{error}</p>:null}<button data-interaction-id="account:preferences:reload" className="button" disabled={state.busy} onClick={()=>{setError('');void sessionStore.reloadDocument().then(()=>setReloadVersion(version=>version+1)).catch(failure=>setError(apiMessage(failure)));}}>重新加载偏好</button></section>;
+ }
+ function AccountShell({state,path}:{state:Extract<AuthState,{status:'authenticated'}>;path:string}){
+  const [error,setError]=useState(''),memory=useRef<ReturnType<typeof createPageMemory>|null>(null);
+  useEffect(()=>{const controller=createPageMemory(sessionStore,state.session.contextId,failure=>setError(failure?apiMessage(failure):''));memory.current=controller;return()=>{controller.dispose();memory.current=null;};},[state.session.contextId]);
+  useEffect(()=>{memory.current?.visit(path);},[path,state.session.contextId]);
+- return <div className="account-shell"><header className="account-header"><span className="account-brand">AI WORK Studio</span><p>当前账号：{state.session.user.username}</p><button className="button" onClick={()=>{void sessionStore.logout().catch(()=>{});}}>退出登录</button></header><nav className="account-nav" aria-label="账号导航"><LocalLink href="/welcome">使用引导</LocalLink><LocalLink href="/settings/appearance">账号偏好</LocalLink><LocalLink href="/settings/connections">API 设置</LocalLink></nav><main className="account-content">{error?<p role="alert" className="banner error">{error}</p>:null}{path==='/settings/appearance'?<AccountPreferences state={state}/>:<section className="card"><h1>{path==='/welcome'?'欢迎使用 AI WORK Studio':path==='/settings/connections'?'API 设置':'账号工作区'}</h1><p>{path==='/settings/connections'?'API 设置暂未开放。':'创作工作区暂未开放。'}</p><p className="muted">旧版资料保留在本浏览器，不会自动导入或归属当前账号。</p><p className="muted">当前可管理账号偏好。创作、生成和旧版连接暂不可用。</p><LocalLink href="/settings/appearance">查看账号偏好</LocalLink></section>}</main></div>;
++ return <div className="account-shell"><header className="account-header"><span className="account-brand">AI WORK Studio</span><p>当前账号：{state.session.user.username}</p><button data-interaction-id="account:logout" className="button" onClick={()=>{void sessionStore.logout().catch(()=>{});}}>退出登录</button></header><nav className="account-nav" aria-label="账号导航"><LocalLink data-interaction-id="account:nav:welcome" href="/welcome">使用引导</LocalLink><LocalLink data-interaction-id="account:nav:appearance" href="/settings/appearance">账号偏好</LocalLink><LocalLink data-interaction-id="account:nav:api" href="/settings/connections">API 设置</LocalLink></nav><main className="account-content">{error?<p role="alert" className="banner error">{error}</p>:null}{['/welcome','/settings/connections','/settings/models','/settings/capabilities'].includes(path)?<ApiSettingsPanel context={path==='/welcome'?'welcome':'settings'} readOnly={path==='/settings/models'||path==='/settings/capabilities'} bridge={accountApiBridge} enterBusy={state.busy} onEnter={async()=>{try{await sessionStore.completeOnboarding();navigate('/projects');}catch(error){throw new ApiSettingsError(error instanceof ApiError?error.status:0,error instanceof ApiError?error.code:'INTERNAL_ERROR');}}} onReloadOnboarding={async()=>{await sessionStore.reloadDocument();}}/>:path==='/settings/appearance'?<AccountPreferences state={state}/>:<section className="card"><h1>{path==='/welcome'?'欢迎使用 AI WORK Studio':path==='/settings/connections'?'API 设置':'账号工作区'}</h1><p>{path==='/settings/connections'?'API 设置暂未开放。':'创作工作区暂未开放。'}</p><p className="muted">旧版资料保留在本浏览器，不会自动导入或归属当前账号。</p><p className="muted">当前可管理账号偏好。创作、生成和旧版连接暂不可用。</p><LocalLink data-interaction-id="account:workspace:preferences" href="/settings/appearance">查看账号偏好</LocalLink></section>}</main></div>;
+ }
+ export function AuthBoundary(){
+  const state=useSyncExternalStore(sessionStore.subscribe,sessionStore.getState),route=useRoute(),path=route.split('?')[0];
+@@ -25,7 +29,7 @@ export function AuthBoundary(){
+  useEffect(()=>{if(state.status==='anonymous'&&path!=='/register'&&path!=='/login')navigate('/register');if(state.status==='authenticated'&&['/','/login','/register'].includes(path))navigate(state.document.onboardingCompletedAt?state.document.lastVisitedPage:'/welcome');},[state,path]);
+  useEffect(()=>{document.title=(path==='/register'?'注册':path==='/login'?'登录':path==='/settings/appearance'?'账号偏好':'账号工作区')+' · AI WORK Studio';},[path]);
+  if(state.status==='checking')return <main className="account-entry"><p role="status">正在确认登录状态…</p></main>;
+- if(state.status==='error')return <main className="account-entry"><section className="card"><h1>暂时无法连接</h1><p role="alert">{state.message}</p><button className="button" onClick={()=>{void sessionStore.refresh();}}>重新检查登录</button></section></main>;
++ if(state.status==='error')return <main className="account-entry"><section className="card"><h1>暂时无法连接</h1><p role="alert">{state.message}</p><button data-interaction-id="account:session:reload" className="button" onClick={()=>{void sessionStore.refresh();}}>重新检查登录</button></section></main>;
+  if(state.status==='anonymous')return <>{state.message?<p className="banner warning" role="alert">{state.message}</p>:null}{path==='/register'?<RegisterPage/>:<LoginPage/>}</>;
+  return <AccountShell key={state.session.contextId} state={state} path={path}/>;
+ }
+diff --git a/src/features/auth/AuthForm.tsx b/src/features/auth/AuthForm.tsx
+index 05be038..3ad54f2 100644
+--- a/src/features/auth/AuthForm.tsx
++++ b/src/features/auth/AuthForm.tsx
+@@ -10,5 +10,5 @@ export function AuthForm({operation}:{operation:'register'|'login'}){
+   if(!/^[\p{Script=Han}A-Za-z0-9_-]+$/u.test(username.normalize('NFKC').trim())||Array.from(username.normalize('NFKC').trim()).length<3||Array.from(username.normalize('NFKC').trim()).length>32||Array.from(password).length<15||Array.from(password).length>128){setMessage('用户名需3–32个中英文、数字、下划线或短横线字符；密码需15–128个字符。');return;}
+   const credentials={username,password};setPassword('');setPending(true);setMessage('');try{await sessionStore.authenticate(operation,credentials,bootstrap);}catch(error){if(active.current)setMessage(apiMessage(error));}finally{credentials.password='';if(active.current)setPending(false);}
+  }
+- return <main className="account-entry"><section className="card account-form"><p className="account-brand">AI WORK Studio</p><h1>{title}</h1><p className="muted">使用用户名和密码访问自己的账号。</p><form className="form-stack" onSubmit={event=>{void submit(event);}} onCompositionStart={()=>{composing.current=true;}} onCompositionEnd={()=>{composing.current=false;}} onKeyDown={event=>{if(event.key==='Enter'&&event.nativeEvent.isComposing)event.preventDefault();}}><label>用户名<input name="username" autoComplete="username" required value={username} maxLength={64} onChange={event=>setUsername(event.target.value)} disabled={pending}/></label><label>密码<input name="password" type="password" autoComplete={operation==='register'?'new-password':'current-password'} required value={password} maxLength={256} onChange={event=>setPassword(event.target.value)} disabled={pending}/></label><small>用户名3–32个字符，密码15–128个字符。</small>{message?<p className="banner error" role="alert">{message}</p>:null}<button className="button primary" type="submit" disabled={pending||!bootstrap}>{title}</button>{!bootstrap?<button className="button" type="button" onClick={()=>{setMessage('');void sessionStore.bootstrap().then(setBootstrap).catch(()=>setMessage('无法初始化登录，请重试。'));}}>重试连接</button>:null}</form><p className="account-switch">{operation==='register'?<>已有账号？<LocalLink href="/login">登录</LocalLink></>:<>还没有账号？<LocalLink href="/register">注册</LocalLink></>}</p></section></main>;
++ return <main className="account-entry"><section className="card account-form"><p className="account-brand">AI WORK Studio</p><h1>{title}</h1><p className="muted">使用用户名和密码访问自己的账号。</p><form className="form-stack" onSubmit={event=>{void submit(event);}} onCompositionStart={()=>{composing.current=true;}} onCompositionEnd={()=>{composing.current=false;}} onKeyDown={event=>{if(event.key==='Enter'&&event.nativeEvent.isComposing)event.preventDefault();}}><label>用户名<input data-interaction-id={'account:'+operation+':'+'username'} name="username" autoComplete="username" required value={username} maxLength={64} onChange={event=>setUsername(event.target.value)} disabled={pending}/></label><label>密码<input data-interaction-id={'account:'+operation+':'+'password'} name="password" type="password" autoComplete={operation==='register'?'new-password':'current-password'} required value={password} maxLength={256} onChange={event=>setPassword(event.target.value)} disabled={pending}/></label><small>用户名3–32个字符，密码15–128个字符。</small>{message?<p className="banner error" role="alert">{message}</p>:null}<button data-interaction-id={'account:'+operation+':'+'submit'} className="button primary" type="submit" disabled={pending||!bootstrap}>{title}</button>{!bootstrap?<button data-interaction-id={'account:'+operation+':'+'bootstrap-retry'} className="button" type="button" onClick={()=>{setMessage('');void sessionStore.bootstrap().then(setBootstrap).catch(()=>setMessage('无法初始化登录，请重试。'));}}>重试连接</button>:null}</form><p className="account-switch">{operation==='register'?<>已有账号？<LocalLink data-interaction-id={'account:'+operation+':'+'login-link'} href="/login">登录</LocalLink></>:<>还没有账号？<LocalLink data-interaction-id={'account:'+operation+':'+'register-link'} href="/register">注册</LocalLink></>}</p></section></main>;
+ }
+diff --git a/src/infrastructure/api/session.ts b/src/infrastructure/api/session.ts
+index 0d1f4c5..90e318a 100644
+--- a/src/infrastructure/api/session.ts
++++ b/src/infrastructure/api/session.ts
+@@ -46,10 +46,15 @@ export function createSessionStore(fetcher:typeof fetch=fetch){
+   try{const document=await request(generation,'/studio-api/me/document',userDocumentSchema,{method:'PATCH',body:patch,identity:snapshot.session});if(state.status==='authenticated'&&document.revision>=state.document.revision)accept(snapshot.session,document,true);return document;}
+   finally{if(generation===epoch&&state.status==='authenticated')publish({...state,busy:false});}
+  }
++ async function completeOnboarding(){
++  if(state.status!=='authenticated')throw new ApiError(401,'AUTH_REQUIRED');if(state.busy)throw new ApiError(0,'BUSY');const snapshot=state,generation=epoch;publish({...snapshot,busy:true});
++  try{const document=await request(generation,'/studio-api/me/onboarding',userDocumentSchema.refine(value=>value.onboardingCompletedAt!==null),{method:'PATCH',body:{expectedRevision:snapshot.document.revision,completed:true},identity:snapshot.session});if(state.status==='authenticated'&&document.revision>=state.document.revision)accept(snapshot.session,document,true);return document;}
++  finally{if(generation===epoch&&state.status==='authenticated')publish({...state,busy:false});}
++ }
+  async function reloadDocument(){
+   if(state.status!=='authenticated')throw new ApiError(401,'AUTH_REQUIRED');const snapshot=state,generation=epoch;const document=await request(generation,'/studio-api/me/document',userDocumentSchema,{identity:snapshot.session});if(state.status==='authenticated'&&document.revision>=state.document.revision)accept(snapshot.session,document,state.busy);return document;
+  }
+- const store={getState:()=>state,subscribe:(listener:()=>void)=>{listeners.add(listener);return()=>{listeners.delete(listener);};},refresh,checkSession,authenticate,logout,saveDocument,reloadDocument,bootstrap:(signal?:AbortSignal)=>requestJson('/studio-api/auth/bootstrap',bootstrapSchema,{fetcher,signal}),
++ const store={getState:()=>state,subscribe:(listener:()=>void)=>{listeners.add(listener);return()=>{listeners.delete(listener);};},refresh,checkSession,authenticate,logout,saveDocument,completeOnboarding,reloadDocument,bootstrap:(signal?:AbortSignal)=>requestJson('/studio-api/auth/bootstrap',bootstrapSchema,{fetcher,signal}),
+   start(){
+    if(typeof BroadcastChannel!=='undefined'){channel=new BroadcastChannel('aiwork-studio:account-identity-v1');channel.onmessage=event=>{if(event.data==='changed')void refresh();};}
+    const storage=(event:StorageEvent)=>{if(event.key==='aiwork-studio:identity-change')void refresh();};
+diff --git a/scripts/run-account-ui-tests.mjs b/scripts/run-account-ui-tests.mjs
+index 16c7f3f..2e78c0b 100644
+--- a/scripts/run-account-ui-tests.mjs
++++ b/scripts/run-account-ui-tests.mjs
+@@ -1,13 +1,16 @@
+ import {spawn} from 'node:child_process';
+ import {createServer as createHttpServer} from 'node:http';
+ import path from 'node:path';
++import {mkdir} from 'node:fs/promises';
+ import {fileURLToPath} from 'node:url';
+ import {createServer} from 'vite';
+ import react from '@vitejs/plugin-react';
+ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
++const envDir=path.join(root,'work/account-api-cloud/task3-regression-empty-env');
+ let server,canary;const canaryCounts={http:0,websocket:0};
+ try{
+- server=await createServer({configFile:false,plugins:[react(),{name:'account-test-probes',configureServer(viteServer){viteServer.middlewares.use((request,response,next)=>{if(request.url==='/__account-canary-count'){response.setHeader('Content-Type','application/json');response.end(JSON.stringify(canaryCounts));}else if(request.url==='/__account-guard'){response.setHeader('Content-Type','text/html');response.end('<!doctype html><title>FAKE_NETWORK_GUARD_PROBE</title>');}else next();});}}],root,cacheDir:path.join(root,'work/account-api-cloud/account-ui-vite-cache'),server:{host:'127.0.0.1',port:4182,strictPort:true,proxy:{},watch:{ignored:file=>/^(work|docs|test-results|downloads)(\/|$)/.test(path.relative(root,file).replaceAll('\\','/'))}}});
++ await mkdir(envDir,{recursive:true});
++ server=await createServer({configFile:false,envDir,plugins:[react(),{name:'account-test-probes',configureServer(viteServer){viteServer.middlewares.use((request,response,next)=>{if(request.url==='/__account-canary-count'){response.setHeader('Content-Type','application/json');response.end(JSON.stringify(canaryCounts));}else if(request.url==='/__account-guard'){response.setHeader('Content-Type','text/html');response.end('<!doctype html><title>FAKE_NETWORK_GUARD_PROBE</title>');}else next();});}}],root,cacheDir:path.join(root,'work/account-api-cloud/account-ui-vite-cache'),server:{host:'127.0.0.1',port:4182,strictPort:true,proxy:{},fs:{deny:['.env','.env.*','**/.git/**','**/key.pem','**/*.key']},watch:{ignored:file=>/^(work|docs|test-results|downloads)(\/|$)/.test(path.relative(root,file).replaceAll('\\','/'))}}});
+  canary=createHttpServer((_request,response)=>{canaryCounts.http++;response.writeHead(200,{'Content-Type':'text/plain'});response.end('FAKE_LOOPBACK_NETWORK_CANARY');});canary.on('upgrade',(_request,socket)=>{canaryCounts.websocket++;socket.destroy();});await new Promise((resolve,reject)=>{canary.once('error',reject);canary.listen(4183,'127.0.0.1',resolve);});
+-
++
+  await server.listen();console.log('UI-only HTTP fixture: synthetic API replies, no backend/cookie/TLS acceptance');process.exitCode=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,[path.join(root,'node_modules/@playwright/test/cli.js'),'test','-c','playwright.account-ui.config.ts',...process.argv.slice(2)],{cwd:root,stdio:'inherit',shell:false,windowsHide:true});child.once('error',reject);child.once('close',code=>resolve(code??1));});
+diff --git a/tests/helpers/account-ui-fixture.ts b/tests/helpers/account-ui-fixture.ts
+index 96c8775..661989e 100644
+--- a/tests/helpers/account-ui-fixture.ts
++++ b/tests/helpers/account-ui-fixture.ts
+@@ -18,6 +18,7 @@ export const test=base.extend<{uiModel:ReturnType<typeof createUiModel>;uiNetwor
+    if(!allowed(url.href))return route.abort('blockedbyclient');
+    if(!url.pathname.startsWith('/studio-api/'))return route.continue();
+    const reply=(json:unknown,status=200)=>route.fulfill({status,json});
++   if(url.pathname==='/studio-api/me/model-configs'&&request.method()==='GET')return reply({configs:[]});
+    if(url.pathname==='/studio-api/session'&&request.method()==='GET'){uiModel.sessionReads++;return reply(session);}
+    if(url.pathname==='/studio-api/me/document'){
+     if(request.headers()['x-workspace-context']!==session.contextId)return reply({code:'SESSION_CHANGED'},409);

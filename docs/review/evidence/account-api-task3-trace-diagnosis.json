@@ -1,0 +1,75 @@
+{
+  "checkedAtUtc": "2026-10-08T16:36:45.988Z",
+  "inputReport": "legacy canonical260 controls/23 pages/30 dialogs with docs/review/logs/browser-executed-tests.json",
+  "writesToLegacyDocuments": false,
+  "errorCount": 1454,
+  "errorCounts": {
+    "source_binding_missing": 10,
+    "test_not_passed": 313,
+    "facet_missing:normal": 308,
+    "facet_missing:sideEffect": 255,
+    "facet_missing:error": 194,
+    "facet_missing:persistence": 201,
+    "facet_missing:disabled": 164,
+    "conditional_gate_unproven": 9
+  },
+  "recordedTests": 5,
+  "recordedPassedTests": 5,
+  "uniqueMappedTests": 329,
+  "mappedTestsWithPassedResult": 5,
+  "unmatchedMappedTestSamples": [
+    "tests/e2e/interaction-coverage.spec.ts::T44 global controls: semantic navigation, search, help and notifications have their own interaction identities and no paid side effect",
+    "tests/e2e/navigation-storage-faults.spec.ts::T44 G02 native navigation preference denial is explicit, preserves its last saved page and does not prevent local navigation",
+    "tests/e2e/navigation-memory.spec.ts::T44 G02 only the owned page path is remembered; reopening after onboarding restores it without query credentials or paid requests",
+    "tests/e2e/app-shell.spec.ts::T11-C04: nested dialogs trap focus, Esc closes the top layer and restores its trigger",
+    "tests/e2e/app-shell.spec.ts::T11-C05: composing and editable targets do not trigger global keyboard commands",
+    "tests/e2e/navigation-storage-faults.spec.ts::T44 G04 actual native search read failure reports its local state and keeps all saved projects and source graphs intact",
+    "tests/e2e/app-shell.spec.ts::T11 global search uses local data and returns actual project titles without network",
+    "tests/e2e/storage-settings.spec.ts::T37 actual registered readonly GETs, lost model default stays fixed, old binding can restore, memory Key never reaches persisted records"
+  ],
+  "missingSourceBindings": [
+    {
+      "id": "G-01",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "G-02",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "G-03",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "G-04",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "G-05",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "G-07",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "G-09",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "W-01",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "W-06",
+      "file": "src/app/App.tsx"
+    },
+    {
+      "id": "D10",
+      "file": "src/features/canvas/nodes/AssetNode.tsx"
+    }
+  ],
+  "task3FilesReferencedByLegacySources": [],
+  "task3FilesReferencedByLegacyTestEvidence": [],
+  "scope": "Diagnostic only. No mapping/CSV/evidence weakened or rewritten. Task3 test evidence is separately named, not substituted for legacy acceptance."
+}

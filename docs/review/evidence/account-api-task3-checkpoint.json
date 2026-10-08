@@ -1,0 +1,390 @@
+{
+  "checkedAtUtc": "2026-10-08T16:59:51.181Z",
+  "branch": "feat/account-api-cloud",
+  "headBeforeTask3": "a5cbc0b6ae0c016dbc8db69010e6649898bf4527",
+  "stage": "local_task3_verified_ready_for_scoped_handoff_commit",
+  "commitRecordedSeparately": "work/account-api-cloud/task3-local-delivery-receipt.json",
+  "directUserAuthorizationAccepted": true,
+  "tests": {
+    "fullFrontendUnit": 600,
+    "unitFiles": 82,
+    "task3MockHttpUi": 10,
+    "priorAccountMockHttpUi": 9,
+    "typecheckExit": 0,
+    "scopedLintExit": 0,
+    "buildExit": 0,
+    "globalUiIdentityMissing": 0,
+    "globalTraceabilityErrors": 1454,
+    "strictTrustedHttpsAccepted": 0,
+    "strictTrustedHttpsRequired": 7,
+    "actualPaidApiCalls": 0,
+    "syntheticPaidPathProbeBlocked": 1
+  },
+  "sourceHashes": [
+    {
+      "path": "src/features/settings/api-settings-client.ts",
+      "sha256": "7369c1ce04cf38bfc210ac6b79e0ac048034ebad4838df7fbec2e25e2c899f91"
+    },
+    {
+      "path": "src/features/settings/use-api-settings.ts",
+      "sha256": "cdbeca93a37ee7a5fef4de5846014c858ecf8c75cb09ccffd68ca977770016e2"
+    },
+    {
+      "path": "src/features/settings/ApiSettingsPanel.tsx",
+      "sha256": "59d6b6627e87b70d1044bf7be620bfbe7599724772e003d8f4c17704d28cc34c"
+    },
+    {
+      "path": "src/features/settings/ApiModelFields.tsx",
+      "sha256": "7b02b578e2475283321af5a9de6728d66570d0746fe9a7b1b707163f702ef355"
+    },
+    {
+      "path": "src/features/settings/api-settings.css",
+      "sha256": "76a57ff77793c58786fa3f6771e32721a435b1bae3c121c515074087abcc6ab7"
+    },
+    {
+      "path": "tests/unit/account-api-settings.test.ts",
+      "sha256": "7d255b6f679c29b93e9ac98521e4d6fd24a3fc949eb08a12b251ccc5d79d3430"
+    },
+    {
+      "path": "tests/unit/account-onboarding.test.ts",
+      "sha256": "21c5b206187da4f3bff79110da21f3906d4d8b753ddaf3a945e9998968c85d20"
+    },
+    {
+      "path": "tests/helpers/account-api-ui-fixture.ts",
+      "sha256": "159c3bfaaf03ad3e0b3959897457086d209941c39ef92ce61fdc49927239c2ca"
+    },
+    {
+      "path": "tests/e2e/account-api-settings.spec.ts",
+      "sha256": "75635d1b9122bc259029439c7244c119658b811f3c3f13f8de979b137b09d6bd"
+    },
+    {
+      "path": "playwright.account-api-ui.config.ts",
+      "sha256": "4a6d67ab21d4b4b350bdcc23bdc96d0d6c629e2fcc38f962b81ea91fb2f084c7"
+    },
+    {
+      "path": "scripts/run-account-api-ui-tests.mjs",
+      "sha256": "cfdb4df96c5cf38d4f0ae25883339e84644685396b0758e91d6b59a13a89b700"
+    },
+    {
+      "path": "scripts/build-account-api-review.mjs",
+      "sha256": "9c07775b88304cc225e11ef98bb651e175dfacfe11d80f0efe73ae4fcc9706fe"
+    },
+    {
+      "path": "src/features/auth/AuthBoundary.tsx",
+      "sha256": "3ef9d2b80e16edbff8c07196552d27be3c91d27f62a0b5b7baf3aeba161ce7b2"
+    },
+    {
+      "path": "src/features/auth/AuthForm.tsx",
+      "sha256": "a4b0ab4b8ec09a980690a002aa0ae49726780247f58205a41697119e6ed3233e"
+    },
+    {
+      "path": "src/infrastructure/api/session.ts",
+      "sha256": "77de24b65a54621242ea114e022bb4f6d3fc3566548b62bcb27254e3b9589ab1"
+    },
+    {
+      "path": "scripts/run-account-ui-tests.mjs",
+      "sha256": "113c33ae960a67610874dd19a3902be2e3e5138b259e88263813a23445d52176"
+    },
+    {
+      "path": "tests/helpers/account-ui-fixture.ts",
+      "sha256": "e6c003ac560db7a3928e5db552393f6350695911d81069c08b09b6ab71a6f253"
+    }
+  ],
+  "logHashes": [
+    {
+      "path": "work/account-api-cloud/logs/task3-reviewed-unit-full.log",
+      "sha256": "2bb71952739371e420752ba211b0e977e41d01faec5420eb8174f988bc47b2bb"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-review-ui-green.log",
+      "sha256": "fe7a8689c0c79268a8505341c3e801cf1f104f4a8524a715926877b9dca2808d"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-prior-ui-red.log",
+      "sha256": "9ddae0ae33f7fb0cfa3b2c50162bf24ab895993cd05e6901edf1779a80f9b690"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-prior-ui-green.log",
+      "sha256": "155fc8abec0c2e251f145fe7da5df5df20d76c263ba6828e21c4823015ffee40"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-final-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-final-scoped-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-reviewed-identities.log",
+      "sha256": "ff458fcc53f9e80940837a67896a7eda387a0a8f1861107058d0fca8efeec1ce"
+    },
+    {
+      "path": "work/account-api-cloud/logs/task3-reviewed-build.log",
+      "sha256": "fd1b4ce3f060f6e2814bdcf2c162dbfc8e351b0bef8fb77060956b0a7fb83d29"
+    }
+  ],
+  "uiCases": [
+    {
+      "title": "shared cards have three fields / two actions, video first, with address-key-model order for text",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "text tests without model; unavailable catalog permits manual save; saved key remains an empty input",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "settings and welcome reload the same saved values, retain typed model on retest and keep text controls visible",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "Chinese composition Enter does not submit; only the save button makes a request",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "save conflict and failure retain entered credentials until explicit reload",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "a changed address clears catalog and requires a replacement key; late probe cannot restore catalog",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "account switch discards A draft and late results before showing B configurations",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "entering workspace records server onboarding and keeps incomplete legacy workspace gated",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "both themes at 1440/1280/1024/720 keep fields visible, targets 44px and cards follow the width boundary",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "onboarding conflict reloads account revision, keeps API draft on failed/successful reload and then enters workspace",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ],
+  "priorUiCases": [
+    {
+      "title": "context guard: fresh context blocks off-origin HTTP before the local canary receives it",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 1
+      }
+    },
+    {
+      "title": "context guard: fresh context blocks off-origin WebSocket before local upgrade reaches canary",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 1
+      }
+    },
+    {
+      "title": "context guard: fresh context blocks a synthetic same-origin paid-path probe",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 1,
+        "blockedRequests": 1
+      }
+    },
+    {
+      "title": "UI-only: explicit reload resets unsaved draft when server revision and preferences are unchanged",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "UI-only: same-context focus check retains unsaved draft without loading document again",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "UI-only: revision conflict retains draft until explicit reload clears draft and error",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "UI-only: failed reload retains unsaved draft and reports an error",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "UI-only: latest navigation is saved after an earlier navigation response is released",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "title": "UI-only: navigation waits for manual preference save and preserves its accepted preferences",
+      "status": "passed",
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ],
+  "frozenTlsChecks": [
+    {
+      "path": "scripts/start-account-browser-tests.ps1",
+      "sha256": "c1c434b19402f81f1c3a630054349444aa293e3a246760ccb57ddcfb430fd85c",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/test-account-browser-launcher.ps1",
+      "sha256": "41550156a467b5d1f96569fb9ef70d92ac554d7ae426407797013d57f73ab32b",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/run-account-browser-tests.ps1",
+      "sha256": "5e1060b52b94f973734687611c422d279aaf297a58880c559e3745325ab187cc",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/run-account-browser-tests.mjs",
+      "sha256": "62250dd307dd2ba36f10d0dc32da89f4b24e460a28e7bbea20fd73720c031018",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/account-tls-environment.mjs",
+      "sha256": "91f59258c1cd301dbf75f179cbcfeac081a9c1ea3f58e926e37a13f5d390417d",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/test-account-tls-environment.mjs",
+      "sha256": "790345e99461f91c0e32aa1a3b8f38716f48f56e614b9d096808464afd77704b",
+      "unchanged": true
+    }
+  ],
+  "review": {
+    "reviewer": "/root/task3_readonly_review",
+    "originalFinding": "P2: onboarding revision conflict had no recovery; repeated submissions used stale revision.",
+    "outcome": "Original P2 closed by independent read-only re-review; no new actionable defect in reviewed production path.",
+    "verifiedRecovery": [
+      "409 prevents repeat enter",
+      "explicit account document reload",
+      "failed reload retains conflict and API drafts/keys",
+      "successful reload uses accepted revision1"
+    ],
+    "evidence": "task3-review-ui-green.log 10/10; task3-reviewed-unit-full.log 600/600; task3-reviewed-identities.log missing0",
+    "method": "Source and existing evidence inspection; reviewer did not rerun tests.",
+    "deliveryBoundary": "12 new Task3 files plus exact integration patch/manifest. Task1 whole files unstaged. This depends on uncommitted Task1 and is not an independently runnable HEAD or full account acceptance."
+  },
+  "commitAllowlist": [
+    "src/features/settings/api-settings-client.ts",
+    "src/features/settings/use-api-settings.ts",
+    "src/features/settings/ApiSettingsPanel.tsx",
+    "src/features/settings/ApiModelFields.tsx",
+    "src/features/settings/api-settings.css",
+    "tests/unit/account-api-settings.test.ts",
+    "tests/unit/account-onboarding.test.ts",
+    "tests/helpers/account-api-ui-fixture.ts",
+    "tests/e2e/account-api-settings.spec.ts",
+    "playwright.account-api-ui.config.ts",
+    "scripts/run-account-api-ui-tests.mjs",
+    "scripts/build-account-api-review.mjs",
+    "docs/review/patches/task3-auth-integration.patch",
+    "docs/review/evidence/account-api-task3-integration-manifest.json",
+    "docs/review/ACCOUNT_API_TASK3_CHECKPOINT.md",
+    "docs/review/evidence/account-api-task3-checkpoint.json",
+    "docs/review/evidence/account-api-task3-trace-diagnosis.json",
+    "docs/review/evidence/account-api-task3-public-tls.json",
+    "docs/review/evidence/account-api-task3-readonly-review.json"
+  ],
+  "wholeTask1FilesNotStaged": [
+    "src/features/auth/AuthBoundary.tsx",
+    "src/features/auth/AuthForm.tsx",
+    "src/infrastructure/api/session.ts",
+    "scripts/run-account-ui-tests.mjs",
+    "tests/helpers/account-ui-fixture.ts"
+  ],
+  "integrationPatchRoundtripVerified": true,
+  "historicalCoverageReportPreservation": {
+    "task3DerivedSha256": "a8382e425680bf64b3c287e1a95fb2f87fee56628e7f962519ec55acd99c4eea",
+    "restoreFromExactInitialBaseline": true,
+    "expectedOriginalSha256": "5fbb288ae61cfdb42394eae1bd73219be61cd6cdafca9ca64c80e8db76282171"
+  },
+  "remaining": [
+    "Task1 strict TLS 0/7 gate",
+    "legacy canonical traceability incomplete:1454; new account interactions absent legacy registry",
+    "Task4-7 user workspace/cloud persistence and migration",
+    "production database/backup/rollback/full scheme acceptance"
+  ],
+  "pushed": false,
+  "deployed": false
+}

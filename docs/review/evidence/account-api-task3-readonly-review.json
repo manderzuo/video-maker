@@ -1,0 +1,14 @@
+{
+  "reviewer": "/root/task3_readonly_review",
+  "originalFinding": "P2: onboarding revision conflict had no recovery; repeated submissions used stale revision.",
+  "outcome": "Original P2 closed by independent read-only re-review; no new actionable defect in reviewed production path.",
+  "verifiedRecovery": [
+    "409 prevents repeat enter",
+    "explicit account document reload",
+    "failed reload retains conflict and API drafts/keys",
+    "successful reload uses accepted revision1"
+  ],
+  "evidence": "task3-review-ui-green.log 10/10; task3-reviewed-unit-full.log 600/600; task3-reviewed-identities.log missing0",
+  "method": "Source and existing evidence inspection; reviewer did not rerun tests.",
+  "deliveryBoundary": "12 new Task3 files plus exact integration patch/manifest. Task1 whole files unstaged. This depends on uncommitted Task1 and is not an independently runnable HEAD or full account acceptance."
+}

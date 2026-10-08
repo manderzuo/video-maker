@@ -1,0 +1,17 @@
+{
+  "checkedAtUtc": "2026-10-08T16:40:30.472Z",
+  "host": "studio.gemstory.cn",
+  "port": 443,
+  "strictTls": true,
+  "authorized": true,
+  "protocol": "TLSv1.3",
+  "subjectCN": "studio.gemstory.cn",
+  "issuerCN": "YE1",
+  "subjectAltNames": [
+    "DNS:studio.gemstory.cn"
+  ],
+  "validFromUtc": "2026-10-08T03:10:39Z",
+  "validToUtc": "2027-01-06T03:10:38Z",
+  "fingerprint256": "9B:0A:86:5C:3F:7C:E2:83:93:55:43:C4:C1:8E:94:56:BF:A3:B8:D4:3E:2E:DA:AB:92:69:5F:D8:D4:8D:2B:81",
+  "scope": "Public TLS handshake only; no HTTP/auth/cookies/private key/server mutation. Does not verify current application release or account browser acceptance."
+}
