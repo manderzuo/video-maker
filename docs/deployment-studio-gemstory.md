@@ -1,5 +1,15 @@
 # studio.gemstory.cn 部署记录
 
+## 2026-10-08 17:41（UTC+8）连接修复补丁
+
+用户明确授权“部署”后，已上线 QA62 两处修复：新增文字连接刷新登记缓存、设置页恢复默认选择时保留视频授权。当前发布目录 `/opt/aiwork-studio/releases/20261008-qa62-ca7e248`，页面入口 `/assets/index-D4hvJqM8.js`。构建以原线上源码 `2e61b9f` 加 `ca7e248` 中三个相关源文件为基础；未将后续画布等功能一起发布。
+
+保留原版 `/opt/aiwork-studio/releases/20261008-4231f4e`，原子切换 current，原服务进程 PID 2724795、运行配置和其他站点配置保持不变。新目录保留旧静态资源，未刷新页面仍可读取原资源。回退记录：`/opt/aiwork-studio/backups/20261008-qa62/`；准确来源见当前 deployment-manifest.json，首发清单保存在 base-deployment-manifest.json。
+
+发布基线相关浏览器 7/7 通过；公网 48 项新静态资源哈希及 6 项旧入口资源检查通过。用户当前 Chrome 连续两次刷新、手动文字检测及随后两轮自动检测通过，文字与视频指示灯均绿色，原视频授权绑定保留。本轮没有收费生成。完整证据见 `docs/review/QA62_TEXT_CONNECTION.md`、`docs/review/evidence/QA62.json` 和 `work/qa-20261008/deploy-qa62/`。
+
+## 首次部署记录
+
 2026-10-08，按用户本次明确指令部署到自有腾讯云服务器。访问入口：https://studio.gemstory.cn 。这是当前开发版本的服务器部署，不代表独立审查、全部业务验收或第三方前端标识许可已经完成。
 
 ## 部署位置

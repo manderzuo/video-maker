@@ -4,7 +4,7 @@
   "project": "E:/trae-studio/TRAEWORK/aiwork-studio",
   "branch": "feat/aiwork-studio",
   "baseCommit": "a179ef47790c5c1474feaf8c5cfff7f282e19a9e",
-  "status": "本地修复自检通过；线上页面已恢复；线上补丁待部署；待审查",
+  "status": "已部署并通过线上连接复验；用户／独立审查待进行",
   "model": "由用户在宿主选择，当前工具不可验证",
   "independentReviewPerformed": false,
   "modifiedFiles": [
@@ -17,14 +17,59 @@
   ],
   "logRoot": "work/qa-20261008/text-connection",
   "checks": [
-    {"command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/text-registration-cache.spec.ts --output=work/qa-20261008/text-connection/red-canonical-results", "exitCode": 1, "passed": 0, "failed": 1, "skipped": 0, "log": "red-canonical.log", "phase": "有效红灯：原代码，规范登记地址"},
-    {"command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/text-registration-cache.spec.ts -g 'default video' --output=work/qa-20261008/text-connection/video-race-red-results", "exitCode": 1, "passed": 0, "failed": 1, "skipped": 0, "log": "video-race-red.log", "phase": "有效红灯：默认选择误清除保存授权"},
-    {"command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/text-registration-cache.spec.ts tests/e2e/text-runtime-restart.spec.ts tests/e2e/api-persistence-preview.spec.ts tests/e2e/api-connection-status.spec.ts tests/e2e/connection-selection-contracts.spec.ts tests/e2e/connection-error-state-contracts.spec.ts tests/e2e/connection-busy-contracts.spec.ts --output=work/qa-20261008/text-connection/final20-results", "exitCode": 0, "passed": 20, "failed": 0, "skipped": 0, "log": "final20.log"},
-    {"command": "node node_modules/vitest/vitest.mjs run tests/unit/text-deployment-registration.test.ts tests/unit/connection-status.test.ts tests/unit/credential-vault.test.ts", "exitCode": 0, "passed": 27, "failed": 0, "skipped": 0, "log": "unit.log"},
-    {"command": "node node_modules/typescript/bin/tsc --noEmit", "exitCode": 0, "log": "typecheck-final2.log"},
-    {"command": "node node_modules/eslint/bin/eslint.js src/infrastructure/deployment/register-target.ts src/infrastructure/deployment/registration.ts src/features/settings/ConnectionSettings.tsx tests/e2e/text-registration-cache.spec.ts", "exitCode": 0, "log": "lint-final.log"},
-    {"command": "node node_modules/vite/bin/vite.js build", "exitCode": 0, "log": "build.log"},
-    {"command": "git diff --check -- src/infrastructure/deployment/registration.ts src/infrastructure/deployment/register-target.ts src/features/settings/ConnectionSettings.tsx", "exitCode": 0}
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/text-registration-cache.spec.ts --output=work/qa-20261008/text-connection/red-canonical-results",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "red-canonical.log",
+      "phase": "有效红灯：原代码，规范登记地址"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/text-registration-cache.spec.ts -g 'default video' --output=work/qa-20261008/text-connection/video-race-red-results",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "log": "video-race-red.log",
+      "phase": "有效红灯：默认选择误清除保存授权"
+    },
+    {
+      "command": "node --experimental-strip-types scripts/run-browser-tests.mjs test tests/e2e/text-registration-cache.spec.ts tests/e2e/text-runtime-restart.spec.ts tests/e2e/api-persistence-preview.spec.ts tests/e2e/api-connection-status.spec.ts tests/e2e/connection-selection-contracts.spec.ts tests/e2e/connection-error-state-contracts.spec.ts tests/e2e/connection-busy-contracts.spec.ts --output=work/qa-20261008/text-connection/final20-results",
+      "exitCode": 0,
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "log": "final20.log"
+    },
+    {
+      "command": "node node_modules/vitest/vitest.mjs run tests/unit/text-deployment-registration.test.ts tests/unit/connection-status.test.ts tests/unit/credential-vault.test.ts",
+      "exitCode": 0,
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "log": "unit.log"
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "exitCode": 0,
+      "log": "typecheck-final2.log"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js src/infrastructure/deployment/register-target.ts src/infrastructure/deployment/registration.ts src/features/settings/ConnectionSettings.tsx tests/e2e/text-registration-cache.spec.ts",
+      "exitCode": 0,
+      "log": "lint-final.log"
+    },
+    {
+      "command": "node node_modules/vite/bin/vite.js build",
+      "exitCode": 0,
+      "log": "build.log"
+    },
+    {
+      "command": "git diff --check -- src/infrastructure/deployment/registration.ts src/infrastructure/deployment/register-target.ts src/features/settings/ConnectionSettings.tsx",
+      "exitCode": 0
+    }
   ],
   "live": {
     "origin": "https://studio.gemstory.cn",
@@ -36,8 +81,50 @@
     "originalPausedTaskResubmitted": false,
     "proof": "work/qa-20261008/text-connection/live-proof.json",
     "screenshot": "work/qa-20261008/text-connection/live-restored.png",
-    "remoteCodeDeployed": false,
+    "remoteCodeDeployed": true,
     "local4188Bundle": "/assets/index-CpFC5sb8.js"
   },
-  "limitations": ["线上补丁尚未发布，需要按既有边界取得明确部署授权", "本轮未进行付费生成验证", "完整 verify 与独立审查未执行", "初次夹具规范地址错误及中间编辑回归失败均保留日志，最终已修正通过"]
+  "limitations": [
+    "本轮未进行付费生成验证",
+    "完整 verify 与独立审查未执行",
+    "线上只发布连接修复，其他本地功能未混入"
+  ],
+  "deployment": {
+    "authorizedBy": "用户明确回复：部署",
+    "deployedAt": "2026-10-08T17:41:53+08:00",
+    "sourceBase": "2e61b9fd8401c707a00b2607781dd37b65cb308d",
+    "patchCommit": "ca7e248b55f6af3c50a26d031e155eb35a24e990",
+    "release": "/opt/aiwork-studio/releases/20261008-qa62-ca7e248",
+    "previousRelease": "/opt/aiwork-studio/releases/20261008-4231f4e",
+    "backup": "/opt/aiwork-studio/backups/20261008-qa62",
+    "archiveSha256": "10e98eb634795599f2ccfef02aab4c46e0d2d0e985bae9aa7592e11492032154",
+    "entry": "/assets/index-D4hvJqM8.js",
+    "servicePid": 2724795,
+    "serviceRestarted": false,
+    "configurationHashesUnchanged": true,
+    "sourceBrowserTests": {
+      "exitCode": 0,
+      "skipped": 0,
+      "log": "work/qa-20261008/deploy-qa62/browser.log",
+      "passed": 7,
+      "failed": 0
+    },
+    "publicVerification": {
+      "exitCode": 0,
+      "newAssetHashes": 48,
+      "legacyEntryAssets": 6,
+      "log": "work/qa-20261008/deploy-qa62/public-checks-final.log"
+    },
+    "reloadCount": 2,
+    "automaticCheckObservationSeconds": 78,
+    "browserProof": "work/qa-20261008/deploy-qa62/live-after.json",
+    "screenshot": "work/qa-20261008/deploy-qa62/deployed-connections.png",
+    "remoteLogs": [
+      "work/qa-20261008/deploy-qa62/remote-before.txt",
+      "work/qa-20261008/deploy-qa62/stage-final-result.txt",
+      "work/qa-20261008/deploy-qa62/activate-result.txt",
+      "work/qa-20261008/deploy-qa62/finalize-result.txt"
+    ],
+    "generationRequestsInitiated": 0
+  }
 }
