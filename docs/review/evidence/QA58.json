@@ -8,7 +8,7 @@
   "branch": "feat/aiwork-studio",
   "initialBaseCommit": "4231f4edc7bca9c53c948283c1060b07a9700954",
   "commitParent": "2e61b9fd8401c707a00b2607781dd37b65cb308d",
-  "patchCommit": null,
+  "patchCommit": "81b57d2bc50a4b20e28f2bc9ccbda0cb0f46e4e6",
   "modelVerification": "由用户在宿主选择，当前工具不可验证",
   "singleExecutor": true,
   "sourceFiles": [
