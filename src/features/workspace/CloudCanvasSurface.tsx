@@ -48,6 +48,8 @@ export function CloudCanvasSurface({
   onViewport,
   onError,
   onSave,
+  onSaveNodePrompt,
+  onOpenNodeWriting,
   onUndo,
   onRedo,
   onFiles,
@@ -74,6 +76,8 @@ export function CloudCanvasSurface({
   onViewport: (viewport: Viewport) => void;
   onError: (message: string) => void;
   onSave: () => void;
+  onSaveNodePrompt: (nodeId: string) => void;
+  onOpenNodeWriting: (nodeId: string) => void;
   onUndo: () => void;
   onRedo: () => void;
   onFiles: (files: File[]) => void;
@@ -533,6 +537,26 @@ export function CloudCanvasSurface({
                       >
                         {node.locked ? '解锁' : '锁定'}
                       </Button>
+                      {node.type === 'text' ? (
+                        <>
+                          <Button
+                            data-interaction-id="cloud:canvas:save-prompt"
+                            disabled={!canEdit || node.locked || !node.data.text.trim()}
+                            disabledReason={!canEdit || node.locked ? '当前节点只读或已锁定' : '请先输入有效文字'}
+                            onClick={() => onSaveNodePrompt(node.id)}
+                          >
+                            保存为提示词
+                          </Button>
+                          <Button
+                            data-interaction-id="cloud:canvas:open-writing"
+                            disabled={!canEdit || node.locked || !node.data.text.trim()}
+                            disabledReason={!canEdit || node.locked ? '当前节点只读或已锁定' : '请先输入有效文字'}
+                            onClick={() => onOpenNodeWriting(node.id)}
+                          >
+                            在写作中打开
+                          </Button>
+                        </>
+                      ) : null}
                     </div>
                   ) : null}
                 </div>

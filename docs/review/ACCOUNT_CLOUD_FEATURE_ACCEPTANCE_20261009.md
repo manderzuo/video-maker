@@ -248,4 +248,8 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 审计补充事实（023轮，实施侧不重复执行）：只读`git -c http.proxy= -c https.proxy= ls-remote origin`成功，远端实际仍`81576d8`，命令级临时绕过无需改全局代理（审计执行，未推送）；只读SSH核对线上`cloud-aebd1f5`、commit `aebd1f54f97a141e740d6b9550f5849a9d267c42`、24文件哈希一致、service active，无生产变更；品牌授权仍unresolved；HTTPS临时信任待用户回复，不执行；计费/生产动作待授权；traceability保持待验收登记；定时任务保持PAUSED。
 - F018生成setup等待定向确认：`stage8-022`全量中该用例卡5秒poll（error-context为accepted等候，worker侧3秒后查+500ms tick所致），仅将等待放宽到15秒，未改业务断言、不掩盖unknown/failed；定向连跑2次通过（10.2s/8.7s，均超老窗口）。
 - 审计025（超预设保存等待竞态）：`cloud-prompts.spec.ts:26`第二次保存后只等本地已消失的提示就读库，偶发撞上在飞的PATCH读到旧值。现第二次点击前捕获草稿id/revision，对PATCH加300ms固定延迟做反向验证，等待同一草稿PATCH成功响应（`waitForResponse`）与选项区新修订显示后再按id读库断言；原值保留/明确选择/零供应商调用断言保留，产品逻辑未动。定向连跑2次通过。
+- 审计F030（提示词库JSON导入/导出）：复用纯契约`previewPromptImport`/`exportPrompts`，读写只走当前账号`WorkspaceClient`。导入：选文件→纯内存校验/预览→明确确认→逐条创建（每条预生成幂等键，同一批次重试replay不重复；部分失败明确标题并保留批次可重试）；超限/损坏/取消不写入。导出：选中条目→下载`AIWORK-prompts.json`（仅6展示字段，无密钥授权任务数据），无选中禁用并给原因，原内容不变；跨账号隔离。用例`cloud-library-transfer.spec.ts` 7条（F030三条、F031一条、F032三条）。
+- 审计F031（应用到现有文字节点）：库使用对话框新增目标节点下拉（默认新建，不默认替换首项）与原/新正文对账；确认后按旧语义全量替换data（保留原referenceTokens+来源记录），走冻结命令身份（未知重试不重复），失败保留选择与变量，资源缺失/切账号明确拒绝；库条目与任务不动。
+- 审计F032（画布文字节点两入口）：节点旁新增“保存为提示词”（正文经sessionStorage一次性携带到达库编辑器预填，失败不清原文字、不重复条目）与“在写作中打开”（先等画布保存成功，按`sourceProjectId/sourceNodeId/sourceRevision`创建明确新draft并`?draft=`定位，失败不建草稿不离开）；后续AI仍独立确认。定向验证：全正文与来源修订、刷新定位、失败保留输入与不跳页、零上游调用。
+- F030/F031/F032后复验：`typecheck`/`lint` exit 0；`check-ui-identities` 0；`cloud-library-transfer` 7/7。
 - 待完成（需授权，勿视作已交付）：真实模型验收（文字优化/纯文字视频/带参考视频/续写生成，需用户选定输入模型并确认费用，本轮零触发）；生产数据库/媒体/配置备份、兼容性检查与恢复演练、部署上线与同提交号线上复测（无生产变更授权，均未执行；用户此后写入内容不得覆盖）。
