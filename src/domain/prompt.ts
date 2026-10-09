@@ -17,5 +17,5 @@ export const promptDraftSchema=promptCompileInputSchema.extend({id,revision,type
 export type PromptDraft=z.infer<typeof promptDraftSchema>;
 export const promptRunSchema=bindingSchema.extend({id,draftId:id,draftRevision:revision,mode:z.literal('ai'),textModelId:id,idempotencyKey:id,requestSnapshot:jsonSnapshotText,coreRequestId:id.optional(),executionState:z.enum(['persisted','sending','succeeded','failed_confirmed','response_unknown','waiting_stopped']),billingState:billingStateSchema,startedAt:timestamp,finishedAt:timestamp.optional()});
 export type PromptRun=z.infer<typeof promptRunSchema>;
-export const promptLibrarySchema=z.strictObject({id,title:z.string().min(1),body:localText,tags,variables:z.array(z.string()),source:z.string(),license:z.string(),revision,starred:z.boolean(),trashed:z.boolean()});
+export const promptLibrarySchema=z.strictObject({id,title:z.string().min(1),body:localText,tags,variables:z.array(z.string()),source:z.string(),license:z.string(),revision,starred:z.boolean(),trashed:z.boolean(),draftId:id.optional(),resultVersionId:id.optional()});
 export type PromptLibraryEntry=z.infer<typeof promptLibrarySchema>;

@@ -3,12 +3,12 @@ import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 test('retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas',async({page,workspace})=>{
  const created=await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'写作目标画布'}});expect(created.statusCode).toBe(201);
  await page.goto('/prompt-generator');await page.getByRole('button',{name:'新建视频写作草稿',exact:true}).click();await page.getByLabel('原始创意',{exact:true}).fill('一镜到底的雨后街道');await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存');await page.getByRole('button',{name:'规则整理',exact:true}).click();await expect(page.getByLabel('结果正文',{exact:true})).toBeVisible();
- await page.getByRole('button',{name:'人工修改结果',exact:true}).click();await page.getByLabel('人工结果正文',{exact:true}).fill('我修订后的镜头正文');await page.getByRole('button',{name:'保存为新的人工结果',exact:true}).click();await expect(page.getByLabel('结果正文',{exact:true}).first()).toHaveText('我修订后的镜头正文');
+ await page.getByLabel('结果正文',{exact:true}).fill('我修订后的镜头正文');await page.getByRole('button',{name:'保存为新的人工结果',exact:true}).click();await expect(page.getByLabel('结果正文',{exact:true})).toHaveValue('我修订后的镜头正文');await expect(page.locator('[data-interaction-id="cloud:draft:version"]')).toHaveCount(2);
  await page.getByRole('button',{name:'插入文字',exact:true}).first().click();await page.getByRole('button',{name:'确认应用到云端画布',exact:true}).click();await expect(page.getByRole('dialog',{name:'应用写作结果到画布',exact:true})).not.toBeVisible();
  const stored=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[created.json().id])).rows[0].graph;
  expect(stored.nodes[0].data).toMatchObject({text:'我修订后的镜头正文',promptGenerationSource:{origin:'manual',sourceRevision:2}});
  const draft=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows[0].document;expect(draft.resultVersions).toHaveLength(2);expect(stored.nodes[0].data.promptGenerationSource.resultVersionId).toBe(draft.resultVersions[1].id);
- await page.getByRole('button',{name:'恢复此历史结果',exact:true}).last().click();await expect(page.getByLabel('结果正文',{exact:true})).toHaveCount(3);
+ await page.locator('[data-interaction-id="cloud:draft:version"][value="'+draft.resultVersions[0].id+'"]').check();await page.getByRole('button',{name:'恢复此历史结果',exact:true}).click();await expect(page.locator('[data-interaction-id="cloud:draft:version"]')).toHaveCount(3);await expect(page.getByLabel('结果正文',{exact:true})).toHaveCount(1);
  await page.getByRole('button',{name:'插入文字',exact:true}).first().click();await page.getByLabel('目标文字节点',{exact:true}).selectOption(stored.nodes[0].id);await page.getByRole('button',{name:'确认应用到云端画布',exact:true}).click();await expect(page.getByRole('dialog',{name:'应用写作结果到画布',exact:true})).not.toBeVisible();
  const restored=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[created.json().id])).rows[0].graph;expect(restored.nodes).toHaveLength(1);expect(restored.nodes[0].data.text).toBe(draft.resultVersions[0].finalPrompt);const revised=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows[0].document;expect(revised.resultVersions[2].restoredFromVersionId).toBe(draft.resultVersions[0].id);
  await page.screenshot({path:'work/account-api-cloud/cloud-prompt-results.png',fullPage:true});
@@ -136,8 +136,8 @@ test('refuses to silently substitute when the writing request exceeds the verifi
  await page.goto('/prompt-generator');await page.getByRole('button',{name:'新建视频写作草稿',exact:true}).click();
  await page.getByLabel('原始创意',{exact:true}).fill('15秒936规格的写作请求');
  // 写作请求 15秒/9:16，而隔离目录仅 5秒/16:9：必须明示不支持，不静默建成5秒
- await page.locator('[data-interaction-id="PG10"]').fill('15');
- await page.locator('[data-interaction-id="ui:PromptForm:input:a944108bfffb"]').fill('9:16');
+ await page.locator('[data-interaction-id="PG10"]').selectOption('15');
+ await page.locator('[data-interaction-id="ui:PromptForm:input:a944108bfffb"]').selectOption('9:16');
  await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();await page.getByRole('button',{name:'规则整理',exact:true}).click();
  await expect(page.getByLabel('结果正文',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'创建视频流程',exact:true}).first().click();

@@ -151,3 +151,37 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 前后端`typecheck/lint` exit 0；全量单测93文件683项 exit 0；`build` exit 0（247KB主包）。
 - 服务端`video-tasks/workspace-commands` 27/27 exit 0（能力扩展无回归）。
 - 浏览器`cloud-canvas-interactions` 5/5；云全量61/61（`stage4-full`，含此前偶发项复核通过）；生成调用0（各用例断言+全局守卫）。
+
+## 9. 阶段4后续修正F013（多选拖动保留整组选择）
+
+问题（审计F013，已在固定提交上独立复现路径）：多选后拖动其中一个节点，第一次暗中取消其余选择、第二次只移动一个。
+
+修复（`bb761a2`）：
+- `CloudCanvasSurface.tsx`的`pointerStart`：点已选节点保留整组（`moveIds=selected`），拖动`gesture.ids=moveIds`；shift点已选节点取消该选择且不武装拖动；点未选节点仍单选取代。
+- 用例迁回`cloud-canvas-interactions.spec.ts`：`:106`素材预留503后保留文件并可重试、失败不建假节点；`:120`多选后连续两次拖动，逐轮断言DB坐标偏移与`.canvas-node.selected`数量，并断言刷新后偏移持久化。
+
+定向检查：
+- 反向验证：临时`git checkout --`还原修复后`-g "preserves the whole multi-selection"`必失败（1 failed：选择数期望2实得1、第二次位移只生效一半）；从`work/account-api-cloud/f013-backup`恢复后7/7通过；`bb761a2`已提交。
+- 前后端`typecheck/lint` exit 0。
+
+## 10. 阶段5验收（提示词中央结果、规格预设和内容归属）
+
+实现（相对`bb761a2`）：
+- `src/features/prompt-generation/PromptForm.tsx`：写作规格固定为时长5、6、7…15秒整数与画幅16:9、9:16、1:1、4:3、3:4（对应Global Constraints第7条）；旧草稿超出预设的原值以“原值 X · 超出预设，请明确修改”选项原样呈现，并显示`PG10:out-of-preset`/`ui:PromptForm:input:a944108bfffb:out-of-preset`明确提示，不静默改写；未指定仍是可选状态。
+- `src/features/workspace/CloudPromptGeneratorPage.tsx`：恢复左输入、中结果、可收起右检查三栏（`.cloud-prompt-workspace`）。中部正文可直接编辑，“保存为新的人工结果”生成明确`manual`版本且不改写AI/规则原结果；新增镜头草案、改动说明、警告、复制正文、保存到库、JSON导出、源参数对照（取`selected.sourceRevision`的不可变快照经`client.draftRevision`读取）。
+- 来源一致性（审计F016）：人工正文未保存时导出与存库禁用并给出原因；导出字段`finalPrompt`/`resultVersionId`/`origin`/`sourceRevision`与持久化版本一致，`source`取自该版本快照而非当前草稿；快照读取中或失败时明确提示，不用当前草稿或上一版本冒充。
+- 指定草稿（审计F015）：`?draft=<id>`按明确ID选择；目标不存在或不属于当前账号时明确提示且不静默改用列表首项；迟到的初始草稿加载不再覆盖用户已选草稿（`touched`）。
+- 人工正文保护（审计F014）：`manualDirty`纳入规则整理、切换草稿、回收站/重新加载、应用、恢复、存库与导出；迟到AI结果不再覆盖正文，改为刷新修订，用户保存或明确放弃后才切换；被拒的草稿切换通过重挂载复位选择，避免控件显示与实际状态不一致。
+- `src/features/workspace/CloudTasksPage.tsx`：任务中心只呈现video任务（Agent与文字任务的原数据、结果版本与账务记录保留），成功视频在列表内展示当前账号的云端结果媒体（缩略图/播放），并注明Agent记录在项目会话、文字任务在提示词库写作记录中查看。
+- `src/features/workspace/CloudPromptsPage.tsx`：新增“已保存提示词/写作记录”入口；写作记录列出原草稿、修订、结果数与文字任务状态，可打开原草稿或只读查看结果正文；草稿已不可达的任务保留只读记录，不隐藏。
+- `src/domain/prompt.ts`：`promptLibrarySchema`新增可选`draftId`/`resultVersionId`，保存到库保留草稿与结果版本来源。
+
+定向检查（命令、统计与真实进程退出码分开记录）：
+- `npm run typecheck` exit 0；`npm run lint` exit 0。
+- `npm run test:unit` exit 0：93文件683项通过（日志`work/account-api-cloud/stage5-unit.log`）。
+- 服务端`npm test -- tests/prompts.test.ts tests/prompt-tasks.test.ts tests/video-tasks.test.ts tests/workspace-commands.test.ts` exit 0：4文件43项通过（`work/account-api-cloud/stage5-server.log`）。
+- 浏览器`node scripts/run-account-api-ui-tests.mjs` exit 0：68 passed（`work/account-api-cloud/stage5-browser.log`，2.8分钟，未截断）。此前用`Select-String`管道读取会把node的stderr变成NativeCommandError并让外层报exit 1，本节改用`*>`写入完整日志并用`$LASTEXITCODE`记录真实退出码；统计数字与实际退出码在此分列。
+- 审计F014反向验证：用`work/account-api-cloud/stage5/negative-patch.mjs`临时移除`manualDirty`守卫与禁用（备份`negative-backup.tsx`）后，两条F014用例失败（`f014-negative`：“规则整理”期望disabled实为enabled）；从备份恢复后5/5通过（`f014-restored`）。
+- 新增/迁移浏览器用例：`cloud-prompts.spec.ts:26`超预设旧值显式保留并要求明确选择；`:40`写作记录按ID打开非首项草稿、刷新一致、不存在ID明确提示；`:56`保存/导出与持久化版本的正文、版本ID、origin、source、sourceRevision一致（含改草稿输入后导出旧结果仍用旧快照）；`cloud-prompt-optimize.spec.ts:13`迟到AI结果不覆盖人工正文、保存后才切换；`:29`规则整理/切换草稿/应用在人工正文未保存时被阻断且原AI版本不变；`cloud-prompt-apply.spec.ts:3`改用中部可编辑正文与版本选择后应用历史版本。
+- 未完成/未验：旧匿名提示词套件（`prompt-field-contracts`、`prompt-validation-races`、`prompt-workspace`、`missing-entry-contracts`）在本分支不可达——实测`prompt-field-contracts.spec.ts` 6 failed，页面为账号外壳“无法确认登录状态”，与本次改动无关；因此未改其`spinbutton`/`textbox`引用。旧入口按阶段7/8接回后需迁移：`prompt-field-contracts.spec.ts:6`与`:17`、`missing-entry-contracts.spec.ts:24-25`、`prompt-workspace.spec.ts:18`改`selectOption`；`prompt-validation-races.spec.ts:15-25`需改为种子化超预设草稿后断言原值保留与明确提示。
+- 未验：真实供应商目录协议、真实付费生成、严格HTTPS与线上核验（阶段8）。
