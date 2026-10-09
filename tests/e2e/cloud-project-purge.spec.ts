@@ -89,9 +89,42 @@ test('keeps failed batch items retryable with original keys',async({page,workspa
  await expect(dialog.getByRole('heading',{name:'批重试甲',exact:true})).toBeVisible();
  await page.unroute('**/studio-api/projects/'+a.project.id+'/purge');
  await dialog.getByRole('button',{name:'确认删除已确认项',exact:true}).click();
- await expect(page.getByText('批量永久删除成功 1，失败 0',{exact:false})).toBeVisible();
+ await expect(page.getByText('批量永久删除成功 1；',{exact:false})).toBeVisible();
+ await expect(page.getByRole('dialog',{name:'批量永久删除项目',exact:true})).toHaveCount(0);
  const purged=(await ctx.pool.query('SELECT COUNT(*)::int n FROM workspace_projects WHERE purged_at IS NOT NULL')).rows as unknown as {n:number}[];
  expect(purged[0].n).toBe(2);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('restores an unknown batch item after refresh and replays the original body',async({page,workspace})=>{
+ const ctx=asCtx(workspace),headers=workspace.headers(workspace.account);
+ const a=await makeTrashed(ctx,'刷恢复甲'),b=await makeTrashed(ctx,'刷恢复乙');
+ await page.goto('/trash');
+ const boxes=page.locator('[data-interaction-id="cloud:project:select"]');
+ await expect(boxes).toHaveCount(2);
+ await boxes.nth(0).check();await boxes.nth(1).check();
+ await page.getByRole('button',{name:'批量永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'批量永久删除项目',exact:true});
+ await dialog.locator('article',{has:page.getByRole('heading',{name:'刷恢复甲',exact:true})}).getByLabel('输入完整项目名称确认',{exact:true}).fill('刷恢复甲');
+ await dialog.locator('article',{has:page.getByRole('heading',{name:'刷恢复乙',exact:true})}).getByLabel('输入完整项目名称确认',{exact:true}).fill('刷恢复乙');
+ await page.route('**/studio-api/projects/'+b.project.id+'/purge',async route=>{
+  await ctx.call('POST','/studio-api/projects/'+b.project.id+'/purge',{...headers,payload:route.request().postDataJSON()});
+  await route.fulfill({status:500,body:'{}'});
+ });
+ await dialog.getByRole('button',{name:'确认删除已确认项',exact:true}).click();
+ await expect(page.getByText('批量永久删除成功 1，失败 1',{exact:false})).toBeVisible();
+ await page.reload();
+ await expect(page.getByText('未完成的批量删除',{exact:false})).toBeVisible();
+ await page.getByRole('button',{name:'恢复批量删除',exact:true}).click();
+ const restored=page.getByRole('dialog',{name:'批量永久删除项目',exact:true});
+ await expect(restored.getByRole('heading',{name:'刷恢复乙',exact:true})).toBeVisible();
+ await page.unroute('**/studio-api/projects/'+b.project.id+'/purge');
+ await restored.getByRole('button',{name:'确认删除已确认项',exact:true}).click();
+ await expect(page.getByRole('dialog',{name:'批量永久删除项目',exact:true})).toHaveCount(0);
+ const purged=(await ctx.pool.query('SELECT COUNT(*)::int n FROM workspace_projects WHERE purged_at IS NOT NULL')).rows as unknown as {n:number}[];
+ expect(purged[0].n).toBe(2);
+ const receipts=(await ctx.pool.query('SELECT project_id FROM workspace_project_purges')).rows as unknown as {project_id:string}[];
+ expect(receipts.map(row=>row.project_id).sort()).toEqual([a.project.id,b.project.id].sort());
+ void a;
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('purges selected trashed projects one by one with a report',async({page,workspace})=>{
