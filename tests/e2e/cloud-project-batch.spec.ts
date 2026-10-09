@@ -125,6 +125,25 @@ test('resets appearance preferences with confirmation and restores the prior val
  await page.unroute('**/studio-api/me/document');
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+test('keeps the reset dialog and prior values when the reset request fails',async({page,workspace})=>{
+ await page.goto('/settings/appearance');
+ await page.getByLabel('主题',{exact:true}).selectOption('light');
+ await page.getByRole('button',{name:'保存偏好',exact:true}).click();
+ await expect(page.getByText('偏好已保存',{exact:false})).toBeVisible();
+ await page.route('**/studio-api/me/document',async route=>{
+  if(route.request().method()!=='PATCH'){await route.fallback();return;}
+  await route.fulfill({status:500,body:'{}'});
+ });
+ await page.getByRole('button',{name:'重置外观与播放偏好',exact:true}).click();
+ await page.getByRole('button',{name:'确认重置偏好',exact:true}).click();
+ await expect(page.getByRole('alert')).toBeVisible();
+ await expect(page.getByRole('dialog',{name:'重置操作偏好',exact:true})).toBeVisible();
+ await expect(page.getByLabel('主题',{exact:true})).toHaveValue('light');
+ await page.unroute('**/studio-api/me/document');
+ await page.getByRole('button',{name:'确认重置偏好',exact:true}).click();
+ await expect(page.getByText('外观与播放偏好已重置',{exact:false})).toBeVisible();
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
 test('filters activity receipts, shows details and hides display without deleting',async({page,workspace})=>{
  const ctx=asCtx(workspace);
  const a=await makeProject(ctx,'活动甲'),b=await makeProject(ctx,'活动乙');

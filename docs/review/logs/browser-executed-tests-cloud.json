@@ -14959,6 +14959,96 @@
         "paidRequests": 0,
         "blockedRequests": 0
       }
+    },
+    {
+      "id": "tests/e2e/cloud-project-batch.spec.ts::keeps the reset dialog and prior values when the reset request fails",
+      "file": "tests/e2e/cloud-project-batch.spec.ts",
+      "title": "keeps the reset dialog and prior values when the reset request fails",
+      "status": "passed",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 132,
+          "column": 54
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 139,
+          "column": 40
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 140,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 141,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 144,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 145,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 130,
+          "column": 43
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 131,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 137,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 138,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 143,
+          "column": 60
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
     }
   ]
 }

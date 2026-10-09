@@ -2097,11 +2097,6 @@
       "id": "T-06"
     },
     {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "T-06"
-    },
-    {
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "T-06"
@@ -5935,6 +5930,16 @@
       "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "H-03"
+    },
+    {
+      "code": "assertion_not_observable",
+      "kind": "interactions",
+      "id": "H-04"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "interactions",
+      "id": "H-04"
     },
     {
       "code": "facet_missing:disabled",
@@ -6458,11 +6463,6 @@
     },
     {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "PG02"
-    },
-    {
-      "code": "facet_missing:error",
       "kind": "interactions",
       "id": "PG02"
     },
@@ -8802,11 +8802,42 @@
             143,
             144
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::keeps an unsaved central body when a late AI result arrives and applies the saved version instead",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            23,
+            24,
+            25,
+            26
+          ]
         }
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:error",
         "facet_missing:persistence",
         "facet_missing:sideEffect"
       ]
@@ -10559,6 +10590,20 @@
             124,
             126
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::keeps the reset dialog and prior values when the reset request fails",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            132,
+            139,
+            140,
+            141,
+            144,
+            145
+          ]
         }
       ],
       "missing": [
@@ -10923,6 +10968,8 @@
         }
       ],
       "missing": [
+        "assertion_not_observable",
+        "facet_missing:normal",
         "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence",
@@ -11418,11 +11465,46 @@
             12,
             13
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::blocks compile, draft switching and apply while the central body is unsaved and keeps the original AI version",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            32,
+            34,
+            35,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            45,
+            46,
+            47
+          ]
         }
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:error",
         "facet_missing:persistence",
         "facet_missing:sideEffect"
       ]
