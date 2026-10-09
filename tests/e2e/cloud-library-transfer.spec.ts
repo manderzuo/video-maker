@@ -146,7 +146,6 @@ test('opens a canvas text node in cloud writing with saved revision bound',async
 test('keeps input and stays when opening writing fails',async({page,workspace})=>{
  const seed=await seedTextProject(workspace,'写作源正文','写作失败'),project=seed.project;
  await page.goto('/projects/'+project.id+'/canvas');
- page.on('console',message=>{if(message.text().startsWith('WRITING_RETRY'))console.log(message.text());});
  await page.route('**/studio-api/prompt-drafts',async route=>{
   if(route.request().method()!=='POST'){await route.fallback();return;}
   await route.fulfill({status:500,body:'{}'});
@@ -206,6 +205,56 @@ test('creates only one writing draft on unknown response and double click',async
  await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
  const twice=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
  expect(twice.filter(row=>row.document.sourceNodeId===textId)).toHaveLength(2);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('keeps another project pending identity when visiting a different project',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ const a=await seedTextProject(workspace,'甲正文','项目甲'),b=await seedTextProject(workspace,'乙正文','项目乙');
+ await page.goto('/projects/'+a.project.id+'/canvas');
+ let posts=0;
+ await page.route('**/studio-api/prompt-drafts',async route=>{
+  if(route.request().method()!=='POST'){await route.fallback();return;}
+  posts++;
+  if(posts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...a.headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
+  await route.fallback();
+ });
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page.getByRole('alert')).toBeVisible();
+ await page.goto('/projects/'+b.project.id+'/canvas'); await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('乙正文');
+ await page.goto('/projects/'+a.project.id+'/canvas');
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
+ expect(drafts.filter(row=>row.document.sourceNodeId===a.textId)).toHaveLength(1);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('blocks a new submission after edits until the pending one is resolved',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ const seed=await seedTextProject(workspace,'原正文','改文写作'),project=seed.project,textId=seed.textId,headers=seed.headers;
+ await page.goto('/projects/'+project.id+'/canvas');
+ let posts=0;
+ await page.route('**/studio-api/prompt-drafts',async route=>{
+  if(route.request().method()!=='POST'){await route.fallback();return;}
+  posts++;
+  if(posts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
+  await route.fallback();
+ });
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page.getByRole('alert')).toBeVisible();
+ await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('后续人工编辑必须保留');
+ await page.getByRole('button',{name:'保存到云端',exact:true}).click();
+ await expect(page.getByRole('status')).toContainText('已保存');
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page.getByText('有未完成的写作打开',{exact:false})).toBeVisible();
+ expect(posts).toBe(1);
+ await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('后续人工编辑必须保留');
+ await page.getByRole('button',{name:'放弃本次写作打开',exact:true}).click();
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{userRequest:string;sourceNodeId:string}}[];
+ const mine=drafts.filter(row=>row.document.sourceNodeId===textId);
+ expect(mine).toHaveLength(2);
+ expect(mine.map(row=>row.document.userRequest).sort()).toEqual(['原正文','后续人工编辑必须保留']);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('resumes a pending writing open after refresh with the same identity',async({page,workspace})=>{

@@ -30,27 +30,28 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
  const [model]=useState(()=>createCloudCanvasModel(projectId,client,{autosaveMs:1500})),state=useSyncExternalStore(model.subscribe,model.getState),graph=state.graph;
  const [assets,setAssets]=useState<Asset[]>([]),[runs,setRuns]=useState<ResultSourceRun[]>([]),[selected,setSelected]=useState<string[]>([]),[error,setError]=useState(''),[tool,setTool]=useState<'select'|'pan'>('select'),[background,setBackground]=useState('dots'),[minimap,setMinimap]=useState(false),[sideOpen,setSideOpen]=useState(true),[outlineOpen,setOutlineOpen]=useState(true),[addOpen,setAddOpen]=useState(false),[modelName,setModelName]=useState(''),[source,setSource]=useState(''),[target,setTarget]=useState(''),[port,setPort]=useState<'text'|'image'|'video'>('text'),[discardOpen,setDiscardOpen]=useState(false),[patches,setPatches]=useState<PositionPatch[]|null>(null);
  const stageRef=useRef<HTMLDivElement>(null),[clipboard,setClipboard]=useState<NodeClipboard>();
- const writing=useRef<{key:string;busy:boolean;fingerprint:string}|undefined>(undefined);
+ type WritingRequest=Parameters<WorkspaceClient['createDraft']>[0];
+ const writing=useRef<{key:string;busy:boolean;fingerprint:string;nodeId?:string;request?:WritingRequest}|undefined>(undefined);
  const [writingPending,setWritingPending]=useState(false);
- const writingStorageKey='aiwork:writing-pending';
- function storeWriting(value:{key:string;fingerprint:string;nodeId:string}|undefined){
+ const writingStorageKey='aiwork:writing-pending:'+projectId;
+ function storeWriting(value:{key:string;fingerprint:string;nodeId:string;request:WritingRequest}|undefined){
   const identity=sessionStore.getState();
   if(identity.status!=='authenticated'){try{localStorage.removeItem(writingStorageKey);}catch{} return;}
   try{
    if(!value)localStorage.removeItem(writingStorageKey);
-   else localStorage.setItem(writingStorageKey,JSON.stringify({userId:identity.session.user.id,projectId,nodeId:value.nodeId,key:value.key,fingerprint:value.fingerprint}));
+   else localStorage.setItem(writingStorageKey,JSON.stringify({userId:identity.session.user.id,projectId,nodeId:value.nodeId,key:value.key,fingerprint:value.fingerprint,request:value.request}));
   }catch{/* 持久化失败不阻断提交 */}
  }
- // 未决动作随页面恢复：仅同用户同项目同节点才沿用旧身份，否则丢弃。
+ // 未决动作随页面恢复：仅同用户同项目同节点才沿用旧身份，否则丢弃本项目键（不动其他项目）。
  useEffect(()=>{
   try{
    const raw=localStorage.getItem(writingStorageKey);
    if(!raw)return;
    const identity=sessionStore.getState();
    if(identity.status!=='authenticated')return;
-   const saved=JSON.parse(raw) as {userId?:unknown;projectId?:unknown;nodeId?:unknown;key?:unknown;fingerprint?:unknown};
-   if(saved.userId!==identity.session.user.id||saved.projectId!==projectId||typeof saved.nodeId!=='string'||typeof saved.key!=='string'||!saved.key||typeof saved.fingerprint!=='string'){localStorage.removeItem(writingStorageKey);return;}
-   writing.current={key:saved.key,busy:false,fingerprint:saved.fingerprint};
+   const saved=JSON.parse(raw) as {userId?:unknown;projectId?:unknown;nodeId?:unknown;key?:unknown;fingerprint?:unknown;request?:unknown};
+   if(saved.userId!==identity.session.user.id||saved.projectId!==projectId||typeof saved.nodeId!=='string'||typeof saved.key!=='string'||!saved.key||typeof saved.fingerprint!=='string'||!saved.request||typeof saved.request!=='object'||typeof (saved.request as {userRequest?:unknown}).userRequest!=='string'){localStorage.removeItem(writingStorageKey);return;}
+   writing.current={key:saved.key,busy:false,fingerprint:saved.fingerprint,nodeId:saved.nodeId,request:saved.request as WritingRequest};
    setWritingPending(true);
   }catch{/* 损坏的冻结忽略 */}
  },[]);
@@ -105,7 +106,7 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   if(writing.current?.busy)return;
   if(!nodeText(nodeId)){setError('所选文字节点已不可用。');return;}
   const prev=writing.current;
-  writing.current={key:prev?.key??'',busy:true,fingerprint:prev?.fingerprint??''};
+  writing.current={key:prev?.key??'',busy:true,fingerprint:prev?.fingerprint??'',nodeId:prev?.nodeId,request:prev?.request};
   await model.save();
   for(let attempt=0;attempt<50&&model.getState().status==='saving';attempt++)await new Promise(resolve=>setTimeout(resolve,100));
   const current=model.getState();
@@ -114,13 +115,23 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   if(!fresh||fresh.type!=='text'||fresh.locked){writing.current=undefined;setError('所选文字节点已不可用。');return;}
   const fingerprint=JSON.stringify({nodeId,revision:current.graph.revision,text:fresh.data.text});
   const held=writing.current;
-  let key=held?.key??'';
-  if(!key||held?.fingerprint!==fingerprint)key=crypto.randomUUID();
-  writing.current={key,busy:true,fingerprint};
-  storeWriting({key,fingerprint,nodeId});
+  let key: string,request: WritingRequest;
+  if(held?.key&&held.nodeId===nodeId&&held.fingerprint===fingerprint&&held.request){
+   key=held.key;request=held.request;
+  }else if(held?.key){
+   // 有未决旧动作（他节点或内容已变）：阻止新提交，保留旧身份；用户重试原动作或明确放弃后才可继续。
+   held.busy=false;
+   setError('有未完成的写作打开，请先重试原动作（将使用原输入发送）或点击“放弃本次写作打开”。');
+   return;
+  }else{
+   key=crypto.randomUUID();
+   request={type:'video',userRequest:fresh.data.text,sceneId:'text',requestedSpec:{},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1',sourceProjectId:projectId,sourceNodeId:nodeId,sourceRevision:current.graph.revision};
+  }
+  writing.current={key,busy:true,fingerprint,nodeId,request};
+  storeWriting({key,fingerprint,nodeId,request});
   setWritingPending(true);
   try{
-   const value=await client.createDraft({type:'video',userRequest:fresh.data.text,sceneId:'text',requestedSpec:{},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1',sourceProjectId:projectId,sourceNodeId:nodeId,sourceRevision:current.graph.revision},key);
+   const value=await client.createDraft(request,key);
    writing.current=undefined;
    storeWriting(undefined);
    setWritingPending(false);
