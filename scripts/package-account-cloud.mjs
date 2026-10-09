@@ -24,6 +24,16 @@ for(const name of migrationNames)await add(path.join(root,'server/src/db/migrati
 for(const name of ['aiwork-studio-cloud.service','nginx-studio-cloud.conf'])await add(path.join(root,'deploy',name),'deploy/'+name);
 for(const name of ['backup-account-cloud.sh'])await add(path.join(root,'scripts',name),'scripts/'+name);
 for(const name of ['THIRD_PARTY_NOTICES.txt','runtime-licenses.json'])await add(path.join(root,'third-party',name),'third-party/'+name);
+const licenseOriginals=['licenses/infinite-canvas.LICENSE','licenses/prompt-for-seedance-gptimage2.5.LICENSE','licenses/infinite-canvas.docs_content_docs_business_license.mdx','licenses/infinite-canvas.docs_content_docs_business_license.zh-CN.mdx','licenses/infinite-canvas..agents_skills_frontend-design_LICENSE.txt','licenses/runtime-fflate-0.8.2.LICENSE','licenses/runtime-react-19.2.8.LICENSE','licenses/runtime-react-dom-19.2.8.LICENSE','licenses/runtime-scheduler-0.27.0.LICENSE','licenses/runtime-zod-4.3.6.LICENSE','licenses/runtime-zustand-5.0.15.LICENSE'];
+for(const name of licenseOriginals)await add(path.join(root,'third-party',name),'third-party/'+name);
+// 在 stage 上实际执行现有许可/品牌校验：归档缺失、字节不符或品牌扫描
+// 异常即拒绝出包，不放宽 hash 与扫描条件。正式发布批准状态保持不变。
+const {scanLicenses}=await import('./check-license.mjs');
+const staged=scanLicenses(path.join(stage,'third-party'));
+if(!staged.preservedAll)throw new Error('Staged third-party licenses failed verification: '+staged.missing.join(',')+staged.modified.join(','));
+const {scanBrand}=await import('./check-brand.mjs');
+const stagedBrand=scanBrand(path.join(stage,'dist'));
+if(!stagedBrand.passed)throw new Error('Staged distribution failed brand scan');
 const spec=JSON.parse(await readFile(path.join(root,'deploy/seedance-spec-review.json'),'utf8')),images=JSON.parse(await readFile(path.join(root,'deploy/seedance-image-reference-review.json'),'utf8'));
 if(spec.verification!=='reviewed'||images.verification!=='reviewed'||spec.sourceCommit!==images.sourceCommit)throw new Error('Reviewed provider contract required');
 const contract={version:'gemstory-account-cloud-reviewed-20261009',verification:'reviewed',evidence:[{kind:'fixed_source',reference:'Core@'+spec.sourceCommit+'; user_routes.rs SHA256 '+spec.sourceSha256},{kind:'deployment_review',reference:'deploy/seedance-spec-review.json and deploy/seedance-image-reference-review.json; reviewed API routes and input limits; this release has no live generation receipt'}],routes:{models:true,videoSubmit:true,videoQuery:true,videoContent:true,chat:false,assets:true,workContext:false,continuation:false,backup:false},textModels:[],videoModels:['seedance'],videoAliases:[],videoSpecs:spec.durationSeconds.flatMap(durationSeconds=>spec.ratios.flatMap(ratio=>spec.resolutions.map(resolution=>({modelId:'seedance',durationSeconds,ratio,resolution})))),limits:{promptBytes:12288,assetBytes:images.assetBytes,imageReferences:images.imageReferences,videoReferences:images.videoReferences}};
