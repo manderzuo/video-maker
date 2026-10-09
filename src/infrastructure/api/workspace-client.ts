@@ -6,6 +6,7 @@ import {promptLibrarySchema,promptDraftSchema,type PromptDraft,type PromptLibrar
 import type {GraphOperation} from '../../application/commands/registry';
 import {ApiError} from './client';
 import {cloudProjectPackageSchema,privateFileSchema,type CloudProjectPackage} from '../../domain/cloud-project-package';
+import {workspaceMigrationSchema,migrationBatchSchema,type WorkspaceMigration} from '../../domain/workspace-migration';
 import {cloudTaskSchema,promptOptimizationPreviewSchema} from '../../domain/cloud-task';
 import {cloudRunSchema,cloudVideoRunSchema,cloudVideoCapabilitySchema,cloudVideoPreviewSchema} from '../../domain/cloud-video-run';
 import {cloudAgentConversationSchema,cloudAgentProposalSchema,cloudAgentPreviewSchema,cloudAgentRunSchema,type CloudAgentConversation} from '../../domain/cloud-agent';
@@ -18,7 +19,7 @@ const receiptSchema=z.strictObject({id:z.uuid(),status:z.enum(['applied','replay
 export const workspaceSchema=z.strictObject({project:projectSchema,graph:graphSchema,history:z.strictObject({undoDepth:z.number().int().nonnegative(),redoDepth:z.number().int().nonnegative()})}).refine(value=>value.project.id===value.graph.projectId&&value.project.revision===value.graph.revision);
 export type WorkspaceSnapshot=z.infer<typeof workspaceSchema>;
 const errors=new Set(['AUTH_REQUIRED','SESSION_CHANGED','CSRF_INVALID','REVISION_CONFLICT','INVALID_COMMAND','IDEMPOTENCY_CONFLICT','HISTORY_EMPTY','HISTORY_CHANGED','PROJECT_IN_TRASH','ASSET_IN_USE','ASSET_ALREADY_COMPLETE','UPLOAD_INVALID','UPLOAD_INCOMPLETE','USER_QUOTA_EXCEEDED','MEDIA_UNAVAILABLE','NOT_FOUND','INVALID_REQUEST','BODY_TOO_LARGE','INTERNAL_ERROR','PACKAGE_INCOMPLETE','CONFIG_CHANGED','PREVIEW_EXPIRED','MODEL_CONFIG_REQUIRED','PROMPT_INPUT_INVALID','INPUT_CONTAINS_CREDENTIAL','PRIOR_UNKNOWN_CONFIRMATION_REQUIRED','VIDEO_PREFLIGHT_BLOCKED','VIDEO_CONTRACT_UNVERIFIED','VIDEO_MODEL_CHANGED','TASK_ALREADY_STARTED','ORIGINAL_TASK_ID_REQUIRED','SECRET_UNAVAILABLE']);
-for(const code of ['GRANT_CHANGED','AGENT_SCOPE_INVALID','AGENT_CONTEXT_INVALID','HISTORY_READONLY','PROPOSAL_ALREADY_DECIDED'])errors.add(code);
+for(const code of ['GRANT_CHANGED','AGENT_SCOPE_INVALID','AGENT_CONTEXT_INVALID','HISTORY_READONLY','PROPOSAL_ALREADY_DECIDED','IMPORT_ALREADY_COMMITTED','MIGRATION_ASSET_CONFLICT','MIGRATION_HISTORY_INVALID','MIGRATION_REFERENCE_INVALID'])errors.add(code);
 export function workspaceMessage(error:unknown){
  const code=error instanceof ApiError?error.code:'';
  const messages:Record<string,string>={REVISION_CONFLICT:'另一设备已修改此内容。本次输入尚未保存，请重新加载后核对。',HISTORY_EMPTY:'没有可撤销或重做的操作。',HISTORY_CHANGED:'画布已发生变化，无法应用这条历史。',USER_QUOTA_EXCEEDED:'云端空间不足，本次文件尚未保存。',UPLOAD_INVALID:'文件内容与上传清单不符，请重新选择原文件。',UPLOAD_INCOMPLETE:'文件尚未上传完整，请重试。',ASSET_IN_USE:'素材仍被项目或撤销历史引用，暂不能移入回收站。',AUTH_REQUIRED:'登录已过期，请重新登录。',STALE_RESPONSE:'账号已变化，旧请求已停止。',SESSION_CHANGED:'账号已变化，请重新登录。',NOT_FOUND:'内容不存在或不属于当前账号。'};
@@ -93,6 +94,11 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   confirmVideo:async(id:string,approvalId:string,acknowledgePriorUnknown=false)=>request('/studio-api/projects/'+resource(id)+'/video-runs',z.array(cloudVideoRunSchema),{method:'POST',body:{approvalId,decision:{confirmed:true,acknowledgeVideoFee:true,...(acknowledgePriorUnknown?{acknowledgePriorUnknown:true}:{})}}}),
   controlVideo:async(id:string,expectedRevision:number,mode:'pause'|'resume'|'withdraw')=>request('/studio-api/runs/'+resource(id)+(mode==='withdraw'?'/withdraw':'/query-control'),cloudVideoRunSchema,{method:'POST',body:{expectedRevision,...(mode==='withdraw'?{}:{mode})}}),
   reauthorizeVideo:async(id:string,expectedRevision:number)=>request('/studio-api/runs/'+resource(id)+'/reauthorize',cloudVideoRunSchema,{method:'POST',body:{expectedRevision}}),
+  listImports:async()=>request('/studio-api/me/imports',z.array(migrationBatchSchema)),
+  stageImport:async(data:WorkspaceMigration)=>request('/studio-api/me/imports',migrationBatchSchema,{method:'POST',body:{data,idempotencyKey:data.exportId}}),
+  uploadImportFile:async(id:string,fileId:string,binary:Blob)=>request('/studio-api/me/imports/'+resource(id)+'/files/'+resource(fileId),z.undefined(),{method:'PUT',binary}),
+  commitImport:async(id:string,importPreferences:boolean,expectedDocumentRevision?:number)=>request('/studio-api/me/imports/'+resource(id)+'/commit',migrationBatchSchema,{method:'POST',body:{confirmedOwner:true,importPreferences,...(importPreferences?{expectedDocumentRevision}:{})}}),
+  importHistory:async(id:string)=>request('/studio-api/me/imports/'+resource(id)+'/history',workspaceMigrationSchema),
   listAgentConversations:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/agent-conversations',z.array(cloudAgentConversationSchema)),
   createAgentConversation:async(id:string,title:string,idempotencyKey:string)=>request('/studio-api/projects/'+resource(id)+'/agent-conversations',cloudAgentConversationSchema,{method:'POST',body:{title,idempotencyKey}}),
   readAgentConversation:async(id:string)=>request('/studio-api/agent-conversations/'+resource(id),cloudAgentConversationSchema),
