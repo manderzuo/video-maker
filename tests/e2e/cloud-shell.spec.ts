@@ -115,3 +115,38 @@ test('renders help with cloud-scoped guidance and working links',async({page})=>
  await page.getByRole('link',{name:'恢复中心',exact:true}).click();
  await expect(page).toHaveURL(/\/recovery$/);
 });
+test('refreshes the top status after a settings save without reload',async({page,workspace})=>{
+ const headers=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...headers,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ await page.goto('/settings/connections');
+ const status=()=>page.getByRole('button',{name:/视频规格已核验|视频已配置/,exact:false}).first();
+ await expect(status()).toContainText('视频规格已核验');
+ const video=page.getByRole('region',{name:'视频 API',exact:true});
+ await video.getByLabel('模型名称',{exact:true}).fill('other-model');
+ await video.getByRole('button',{name:'保存',exact:true}).click();
+ await expect(video.getByText('已保存到当前账号',{exact:false})).toBeVisible();
+ await expect(status()).toContainText('视频已配置·未验证');
+ await expect(status()).not.toContainText('已核验');
+ await video.getByLabel('模型名称',{exact:true}).fill('seedance');
+ await video.getByRole('button',{name:'保存',exact:true}).click();
+ await expect(video.getByText('已保存到当前账号',{exact:false})).toBeVisible();
+ await expect(status()).toContainText('视频规格已核验');
+});
+test('follows consecutive node searches within the same project',async({page,workspace})=>{
+ const ctx=asCtx(workspace),headers=ctx.headers(ctx.account);
+ const project=(await ctx.call('POST','/studio-api/projects',{...headers,payload:{title:'连续搜索'}})).json() as {id:string};
+ const firstId=randomUUID(),secondId=randomUUID();
+ const node=(id:string,title:string)=>({id,type:'text',title,x:40,y:40,locked:false,data:{kind:'text',text:'连续搜索用的正文',referenceTokens:[]}});
+ expect((await ctx.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:node(firstId,'灯塔甲')}} ,{id:randomUUID(),type:'add_node',payload:{node:node(secondId,'灯塔乙')}}]}}})).statusCode).toBe(200);
+ await page.goto('/projects');const search=page.getByLabel('全局搜索',{exact:true});
+ await search.fill('灯塔甲');
+ await page.locator('[data-interaction-id="account:search:hit"]').filter({hasText:'灯塔甲'}).click();
+ await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas\\?node='+firstId));
+ await expect(page.locator('article[data-node-id="'+firstId+'"].selected')).toHaveCount(1);
+ await expect(page.getByRole('status')).toContainText('云端修订 2');
+ await search.fill('灯塔乙');
+ await page.locator('[data-interaction-id="account:search:hit"]').filter({hasText:'灯塔乙'}).click();
+ await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas\\?node='+secondId));
+ await expect(page.locator('article[data-node-id="'+secondId+'"].selected')).toHaveCount(1);
+ await expect(page.locator('article[data-node-id="'+firstId+'"].selected')).toHaveCount(0);
+});

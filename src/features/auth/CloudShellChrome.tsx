@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
-import {navigate,LocalLink} from '../../app/routes';
+import {navigate,LocalLink,useRoute} from '../../app/routes';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {attentionItems} from '../workspace/cloud-attention';
@@ -42,7 +42,9 @@ export function CloudConnectionStatus({client}:{client:WorkspaceClient}){
  // 按当前模型过滤规格，配置一改即重算，不会残留旧成功）；此处不做任何探测，
  // 更不发起付费生成。探测成功与否只在 API 设置页当时当地呈现。
  const [open,setOpen]=useState(false),[configs,setConfigs]=useState<{channel:string;apiBase:string;model:string;hasKey:boolean}[]>(),[videoVerified,setVideoVerified]=useState<boolean>(),[failed,setFailed]=useState(false);
- useEffect(()=>{let active=true;void client.modelConfigs().then(async({configs})=>{if(!active)return;setConfigs(configs);setFailed(false);if(configs.some(config=>config.channel==='video')){try{const capability=await client.videoCapability();if(active)setVideoVerified(capability.verified);}catch{if(active)setVideoVerified(false);}}else if(active)setVideoVerified(undefined);}).catch(()=>{if(active)setFailed(true);});return()=>{active=false;};},[client]);
+ const route=useRoute();
+ // 保存、路由变化都重读；序号守卫丢弃迟到响应，旧核验不会盖掉新结果。
+ useEffect(()=>{let active=true,seq=0;const load=async()=>{const current=++seq;try{const {configs}=await client.modelConfigs();if(!active||current!==seq)return;setConfigs(configs);setFailed(false);if(!configs.some(config=>config.channel==='video')){setVideoVerified(undefined);return;}try{const capability=await client.videoCapability();if(active&&current===seq)setVideoVerified(capability.verified&&capability.videoSpecs.some(spec=>spec.modelId===capability.model));}catch{if(active&&current===seq)setVideoVerified(false);}}catch{if(active&&current===seq)setFailed(true);}};void load();const onConfig=()=>{void load();};window.addEventListener('aiwork:model-configs-changed',onConfig);return()=>{active=false;window.removeEventListener('aiwork:model-configs-changed',onConfig);};},[client,route]);
  const text=configs?.find(config=>config.channel==='text'),video=configs?.find(config=>config.channel==='video');
  // 新地址保存强制要求密钥（服务端 API_KEY_REQUIRED），无密钥的已存配置经公开
  // 接口不可达，这里只区分未配置/已配置未验证/规格已核验。

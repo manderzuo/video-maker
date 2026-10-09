@@ -53,7 +53,7 @@ export function createApiSettingsStore(bridge:ApiSettingsBridge,client:ApiSettin
     if(valid(generation)&&state[channel].draftRevision===revision&&probes[channel]===controller)update(channel,{result,testedAt:Date.now(),testedBase:input.apiBase});
    }else{
     const saved=await client.save(channel,{...input,model:draft.model.trim(),expectedRevision:draft.saved?.revision??null},captured,controller.signal);
-    if(valid(generation)){const unchanged=state[channel].draftRevision===revision;savedUnchanged=unchanged;update(channel,{saved,conflict:false,message:unchanged?'已保存到当前账号。':'提交的配置已保存；新的输入尚未保存。',...(unchanged?{apiBase:saved.apiBase,model:saved.model,apiKey:''}:{})});}
+    if(valid(generation)){const unchanged=state[channel].draftRevision===revision;savedUnchanged=unchanged;update(channel,{saved,conflict:false,message:unchanged?'已保存到当前账号。':'提交的配置已保存；新的输入尚未保存。',...(unchanged?{apiBase:saved.apiBase,model:saved.model,apiKey:''}:{})});if(unchanged&&typeof window!=='undefined')window.dispatchEvent(new CustomEvent('aiwork:model-configs-changed'));}
    }
   }catch(error){if(valid(generation)&&!identityFailure(error)&&(operation==='save'||state[channel].draftRevision===revision))update(channel,{error:apiSettingsMessage(error),conflict:error instanceof ApiSettingsError&&error.code==='REVISION_CONFLICT'});}
   finally{controllers.delete(controller);const ownsPending=operation==='save'||probes[channel]===controller;if(probes[channel]===controller)delete probes[channel];if(ownsPending&&valid(generation)&&state[channel].pending===operation)update(channel,{pending:null});}
