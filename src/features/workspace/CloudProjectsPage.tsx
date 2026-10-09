@@ -175,8 +175,15 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
   try{const preview=await client.purgePreview(project.id);if(alive.current)setPurgeSingle(current=>current&&current.project.id===project.id?{...current,preview}:current);}
   catch(e){if(alive.current)setPurgeSingle(current=>current&&current.project.id===project.id?{...current,failed:workspaceMessage(e)}:current);}
  }
- function storePurgeBody(projectId:string,body:{title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string}|undefined){
-  try{
+ async function retryPurgePreview(){
+  if(!purgeSingle)return;
+  const target=purgeSingle;
+  setError('');
+  setPurgeSingle({...target,failed:''});
+  try{const preview=await client.purgePreview(target.project.id);if(alive.current)setPurgeSingle(current=>current&&current.project.id===target.project.id?{...current,preview}:current);}
+  catch(e){if(alive.current)setPurgeSingle(current=>current&&current.project.id===target.project.id?{...current,failed:workspaceMessage(e)}:current);}
+ }
+ function storePurgeBody(projectId:string,body:{title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string}|undefined){  try{
    const identity=sessionStore.getState();
    if(identity.status!=='authenticated')return;
    const storageKey='aiwork:purge-pending:'+identity.session.user.id+':'+projectId;
@@ -203,6 +210,8 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
  }
  async function openPurgeBatch(ids:string[]){
   setError('');
+  // 新批量只用当前列表中选中的项目；已消失行的残留选择与旧待办走独立恢复入口。
+  const listed=ids.filter(id=>projects.some(p=>p.id===id));
   const savedItems:{projectId?:unknown;title?:unknown;revision?:unknown;impactToken?:unknown;preview?:unknown;key?:unknown;name?:unknown;done?:unknown}[]=[];
   try{
    const identity=sessionStore.getState();
@@ -211,24 +220,25 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
     if(raw)for(const entry of JSON.parse(raw) as typeof savedItems)if(typeof entry.projectId==='string')savedItems.push(entry);
    }
   }catch{/* 忽略 */}
-  const batch=ids.map(id=>{
+  const batch=listed.map(id=>{
    const project=projects.find(p=>p.id===id);
    const saved=savedItems.find(entry=>entry.projectId===id);
    const key=typeof saved?.key==='string'&&saved.key?saved.key:crypto.randomUUID();
-   if(project)return {project,preview:undefined as PurgePreview|undefined,failed:'',key,name:'',done:false};
-   if(typeof saved?.title==='string'&&typeof saved?.revision==='number'&&typeof saved?.impactToken==='string'&&saved.preview&&typeof saved.preview==='object')return {project:{id,title:saved.title,schemaVersion:1,description:'',revision:saved.revision,createdAt:0,updatedAt:0,archived:false,trashedAt:Date.now(),tags:[],starred:false} as Project,preview:saved.preview as PurgePreview,failed:'',key,name:typeof saved.name==='string'?saved.name:'',done:saved.done===true};
-   return undefined;
+   if(!project)return undefined;
+   return {project,preview:undefined as PurgePreview|undefined,failed:'',key,name:'',done:false};
   }).filter((item):item is NonNullable<typeof item>=>!!item);
-  // 新批量只含本次选择；存储中的旧待办不静默合并，用独立恢复入口。
-  try{
-   const identity=sessionStore.getState();
-   if(identity.status==='authenticated')localStorage.setItem('aiwork:purge-batch-pending:'+identity.session.user.id,JSON.stringify(batch.filter(item=>!item.done).map(item=>({projectId:item.project.id,title:item.project.title,revision:item.preview?.revision??item.project.revision,impactToken:item.preview?.impactToken??'',preview:item.preview,key:item.key,name:item.name,done:item.done}))));
-  }catch{/* 忽略 */}
+  // 新批量只含本次选择；打开时不写存储，避免占位值覆盖旧待办。预检成功后逐项合并写回。
   setPurgeBatch(batch);
-  await Promise.all(ids.map(async id=>{
+  await Promise.all(listed.map(async id=>{
    try{const preview=await client.purgePreview(id);if(alive.current)setPurgeBatch(current=>current?.map(item=>item.project.id===id?{...item,preview}:item));}
    catch(e){if(alive.current)setPurgeBatch(current=>current?.map(item=>item.project.id===id?{...item,failed:workspaceMessage(e)}:item));}
   }));
+ }
+ async function retryBatchPreview(projectId:string){
+  setError('');
+  setPurgeBatch(current=>current?.map(item=>item.project.id===projectId?{...item,failed:''}:item));
+  try{const preview=await client.purgePreview(projectId);if(alive.current)setPurgeBatch(current=>current?.map(item=>item.project.id===projectId?{...item,preview}:item));}
+  catch(e){if(alive.current)setPurgeBatch(current=>current?.map(item=>item.project.id===projectId?{...item,failed:workspaceMessage(e)}:item));}
  }
  function prunePurgeBatchKeys(doneIds:string[]){
   try{
@@ -309,7 +319,7 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
   <Dialog open={templateOpen} title="使用原创模板" dismissible={!busy} onClose={()=>setTemplateOpen(false)} footer={<><Button data-interaction-id="cloud:project:template-cancel" disabled={busy} onClick={()=>setTemplateOpen(false)}>取消</Button><Button data-interaction-id="cloud:project:template-commit" variant="primary" busy={busy} onClick={createFromTemplate}>创建原创分镜草稿</Button></>}><p>原创静态结构：创作需求与分镜约束两个文本节点，无模型执行授权。将在当前账号创建新项目并进入画布。</p>{error?<p role="alert">{error}</p>:null}</Dialog>
   <Dialog open={batchOpen==='archive'} title="批量归档" dismissible={!busy} onClose={()=>setBatchOpen(undefined)} footer={<><Button data-interaction-id="cloud:project:batch-cancel" disabled={busy} onClick={()=>setBatchOpen(undefined)}>返回</Button><Button data-interaction-id="cloud:project:batch-archive-commit" variant="primary" busy={busy} onClick={commitBatchArchive}>归档 {selection.size} 项</Button></>}><p>已选择 {selection.size} 个项目逐项归档；每项用当前修订提交，失败项列出原因，已成功项保留。</p>{error?<p role="alert">{error}</p>:null}</Dialog>
   <Dialog open={batchOpen==='export'} title="批量导出项目包" dismissible={!busy} onClose={()=>setBatchOpen(undefined)} footer={<><Button data-interaction-id="cloud:project:batch-cancel" disabled={busy} onClick={()=>setBatchOpen(undefined)}>返回</Button><Button data-interaction-id="cloud:project:batch-export-commit" variant="primary" busy={busy} onClick={commitBatchExport}>导出 {selection.size} 项</Button></>}><p>已选择 {selection.size} 个项目：{Array.from(selection).map(id=>projects.find(p=>p.id===id)?.title??id).join('、')}。逐项导出完整包并合并一次下载；包内无密钥与执行授权，全部失败时不产出下载包。</p>{error?<p role="alert">{error}</p>:null}</Dialog>
-  <Dialog open={!!purgeSingle} title="永久删除项目" dismissible={!busy} onClose={()=>setPurgeSingle(undefined)} footer={<><Button data-interaction-id="cloud:project:purge-cancel" disabled={busy} onClick={()=>setPurgeSingle(undefined)}>取消</Button>{purgeSingle?.preview?<Button data-interaction-id="cloud:project:purge-commit" variant="danger" busy={busy} disabled={!purgeName||purgeName!==purgeSingle.preview.title||purgeSingle.preview.blockingReasons.length>0} disabledReason={purgeSingle.preview.blockingReasons.length?'有未完成的任务，暂不可删除。':purgeName!==purgeSingle.preview.title?'输入完整项目名称才能确认。':undefined} onClick={commitPurge}>确认永久删除</Button>:null}</>}><p>将永久删除可编辑项目与画布（含撤销历史）；任务、账务、审计收据及共享素材保留。此操作不可撤销。</p>{!purgeSingle?.preview&&!purgeSingle?.failed?<p role="status">正在读取影响预检…</p>:null}{purgeSingle?.failed?<p role="alert">{purgeSingle.failed}</p>:null}{purgeSingle?.preview?<><p>项目：{purgeSingle.preview.title} · 修订 {purgeSingle.preview.revision} · {purgeSingle.preview.nodeCount} 个节点 · {purgeSingle.preview.assetCount} 个素材引用 · {purgeSingle.preview.receiptCount} 条历史收据（保留）</p>{purgeSingle.preview.blockingReasons.length?<p role="alert">不可删除：{purgeSingle.preview.blockingReasons.join('、')}</p>:<label>输入完整项目名称确认<input data-interaction-id="cloud:project:purge-name" disabled={busy} value={purgeName} onChange={event=>setPurgeName(event.target.value)}/></label>}</>:null}{error?<p role="alert">{error}</p>:null}</Dialog>
-  <Dialog open={!!purgeBatch} title="批量永久删除项目" dismissible={!busy} onClose={()=>setPurgeBatch(undefined)} footer={<><Button data-interaction-id="cloud:project:purge-cancel" disabled={busy} onClick={()=>setPurgeBatch(undefined)}>取消</Button><Button data-interaction-id="cloud:project:purge-batch-commit" variant="danger" busy={busy} onClick={commitPurgeBatch}>确认删除已确认项</Button></>}><p>每项单独预检并输入完整名称确认；仅提交已确认项。任务、账务、审计收据及共享素材保留，不可撤销。</p>{purgeBatch?.map(item=><article key={item.project.id} className="card"><h2>{item.project.title}</h2>{item.done?<p role="status">已删除；任务、账务与审计收据保留。</p>:!item.preview&&!item.failed?<p role="status">正在读取影响预检…</p>:null}{item.failed?<p role="alert">{item.failed}</p>:null}{!item.done&&item.preview?<><p>修订 {item.preview.revision} · {item.preview.nodeCount} 个节点 · {item.preview.receiptCount} 条收据（保留）</p>{item.preview.blockingReasons.length?<p role="alert">不可删除：{item.preview.blockingReasons.join('、')}</p>:<label>输入完整项目名称确认<input data-interaction-id="cloud:project:purge-batch-name" disabled={busy} value={item.name} onChange={event=>setPurgeBatch(current=>current?.map(row=>row.project.id===item.project.id?{...row,name:event.target.value}:row))}/></label>}</>:null}</article>)}{error?<p role="alert">{error}</p>:null}</Dialog>
+  <Dialog open={!!purgeSingle} title="永久删除项目" dismissible={!busy} onClose={()=>setPurgeSingle(undefined)} footer={<><Button data-interaction-id="cloud:project:purge-cancel" disabled={busy} onClick={()=>setPurgeSingle(undefined)}>取消</Button>{purgeSingle?.preview?<Button data-interaction-id="cloud:project:purge-commit" variant="danger" busy={busy} disabled={!purgeName||purgeName!==purgeSingle.preview.title||purgeSingle.preview.blockingReasons.length>0} disabledReason={purgeSingle.preview.blockingReasons.length?'有未完成的任务，暂不可删除。':purgeName!==purgeSingle.preview.title?'输入完整项目名称才能确认。':undefined} onClick={commitPurge}>确认永久删除</Button>:null}</>}><p>将永久删除可编辑项目与画布（含撤销历史）；任务、账务、审计收据及共享素材保留。此操作不可撤销。</p>{!purgeSingle?.preview&&!purgeSingle?.failed?<p role="status">正在读取影响预检…</p>:null}{purgeSingle?.failed?<><p role="alert">{purgeSingle.failed}</p><Button data-interaction-id="cloud:project:purge-retry-preview" disabled={busy} onClick={()=>void retryPurgePreview()}>重试预检</Button></>:null}{purgeSingle?.preview?<><p>项目：{purgeSingle.preview.title} · 修订 {purgeSingle.preview.revision} · {purgeSingle.preview.nodeCount} 个节点 · {purgeSingle.preview.assetCount} 个素材引用 · {purgeSingle.preview.receiptCount} 条历史收据（保留）</p>{purgeSingle.preview.blockingReasons.length?<p role="alert">不可删除：{purgeSingle.preview.blockingReasons.join('、')}</p>:<label>输入完整项目名称确认<input data-interaction-id="cloud:project:purge-name" disabled={busy} value={purgeName} onChange={event=>setPurgeName(event.target.value)}/></label>}</>:null}{error?<p role="alert">{error}</p>:null}</Dialog>
+  <Dialog open={!!purgeBatch} title="批量永久删除项目" dismissible={!busy} onClose={()=>setPurgeBatch(undefined)} footer={<><Button data-interaction-id="cloud:project:purge-cancel" disabled={busy} onClick={()=>setPurgeBatch(undefined)}>取消</Button><Button data-interaction-id="cloud:project:purge-batch-commit" variant="danger" busy={busy} onClick={commitPurgeBatch}>确认删除已确认项</Button></>}><p>每项单独预检并输入完整名称确认；仅提交已确认项。任务、账务、审计收据及共享素材保留，不可撤销。</p>{purgeBatch?.map(item=><article key={item.project.id} className="card"><h2>{item.project.title}</h2>{item.done?<p role="status">已删除；任务、账务与审计收据保留。</p>:!item.preview&&!item.failed?<p role="status">正在读取影响预检…</p>:null}{item.failed?<><p role="alert">{item.failed}</p><Button data-interaction-id="cloud:project:purge-batch-retry-preview" disabled={busy} onClick={()=>void retryBatchPreview(item.project.id)}>重试预检</Button></>:null}{!item.done&&item.preview?<><p>修订 {item.preview.revision} · {item.preview.nodeCount} 个节点 · {item.preview.receiptCount} 条收据（保留）</p>{item.preview.blockingReasons.length?<p role="alert">不可删除：{item.preview.blockingReasons.join('、')}</p>:<label>输入完整项目名称确认<input data-interaction-id="cloud:project:purge-batch-name" disabled={busy} value={item.name} onChange={event=>setPurgeBatch(current=>current?.map(row=>row.project.id===item.project.id?{...row,name:event.target.value}:row))}/></label>}</>:null}</article>)}{error?<p role="alert">{error}</p>:null}</Dialog>
  </section>;
 }
