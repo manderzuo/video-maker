@@ -1864,8 +1864,30 @@
       "label": "使用本地模板",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:new\""
+        },
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:save\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-workspace.spec.ts::creates a cloud project, edits canvas text, restores after reload, and uses persisted undo/redo",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -2389,8 +2411,31 @@
       "label": "选择/批量选择",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:template\""
+        },
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:template-commit\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            20,
+            22,
+            24,
+            25,
+            26
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -2539,8 +2584,53 @@
       "label": "批量导出",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:batch-archive\""
+        },
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:batch-export\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            33,
+            35,
+            41,
+            42,
+            44,
+            45,
+            46,
+            48
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            58,
+            64,
+            65,
+            66,
+            70,
+            71,
+            73,
+            78,
+            82,
+            84
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -2689,8 +2779,28 @@
       "label": "网格/列表切换",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:view\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            93,
+            94,
+            95,
+            97,
+            99,
+            100
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -7768,8 +7878,32 @@
       "label": "保存为提示词",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "data-interaction-id=\"cloud:canvas:save-prompt\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            13,
+            114,
+            115,
+            116,
+            122,
+            123,
+            126,
+            128,
+            129,
+            130
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -7863,8 +7997,29 @@
       "label": "AI润色",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "data-interaction-id=\"cloud:canvas:open-writing\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::opens a canvas text node in cloud writing with saved revision bound",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            13,
+            137,
+            139,
+            141,
+            142,
+            143,
+            144
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -15095,8 +15250,34 @@
       "label": "应用到当前文本",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudPromptsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:prompt:import\""
+        },
+        {
+          "file": "src/features/workspace/CloudPromptsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:prompt:import-commit\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            21,
+            29,
+            31,
+            33,
+            34,
+            35
+          ],
+          "expectedCoreWrites": 0
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -15182,8 +15363,29 @@
       "label": "导入JSON提示词",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudPromptsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:prompt:export\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            58,
+            65,
+            67,
+            70,
+            71
+          ],
+          "expectedCoreWrites": 0
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -15269,8 +15471,43 @@
       "label": "导出提示词",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudPromptsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:prompt:use\""
+        },
+        {
+          "file": "src/features/workspace/CloudPromptsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:prompt:insert\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            13,
+            76,
+            80,
+            82,
+            83,
+            91,
+            92,
+            93,
+            94,
+            95,
+            97,
+            98,
+            99,
+            102,
+            103,
+            105,
+            106
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -19467,8 +19704,33 @@
       "label": "筛选活动",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudActivityPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:activity:filter-project\""
+        },
+        {
+          "file": "src/features/workspace/CloudActivityPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:activity:filter-kind\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            10,
+            17,
+            20,
+            21,
+            22,
+            24,
+            27
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
@@ -19560,8 +19822,29 @@
       "label": "清理活动显示",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudActivityPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:activity:detail-open\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            10,
+            17,
+            20,
+            21,
+            22,
+            24,
+            27
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
@@ -21312,8 +21595,31 @@
       "label": "从节点优化",
       "disposition": "restored_workflow_locally_verified_row_facets_pending",
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudPromptGeneratorPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:draft:apply\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            9,
+            10,
+            11,
+            12,
+            13
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -25530,10 +25836,28 @@
       "sources": [
         {
           "file": "src/features/workspace/CloudPromptGeneratorPage.tsx",
-          "anchor": "export function"
+          "anchor": "export function CloudPromptGeneratorPage"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            9,
+            10,
+            11,
+            12,
+            13
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
