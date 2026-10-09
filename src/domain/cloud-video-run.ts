@@ -4,7 +4,7 @@ import {videoRunSnapshotSchema} from './video-request.js';
 import {cloudTaskSchema} from './cloud-task.js';
 import {videoSpecSchema} from './common.js';
 import {cloudAgentRunSchema} from './cloud-agent.js';
-export const cloudVideoCapabilitySchema=z.strictObject({configRevision:z.number().int().positive(),apiBase:z.url(),model:z.string(),verified:z.boolean(),videoSpecs:z.array(videoSpecSchema)});
+export const cloudVideoCapabilitySchema=z.strictObject({configRevision:z.number().int().positive(),apiBase:z.url(),model:z.string(),verified:z.boolean(),videoSpecs:z.array(videoSpecSchema),limits:z.strictObject({assetBytes:z.number().int().positive().optional(),promptBytes:z.number().int().positive().optional(),imageReferences:z.number().int().nonnegative().optional(),videoReferences:z.number().int().nonnegative().optional()}).optional()});
 export type CloudVideoCapability=z.infer<typeof cloudVideoCapabilitySchema>;
 export const cloudVideoRunSchema=runSchema.extend({kind:z.literal('video'),recordRevision:z.number().int().nonnegative().default(0),inputSnapshot:videoRunSnapshotSchema,configRevision:z.number().int().positive(),secretVersion:z.number().int().positive(),issueCode:z.enum(['UPLOAD_UNKNOWN','UPSTREAM_FAILED','SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','RESULT_SAVE_PENDING']).optional()});
 export type CloudVideoRun=z.infer<typeof cloudVideoRunSchema>;

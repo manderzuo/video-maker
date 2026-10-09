@@ -135,3 +135,19 @@ P2追加/重试语义（Codex已确认代码修正）：
 - F011：高度链固定后1366x768底边由1287回到视窗内；断言改为上下限双向。
 - 路由竞态根治：`cloud-video`全量中曾现单素材GET被基座guard误判404（1/60级偶发）；基座未知路径在云用例下`passthrough`放行给真实进程内应用（设置套件仍严格记录），双guard任意顺序确定。
 - 未完成：`account-auth` TLS套件（4180）因已知证书交互阻塞未跑（见`ACCOUNT_TLS_BLOCKED_CHECKPOINT`），迁移断言仅过类型检查，归阶段8严格HTTPS；真实上游/线上复测未动。
+
+## 8. 阶段4验收（画布端口、素材选择和编辑操作）
+
+实现（相对`10dfe79`）：
+- 新增`CloudCanvasSurface.tsx`：画布渲染与交互层。旧直线SVG改为`CanvasEdges`贝塞尔曲线+`ConnectionPreview`实时预览+`ConnectionMenu`右键断开；`NodePorts`左右端口（文本输出/文本·图片·视频输入、结果输出、关系来源）带兼容高亮；点击/键盘等价连接（输出回车开始+输入点按完成），类型错配与重复连接给出明确错误且不建线；`onCommand`仅保存成功返回成功，失败保留待保存操作（沿用`cloud-canvas-model`幂等与冲突语义）。
+- 能力：`videoCapability`服务端透出`policy.limits`，`cloudVideoCapabilitySchema`同步扩展可选`limits`；画布由当前账号视频能力+文字模型目录组装`CapabilityProfile`（模型取已核验规格去重，不过编默认值），`validateConnection`缺上限时不拦截、服务端预检为最终依据；任务中心视频任务映射`ResultSourceRun`供结果来源校验。
+- 新增`CloudAssetPicker.tsx`：添加节点弹窗内“云端素材”（`CloudAssetMedia`缩略图+类型字节+选择）与“上传素材”（进度/失败占位/重试，失败不建假节点）双入口；上传入库后刷新列表再选。
+- 编辑操作：框选（shift合并）+多选拖动（组内成员除外）+Delete/Backspace删线删节点+Ctrl+A/C/V/D/Z/Y+`V`/`H`+Esc（输入法与弹窗优先）；`NodeResizeHandles`尺寸（仅已保存可调，`update_node.size`服务端已支持，刷新恢复）；外部文件拖入/粘贴上传建节点、纯文本粘贴建文字节点；对齐/等间距（`alignNodes`+阈值提示）/`ArrangePreview`布局预览/复制为分支（`branchSpec`+云端规格）/分组镜头序号（组头数字项直存）。
+- 有限复用说明：`NodeOutline`未整体替换（现有大纲交互ID被阶段1用例依赖，搜索/排序不在本阶段验收内）；`NodeMenu`未整体复用（其删除影响评估/本地租约历史/`select_result`与云端命令语义不兼容），改为复用其下纯模块（`branch-command/selection/group-layout`）与`ArrangePreview`组件；`CanvasToolbar`继续复用。
+- `testMatch`新增`cloud-canvas-interactions.spec.ts`（端口连接+错配、选择器缩略图与上传入库、锁定端口禁用+撤销重做+保存冲突保留、框选对齐+布局预览、分支+键盘尺寸+刷新恢复；失败2项均为用例写法：端口旧名“文字”实为“文本”、撤销计数与修订号，已修正）。
+- 路由竞态根治（全量偶发1/60，已随`10dfe79`落定，见§7）：基座未知路径在云用例下放行，本阶段全量61/61无复发。
+
+定向检查：
+- 前后端`typecheck/lint` exit 0；全量单测93文件683项 exit 0；`build` exit 0（247KB主包）。
+- 服务端`video-tasks/workspace-commands` 27/27 exit 0（能力扩展无回归）。
+- 浏览器`cloud-canvas-interactions` 5/5；云全量61/61（`stage4-full`，含此前偶发项复核通过）；生成调用0（各用例断言+全局守卫）。
