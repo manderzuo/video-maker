@@ -1,4 +1,5 @@
 import {randomUUID} from 'node:crypto';
+import {readFileSync} from 'node:fs';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 type Ctx={headers(account:unknown):Record<string,string>;call(method:string,path:string,options?:unknown):Promise<{json:()=>unknown;statusCode:number}>;account:{view:{user:{id:string}}}};
 const asCtx=(value:unknown)=>value as Ctx;
@@ -53,4 +54,32 @@ test('surfaces unknown and failed runs for recovery without sending requests',as
 test('shows an empty recovery page when nothing needs attention',async({page})=>{
  await page.goto('/recovery');
  await expect(page.getByText('暂无待处理事项',{exact:false})).toBeVisible();
+});
+test('exports a redacted cloud diagnostics report',async({page,workspace},testInfo)=>{
+ const headers=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...headers,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ const textId=randomUUID(),nodeId=randomUUID();
+ const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'诊断导出'}})).json() as {id:string};
+ await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'诊断用的正文',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}});
+ await page.goto('/projects/'+project.id+'/canvas');
+ await page.getByLabel('本次视频草稿',{exact:true}).selectOption(nodeId);
+ await page.getByRole('button',{name:'生成视频',exact:true}).click();
+ await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
+ await page.getByRole('button',{name:'确认生成',exact:true}).click();
+ await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
+ await page.goto('/activity');
+ await expect(page.locator('article').filter({hasText:'诊断导出'})).toHaveCount(1);
+ const downloading=page.waitForEvent('download');
+ await page.getByRole('button',{name:'导出脱敏诊断',exact:true}).click();
+ const path=testInfo.outputPath('cloud-diagnostics.json');
+ await (await downloading).saveAs(path);
+ const report=JSON.parse(readFileSync(path,'utf8')) as {format:string;receipts:unknown[];runs:Record<string,unknown>[]};
+ expect(report.format).toBe('aiwork-studio-cloud-diagnostics');
+ expect(report.receipts.length).toBeGreaterThan(0);
+ expect(report.runs[0]).toMatchObject({executionState:'succeeded'});
+ expect(report.runs[0]).not.toHaveProperty('inputSnapshot');
+ expect(report.runs[0]).not.toHaveProperty('finalBody');
+ expect(JSON.stringify(report)).not.toContain('FAKE_VIDEO_UI_KEY');
+ expect(JSON.stringify(report)).not.toContain('诊断用的正文');
+ await expect(page.getByRole('status')).toContainText('脱敏诊断');
 });
