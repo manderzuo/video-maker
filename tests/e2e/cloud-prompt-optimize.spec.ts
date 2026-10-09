@@ -32,6 +32,7 @@ test('blocks compile, draft switching and apply while the central body is unsave
  for(const draft of [first,second])expect((await workspace.call('POST','/studio-api/prompt-drafts/'+draft.id+'/compile',{...headers,payload:{expectedRevision:0}})).statusCode).toBe(200);
  const counts=async()=>((await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows.map(row=>row.document.resultVersions.length) as number[]).sort();
  await page.goto('/prompt-generator');await page.locator('[data-interaction-id="cloud:draft:select"]').selectOption(first.id);
+ await expect(page.locator('[data-interaction-id="cloud:draft:select"]')).toHaveValue(first.id);await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue('第一份草稿');
  const original=await page.getByLabel('结果正文',{exact:true}).inputValue();expect(original.length).toBeGreaterThan(0);
  await page.getByLabel('结果正文',{exact:true}).fill('尚未保存的人工正文');await expect(page.locator('[data-interaction-id="cloud:draft:manual-guard"]')).toBeVisible();
  const before=await counts();await expect(page.getByRole('button',{name:'规则整理',exact:true})).toBeDisabled();await page.getByRole('button',{name:'规则整理',exact:true}).click({force:true});await expect(page.getByLabel('结果正文',{exact:true})).toHaveValue('尚未保存的人工正文');expect(await counts()).toEqual(before);

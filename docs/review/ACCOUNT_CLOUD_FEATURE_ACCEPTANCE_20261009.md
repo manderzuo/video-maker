@@ -185,3 +185,21 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 新增/迁移浏览器用例：`cloud-prompts.spec.ts:26`超预设旧值显式保留并要求明确选择；`:40`写作记录按ID打开非首项草稿、刷新一致、不存在ID明确提示；`:56`保存/导出与持久化版本的正文、版本ID、origin、source、sourceRevision一致（含改草稿输入后导出旧结果仍用旧快照）；`cloud-prompt-optimize.spec.ts:13`迟到AI结果不覆盖人工正文、保存后才切换；`:29`规则整理/切换草稿/应用在人工正文未保存时被阻断且原AI版本不变；`cloud-prompt-apply.spec.ts:3`改用中部可编辑正文与版本选择后应用历史版本。
 - 未完成/未验：旧匿名提示词套件（`prompt-field-contracts`、`prompt-validation-races`、`prompt-workspace`、`missing-entry-contracts`）在本分支不可达——实测`prompt-field-contracts.spec.ts` 6 failed，页面为账号外壳“无法确认登录状态”，与本次改动无关；因此未改其`spinbutton`/`textbox`引用。旧入口按阶段7/8接回后需迁移：`prompt-field-contracts.spec.ts:6`与`:17`、`missing-entry-contracts.spec.ts:24-25`、`prompt-workspace.spec.ts:18`改`selectOption`；`prompt-validation-races.spec.ts:15-25`需改为种子化超预设草稿后断言原值保留与明确提示。
 - 未验：真实供应商目录协议、真实付费生成、严格HTTPS与线上核验（阶段8）。
+
+## 11. 阶段6验收（视频结果、续写、修改和比较接入云端）
+
+实现（相对`e05bf7e`）：
+- 新增`src/features/workspace/cloud-result-actions.ts`：与旧本地读写拆开的纯命令构建层——结果放置/复用/解除关联/移除、冻结输入快照复制为修改草稿（含`revisionSource`与引用边）、尾帧续写批次（原视频→帧素材`tail-frame`关系→续写正文→新草稿）、来源可用性判定；`resultLink`只按冻结的 producing draft 识别结果，不用布局或时间推断。
+- 新增`src/features/workspace/CloudResultsPage.tsx`（路由`/projects/:id/results`）与`CloudComparePage.tsx`（路由`/projects/:id/compare?runs=a,b`，`AuthBoundary`放行该项目子路由）：直接播放/下载、审片（复用`CloudVideoTaskDetail`）、选择历史结果进画布及撤销选择、尾帧续写（浏览器抽帧→上传云端素材→一次命令批次建帧节点/正文/草稿/关系）、修改后重新生成（从冻结快照复制正文/规格/可读引用，原视频与快照保留）、A/B 近似同步比较（同步播放/暂停、交换、回到起点，声明非帧级同步）；两侧版本只取当前账号云端结果；素材缺失明确提示，不自动替换。
+- 真实入口（审计F020）：`CloudVideoTaskDetail`成功结果旁新增“打开视频结果页”（带 project/run 定位）、`CloudVideoRunPanel`画布侧栏新增结果页入口、`CloudTasksPage`每行新增“打开视频结果”入口；结果页对`?runId=`给出可见定位标记。不再需要手输地址。
+- 冻结请求（审计F017）：首次发送前冻结 key/operations/baseRevision；提交结果未知时保留冻结请求并禁用相关输入，重试发送完全相同的请求体（服务端按幂等键 replay，不重复创建）；提交成功但刷新失败与发送失败明确区分，前者可“重新读取结果确认”。
+- 完整素材集（审计F018）：修改草稿的引用可读性用全账号素材集合加存储文件双重校验；可读引用保留建边，不可读只明确提示并跳过，原 snapshot 不变。
+- 上传后读取失败（审计F019）：尾帧上传成功后立即保留素材 ID，读素材/构建批次纳入异常处理并回到可编辑可重试状态；未发送命令不报未知提交；同一素材重试不重新上传。
+- 测试基座：新增`tests/fixtures/cloud-result-clip.mp4`（64×64 H264 真实可解码片段）作为假上游结果字节，使抽帧/播放走真实解码；`setVideoReferenceSupport`/`videoReferenceSupport`测试缝允许单个用例打开图片引用与素材上传（用后恢复，默认仍为 0/关闭）。
+
+定向检查（命令、统计与真实进程退出码分开记录）：
+- `npm run typecheck` exit 0；`npm run lint` exit 0。
+- `npm run test:unit` exit 0：94文件688项通过（含新增`tests/unit/cloud-result-actions.test.ts` 5项：各命令批次先经`executeGraphOperations`再过`graphSchema`与`validateConnection`，含`tail-frame`/`revision`关系）。
+- `node scripts/run-account-api-ui-tests.mjs tests/e2e/cloud-result-actions.spec.ts` exit 0：6/6通过——播放/下载/选择/撤销（含刷新后仍能撤销）；尾帧丢失响应后重试（两次命令 POST body 逐字节相同，receipts 与 assets 各只 +1）；上传后读失败恢复（同一素材、命令 0→1、无重复节点）；可读引用保留建边、缺失引用明确跳过、提交成功刷新失败可确认；A/B 比较/未知版本/跨账号隔离/文件缺失不替换；画布与任务中心点击进入结果页并带 run 定位。
+- 浏览器云全量 exit 0：74 passed（`work/account-api-cloud/stage6-final.log`，未截断）。中途一次全量为 72/73：`cloud-prompt-optimize.spec.ts:29` 因草稿列表顺序不确定，首选草稿的`selectOption`偶发为空操作导致后续断言错位；已把“当前即为第一份草稿”（选择值与`原始创意`）固定为用例前提，复跑 11/11 与全量 74/74。
+- 未验：真实供应商目录协议、真实付费生成、严格HTTPS与线上核验（阶段8）。
