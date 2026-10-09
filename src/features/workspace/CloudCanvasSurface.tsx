@@ -187,8 +187,24 @@ export function CloudCanvasSurface({
       return;
     }
     if (!graph || event.button !== 0 || (event.target as HTMLElement).closest('button,input,textarea,select,a')) return;
+    let moveIds: string[] | undefined;
     if (node) {
-      setSelected(event.shiftKey ? [...new Set([...selected, node.id])] : [node.id]);
+      const already = selected.includes(node.id);
+      if (event.shiftKey) {
+        if (already) {
+          // Shift 点击已选节点表示取消选择，不开始拖动。
+          setSelected(selected.filter((id) => id !== node.id));
+          return;
+        }
+        moveIds = [...selected, node.id];
+        setSelected(moveIds);
+      } else if (already) {
+        // 点在已选节点上保留整组选择：连续拖动仍移动同一组，不暗中缩成单选。
+        moveIds = selected;
+      } else {
+        moveIds = [node.id];
+        setSelected(moveIds);
+      }
       if (!canEdit || node.locked) return;
     } else if (tool !== 'pan') {
       if (!event.shiftKey) setSelected([]);
@@ -199,7 +215,7 @@ export function CloudCanvasSurface({
       event.preventDefault();
       gesture.current = {type: 'pan', startX: p.x, startY: p.y, lastX: p.x, lastY: p.y, view, graph: structuredClone(graph), shift: event.shiftKey};
     } else if (node && canEdit && !node.locked) {
-      gesture.current = {type: 'move', startX: p.x, startY: p.y, lastX: p.x, lastY: p.y, view, graph: structuredClone(graph), ids: selected.includes(node.id) ? selected : [node.id]};
+      gesture.current = {type: 'move', startX: p.x, startY: p.y, lastX: p.x, lastY: p.y, view, graph: structuredClone(graph), ids: moveIds ?? [node.id]};
     } else if (!node) {
       gesture.current = {type: 'box', startX: p.x, startY: p.y, lastX: p.x, lastY: p.y, view, graph: structuredClone(graph), shift: event.shiftKey};
     } else {

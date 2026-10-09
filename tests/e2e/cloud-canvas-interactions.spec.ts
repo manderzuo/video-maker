@@ -103,3 +103,40 @@ test('branches from text, resizes with the keyboard and restores everything on r
  expect(after.nodes.find((n:{type:string})=>n.type==='text').size.width).toBe(text.size.width);
  expect(workspace.providerCalls.filter(c=>c.method==='POST')).toHaveLength(0);
 });
+test('keeps the file for retry when asset reservation fails and adds no fake node',async({page,workspace})=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'上传失败可重试'}})).json();
+ let reject=true,blocked=0;
+ await page.route('**/studio-api/assets',async route=>{if(reject&&route.request().method()==='POST'){blocked++;await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({code:'INTERNAL_ERROR'})});}else await route.fallback();});
+ await page.goto('/projects/'+project.id+'/canvas');await page.getByRole('button',{name:'添加节点',exact:true}).click();
+ const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=8;return canvas.toDataURL('image/png').split(',')[1];});
+ await page.locator('[data-interaction-id="cloud:asset:picker-files"]').setInputFiles({name:'可重试.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});
+ await page.getByRole('button',{name:'上传到云端素材库',exact:true}).click();
+ await expect(page.getByRole('button',{name:'重试上传',exact:true})).toBeVisible();
+ expect(blocked).toBe(1);await expect(page.locator('.node-asset')).toHaveCount(0);await expect(page.getByText('待上传：可重试.png',{exact:false})).toBeVisible();
+ reject=false;await page.getByRole('button',{name:'重试上传',exact:true}).click();await expect(page.getByText('已进入云端素材库：可重试.png',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'选择此素材',exact:true}).click();await expect(page.locator('.node-asset')).toHaveCount(1);await expect(page.getByRole('status').first()).toContainText('已保存');
+ await page.reload();await expect(page.locator('.node-asset img')).toHaveCount(1);expect(workspace.providerCalls).toHaveLength(0);
+});
+test('dragging a selected node preserves the whole multi-selection across repeated drags and reload',async({page,workspace})=>{
+ const h=workspace.headers(workspace.account),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'多选连续拖动'}})).json();
+ const ids=[randomUUID(),randomUUID()];
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:ids.map((id,index)=>({id:randomUUID(),type:'add_node',payload:{node:{id,type:'text',title:'多选'+index,x:40+400*index,y:30,locked:false,data:{kind:'text',text:'内容'+index,referenceTokens:[]}}}}))}}})).statusCode).toBe(200);
+ await page.setViewportSize({width:1920,height:1080});await page.goto('/projects/'+project.id+'/canvas');
+ await expect(page.locator('[data-interaction-id="cloud:canvas:outline-select"]')).toHaveCount(2);
+ for(const checkbox of await page.locator('[data-interaction-id="cloud:canvas:outline-select"]').all())await checkbox.check();
+ await expect(page.locator('.canvas-node.selected')).toHaveCount(2);
+ const readGraph=async()=>(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
+ const initial=await readGraph();
+ for(let turn=1;turn<=2;turn++){
+  const header=await page.locator('[data-node-id="'+ids[0]+'"] header').boundingBox();if(!header)throw Error('Missing node header');
+  await page.mouse.move(header.x+30,header.y+15);await page.mouse.down();await page.mouse.move(header.x+70,header.y+35,{steps:5});await page.mouse.up();
+  await expect(page.getByRole('status').first()).toContainText('已保存');
+  const graph=await readGraph();
+  for(const id of ids){const before=initial.nodes.find((n:{id:string})=>n.id===id),after=graph.nodes.find((n:{id:string})=>n.id===id);expect.soft(after.x-before.x).toBeCloseTo(40*turn,0);expect.soft(after.y-before.y).toBeCloseTo(20*turn,0);}
+  await expect.soft(page.locator('.canvas-node.selected')).toHaveCount(2);
+ }
+ await page.reload();await expect(page.locator('.canvas-node')).toHaveCount(2);
+ const reloaded=await readGraph();
+ for(const id of ids){const before=initial.nodes.find((n:{id:string})=>n.id===id),after=reloaded.nodes.find((n:{id:string})=>n.id===id);expect(after.x-before.x).toBeCloseTo(80,0);expect(after.y-before.y).toBeCloseTo(40,0);}
+ expect(workspace.providerCalls).toHaveLength(0);
+});
