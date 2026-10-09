@@ -33,8 +33,22 @@ test('keeps every out-of-preset legacy writing value visible and requires an exp
  for(const seconds of [5,6,7,8,9,10,11,12,13,14,15])await expect(duration.locator('option[value="'+seconds+'"]')).toHaveCount(1);
  await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存');
  const unchanged=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows[0].document;expect(unchanged.requestedSpec).toEqual({durationSeconds:3,ratio:'21:9'});
- await duration.selectOption('15');await ratio.selectOption('9:16');await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();await expect(page.locator('[data-interaction-id="PG10:out-of-preset"]')).toHaveCount(0);await expect(page.locator('[data-interaction-id="ui:PromptForm:input:a944108bfffb:out-of-preset"]')).toHaveCount(0);
- const updated=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows[0].document;expect(updated.requestedSpec).toEqual({durationSeconds:15,ratio:'9:16'});
+ await duration.selectOption('15');await ratio.selectOption('9:16');
+ const before=(await workspace.pool.query("SELECT id,document FROM workspace_content WHERE kind='draft'")).rows[0] as {id:string;document:{revision:number}};
+ let secondPatch=0;
+ await page.route('**/studio-api/prompt-drafts/*',async route=>{
+  if(route.request().method()!=='PATCH'){await route.fallback();return;}
+  secondPatch++;
+  await new Promise(resolve=>setTimeout(resolve,300));
+  await route.fallback();
+ });
+ const patched=page.waitForResponse(response=>response.url().includes('/studio-api/prompt-drafts/')&&response.request().method()==='PATCH'&&response.status()===200);
+ await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();
+ await patched;
+ await expect(page.locator('[data-interaction-id="cloud:draft:select"] option[value="'+before.id+'"]')).toContainText('修订 '+(before.document.revision+1));
+ expect(secondPatch).toBeGreaterThanOrEqual(1);
+ await expect(page.locator('[data-interaction-id="PG10:out-of-preset"]')).toHaveCount(0);await expect(page.locator('[data-interaction-id="ui:PromptForm:input:a944108bfffb:out-of-preset"]')).toHaveCount(0);
+ const updated=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft' AND id=$1",[before.id])).rows[0].document;expect(updated.requestedSpec).toEqual({durationSeconds:15,ratio:'9:16'});
  expect(workspace.providerCalls).toHaveLength(0);
 });
 test('opens the exact writing record instead of the list head and never silently falls back',async({page,workspace})=>{
