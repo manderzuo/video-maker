@@ -1,4 +1,4 @@
-import {edgeSchema,type Edge,type Graph,type InputBinding,type CanvasNode} from './graph.js';
+import {edgeSchema,inputBindingSchema,type Edge,type Graph,type InputBinding,type CanvasNode} from './graph.js';
 import type {Run} from './run.js';
 import type {CapabilityProfile} from './connection.js';
 import type {Asset} from './asset.js';
@@ -45,5 +45,5 @@ export function validateConnection(graph:Graph,edge:Edge,caps:CapabilityProfile,
  return {ok:true,value:edge};
 }
 export function getOrderedInputs(graph:Graph,nodeId:string):InputBinding[]{
- return graph.edges.filter(e=>e.targetId===nodeId&&!e.relation).slice().sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)).map(edge=>{const node=graph.nodes.find(n=>n.id===edge.sourceId),frame=node?tailFrameInput(node,edge.port):undefined;return {nodeId:edge.sourceId,order:edge.order,role:edge.port,...(frame?{assetId:frame.assetId,runId:frame.sourceRunId}:node?.type==='asset'?{assetId:node.data.assetId}:node?.type==='result'?{assetId:node.data.assetId,runId:node.data.runId}:{})};});
+ return graph.edges.filter(e=>e.targetId===nodeId&&!e.relation).slice().sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id)).map(edge=>{const node=graph.nodes.find(n=>n.id===edge.sourceId),frame=node?tailFrameInput(node,edge.port):undefined;return inputBindingSchema.parse({nodeId:edge.sourceId,order:edge.order,role:edge.port,...(frame?{assetId:frame.assetId,runId:frame.sourceRunId}:node?.type==='asset'?{assetId:node.data.assetId}:node?.type==='result'?{assetId:node.data.assetId,runId:node.data.runId}:{})});});
 }

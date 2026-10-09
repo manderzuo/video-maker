@@ -7,6 +7,7 @@ export type ResolvedAddress={address:string;family:number};
 export type OutboundRequest={url:string;address:string;family:4|6;apiKey:string;signal:AbortSignal;maxBytes:number;method?:'GET'|'POST';body?:Buffer;idempotencyKey?:string;textSessionId?:string};
 export type OutboundResponse={status:number;body:Buffer};
 export type OutboundAdapters={resolve:(hostname:string)=>Promise<ResolvedAddress[]>;request:(request:OutboundRequest)=>Promise<OutboundResponse>};
+export type VideoOutboundOperation={kind:'asset';body:string}|{kind:'submit';body:string;idempotencyKey:string}|{kind:'query'|'content';taskId:string};
 const blocked4=new BlockList();
 for(const [address,prefix] of [['0.0.0.0',8],['10.0.0.0',8],['100.64.0.0',10],['127.0.0.0',8],['169.254.0.0',16],['172.16.0.0',12],['192.0.0.0',24],['192.0.2.0',24],['192.168.0.0',16],['198.18.0.0',15],['198.51.100.0',24],['203.0.113.0',24],['224.0.0.0',4],['240.0.0.0',4]] as const)blocked4.addSubnet(address,prefix,'ipv4');
 const global6=new BlockList();global6.addSubnet('2000::',3,'ipv6');
@@ -50,6 +51,25 @@ export async function nativeHttpsRequest(input:OutboundRequest):Promise<Outbound
 }
 export class RestrictedOutbound {
  constructor(private readonly adapters:OutboundAdapters={resolve:hostname=>lookup(hostname,{all:true,verbatim:true}),request:nativeHttpsRequest}){}
+ async video(base:string,apiKey:string,operation:VideoOutboundOperation,maxContentBytes=200*1024*1024):Promise<OutboundResponse>{
+  const normalized=normalizeModelBase(base),endpoint=new URL(normalized);
+  if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
+  let path:string,body:Buffer|undefined,idempotencyKey:string|undefined;
+  if(operation.kind==='asset'||operation.kind==='submit'){
+   if(typeof operation.body!=='string'||Buffer.byteLength(operation.body)>46*1024*1024)throw new HttpError(400,'INVALID_REQUEST');body=Buffer.from(operation.body);path=operation.kind==='asset'?'v1/assets':'v1/videos/generations';
+   if(operation.kind==='submit'){if(!/^[-A-Za-z0-9._~]{1,256}$/.test(operation.idempotencyKey))throw new HttpError(400,'INVALID_REQUEST');idempotencyKey=operation.idempotencyKey;}
+  }else if(operation.kind==='query'||operation.kind==='content'){
+   if(!/^[-A-Za-z0-9._~]{1,256}$/.test(operation.taskId)||['.','..'].includes(operation.taskId))throw new HttpError(400,'INVALID_REQUEST');path='v1/videos/'+operation.taskId+(operation.kind==='content'?'/content':'');
+  }else throw new HttpError(400,'INVALID_REQUEST');
+  const limit=operation.kind==='content'?maxContentBytes:1024*1024;if(!Number.isSafeInteger(limit)||limit<1||limit>200*1024*1024)throw new HttpError(400,'INVALID_REQUEST');
+  endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/'+path;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),operation.kind==='query'?15000:120000);
+  try{
+   const hostname=hostName(endpoint),literal=isIP(hostname),addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);
+   if(!addresses.length||addresses.some(address=>address.family!==isIP(address.address)||!publicAddress(address.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');const selected=addresses[0]!;
+   const reply=await bounded(this.adapters.request({url:endpoint.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:limit,method:body?'POST':'GET',...(body?{body}:{}),...(idempotencyKey?{idempotencyKey}:{})}),controller.signal);
+   if(reply.status>=300&&reply.status<400)throw new HttpError(502,'UPSTREAM_FAILED');if(reply.body.length>limit)throw new HttpError(502,'UPSTREAM_TOO_LARGE');return reply;
+  }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}finally{clearTimeout(timer);}
+ }
  async completion(base:string,apiKey:string,body:string,idempotencyKey:string,textSessionId:string):Promise<OutboundResponse>{
   const normalized=normalizeModelBase(base),endpoint=new URL(normalized);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/v1/chat/completions';
   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');

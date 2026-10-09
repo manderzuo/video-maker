@@ -10,6 +10,7 @@ import {ownedProject,readProjectGraph,writeProjectAndGraph} from './repository.j
 import type {ProjectCommand} from './contracts.js';
 import {assetSchema,type Asset} from '../../../src/domain/asset.js';
 import {promptDraftSchema,promptLibrarySchema} from '../../../src/domain/prompt.js';
+import {cloudVideoRecordSchema,type CloudVideoRecord} from '../../../src/domain/cloud-video-run.js';
 const contents=(graph:Graph)=>JSON.stringify({...graph,revision:0,viewport:{x:0,y:0,scale:1}});
 // Resource references are checked even when an input binding is inactive.
 export function graphAssetIds(graph:Graph){
@@ -35,13 +36,18 @@ async function validateGraphContent(client:PoolClient,context:AuthContext,graph:
  }
 }
 export async function validateResources(client:PoolClient,context:AuthContext,graph:Graph,validateBindings=true){
- const assetIds=graphAssetIds(graph),unsupported=new Set<string>();
- function visit(value:unknown){if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['runId','sourceRunId'].includes(key)&&typeof item==='string')unsupported.add(item);else visit(item);}}
- visit(graph.nodes);if(unsupported.size)throw new HttpError(404,'NOT_FOUND');
+ const assetIds=graphAssetIds(graph),runIds=new Set<string>();
+ function visit(value:unknown){if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['runId','sourceRunId'].includes(key)&&typeof item==='string')runIds.add(item);else visit(item);}}
+ visit(graph.nodes);
  await validateGraphContent(client,context,graph);
  const assets:Asset[]=[];
  if(assetIds.length){const result=await client.query<{document:unknown}>("SELECT document FROM workspace_assets WHERE user_id=$1 AND id::text=ANY($2::text[]) AND state='complete' AND trashed_at IS NULL ORDER BY id FOR SHARE",[context.userId,assetIds]);if(result.rows.length!==assetIds.length)throw new HttpError(404,'NOT_FOUND');assets.push(...result.rows.map(row=>assetSchema.parse(row.document)));}
- for(const edge of graph.edges){const valid=validateConnection(graph,edge,unverifiedCapabilities(),{assets});if(!valid.ok)throw new HttpError(400,'INVALID_COMMAND');}
+ for(const asset of assets)if(asset.sourceRunId)runIds.add(asset.sourceRunId);
+ const runs:CloudVideoRecord[]=[];
+ if(runIds.size){const result=await client.query<{document:unknown}>("SELECT document FROM workspace_video_runs WHERE user_id=$1 AND id::text=ANY($2::text[]) UNION ALL SELECT document FROM workspace_task_archives WHERE user_id=$1 AND id::text=ANY($2::text[]) AND document->>'kind'='video'",[context.userId,[...runIds]]);if(result.rows.length!==runIds.size)throw new HttpError(404,'NOT_FOUND');runs.push(...result.rows.map(row=>cloudVideoRecordSchema.parse(row.document)));}
+ for(const asset of assets)if(asset.sourceRunId){const run=runs.find(run=>run.id===asset.sourceRunId);if(!run||run.resultAssetId!==asset.id||run.executionState!=='succeeded')throw new HttpError(400,'INVALID_COMMAND');}
+ for(const node of graph.nodes){if(node.type==='result'&&assets.find(asset=>asset.id===node.data.assetId)?.sourceRunId!==node.data.runId)throw new HttpError(400,'INVALID_COMMAND');if(node.type==='video-generation'&&node.data.revisionSource){const source=node.data.revisionSource,run=runs.find(run=>run.id===source.runId);if(!run||run.projectId!==source.projectId||source.assetId&&run.resultAssetId!==source.assetId)throw new HttpError(400,'INVALID_COMMAND');}}
+ for(const edge of graph.edges){const valid=validateConnection(graph,edge,unverifiedCapabilities(),{assets,runs});if(!valid.ok)throw new HttpError(400,'INVALID_COMMAND');}
  if(validateBindings)for(const node of graph.nodes)if(node.type==='video-generation'&&JSON.stringify(node.data.inputBindings)!==JSON.stringify(getOrderedInputs(graph,node.id)))throw new HttpError(400,'INVALID_COMMAND');
 }
 export async function applyProjectCommand(pool:Pool,context:AuthContext,projectId:string,input:ProjectCommand,now:Date){

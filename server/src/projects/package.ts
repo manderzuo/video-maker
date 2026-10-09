@@ -1,4 +1,5 @@
 import {randomUUID,createHash} from 'node:crypto';
+import {createReadStream} from 'node:fs';
 import {z} from 'zod';
 import type {Pool} from 'pg';
 import type {AuthContext} from '../auth/context.js';
@@ -9,7 +10,7 @@ import {projectViewSchema} from './contracts.js';
 import {graphAssetIds,graphContentIds,validateResources} from './commands.js';
 import {manifests,ownedAsset} from '../assets/repository.js';
 import type {AssetRow} from '../assets/contracts.js';
-import {verifyAssetFile,type AssetStorageOptions} from '../assets/storage.js';
+import {verifyAssetFile,writeAssetFile,removePendingFiles,type AssetStorageOptions} from '../assets/storage.js';
 import {cloudProjectPackageSchema,portableCloudContent,type CloudProjectPackage} from '../../../src/domain/cloud-project-package.js';
 import {graphSchema,type Graph} from '../../../src/domain/graph.js';
 import {remapResources} from '../../../src/domain/resource-remap.js';
@@ -17,6 +18,8 @@ import {executeGraphOperations} from '../../../src/application/commands/registry
 import {parseContent,type ContentKind,promptDraftSchema} from '../prompts/contracts.js';
 import {contentAssetIds,writeContent} from '../prompts/repository.js';
 import {cloudTaskSchema} from '../../../src/domain/cloud-task.js';
+import {cloudVideoRecordSchema,cloudVideoArchiveSchema,portableVideoRun} from '../../../src/domain/cloud-video-run.js';
+import {assetSchema} from '../../../src/domain/asset.js';
 export const importProjectSchema=z.strictObject({data:cloudProjectPackageSchema,assets:z.record(z.string(),z.uuid()),idempotencyKey:z.uuid()});
 type ReceiptRow={id:string;revision:number;command_type:'operations'|'undo'|'redo'|'viewport';before_graph:unknown;after_graph:unknown;created_at:Date};
 export async function exportProjectPackage(pool:Pool,context:AuthContext,id:string,now:Date,storage?:AssetStorageOptions){
@@ -31,8 +34,12 @@ export async function exportProjectPackage(pool:Pool,context:AuthContext,id:stri
   const content:NonNullable<CloudProjectPackage['content']>=[];
   for(const row of records.rows){const versions=await client.query<{document:unknown}>('SELECT document FROM workspace_content_versions WHERE user_id=$1 AND id=$2 ORDER BY revision',[context.userId,row.id]);content.push({kind:row.kind,document:parseContent(row.kind,row.document),versions:versions.rows.map(version=>parseContent(row.kind,version.document)),trashed:row.trashed_at!==null} as NonNullable<CloudProjectPackage['content']>[number]);}
   const taskRows=await client.query<{document:unknown}>("SELECT document FROM workspace_tasks WHERE user_id=$1 AND draft_id::text=ANY($2::text[]) UNION ALL SELECT document FROM workspace_task_archives WHERE user_id=$1 AND document->>'draftId'=ANY($2::text[])",[context.userId,content.filter(record=>record.kind==='draft').map(record=>record.document.id)]);
-  const taskHistory=taskRows.rows.map(row=>cloudTaskSchema.parse(row.document));
-  const ids=[...new Set([...graphs.flatMap(graphAssetIds),...contentAssetIds(content)])].sort();
+  const baseIds=[...new Set([...graphs.flatMap(graphAssetIds),...contentAssetIds(content)])];
+  const sources=await client.query<{run_id:string}>("SELECT document->>'sourceRunId' AS run_id FROM workspace_assets WHERE user_id=$1 AND id::text=ANY($2::text[]) AND document->>'sourceRunId' IS NOT NULL",[context.userId,baseIds]);
+  const videos=await client.query<{document:unknown}>("SELECT document FROM workspace_video_runs WHERE user_id=$1 AND (project_id=$2 OR id::text=ANY($3::text[])) UNION ALL SELECT document FROM workspace_task_archives WHERE user_id=$1 AND document->>'kind'='video' AND (project_id=$2 OR id::text=ANY($3::text[]))",[context.userId,id,sources.rows.map(row=>row.run_id)]);
+  const videoHistory=videos.rows.map(row=>portableVideoRun(cloudVideoRecordSchema.parse(row.document)));
+  const taskHistory=[...taskRows.rows.map(row=>cloudTaskSchema.parse(row.document)),...videoHistory];
+  const ids=[...new Set([...baseIds,...videoHistory.flatMap(run=>[...(run.resultAssetId?[run.resultAssetId]:[]),...run.inputSnapshot.references.map(ref=>ref.assetId)])])].sort();
   const media=await client.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND id::text=ANY($2::text[]) ORDER BY id FOR SHARE",[context.userId,ids]);
   if(media.rows.length!==ids.length)throw new HttpError(409,'PACKAGE_INCOMPLETE');
   const assets:CloudProjectPackage['assets']=[];
@@ -49,16 +56,17 @@ export async function exportProjectPackage(pool:Pool,context:AuthContext,id:stri
   return data;
  });
 }
-export async function importProjectPackage(pool:Pool,context:AuthContext,input:z.infer<typeof importProjectSchema>,now:Date,storage?:AssetStorageOptions){
+export async function importProjectPackage(pool:Pool,context:AuthContext,input:z.infer<typeof importProjectSchema>,now:Date,storage?:AssetStorageOptions,copy?:{sourceId:string;expectedRevision:number;fingerprint:string}){
  const data=cloudProjectPackageSchema.parse(portableCloudContent(input.data));
  if(Object.keys(input.assets).length!==data.assets.length||data.assets.some(item=>!input.assets[item.asset.id]))throw new HttpError(400,'INVALID_REQUEST');
- const fingerprint=createHash('sha256').update(JSON.stringify({...input,data})).digest('hex');
- return transaction(pool,async client=>{
+ const fingerprint=copy?.fingerprint??createHash('sha256').update(JSON.stringify({...input,data})).digest('hex'),createdFiles:string[]=[];
+ try{return await transaction(pool,async client=>{
   await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[context.userId+':project-import:'+input.idempotencyKey]);
-  const prior=await client.query<{fingerprint:string;project_id:string}>('SELECT fingerprint,project_id FROM workspace_project_imports WHERE user_id=$1 AND id=$2',[context.userId,input.idempotencyKey]);
+  const prior=await client.query<{fingerprint:string;project_id:string}>(copy?'SELECT fingerprint,project_id FROM workspace_project_copies WHERE user_id=$1 AND id=$2':'SELECT fingerprint,project_id FROM workspace_project_imports WHERE user_id=$1 AND id=$2',[context.userId,input.idempotencyKey]);
   if(prior.rows[0]){
    if(prior.rows[0].fingerprint!==fingerprint)throw new HttpError(409,'IDEMPOTENCY_CONFLICT');return readWorkspace(client,context,prior.rows[0].project_id);
   }
+  if(copy){const source=await ownedProject(client,context,copy.sourceId,true);if(source.revision!==copy.expectedRevision||data.project.revision!==copy.expectedRevision)throw new HttpError(409,'REVISION_CONFLICT');if(source.trashedAt!==null)throw new HttpError(409,'PROJECT_IN_TRASH');}
   for(const item of [...data.assets].sort((a,b)=>input.assets[a.asset.id].localeCompare(input.assets[b.asset.id]))){
    const row=await ownedAsset(client,context,input.assets[item.asset.id]);
    await client.query('SELECT id FROM workspace_assets WHERE user_id=$1 AND id=$2 FOR SHARE',[context.userId,row.id]);
@@ -72,6 +80,21 @@ export async function importProjectPackage(pool:Pool,context:AuthContext,input:z
   const projectId=randomUUID(),graphs=[data.graph,...data.history.receipts.flatMap(r=>[r.before,r.after])];
   const records=data.content??[],draftVersions=records.flatMap(record=>record.kind==='draft'?record.versions.flatMap(draft=>draft.resultVersions):[]);
   const maps={project:new Map([[data.project.id,projectId]]),node:new Map(graphs.flatMap(g=>g.nodes).map(n=>[n.id,randomUUID()])),asset:new Map(Object.entries(input.assets)),entry:new Map(records.filter(r=>r.kind==='prompt').map(r=>[r.document.id,randomUUID()])),draft:new Map(records.filter(r=>r.kind==='draft').map(r=>[r.document.id,randomUUID()])),version:new Map(draftVersions.map(v=>[v.id,randomUUID()])),run:new Map((data.taskHistory??[]).map(task=>[task.id,randomUUID()]))};
+  // Imported results get an immutable new file record so existing owned media
+  // retain their original run association when another project is imported.
+  const results=data.assets.filter(item=>item.asset.sourceRunId);
+  if(results.length){
+   await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[context.userId+':asset-quota']);
+   const used=await client.query<{bytes:string}>('SELECT COALESCE(SUM(reserved_bytes),0)::text AS bytes FROM workspace_assets WHERE user_id=$1',[context.userId]);
+   if(!storage||Number(used.rows[0]!.bytes)+results.reduce((total,item)=>total+item.asset.bytes+(item.thumbnail?.bytes??0),0)>storage.userQuotaBytes)throw new HttpError(413,'USER_QUOTA_EXCEEDED');
+   for(const item of results){
+    const source=await ownedAsset(client,context,input.assets[item.asset.id]),files=manifests(source),newId=randomUUID();maps.asset.set(item.asset.id,newId);createdFiles.push(newId);
+    const asset=assetSchema.parse({...item.asset,id:newId,sourceRunId:maps.run.get(item.asset.sourceRunId!)!,blobKey:'asset:'+newId,metadataRevision:0,trashedAt:null});
+    const original=await verifyAssetFile(storage,context.userId,source.id,'original',files.original);await writeAssetFile(storage,context.userId,newId,'original',files.original,createReadStream(original));
+    if(files.thumbnail){const thumb=await verifyAssetFile(storage,context.userId,source.id,'thumbnail',files.thumbnail);await writeAssetFile(storage,context.userId,newId,'thumbnail',files.thumbnail,createReadStream(thumb));}
+    await client.query("INSERT INTO workspace_assets(user_id,id,state,document,thumbnail,sha256,bytes,reserved_bytes,created_at) VALUES($1,$2,'complete',$3::jsonb,$4::jsonb,$5,$6,$7,$8)",[context.userId,newId,JSON.stringify(asset),files.thumbnail?JSON.stringify(files.thumbnail):null,asset.sha256,asset.bytes,asset.bytes+(files.thumbnail?.bytes??0),now]);
+   }
+  }
   const shots=new Map(draftVersions.flatMap(version=>version.shotPlan).map(shot=>[shot.id,randomUUID()]));
   const edgeIds=new Map(graphs.flatMap(g=>g.edges).map(e=>[e.id,randomUUID()]));
   const mapGraph=(source:Graph)=>{
@@ -84,7 +107,7 @@ export async function importProjectPackage(pool:Pool,context:AuthContext,input:z
   const project=projectViewSchema.parse({...data.project,id:projectId,starred:data.project.starred??false,revision:0,createdAt:now.getTime(),updatedAt:now.getTime(),trashedAt:null});
   await client.query('INSERT INTO workspace_projects(id,user_id,revision,document,created_at,updated_at) VALUES($1,$2,0,$3::jsonb,$4,$4)',[projectId,context.userId,JSON.stringify(project),now]);
   await client.query('INSERT INTO workspace_graphs(user_id,project_id,revision,graph) VALUES($1,$2,0,$3::jsonb)',[context.userId,projectId,JSON.stringify(graph)]);
-  for(const task of data.taskHistory??[]){const id=maps.run.get(task.id)!,document=cloudTaskSchema.parse({...remapResources(task,maps) as object,id,historical:true});await client.query('INSERT INTO workspace_task_archives(user_id,id,project_id,source_task_id,document) VALUES($1,$2,$3,$4,$5::jsonb)',[context.userId,id,projectId,task.id,JSON.stringify(document)]);}
+  for(const task of data.taskHistory??[]){const id=maps.run.get(task.id)!,document=(task.kind==='video'?cloudVideoArchiveSchema:cloudTaskSchema).parse({...remapResources(task,maps) as object,id,historical:true});await client.query('INSERT INTO workspace_task_archives(user_id,id,project_id,source_task_id,document) VALUES($1,$2,$3,$4,$5::jsonb)',[context.userId,id,projectId,task.id,JSON.stringify(document)]);if(document.kind==='video')for(const assetId of new Set([...(document.resultAssetId?[document.resultAssetId]:[]),...document.inputSnapshot.references.map(ref=>ref.assetId)]))await client.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[context.userId,projectId,assetId,'run:'+id]);}
   for(const receipt of receipts){
    await client.query('INSERT INTO workspace_command_receipts(user_id,id,project_id,revision,fingerprint,before_graph,after_graph,command_type,created_at) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7::jsonb,$8,$9)',[context.userId,receipt.id,projectId,receipt.revision,'import-history:'+receipt.id,JSON.stringify(receipt.before),JSON.stringify(receipt.after),receipt.type,new Date(receipt.createdAt)]);
    for(const assetId of new Set([...graphAssetIds(receipt.before),...graphAssetIds(receipt.after)]))await client.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[context.userId,projectId,assetId,'command:'+receipt.id]);
@@ -104,7 +127,8 @@ export async function importProjectPackage(pool:Pool,context:AuthContext,input:z
   const undo=data.history.undo.map(id=>receiptIds.get(id)!),redo=data.history.redo.map(id=>receiptIds.get(id)!);
   await client.query('INSERT INTO workspace_command_history(user_id,project_id,undo_stack,redo_stack) VALUES($1,$2,$3,$4)',[context.userId,projectId,undo,redo]);
   for(const assetId of graphAssetIds(graph))await client.query("INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,'graph')",[context.userId,projectId,assetId]);
-  await client.query('INSERT INTO workspace_project_imports(user_id,id,project_id,fingerprint,created_at) VALUES($1,$2,$3,$4,$5)',[context.userId,input.idempotencyKey,projectId,fingerprint,now]);
+  if(copy)await client.query('INSERT INTO workspace_project_copies(user_id,id,source_id,project_id,fingerprint,created_at) VALUES($1,$2,$3,$4,$5,$6)',[context.userId,input.idempotencyKey,copy.sourceId,projectId,fingerprint,now]);
+  else await client.query('INSERT INTO workspace_project_imports(user_id,id,project_id,fingerprint,created_at) VALUES($1,$2,$3,$4,$5)',[context.userId,input.idempotencyKey,projectId,fingerprint,now]);
   return {project,graph,history:{undoDepth:undo.length,redoDepth:redo.length}};
- });
+ });}catch(error){if(storage)for(const id of createdFiles)await removePendingFiles(storage,context.userId,id).catch(()=>{});throw error;}
 }

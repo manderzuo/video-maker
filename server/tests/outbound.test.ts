@@ -43,3 +43,9 @@ it('rejects unsafe DNS for completion and refuses redirects without exposing the
  const blocked=new RestrictedOutbound({resolve:async()=>[{address:'127.0.0.1',family:4}],request});await expect(blocked.completion('https://api.test','FAKE_KEY','{}','key','session')).rejects.toThrow('OUTBOUND_BLOCKED');expect(request).not.toHaveBeenCalled();
  const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});await expect(outbound.completion('https://api.test','FAKE_KEY','{}','key','session')).rejects.toThrow('UPSTREAM_FAILED');expect(request).toHaveBeenCalledTimes(1);
 });
+it('uses allowlisted video paths and refuses unsafe task identities before transport',async()=>{
+ const calls:OutboundRequest[]=[];const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request:async input=>{calls.push(input);return {status:200,body:Buffer.from('{}')};}});
+ await outbound.video('https://api.test','FAKE_KEY',{kind:'submit',body:'{}',idempotencyKey:'run-id'});await outbound.video('https://api.test','FAKE_KEY',{kind:'query',taskId:'task_1'});await outbound.video('https://api.test','FAKE_KEY',{kind:'content',taskId:'task_1'},1024);
+ expect(calls.map(call=>call.url)).toEqual(['https://api.test/v1/videos/generations','https://api.test/v1/videos/task_1','https://api.test/v1/videos/task_1/content']);expect(calls[0]).toMatchObject({method:'POST',idempotencyKey:'run-id'});expect(calls[2].maxBytes).toBe(1024);
+ for(const taskId of ['..','.','../private','https://other.test','task%2fprivate','task?secret'])await expect(outbound.video('https://api.test','FAKE_KEY',{kind:'content',taskId})).rejects.toThrow('INVALID_REQUEST');expect(calls).toHaveLength(3);
+});

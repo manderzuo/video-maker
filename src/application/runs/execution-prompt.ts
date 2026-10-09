@@ -1,4 +1,4 @@
-import type {VideoSpec} from '../../domain/common';
+import type {VideoSpec} from '../../domain/common.js';
 
 // Execution-only annotation: original creative text, literal dialogue and saved
 // historical requests remain unchanged. Parameters are also sent structurally.

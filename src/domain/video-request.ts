@@ -1,0 +1,5 @@
+import {z} from 'zod';
+import {id,localText,videoSpecSchema} from './common.js';
+export const videoRunSnapshotSchema=z.strictObject({prompt:localText.refine(v=>!!v.trim(),'prompt_empty'),spec:videoSpecSchema,references:z.array(z.strictObject({assetId:id,mediaType:z.enum(['image','video']),role:z.literal('参考'),alias:id,nodeId:id.optional(),runId:id.optional(),sha256:z.string().regex(/^[a-f0-9]{64}$/).optional(),bytes:z.number().int().positive().optional()}))});
+export type VideoRunSnapshot=z.infer<typeof videoRunSnapshotSchema>;
+export function buildVideoRequestBody(input:VideoRunSnapshot,assetMappings:{coreAssetId:string}[]){const spec=input.spec;return JSON.stringify({model:spec.modelId,prompt:input.prompt,duration:spec.durationSeconds,ratio:spec.ratio,...(spec.resolution?{resolution:spec.resolution}:{}),...(input.references.some(r=>r.mediaType==='image')?{image_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='image').map(a=>a.coreAssetId)}:{}),...(input.references.some(r=>r.mediaType==='video')?{video_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='video').map(a=>a.coreAssetId)}:{})});}

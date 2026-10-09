@@ -1,7 +1,7 @@
 import {z} from 'zod';
-import {unverifiedCapabilities,type CapabilityProfile} from '../../domain/connection';
-import {id,videoSpecSchema} from '../../domain/common';
-import type {CoreModel} from './contracts';
+import {unverifiedCapabilities,type CapabilityProfile} from '../../domain/connection.js';
+import {id,videoSpecSchema} from '../../domain/common.js';
+import type {CoreModel} from './contracts.js';
 const limitsSchema=z.strictObject({assetBytes:z.number().int().positive().optional(),promptBytes:z.number().int().positive().optional(),imageReferences:z.number().int().nonnegative().optional(),videoReferences:z.number().int().nonnegative().optional()});
 export const deploymentContractSchema=z.strictObject({version:id,verification:z.enum(['unknown','reviewed','live_verified']),evidence:z.array(z.strictObject({kind:z.enum(['fixed_source','deployment_review','live_probe','mock']),reference:id})),routes:z.strictObject({models:z.boolean(),videoSubmit:z.boolean(),videoQuery:z.boolean(),videoContent:z.boolean(),chat:z.boolean(),assets:z.boolean(),workContext:z.boolean(),continuation:z.boolean(),backup:z.boolean()}),textModels:z.array(id),videoModels:z.array(id),videoAliases:z.array(id),videoSpecs:z.array(videoSpecSchema),videoIdempotencyReplay:z.boolean().optional(),limits:limitsSchema}).superRefine((profile,ctx)=>{if(profile.textModels.some(id=>profile.videoModels.includes(id)||profile.videoAliases.includes(id)))ctx.addIssue({code:'custom',message:'文字模型与视频模型或别名不能重叠'});if(profile.videoSpecs.some(s=>!profile.videoModels.includes(s.modelId)))ctx.addIssue({code:'custom',message:'视频规格需属于明确的视频模型'});});
 export type DeploymentContract=z.infer<typeof deploymentContractSchema>;

@@ -1,6 +1,6 @@
 import {z} from 'zod';
-import {id,timestamp,type RunBinding,type ValidationResult} from './common';
-import {connectionSchema,type ConnectionProfile} from './connection';
+import {id,timestamp,type RunBinding,type ValidationResult} from './common.js';
+import {connectionSchema,type ConnectionProfile} from './connection.js';
 export const authBindingSchema=z.strictObject({id,connectionId:id,originSnapshot:z.url(),kind:z.enum(['core-user','text-api']),createdAt:timestamp});
 export type AuthBinding=z.infer<typeof authBindingSchema>;
 export function createAuthBinding(connection:ConnectionProfile,kind:AuthBinding['kind']='core-user'):AuthBinding{

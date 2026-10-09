@@ -4,15 +4,13 @@ import type {RunBinding} from '../../domain/common';
 import type {CapabilityProfile} from '../../domain/connection';
 import {transact,requestResult,withDatabase,storageErrorCode,type StudioDb} from '../../infrastructure/storage/database';
 import type {ProjectLeaseToken} from '../../infrastructure/storage/project-lease';
-import {z} from 'zod';
-import {id,localText,videoSpecSchema} from '../../domain/common';
 import {assetSchema} from '../../domain/asset';
 import {readRun,putRunInTransaction,validateFrozenBody} from '../../infrastructure/storage/run-repository';
 import {claimPreparation,assertPreparation,releasePreparation} from './preparation-lock';
 import {fingerprintText} from './fingerprint';
-export const videoRunSnapshotSchema=z.strictObject({prompt:localText.refine(v=>!!v.trim(),'prompt_empty'),spec:videoSpecSchema,references:z.array(z.strictObject({assetId:id,mediaType:z.enum(['image','video']),role:z.literal('参考'),alias:id,nodeId:id.optional(),runId:id.optional(),sha256:z.string().regex(/^[a-f0-9]{64}$/).optional(),bytes:z.number().int().positive().optional()}))});
-export type VideoRunSnapshot=z.infer<typeof videoRunSnapshotSchema>;
-export function buildVideoRequestBody(input:VideoRunSnapshot,assetMappings:CoreAssetRef[]){const spec=input.spec;return JSON.stringify({model:spec.modelId,prompt:input.prompt,duration:spec.durationSeconds,ratio:spec.ratio,...(spec.resolution?{resolution:spec.resolution}:{}),...(input.references.some(r=>r.mediaType==='image')?{image_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='image').map(a=>a.coreAssetId)}:{}),...(input.references.some(r=>r.mediaType==='video')?{video_asset_ids:assetMappings.filter((_,i)=>input.references[i].mediaType==='video').map(a=>a.coreAssetId)}:{})});}
+import {videoRunSnapshotSchema,buildVideoRequestBody} from '../../domain/video-request';
+export {videoRunSnapshotSchema,buildVideoRequestBody} from '../../domain/video-request';
+export type {VideoRunSnapshot} from '../../domain/video-request';
 export type PreparedVideoRequest={runId:string;binding:RunBinding;finalBody:string;bodyHash:string;idempotencyKey:string;assetMappings:CoreAssetRef[]};
 export type PrepareOptions={client?:CoreClient;capability?:CapabilityProfile;db?:StudioDb;lease?:ProjectLeaseToken};
 export async function prepareVideoRequest(runId:string,options:PrepareOptions={}):Promise<PreparedVideoRequest>{

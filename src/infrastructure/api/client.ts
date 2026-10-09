@@ -1,7 +1,7 @@
 import {z} from 'zod';
 export type RequestIdentity={contextId:string;csrfToken:string};
 export class ApiError extends Error{
- constructor(public readonly status:number,public readonly code:string){super(code);}
+ constructor(public readonly status:number,public readonly code:string,public readonly issues?:string[]){super(code);}
 }
 const codes=new Set(['AUTH_REQUIRED','AUTH_INVALID','SESSION_CHANGED','CSRF_INVALID','PREAUTH_INVALID','USERNAME_TAKEN','RATE_LIMITED','REVISION_CONFLICT','INVALID_REQUEST','BODY_TOO_LARGE','NOT_FOUND','INTERNAL_ERROR']);
 export function apiMessage(error:unknown){

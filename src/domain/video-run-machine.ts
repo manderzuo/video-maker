@@ -1,8 +1,7 @@
-import {mergeVideoFailure} from './video-failure';
-import type {Run} from './run';
-import type {CoreReply} from '../adapters/core/http-client';
-import type {CoreTaskView} from '../adapters/core/contracts';
-export function applySubmissionOutcome(run:Run,reply:CoreReply<CoreTaskView>):Run{
+import {mergeVideoFailure} from './video-failure.js';
+import type {Run} from './run.js';
+import type {CoreTaskView,CoreFailure} from '../adapters/core/contracts.js';
+export function applySubmissionOutcome(run:Run,reply:{ok:true;value:CoreTaskView}|{ok:false;error:CoreFailure}):Run{
  if(run.executionState!=='submitting'&&run.executionState!=='submit_unknown')throw Error('submission_state_invalid');
  if(!reply.ok){const now=Date.now();return {...run,executionState:reply.error.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',...(reply.error.submissionOutcome==='not_sent'?{executionFinishedAt:now}:{}),queryState:'interrupted',updatedAt:now};}
  return observeVideoTask(run,reply.value);

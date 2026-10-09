@@ -14,7 +14,7 @@ export async function reserveAsset(pool:Pool,context:AuthContext,input:Upload,op
  if(input.bytes>options.maxAssetBytes||(input.thumbnail?.bytes??0)>options.maxThumbnailBytes)throw new HttpError(400,'INVALID_REQUEST');
  return transaction(pool,async client=>{
   await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[context.userId+':asset-quota']);
-  const duplicate=await client.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND sha256=$2 AND state='complete' AND trashed_at IS NULL",[context.userId,input.sha256]);
+  const duplicate=await client.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND sha256=$2 AND state='complete' AND trashed_at IS NULL AND document->>'sourceRunId' IS NULL",[context.userId,input.sha256]);
   if(duplicate.rows[0]){const stored=manifests(duplicate.rows[0]),asset=stored.asset;if(asset.bytes!==input.bytes||asset.mimeType!==input.mimeType)throw new HttpError(400,'INVALID_REQUEST');if(!input.thumbnail||stored.thumbnail?.sha256===input.thumbnail.sha256)return {duplicate:true,value:asset};}
   const used=await client.query<{bytes:string}>('SELECT COALESCE(SUM(reserved_bytes),0)::text AS bytes FROM workspace_assets WHERE user_id=$1',[context.userId]);
   const reserved=input.bytes+(input.thumbnail?.bytes??0);if(Number(used.rows[0]!.bytes)+reserved>options.userQuotaBytes)throw new HttpError(413,'USER_QUOTA_EXCEEDED');
@@ -31,7 +31,7 @@ export async function completeAsset(pool:Pool,context:AuthContext,id:string,opti
   await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[context.userId+':asset-quota']);
   const row=await ownedAsset(client,context,id,true),{asset,original,thumbnail}=manifests(row);if(row.state==='complete')return asset;
   await verifyAssetFile(options,context.userId,id,'original',original);if(thumbnail)await verifyAssetFile(options,context.userId,id,'thumbnail',thumbnail);
-  const duplicate=await client.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND sha256=$2 AND state='complete' AND trashed_at IS NULL FOR UPDATE",[context.userId,asset.sha256]);
+  const duplicate=asset.sourceRunId?{rows:[] as AssetRow[]}:await client.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND sha256=$2 AND state='complete' AND trashed_at IS NULL AND document->>'sourceRunId' IS NULL FOR UPDATE",[context.userId,asset.sha256]);
   if(duplicate.rows[0]){
    const stored=manifests(duplicate.rows[0]);let next=stored.asset;
    if(thumbnail&&stored.thumbnail?.sha256!==thumbnail.sha256){
@@ -57,6 +57,16 @@ export async function cancelUpload(pool:Pool,context:AuthContext,id:string,optio
  await transaction(pool,async client=>{
   const row=await ownedAsset(client,context,id,true);if(row.state!=='pending')throw new HttpError(409,'ASSET_ALREADY_COMPLETE');
   await client.query("DELETE FROM workspace_assets WHERE user_id=$1 AND id=$2 AND state='pending'",[context.userId,id]);await removePendingFiles(options,context.userId,id);
+ });
+}
+export async function reserveVideoResult(pool:Pool,context:AuthContext,runId:string,input:{bytes:number;sha256:string;mimeType:string},options:AssetStorageOptions,now:Date){
+ if(input.bytes<1||input.bytes>options.maxAssetBytes||!['video/mp4','video/webm'].includes(input.mimeType))throw new HttpError(400,'UPLOAD_INVALID');
+ return transaction(pool,async db=>{
+  const owned=await db.query('SELECT id FROM workspace_video_runs WHERE user_id=$1 AND id=$2',[context.userId,runId]);if(!owned.rows.length)throw new HttpError(404,'NOT_FOUND');
+  await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[context.userId+':asset-quota']);const prior=await db.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND document->>'sourceRunId'=$2",[context.userId,runId]);if(prior.rows[0]){const asset=manifests(prior.rows[0]).asset;if(asset.sha256!==input.sha256||asset.bytes!==input.bytes||asset.mimeType!==input.mimeType)throw new HttpError(409,'RESULT_IDENTITY_CHANGED');return prior.rows[0];}
+  const used=await db.query<{bytes:string}>('SELECT COALESCE(SUM(reserved_bytes),0)::text AS bytes FROM workspace_assets WHERE user_id=$1',[context.userId]);if(Number(used.rows[0]!.bytes)+input.bytes>options.userQuotaBytes)throw new HttpError(413,'USER_QUOTA_EXCEEDED');
+  const id=randomUUID(),document=assetSchema.parse({...input,id,blobKey:'asset:'+id,mediaType:'video',title:'生成视频',sourceRunId:runId,createdAt:now.getTime(),metadataRevision:0,trashedAt:null});
+  await db.query("INSERT INTO workspace_assets(user_id,id,state,document,sha256,bytes,reserved_bytes,created_at) VALUES($1,$2,'pending',$3::jsonb,$4,$5,$5,$6)",[context.userId,id,JSON.stringify(document),input.sha256,input.bytes,now]);return {id,state:'pending' as const,document,thumbnail:null};
  });
 }
 export async function changeAsset(pool:Pool,context:AuthContext,id:string,expectedRevision:number,patch:Record<string,unknown>,action:'patch'|'trash'|'restore',now:Date){

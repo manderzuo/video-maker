@@ -22,6 +22,6 @@ export function registerProjectRoutes(app:FastifyInstance,pool:Pool,now:()=>Date
  app.patch('/studio-api/projects/:id',async request=>{noQuery.parse(request.query);return updateProject(pool,requestAuthContext(request),projectId(request.params),projectPatchSchema.parse(request.body),now());});
  app.delete('/studio-api/projects/:id',async request=>{noQuery.parse(request.query);const input=projectDeleteSchema.parse(request.body);return trashProject(pool,requestAuthContext(request),projectId(request.params),input.expectedRevision,now());});
  app.post('/studio-api/projects/:id/restore',async request=>{noQuery.parse(request.query);return restoreProject(pool,requestAuthContext(request),projectId(request.params),projectDeleteSchema.parse(request.body).expectedRevision,now());});
- app.post('/studio-api/projects/:id/copy',async(request,reply)=>{noQuery.parse(request.query);return reply.code(201).send(await copyProject(pool,requestAuthContext(request),projectId(request.params),projectCopySchema.parse(request.body),now()));});
+ app.post('/studio-api/projects/:id/copy',async(request,reply)=>{noQuery.parse(request.query);return reply.code(201).send(await copyProject(pool,requestAuthContext(request),projectId(request.params),projectCopySchema.parse(request.body),now(),storage));});
  app.post('/studio-api/projects/:id/commands',{bodyLimit:2*1024*1024},async request=>{noQuery.parse(request.query);return applyProjectCommand(pool,requestAuthContext(request),projectId(request.params),projectCommandSchema.parse(request.body),now());});
 }
