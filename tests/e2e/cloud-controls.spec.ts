@@ -21,3 +21,78 @@ test('edits project and asset metadata, searches and archives, and restores owne
  await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'初始项目'}});await page.goto('/projects');await page.getByRole('button',{name:'修改项目信息',exact:true}).click();await page.getByLabel('项目名称',{exact:true}).fill('修改后的项目');await page.getByLabel('项目说明',{exact:true}).fill('项目说明');await page.getByLabel('项目标签（逗号分隔）',{exact:true}).fill('验收,云端');await page.getByRole('button',{name:'保存项目信息',exact:true}).click();await expect(page.getByRole('link',{name:'修改后的项目',exact:true})).toBeVisible();await page.getByRole('button',{name:'星标',exact:true}).click();await expect(page.getByRole('button',{name:'取消星标',exact:true})).toBeVisible();await page.getByRole('button',{name:'取消星标',exact:true}).click();await page.getByRole('button',{name:'归档',exact:true}).click();await page.getByRole('combobox',{name:'项目筛选',exact:true}).selectOption('archived');await expect(page.getByRole('link',{name:'修改后的项目',exact:true})).toBeVisible();await page.getByRole('button',{name:'取消归档',exact:true}).click();await page.getByRole('combobox',{name:'项目筛选',exact:true}).selectOption('all');await page.getByLabel('搜索项目',{exact:true}).fill('云端');await page.getByRole('combobox',{name:'排序',exact:true}).selectOption('title');await page.getByRole('button',{name:'重新加载项目',exact:true}).click();await expect(page.getByRole('link',{name:'修改后的项目',exact:true})).toBeVisible();await page.getByRole('button',{name:'移入回收站',exact:true}).click();await page.getByRole('link',{name:'回收站',exact:true}).click();await page.getByRole('button',{name:'恢复项目',exact:true}).click();await expect(page.getByRole('button',{name:'恢复项目',exact:true})).toHaveCount(0);
  await page.getByRole('link',{name:'素材库',exact:true}).click();const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=2;return canvas.toDataURL('image/png').split(',')[1];});await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'初始素材.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});await page.getByRole('button',{name:'上传到云端',exact:true}).click();await expect(page.getByText('初始素材.png',{exact:true})).toBeVisible();await page.getByRole('button',{name:'修改素材信息',exact:true}).click();await page.getByLabel('素材名称',{exact:true}).fill('修改后的素材');await page.getByLabel('素材说明',{exact:true}).fill('恢复时应保留的说明');await page.getByLabel('素材标签（逗号分隔）',{exact:true}).fill('验收');await page.getByRole('button',{name:'保存素材信息',exact:true}).click();await expect(page.getByText('修改后的素材',{exact:true})).toBeVisible();await page.getByLabel('搜索素材',{exact:true}).fill('验收');await page.getByRole('combobox',{name:'素材类型',exact:true}).selectOption('image');await page.getByRole('button',{name:'重新加载素材',exact:true}).click();await page.getByRole('button',{name:'移入回收站',exact:true}).click();await page.getByRole('link',{name:'回收站',exact:true}).click();await page.getByRole('button',{name:'恢复素材',exact:true}).click();await page.getByRole('link',{name:'素材库',exact:true}).click();await expect(page.getByText('恢复时应保留的说明',{exact:true})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
 });
+test('workspace fills the viewport width and canvas fills the remaining height at desktop boundaries',async({page,workspace},testInfo)=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'布局验收'}})).json();
+ for(const viewport of [{width:1366,height:768},{width:1920,height:1080}]){
+  await page.setViewportSize(viewport);await page.goto('/projects');
+  const shell=await page.locator('.account-shell').boundingBox();if(!shell)throw new Error('Missing shell');
+  expect(Math.abs(shell.width-viewport.width)).toBeLessThan(4);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.goto('/projects/'+project.id+'/canvas');
+  await expect(page.getByRole('toolbar',{name:'画布工具',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'生成视频',exact:true})).toBeVisible();
+  const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw new Error('Missing stage');
+  expect(stage.height).toBeGreaterThan(300);expect(stage.y+stage.height).toBeGreaterThan(viewport.height-120);
+  expect(stage.y+stage.height).toBeLessThanOrEqual(viewport.height+8);
+  const generateBox=await page.getByRole('button',{name:'生成视频',exact:true}).boundingBox();if(!generateBox)throw new Error('Missing generate entry');
+  expect(generateBox.y+generateBox.height).toBeLessThanOrEqual(viewport.height+8);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:testInfo.outputPath('cloud-layout-'+viewport.width+'x'+viewport.height+'.png')});
+ }
+ expect(workspace.providerCalls).toHaveLength(0);
+});
+test('collapsing the side panel and outline expands the canvas stage',async({page,workspace})=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'收起验收'}})).json();
+ await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');
+ await page.getByRole('button',{name:'添加文字节点',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');
+ const before=(await page.locator('.canvas-stage').boundingBox())?.width??0;expect(before).toBeGreaterThan(0);
+ await page.getByRole('button',{name:'收起侧栏',exact:true}).click();await expect(page.getByRole('button',{name:'展开侧栏',exact:true})).toBeVisible();
+ const noSide=(await page.locator('.canvas-stage').boundingBox())?.width??0;expect(noSide).toBeGreaterThan(before);
+ await page.getByRole('button',{name:'收起大纲',exact:true}).click();
+ const noOutline=(await page.locator('.canvas-stage').boundingBox())?.width??0;expect(noOutline).toBeGreaterThan(noSide);
+ await page.getByRole('button',{name:'展开侧栏',exact:true}).click();await page.getByRole('button',{name:'展开大纲',exact:true}).click();
+ await expect(page.getByRole('button',{name:'生成视频',exact:true})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
+});
+test('a small viewport keeps generation reachable and reports missing input without upstream calls',async({page,workspace})=>{
+ const h=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'小屏可操作'}})).json();
+ const v1='11111111-1111-4111-8111-111111111111';
+ await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:'22222222-2222-4222-8222-222222222222',command:{type:'operations',operations:[{id:'33333333-3333-4333-8333-333333333333',type:'add_node',payload:{node:{id:v1,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}}]}}});
+ await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');
+ const generate=page.getByRole('button',{name:'生成视频',exact:true});await generate.scrollIntoViewIfNeeded();await expect(generate).toBeEnabled();await generate.click();
+ await expect(page.getByText('这个视频草稿还没有提示词',{exact:false}).first()).toBeVisible();
+ await expect(page.getByText('缺少明确连接的提示词正文',{exact:false})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
+});
+test('desktop canvas bottom stays within the remaining viewport at desktop boundaries',async({page,workspace},testInfo)=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'布局边界验收'}})).json();
+ const measurements=[];
+ for(const viewport of [{width:1366,height:768},{width:1920,height:1080}]){
+  await page.setViewportSize(viewport);await page.goto('/projects/'+project.id+'/canvas');
+  await expect(page.getByRole('button',{name:'生成视频',exact:true})).toBeVisible();
+  const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw Error('Missing canvas');
+  const measure={...viewport,stage,bottom:stage.y+stage.height,documentHeight:await page.evaluate(()=>document.documentElement.scrollHeight)};
+  measurements.push(measure);
+  await page.screenshot({path:testInfo.outputPath('audit-layout-'+viewport.width+'.png'),fullPage:true});
+  expect.soft(measure.bottom,'canvas bottom must stay near viewport bottom at '+viewport.width).toBeLessThanOrEqual(viewport.height+4);
+  expect.soft(measure.bottom).toBeGreaterThan(viewport.height-64);
+ }
+ await testInfo.attach('layout-measurements',{body:JSON.stringify(measurements,null,2),contentType:'application/json'});
+ expect(workspace.providerCalls).toHaveLength(0);
+});
+test('collapsing the sidebar preserves unsaved video and Agent inputs',async({page,workspace})=>{
+ const h=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'侧栏输入保留'}})).json();
+ const nodeId='44444444-4444-4444-8444-444444444444';
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:'55555555-5555-4555-8555-555555555555',command:{type:'operations',operations:[{id:'66666666-6666-4666-8666-666666666666',type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}}]}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');
+ await page.getByLabel('为视频草稿填写提示词',{exact:true}).fill('尚未保存的视频正文');
+ await page.getByRole('button',{name:'新建 Agent 会话',exact:true}).click();
+ await page.getByLabel('Agent 任务描述',{exact:true}).fill('尚未保存的 Agent 描述');
+ await page.getByRole('button',{name:'收起侧栏',exact:true}).click();
+ await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
+ await expect(page.getByLabel('为视频草稿填写提示词',{exact:true})).toHaveValue('尚未保存的视频正文');
+ await expect(page.getByLabel('Agent 任务描述',{exact:true})).toHaveValue('尚未保存的 Agent 描述');
+ expect(workspace.providerCalls).toHaveLength(0);
+});

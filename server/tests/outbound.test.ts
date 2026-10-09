@@ -27,11 +27,24 @@ it('aborts a hung transport at the same total deadline',async()=>{
  vi.useFakeTimers();const request=vi.fn<(input:OutboundRequest)=>Promise<{status:number;body:Buffer}>>(()=>new Promise(()=>{}));const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});
  try{const result=expect(outbound.models('text','https://api.test','FAKE_KEY')).rejects.toThrow('UPSTREAM_TIMEOUT');await vi.advanceTimersByTimeAsync(15000);await result;expect(request).toHaveBeenCalledTimes(1);expect(request.mock.calls[0]?.[0].signal.aborted).toBe(true);}finally{vi.useRealTimers();}
 });
-it('shares the deadline and validated address across video health and catalog',async()=>{
+it('isolates the optional video health deadline from the catalog request',async()=>{
  vi.useFakeTimers();const calls:OutboundRequest[]=[];
  const request=async(input:OutboundRequest)=>{calls.push(input);if(input.url.endsWith('/healthz')){await new Promise(resolve=>setTimeout(resolve,10000));return {status:200,body:Buffer.from('{}')};}return new Promise<{status:number;body:Buffer}>(()=>{});};
  const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});
- try{const result=expect(outbound.models('video','https://api.test','FAKE_KEY')).rejects.toThrow('UPSTREAM_TIMEOUT');await vi.advanceTimersByTimeAsync(15000);await result;expect(calls).toHaveLength(2);expect(calls[0]?.signal).toBe(calls[1]?.signal);expect(calls[1]?.signal.aborted).toBe(true);}finally{vi.useRealTimers();}
+ try{const result=expect(outbound.models('video','https://api.test','FAKE_KEY')).rejects.toThrow('UPSTREAM_TIMEOUT');await vi.advanceTimersByTimeAsync(15000);await result;expect(calls).toHaveLength(2);expect(calls[0]?.signal).not.toBe(calls[1]?.signal);expect(calls[0]?.signal.aborted).toBe(false);expect(calls[1]?.signal.aborted).toBe(true);}finally{vi.useRealTimers();}
+});
+it('optional healthz timeout must not poison an otherwise working video catalog',async()=>{
+ vi.useFakeTimers();const calls:{path:string;aborted:boolean}[]=[];
+ const outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async request=>{
+  const u=new URL(request.url);calls.push({path:u.pathname,aborted:request.signal.aborted});
+  if(u.pathname.endsWith('/healthz'))return new Promise(()=>{});
+  return {status:200,body:Buffer.from(JSON.stringify({data:[{id:'Video/Valid'}]}))};
+ }});
+ const {probeModels}=await import('../src/settings/probe.js');
+ const pending=probeModels(outbound,'video','https://api.example.test','FAKE_AUDIT_KEY','health-timeout');
+ await vi.advanceTimersByTimeAsync(15001);const result=await pending;
+ expect(calls).toEqual([{path:'/healthz',aborted:false},{path:'/v1/models',aborted:false}]);
+ expect(result).toMatchObject({connection:'verified',models:['Video/Valid']});
 });
 it('sends completion only to the fixed TLS endpoint with pinned DNS and server supplied idempotency',async()=>{
  const calls:OutboundRequest[]=[];const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request:async input=>{calls.push(input);return {status:200,body:Buffer.from('{}')};}});

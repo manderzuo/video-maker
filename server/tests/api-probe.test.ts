@@ -18,9 +18,9 @@ it.each([404,405,501])('reports catalog %d as unavailable and connection unknown
  status=code;body='upstream '+key;const a=await f.signup();const result=await f.call('POST','/studio-api/me/model-configs/text/test',{...f.headers(a),payload:{apiBase:base,apiKey:key,requestId:'missing'}});
  expect(result.json()).toMatchObject({connection:'unknown',catalogStatus:'unavailable',models:[]});expect(result.body).not.toContain(key);expect(calls).toHaveLength(1);
 });
-it.each([401,403,500,302])('never reports %d as verified or exposes raw upstream body',async code=>{
+it.each([[401,'denied'],[403,'denied'],[500,'unavailable'],[302,'unavailable']] as const)('never reports %d as verified and labels the failure kind',async (code,failure)=>{
  status=code;body=key;const a=await f.signup();const result=await f.call('POST','/studio-api/me/model-configs/text/test',{...f.headers(a),payload:{apiBase:base,apiKey:key,requestId:'failed'}});
- expect(result.json()).toMatchObject({connection:'failed',catalogStatus:'failed',models:[]});expect(result.body).not.toContain(key);
+ expect(result.json()).toMatchObject({connection:'failed',catalogStatus:'failed',models:[],failure});expect(result.body).not.toContain(key);
 });
 it.each([{response:'{"data":[]}',connection:'verified',catalogStatus:'empty'},{response:'bad json',connection:'unknown',catalogStatus:'failed'},{response:'{"unexpected":[]}',connection:'unknown',catalogStatus:'failed'},{response:'{"data":[{"id":"bad\\nname"}]}',connection:'unknown',catalogStatus:'failed'}])('distinguishes empty catalog and malformed data %#',async data=>{
  body=data.response;const a=await f.signup();const result=await f.call('POST','/studio-api/me/model-configs/text/test',{...f.headers(a),payload:{apiBase:base,apiKey:key,requestId:'shape'}});expect(result.json()).toMatchObject({connection:data.connection,catalogStatus:data.catalogStatus,models:[]});
@@ -45,7 +45,7 @@ it('treats malformed video health as a gateway without healthz and keeps unavail
 });
 it.each([401,403])('reports catalog %d as a permission failure without exposing the key',async code=>{
  status=code;body=key;const a=await f.signup();const result=await f.call('POST','/studio-api/me/model-configs/text/test',{...f.headers(a),payload:{apiBase:base,apiKey:key,requestId:'denied'}});
- expect(result.json()).toMatchObject({connection:'failed',catalogStatus:'failed',models:[]});expect(result.body).not.toContain(key);
+ expect(result.json()).toMatchObject({connection:'failed',catalogStatus:'failed',models:[],failure:'denied'});expect(result.body).not.toContain(key);
 });
 it('merges same-origin catalog pages and reports complete',async()=>{
  body=JSON.stringify({data:[{id:'Vendor/PageOne'}],next:'/v1/models?page=2'});secondBody=JSON.stringify({data:[{id:'Vendor/PageTwo'}]});
@@ -63,6 +63,19 @@ it('stops a self-referencing next page without looping forever',async()=>{
  body=JSON.stringify({data:[{id:'Vendor/PageOne'}],next:'/v1/models?page=2'});secondBody=JSON.stringify({data:[{id:'Vendor/PageTwo'}],next:'/v1/models?page=2'});
  const a=await f.signup();const result=await f.call('POST','/studio-api/me/model-configs/text/test',{...f.headers(a),payload:{apiBase:base,apiKey:key,requestId:'paged-loop'}});
  expect(result.json()).toMatchObject({models:['Vendor/PageOne','Vendor/PageTwo'],complete:false});expect(calls).toHaveLength(2);
+});
+it('resolves a query-relative next against the current catalog endpoint',async()=>{
+ const paths:string[]=[];
+ const {RestrictedOutbound:RawOutbound}=await import('../src/security/outbound.js');
+ const {probeModels:probeDirect}=await import('../src/settings/probe.js');
+ const outbound=new RawOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async request=>{
+  const u=new URL(request.url);paths.push(u.pathname+u.search);
+  if(u.pathname!=='/gateway/v1/models')return {status:404,body:Buffer.from('{}')};
+  return {status:200,body:Buffer.from(JSON.stringify(u.searchParams.get('page')==='2'?{data:[{id:'Vendor/Second'}]}:{data:[{id:'Vendor/First'}],next:'?page=2'}))};
+ }});
+ const result=await probeDirect(outbound,'text','https://api.example.test/gateway','FAKE_AUDIT_KEY','relative-next');
+ expect(paths).toEqual(['/gateway/v1/models','/gateway/v1/models?page=2']);
+ expect(result).toMatchObject({connection:'verified',models:['Vendor/First','Vendor/Second'],complete:true});
 });
 it('marks a failed second page and a dangling has_more as incomplete while keeping the first page',async()=>{
  body=JSON.stringify({data:[{id:'Vendor/PageOne'}],next:'/v1/models?page=2'});secondStatus=500;secondBody='nope';

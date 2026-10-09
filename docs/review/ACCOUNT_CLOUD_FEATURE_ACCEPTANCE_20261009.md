@@ -92,7 +92,6 @@ P2追加/重试语义（Codex已确认代码修正）：
 仍未完成（不计入本轮通过）：真实上游生成成功单独验收；严格HTTPS/线上复测未动。浏览器全量14/14（`stage1-ui-rerun3`）对应迁移前在制工作树；迁移后两文件共15项，其中新增2项单独验证2/2通过（`stage1-migrated`）；迁移用例与本记录更新已随阶段1提交`6b30aed`落定，独立审计15+1证据见上。
 
 ## 6. 阶段2验收（API状态和完整模型选择）
-
 实现（相对`6b30aed`）：
 - 新增`src/features/settings/ModelPicker.tsx`：可展开/搜索/完整滚动/手填的组合框+列表框（`{value,models,disabled,onChange}`，调用方负责加载与错误，选择器内不保存密钥）；空目录显示手填提示，无匹配时保留手填值；键盘上下/回车/ESC可用；目标≥44px。
 - `ApiModelFields.tsx`：视频/文字共用选择器（保留原字段顺序与`模型名称`标签关联）；连接结果与保存结果分别显示两行，保存不再遮盖状态；成功显示“连接成功 · 已获取 N 个模型 · 测试时间”，空目录显示可手填，401/403类失败显示权限或密钥错误，目录不支持且无他证显示“连接状态未确认”；目录外手填值给出“按手填保存、生成前重核”提示；`data-field="model"`保留。
@@ -108,4 +107,31 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 浏览器`account-api-settings.spec.ts` 15/15通过（`stage2-ui3`全量14/15后单修一行再验`stage2-ui4` 1/1；失败均为用例写法：旧`option`/`status`定位、自动检测门闩时序、手填过滤遮挡，均已修正，产品逻辑无改）。fixture全局断言生成调用为0保持。
 - 真实供应商目录协议只读核对：本轮无用户密钥可用，未发起任何真实探测/生成；分页按同源`next`通用适配，实际供应商格式待有钥后在阶段8前补核（记为未完成，不冒充已验证）。
 
-提交：阶段2文件（`ApiModelFields/ModelPicker/api-settings-client/use-api-settings/api-settings.css`、`outbound/probe`、`api-probe/account-api-settings`用例、本记录）待本记录落定后单阶段提交，不含截图/日志等无关变更。
+提交：阶段2文件已随`1050fda`落定（11文件，仅阶段2边界），后续F006-F009修正另见下节。
+
+## 6b. 阶段2后续修正（独立审计F006-F009，已定向验证）
+
+- F006 healthz超时毒化：`models()`曾让healthz与目录共用15秒signal，healthz挂起超时后目录请求已aborted。现healthz改为后台best-effort（独立signal，不等待、不设门），目录请求独立15秒；中途另发现串行等待会把目录超时推到30秒，一并消除。证据：`outbound.test.ts`旧共享断言改写+新增探针级“healthz永挂而目录200→verified”（`calls`两signal独立且目录未aborted）。
+- F007相对下一页基准：`modelsNext(base,next)`曾按API根解析`?page=2`致404丢页。现签名改为`modelsNext(pageUrl,next)`并返回`{response,url}`，`probe`以`modelsUrl(base)`起算逐页跟踪当前URL；同源/出站/循环/上限校验保留。证据：新增“`?page=2`按`/gateway/v1/models`解析合并First+Second/complete=true”。
+- F008选择与搜索混淆：`ModelPicker`曾把持久value当query，已保存A+目录A/B/C时展开仅见A。现搜索态与已选值分离（聚焦/编辑才显示搜索，展开按钮重置搜索），展开全部必达完整目录，手填与已选保留。证据：迁移审计UI用例“展开A选中下仍见A/B/C且选中不动”。
+- F009 503误报密钥错误：`probe`增可选`failure:'denied'|'unavailable'`（401/403→denied，其余失败→unavailable；前后端schema同步，mock旧形状兼容），`connectionLine`仅denied提示权限/密钥错误，其余显示服务暂不可用且不含该短语。证据：迁移审计UI用例“假503路由真实probeModels→不断言权限错误”；服务端`failure`标签断言同步。
+- 定向检查：服务端`typecheck` exit 0；`outbound/api-probe/workspace-commands/video-tasks` 104/104 exit 0；前端`typecheck/lint` exit 0；单测30/30；浏览器F008/F009两场景2/2（`stage2-fixes`）；`account-api-settings`全量17/17（`stage2-ui5`）。
+- 真实供应商协议仍无钥未验（记为未完成，不冒充）。
+
+## 7. 阶段3验收（工作台全宽、画布全屏和入口整理）
+
+实现（相对`1050fda`）：
+- `AuthBoundary.tsx`：删除使用引导导航与重复表单；旧`/welcome`重定向到`/settings/connections`；首次登录进入项目页；历史`lastVisitedPage`经白名单清洗（未知/`/welcome`/空一律回项目页，避免跳转循环）；导航可收起（`nav-collapsed`）。登录/注册表单保持460px阅读宽。
+- `tokens.css`：外壳去1100px、内容区去760px，全宽flex纵列；画布路由限定`height:100dvh`高度链（`account-shell:has(.cloud-canvas-page)`），其余页面保持自然流；`.canvas-main`双栏（画布+360px侧栏）可收起，大纲/侧栏收起后画布扩展；显式`grid-template-rows:minmax(0,1fr)`逐层约束，侧栏内部滚动；小屏（≤900px）堆叠。
+- `CloudCanvasPage.tsx`：视频操作与Agent移入可收起右侧栏（`side-toggle`，常挂载仅隐藏，保留未保存正文/上下文/重试身份）；大纲可收起（`outline-toggle`）；其余节点操作条、工具栏、小地图保留。
+- 用例迁移（合法入口替换）：`account-api-settings`内`/welcome`→设置页直达、`使用引导`→项目往返、`进入工作台`→首次登录直达项目/旧链接重定向三测；`account-auth`注册落地与tab页改为项目页；`account-welcome-assertions`改断言设置入口，`account-welcome-integration`改断言重定向+遗产数据保留+首登项目。旧匿名welcome单测不受影响（LegacyApp未动）。
+
+定向检查：
+- 前端`typecheck/lint` exit 0；全量单测93文件683项 exit 0。
+- 云套件全量53/53（`stage23-full`；含`cloud-controls`新布局3测与审计迁入2测，截图与尺寸附件留存）。
+- `account-api-settings` 17/17、`cloud-controls` 8/8、集成配置（含欢迎集成）18/18。
+- 审计迁入：布局上限（1366x768/1920x1080 bottom≤视窗+4且>视窗-64，生成入口在视窗内）与侧栏输入保留（视频正文+Agent描述收起展开不丢）均通过；我方旧弱断言（bottom>height-120无上限）已加上限。
+- F010：侧栏常挂载隐藏，收起保留正文/上下文/重试身份（上文迁入用例覆盖）。
+- F011：高度链固定后1366x768底边由1287回到视窗内；断言改为上下限双向。
+- 路由竞态根治：`cloud-video`全量中曾现单素材GET被基座guard误判404（1/60级偶发）；基座未知路径在云用例下`passthrough`放行给真实进程内应用（设置套件仍严格记录），双guard任意顺序确定。
+- 未完成：`account-auth` TLS套件（4180）因已知证书交互阻塞未跑（见`ACCOUNT_TLS_BLOCKED_CHECKPOINT`），迁移断言仅过类型检查，归阶段8严格HTTPS；真实上游/线上复测未动。

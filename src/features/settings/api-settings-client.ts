@@ -2,14 +2,14 @@ import {z} from 'zod';
 export type ModelChannel='video'|'text';
 export type ApiSettingsIdentity={userId:string;contextId:string;csrfToken:string};
 export type ModelConfig={channel:ModelChannel;apiBase:string;model:string;revision:number;hasKey:boolean};
-export type ModelProbe={requestId:string;connection:'verified'|'unknown'|'failed';catalogStatus:'ready'|'empty'|'unavailable'|'failed';models:string[];message:string;complete?:boolean};
+export type ModelProbe={requestId:string;connection:'verified'|'unknown'|'failed';catalogStatus:'ready'|'empty'|'unavailable'|'failed';models:string[];message:string;complete?:boolean;failure?:'denied'|'unavailable'};
 export type ConfigInput={apiBase:string;model:string;apiKey?:string;expectedRevision:number|null};
 export type ProbeInput={apiBase:string;apiKey?:string;requestId:string};
 export class ApiSettingsError extends Error {constructor(public readonly status:number,public readonly code:string){super(code);}}
 const name=z.string().min(1).max(256).refine(value=>value.trim()===value&&!/[\u0000-\u001f\u007f-\u009f]/.test(value));
 const configSchema=z.strictObject({channel:z.enum(['video','text']),apiBase:z.string().min(1).max(2048),model:name,revision:z.number().int().min(1).max(2147483647),hasKey:z.boolean()});
 const listSchema=z.strictObject({configs:z.array(configSchema).max(2).refine(configs=>new Set(configs.map(config=>config.channel)).size===configs.length)});
-const probeSchema=z.strictObject({requestId:z.string().min(1).max(128),connection:z.enum(['verified','unknown','failed']),catalogStatus:z.enum(['ready','empty','unavailable','failed']),models:z.array(name).max(20000),message:z.string().max(128),complete:z.boolean().optional()});
+const probeSchema=z.strictObject({requestId:z.string().min(1).max(128),connection:z.enum(['verified','unknown','failed']),catalogStatus:z.enum(['ready','empty','unavailable','failed']),models:z.array(name).max(20000),message:z.string().max(128),complete:z.boolean().optional(),failure:z.enum(['denied','unavailable']).optional()});
 const key=z.string().min(1).max(4096).refine(value=>!/[\u0000-\u0020\u007f-\u009f*\u2022]/.test(value));
 const base=z.string().min(1).max(2048);
 const saveSchema=z.strictObject({apiBase:base,model:name,apiKey:key.optional(),expectedRevision:z.number().int().min(0).max(2147483646).nullable()});

@@ -11,6 +11,7 @@ const videoBase='https://video.example.test',videoBytes=Buffer.from('00000018667
 const videoContract={version:'cloud-ui-video-v1',verification:'reviewed' as const,evidence:[{kind:'mock' as const,reference:'isolated fake provider only'}],routes:{models:true,videoSubmit:true,videoQuery:true,videoContent:true,chat:false,assets:false,workContext:false,continuation:false,backup:false},textModels:[],videoModels:['seedance'],videoAliases:[],videoSpecs:[{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'}],limits:{promptBytes:12288,imageReferences:0,videoReferences:0}};
 export const test=base.extend<{workspace:Awaited<ReturnType<typeof fixture>>&{account:Account;providerCalls:OutboundRequest[];holdProvider:()=>()=>void;setVideoOutcome:(outcome:'success'|'failed'|'unknown')=>void;switchAccount:(account:Account)=>void};workspaceRoutes:void}>({
  workspace:async({apiModel},use)=>{
+  apiModel.passthrough=true;
   const root=await mkdtemp(join(tmpdir(),'aiwork-cloud-ui-'));
   const providerCalls:OutboundRequest[]=[];
   let providerGate:Promise<void>|undefined,videoOutcome:'success'|'failed'|'unknown'='success';

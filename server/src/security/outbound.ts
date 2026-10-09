@@ -24,6 +24,10 @@ export function normalizeModelBase(value:string):string{
   return url.href.replace(/\/$/,'');
  }catch{throw new HttpError(400,'INVALID_API_BASE');}
 }
+export function modelsUrl(base:string):string{
+ const normalized=normalizeModelBase(base);
+ return normalized.replace(/\/$/,'')+'/v1/models';
+}
 function bounded<T>(promise:Promise<T>,signal:AbortSignal):Promise<T>{
  return new Promise((resolve,reject)=>{
   const aborted=()=>reject(new HttpError(504,'UPSTREAM_TIMEOUT'));
@@ -85,45 +89,48 @@ export class RestrictedOutbound {
  async models(channel:ModelChannel,base:string,apiKey:string):Promise<OutboundResponse>{
   const normalized=normalizeModelBase(base),url=new URL(normalized);
   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
+  const scope=new AbortController(),scopeTimer=setTimeout(()=>scope.abort(),15000);
+  try{
+   const hostname=hostName(url),literal=isIP(hostname);
+   const addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),scope.signal);
+   if(!addresses.length||addresses.some(a=>a.family!==isIP(a.address)||!publicAddress(a.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');
+   const selected=addresses[0]!;
+   const read=async(path:'healthz'|'v1/models',signal:AbortSignal)=>{
+    const endpoint=new URL(normalized);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/'+path;
+    const response=await bounded(this.adapters.request({url:endpoint.href,address:selected.address,family:selected.family as 4|6,apiKey,signal,maxBytes:8*1024*1024}),signal);
+    if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');
+    if(response.body.length>8*1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');
+    return response;
+   };
+   if(channel==='video'){
+    // healthz只按网关明确协议使用：后台best-effort，不等待、不设门。挂起只结束它自己的signal，
+    // 绝不延迟或毒化目录请求；无（含404/405/501、异常、超时、非JSON）一律视为无该端点的兼容网关。
+    const health=new AbortController(),healthTimer=setTimeout(()=>health.abort(),15000);
+    void read('healthz',health.signal).catch(()=>{/* healthz never gates the catalog check */}).finally(()=>clearTimeout(healthTimer));
+   }
+   const catalog=new AbortController(),catalogTimer=setTimeout(()=>catalog.abort(),15000);
+   try{return await read('v1/models',catalog.signal);}finally{clearTimeout(catalogTimer);}
+  }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}
+  finally{clearTimeout(scopeTimer);}
+ }
+ async modelsNext(pageUrl:string,next:string,apiKey:string):Promise<{response:OutboundResponse;url:string}|null>{
+  // 相对next依据当前目录页URL解析；仅跟随同源下一页，跨域地址不发送密钥，调用方记为未完整获取。
+  let page:URL;try{page=new URL(pageUrl);}catch{return null;}
+  if(page.protocol!=='https:')return null;
+  let url:URL;try{url=new URL(next,page);}catch{return null;}
+  if(url.protocol!=='https:'||url.origin!==page.origin)return null;
+  if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
   try{
    const hostname=hostName(url),literal=isIP(hostname);
    const addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);
    if(!addresses.length||addresses.some(a=>a.family!==isIP(a.address)||!publicAddress(a.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');
    const selected=addresses[0]!;
-   const read=async(path:'healthz'|'v1/models')=>{
-    const endpoint=new URL(normalized);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/'+path;
-    const response=await bounded(this.adapters.request({url:endpoint.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:8*1024*1024}),controller.signal);
-    if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');
-    if(response.body.length>8*1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');
-    return response;
-   };
-   if(channel==='video'){
-    // healthz只按网关明确协议使用：有则读，无（含404/405/501、异常、非JSON）一律视为无该端点的兼容网关，
-    // 继续读模型目录。目录访问才是连通判据，healthz永不单独决定连接成功或失败。
-    try{await read('healthz');}catch{/* healthz never gates the catalog check */}
-   }
-   return await read('v1/models');
+   const response=await bounded(this.adapters.request({url:url.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:8*1024*1024}),controller.signal);
+   if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');
+   if(response.body.length>8*1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');
+   return {response,url:url.href};
   }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}
   finally{clearTimeout(timer);}
  }
- async modelsNext(base:string,next:string,apiKey:string):Promise<OutboundResponse|null>{
-   // 分页跟随仅限与当前地址同源的下一页；跨域地址不发送密钥，调用方记为未完整获取。
-   const normalized=normalizeModelBase(base);
-   let url:URL;try{url=new URL(next,normalized.replace(/\/$/,'')+'/');}catch{return null;}
-   if(url.protocol!=='https:'||url.origin!==new URL(normalized).origin)return null;
-   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
-   try{
-    const hostname=hostName(url),literal=isIP(hostname);
-    const addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);
-    if(!addresses.length||addresses.some(a=>a.family!==isIP(a.address)||!publicAddress(a.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');
-    const selected=addresses[0]!;
-    const response=await bounded(this.adapters.request({url:url.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:8*1024*1024}),controller.signal);
-    if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');
-    if(response.body.length>8*1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');
-    return response;
-   }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}
-   finally{clearTimeout(timer);}
-  }
 }

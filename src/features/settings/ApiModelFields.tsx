@@ -10,7 +10,8 @@ function connectionLine(draft:ApiDraft){
  if(result.connection==='verified')return `连接成功 · 服务未返回模型${time?' · '+time:''}，可手动填写。${partial}测试不代表生成已验证。`;
  if(result.connection==='unknown')return `连接状态未确认${time?' · '+time:''}。${partial}目录不支持或响应无效，不能视为成功；可手动填写模型名称后保存。`;
  if(result.catalogStatus==='empty')return '模型列表为空，可手动填写模型名称后保存。';
- return '权限或密钥错误，请检查地址和密钥。';
+ if(result.failure==='denied')return '权限或密钥错误，请检查地址和密钥。';
+ return '上游服务暂不可用或连接失败，输入已保留，请稍后重试；仅明确的权限拒绝才会提示密钥错误。';
 }
 export function ApiModelFields({channel,draft,store,ready}:{channel:ModelChannel;draft:ApiDraft;store:ApiSettingsStore;ready:boolean}){
  const id=useId(),title=channel==='video'?'视频 API':'文字 API';

@@ -7,7 +7,7 @@ export const accountApiUiOrigin='http://127.0.0.1:4310';
 const session={user:{id:'11111111-1111-4111-8111-111111111111',username:'Fake_Task3_A'},contextId:'a'.repeat(43),csrfToken:'b'.repeat(43),onboardingCompletedAt:null as string|null};
 function createModel(){
  const {lastVisitedPage:_,defaultTextModel:__,defaultVideoModel:___,...preferences}=defaultPreferences;void _;void __;void ___;
- return {session:{...session,user:{...session.user}},document:{revision:0,onboardingCompletedAt:null,lastVisitedPage:'/projects',preferences:{...preferences}} as UserDocumentView,configs:[] as ModelConfig[],configWrites:[] as {channel:string;input:Record<string,unknown>}[],probes:[] as {channel:string;input:Record<string,unknown>}[],onboardingWrites:[] as unknown[],catalogStatus:'ready',connection:'verified',models:['Vendor/Listed'],probeGate:undefined as Promise<void>|undefined,conflictNextSave:false,failNextSave:false,failNextList:false,conflictNextOnboarding:false,failNextDocumentRead:false};
+ return {session:{...session,user:{...session.user}},document:{revision:0,onboardingCompletedAt:null,lastVisitedPage:'/projects',preferences:{...preferences}} as UserDocumentView,configs:[] as ModelConfig[],configWrites:[] as {channel:string;input:Record<string,unknown>}[],probes:[] as {channel:string;input:Record<string,unknown>}[],onboardingWrites:[] as unknown[],catalogStatus:'ready',connection:'verified',models:['Vendor/Listed'],failure:undefined as 'denied'|'unavailable'|undefined,passthrough:false,probeGate:undefined as Promise<void>|undefined,conflictNextSave:false,failNextSave:false,failNextList:false,conflictNextOnboarding:false,failNextDocumentRead:false};
 }
 export const test=base.extend<{apiModel:ReturnType<typeof createModel>;apiGuard:void}>({
  apiModel:async({},use)=>{await use(createModel());},
@@ -37,7 +37,7 @@ export const test=base.extend<{apiModel:ReturnType<typeof createModel>;apiGuard:
    if(match){
     const channel=match[1] as 'video'|'text',input=request.postDataJSON() as Record<string,unknown>;
     if(match[2]&&method==='POST'){
-     apiModel.probes.push({channel,input});const gate=apiModel.probeGate;apiModel.probeGate=undefined;const result={requestId:input.requestId,connection:apiModel.connection,catalogStatus:apiModel.catalogStatus,models:[...apiModel.models],message:'Synthetic UI-only catalog'};if(gate)await gate;return reply(result);
+     apiModel.probes.push({channel,input});const gate=apiModel.probeGate;apiModel.probeGate=undefined;const result={requestId:input.requestId,connection:apiModel.connection,catalogStatus:apiModel.catalogStatus,models:[...apiModel.models],message:'Synthetic UI-only catalog',...(apiModel.failure?{failure:apiModel.failure}:{})};if(gate)await gate;return reply(result);
     }
     if(!match[2]&&method==='PATCH'){
      apiModel.configWrites.push({channel,input});if(apiModel.failNextSave){apiModel.failNextSave=false;return reply({code:'INTERNAL_ERROR'},500);}const prior=apiModel.configs.find(config=>config.channel===channel);
@@ -46,6 +46,9 @@ export const test=base.extend<{apiModel:ReturnType<typeof createModel>;apiGuard:
      const saved:ModelConfig={channel,apiBase:input.apiBase as string,model:input.model as string,revision:(prior?.revision??0)+1,hasKey:Boolean(input.apiKey||prior?.hasKey)};apiModel.configs=apiModel.configs.filter(config=>config.channel!==channel).concat(saved);return reply(saved);
     }
    }
+   // 云工作区用例由workspaceRoutes接管真实进程内应用：基座未覆盖的路径直接放行，
+   // 无论双guard谁先匹配，有效请求都不会被误判404。设置套件保持passthrough=false，杂散请求仍被记录。
+   if(apiModel.passthrough)return route.fallback();
    unexpected.push(method+' '+url.pathname);return reply({code:'NOT_FOUND'},404);
   });
   await use();await guard.closeExtraContexts();const evidence=guard.evidence();testInfo.annotations.push({type:'studio:network-evidence',description:JSON.stringify(evidence)});testInfo.annotations.push({type:'studio:validation-scope',description:'Task3 UI-only HTTP loopback / synthetic API; no backend, secure-cookie, trusted-TLS or generation acceptance'});expect(unexpected).toEqual([]);expect(evidence.paidRequests).toBe(0);expect(evidence.blockedRequests).toBe(0);

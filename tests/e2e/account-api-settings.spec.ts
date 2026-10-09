@@ -1,9 +1,9 @@
 import {test,expect} from '../helpers/account-api-ui-fixture';
 const card=(page:import('@playwright/test').Page,channel:'video'|'text')=>page.getByRole('region',{name:channel==='video'?'视频 API':'文字 API',exact:true});
 test('shared cards have three fields / three actions, video first, with address-key-model order for text',async({page})=>{
- await page.goto('/welcome');const video=card(page,'video'),text=card(page,'text');await expect(video).toBeVisible();await expect(text).toBeVisible();
+ await page.goto('/welcome');await expect(page).toHaveURL(/\/settings\/connections$/);await expect(page.getByRole('link',{name:'使用引导',exact:true})).toHaveCount(0);const video=card(page,'video'),text=card(page,'text');await expect(video).toBeVisible();await expect(text).toBeVisible();
  for(const panel of [video,text]){await expect(panel.locator('input')).toHaveCount(3);await expect(panel.getByRole('button')).toHaveCount(3);await expect(panel.getByRole('button',{name:'测试连接',exact:true})).toBeVisible();await expect(panel.getByRole('button',{name:'保存',exact:true})).toBeVisible();await expect(panel.getByRole('button',{name:'展开模型列表',exact:true})).toBeVisible();}
- expect(await video.locator('input').evaluateAll(inputs=>inputs.map(input=>input.getAttribute('data-field')))).toEqual(['apiBase','model','apiKey']);expect(await text.locator('input').evaluateAll(inputs=>inputs.map(input=>input.getAttribute('data-field')))).toEqual(['apiBase','apiKey','model']);await expect(page.getByRole('button',{name:'进入工作台',exact:true})).toBeVisible();await expect(page.getByText('进入本地模式',{exact:true})).toHaveCount(0);
+ expect(await video.locator('input').evaluateAll(inputs=>inputs.map(input=>input.getAttribute('data-field')))).toEqual(['apiBase','model','apiKey']);expect(await text.locator('input').evaluateAll(inputs=>inputs.map(input=>input.getAttribute('data-field')))).toEqual(['apiBase','apiKey','model']);await expect(page.getByRole('button',{name:'进入工作台',exact:true})).toHaveCount(0);await expect(page.getByText('进入本地模式',{exact:true})).toHaveCount(0);
 });
 test('text tests without model; unavailable catalog permits manual save; saved key remains an empty input',async({page,apiModel})=>{
  apiModel.catalogStatus='unavailable';apiModel.connection='unknown';apiModel.models=[];await page.goto('/welcome');const text=card(page,'text');await text.getByLabel('地址',{exact:true}).fill('https://fake.example/api');await text.getByLabel('密钥',{exact:true}).fill('FAKE_UI_KEY');await text.getByRole('button',{name:'测试连接',exact:true}).click();await expect(text.getByRole('status')).toContainText('可手动填写');expect(apiModel.probes[0].input).not.toHaveProperty('model');expect(apiModel.configWrites).toHaveLength(0);
@@ -11,7 +11,7 @@ test('text tests without model; unavailable catalog permits manual save; saved k
 });
 test('settings and welcome reload the same saved values, retain typed model on retest and keep text controls visible',async({page,apiModel})=>{
  apiModel.configs=[{channel:'text',apiBase:'https://fake.example/api',model:'Vendor/Manual',revision:1,hasKey:true}];await page.goto('/welcome');const text=card(page,'text');await expect(text.getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/Manual');await text.getByRole('button',{name:'测试连接',exact:true}).click();await text.getByLabel('模型名称',{exact:true}).fill('');await expect(text.getByRole('option')).toHaveCount(1);await text.getByRole('option',{name:'Vendor/Listed',exact:true}).click();await expect(text.getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/Listed');
- await page.getByRole('link',{name:'API 设置',exact:true}).click();await expect(page).toHaveURL(/\/settings\/connections$/);await expect(card(page,'text').getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/Listed');await card(page,'text').getByLabel('模型名称',{exact:true}).fill('Vendor/FromSettings');await card(page,'text').getByRole('button',{name:'保存',exact:true}).click();await expect(card(page,'text').getByText('已保存到当前账号',{exact:false})).toBeVisible();await page.getByRole('link',{name:'使用引导',exact:true}).click();await expect(card(page,'text').getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/FromSettings');
+ await page.getByRole('link',{name:'API 设置',exact:true}).click();await expect(page).toHaveURL(/\/settings\/connections$/);await expect(card(page,'text').getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/Listed');await card(page,'text').getByLabel('模型名称',{exact:true}).fill('Vendor/FromSettings');await card(page,'text').getByRole('button',{name:'保存',exact:true}).click();await expect(card(page,'text').getByText('已保存到当前账号',{exact:false})).toBeVisible();await page.getByRole('link',{name:'项目',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);await page.getByRole('link',{name:'API 设置',exact:true}).click();await expect(card(page,'text').getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/FromSettings');
 });
 test('Chinese composition Enter does not submit; only the save button makes a request',async({page,apiModel})=>{
  await page.goto('/settings/connections');const text=card(page,'text');await text.getByLabel('地址',{exact:true}).fill('https://fake.example');await text.getByLabel('密钥',{exact:true}).fill('FAKE_UI_KEY');const model=text.getByLabel('模型名称',{exact:true});await model.fill('供应商/模型');await model.dispatchEvent('compositionstart');await model.dispatchEvent('keydown',{key:'Enter',code:'Enter',isComposing:true});await model.dispatchEvent('compositionend');await model.press('Enter');expect(apiModel.configWrites).toHaveLength(0);expect(apiModel.probes).toHaveLength(0);await text.getByRole('button',{name:'保存',exact:true}).click();await expect(text.getByText('已保存到当前账号',{exact:false})).toBeVisible();expect(apiModel.configWrites).toHaveLength(1);
@@ -32,8 +32,9 @@ test('account switch discards A draft and late results before showing B configur
   expect(apiModel.probes.at(-1)).toMatchObject({channel:'text'});expect(apiModel.probes.at(-1)!.input).not.toHaveProperty('apiKey');
  }finally{release();}
 });
-test('entering workspace records server onboarding and opens owned cloud projects without the legacy canvas',async({page,apiModel})=>{
- await page.goto('/welcome');await page.getByRole('button',{name:'进入工作台',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect(apiModel.onboardingWrites).toEqual([{expectedRevision:0,completed:true}]);expect(apiModel.probes).toHaveLength(0);expect(apiModel.configWrites).toHaveLength(0);await expect(page.getByRole('heading',{name:'项目',exact:true})).toBeVisible();await expect(page.getByText('还没有项目',{exact:true})).toBeVisible();await expect(page.locator('.canvas-shell')).toHaveCount(0);
+test('first login lands on projects without a guide gate; empty config offers the settings entry',async({page,apiModel})=>{
+ await page.goto('/');await expect(page).toHaveURL(/\/projects$/);expect(apiModel.onboardingWrites).toEqual([]);expect(apiModel.probes).toHaveLength(0);expect(apiModel.configWrites).toHaveLength(0);await expect(page.getByRole('heading',{name:'项目',exact:true})).toBeVisible();await expect(page.getByText('还没有项目',{exact:true})).toBeVisible();await expect(page.locator('.canvas-shell')).toHaveCount(0);
+ await page.getByRole('link',{name:'API 设置',exact:true}).click();await expect(page).toHaveURL(/\/settings\/connections$/);await expect(page.getByRole('link',{name:'使用引导',exact:true})).toHaveCount(0);
 });
 test('both themes at 1440/1280/1024/720 keep fields visible, targets 44px and cards follow the width boundary',async({page,apiModel},testInfo)=>{
  for(const theme of ['dark','light'] as const){apiModel.document.preferences.theme=theme;for(const width of [1440,1280,1024,720]){
@@ -55,7 +56,7 @@ test('success shows the model count, save keeps it visible, and key change drops
  await expect(text).not.toContainText('连接成功');
 });
 test('failed probe reports a permission error and unknown catalog is never shown as success',async({page,apiModel})=>{
- apiModel.connection='failed';apiModel.catalogStatus='failed';apiModel.models=[];
+ apiModel.connection='failed';apiModel.catalogStatus='failed';apiModel.models=[];apiModel.failure='denied';
  await page.goto('/settings/connections');const text=card(page,'text');
  await text.getByLabel('地址',{exact:true}).fill('https://fake.example/api');await text.getByLabel('密钥',{exact:true}).fill('FAKE_BAD_KEY');
  await text.getByRole('button',{name:'测试连接',exact:true}).click();
@@ -104,7 +105,28 @@ test('re-entering settings probes the saved key once with a checking indicator a
   await expect.poll(()=>apiModel.probes.length).toBe(2);
  }finally{release();}
 });
-test('onboarding conflict reloads account revision, keeps API draft on failed/successful reload and then enters workspace',async({page,apiModel})=>{
- await page.goto('/welcome');const text=card(page,'text');await text.getByLabel('地址',{exact:true}).fill('https://fake.example');await text.getByLabel('密钥',{exact:true}).fill('FAKE_KEEP_ONBOARDING');await text.getByLabel('模型名称',{exact:true}).fill('Vendor/Unsaved');apiModel.conflictNextOnboarding=true;await page.getByRole('button',{name:'进入工作台',exact:true}).click();await expect(page.getByRole('alert')).toContainText('重新加载账号状态');await expect(page).toHaveURL(/\/welcome$/);
- apiModel.failNextDocumentRead=true;await page.getByRole('button',{name:'重新加载账号状态',exact:true}).click();await expect(page.getByRole('alert')).toBeVisible();await expect(text.getByLabel('密钥',{exact:true})).toHaveValue('FAKE_KEEP_ONBOARDING');await page.getByRole('button',{name:'重新加载账号状态',exact:true}).click();await expect(page.getByText('账号状态已重新加载',{exact:false})).toBeVisible();await expect(text.getByLabel('模型名称',{exact:true})).toHaveValue('Vendor/Unsaved');await expect(text.getByLabel('密钥',{exact:true})).toHaveValue('FAKE_KEEP_ONBOARDING');await page.getByRole('button',{name:'进入工作台',exact:true}).click();await expect(page).toHaveURL(/\/projects$/);expect(apiModel.onboardingWrites).toEqual([{expectedRevision:0,completed:true},{expectedRevision:1,completed:true}]);expect(apiModel.configWrites).toHaveLength(0);expect(apiModel.probes).toHaveLength(0);
+test('legacy welcome entry redirects to settings and keeps typed drafts across the redirect',async({page,apiModel})=>{
+ await page.goto('/welcome');await expect(page).toHaveURL(/\/settings\/connections$/);const text=card(page,'text');await text.getByLabel('地址',{exact:true}).fill('https://fake.example');await text.getByLabel('密钥',{exact:true}).fill('FAKE_KEEP_REDIRECT');await text.getByLabel('模型名称',{exact:true}).fill('Vendor/Unsaved');await expect(text.getByLabel('密钥',{exact:true})).toHaveValue('FAKE_KEEP_REDIRECT');expect(apiModel.configWrites).toHaveLength(0);expect(apiModel.probes).toHaveLength(0);
+});
+test('expand all models with a saved selection exposes the complete catalog without clearing that selection',async({page,apiModel})=>{
+ apiModel.configs=[{channel:'text',apiBase:'https://fake.example',model:'Vendor/A',revision:1,hasKey:true}];apiModel.models=['Vendor/A','Vendor/B','Vendor/C'];
+ await page.goto('/settings/connections');const card=page.getByRole('region',{name:'文字 API',exact:true});
+ await expect(card.getByRole('status')).toContainText('已获取 3 个模型');
+ await expect(card.getByRole('combobox')).toHaveValue('Vendor/A');
+ await card.getByRole('button',{name:'展开模型列表',exact:true}).click();
+ expect(await card.getByRole('option').allTextContents()).toEqual(['Vendor/A','Vendor/B','Vendor/C']);
+ await expect(card.getByRole('combobox')).toHaveValue('Vendor/A');
+});
+test('an upstream 503 is not presented as bad credentials',async({page})=>{
+ const {RestrictedOutbound:_auditOutbound}=await import('../../server/src/security/outbound.js');
+ const {probeModels:probeDirect}=await import('../../server/src/settings/probe.js');
+ const outbound=new _auditOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async()=>({status:503,body:Buffer.from('{}')})});
+ await page.route('**/studio-api/me/model-configs/text/test',async route=>{
+  const input=route.request().postDataJSON();const result=await probeDirect(outbound,'text',input.apiBase,input.apiKey,input.requestId);await route.fulfill({status:200,json:result});
+ });
+ await page.goto('/settings/connections');const card=page.getByRole('region',{name:'文字 API',exact:true});
+ await card.getByLabel('地址',{exact:true}).fill('https://fake.example');await card.getByLabel('密钥',{exact:true}).fill('FAKE_AUDIT_KEY');
+ await card.getByRole('button',{name:'测试连接',exact:true}).click();
+ await expect(card.getByRole('status')).not.toContainText('正在检测');
+ await expect(card.getByRole('status')).not.toContainText('权限或密钥错误');
 });
