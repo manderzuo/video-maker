@@ -235,3 +235,4 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 验证矩阵（本轮实际commit与结果）：`typecheck`/`lint`/服务端`typecheck` exit 0；`test:unit` 95文件694项；服务端`workspace-commands` 13项；云全量90 passed；`vite build` exit 0且`check-bundle-budget` passed；构建产物无测试密钥/私钥残留（`dist/assets`无`FAKE_*_KEY`/`aiwork_local_test_only`/私钥头）。
 - 严格HTTPS：`test-account-tls-environment.mjs` 4/4通过；但整套HTTPS浏览器验收阻塞——`trusted-test-tls/`为空（pem/key被gitignore，不在仓库是对的），历史`test-tls/cert.pem`系自签名未受信（CN=127.0.0.1，核对时UTC 2026-10-09T10:03），`run-account-browser-tests.mjs`要求先跑本地受信wrapper；系统根证书安装需用户明确授权，未擅自操作。旧匿名验收套件因合法入口替换不适用（映射见§10），不以静态检查代替。
 - 待完成（需授权，勿视作已交付）：真实模型验收（文字优化/纯文字视频/带参考视频/续写生成，需用户选定输入模型并确认费用，本轮零触发）；生产数据库/媒体/配置备份、兼容性检查与恢复演练、部署上线与同提交号线上复测（无生产变更授权，均未执行；用户此后写入内容不得覆盖）。
+- 推送阻塞（环境网络，非权限）：`feat/account-api-cloud`本地超前`origin` 13个提交，`git push origin`因经127.0.0.1无法连接github.com:443失败；待网络恢复后推送，不改提交内容重试前先核对远端未被他人改写。
