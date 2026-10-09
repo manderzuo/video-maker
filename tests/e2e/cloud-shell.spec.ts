@@ -150,3 +150,27 @@ test('follows consecutive node searches within the same project',async({page,wor
  await expect(page.locator('article[data-node-id="'+secondId+'"].selected')).toHaveCount(1);
  await expect(page.locator('article[data-node-id="'+firstId+'"].selected')).toHaveCount(0);
 });
+test('drops a stale verified status when a save lands after further edits',async({page,workspace})=>{
+ const headers=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...headers,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ await page.goto('/settings/connections');
+ const status=()=>page.getByRole('button',{name:/视频规格已核验|视频已配置/,exact:false}).first();
+ await expect(status()).toContainText('视频规格已核验');
+ let held=false,release!:()=>void;
+ const gate=new Promise<void>(resolve=>{release=resolve;});
+ await page.route('**/studio-api/me/model-configs/video',async route=>{
+  if(route.request().method()!=='PATCH'){await route.fallback();return;}
+  if(!held){held=true;await gate;await route.fallback();return;}
+  await route.fallback();
+ });
+ const video=page.getByRole('region',{name:'视频 API',exact:true});
+ await video.getByLabel('模型名称',{exact:true}).fill('unsupported-model');
+ await video.getByRole('button',{name:'保存',exact:true}).click();
+ await expect.poll(()=>held).toBe(true);
+ await video.getByLabel('模型名称',{exact:true}).fill('another-unsaved-model');
+ release();
+ await expect(video.getByText('提交的配置已保存；新的输入尚未保存',{exact:false})).toBeVisible();
+ expect(((await workspace.call('GET','/studio-api/me/model-configs',{...headers})).json() as {configs:{channel:string;model:string}[]}).configs.find(config=>config.channel==='video')?.model).toBe('unsupported-model');
+ await expect(status()).toContainText('视频已配置·未验证');
+ await expect(status()).not.toContainText('已核验');
+});

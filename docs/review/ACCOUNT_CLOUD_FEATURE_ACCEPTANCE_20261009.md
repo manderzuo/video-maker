@@ -220,6 +220,7 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 帮助（`CloudHelpPage`，`/help`）：云端口径重写（账号隔离、修订冲突、未知提交、费用、受控能力），复用静态第三方许可文本；旧本地存储口径（浏览器存整库、`已保存`=本地事务等）不再出现。
 - 逐项验证（旧流程→云端覆盖→用例）：项目包导出/导入→`CloudProjectsPage`导入导出（`cloud-workspace.spec.ts:27`）；Agent提案/应用/撤销→`CloudAgentPanel`（`cloud-agent.spec.ts`两条）；项目/素材/提示词回收站与恢复→三页trashed态（`cloud-controls.spec.ts:19`、`cloud-prompts.spec.ts:7`、`cloud-workspace.spec.ts`系列）；提示词写作记录/历史→`cloud-prompts.spec.ts:40`等；任务中心→`cloud-video.spec.ts:13`等；旧版迁移→`legacy-user-import.spec.ts`。
 - 未开放并明确标注（不计入完成）：旧离线包格式显式迁移开关（`PackagePage`遗留逻辑，只读用户自选文件那套未接回；云端包与旧版迁移两条路已覆盖导入）；本地诊断导出/活动（无云端接口，诊断由服务端任务记录承载）；Agent待决策的跨项目聚合（只在项目内会话处理）；全局搜索不含回收站与已删除内容。
+- 上述三项逐项定性（范围待验转明确结论）：①旧离线包显式迁移开关→**等价恢复**：旧能力=用户明确选择文件+格式校验+预览+原包保留，云端包导入（`CloudProjectsPage`导入对话框：选包→校验预览→确认导入当前账号）与旧版迁移（`LegacyImportPage`读本机旧库/旧包并分阶段提交）两条路完整覆盖，且默认只认受信格式、比旧开关更严；开关形式未照搬。②本地诊断导出→**实际缺口**：单浏览器本地诊断条目的脱敏导出无云端接口，未补服务接口前不开放；诊断改由服务端任务记录（任务中心/写作记录/运行快照）承载，可查不可导出。③Agent跨项目待决策聚合→**非缺口**：旧版导航（项目/画布/素材/提示词/任务/活动/设置/帮助）本就没有跨项目Agent页，Agent会话历来是项目级；云端`CloudAgentPanel`（创建/授权/预览/确认/应用/撤销）已等价恢复并有`cloud-agent.spec.ts`两条覆盖，任务中心只呈video是审计定归属，不删账务。
 - 按钮审计：新增表面全部按钮均有行为或禁用原因（保存类按钮在确认引用可读前禁用并给出原因；空态无按钮；通知/连接数只读展示）；`?node=`/`?q=`不新增按钮。
 - 审计F023（连接状态误报已连接）：`CloudConnectionStatus`原仅凭`modelConfigs()`有配置就显示“已连接”，而该接口无任何探测证据。现仅保存的配置一律标“已配置·未验证”，视频另取与当前配置绑定的`videoCapability().verified`（按当前地址查合同、按当前模型过滤规格，配置一改即重算）才标“规格已核验”；弹窗明示“不代表连接探测成功”，探测只在API设置页当时当地呈现，不为展示发起任何上游调用。另核实：新地址保存强制要求密钥（服务端`API_KEY_REQUIRED`），无密钥的已存配置经公开接口不可达，故不设无密钥分支。
 - 草稿切换flaky根因修正（`cloud-prompt-optimize:29`全量偶发失败）：`manualDirty`把“初始未同步的空正文”误判为用户未保存修改，导致加载窗口内切换被误阻断。现以独立`edited`标记区分用户编辑与程序化同步（切换/保存/放弃/重载时复位），F014“未保存则阻断”语义不变；用例加“初始无`manual-guard`误报”断言并等选项加载完再选择。
@@ -227,3 +228,10 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 审计F023剩余分支（保存后无刷新不同步）：顶部状态读取effect原只依赖稳定client，设置页保存不重读。现保存成功派发`aiwork:model-configs-changed`事件，顶部按路由变化与该事件重读，并以序号守卫丢弃迟到响应；另按静态核对收紧语义——`verified`为真但当前模型不在`videoSpecs`内时不宣称“规格已核验”。回归用例经真实设置页改模型→保存→不刷新断言状态翻转，改回亦然。
 - 新增F024（同项目连续搜索只改URL不跟随）：`CloudCanvasPage`的`focusedOnce`首定位后永久失效。现按目标node变化重新定位；有未保存输入（非saved态）时不动选中与视角，autosave完成后状态变化会重新评估；回归用例连续点击两节点并断言选中跟随与前者脱钩。
 - F023/F024后复验：`typecheck`/`lint` exit 0；`test:unit` 95文件694项 exit 0；`cloud-shell` 7/7（含上述两条回归）；`cloud-prompt-optimize`连跑3遍15/15；云全量89 passed exit 0（`work/account-api-cloud/stage7-f023f024-final.log`，未截断）。
+
+## 13. 阶段8（整体验收，本地可执行部分；生产与真实收费待授权）
+
+- 真实点击旅程（本地假上游，零付费）：`cloud-journey.spec.ts`从空项目开始，全程点击完成API配置（含测试连接成功后保存）、提示词新建、画布建流程并保存、素材上传入库、生成确认、经任务详情进入结果页、修改、续写、跨页面恢复；`providerCalls` POST仅1次（生成提交）。
+- 验证矩阵（本轮实际commit与结果）：`typecheck`/`lint`/服务端`typecheck` exit 0；`test:unit` 95文件694项；服务端`workspace-commands` 13项；云全量90 passed；`vite build` exit 0且`check-bundle-budget` passed；构建产物无测试密钥/私钥残留（`dist/assets`无`FAKE_*_KEY`/`aiwork_local_test_only`/私钥头）。
+- 严格HTTPS：`test-account-tls-environment.mjs` 4/4通过；但整套HTTPS浏览器验收阻塞——`trusted-test-tls/`为空（pem/key被gitignore，不在仓库是对的），历史`test-tls/cert.pem`系自签名未受信（CN=127.0.0.1，核对时UTC 2026-10-09T10:03），`run-account-browser-tests.mjs`要求先跑本地受信wrapper；系统根证书安装需用户明确授权，未擅自操作。旧匿名验收套件因合法入口替换不适用（映射见§10），不以静态检查代替。
+- 待完成（需授权，勿视作已交付）：真实模型验收（文字优化/纯文字视频/带参考视频/续写生成，需用户选定输入模型并确认费用，本轮零触发）；生产数据库/媒体/配置备份、兼容性检查与恢复演练、部署上线与同提交号线上复测（无生产变更授权，均未执行；用户此后写入内容不得覆盖）。
