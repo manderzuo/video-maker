@@ -20,6 +20,7 @@ import {contentAssetIds,writeContent} from '../prompts/repository.js';
 import {cloudTaskSchema} from '../../../src/domain/cloud-task.js';
 import {cloudVideoRecordSchema,cloudVideoArchiveSchema,portableVideoRun} from '../../../src/domain/cloud-video-run.js';
 import {assetSchema} from '../../../src/domain/asset.js';
+import {cloudAgentConversationSchema,cloudAgentProposalSchema,cloudAgentRunSchema} from '../../../src/domain/cloud-agent.js';
 export const importProjectSchema=z.strictObject({data:cloudProjectPackageSchema,assets:z.record(z.string(),z.uuid()),idempotencyKey:z.uuid()});
 type ReceiptRow={id:string;revision:number;command_type:'operations'|'undo'|'redo'|'viewport';before_graph:unknown;after_graph:unknown;created_at:Date};
 export async function exportProjectPackage(pool:Pool,context:AuthContext,id:string,now:Date,storage?:AssetStorageOptions){
@@ -38,7 +39,12 @@ export async function exportProjectPackage(pool:Pool,context:AuthContext,id:stri
   const sources=await client.query<{run_id:string}>("SELECT document->>'sourceRunId' AS run_id FROM workspace_assets WHERE user_id=$1 AND id::text=ANY($2::text[]) AND document->>'sourceRunId' IS NOT NULL",[context.userId,baseIds]);
   const videos=await client.query<{document:unknown}>("SELECT document FROM workspace_video_runs WHERE user_id=$1 AND (project_id=$2 OR id::text=ANY($3::text[])) UNION ALL SELECT document FROM workspace_task_archives WHERE user_id=$1 AND document->>'kind'='video' AND (project_id=$2 OR id::text=ANY($3::text[]))",[context.userId,id,sources.rows.map(row=>row.run_id)]);
   const videoHistory=videos.rows.map(row=>portableVideoRun(cloudVideoRecordSchema.parse(row.document)));
-  const taskHistory=[...taskRows.rows.map(row=>cloudTaskSchema.parse(row.document)),...videoHistory];
+  const agentRows=await client.query<{document:unknown}>('SELECT document FROM workspace_agent_conversations WHERE user_id=$1 AND project_id=$2 ORDER BY id FOR SHARE',[context.userId,id]);
+  const agentHistory:NonNullable<CloudProjectPackage['agentHistory']>=[];
+  const portableConversation=(input:unknown)=>cloudAgentConversationSchema.parse({...cloudAgentConversationSchema.parse(input),grant:null,historical:true});
+  for(const row of agentRows.rows){const conversation=portableConversation(row.document),versions=await client.query<{document:unknown}>('SELECT document FROM workspace_agent_versions WHERE user_id=$1 AND id=$2 ORDER BY revision',[context.userId,conversation.id]),proposals=await client.query<{document:unknown}>('SELECT document FROM workspace_agent_proposals WHERE user_id=$1 AND conversation_id=$2 ORDER BY id FOR SHARE',[context.userId,conversation.id]);agentHistory.push({conversation,versions:versions.rows.map(row=>portableConversation(row.document)),proposals:proposals.rows.map(row=>cloudAgentProposalSchema.parse({...cloudAgentProposalSchema.parse(row.document),historical:true}))});}
+  const agentTasks=await client.query<{document:unknown}>("SELECT document FROM workspace_agent_runs WHERE user_id=$1 AND conversation_id::text=ANY($2::text[]) UNION ALL SELECT document FROM workspace_task_archives WHERE user_id=$1 AND document->>'kind'='agent-advice' AND document->>'conversationId'=ANY($2::text[])",[context.userId,agentHistory.map(record=>record.conversation.id)]);
+  const taskHistory=[...taskRows.rows.map(row=>cloudTaskSchema.parse(row.document)),...videoHistory,...agentTasks.rows.map(row=>cloudAgentRunSchema.parse({...cloudAgentRunSchema.parse(row.document),historical:true}))];
   const ids=[...new Set([...baseIds,...videoHistory.flatMap(run=>[...(run.resultAssetId?[run.resultAssetId]:[]),...run.inputSnapshot.references.map(ref=>ref.assetId)])])].sort();
   const media=await client.query<AssetRow>("SELECT id,state,document,thumbnail FROM workspace_assets WHERE user_id=$1 AND id::text=ANY($2::text[]) ORDER BY id FOR SHARE",[context.userId,ids]);
   if(media.rows.length!==ids.length)throw new HttpError(409,'PACKAGE_INCOMPLETE');
@@ -51,7 +57,7 @@ export async function exportProjectPackage(pool:Pool,context:AuthContext,id:stri
    assets.push({asset:{...asset,blobKey:'sha256:'+asset.sha256},...(thumbnail?{thumbnail}:{})});
   }
   const stack=history.rows[0];
-  const data=cloudProjectPackageSchema.parse(portableCloudContent({format:'aiwork-studio-cloud-project',version:1,createdAt:now.getTime(),project,graph,assets,content,taskHistory,history:{receipts,undo:stack?.undo_stack??[],redo:stack?.redo_stack??[]}}));
+  const data=cloudProjectPackageSchema.parse(portableCloudContent({format:'aiwork-studio-cloud-project',version:1,createdAt:now.getTime(),project,graph,assets,content,taskHistory,agentHistory,history:{receipts,undo:stack?.undo_stack??[],redo:stack?.redo_stack??[]}}));
   if(Buffer.byteLength(JSON.stringify(data))>16*1024*1024)throw new HttpError(413,'BODY_TOO_LARGE');
   return data;
  });
@@ -79,7 +85,8 @@ export async function importProjectPackage(pool:Pool,context:AuthContext,input:z
   }
   const projectId=randomUUID(),graphs=[data.graph,...data.history.receipts.flatMap(r=>[r.before,r.after])];
   const records=data.content??[],draftVersions=records.flatMap(record=>record.kind==='draft'?record.versions.flatMap(draft=>draft.resultVersions):[]);
-  const maps={project:new Map([[data.project.id,projectId]]),node:new Map(graphs.flatMap(g=>g.nodes).map(n=>[n.id,randomUUID()])),asset:new Map(Object.entries(input.assets)),entry:new Map(records.filter(r=>r.kind==='prompt').map(r=>[r.document.id,randomUUID()])),draft:new Map(records.filter(r=>r.kind==='draft').map(r=>[r.document.id,randomUUID()])),version:new Map(draftVersions.map(v=>[v.id,randomUUID()])),run:new Map((data.taskHistory??[]).map(task=>[task.id,randomUUID()]))};
+  const agents=data.agentHistory??[];
+  const maps={project:new Map([[data.project.id,projectId]]),node:new Map([...graphs.flatMap(g=>g.nodes).map(n=>n.id),...(data.taskHistory??[]).flatMap(task=>task.kind==='agent-advice'?task.inputSnapshot.nodes.map(node=>node.id):[])].map(id=>[id,randomUUID()])),asset:new Map(Object.entries(input.assets)),entry:new Map(records.filter(r=>r.kind==='prompt').map(r=>[r.document.id,randomUUID()])),draft:new Map(records.filter(r=>r.kind==='draft').map(r=>[r.document.id,randomUUID()])),version:new Map(draftVersions.map(v=>[v.id,randomUUID()])),run:new Map((data.taskHistory??[]).map(task=>[task.id,randomUUID()])),conversation:new Map(agents.map(record=>[record.conversation.id,randomUUID()])),proposal:new Map(agents.flatMap(record=>record.proposals).map(proposal=>[proposal.id,randomUUID()]))};
   // Imported results get an immutable new file record so existing owned media
   // retain their original run association when another project is imported.
   const results=data.assets.filter(item=>item.asset.sourceRunId);
@@ -107,7 +114,13 @@ export async function importProjectPackage(pool:Pool,context:AuthContext,input:z
   const project=projectViewSchema.parse({...data.project,id:projectId,starred:data.project.starred??false,revision:0,createdAt:now.getTime(),updatedAt:now.getTime(),trashedAt:null});
   await client.query('INSERT INTO workspace_projects(id,user_id,revision,document,created_at,updated_at) VALUES($1,$2,0,$3::jsonb,$4,$4)',[projectId,context.userId,JSON.stringify(project),now]);
   await client.query('INSERT INTO workspace_graphs(user_id,project_id,revision,graph) VALUES($1,$2,0,$3::jsonb)',[context.userId,projectId,JSON.stringify(graph)]);
-  for(const task of data.taskHistory??[]){const id=maps.run.get(task.id)!,document=(task.kind==='video'?cloudVideoArchiveSchema:cloudTaskSchema).parse({...remapResources(task,maps) as object,id,historical:true});await client.query('INSERT INTO workspace_task_archives(user_id,id,project_id,source_task_id,document) VALUES($1,$2,$3,$4,$5::jsonb)',[context.userId,id,projectId,task.id,JSON.stringify(document)]);if(document.kind==='video')for(const assetId of new Set([...(document.resultAssetId?[document.resultAssetId]:[]),...document.inputSnapshot.references.map(ref=>ref.assetId)]))await client.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[context.userId,projectId,assetId,'run:'+id]);}
+  for(const task of data.taskHistory??[]){const id=maps.run.get(task.id)!,mapped=remapResources(task,maps) as typeof task;if(mapped.kind==='agent-advice')mapped.inputSnapshot.nodes=mapped.inputSnapshot.nodes.map(node=>({...node,id:maps.node.get(node.id)!}));const document=(task.kind==='video'?cloudVideoArchiveSchema:task.kind==='agent-advice'?cloudAgentRunSchema:cloudTaskSchema).parse({...mapped,id,historical:true});await client.query('INSERT INTO workspace_task_archives(user_id,id,project_id,source_task_id,document) VALUES($1,$2,$3,$4,$5::jsonb)',[context.userId,id,projectId,task.id,JSON.stringify(document)]);if(document.kind==='video')for(const assetId of new Set([...(document.resultAssetId?[document.resultAssetId]:[]),...document.inputSnapshot.references.map(ref=>ref.assetId)]))await client.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[context.userId,projectId,assetId,'run:'+id]);}
+  for(const record of agents){
+   const id=maps.conversation.get(record.conversation.id)!,notes=new Map(record.versions.flatMap(version=>version.notes).map(note=>[note.id,randomUUID()]));
+   const mapped=(value:typeof record.conversation)=>{const remapped=remapResources(value,maps) as typeof value;return cloudAgentConversationSchema.parse({...remapped,id,grant:null,historical:true,notes:remapped.notes.map(note=>({...note,id:notes.get(note.id)!}))});};
+   await client.query('INSERT INTO workspace_agent_conversations(user_id,id,project_id,document) VALUES($1,$2,$3,$4::jsonb)',[context.userId,id,projectId,JSON.stringify(mapped(record.conversation))]);for(const version of record.versions)await client.query('INSERT INTO workspace_agent_versions(user_id,id,revision,document) VALUES($1,$2,$3,$4::jsonb)',[context.userId,id,version.revision,JSON.stringify(mapped(version))]);
+   for(const proposal of record.proposals){const document=cloudAgentProposalSchema.parse({...remapResources(proposal,maps) as object,id:maps.proposal.get(proposal.id)!,historical:true});await client.query('INSERT INTO workspace_agent_proposals(user_id,id,conversation_id,document,frozen_grant) VALUES($1,$2,$3,$4::jsonb,\'null\'::jsonb)',[context.userId,document.id,id,JSON.stringify(document)]);}
+  }
   for(const receipt of receipts){
    await client.query('INSERT INTO workspace_command_receipts(user_id,id,project_id,revision,fingerprint,before_graph,after_graph,command_type,created_at) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7::jsonb,$8,$9)',[context.userId,receipt.id,projectId,receipt.revision,'import-history:'+receipt.id,JSON.stringify(receipt.before),JSON.stringify(receipt.after),receipt.type,new Date(receipt.createdAt)]);
    for(const assetId of new Set([...graphAssetIds(receipt.before),...graphAssetIds(receipt.after)]))await client.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[context.userId,projectId,assetId,'command:'+receipt.id]);

@@ -5,6 +5,11 @@ import {projectSchema} from './project.js';
 import {promptLibrarySchema,promptDraftSchema} from './prompt.js';
 import {cloudTaskSchema} from './cloud-task.js';
 import {cloudVideoArchiveSchema} from './cloud-video-run.js';
+import {cloudAgentConversationSchema,cloudAgentProposalSchema,cloudAgentRunSchema} from './cloud-agent.js';
+const agentHistorySchema=z.strictObject({conversation:cloudAgentConversationSchema,versions:z.array(cloudAgentConversationSchema),proposals:z.array(cloudAgentProposalSchema)}).superRefine((record,ctx)=>{
+ if(record.conversation.grant!==null||record.conversation.historical!==true||record.versions.some(version=>version.grant!==null||version.historical!==true||version.id!==record.conversation.id||version.projectId!==record.conversation.projectId)||record.proposals.some(proposal=>proposal.historical!==true||proposal.conversationId!==record.conversation.id||proposal.projectId!==record.conversation.projectId))ctx.addIssue({code:'custom',message:'Agent 历史不得携带有效授权'});
+ if(new Set(record.versions.map(version=>version.revision)).size!==record.versions.length||!record.versions.some(version=>JSON.stringify(version)===JSON.stringify(record.conversation)))ctx.addIssue({code:'custom',message:'Agent 会话历史不完整'});
+});
 export const privateFileSchema=z.strictObject({bytes:z.number().int().positive(),sha256:z.string().regex(/^[a-f0-9]{64}$/),mimeType:z.enum(['image/png','image/jpeg','image/gif','image/webp','video/mp4','video/webm','audio/wav','audio/ogg','audio/mpeg'])});
 const historyReceiptSchema=z.strictObject({id:z.uuid(),revision:z.number().int().positive(),type:z.enum(['operations','undo','redo','viewport']),before:graphSchema,after:graphSchema,createdAt:z.number().int().nonnegative()});
 export const cloudContentRecordSchema=z.discriminatedUnion('kind',[
@@ -18,7 +23,8 @@ export const cloudProjectPackageSchema=z.strictObject({
  project:projectSchema,graph:graphSchema,
  assets:z.array(z.strictObject({asset:assetSchema,thumbnail:privateFileSchema.optional()})),
  content:z.array(cloudContentRecordSchema).optional(),
- taskHistory:z.array(z.union([cloudTaskSchema,cloudVideoArchiveSchema])).optional(),
+ taskHistory:z.array(z.union([cloudTaskSchema,cloudVideoArchiveSchema,cloudAgentRunSchema])).optional(),
+ agentHistory:z.array(agentHistorySchema).optional(),
  history:z.strictObject({receipts:z.array(historyReceiptSchema),undo:z.array(z.uuid()),redo:z.array(z.uuid())})
 }).superRefine((value,ctx)=>{
  const receiptIds=new Set(value.history.receipts.map(r=>r.id)),assets=new Set(value.assets.map(r=>r.asset.id));
@@ -28,6 +34,9 @@ export const cloudProjectPackageSchema=z.strictObject({
  if(new Set(value.content?.map(record=>record.document.id)).size!==(value.content?.length??0))ctx.addIssue({code:'custom',message:'内容ID重复'});
  const content=new Map(value.content?.map(record=>[record.document.id,record]));
  const tasks=new Map(value.taskHistory?.map(task=>[task.id,task]));
+ const conversations=new Map(value.agentHistory?.map(record=>[record.conversation.id,record]));
+ if(conversations.size!==(value.agentHistory?.length??0)||[...conversations.values()].some(record=>record.conversation.projectId!==value.project.id))ctx.addIssue({code:'custom',message:'Agent 会话项目不一致'});
+ for(const task of value.taskHistory??[])if(task.kind==='agent-advice'){const record=conversations.get(task.conversationId);if(!record||task.historical!==true||task.proposalId&&!record.proposals.some(proposal=>proposal.id===task.proposalId))ctx.addIssue({code:'custom',message:'Agent 任务历史不完整'});}
  if(tasks.size!==(value.taskHistory?.length??0)||(value.taskHistory??[]).some(task=>task.kind==='prompt-optimize'&&content.get(task.draftId)?.kind!=='draft'))ctx.addIssue({code:'custom',message:'任务历史来源不完整'});
  for(const record of value.content??[])if(record.kind==='draft')for(const input of record.versions)for(const version of input.resultVersions)if(version.promptRunId){const task=tasks.get(version.promptRunId);if(!task||task.kind!=='prompt-optimize'||task.draftId!==record.document.id||task.sourceRevision!==version.sourceRevision)ctx.addIssue({code:'custom',message:'结果任务历史不完整'});}
  function check(input:unknown){if(!input||typeof input!=='object')return;for(const [key,item]of Object.entries(input)){if(['assetId','sourceAssetId','resultAssetId'].includes(key)&&typeof item==='string'&&!assets.has(item))ctx.addIssue({code:'custom',message:'素材清单不完整'});else check(item);}}

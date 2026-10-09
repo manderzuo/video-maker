@@ -1,9 +1,9 @@
 import {observeGeneration} from '../settings/connection-status';
-import {z} from 'zod';
+import {parseAgentAdvice,scopedAgentNodes} from '../../domain/agent-advice';
 import {localText} from '../../domain/common';
 import type {AgentSession} from '../../domain/agent-session';
 import type {Graph} from '../../domain/graph';
-import {graphOperationSchema,type Proposal} from '../../domain/proposal';
+import type {Proposal} from '../../domain/proposal';
 import {getIndependentText} from '../../adapters/text/current-text';
 import {sendCoreText} from '../../adapters/core/text';
 import {getAgentSession,heartbeatAgent,isOnlineAgent} from './agent-client';
@@ -16,19 +16,9 @@ import {sanitizeKnownSecrets} from '../../security/credential-session';
 export type OnlineAgentPreview={id:string;sessionId:string;projectId:string;revision:number;grantSnapshot:string;connectionId:string;authBindingId:string;body:string;hash:string;expiresAt:number;priorUnknownIds:string[]};
 type AgentRun={id:string;kind:'online-agent-request';projectId:string;sessionId:string;connectionId:string;authBindingId:string;originSnapshot:string;idempotencyKey:string;requestSnapshot:string;revision:number;executionState:'persisted'|'sending'|'succeeded'|'response_unknown'|'failed_confirmed';billingState:'not_provided';createdAt:number;previewHash:string;decision:{confirmed:true;acknowledgeTextFee:true;acknowledgePriorUnknown?:true};content?:string;proposalId?:string;errorCode?:string};
 const sealed=new Map<string,OnlineAgentPreview>();
-const replySchema=z.strictObject({message:localText,operations:z.array(graphOperationSchema).max(100)});
 function exactSession(id:string){const s=getAgentSession(id);if(!isOnlineAgent(id)||!s?.connected||s.grant.expiresAt<=Date.now()||s.grant.access!=='propose')throw Error('agent_propose_permission_required');return s;}
-export function scopedOnlineNodes(graph:Graph,session:AgentSession){if(graph.projectId!==session.projectId)throw Error('agent_project_scope');const allowed=new Set(session.grant.nodeIds);return graph.nodes.filter(n=>session.grant.scope==='project'||allowed.has(n.id)).map(n=>({id:n.id,title:n.title,type:n.type,x:n.x,y:n.y,locked:n.locked,...(n.type==='text'?{text:n.data.text}:{})}));}
-export function parseOnlineProposal(content:string,graph:Graph,session:AgentSession,id:string):{message:string;proposal?:Proposal}{
- if(!session.connected||session.grant.access!=='propose'||session.grant.expiresAt<=Date.now())throw Error('agent_propose_permission_required');
- const text=content.trim().replace(/^\x60{3}(?:json)?\s*/i,'').replace(/\x60{3}$/,'');const parsed=replySchema.parse(JSON.parse(text));
- for(const op of parsed.operations){const node=graph.nodes.find(n=>n.id===op.payload.nodeId);if(!node||node.locked||session.grant.scope!=='project'&&!session.grant.nodeIds.includes(node.id))throw Error('proposal_node_scope');
-  if(op.type==='move_node'){if(Object.keys(op.payload).some(k=>!['nodeId','x','y'].includes(k))||typeof op.payload.x!=='number'||typeof op.payload.y!=='number'||!Number.isFinite(op.payload.x)||!Number.isFinite(op.payload.y))throw Error('proposal_invalid');}
-  else if(op.type==='update_node'){const patch=op.payload.patch;if(node.type!=='text'||!patch||typeof patch!=='object'||Array.isArray(patch)||Object.keys(op.payload).some(k=>!['nodeId','patch'].includes(k))||Object.keys(patch).some(k=>!['title','data'].includes(k)))throw Error('proposal_operation_denied');const data=(patch as {data?:unknown}).data;if(data!==undefined&&(!data||typeof data!=='object'||Array.isArray(data)||Object.keys(data).some(k=>!['kind','text','referenceTokens'].includes(k))||JSON.stringify((data as {referenceTokens?:unknown}).referenceTokens)!==JSON.stringify(node.data.referenceTokens)))throw Error('proposal_reference_change_denied');}
-  else throw Error('proposal_operation_denied');
- }
- return {message:sanitizeKnownSecrets(parsed.message),...(parsed.operations.length?{proposal:{id,projectId:graph.projectId,sessionId:session.id,baseRevision:graph.revision,status:'proposed' as const,operations:parsed.operations}}:{})};
-}
+export function scopedOnlineNodes(graph:Graph,session:AgentSession){return scopedAgentNodes(graph,session.grant);}
+export function parseOnlineProposal(content:string,graph:Graph,session:AgentSession,id:string):{message:string;proposal?:Proposal}{return parseAgentAdvice(content,graph,session,id,sanitizeKnownSecrets);}
 async function unknownRuns(projectId:string){return withDatabase(undefined,db=>transact(db,['receipts'],'readonly',async tx=>(await requestResult<unknown[]>(tx.objectStore('receipts').getAll())).filter((r):r is AgentRun=>!!r&&typeof r==='object'&&'kind'in r&&r.kind==='online-agent-request'&&'projectId'in r&&r.projectId===projectId&&'executionState'in r&&['sending','response_unknown'].includes(String(r.executionState))).map(r=>r.id).sort()));}
 export async function prepareOnlineAgent(sessionId:string,description:string):Promise<OnlineAgentPreview>{
  localText.parse(description);if(!description.trim())throw Error('agent_description_required');

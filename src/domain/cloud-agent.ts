@@ -1,0 +1,16 @@
+import {z} from 'zod';
+import {id,localText,boundedText,snapshotSchema} from './common.js';
+import {agentGrantSchema} from './agent-session.js';
+import {proposalSchema} from './proposal.js';
+import {billingStateSchema} from './run.js';
+export const cloudAgentContextSchema=z.strictObject({scope:z.enum(['selection','nodes','project']),nodeIds:z.array(z.uuid()).max(1000),revision:z.number().int().nonnegative()});
+export const cloudAgentNoteSchema=z.strictObject({id:z.uuid(),body:localText,context:cloudAgentContextSchema,createdAt:z.number().int().nonnegative()});
+export const cloudAgentConversationSchema=z.strictObject({id:z.uuid(),projectId:z.uuid(),title:boundedText(1,60),revision:z.number().int().nonnegative(),grant:agentGrantSchema.nullable(),notes:z.array(cloudAgentNoteSchema).max(100),createdAt:z.number().int().nonnegative(),updatedAt:z.number().int().nonnegative(),historical:z.literal(true).optional()});
+export type CloudAgentConversation=z.infer<typeof cloudAgentConversationSchema>;
+export const cloudAgentProposalSchema=proposalSchema.omit({sessionId:true}).extend({id:z.uuid(),conversationId:z.uuid(),revision:z.number().int().nonnegative(),grantEpoch:z.number().int().positive(),message:localText,decisions:z.array(z.strictObject({decision:z.enum(['applied','rejected']),operationIds:z.array(id),createdAt:z.number().int(),graphRevision:z.number().int().optional()})),historical:z.literal(true).optional()});
+export type CloudAgentProposal=z.infer<typeof cloudAgentProposalSchema>;
+export const cloudAgentInputSchema=z.strictObject({description:localText,nodes:z.array(z.strictObject({id:z.uuid(),title:z.string(),type:z.string(),x:z.number(),y:z.number(),locked:z.boolean(),text:localText.optional()})),revision:z.number().int()}).refine(input=>snapshotSchema.safeParse(input).success);
+export const cloudAgentRunSchema=z.strictObject({id:z.uuid(),kind:z.literal('agent-advice'),projectId:z.uuid(),conversationId:z.uuid(),inputSnapshot:cloudAgentInputSchema,apiBase:z.url(),model:z.string(),configRevision:z.number().int().positive(),secretVersion:z.number().int().positive(),executionState:z.enum(['persisted','sending','response_received','succeeded','failed_confirmed','response_unknown']),billingState:billingStateSchema,message:localText.optional(),proposalId:z.uuid().optional(),errorCode:z.enum(['UPSTREAM_FAILED','INVALID_UPSTREAM_RESULT','SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','RESULT_SAVE_PENDING','GRANT_CHANGED','GRAPH_CHANGED']).optional(),createdAt:z.number().int(),updatedAt:z.number().int(),historical:z.literal(true).optional()});
+export type CloudAgentRun=z.infer<typeof cloudAgentRunSchema>;
+export const cloudAgentPreviewSchema=z.strictObject({id:z.uuid(),conversationId:z.uuid(),projectId:z.uuid(),conversationRevision:z.number().int(),graphRevision:z.number().int(),grantEpoch:z.number().int().positive(),inputSnapshot:cloudAgentInputSchema,apiBase:z.url(),model:z.string(),configRevision:z.number().int().positive(),priorUnknownRunIds:z.array(z.uuid()),expiresAt:z.number().int()});
+export type CloudAgentPreview=z.infer<typeof cloudAgentPreviewSchema>;

@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {id,timestamp} from './common';
+import {id,timestamp} from './common.js';
 export const agentGrantSchema=z.strictObject({projectId:id,scope:z.enum(['selection','nodes','project']),nodeIds:z.array(id).max(1000).refine(ids=>new Set(ids).size===ids.length),access:z.enum(['read','propose']),expiresAt:timestamp,epoch:z.number().int().positive()});
 export type AgentGrant=z.infer<typeof agentGrantSchema>;
 export const agentSessionSchema=z.strictObject({id,projectId:id,allowedOrigin:z.url(),grant:agentGrantSchema,connected:z.boolean()});

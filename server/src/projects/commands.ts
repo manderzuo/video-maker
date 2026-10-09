@@ -51,7 +51,9 @@ export async function validateResources(client:PoolClient,context:AuthContext,gr
  if(validateBindings)for(const node of graph.nodes)if(node.type==='video-generation'&&JSON.stringify(node.data.inputBindings)!==JSON.stringify(getOrderedInputs(graph,node.id)))throw new HttpError(400,'INVALID_COMMAND');
 }
 export async function applyProjectCommand(pool:Pool,context:AuthContext,projectId:string,input:ProjectCommand,now:Date){
- return transaction(pool,async client=>{
+ return transaction(pool,client=>applyProjectCommandInTransaction(client,context,projectId,input,now));
+}
+export async function applyProjectCommandInTransaction(client:PoolClient,context:AuthContext,projectId:string,input:ProjectCommand,now:Date){
   const project=await ownedProject(client,context,projectId,true),before=await readProjectGraph(client,context,projectId);
   if(project.trashedAt!==null)throw new HttpError(409,'PROJECT_IN_TRASH');
   const fingerprint=JSON.stringify({projectId,...input});
@@ -92,5 +94,4 @@ export async function applyProjectCommand(pool:Pool,context:AuthContext,projectI
   for(const assetId of graphAssetIds(next))await client.query("INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,'graph') ON CONFLICT DO NOTHING",[context.userId,projectId,assetId]);
   for(const assetId of new Set([...graphAssetIds(before),...graphAssetIds(next)]))await client.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[context.userId,projectId,assetId,'command:'+input.idempotencyKey]);
   return {id:input.idempotencyKey,status:'applied',revision:next.revision,project:updated,graph:next,history:{undoDepth:history.undo_stack.length,redoDepth:history.redo_stack.length}};
- });
 }
