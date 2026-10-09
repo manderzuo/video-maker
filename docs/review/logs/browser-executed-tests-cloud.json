@@ -14850,6 +14850,115 @@
         "paidRequests": 0,
         "blockedRequests": 0
       }
+    },
+    {
+      "id": "tests/e2e/cloud-project-purge.spec.ts::confirms only named batch items and keeps unnamed canvases",
+      "file": "tests/e2e/cloud-project-purge.spec.ts",
+      "title": "confirms only named batch items and keeps unnamed canvases",
+      "status": "passed",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 9,
+          "column": 362,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 10,
+          "column": 125,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 9,
+          "column": 362,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 10,
+          "column": 125,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 227,
+          "column": 64
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 228,
+          "column": 16
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 230,
+          "column": 34
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 232,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 234,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 216,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 217,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 218,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 220,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 226,
+          "column": 64
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
     }
   ]
 }

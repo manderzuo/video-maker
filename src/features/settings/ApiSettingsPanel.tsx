@@ -12,7 +12,7 @@ export function ApiSettingsPanel({context,bridge,client=defaultClient,onEnter,on
  async function reloadOnboarding(){if(!onReloadOnboarding||reloadPending||enterBusy)return;setReloadPending(true);try{await onReloadOnboarding();setEnterConflict(false);setEnterError('');setEnterMessage('账号状态已重新加载，请再次进入工作台。');}catch{setEnterError('账号状态加载失败，API 输入已保留，请重新加载账号状态。');}finally{setReloadPending(false);}}
  const pending=state.text.pending!==null||state.video.pending!==null;
  return <section className="api-settings-panel" aria-label={readOnly?'当前模型':context==='welcome'?'首次 API 配置':'API 设置'}>
-  <header className="api-settings-heading"><h1>{readOnly?'当前模型':context==='welcome'?'欢迎使用 AI WORK Studio':'API 设置'}</h1><p className="muted">{readOnly?'模型来自当前账号已保存的 API 配置。':context==='welcome'?'连接你的服务，开始创作。也可以先进入工作台，稍后再配置。':'配置保存到当前账号，可在 Welcome 和设置页查看。'}</p></header>
+  <header className="api-settings-heading"><h1>{readOnly?'当前模型':context==='welcome'?'欢迎使用 AI WORK Studio':'API 设置'}</h1><p className="muted">{readOnly?'模型来自当前账号已保存的 API 配置。':context==='welcome'?'连接你的服务，开始创作。也可以先进入工作台，稍后再配置。':'配置保存到当前账号，可在设置页查看。'}</p></header>
   {state.status==='loading'?<p role="status" className="muted">正在加载当前账号配置…</p>:null}
   {state.error?<p role="alert" className="banner error">{state.error}</p>:null}
   {readOnly?<div className="api-model-summary">{(['video','text'] as const).map(channel=><section className="card" key={channel}><h2>{channel==='video'?'视频模型':'文字模型'}</h2><p>{state[channel].saved?.model??'尚未配置'}</p><p className="muted">{state[channel].saved?.apiBase??'请前往 API 设置填写连接信息。'}</p></section>)}<LocalLink data-interaction-id="task3:models:settings" href="/settings/connections">前往 API 设置</LocalLink></div>:<>

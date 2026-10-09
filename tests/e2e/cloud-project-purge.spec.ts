@@ -209,6 +209,30 @@ test('blocks purge while a video run is active with a reason',async({page,worksp
  expect(projects).toHaveLength(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+test('confirms only named batch items and keeps unnamed canvases',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ const a=await makeTrashed(ctx,'子集甲'),b=await makeTrashed(ctx,'子集乙');
+ await page.goto('/trash');
+ await page.getByRole('checkbox',{name:'选择项目子集甲',exact:true}).check();
+ await page.getByRole('checkbox',{name:'选择项目子集乙',exact:true}).check();
+ await page.getByRole('button',{name:'批量永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'批量永久删除项目',exact:true});
+ await dialog.locator('article',{has:page.getByRole('heading',{name:'子集甲',exact:true})}).getByLabel('输入完整项目名称确认',{exact:true}).fill('子集甲');
+ let posts=0;
+ await page.route('**/studio-api/projects/*/purge',async route=>{
+  posts++;
+  await route.fallback();
+ });
+ await dialog.getByRole('button',{name:'确认删除已确认项',exact:true}).click();
+ await expect(page.getByText('批量永久删除成功 1，失败 0',{exact:false})).toBeVisible();
+ expect(posts).toBe(1);
+ const purged=(await ctx.pool.query("SELECT id FROM workspace_projects WHERE purged_at IS NOT NULL")).rows as unknown as {id:string}[];
+ expect(purged.map(row=>row.id)).toEqual([a.project.id]);
+ await page.goto('/projects/'+b.project.id+'/canvas');
+ await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('待删正文');
+ await page.unroute('**/studio-api/projects/*/purge');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
 test('keeps an old unknown batch item recoverable after opening another batch',async({page,workspace})=>{
  const ctx=asCtx(workspace),headers=workspace.headers(workspace.account);
  const a=await makeTrashed(ctx,'旧批甲'),b=await makeTrashed(ctx,'旧批乙');

@@ -11069,16 +11069,26 @@
             9,
             10,
             228,
-            234,
-            235,
-            238,
-            241,
-            242,
-            244,
-            246,
-            248
+            234
           ],
           "actions": 12
+        },
+        {
+          "testId": "tests/e2e/cloud-project-purge.spec.ts::confirms only named batch items and keeps unnamed canvases",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            9,
+            10,
+            227,
+            228,
+            230,
+            232,
+            234
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
