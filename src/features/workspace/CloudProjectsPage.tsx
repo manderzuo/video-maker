@@ -24,6 +24,44 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
  const [importOpen,setImportOpen]=useState(false),[file,setFile]=useState<File>(),[plan,setPlan]=useState<CloudImportPlan>();
  const [selection,setSelection]=useState<Set<string>>(new Set()),[batchOpen,setBatchOpen]=useState<'archive'|'export'>(),[batchFailures,setBatchFailures]=useState<BatchFailure[]>([]),[templateOpen,setTemplateOpen]=useState(false),[batchMessage,setBatchMessage]=useState(''),[viewMode,setViewMode]=useState<'grid'|'list'>(preferences.projectList?'list':'grid');
  const [purgeSingle,setPurgeSingle]=useState<{project:Project;preview:PurgePreview|undefined;failed:string;key:string}>(),[purgeName,setPurgeName]=useState('');
+ const [pendingPurge,setPendingPurge]=useState<{projectId:string;title:string}[]>([]);
+ useEffect(()=>{
+  if(!trashed)return;
+  try{
+   const identity=sessionStore.getState();
+   if(identity.status!=='authenticated')return;
+   const prefix='aiwork:purge-pending:'+identity.session.user.id+':',found:{projectId:string;title:string}[]=[];
+   for(let index=0;index<localStorage.length;index++){
+    const storageKey=localStorage.key(index);
+    if(!storageKey||!storageKey.startsWith(prefix))continue;
+    try{
+     const saved=JSON.parse(localStorage.getItem(storageKey)??'') as {key?:unknown;body?:{title?:unknown}};
+     if(typeof saved.key==='string'&&saved.key&&typeof saved.body?.title==='string')found.push({projectId:storageKey.slice(prefix.length),title:saved.body.title});
+    }catch{/* 跳过损坏项 */}
+   }
+   setPendingPurge(found);
+  }catch{/* 忽略 */}
+ },[trashed]);
+ async function retryStoredPurge(projectId:string){
+  setError('');
+  try{
+   const identity=sessionStore.getState();
+   if(identity.status!=='authenticated')throw new Error('AUTH_REQUIRED');
+   const raw=localStorage.getItem('aiwork:purge-pending:'+identity.session.user.id+':'+projectId);
+   if(!raw)throw new Error('未找到该项目的未决删除请求。');
+   const saved=JSON.parse(raw) as {key?:unknown;body?:{title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string}};
+   if(typeof saved.key!=='string'||!saved.body||typeof saved.body!=='object')throw new Error('未决删除请求已损坏。');
+   await action(async()=>{
+    await client.purgeProject(projectId,saved.body as {title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string});
+    if(alive.current){clearPurgeKey(projectId);setPendingPurge(current=>current.filter(item=>item.projectId!==projectId));await reload();}
+   });
+  }catch(e){setError(workspaceMessage(e));}
+ }
+ function abandonStoredPurge(projectId:string){
+  clearPurgeKey(projectId);
+  setPendingPurge(current=>current.filter(item=>item.projectId!==projectId));
+  setBatchMessage('已放弃该项目的未决删除；若服务端已接受，可用原请求重试，结果以服务端收据为准。');
+ }
  const [purgeBatch,setPurgeBatch]=useState<{project:Project;preview:PurgePreview|undefined;failed:string;key:string;name:string;done:boolean}[]>();
  const copies=useRef(new Map<string,{key:string;revision:number}>()),template=useRef<{projectId:string;key:string}|undefined>(undefined),alive=useRef(true);
  const reload=async()=>{const rows=await client.listProjects(trashed);if(alive.current){setProjects(rows);setLoading(false);}};
@@ -103,12 +141,20 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
    if(identity.status==='authenticated'){
     const raw=localStorage.getItem('aiwork:purge-pending:'+identity.session.user.id+':'+project.id);
     if(raw){const saved=JSON.parse(raw) as {key?:unknown};if(typeof saved.key==='string'&&saved.key)key=saved.key;}
-    localStorage.setItem('aiwork:purge-pending:'+identity.session.user.id+':'+project.id,JSON.stringify({key}));
    }
   }catch{/* 持久化失败不阻断预检 */}
   setPurgeSingle({project,preview:undefined,failed:'',key});
   try{const preview=await client.purgePreview(project.id);if(alive.current)setPurgeSingle(current=>current&&current.project.id===project.id?{...current,preview}:current);}
   catch(e){if(alive.current)setPurgeSingle(current=>current&&current.project.id===project.id?{...current,failed:workspaceMessage(e)}:current);}
+ }
+ function storePurgeBody(projectId:string,body:{title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string}|undefined){
+  try{
+   const identity=sessionStore.getState();
+   if(identity.status!=='authenticated')return;
+   const storageKey='aiwork:purge-pending:'+identity.session.user.id+':'+projectId;
+   if(!body)localStorage.removeItem(storageKey);
+   else localStorage.setItem(storageKey,JSON.stringify({key:body.idempotencyKey,body}));
+  }catch{/* 忽略 */}
  }
  function clearPurgeKey(projectId:string){
   try{
@@ -117,27 +163,43 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
   }catch{/* 忽略 */}
  }
  async function commitPurge(){
-  if(!purgeSingle?.preview)return;
   const target=purgeSingle;
+  if(!target?.preview)return;
+  const preview=target.preview;
+  const body={title:purgeName,expectedRevision:preview.revision,impactToken:preview.impactToken,confirmed:true as const,idempotencyKey:target.key};
+  storePurgeBody(target.project.id,body);
   await action(async()=>{
-   await client.purgeProject(target.project.id,{title:purgeName,expectedRevision:target.preview!.revision,impactToken:target.preview!.impactToken,confirmed:true,idempotencyKey:target.key});
+   await client.purgeProject(target.project.id,body);
    if(alive.current){clearPurgeKey(target.project.id);setPurgeSingle(undefined);setPurgeName('');await reload();}
   });
  }
  async function openPurgeBatch(ids:string[]){
   setError('');
-  const savedKeys=new Map<string,string>();
+  const savedItems:{projectId?:unknown;title?:unknown;revision?:unknown;impactToken?:unknown;preview?:unknown;key?:unknown;name?:unknown;done?:unknown}[]=[];
   try{
    const identity=sessionStore.getState();
    if(identity.status==='authenticated'){
     const raw=localStorage.getItem('aiwork:purge-batch-pending:'+identity.session.user.id);
-    if(raw)for(const entry of JSON.parse(raw) as {projectId?:unknown;key?:unknown}[])if(typeof entry.projectId==='string'&&typeof entry.key==='string'&&entry.key)savedKeys.set(entry.projectId,entry.key);
+    if(raw)for(const entry of JSON.parse(raw) as typeof savedItems)if(typeof entry.projectId==='string')savedItems.push(entry);
    }
   }catch{/* 忽略 */}
-  const batch=ids.map(id=>({project:projects.find(p=>p.id===id)!,preview:undefined as PurgePreview|undefined,failed:'',key:savedKeys.get(id)??crypto.randomUUID(),name:'',done:false})).filter(item=>item.project);
+  const batch=ids.map(id=>{
+   const project=projects.find(p=>p.id===id);
+   const saved=savedItems.find(entry=>entry.projectId===id);
+   const key=typeof saved?.key==='string'&&saved.key?saved.key:crypto.randomUUID();
+   if(project)return {project,preview:undefined as PurgePreview|undefined,failed:'',key,name:'',done:false};
+   if(typeof saved?.title==='string'&&typeof saved?.revision==='number'&&typeof saved?.impactToken==='string'&&saved.preview&&typeof saved.preview==='object')return {project:{id,title:saved.title,schemaVersion:1,description:'',revision:saved.revision,createdAt:0,updatedAt:0,archived:false,trashedAt:Date.now(),tags:[],starred:false} as Project,preview:saved.preview as PurgePreview,failed:'',key,name:typeof saved.name==='string'?saved.name:'',done:saved.done===true};
+   return undefined;
+  }).filter((item):item is NonNullable<typeof item>=>!!item);
+  // 存储中未完成但本次未选中的项也带回（刷新恢复），已选中的覆盖。
+  for(const saved of savedItems){
+   if(typeof saved.projectId!=='string'||saved.done===true||batch.some(item=>item.project.id===saved.projectId))continue;
+   if(typeof saved.title!=='string'||typeof saved.revision!=='number'||typeof saved.impactToken!=='string'||!saved.preview||typeof saved.preview!=='object'||typeof saved.key!=='string'||!saved.key)continue;
+   batch.push({project:{id:saved.projectId,title:saved.title,schemaVersion:1,description:'',revision:saved.revision,createdAt:0,updatedAt:0,archived:false,trashedAt:Date.now(),tags:[],starred:false} as Project,preview:saved.preview as PurgePreview,failed:'',key:saved.key,name:typeof saved.name==='string'?saved.name:'',done:false});
+  }
   try{
    const identity=sessionStore.getState();
-   if(identity.status==='authenticated')localStorage.setItem('aiwork:purge-batch-pending:'+identity.session.user.id,JSON.stringify(batch.map(item=>({projectId:item.project.id,key:item.key}))));
+   if(identity.status==='authenticated')localStorage.setItem('aiwork:purge-batch-pending:'+identity.session.user.id,JSON.stringify(batch.filter(item=>!item.done).map(item=>({projectId:item.project.id,title:item.project.title,revision:item.preview?.revision??item.project.revision,impactToken:item.preview?.impactToken??'',preview:item.preview,key:item.key,name:item.name,done:item.done}))));
   }catch{/* 忽略 */}
   setPurgeBatch(batch);
   await Promise.all(ids.map(async id=>{
@@ -198,6 +260,7 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
   <div className="actions"><label>搜索项目<input data-interaction-id="cloud:project:search" value={query} onChange={e=>setQuery(e.target.value)}/></label><label>排序<select data-interaction-id="cloud:project:sort" value={sort} onChange={e=>setSort(e.target.value)}><option value="updated">最近更新</option><option value="title">名称</option></select></label><label>项目筛选<select data-interaction-id="cloud:project:filter" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">全部</option><option value="active">未归档</option><option value="starred">星标</option><option value="archived">已归档</option></select></label></div>
   {error?<p className="banner error" role="alert">{error}</p>:null}{batchMessage?<p role="status">{batchMessage}</p>:null}{batchFailures.length?<div className="banner warning"><h3>未完成的项目</h3><ul>{batchFailures.map(item=><li key={item.id}>{item.title}：{item.message}</li>)}</ul><Button data-interaction-id="cloud:project:batch-dismiss" onClick={()=>{setBatchFailures([]);setBatchMessage('');}}>关闭批量结果</Button></div>:null}
   {!trashed&&selection.size?<div className="banner actions"><strong>已选择 {selection.size} 项</strong>{hiddenSelectedCount?<small>包含筛选范围外 {hiddenSelectedCount} 项</small>:null}<Button data-interaction-id="cloud:project:batch-archive" disabled={busy} onClick={()=>{setBatchFailures([]);setBatchMessage('');setBatchOpen('archive');}}>批量归档</Button><Button data-interaction-id="cloud:project:batch-export" disabled={busy} onClick={()=>{setBatchFailures([]);setBatchMessage('');setBatchOpen('export');}}>批量导出所选项目</Button><Button data-interaction-id="cloud:project:selection-clear" onClick={()=>setSelection(new Set())}>清除选择</Button></div>:null}
+  {trashed&&pendingPurge.length?<div className="banner actions"><strong>有 {pendingPurge.length} 项未完成的永久删除</strong><small>刷新或中断后可在此重试原动作，不会重复删除。</small>{pendingPurge.map(item=><span key={item.projectId}>{item.title}<Button data-interaction-id="cloud:project:purge-retry" disabled={busy} onClick={()=>void retryStoredPurge(item.projectId)}>重试原动作</Button><Button data-interaction-id="cloud:project:purge-abandon" disabled={busy} onClick={()=>abandonStoredPurge(item.projectId)}>放弃</Button></span>)}</div>:null}
   {trashed&&selection.size?<div className="banner actions"><strong>已选择 {selection.size} 项</strong>{hiddenSelectedCount?<small>包含筛选范围外 {hiddenSelectedCount} 项</small>:null}<Button data-interaction-id="cloud:project:batch-purge" disabled={busy} onClick={()=>{setBatchFailures([]);setBatchMessage('');void openPurgeBatch(Array.from(selection));}}>批量永久删除</Button><Button data-interaction-id="cloud:project:selection-clear" onClick={()=>setSelection(new Set())}>清除选择</Button></div>:null}
   {loading?<p>正在读取云端项目…</p>:visible.length?listBody:<p>{query?'没有匹配的项目':trashed?'回收站没有项目':'还没有项目'}</p>}
   <Dialog open={open} title={target?'修改项目信息':'新建项目'} dismissible={!busy} onClose={()=>setOpen(false)} footer={<><Button data-interaction-id="cloud:project:cancel" disabled={busy} onClick={()=>setOpen(false)}>取消</Button><Button data-interaction-id="cloud:project:save" variant="primary" busy={busy} disabled={!titleValid} onClick={save}>{target?'保存项目信息':'创建项目'}</Button></>}>
