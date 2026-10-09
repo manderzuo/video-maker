@@ -1,15 +1,14 @@
 import {z} from 'zod';
 import {promptLibrarySchema,type PromptLibraryEntry} from '../../domain/prompt';
-import {localText,type ValidationResult,boundedText} from '../../domain/common';
+import {localText,boundedText} from '../../domain/common';
 import {withDatabase,transact,requestResult,type StudioDb} from '../../infrastructure/storage/database';
 import {readGraph} from '../../infrastructure/storage/project-repository';
 import {getProjectWriter} from '../projects/project-service';
 import {releaseProjectLease} from '../../infrastructure/storage/project-lease';
 import {applyUiCommand} from '../../application/commands/apply-command';
 import type {GraphOperation} from '../../application/commands/registry';
-export function templateNames(entry:PromptLibraryEntry){return [...new Set([...entry.variables,...Array.from(entry.body.matchAll(/\{\{\s*([^{}]+?)\s*\}\}/g),match=>match[1].trim())])];}
-const validName=(name:string)=>!!name.trim()&&!['__proto__','constructor','prototype'].includes(name)&&!/[{}]/.test(name);
-export function fillTemplate(entry:PromptLibraryEntry,values:Record<string,string>):ValidationResult<string>{if(!entry.body.trim())return {ok:false,issues:[{code:'prompt_body_required',path:'body',message:'正文不能为空'}]};if(new Set(entry.variables).size!==entry.variables.length)return {ok:false,issues:[{code:'template_variable_duplicate',path:'variables',message:'变量声明重复'}]};const names=templateNames(entry),issues=names.flatMap(name=>!validName(name)?[{code:'template_variable_invalid',path:name,message:'变量名称无效'}]:!Object.hasOwn(values,name)||typeof values[name]!=='string'||!values[name].trim()?[{code:'template_variable_missing',path:name,message:'请填写变量：'+name}]:[]);if(/\{\{\s*\}\}/.test(entry.body))issues.push({code:'template_variable_invalid',path:'body',message:'模板中有空变量'});if(issues.length)return {ok:false,issues};const value=entry.body.replace(/\{\{\s*([^{}]+?)\s*\}\}/g,(_,name:string)=>values[name.trim()]);if(!localText.safeParse(value).success)return {ok:false,issues:[{code:'prompt_text_too_large',path:'body',message:'填值后的正文超过64KiB'}]};return {ok:true,value};}
+import {templateNames,fillTemplate,validName} from '../../domain/prompt-template';
+export {templateNames,fillTemplate};
 export async function listPrompts(db?:StudioDb){return withDatabase(db,c=>transact(c,['prompts'],'readonly',async tx=>(await requestResult<unknown[]>(tx.objectStore('prompts').getAll())).map(p=>promptLibrarySchema.parse(p))));}
 function validateEntry(entry:PromptLibraryEntry){const parsed=promptLibrarySchema.parse(entry);if(!parsed.title.trim()||!parsed.body.trim())throw new Error('prompt_title_body_required');if(parsed.variables.some(n=>!validName(n))||new Set(parsed.variables).size!==parsed.variables.length)throw new Error('prompt_variable_invalid');return parsed;}
 export async function savePrompt(entry:PromptLibraryEntry,expectedRevision?:number,options:{db?:StudioDb}={}):Promise<PromptLibraryEntry>{const input=validateEntry(entry);return withDatabase(options.db,c=>transact(c,['prompts','receipts'],'readwrite',async tx=>{const raw=await requestResult(tx.objectStore('prompts').get(input.id)),previous=raw?promptLibrarySchema.parse(raw):undefined;if((previous?.revision??0)!==(expectedRevision??input.revision))throw new Error('prompt_revision_conflict');const saved=promptLibrarySchema.parse({...input,revision:(previous?.revision??0)+1});tx.objectStore('prompts').put(saved);tx.objectStore('receipts').put({id:crypto.randomUUID(),kind:'prompt-version',entryId:saved.id,...previous?{before:previous}:{},after:saved,at:Date.now()});return saved;}));}

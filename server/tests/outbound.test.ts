@@ -33,3 +33,13 @@ it('shares the deadline and validated address across video health and catalog',a
  const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});
  try{const result=expect(outbound.models('video','https://api.test','FAKE_KEY')).rejects.toThrow('UPSTREAM_TIMEOUT');await vi.advanceTimersByTimeAsync(15000);await result;expect(calls).toHaveLength(2);expect(calls[0]?.signal).toBe(calls[1]?.signal);expect(calls[1]?.signal.aborted).toBe(true);}finally{vi.useRealTimers();}
 });
+it('sends completion only to the fixed TLS endpoint with pinned DNS and server supplied idempotency',async()=>{
+ const calls:OutboundRequest[]=[];const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request:async input=>{calls.push(input);return {status:200,body:Buffer.from('{}')};}});
+ await outbound.completion('https://api.test/custom/v1','FAKE_KEY','{"model":"manual-model"}','task-key','task-session');
+ expect(calls).toHaveLength(1);expect(calls[0]).toMatchObject({method:'POST',url:'https://api.test/custom/v1/chat/completions',address:publicAddress.address,idempotencyKey:'task-key',textSessionId:'task-session'});expect(calls[0].body?.toString()).toBe('{"model":"manual-model"}');
+});
+it('rejects unsafe DNS for completion and refuses redirects without exposing the upstream body',async()=>{
+ const request=vi.fn().mockResolvedValue({status:302,body:Buffer.from('FAKE_PRIVATE_URL')});
+ const blocked=new RestrictedOutbound({resolve:async()=>[{address:'127.0.0.1',family:4}],request});await expect(blocked.completion('https://api.test','FAKE_KEY','{}','key','session')).rejects.toThrow('OUTBOUND_BLOCKED');expect(request).not.toHaveBeenCalled();
+ const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});await expect(outbound.completion('https://api.test','FAKE_KEY','{}','key','session')).rejects.toThrow('UPSTREAM_FAILED');expect(request).toHaveBeenCalledTimes(1);
+});

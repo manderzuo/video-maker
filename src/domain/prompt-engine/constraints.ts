@@ -1,4 +1,4 @@
-import {promptCompileInputSchema,type PromptCompileInput} from '../prompt';
+import {promptCompileInputSchema,type PromptCompileInput} from '../prompt.js';
 export type ConstraintResolution={conflicts:{field:string;originalValue:string;formValue:string}[];readyForAI:boolean;resolved:PromptCompileInput};
 export function resolveConstraints(raw:PromptCompileInput):ConstraintResolution{
  const input=promptCompileInputSchema.parse(raw);const resolved=structuredClone(input);

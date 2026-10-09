@@ -13,6 +13,27 @@ CREATE TABLE workspace_projects (
 );
 CREATE INDEX workspace_projects_owner_updated_idx ON workspace_projects(user_id,updated_at DESC,id);
 
+CREATE TABLE workspace_project_copies (
+ user_id uuid NOT NULL,
+ id uuid NOT NULL,
+ source_id uuid NOT NULL,
+ project_id uuid NOT NULL,
+ fingerprint text NOT NULL,
+ created_at timestamptz NOT NULL,
+ PRIMARY KEY (user_id,id),
+ FOREIGN KEY (user_id,source_id) REFERENCES workspace_projects(user_id,id) ON DELETE CASCADE,
+ FOREIGN KEY (user_id,project_id) REFERENCES workspace_projects(user_id,id) ON DELETE CASCADE
+);
+CREATE TABLE workspace_project_imports (
+ user_id uuid NOT NULL,
+ id uuid NOT NULL,
+ project_id uuid NOT NULL,
+ fingerprint text NOT NULL,
+ created_at timestamptz NOT NULL,
+ PRIMARY KEY (user_id,id),
+ FOREIGN KEY (user_id,project_id) REFERENCES workspace_projects(user_id,id) ON DELETE CASCADE
+);
+
 CREATE TABLE workspace_command_receipts (
  user_id uuid NOT NULL,
  id uuid NOT NULL,

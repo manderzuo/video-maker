@@ -22,10 +22,12 @@ it('publishes original and thumbnail only after complete size/hash validation',a
  expect((await upload(a,asset.id,bytes,'thumbnail')).statusCode).toBe(204);
  const saved=await complete(a,asset.id);expect(saved.statusCode).toBe(200);expect(saved.json()).toMatchObject({id:asset.id,bytes:bytes.length,sha256:sha(bytes),mediaType:'image',metadataRevision:0});
  expect(saved.json()).not.toHaveProperty('path');expect(saved.json()).not.toHaveProperty('userId');
+ const details=await env.call('GET',`/studio-api/assets/${asset.id}/files`,env.headers(a));expect(details.statusCode).toBe(200);expect(details.json()).toMatchObject({asset:{id:asset.id},thumbnail:{sha256:sha(bytes),bytes:bytes.length}});
  for(const variant of ['original','thumbnail']){const r=await env.call('GET',`/studio-api/assets/${asset.id}/content?variant=${variant}`,env.headers(a));expect(r.statusCode).toBe(200);expect(r.rawPayload).toEqual(bytes);expect(r.headers['x-content-type-options']).toBe('nosniff');}
 });
 it('authenticates GET/HEAD/Range by concrete owner even for media elements without a workspace header',async()=>{
  const a=await env.signup('Media_A'),b=await env.signup('Media_B'),asset=await begin(a);await upload(a,asset.id);await complete(a,asset.id);
+ expect((await env.call('GET',`/studio-api/assets/${asset.id}/files`,env.headers(b))).statusCode).toBe(404);
  for(const method of ['GET','HEAD'] as const){
   expect((await env.call(method,`/studio-api/assets/${asset.id}/content`)).statusCode).toBe(401);
   expect((await env.call(method,`/studio-api/assets/${asset.id}/content`,{cookie:b.cookie,extraHeaders:{range:'bytes=0-9'}})).statusCode).toBe(404);
@@ -49,6 +51,13 @@ it('does not falsely publish when database completion fails and allows a safe re
  expect((await complete(a,asset.id)).statusCode).toBe(500);expect((await env.call('GET','/studio-api/assets',env.headers(a))).json()).toEqual([]);
  expect((await env.call('GET',`/studio-api/assets/${asset.id}/content`,env.headers(a))).statusCode).toBe(404);
  await env.pool.query('DROP TRIGGER reject_asset_complete ON workspace_assets');expect((await complete(a,asset.id)).statusCode).toBe(200);
+});
+it('preserves a newly supplied thumbnail when the same owned original already exists without one',async()=>{
+ const a=await env.signup(),original=await begin(a);await upload(a,original.id);expect((await complete(a,original.id)).statusCode).toBe(200);
+ const richer=await begin(a,{thumbnail:{bytes:bytes.length,sha256:sha(bytes),mimeType:'image/png'}});expect(richer.state).toBe('pending');
+ await upload(a,richer.id);await upload(a,richer.id,bytes,'thumbnail');const saved=await complete(a,richer.id);expect(saved.statusCode).toBe(200);expect(saved.json().id).toBe(original.id);
+ expect((await env.call('GET',`/studio-api/assets/${original.id}/content?variant=thumbnail`,env.headers(a))).rawPayload).toEqual(bytes);
+ expect((await env.pool.query('SELECT id FROM workspace_assets WHERE user_id=$1',[a.view.user.id])).rows).toHaveLength(1);
 });
 it('partitions hash deduplication by owner and refuses overwrite after publication',async()=>{
  const a=await env.signup('Hash_A'),b=await env.signup('Hash_B'),asset=await begin(a);await upload(a,asset.id);await complete(a,asset.id);

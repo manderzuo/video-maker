@@ -1,0 +1,6 @@
+import {z} from 'zod';
+import {billingStateSchema} from './run.js';
+export const cloudTaskSchema=z.strictObject({id:z.uuid(),kind:z.literal('prompt-optimize'),draftId:z.uuid(),sourceRevision:z.number().int().nonnegative(),apiBase:z.url(),model:z.string(),configRevision:z.number().int().positive(),secretVersion:z.number().int().positive(),executionState:z.enum(['persisted','sending','response_received','succeeded','failed_confirmed','response_unknown']),billingState:billingStateSchema,resultVersionId:z.uuid().optional(),errorCode:z.enum(['UPSTREAM_FAILED','INVALID_UPSTREAM_RESULT','SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','RESULT_SAVE_PENDING']).optional(),createdAt:z.number().int(),updatedAt:z.number().int(),historical:z.literal(true).optional()});
+export type CloudTask=z.infer<typeof cloudTaskSchema>;
+export const promptOptimizationPreviewSchema=z.strictObject({id:z.uuid(),draftId:z.uuid(),draftRevision:z.number().int().nonnegative(),configRevision:z.number().int().positive(),apiBase:z.url(),model:z.string(),referenceAliases:z.array(z.string()),priorUnknownRunIds:z.array(z.uuid()),expiresAt:z.number().int()});
+export type CloudPromptPreview=z.infer<typeof promptOptimizationPreviewSchema>;

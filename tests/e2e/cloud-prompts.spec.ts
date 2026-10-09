@@ -1,0 +1,19 @@
+import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
+test('persists complete prompt library metadata and historical text and restores its trash',async({page,workspace})=>{
+ await page.goto('/prompts');await page.getByRole('button',{name:'新建提示词',exact:true}).click();await page.getByLabel('提示词名称',{exact:true}).fill('云端运镜');await page.getByLabel('提示词正文',{exact:true}).fill('原来的镜头文字');await page.getByLabel('提示词来源',{exact:true}).fill('我的创作');await page.getByRole('button',{name:'保存提示词',exact:true}).click();await expect(page.getByRole('heading',{name:'云端运镜',exact:true})).toBeVisible();
+ await page.reload();await page.getByRole('button',{name:'编辑提示词',exact:true}).click();await page.getByLabel('提示词正文',{exact:true}).fill('改过的镜头文字');await page.getByRole('button',{name:'保存提示词',exact:true}).click();await expect(page.getByText('改过的镜头文字',{exact:true})).toBeVisible();
+ const p=(await workspace.pool.query("SELECT document FROM workspace_content WHERE user_id=$1 AND kind='prompt'",[workspace.account.view.user.id])).rows[0].document;expect(p.source).toBe('我的创作');expect((await workspace.call('GET',`/studio-api/prompts/${p.id}/revisions/0`,workspace.headers(workspace.account))).json().body).toBe('原来的镜头文字');
+ await page.getByRole('button',{name:'移入提示词回收站',exact:true}).click();await expect(page.getByRole('heading',{name:'云端运镜',exact:true})).toHaveCount(0);await page.goto('/trash');await page.getByRole('button',{name:'恢复提示词',exact:true}).click();await expect(page.getByRole('heading',{name:'云端运镜',exact:true})).toHaveCount(0);await page.goto('/prompts');await expect(page.getByRole('heading',{name:'云端运镜',exact:true})).toBeVisible();
+});
+test('retains video writing input, local results and historical input snapshots after reload',async({page,workspace})=>{
+ await page.goto('/prompt-generator');await page.getByRole('button',{name:'新建视频写作草稿',exact:true}).click();await page.getByLabel('原始创意',{exact:true}).fill('雨后的城市，一镜到底');await page.getByLabel('声音策略',{exact:true}).fill('只保留环境声');await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存');
+ await page.getByRole('button',{name:'规则整理',exact:true}).click();await expect(page.getByLabel('结果正文',{exact:true})).toContainText('雨后的城市');await page.reload();await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue('雨后的城市，一镜到底');await expect(page.getByLabel('结果正文',{exact:true})).toContainText('雨后的城市');
+ await page.getByRole('button',{name:'查看输入快照',exact:true}).click();await expect(page.getByRole('dialog',{name:'历史输入快照',exact:true})).toContainText('只保留环境声');
+ const rows=(await workspace.pool.query("SELECT document FROM workspace_content WHERE user_id=$1 AND kind='draft'",[workspace.account.view.user.id])).rows;expect(rows).toHaveLength(1);expect(rows[0].document.resultVersions).toHaveLength(1);
+});
+test('rejects stale draft writes while preserving typed input and never reads anonymous IndexedDB',async({page,workspace})=>{
+ await page.addInitScript(()=>{Object.defineProperty(window,'indexedDB',{get(){throw new Error('LEGACY_DB_MUST_NOT_OPEN');}});});
+ await page.goto('/prompt-generator');await page.getByRole('button',{name:'新建视频写作草稿',exact:true}).click();await expect(page.getByLabel('原始创意',{exact:true})).toBeVisible();const d=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows[0].document;
+ const changed=await workspace.call('PATCH',`/studio-api/prompt-drafts/${d.id}`,{...workspace.headers(workspace.account),payload:{expectedRevision:0,userRequest:'来自另一设备'}});expect(changed.statusCode).toBe(200);
+ await page.getByLabel('原始创意',{exact:true}).fill('本页未保存的创意');await page.getByRole('button',{name:'保存写作草稿',exact:true}).click();await expect(page.getByRole('alert')).toContainText('另一设备');await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue('本页未保存的创意');
+});

@@ -4,7 +4,7 @@ import {BlockList,isIP} from 'node:net';
 import {HttpError} from '../errors.js';
 export type ModelChannel='text'|'video';
 export type ResolvedAddress={address:string;family:number};
-export type OutboundRequest={url:string;address:string;family:4|6;apiKey:string;signal:AbortSignal;maxBytes:number};
+export type OutboundRequest={url:string;address:string;family:4|6;apiKey:string;signal:AbortSignal;maxBytes:number;method?:'GET'|'POST';body?:Buffer;idempotencyKey?:string;textSessionId?:string};
 export type OutboundResponse={status:number;body:Buffer};
 export type OutboundAdapters={resolve:(hostname:string)=>Promise<ResolvedAddress[]>;request:(request:OutboundRequest)=>Promise<OutboundResponse>};
 const blocked4=new BlockList();
@@ -34,8 +34,8 @@ function bounded<T>(promise:Promise<T>,signal:AbortSignal):Promise<T>{
 export async function nativeHttpsRequest(input:OutboundRequest):Promise<OutboundResponse>{
  return new Promise((resolve,reject)=>{
   const url=new URL(input.url),hostname=hostName(url);
-  const req=httpsRequest(url,{method:'GET',agent:false,rejectUnauthorized:true,servername:isIP(hostname)?undefined:hostname,signal:input.signal,
-   headers:{Accept:'application/json',Authorization:'Bearer '+input.apiKey},
+  const req=httpsRequest(url,{method:input.method??'GET',agent:false,rejectUnauthorized:true,servername:isIP(hostname)?undefined:hostname,signal:input.signal,
+   headers:{Accept:'application/json',Authorization:'Bearer '+input.apiKey,...(input.body?{'Content-Type':'application/json','Content-Length':String(input.body.length)}:{}),...(input.idempotencyKey?{'Idempotency-Key':input.idempotencyKey}:{}),...(input.textSessionId?{'x-opencode-session':input.textSessionId}:{})},
    lookup:(_host,options,callback)=>{
     if(typeof options==='object'&&options.all)callback(null,[{address:input.address,family:input.family}]);
     else callback(null,input.address,input.family);
@@ -45,11 +45,23 @@ export async function nativeHttpsRequest(input:OutboundRequest):Promise<Outbound
    let size=0;const chunks:Buffer[]=[];
    response.on('data',(chunk:Buffer)=>{size+=chunk.length;if(size>input.maxBytes){response.destroy();reject(new HttpError(502,'UPSTREAM_TOO_LARGE'));return;}chunks.push(chunk);});
    response.on('end',()=>resolve({status,body:Buffer.concat(chunks)}));response.on('error',reject);response.on('aborted',()=>reject(new HttpError(502,'UPSTREAM_FAILED')));
-  });req.on('error',reject);req.end();
+  });req.on('error',reject);req.end(input.body);
  });
 }
 export class RestrictedOutbound {
  constructor(private readonly adapters:OutboundAdapters={resolve:hostname=>lookup(hostname,{all:true,verbatim:true}),request:nativeHttpsRequest}){}
+ async completion(base:string,apiKey:string,body:string,idempotencyKey:string,textSessionId:string):Promise<OutboundResponse>{
+  const normalized=normalizeModelBase(base),endpoint=new URL(normalized);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/v1/chat/completions';
+  if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
+  if(!/^[-A-Za-z0-9._~]{1,256}$/.test(idempotencyKey)||!/^[-A-Za-z0-9._~]{1,256}$/.test(textSessionId)||Buffer.byteLength(body)>256*1024)throw new HttpError(400,'INVALID_REQUEST');
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),120000);
+  try{
+   const hostname=hostName(endpoint),literal=isIP(hostname),addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);
+   if(!addresses.length||addresses.some(address=>address.family!==isIP(address.address)||!publicAddress(address.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');
+   const selected=addresses[0]!,response=await bounded(this.adapters.request({url:endpoint.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:1024*1024,method:'POST',body:Buffer.from(body),idempotencyKey,textSessionId}),controller.signal);
+   if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');if(response.body.length>1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');return response;
+  }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}finally{clearTimeout(timer);}
+ }
  async models(channel:ModelChannel,base:string,apiKey:string):Promise<OutboundResponse>{
   const normalized=normalizeModelBase(base),url=new URL(normalized);
   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');

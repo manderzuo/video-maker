@@ -1,7 +1,7 @@
 // Pure chapter structure adapted from the frozen videoRules.js; see video-scenes.ts.
-import {promptCompileInputSchema,promptCompileResultSchema,type PromptCompileInput,type PromptCompileResult} from '../prompt';
-import {byteLength} from '../common';
-import {VIDEO_SCENES} from './video-scenes';
+import {promptCompileInputSchema,promptCompileResultSchema,type PromptCompileInput,type PromptCompileResult} from '../prompt.js';
+import {byteLength} from '../common.js';
+import {VIDEO_SCENES} from './video-scenes.js';
 export const VIDEO_RULE_VERSION='studio-video-rules-v1';
 export function compileVideoPrompt(raw:PromptCompileInput):PromptCompileResult{
  const input=promptCompileInputSchema.parse(raw);

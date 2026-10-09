@@ -14,7 +14,7 @@ export async function listProjects(pool:Pool,context:AuthContext,trashed=false){
  return result.rows.map(row=>projectViewSchema.parse(row.document));
 }
 export async function readProject(pool:Pool,context:AuthContext,id:string){return ownedProject(pool,context,id);}
-export async function readWorkspace(pool:Pool,context:AuthContext,id:string){
+export async function readWorkspace(pool:Pool|PoolClient,context:AuthContext,id:string){
  const result=await pool.query<{document:unknown;graph:unknown;undo_depth:number;redo_depth:number}>('SELECT p.document,g.graph,COALESCE(cardinality(h.undo_stack),0) AS undo_depth,COALESCE(cardinality(h.redo_stack),0) AS redo_depth FROM workspace_projects p JOIN workspace_graphs g ON g.user_id=p.user_id AND g.project_id=p.id AND g.revision=p.revision LEFT JOIN workspace_command_history h ON h.user_id=p.user_id AND h.project_id=p.id WHERE p.user_id=$1 AND p.id=$2',[context.userId,id]);
  if(!result.rows[0])throw new HttpError(404,'NOT_FOUND');const row=result.rows[0];return {project:projectViewSchema.parse(row.document),graph:workspaceGraphSchema.parse(row.graph),history:{undoDepth:row.undo_depth,redoDepth:row.redo_depth}};
 }

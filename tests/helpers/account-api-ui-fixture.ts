@@ -20,6 +20,7 @@ export const test=base.extend<{apiModel:ReturnType<typeof createModel>;apiGuard:
    if(url.pathname==='/studio-api/session'&&method==='GET')return reply(apiModel.session);
    if(headers['x-workspace-context']!==apiModel.session.contextId)return reply({code:'SESSION_CHANGED'},409);
    if(method!=='GET'&&headers['x-csrf-token']!==apiModel.session.csrfToken)return reply({code:'CSRF_INVALID'},403);
+   if(url.pathname==='/studio-api/projects'&&method==='GET')return reply([]);
    if(url.pathname==='/studio-api/me/document'){
     if(method==='GET'){if(apiModel.failNextDocumentRead){apiModel.failNextDocumentRead=false;return reply({code:'INTERNAL_ERROR'},500);}return reply(apiModel.document);}
     if(method==='PATCH'){

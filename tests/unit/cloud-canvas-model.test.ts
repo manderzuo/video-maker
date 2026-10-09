@@ -22,3 +22,9 @@ it('does not apply a late save receipt after the editor is disposed',async()=>{
 it('retries an uncertain undo with the same command identity instead of undoing twice',async()=>{
  const api=client(),model=createCloudCanvasModel(project.id,api);await model.load();api.command.mockRejectedValueOnce(new Error('network'));await model.history('undo');await model.save();expect(api.command.mock.calls[1]).toEqual(api.command.mock.calls[0]);expect(api.command.mock.calls[1][2]).toEqual({type:'undo'});model.dispose();
 });
+it('saves prolonged typing as one final edit while preserving structural operation order',async()=>{
+ const api=client(),model=createCloudCanvasModel(project.id,api);await model.load();model.stage([operation]);
+ for(let index=0;index<600;index++)model.stage([{id:'typing-'+index,type:'update_node',payload:{nodeId:node.id,patch:{data:{...node.data,text:'正文 '+index}}}}]);
+ await model.save();const command=api.command.mock.calls[0][2];expect(command.type).toBe('operations');if(command.type!=='operations')throw new Error('Missing creative command');
+ expect(command.operations).toHaveLength(2);expect(command.operations[0]).toEqual(operation);expect(command.operations[1].payload).toMatchObject({patch:{data:{text:'正文 599'}}});model.dispose();
+});

@@ -3,6 +3,20 @@ import type {Graph,Viewport} from '../../domain/graph';
 import {executeGraphOperations,type GraphOperation} from '../../application/commands/registry';
 import type {WorkspaceClient,WorkspaceSnapshot,CloudCommand} from '../../infrastructure/api/workspace-client';
 type CanvasApi=Pick<WorkspaceClient,'readWorkspace'|'command'>;
+function appendPending(previous:GraphOperation[],operations:GraphOperation[]){
+ const pending=[...previous];
+ for(const next of structuredClone(operations)){
+  const last=pending.at(-1);
+  if(last?.type===next.type&&last.payload.nodeId===next.payload.nodeId){
+   if(next.type==='update_node'){
+    pending[pending.length-1]={...next,payload:{...next.payload,patch:{...last.payload.patch as object,...next.payload.patch as object}}};continue;
+   }
+   if(next.type==='move_node'){pending[pending.length-1]=next;continue;}
+  }
+  pending.push(next);
+ }
+ return pending;
+}
 export type CloudCanvasState={status:'loading'|'saved'|'dirty'|'saving'|'failed';project?:Project;graph?:Graph;history:WorkspaceSnapshot['history'];pending:GraphOperation[];error?:unknown};
 export function createCloudCanvasModel(projectId:string,client:CanvasApi){
  let state:CloudCanvasState={status:'loading',history:{undoDepth:0,redoDepth:0},pending:[]},base:Graph|undefined,disposed=false,epoch=0;
@@ -15,7 +29,7 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi){
  }
  function stage(operations:GraphOperation[]){
   if(disposed||busy()||!state.graph)throw new Error('editor_busy');if(attempt)throw new Error('retry_pending_save_first');
-  const graph=executeGraphOperations(state.graph,operations);publish({...state,status:'dirty',graph,pending:[...state.pending,...structuredClone(operations)],error:undefined});
+  const graph=executeGraphOperations(state.graph,operations);publish({...state,status:'dirty',graph,pending:appendPending(state.pending,operations),error:undefined});
  }
  function viewport(value:Viewport){if(disposed||busy()||!state.graph||attempt)return;publish({...state,status:'dirty',graph:{...state.graph,viewport:value},error:undefined});}
  async function save(){

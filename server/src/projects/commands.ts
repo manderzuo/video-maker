@@ -9,15 +9,36 @@ import {unverifiedCapabilities} from '../../../src/domain/connection.js';
 import {ownedProject,readProjectGraph,writeProjectAndGraph} from './repository.js';
 import type {ProjectCommand} from './contracts.js';
 import {assetSchema,type Asset} from '../../../src/domain/asset.js';
+import {promptDraftSchema,promptLibrarySchema} from '../../../src/domain/prompt.js';
 const contents=(graph:Graph)=>JSON.stringify({...graph,revision:0,viewport:{x:0,y:0,scale:1}});
 // Resource references are checked even when an input binding is inactive.
 export function graphAssetIds(graph:Graph){
  const ids=new Set<string>();function visit(value:unknown){if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['assetId','sourceAssetId'].includes(key)&&typeof item==='string')ids.add(item);else visit(item);}}visit(graph.nodes);return [...ids];
 }
-async function validateResources(client:PoolClient,context:AuthContext,graph:Graph,validateBindings=true){
+export function graphContentIds(graph:Graph){return [...new Set(graph.nodes.flatMap(node=>node.type==='text'?[...(node.data.promptLibrarySource?[node.data.promptLibrarySource.entryId]:[]),...(node.data.promptGenerationSource?[node.data.promptGenerationSource.draftId]:[])]:[]))];}
+async function validateGraphContent(client:PoolClient,context:AuthContext,graph:Graph){
+ for(const node of graph.nodes){
+  if(node.type!=='text')continue;
+  const library=node.data.promptLibrarySource,generation=node.data.promptGenerationSource;
+  if(library){
+   const rows=await client.query<{document:unknown}>("SELECT v.document FROM workspace_content c JOIN workspace_content_versions v USING(user_id,id) WHERE c.user_id=$1 AND c.id::text=$2 AND c.kind='prompt' AND v.revision=$3 FOR SHARE OF c",[context.userId,library.entryId,library.revision]);
+   if(!rows.rows[0])throw new HttpError(404,'NOT_FOUND');const entry=promptLibrarySchema.parse(rows.rows[0].document);
+   if(library.source!==entry.source||library.license!==entry.license)throw new HttpError(400,'INVALID_COMMAND');
+  }
+  if(generation){
+   const rows=await client.query<{document:unknown}>("SELECT document FROM workspace_content WHERE user_id=$1 AND id::text=$2 AND kind='draft' FOR SHARE",[context.userId,generation.draftId]);
+   if(!rows.rows[0])throw new HttpError(404,'NOT_FOUND');const draft=promptDraftSchema.parse(rows.rows[0].document),version=draft.resultVersions.find(v=>v.id===generation.resultVersionId);
+   if(!version)throw new HttpError(404,'NOT_FOUND');
+   const source=await client.query<{document:unknown}>('SELECT document FROM workspace_content_versions WHERE user_id=$1 AND id::text=$2 AND revision=$3',[context.userId,draft.id,version.sourceRevision]);
+   if(!source.rows[0]||generation.origin!==version.origin||generation.sourceRevision!==version.sourceRevision||generation.ruleVersion!==promptDraftSchema.parse(source.rows[0].document).ruleVersion)throw new HttpError(400,'INVALID_COMMAND');
+  }
+ }
+}
+export async function validateResources(client:PoolClient,context:AuthContext,graph:Graph,validateBindings=true){
  const assetIds=graphAssetIds(graph),unsupported=new Set<string>();
- function visit(value:unknown){if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['runId','sourceRunId','entryId','draftId','resultVersionId'].includes(key)&&typeof item==='string')unsupported.add(item);else visit(item);}}
+ function visit(value:unknown){if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['runId','sourceRunId'].includes(key)&&typeof item==='string')unsupported.add(item);else visit(item);}}
  visit(graph.nodes);if(unsupported.size)throw new HttpError(404,'NOT_FOUND');
+ await validateGraphContent(client,context,graph);
  const assets:Asset[]=[];
  if(assetIds.length){const result=await client.query<{document:unknown}>("SELECT document FROM workspace_assets WHERE user_id=$1 AND id::text=ANY($2::text[]) AND state='complete' AND trashed_at IS NULL ORDER BY id FOR SHARE",[context.userId,assetIds]);if(result.rows.length!==assetIds.length)throw new HttpError(404,'NOT_FOUND');assets.push(...result.rows.map(row=>assetSchema.parse(row.document)));}
  for(const edge of graph.edges){const valid=validateConnection(graph,edge,unverifiedCapabilities(),{assets});if(!valid.ok)throw new HttpError(400,'INVALID_COMMAND');}

@@ -23,6 +23,7 @@ export function registerAssetRoutes(app:FastifyInstance,pool:Pool,options:AssetS
  app.get('/studio-api/assets',async request=>{const query=z.strictObject({trashed:z.enum(['true','false']).optional()}).parse(request.query);return listAssets(pool,requestAuthContext(request),query.trashed==='true');});
  app.post('/studio-api/assets',async(request,reply)=>{noQuery.parse(request.query);const result=await reserveAsset(pool,requestAuthContext(request),uploadSchema.parse(request.body),options,now());return reply.code(result.duplicate?200:201).send(result.value);});
  app.get('/studio-api/assets/:id',async request=>{noQuery.parse(request.query);const row=await ownedAsset(pool,requestAuthContext(request),assetId(request.params));if(row.state!=='complete')throw new HttpError(404,'NOT_FOUND');return manifests(row).asset;});
+ app.get('/studio-api/assets/:id/files',async request=>{noQuery.parse(request.query);const row=await ownedAsset(pool,requestAuthContext(request),assetId(request.params));if(row.state!=='complete')throw new HttpError(404,'NOT_FOUND');const {asset,thumbnail}=manifests(row);return {asset,...(thumbnail?{thumbnail}:{})};});
  app.put('/studio-api/assets/:id/content',{bodyLimit:options.maxAssetBytes},async(request,reply)=>{
   const context=requestAuthContext(request),id=assetId(request.params),query=contentQuery.parse(request.query);
   if(request.headers['content-type']!=='application/octet-stream')throw new HttpError(400,'INVALID_REQUEST');

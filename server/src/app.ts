@@ -11,7 +11,10 @@ import type {ApiSettingsDependencies} from './settings/service.js';
 import {registerProjectRoutes} from './projects/routes.js';
 import {registerAssetRoutes} from './assets/routes.js';
 import type {AssetStorageOptions} from './assets/storage.js';
-export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>Date;apiSettings?:ApiSettingsDependencies;workspace?:true;assets?:AssetStorageOptions}){
+import {registerPromptRoutes} from './prompts/routes.js';
+import {registerTaskRoutes} from './tasks/routes.js';
+import {startPromptWorker} from './tasks/prompt-worker.js';
+export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>Date;apiSettings?:ApiSettingsDependencies;workspace?:true;content?:true;taskWorker?:true;assets?:AssetStorageOptions}){
  const configured=new URL(options.origin);if(configured.protocol!=='https:'||configured.origin!==options.origin)throw new Error('Exact HTTPS origin required');
  const now=options.now??(()=>new Date());const app=Fastify({logger:false,bodyLimit:16384,trustProxy:false,frameworkErrors(error:FastifyError,_request:FastifyRequest,reply:FastifyReply){
   reply.header('Cache-Control','no-store');
@@ -30,6 +33,8 @@ export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>D
  app.setNotFoundHandler((_request,reply)=>reply.code(404).send({code:'NOT_FOUND'}));
  registerAuthRoutes(app,options.pool,options.origin,now);registerUserRoutes(app,options.pool,now);
  if(options.apiSettings)registerApiSettingsRoutes(app,options.pool,options.apiSettings,now);
- if(options.workspace)registerProjectRoutes(app,options.pool,now);
+ if(options.workspace)registerProjectRoutes(app,options.pool,now,options.assets);
+ if(options.content){if(!options.workspace)throw new Error('Workspace required for content');registerPromptRoutes(app,options.pool,now);if(options.apiSettings)registerTaskRoutes(app,options.pool,options.apiSettings,now);}
+ if(options.taskWorker){if(!options.content||!options.apiSettings)throw new Error('Content and API settings required for task worker');let worker:ReturnType<typeof startPromptWorker>|undefined;app.addHook('onReady',async()=>{worker=startPromptWorker(options.pool,options.apiSettings!,now);});app.addHook('onClose',async()=>{await worker?.stop();});}
  if(options.assets){if(!options.workspace)throw new Error('Workspace required for private assets');registerAssetRoutes(app,options.pool,options.assets,now);}return app;
 }

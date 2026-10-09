@@ -1,7 +1,7 @@
 import {z} from 'zod';
-import {id,revision,timestamp,localText,bindingSchema,tags,jsonSnapshotText} from './common';
-import {referenceTokenSchema} from './graph';
-import {billingStateSchema} from './run';
+import {id,revision,timestamp,localText,bindingSchema,tags,jsonSnapshotText} from './common.js';
+import {referenceTokenSchema} from './graph.js';
+import {billingStateSchema} from './run.js';
 export const requestedSpecSchema=z.strictObject({durationSeconds:z.number().positive().optional(),ratio:id.optional()});
 export const lockedConstraintSchema=z.strictObject({id,field:id,originalValue:z.string(),acceptedValue:z.string().optional(),locked:z.boolean()});
 export type LockedConstraint=z.infer<typeof lockedConstraintSchema>;
@@ -11,7 +11,7 @@ export const shotSchema=z.strictObject({id,durationSeconds:z.number().positive()
 export type Shot=z.infer<typeof shotSchema>;
 export const promptCompileResultSchema=z.strictObject({finalPrompt:localText,shotPlan:z.array(shotSchema),improvements:z.array(z.string()),warnings:z.array(z.string()),suggestedSpec:requestedSpecSchema});
 export type PromptCompileResult=z.infer<typeof promptCompileResultSchema>;
-export const promptResultVersionSchema=promptCompileResultSchema.extend({id,sourceRevision:revision,origin:z.enum(['local','ai','manual']),validationState:z.enum(['unchecked','needs_review','valid']),promptRunId:id.optional(),createdAt:timestamp});
+export const promptResultVersionSchema=promptCompileResultSchema.extend({id,sourceRevision:revision,origin:z.enum(['local','ai','manual']),validationState:z.enum(['unchecked','needs_review','valid']),promptRunId:id.optional(),restoredFromVersionId:id.optional(),createdAt:timestamp});
 export type PromptResultVersion=z.infer<typeof promptResultVersionSchema>;
 export const promptDraftSchema=promptCompileInputSchema.extend({id,revision,type:z.enum(['video','image']),sourceProjectId:id.optional(),sourceNodeId:id.optional(),sourceRevision:revision.optional(),ruleVersion:id,resultVersions:z.array(promptResultVersionSchema)});
 export type PromptDraft=z.infer<typeof promptDraftSchema>;

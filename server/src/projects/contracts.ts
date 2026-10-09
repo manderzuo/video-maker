@@ -10,6 +10,7 @@ const editable={title,description,tags,starred:z.boolean(),archived:z.boolean()}
 export const createProjectSchema=z.strictObject({title,description:description.default(''),tags:tags.default([]),starred:z.boolean().default(false)});
 export const projectPatchSchema=z.strictObject({expectedRevision:z.number().int().min(0),title:title.optional(),description:description.optional(),tags:tags.optional(),starred:z.boolean().optional(),archived:z.boolean().optional()}).refine(value=>Object.keys(value).some(key=>key!=='expectedRevision'));
 export const projectDeleteSchema=z.strictObject({expectedRevision:z.number().int().min(0)});
+export const projectCopySchema=z.strictObject({expectedRevision:z.number().int().min(0),idempotencyKey:z.uuid(),title:title.optional()});
 export const projectListSchema=z.strictObject({trashed:z.enum(['true','false']).optional()});
 export const projectViewSchema=z.strictObject({id:z.uuid(),schemaVersion:z.literal(1),...editable,revision:z.number().int().min(0),createdAt:z.number().int().min(0),updatedAt:z.number().int().min(0),trashedAt:z.number().int().min(0).nullable()});
 export const workspaceGraphSchema=graphSchema;

@@ -1,7 +1,7 @@
-import {promptCompileInputSchema,promptResultVersionSchema,type PromptCompileInput,type PromptResultVersion} from '../prompt';
-import {unverifiedCapabilities,type CapabilityProfile} from '../connection';
-import type {ValidationIssue} from '../common';
-import {resolveConstraints} from './constraints';
+import {promptCompileInputSchema,promptResultVersionSchema,type PromptCompileInput,type PromptResultVersion} from '../prompt.js';
+import {unverifiedCapabilities,type CapabilityProfile} from '../connection.js';
+import type {ValidationIssue} from '../common.js';
+import {resolveConstraints} from './constraints.js';
 export function validatePromptResult(raw:PromptResultVersion,input:PromptCompileInput,caps:CapabilityProfile):ValidationIssue[]{
  const parsed=promptResultVersionSchema.safeParse(raw);const issues:ValidationIssue[]=[];
  const issue=(code:string,path:string,message:string)=>issues.push({code,path,message});
