@@ -87,7 +87,7 @@ Codex独立浏览器核验（`E:/trae-studio/tools/node-v22.23.3-win-x64/node.ex
 P2追加/重试语义（Codex已确认代码修正）：
 - `CloudApplyPromptDialog`追加/替换radio补`disabled={busy||!!frozen.current}`，与其他目标控件一致；失败重试提示“重试沿用同一请求；若服务端已保存，重试只取回原结果，不重复创建”。
 - 服务端定向证据：`server/tests/workspace-commands.test.ts`新增“丢失响应的文字+连线批量同key重试只应用一次、新key+旧revision判409”（12/12通过，exit 0）；既有“同key重放/异内容409”一并通过。
-- 对话框端到端证据：新增“丢失应用响应同请求重试不重复建节点”（故障注入丢弃首次命令POST→错误提示+选项冻结→同请求重试成功），14/14中覆盖。
+- 对话框端到端证据（以独立审计版为准，已迁回）：旧`route.abort()`版只证明“首次请求未达后端”，不能证明“后端已保存后回执丢失”，已替换为“首次请求直达真实隔离后端并已应用（修订到2）→仅浏览器回执丢失→同payload/key重试→修订仍为2、节点连线不重复”（`cloud-prompt-apply`“replays the identical committed apply request…”）。同approval并发`workspace.call`只证明服务端幂等，不等同浏览器双击；真实双击由“延迟首次请求下双击确认生成→按钮禁用、请求1次、任务1份、假上游POST1次”专测覆盖（`cloud-video`“double clicking confirm…”）。独立审计在`d26d46a`固定副本通过15+1项（日志`e2e-d26d46a-independent.log`/`e2e-d26d46a-double-click.log`，用例源在审计副本`codex-stage1-response-loss.audit.spec.ts`/`codex-stage1-confirm.audit.spec.ts`）；两场景已迁回testMatch内spec并在dev验证2/2通过（`work/account-api-cloud/stage1-migrated`）。以上均系隔离假上游/本地库，不证明真实生成或HTTPS/线上通过。
 - 诚实性修正：单元“failed stage”用例改名为“云端保存冲突时保留已暂存操作并要求显式放弃后重载”（其本体即model层冲突保留）；纯界面用例注释去除“连续点击”字样，重复确认改由“同一approval并发确认只建一份任务”专测覆盖；未运行用例不计入验收。
 
-仍未完成（不计入本轮通过）：真实上游生成成功单独验收；严格HTTPS/线上复测未动。浏览器14/14对应在制工作树（HEAD `81576d8`+未提交阶段1文件，见下），非固定提交最终通过；阶段1提交后以该提交号为准。
+仍未完成（不计入本轮通过）：真实上游生成成功单独验收；严格HTTPS/线上复测未动。浏览器全量14/14（`stage1-ui-rerun3`）对应迁移前在制工作树；迁移后两文件共15项，其中新增2项单独验证2/2通过（`stage1-migrated`），未重跑全套；阶段1提交`d26d46a`后新增的迁移用例与本记录更新尚未提交。

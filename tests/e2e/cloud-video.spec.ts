@@ -160,3 +160,34 @@ test('concurrent double confirmation with one approval yields a single run',asyn
  expect(first.json()[0].id).toBe(second.json()[0].id);
  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(1);
 });
+test('double clicking confirm while the request is pending sends one request and one provider POST',async({page,workspace})=>{
+ // 自独立审计迁移：真实浏览器双击（与上文API并发专测区分），延迟首次请求验证按钮禁用与单次提交。
+ const h=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'双击确认单次提交'}})).json();
+ const t1=randomUUID(),v1=randomUUID(),spec={modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'};
+ await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[
+  {id:randomUUID(),type:'add_node',payload:{node:{id:t1,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'双击正文',referenceTokens:[]}}}},
+  {id:randomUUID(),type:'add_node',payload:{node:{id:v1,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:spec,inputBindings:[],stale:true}}}},
+  {id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:t1,targetId:v1,port:'text',order:0}}},
+ ]}}});
+ await page.goto('/projects/'+project.id+'/canvas');
+ await page.getByRole('button',{name:'生成视频',exact:true}).click();
+ await expect(page.getByRole('dialog',{name:'确认云端视频生成',exact:true})).toContainText('双击正文');
+ await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
+ let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});const attempts:unknown[]=[];
+ await page.route('**/studio-api/projects/*/video-runs',async route=>{
+  attempts.push(route.request().postDataJSON());await gate;await route.fallback();
+ });
+ try{
+  const button=page.getByRole('button',{name:'确认生成',exact:true});
+  await button.dblclick();
+  await expect(button).toBeDisabled();
+  await expect.poll(()=>attempts.length).toBe(1);
+  release();
+  await expect(page.getByRole('button',{name:'查看视频任务',exact:true})).toBeVisible();
+  expect(attempts).toHaveLength(1);
+  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(1);
+  await expect.poll(()=>workspace.providerCalls.filter(c=>c.method==='POST').length).toBe(1);
+ }finally{release();}
+});

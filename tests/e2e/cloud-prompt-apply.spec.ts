@@ -81,7 +81,8 @@ test('creates a new video flow from a writing result in one cloud command batch'
  expect(graph.edges).toHaveLength(1);
  expect(workspace.providerCalls.filter(c=>c.method==='POST')).toHaveLength(0);
 });
-test('retries a lost apply response with the same request instead of duplicating nodes',async({page,workspace})=>{
+test('replays the identical committed apply request after the browser response is lost',async({page,workspace})=>{
+ // 自独立审计迁移：首次请求直达真实隔离后端并已应用，仅浏览器回执丢失；重试必须同payload/key，修订不增长。
  const h=workspace.headers(workspace.account);
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'应用重试同一请求'}})).json();
  const v1=randomUUID(),t0=randomUUID(),spec={modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'};
@@ -90,10 +91,19 @@ test('retries a lost apply response with the same request instead of duplicating
   {id:randomUUID(),type:'add_node',payload:{node:{id:v1,type:'video-generation',title:'视频一',x:440,y:40,locked:false,data:{kind:'video-generation',draft:spec,inputBindings:[],stale:true}}}},
   {id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:t0,targetId:v1,port:'text',order:0}}},
  ]}}});
- // 故障注入：第一次画布命令POST丢失（客户端视为响应丢失），之后放行
- let dropFirst=true;
+ const attempts:unknown[]=[];
  await page.route('**/studio-api/projects/*/commands',async route=>{
-  if(dropFirst&&route.request().method()==='POST'){dropFirst=false;await route.abort();return;}
+  if(route.request().method()!=='POST')return route.fallback();
+  const payload=route.request().postDataJSON();attempts.push(payload);
+  if(attempts.length===1){
+   const committed=await workspace.call('POST',new URL(route.request().url()).pathname,{...h,payload});
+   expect(committed.statusCode).toBe(200);
+   expect(committed.json()).toMatchObject({status:'applied',revision:2});
+   const saved=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
+   expect(saved.revision).toBe(2);expect(saved.nodes.filter((n:{type:string})=>n.type==='text')).toHaveLength(2);
+   await route.abort('failed');return;
+  }
+  expect(payload).toEqual(attempts[0]);
   await route.fallback();
  });
  await page.goto('/prompt-generator');await page.getByRole('button',{name:'新建视频写作草稿',exact:true}).click();
@@ -111,7 +121,9 @@ test('retries a lost apply response with the same request instead of duplicating
  // 同一请求重试（默认追加）：一次应用成功，不重复建节点，原文字保留
  await page.getByRole('button',{name:'确认应用到云端画布',exact:true}).click();
  await expect(page.getByRole('dialog',{name:'应用写作结果到画布',exact:true})).not.toBeVisible();
+ expect(attempts).toHaveLength(2);expect(attempts[1]).toEqual(attempts[0]);
  const graph=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
+ expect(graph.revision).toBe(2);
  expect(graph.nodes.find((n:{id:string})=>n.id===t0).data.text).toBe('已有正文');
  expect(graph.nodes.filter((n:{type:string})=>n.type==='text')).toHaveLength(2);
  expect(graph.edges.filter((e:{targetId:string})=>e.targetId===v1)).toHaveLength(2);
