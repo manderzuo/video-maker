@@ -1,4 +1,4 @@
-import {useEffect,useState,useSyncExternalStore,useId,useRef} from 'react';
+import {useEffect,useState,useSyncExternalStore,useRef} from 'react';
 import {sessionStore,type AuthState} from '../../infrastructure/api/session';
 import {ApiError,apiMessage} from '../../infrastructure/api/client';
 import {createPageMemory} from './page-memory';
@@ -6,17 +6,12 @@ import {applyPreferencesToDocument,defaultPreferences,getPreferences} from '../s
 import {LocalLink,navigate,useRoute} from '../../app/routes';
 import {LoginPage} from './LoginPage';
 import {RegisterPage} from './RegisterPage';
+import {AccountPreferences} from './AccountPreferences';
 import {CloudWorkspace} from '../workspace/CloudWorkspace';
 import {ApiSettingsPanel} from '../settings/ApiSettingsPanel';
 import {ApiSettingsError} from '../settings/api-settings-client';
 import type {ApiSettingsBridge} from '../settings/use-api-settings';
 const accountApiBridge:ApiSettingsBridge={getIdentity(){const state=sessionStore.getState();return state.status==='authenticated'?{userId:state.session.user.id,contextId:state.session.contextId,csrfToken:state.session.csrfToken}:null;},subscribe:sessionStore.subscribe,refresh:sessionStore.refresh};
-function AccountPreferences({state}:{state:Extract<AuthState,{status:'authenticated'}>}){
- const themeId=useId(),sortId=useId();const {document:doc}=state;const [theme,setTheme]=useState(doc.preferences.theme),[sort,setSort]=useState(doc.preferences.projectSort),[message,setMessage]=useState(''),[error,setError]=useState(''),[reloadVersion,setReloadVersion]=useState(0);
- useEffect(()=>{setTheme(doc.preferences.theme);setSort(doc.preferences.projectSort);setMessage('');setError('');},[doc.revision,doc.preferences.theme,doc.preferences.projectSort,reloadVersion]);
- async function save(){setMessage('');setError('');try{await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:{...doc.preferences,theme,projectSort:sort},lastVisitedPage:'/settings/appearance'});setMessage('偏好已保存');}catch(failure){setError(apiMessage(failure));}}
- return <section className="card"><h1>账号偏好</h1><p className="muted">保存到当前账号，可在其他设备恢复。</p><fieldset className="form-stack account-fields" disabled={state.busy}><legend>外观与列表</legend><label htmlFor={themeId}>主题</label><select data-interaction-id="account:preferences:theme" id={themeId} value={theme} onChange={event=>setTheme(event.target.value as typeof theme)}><option value="dark">深色</option><option value="light">浅色</option><option value="system">跟随系统</option></select><label htmlFor={sortId}>项目排序</label><select data-interaction-id="account:preferences:sort" id={sortId} value={sort} onChange={event=>setSort(event.target.value as typeof sort)}><option value="updated">最近更新</option><option value="title">名称</option></select><button data-interaction-id="account:preferences:save" className="button primary" onClick={()=>{void save();}}>保存偏好</button></fieldset>{message?<p className="banner" role="status">{message}</p>:null}{error?<p className="banner error" role="alert">{error}</p>:null}<button data-interaction-id="account:preferences:reload" className="button" disabled={state.busy} onClick={()=>{setError('');void sessionStore.reloadDocument().then(()=>setReloadVersion(version=>version+1)).catch(failure=>setError(apiMessage(failure)));}}>重新加载偏好</button></section>;
-}
 function AccountShell({state,path}:{state:Extract<AuthState,{status:'authenticated'}>;path:string}){
  const [error,setError]=useState(''),memory=useRef<ReturnType<typeof createPageMemory>|null>(null);
  useEffect(()=>{const controller=createPageMemory(sessionStore,state.session.contextId,failure=>setError(failure?apiMessage(failure):''));memory.current=controller;return()=>{controller.dispose();memory.current=null;};},[state.session.contextId]);

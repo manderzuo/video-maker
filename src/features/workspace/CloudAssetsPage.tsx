@@ -5,6 +5,7 @@ import {probeMedia} from '../assets/media-probe';
 import {createThumbnail} from '../assets/thumbnail-service';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
+import {usePreferences} from '../settings/preferences-store';
 const hash=async(blob:Blob)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(n=>n.toString(16).padStart(2,'0')).join('');
 export async function uploadCloudAsset(client:WorkspaceClient,file:File){
  const metadata=await probeMedia(file),thumbnail=await createThumbnail(file,metadata.mimeType),sha256=await hash(file);
@@ -14,9 +15,11 @@ export async function uploadCloudAsset(client:WorkspaceClient,file:File){
  catch(error){try{await client.cancelUpload(reserved.id);}catch{/* Pending server files stay unpublished if cancellation cannot be confirmed. */}throw error;}
 }
 export function CloudAssetMedia({client,asset}:{client:WorkspaceClient;asset:Asset}){
+ const preferences=usePreferences(),player=useRef<HTMLMediaElement|null>(null);
+ useEffect(()=>{if(player.current)player.current.volume=preferences.volume;},[preferences.volume,asset.id]);
  const [variant,setVariant]=useState<'original'|'thumbnail'>(),[failed,setFailed]=useState(false);
  useEffect(()=>{let active=true;setVariant(undefined);setFailed(false);if(asset.mediaType==='image')void client.readAssetFiles(asset.id).then(value=>{if(active)setVariant(value.thumbnail?'thumbnail':'original');}).catch(()=>{if(active)setFailed(true);});return()=>{active=false;};},[client,asset.id,asset.mediaType]);
- const url=client.contentUrl(asset.id);return asset.mediaType==='image'?failed?<p>预览暂时无法读取，请重新加载素材。</p>:variant?<img src={client.contentUrl(asset.id,variant)} alt={asset.title} loading="lazy" style={{maxWidth:'100%',maxHeight:240}} onError={()=>{if(variant==='thumbnail')setVariant('original');else setFailed(true);}}/>:<p>正在读取预览…</p>:asset.mediaType==='video'?<video src={url} controls preload="metadata" style={{maxWidth:'100%',maxHeight:240}}/>:asset.mediaType==='audio'?<audio src={url} controls preload="metadata"/>:null;
+ const url=client.contentUrl(asset.id);return asset.mediaType==='image'?failed?<p>预览暂时无法读取，请重新加载素材。</p>:variant?<img src={client.contentUrl(asset.id,variant)} alt={asset.title} loading="lazy" style={{maxWidth:'100%',maxHeight:240}} onError={()=>{if(variant==='thumbnail')setVariant('original');else setFailed(true);}}/>:<p>正在读取预览…</p>:asset.mediaType==='video'?<video ref={element=>{player.current=element;}} src={url} muted={preferences.muted} autoPlay={preferences.autoPlay} controls preload="metadata" style={{maxWidth:'100%',maxHeight:240}}/>:asset.mediaType==='audio'?<audio ref={element=>{player.current=element;}} src={url} muted={preferences.muted} autoPlay={preferences.autoPlay} controls preload="metadata"/>:null;
 }
 export function CloudAssetsPage({client,trashed=false}:{client:WorkspaceClient;trashed?:boolean}){
  const [assets,setAssets]=useState<Asset[]>([]),[files,setFiles]=useState<File[]>([]),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[loading,setLoading]=useState(true);

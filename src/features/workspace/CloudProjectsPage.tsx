@@ -5,9 +5,12 @@ import {exportCloudProject,inspectCloudProject,importCloudProject,type CloudImpo
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {LocalLink} from '../../app/routes';
+import {usePreferences} from '../settings/preferences-store';
 export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient;trashed?:boolean}){
+ const preferences=usePreferences();
  const [projects,setProjects]=useState<Project[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState('');
- const [query,setQuery]=useState(''),[sort,setSort]=useState('updated'),[filter,setFilter]=useState('all');
+ const [query,setQuery]=useState(''),[sort,setSort]=useState<string>(preferences.projectSort),[filter,setFilter]=useState('all');
+ useEffect(()=>setSort(preferences.projectSort),[preferences.projectSort]);
  const [open,setOpen]=useState(false),[target,setTarget]=useState<Project>(),[title,setTitle]=useState(''),[description,setDescription]=useState(''),[tags,setTags]=useState(''),[busy,setBusy]=useState(false);
  const [importOpen,setImportOpen]=useState(false),[file,setFile]=useState<File>(),[plan,setPlan]=useState<CloudImportPlan>();
  const copies=useRef(new Map<string,{key:string;revision:number}>()),alive=useRef(true);
@@ -33,7 +36,7 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
   <div className="actions"><h1>{trashed?'项目回收站':'项目'}</h1>{!trashed?<><Button data-interaction-id="cloud:project:new" variant="primary" onClick={()=>{setTarget(undefined);setTitle('');setDescription('');setTags('');setOpen(true);}}>新建项目</Button><Button data-interaction-id="cloud:project:import" onClick={()=>{setError('');setImportOpen(true);}}>导入云端项目包</Button></>:null}<Button data-interaction-id="cloud:project:reload" disabled={busy} onClick={()=>action(reload)}>重新加载项目</Button></div>
   <div className="actions"><label>搜索项目<input data-interaction-id="cloud:project:search" value={query} onChange={e=>setQuery(e.target.value)}/></label><label>排序<select data-interaction-id="cloud:project:sort" value={sort} onChange={e=>setSort(e.target.value)}><option value="updated">最近更新</option><option value="title">名称</option></select></label><label>项目筛选<select data-interaction-id="cloud:project:filter" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">全部</option><option value="active">未归档</option><option value="starred">星标</option><option value="archived">已归档</option></select></label></div>
   {error?<p className="banner error" role="alert">{error}</p>:null}
-  {loading?<p>正在读取云端项目…</p>:visible.length?<ul className="cloud-project-list">{visible.map(p=><li className="card" key={p.id}>
+  {loading?<p>正在读取云端项目…</p>:visible.length?<ul className={'cloud-project-list'+(preferences.projectList?' compact-project-list':'')}>{visible.map(p=><li className="card" key={p.id}>
    <h2>{trashed?p.title:<LocalLink data-interaction-id="cloud:project:open" href={'/projects/'+p.id+'/canvas'}>{p.title}</LocalLink>}</h2><p>{p.description}</p><p>{p.tags.join(' · ')}</p><small>修订 {p.revision} · {new Date(p.updatedAt).toLocaleString()}</small>
    <div className="actions"><Button data-interaction-id="cloud:project:export" disabled={busy} onClick={()=>download(p)}>导出完整项目包</Button>{trashed?<Button data-interaction-id="cloud:project:restore" disabled={busy} onClick={()=>action(()=>client.restoreProject(p.id,p.revision))}>恢复项目</Button>:<>
     <Button data-interaction-id="cloud:project:rename" disabled={busy} onClick={()=>{setTarget(p);setTitle(p.title);setDescription(p.description);setTags(p.tags.join(', '));setOpen(true);}}>修改项目信息</Button>
