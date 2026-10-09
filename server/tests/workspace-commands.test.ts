@@ -28,6 +28,15 @@ it('replays an identical idempotency key but rejects different input and does no
  const replay=await command(a,p.id,0,value,key);expect(replay.statusCode).toBe(200);expect(replay.json()).toMatchObject({status:'replayed',revision:1});
  expect((await command(a,p.id,1,add(),key)).statusCode).toBe(409);expect((await graph(a,p.id)).json().nodes).toHaveLength(1);
 });
+it('applies a lost-response text-plus-edge batch exactly once on same-key retry and rejects a new key at the old revision',async()=>{
+ const a=await env.signup(),p=await project(a),key=randomUUID(),textId=randomUUID(),videoId=randomUUID();
+ const batch={type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{...textNode(),id:textId}}},{id:randomUUID(),type:'add_node',payload:{node:{id:videoId,type:'video-generation',title:'草稿',x:400,y:0,locked:false,data:{kind:'video-generation',draft:{modelId:'fake-model'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:videoId,port:'text',order:0}}}]};
+ const first=await command(a,p.id,0,batch,key);expect(first.statusCode).toBe(200);expect(first.json()).toMatchObject({status:'applied',revision:1});
+ const retry=await command(a,p.id,0,batch,key);expect(retry.statusCode).toBe(200);expect(retry.json()).toMatchObject({status:'replayed',revision:1});
+ expect((await graph(a,p.id)).json().nodes).toHaveLength(2);
+ expect((await command(a,p.id,0,batch,randomUUID())).statusCode).toBe(409);
+ expect((await graph(a,p.id)).json()).toMatchObject({revision:1});
+});
 it('serializes two devices and refuses stale commands, including stale undo',async()=>{
  const a=await env.signup(),p=await project(a);const results=await Promise.all([command(a,p.id,0,add()),command(a,p.id,0,add())]);
  expect(results.map(r=>r.statusCode).sort()).toEqual([200,409]);expect((await command(a,p.id,0,{type:'undo'})).statusCode).toBe(409);
