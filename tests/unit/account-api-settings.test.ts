@@ -5,9 +5,9 @@ const a:ApiSettingsIdentity={userId:'11111111-1111-4111-8111-111111111111',conte
 const b:ApiSettingsIdentity={...a,userId:'22222222-2222-4222-8222-222222222222',contextId:'b'.repeat(43)};
 const saved:ModelConfig={channel:'text',apiBase:'https://fake.example/api',model:'Vendor/Old',revision:2,hasKey:true};
 const reply=(value:unknown,status=200)=>new Response(JSON.stringify(value),{status});
-const probe=(requestId:string):ModelProbe=>({requestId,connection:'verified',catalogStatus:'ready',models:['Vendor/Listed'],message:'Catalog read'});
+const probe=(requestId:string):ModelProbe=>({requestId,connection:'verified',catalogStatus:'ready',models:['Vendor/Listed'],message:'Catalog read',complete:true});
 function deferred<T>(){let resolve!:(value:T)=>void;const promise=new Promise<T>(done=>{resolve=done;});return {promise,resolve};}
-function fixture(configs:ModelConfig[]=[]){
+function fixture(configs:ModelConfig[]=[],opts:{autoProbe?:boolean}={}){
  let identity:ApiSettingsIdentity|null=a;const listeners=new Set<()=>void>();
  const bridge:ApiSettingsBridge={getIdentity:()=>identity,subscribe:listener=>{listeners.add(listener);return()=>{listeners.delete(listener);};},refresh:vi.fn(async()=>{})};
  const fetcher=vi.fn<typeof fetch>(async(path,init)=>{
@@ -15,7 +15,7 @@ function fixture(configs:ModelConfig[]=[]){
   if(init?.method==='POST')return reply(probe(JSON.parse(init.body as string).requestId));
   return reply({configs});
  });
- const store=createApiSettingsStore(bridge,createApiSettingsClient(fetcher));
+ const store=createApiSettingsStore(bridge,createApiSettingsClient(fetcher),{autoProbe:opts.autoProbe??false});
  return {store,fetcher,change(next:ApiSettingsIdentity|null){identity=next;for(const listener of listeners)listener();}};
 }
 it('API settings use fixed same-origin paths and captured context/CSRF without an owner field',async()=>{
@@ -80,4 +80,44 @@ it('an old aborted probe finishing cannot clear the pending state of a newer pro
 });
 it('failed explicit reload keeps unsaved input instead of destroying it',async()=>{
  const f=fixture([saved]);f.store.start();await vi.waitFor(()=>expect(f.store.getState().status).toBe('ready'));f.store.edit('text','model','Vendor/Unsaved');f.store.edit('text','apiKey','FAKE_KEEP_ON_RELOAD');f.fetcher.mockResolvedValueOnce(reply({code:'INTERNAL_ERROR'},500));await f.store.reload();expect(f.store.getState().text.model).toBe('Vendor/Unsaved');expect(f.store.getState().text.apiKey).toBe('FAKE_KEEP_ON_RELOAD');expect(f.store.getState().error).not.toBe('');f.store.dispose();
+});
+it('a verified probe records the tested address and time for the success display',async()=>{
+ const f=fixture();f.store.start();await vi.waitFor(()=>expect(f.store.getState().status).toBe('ready'));f.store.edit('text','apiBase','https://fake.example/api');f.store.edit('text','apiKey','FAKE_KEY_TEXT');await f.store.test('text');
+ const draft=f.store.getState().text;expect(draft.result).toMatchObject({connection:'verified',catalogStatus:'ready',models:['Vendor/Listed'],complete:true});expect(draft.testedBase).toBe('https://fake.example/api');expect(draft.testedAt).toEqual(expect.any(Number));f.store.dispose();
+});
+it('empty, failed, unknown and partial probe outcomes are kept with their catalog state',async()=>{
+ const f=fixture();f.store.start();await vi.waitFor(()=>expect(f.store.getState().status).toBe('ready'));f.store.edit('text','apiBase','https://fake.example/api');f.store.edit('text','apiKey','FAKE_KEY_TEXT');
+ for(const outcome of [{connection:'verified',catalogStatus:'empty',models:[],complete:true},{connection:'failed',catalogStatus:'failed',models:[],complete:true},{connection:'unknown',catalogStatus:'unavailable',models:[],complete:true},{connection:'verified',catalogStatus:'ready',models:['Vendor/A'],complete:false}] as const){
+  f.fetcher.mockImplementationOnce(async(_path,init)=>reply({...probe(JSON.parse(init?.body as string).requestId),...outcome}));
+  await f.store.test('text');expect(f.store.getState().text.result).toMatchObject(outcome);expect(f.store.getState().text.testedBase).toBe('https://fake.example/api');
+ }
+ f.store.dispose();
+});
+it('changing only the model keeps the catalog result while changing address or key clears it',async()=>{
+ const f=fixture([saved]);f.store.start();await vi.waitFor(()=>expect(f.store.getState().status).toBe('ready'));await f.store.test('text');
+ const testedAt=f.store.getState().text.testedAt;expect(f.store.getState().text.result?.models).toEqual(['Vendor/Listed']);
+ f.store.edit('text','model','Vendor/HandKept');expect(f.store.getState().text.result?.models).toEqual(['Vendor/Listed']);expect(f.store.getState().text.testedAt).toBe(testedAt);
+ f.store.edit('text','apiKey','FAKE_CHANGED_KEY');expect(f.store.getState().text.result).toBeNull();expect(f.store.getState().text.testedAt).toBeNull();f.store.dispose();
+});
+it('saving without a matching verified probe triggers one read-only probe without a generation call',async()=>{
+ const f=fixture([],{autoProbe:true});f.store.start();await vi.waitFor(()=>expect(f.store.getState().status).toBe('ready'));
+ f.store.edit('text','apiBase','https://fake.example/api');f.store.edit('text','model','Vendor/Unlisted');f.store.edit('text','apiKey','FAKE_KEY_TEXT');await f.store.save('text');
+ await vi.waitFor(()=>expect(f.store.getState().text.pending).toBeNull());
+ const posts=f.fetcher.mock.calls.filter(([,init])=>init?.method==='POST');
+ expect(posts).toHaveLength(1);expect(posts[0][0]).toBe('/studio-api/me/model-configs/text/test');expect(JSON.parse(posts[0][1]?.body as string)).not.toHaveProperty('apiKey');
+ expect(f.store.getState().text.result?.connection).toBe('verified');expect(f.store.getState().text.testedBase).toBe('https://fake.example/api');f.store.dispose();
+});
+it('re-entering settings probes saved keys once without sending key material in the draft',async()=>{
+ const f=fixture([{...saved,apiBase:'https://fake.example/api'}],{autoProbe:true});f.store.start();
+ await vi.waitFor(()=>expect(f.store.getState().text.result).not.toBeNull());
+ const posts=f.fetcher.mock.calls.filter(([,init])=>init?.method==='POST');
+ expect(posts).toHaveLength(1);expect(JSON.parse(posts[0][1]?.body as string)).not.toHaveProperty('apiKey');
+ expect(f.store.getState().text.apiKey).toBe('');expect(f.store.getState().text.pending).toBeNull();f.store.dispose();
+});
+it('a matching verified probe suppresses the automatic probe after save',async()=>{
+ const f=fixture([{...saved,apiBase:'https://fake.example/api'}],{autoProbe:true});f.store.start();
+ await vi.waitFor(()=>expect(f.store.getState().text.result).not.toBeNull());
+ f.fetcher.mockClear();f.store.edit('text','model','Vendor/Kept');await f.store.save('text');
+ await vi.waitFor(()=>expect(f.store.getState().text.pending).toBeNull());
+ expect(f.fetcher.mock.calls.filter(([,init])=>init?.method==='POST')).toHaveLength(0);f.store.dispose();
 });

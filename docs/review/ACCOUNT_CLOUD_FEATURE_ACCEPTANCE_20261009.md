@@ -59,7 +59,6 @@
 - 发布包禁旧资料/演示/测试账号素材/密钥/数据库；发布前备份生产库/媒体/配置；用户后来内容不得清空。
 
 ## 5. 阶段1验收（审计后，截至本记录）
-
 基线：HEAD `81576d82e6a506e6c661934ef71828cba894606e`，分支`feat/account-api-cloud`；以下文件未提交（`git status --short`）：
 `M CloudApplyPromptDialog.tsx/CloudCanvasPage.tsx/CloudPromptGeneratorPage.tsx/CloudVideoRunPanel.tsx`，
 `M cloud-video.spec.ts/cloud-prompt-apply.spec.ts`，
@@ -90,4 +89,23 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 对话框端到端证据（以独立审计版为准，已迁回）：旧`route.abort()`版只证明“首次请求未达后端”，不能证明“后端已保存后回执丢失”，已替换为“首次请求直达真实隔离后端并已应用（修订到2）→仅浏览器回执丢失→同payload/key重试→修订仍为2、节点连线不重复”（`cloud-prompt-apply`“replays the identical committed apply request…”）。同approval并发`workspace.call`只证明服务端幂等，不等同浏览器双击；真实双击由“延迟首次请求下双击确认生成→按钮禁用、请求1次、任务1份、假上游POST1次”专测覆盖（`cloud-video`“double clicking confirm…”）。独立审计在`d26d46a`固定副本通过15+1项（日志`e2e-d26d46a-independent.log`/`e2e-d26d46a-double-click.log`，用例源在审计副本`codex-stage1-response-loss.audit.spec.ts`/`codex-stage1-confirm.audit.spec.ts`）；两场景已迁回testMatch内spec并在dev验证2/2通过（`work/account-api-cloud/stage1-migrated`）。以上均系隔离假上游/本地库，不证明真实生成或HTTPS/线上通过。
 - 诚实性修正：单元“failed stage”用例改名为“云端保存冲突时保留已暂存操作并要求显式放弃后重载”（其本体即model层冲突保留）；纯界面用例注释去除“连续点击”字样，重复确认改由“同一approval并发确认只建一份任务”专测覆盖；未运行用例不计入验收。
 
-仍未完成（不计入本轮通过）：真实上游生成成功单独验收；严格HTTPS/线上复测未动。浏览器全量14/14（`stage1-ui-rerun3`）对应迁移前在制工作树；迁移后两文件共15项，其中新增2项单独验证2/2通过（`stage1-migrated`），未重跑全套；阶段1提交`d26d46a`后新增的迁移用例与本记录更新尚未提交。
+仍未完成（不计入本轮通过）：真实上游生成成功单独验收；严格HTTPS/线上复测未动。浏览器全量14/14（`stage1-ui-rerun3`）对应迁移前在制工作树；迁移后两文件共15项，其中新增2项单独验证2/2通过（`stage1-migrated`）；迁移用例与本记录更新已随阶段1提交`6b30aed`落定，独立审计15+1证据见上。
+
+## 6. 阶段2验收（API状态和完整模型选择）
+
+实现（相对`6b30aed`）：
+- 新增`src/features/settings/ModelPicker.tsx`：可展开/搜索/完整滚动/手填的组合框+列表框（`{value,models,disabled,onChange}`，调用方负责加载与错误，选择器内不保存密钥）；空目录显示手填提示，无匹配时保留手填值；键盘上下/回车/ESC可用；目标≥44px。
+- `ApiModelFields.tsx`：视频/文字共用选择器（保留原字段顺序与`模型名称`标签关联）；连接结果与保存结果分别显示两行，保存不再遮盖状态；成功显示“连接成功 · 已获取 N 个模型 · 测试时间”，空目录显示可手填，401/403类失败显示权限或密钥错误，目录不支持且无他证显示“连接状态未确认”；目录外手填值给出“按手填保存、生成前重核”提示；`data-field="model"`保留。
+- `use-api-settings.ts`：`ApiDraft`增`testedAt/testedBase`；仅改模型名不清空目录结果，改地址/密钥清空；保存成功后无匹配有效检测则自动只读检测（不覆盖保存提示），重进（fresh load）对有钥无匹配通道各自动检测一次（去重、不带密钥明文、不调用生成）；`autoProbe`选项默认开，单测隔离用关。
+- `api-settings-client.ts`：`ModelProbe.complete?: boolean`（兼容旧形状）。
+- `server/src/security/outbound.ts`：视频`healthz`永不单独决定成败（404/405/501/异常/非JSON一律继续读目录，仍先请求healthz）；新增`modelsNext`（仅跟随同源下一页，跨域不发密钥返回null，出站校验同首页）。
+- `server/src/settings/probe.ts`：首页404/405/501→unknown/unavailable，401/403→failed（权限拒绝文案），分页`next`同源跟随（≤10页、去重、20000上限、`has_more`无`next`记未完整），`complete`贯穿返回；密钥回显保护保留。
+- 单测：`account-api-settings` 24项（含成功时间戳/地址绑定、四态保持、仅改模型保留、保存后自动只读检测、重进自动检测、无匹配有效检测抑制）；`api-probe` 30项（healthz四码回退、权限拒绝、合并分页、跨域/坏页/悬空/自环记未完整）。
+
+定向检查：
+- 前后端`typecheck` exit 0；`lint` exit 0（中途1处用例未用变量已删）；`build` exit 0（176模块）。
+- `test:unit account-api-settings` 24/24 exit 0；`server api-probe` 30/30 exit 0。
+- 浏览器`account-api-settings.spec.ts` 15/15通过（`stage2-ui3`全量14/15后单修一行再验`stage2-ui4` 1/1；失败均为用例写法：旧`option`/`status`定位、自动检测门闩时序、手填过滤遮挡，均已修正，产品逻辑无改）。fixture全局断言生成调用为0保持。
+- 真实供应商目录协议只读核对：本轮无用户密钥可用，未发起任何真实探测/生成；分页按同源`next`通用适配，实际供应商格式待有钥后在阶段8前补核（记为未完成，不冒充已验证）。
+
+提交：阶段2文件（`ApiModelFields/ModelPicker/api-settings-client/use-api-settings/api-settings.css`、`outbound/probe`、`api-probe/account-api-settings`用例、本记录）待本记录落定后单阶段提交，不含截图/日志等无关变更。

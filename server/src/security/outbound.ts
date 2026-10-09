@@ -99,11 +99,31 @@ export class RestrictedOutbound {
     return response;
    };
    if(channel==='video'){
-    const health=await read('healthz');if(health.status<200||health.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
-    try{JSON.parse(health.body.toString('utf8'));}catch{throw new HttpError(502,'UPSTREAM_FAILED');}
+    // healthz只按网关明确协议使用：有则读，无（含404/405/501、异常、非JSON）一律视为无该端点的兼容网关，
+    // 继续读模型目录。目录访问才是连通判据，healthz永不单独决定连接成功或失败。
+    try{await read('healthz');}catch{/* healthz never gates the catalog check */}
    }
    return await read('v1/models');
   }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}
   finally{clearTimeout(timer);}
  }
+ async modelsNext(base:string,next:string,apiKey:string):Promise<OutboundResponse|null>{
+   // 分页跟随仅限与当前地址同源的下一页；跨域地址不发送密钥，调用方记为未完整获取。
+   const normalized=normalizeModelBase(base);
+   let url:URL;try{url=new URL(next,normalized.replace(/\/$/,'')+'/');}catch{return null;}
+   if(url.protocol!=='https:'||url.origin!==new URL(normalized).origin)return null;
+   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+   try{
+    const hostname=hostName(url),literal=isIP(hostname);
+    const addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);
+    if(!addresses.length||addresses.some(a=>a.family!==isIP(a.address)||!publicAddress(a.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');
+    const selected=addresses[0]!;
+    const response=await bounded(this.adapters.request({url:url.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:8*1024*1024}),controller.signal);
+    if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');
+    if(response.body.length>8*1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');
+    return response;
+   }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}
+   finally{clearTimeout(timer);}
+  }
 }
