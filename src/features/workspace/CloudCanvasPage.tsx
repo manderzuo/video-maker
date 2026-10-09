@@ -18,7 +18,7 @@ import {copyNodes,pasteNodes,createBranch,branchSpec,type NodeClipboard} from '.
 import {ArrangePreview} from '../canvas/ArrangePreview';
 import type {PositionPatch} from '../canvas/group-layout';
 import {Button} from '../../ui/Button';
-import {LocalLink,addNavigationGuard} from '../../app/routes';
+import {LocalLink,addNavigationGuard,useRoute} from '../../app/routes';
 import {Dialog} from '../../ui/Dialog';
 import {CloudVideoRunPanel} from './CloudVideoRunPanel';
 import {CloudAgentPanel} from './CloudAgentPanel';
@@ -31,6 +31,8 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
  const stageRef=useRef<HTMLDivElement>(null),[clipboard,setClipboard]=useState<NodeClipboard>();
  const busy=state.status==='saving'||state.status==='loading',canEdit=!busy&&state.status!=='failed';
  useEffect(()=>{void model.load();void client.listAssets().then(setAssets).catch(e=>setError(workspaceMessage(e)));return()=>model.dispose();},[client,model]);
+ const route=useRoute(),focusedOnce=useRef(false);
+ useEffect(()=>{if(focusedOnce.current||!graph)return;const nodeId=new URLSearchParams(route.split('?')[1]??'').get('node');if(!nodeId||!graph.nodes.some(node=>node.id===nodeId))return;focusedOnce.current=true;setSelected([nodeId]);fit([nodeId]);},[client,graph,route]);
  useEffect(()=>{let active=true;void client.videoCapability().then(value=>{if(active){setVideoSpecs(value.videoSpecs);setModelName(current=>current||value.model);setCapability({contractVersion:'cloud-account-capability',verification:value.verified?'reviewed':'unknown',textModels:[],videoModels:[...new Set([...value.videoSpecs.map(spec=>spec.modelId),value.model])],videoAliases:[],videoSpecs:value.videoSpecs,workContext:false,continuation:false,imageGeneration:false,audioGeneration:false,cancelVideo:false,backup:false,...(value.limits?{limits:value.limits}:{})});}}).catch(()=>{});return()=>{active=false;};},[client]);
  useEffect(()=>{let active=true;void client.modelConfigs().then(({configs})=>{if(active)setCapability(current=>({...current,textModels:configs.filter(config=>config.channel==='text').map(config=>config.model)}));}).catch(()=>{});return()=>{active=false;};},[client]);
  useEffect(()=>{let active=true;async function load(){try{const rows=await client.listTasks();if(active)setRuns(rows.filter((run):run is CloudVideoRecord=>run.kind==='video'&&run.projectId===projectId).map(run=>({id:run.id,projectId:run.projectId,nodeId:run.nodeId,resultAssetId:run.resultAssetId,executionState:run.executionState})));}catch{/* Lineage badges refresh on next save. */}}void load();const timer=setInterval(()=>{void load();},4000);return()=>{active=false;clearInterval(timer);};},[client,projectId]);

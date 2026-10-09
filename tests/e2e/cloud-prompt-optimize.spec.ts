@@ -31,7 +31,9 @@ test('blocks compile, draft switching and apply while the central body is unsave
  const first=await create('第一份草稿'),second=await create('第二份草稿');
  for(const draft of [first,second])expect((await workspace.call('POST','/studio-api/prompt-drafts/'+draft.id+'/compile',{...headers,payload:{expectedRevision:0}})).statusCode).toBe(200);
  const counts=async()=>((await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows.map(row=>row.document.resultVersions.length) as number[]).sort();
- await page.goto('/prompt-generator');await page.locator('[data-interaction-id="cloud:draft:select"]').selectOption(first.id);
+ await page.goto('/prompt-generator');await expect(page.locator('[data-interaction-id="cloud:draft:select"] option')).toHaveCount(3);
+ await expect(page.locator('[data-interaction-id="cloud:draft:manual-guard"]')).toHaveCount(0);
+ await page.locator('[data-interaction-id="cloud:draft:select"]').selectOption(first.id);
  await expect(page.locator('[data-interaction-id="cloud:draft:select"]')).toHaveValue(first.id);await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue('第一份草稿');
  const original=await page.getByLabel('结果正文',{exact:true}).inputValue();expect(original.length).toBeGreaterThan(0);
  await page.getByLabel('结果正文',{exact:true}).fill('尚未保存的人工正文');await expect(page.locator('[data-interaction-id="cloud:draft:manual-guard"]')).toBeVisible();

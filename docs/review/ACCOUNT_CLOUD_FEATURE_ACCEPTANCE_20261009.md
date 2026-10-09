@@ -209,3 +209,18 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 审计F021（复用撤销）：`CloudResultsPage.undo`原校验只接受`type==='result'`且`runId`匹配的节点，与`placedNode`/`resultPlacement`明确允许的asset复用矛盾，导致复用后撤销只清本地记录、服务端`result`边残留。现校验接受同一素材的`result`/`asset`两类节点；只有本次新建的`result`节点才允许移除，其他情况一律只解除关联，原节点与文件保留；关联已不在时明确提示且不发空命令。
 - 审计F022（未知提交恢复）：续写/修改的冻结请求原只存在弹窗state，取消/关闭/刷新即丢失，重开会用新key重复创建。现`unknown`/`submitted`未确认请求以原key/baseRevision/operations/nodeIds连同输入（正文/时间/帧素材/跳过项/可用性）持久化到本标签页存储（按账号拥有的项目/记录UUID键控，不接匿名库）；重开同记录对话框恢复原请求（续写后台重下帧文件恢复预览，重试不依赖本地文件）；页面横幅提示未确认数量；`放弃未确认请求`为显式动作，文案明确不取消服务端提交；记录消失的条目在读取时清理。
 - 定向检查：`typecheck`/`lint` exit 0；`test:unit` 95文件694项 exit 0（含新增复用unlink纯构建用例）；`cloud-result-actions.spec.ts`新增3条——复用asset撤销（边1→0、原节点保留且`generationLinked:false`）、revision/tail-frame未知提交经取消+刷新后同一key重试（两次POST body逐字节相同、receipts只+1）；云全量77 passed exit 0（`work/account-api-cloud/stage6-fix-final.log`，未截断）。
+
+## 12. 阶段7验收（其余旧功能逐项接回）
+
+实现：
+- 账号外壳（`AuthBoundary`+新增`CloudShellChrome`）：全局搜索（300ms防抖，查当前账号项目标题/简介、全部非回收站项目节点标题、提示词库标题/正文/标签，上限20条，分别进画布/`canvas?node=`/预填过滤的提示词库；加载中/失败/空态明确，可清除）、命令面板（账号目的地＋当前项目画布/结果/比较，`Ctrl/Cmd+K`打开，输入框内不劫持）、顶部连接状态（`modelConfigs`读文字/视频配置有无，进详情看地址模型与密钥保存态）、通知（打开时读任务，用`cloud-attention.ts`纯函数挑失败/未知提交/待处理issue，逐条进任务中心/写作记录/恢复中心）。
+- 画布`?node=`定位（`CloudCanvasPage`挂载后选中并适配该节点，无参数时行为不变）、提示词库`?q=`预填过滤。
+- 操作记录（审计口径补服务接口）：服务端新增只读`GET /studio-api/projects/:id/receipts`（验归属，`limit` 1..100默认20，倒序），`CloudActivityPage`（`/activity`）聚合各项目最近回执（上限50）并进画布。
+- 恢复中心（`CloudRecoveryPage`，`/recovery`）：同`attentionItems`聚合未知提交/失败/待处理issue并进对应处理页，另给项目包恢复与旧版迁移入口；画布未保存修改仍在画布页内重试/放弃（`cloud-canvas-model`已有保存机）。
+- 帮助（`CloudHelpPage`，`/help`）：云端口径重写（账号隔离、修订冲突、未知提交、费用、受控能力），复用静态第三方许可文本；旧本地存储口径（浏览器存整库、`已保存`=本地事务等）不再出现。
+- 逐项验证（旧流程→云端覆盖→用例）：项目包导出/导入→`CloudProjectsPage`导入导出（`cloud-workspace.spec.ts:27`）；Agent提案/应用/撤销→`CloudAgentPanel`（`cloud-agent.spec.ts`两条）；项目/素材/提示词回收站与恢复→三页trashed态（`cloud-controls.spec.ts:19`、`cloud-prompts.spec.ts:7`、`cloud-workspace.spec.ts`系列）；提示词写作记录/历史→`cloud-prompts.spec.ts:40`等；任务中心→`cloud-video.spec.ts:13`等；旧版迁移→`legacy-user-import.spec.ts`。
+- 未开放并明确标注（不计入完成）：旧离线包格式显式迁移开关（`PackagePage`遗留逻辑，只读用户自选文件那套未接回；云端包与旧版迁移两条路已覆盖导入）；本地诊断导出/活动（无云端接口，诊断由服务端任务记录承载）；Agent待决策的跨项目聚合（只在项目内会话处理）；全局搜索不含回收站与已删除内容。
+- 按钮审计：新增表面全部按钮均有行为或禁用原因（保存类按钮在确认引用可读前禁用并给出原因；空态无按钮；通知/连接数只读展示）；`?node=`/`?q=`不新增按钮。
+- 审计F023（连接状态误报已连接）：`CloudConnectionStatus`原仅凭`modelConfigs()`有配置就显示“已连接”，而该接口无任何探测证据。现仅保存的配置一律标“已配置·未验证”，视频另取与当前配置绑定的`videoCapability().verified`（按当前地址查合同、按当前模型过滤规格，配置一改即重算）才标“规格已核验”；弹窗明示“不代表连接探测成功”，探测只在API设置页当时当地呈现，不为展示发起任何上游调用。另核实：新地址保存强制要求密钥（服务端`API_KEY_REQUIRED`），无密钥的已存配置经公开接口不可达，故不设无密钥分支。
+- 草稿切换flaky根因修正（`cloud-prompt-optimize:29`全量偶发失败）：`manualDirty`把“初始未同步的空正文”误判为用户未保存修改，导致加载窗口内切换被误阻断。现以独立`edited`标记区分用户编辑与程序化同步（切换/保存/放弃/重载时复位），F014“未保存则阻断”语义不变；用例加“初始无`manual-guard`误报”断言并等选项加载完再选择。
+- 定向检查：`typecheck`/`lint`/服务端`typecheck` exit 0；`test:unit` 95文件694项 exit 0（中途一次`text-optimization` T30超时单项失败，文件单跑与重跑全量均过，与本轮改动无依赖关系，记为偶发超时）；服务端`workspace-commands` 13项 exit 0（含新增receipts归属/倒序/分页校验）；`cloud-shell`/`cloud-activity-recovery` 9条 exit 0；`cloud-prompt-optimize`连跑3遍15/15；云全量86 passed exit 0（`work/account-api-cloud/stage7-f023-final.log`，未截断）。

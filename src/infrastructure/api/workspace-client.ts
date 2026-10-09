@@ -6,6 +6,7 @@ import {promptLibrarySchema,promptDraftSchema,type PromptDraft,type PromptLibrar
 import type {GraphOperation} from '../../application/commands/registry';
 import {ApiError} from './client';
 import {cloudProjectPackageSchema,privateFileSchema,type CloudProjectPackage} from '../../domain/cloud-project-package';
+import {receiptSummarySchema} from '../../domain/command-receipt';
 import {workspaceMigrationSchema,migrationBatchSchema,type WorkspaceMigration} from '../../domain/workspace-migration';
 import {cloudTaskSchema,promptOptimizationPreviewSchema} from '../../domain/cloud-task';
 import {cloudRunSchema,cloudVideoRunSchema,cloudVideoCapabilitySchema,cloudVideoPreviewSchema} from '../../domain/cloud-video-run';
@@ -76,6 +77,7 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   exportProject:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/export',cloudProjectPackageSchema),
   importProject:(data:CloudProjectPackage,assets:Record<string,string>,idempotencyKey:string)=>request('/studio-api/projects/import',workspaceSchema,{method:'POST',body:{data,assets,idempotencyKey}}),
   command:async(id:string,expectedRevision:number,command:CloudCommand,idempotencyKey:string=crypto.randomUUID())=>request('/studio-api/projects/'+resource(id)+'/commands',receiptSchema,{method:'POST',body:{expectedRevision,command,idempotencyKey}}),
+  listReceipts:async(id:string,limit=20)=>request('/studio-api/projects/'+resource(id)+'/receipts?limit='+limit,z.array(receiptSummarySchema)),
   listAssets:(trashed=false)=>request('/studio-api/assets'+(trashed?'?trashed=true':''),z.array(assetSchema)),
   listPrompts:(trashed=false)=>request('/studio-api/prompts'+(trashed?'?trashed=true':''),z.array(promptLibrarySchema)),
   createPrompt:(input:Omit<PromptLibraryEntry,'id'|'revision'|'trashed'>,idempotencyKey:string)=>request('/studio-api/prompts',promptLibrarySchema,{method:'POST',body:{...input,idempotencyKey}}),

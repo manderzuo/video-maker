@@ -89,3 +89,14 @@ it('derives generation bindings when text, draft and connection are created in o
  expect(saved.statusCode).toBe(200);expect(saved.json().graph.nodes[1].data).toMatchObject({inputBindings:[{nodeId:node.id,order:0,role:'text'}],stale:true});
  const removed=await command(a,p.id,1,{type:'operations',operations:[{id:randomUUID(),type:'remove_node',payload:{nodeId:node.id}}]});expect(removed.statusCode).toBe(200);expect(removed.json().graph.nodes[0].data).toMatchObject({inputBindings:[],missingInputNodeIds:[node.id],stale:true});
 });
+it('lists recent command receipts newest-first for the owning account only',async()=>{
+ const a=await env.signup('Receipts_A'),b=await env.signup('Receipts_B'),p=await project(a);
+ await command(a,p.id,0,add());await command(a,p.id,1,{type:'undo'});
+ const listed=await env.call('GET',`/studio-api/projects/${p.id}/receipts?limit=10`,env.headers(a));
+ expect(listed.statusCode).toBe(200);expect(listed.json()).toHaveLength(2);
+ expect(listed.json()[0]).toMatchObject({projectId:p.id,revision:2,commandType:'undo'});
+ expect(listed.json()[1]).toMatchObject({projectId:p.id,revision:1,commandType:'operations'});
+ expect((await env.call('GET',`/studio-api/projects/${p.id}/receipts`,env.headers(b))).statusCode).toBe(404);
+ expect((await env.call('GET',`/studio-api/projects/${p.id}/receipts?limit=0`,env.headers(a))).statusCode).toBe(400);
+ expect((await env.call('GET','/studio-api/projects/not-a-uuid/receipts',env.headers(a))).statusCode).toBe(404);
+});

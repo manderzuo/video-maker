@@ -2,7 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import type {PromptDraft,PromptLibraryEntry} from '../../domain/prompt';
 import type {CloudRun} from '../../domain/cloud-video-run';
 import type {Project} from '../../domain/project';
-import {navigate} from '../../app/routes';
+import {navigate,useRoute} from '../../app/routes';
 import {cloudTaskStatus} from './CloudTasksPage';
 type WritingTask=Extract<CloudRun,{kind:'prompt-optimize'}>;
 import {fillTemplate,templateNames} from '../../domain/prompt-template';
@@ -16,7 +16,8 @@ const blank:EditorValues={title:'',body:'',tags:'',variables:'',source:'用户�
 const fields=(entry:PromptLibraryEntry):EditorValues=>({title:entry.title,body:entry.body,tags:entry.tags.join(', '),variables:entry.variables.join(', '),source:entry.source,license:entry.license});
 const split=(value:string)=>value.split(/[,，]/).map(item=>item.trim()).filter(Boolean);
 export function CloudPromptsPage({client,trashed=false}:{client:WorkspaceClient;trashed?:boolean}){
- const [entries,setEntries]=useState<PromptLibraryEntry[]>([]),[query,setQuery]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState('');
+ const route=useRoute();
+ const [entries,setEntries]=useState<PromptLibraryEntry[]>([]),[query,setQuery]=useState(()=>new URLSearchParams(route.split('?')[1]??'').get('q')??''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState('');
  const [editor,setEditor]=useState<{entry?:PromptLibraryEntry;initial:EditorValues;key:string}>(),[values,setValues]=useState<EditorValues>(blank),[discard,setDiscard]=useState(false);
  const [history,setHistory]=useState<PromptLibraryEntry>(),[historical,setHistorical]=useState<PromptLibraryEntry>(),[revision,setRevision]=useState(0);
  const [using,setUsing]=useState<PromptLibraryEntry>(),[variables,setVariables]=useState<Record<string,string>>({}),[projects,setProjects]=useState<Project[]>([]),[target,setTarget]=useState('');

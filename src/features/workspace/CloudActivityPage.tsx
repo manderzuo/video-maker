@@ -1,0 +1,18 @@
+import {useEffect,useState} from 'react';
+import type {Project} from '../../domain/project';
+import type {ReceiptSummary} from '../../domain/command-receipt';
+import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
+import {LocalLink} from '../../app/routes';
+import {Button} from '../../ui/Button';
+const commandLabels:Record<ReceiptSummary['commandType'],string>={operations:'画布操作',undo:'撤销',redo:'重做',viewport:'视角'};
+export function CloudActivityPage({client}:{client:WorkspaceClient}){
+ const [rows,setRows]=useState<{project:Project;receipt:ReceiptSummary}[]>(),[error,setError]=useState('');
+ async function reload(){setError('');try{
+  const projects=await client.listProjects();
+  const per=await Promise.all(projects.map(async project=>({project,receipts:await client.listReceipts(project.id,10)})));
+  const merged=per.flatMap(entry=>entry.receipts.map(receipt=>({project:entry.project,receipt}))).sort((a,b)=>b.receipt.createdAt-a.receipt.createdAt||b.receipt.revision-a.receipt.revision).slice(0,50);
+  setRows(merged);
+ }catch(e){setError(workspaceMessage(e));}}
+ useEffect(()=>{let active=true;void reload().catch(()=>{if(active)setError('云端操作记录读取失败。');});return()=>{active=false;};},[client]);
+ return <section className="card" aria-label="云端活动记录"><h1>云端活动记录</h1><p>只列出当前账号各项目的云端命令回执；按下述时间倒序，最多 50 条。完整画布历史仍在各项目内，可用撤销/重做查看。</p><div className="actions"><Button data-interaction-id="cloud:activity:reload" onClick={()=>void reload()}>重新读取</Button></div>{error?<p role="alert">{error}</p>:null}{rows===undefined?<p role="status">正在读取云端操作记录…</p>:rows.length?rows.map(({project,receipt})=><article key={receipt.id} className="card"><h2>{project.title}</h2><p>修订 {receipt.revision} · {commandLabels[receipt.commandType]} · {new Date(receipt.createdAt).toLocaleString()}</p><LocalLink data-interaction-id="cloud:activity:open" href={'/projects/'+encodeURIComponent(project.id)+'/canvas'}>打开项目画布</LocalLink></article>):<p>暂无云端操作记录；新建项目并保存画布后这里会列出。</p>}</section>;
+}
