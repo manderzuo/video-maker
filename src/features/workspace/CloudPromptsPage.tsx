@@ -3,6 +3,7 @@ import type {PromptDraft,PromptLibraryEntry} from '../../domain/prompt';
 import type {CloudRun} from '../../domain/cloud-video-run';
 import type {Project} from '../../domain/project';
 import {navigate,useRoute} from '../../app/routes';
+import {sessionStore} from '../../infrastructure/api/session';
 import {cloudTaskStatus} from './CloudTasksPage';
 type WritingTask=Extract<CloudRun,{kind:'prompt-optimize'}>;
 import {fillTemplate,templateNames} from '../../domain/prompt-template';
@@ -25,20 +26,24 @@ export function CloudPromptsPage({client,trashed=false}:{client:WorkspaceClient;
  const [using,setUsing]=useState<PromptLibraryEntry>(),[variables,setVariables]=useState<Record<string,string>>({}),[projects,setProjects]=useState<Project[]>([]),[target,setTarget]=useState('');
  const [replaceNodeId,setReplaceNodeId]=useState(''),[targetNodes,setTargetNodes]=useState<{id:string;title:string;text:string;referenceTokens:unknown[]}[]>([]);
  const [importing,setImporting]=useState(false),[importFile,setImportFile]=useState<File>(),[importPlan,setImportPlan]=useState<{items:{entry:PromptLibraryEntry;key:string}[]}>();
+ const [insertPending,setInsertPending]=useState(false);
  const [selected,setSelected]=useState<string[]>([]);
  const [view,setView]=useState<'library'|'writing'>('library'),[records,setRecords]=useState<{drafts:PromptDraft[];tasks:WritingTask[]}>(),[recordResult,setRecordResult]=useState<{title:string;body:string;readonly:boolean}>();
- const alive=useRef(true),frozen=useRef<{values:EditorValues;key:string}|undefined>(undefined),insert=useRef<{id:string;revision:number;operation:Parameters<WorkspaceClient['command']>[2]}|undefined>(undefined);
+ const alive=useRef(true),frozen=useRef<{values:EditorValues;key:string}|undefined>(undefined),insert=useRef<{id:string;revision:number;operation:Parameters<WorkspaceClient['command']>[2];fingerprint:string}|undefined>(undefined);
  const dirty=!!editor&&JSON.stringify(values)!==JSON.stringify(editor.initial);
  useCloudDraftGuard(dirty,()=>setError('提示词有未保存输入，请先保存或明确放弃后再离开。'));
  const reload=async()=>{const rows=await client.listPrompts(trashed);if(alive.current)setEntries(rows);};
  useEffect(()=>{let active=true;alive.current=true;void client.listPrompts(trashed).then(rows=>{if(active)setEntries(rows);}).catch(e=>{if(active)setError(workspaceMessage(e));});return()=>{active=false;alive.current=false;};},[client,trashed]);
- // 从画布文字节点携带正文进入：一次性读取后即清除，不重复预填。
+ // 从画布文字节点携带正文进入：一次性读取后即清除，不重复预填；仅接受当前账号的种子。
  useEffect(()=>{
   if(new URLSearchParams(route.split('?')[1]??'').get('seed')!=='1')return;
   try{
    const raw=sessionStorage.getItem('aiwork:prompt-seed');sessionStorage.removeItem('aiwork:prompt-seed');
    if(!raw)return;
-   const seed=JSON.parse(raw) as {title?:unknown;body?:unknown;source?:unknown};
+   const identity=sessionStore.getState();
+   if(identity.status!=='authenticated')return;
+   const seed=JSON.parse(raw) as {userId?:unknown;title?:unknown;body?:unknown;source?:unknown};
+   if(seed.userId!==identity.session.user.id)return;
    const initial:EditorValues={title:typeof seed.title==='string'?seed.title:'',body:typeof seed.body==='string'?seed.body:'',tags:'',variables:'',source:typeof seed.source==='string'?seed.source:'用户创作',license:'用户填写的来源与许可尚未核验'};
    setEditor({entry:undefined,initial,key:crypto.randomUUID()});setValues(initial);frozen.current=undefined;setError('');
   }catch{/* 损坏的种子忽略 */}
@@ -54,7 +59,7 @@ export function CloudPromptsPage({client,trashed=false}:{client:WorkspaceClient;
   try{if(editor.entry)await client.patchPrompt(editor.entry.id,editor.entry.revision,input);else await client.createPrompt(input,request.key);}catch(error){if(error instanceof ApiError&&error.status>0)frozen.current=undefined;throw error;}
   frozen.current=undefined;if(alive.current)setEditor(undefined);await reload();
  });}
- async function use(entry:PromptLibraryEntry){await action(async()=>{const rows=await client.listProjects();if(alive.current){setProjects(rows);setTarget(rows[0]?.id??'');setUsing(entry);setVariables({});setReplaceNodeId('');setTargetNodes([]);insert.current=undefined;}});}
+ async function use(entry:PromptLibraryEntry){await action(async()=>{const rows=await client.listProjects();if(alive.current){setProjects(rows);setTarget(rows[0]?.id??'');setUsing(entry);setVariables({});setReplaceNodeId('');setTargetNodes([]);}});}
  async function inspectImportFile(file:File){await action(async()=>{const preview=previewPromptImport(await file.text());if(alive.current)setImportPlan({items:preview.map(entry=>({entry,key:crypto.randomUUID()}))});});}
  async function commitImport(){if(!importPlan)return;const plan=importPlan;await action(async()=>{
   const failed:string[]=[];
@@ -67,21 +72,25 @@ export function CloudPromptsPage({client,trashed=false}:{client:WorkspaceClient;
   else{setImportPlan(undefined);setImportFile(undefined);setImporting(false);setMessage('已导入'+plan.items.length+'条提示词。');}
  });}
  function exportSelected(){setError('');try{const text=exportPrompts(entries.filter(entry=>selected.includes(entry.id)));triggerLocalDownload(new Blob([text],{type:'application/json'}),'AIWORK-prompts.json');setMessage('已触发浏览器下载：AIWORK-prompts.json');}catch{setError('提示词导出未完成；原条目保留，请检查浏览器下载权限后重试。');}}
- async function loadTargetNodes(){if(!using||!target)return;insert.current=undefined;setReplaceNodeId('');setError('');try{const workspace=await client.readWorkspace(target);if(!alive.current)return;const nodes:{id:string;title:string;text:string;referenceTokens:unknown[]}[]=[];for(const node of workspace.graph.nodes)if(node.type==='text'&&!node.locked)nodes.push({id:node.id,title:node.title,text:node.data.text,referenceTokens:node.data.referenceTokens});setTargetNodes(nodes);}catch(e){if(alive.current){setTargetNodes([]);setError(workspaceMessage(e));}}}
+ async function loadTargetNodes(){if(!using||!target)return;setReplaceNodeId('');setError('');try{const workspace=await client.readWorkspace(target);if(!alive.current)return;const nodes:{id:string;title:string;text:string;referenceTokens:unknown[]}[]=[];for(const node of workspace.graph.nodes)if(node.type==='text'&&!node.locked)nodes.push({id:node.id,title:node.title,text:node.data.text,referenceTokens:node.data.referenceTokens});setTargetNodes(nodes);}catch(e){if(alive.current){setTargetNodes([]);setError(workspaceMessage(e));}}}
  useEffect(()=>{if(using&&target)void loadTargetNodes();},[client,using?.id,target]);
  const filled=using?fillTemplate(using,variables):undefined;
  async function insertText(){if(!using||!filled?.ok||!target)return;await action(async()=>{
-  if(!insert.current){
+  const fingerprint=JSON.stringify({entry:using.id,target,node:replaceNodeId,value:filled.value});
+  if(!insert.current||insert.current.fingerprint!==fingerprint){
+   if(insert.current){insert.current=undefined;setInsertPending(false);throw new Error('目标或内容已变更，之前的冻结命令已失效，请重新确认。');}
    const workspace=await client.readWorkspace(target);
    const replace=replaceNodeId?workspace.graph.nodes.find(node=>node.id===replaceNodeId):undefined;
    if(replaceNodeId&&(!replace||replace.type!=='text'||replace.locked))throw new Error('目标文字节点已不可编辑，请重新读取目标项目。');
    const replaceText=replace&&replace.type==='text'?replace:undefined;
    const data=replaceText?{kind:'text',text:filled.value,referenceTokens:replaceText.data.referenceTokens,promptLibrarySource:{entryId:using.id,revision:using.revision,source:using.source,license:using.license}}:{kind:'text',text:filled.value,referenceTokens:[],promptLibrarySource:{entryId:using.id,revision:using.revision,source:using.source,license:using.license}};
    const operation:Parameters<WorkspaceClient['command']>[2]=replaceText?{type:'operations',operations:[{id:crypto.randomUUID(),type:'update_node',payload:{nodeId:replaceText.id,patch:{data}}}]}:{type:'operations',operations:[{id:crypto.randomUUID(),type:'add_node',payload:{node:{id:crypto.randomUUID(),type:'text',title:[...using.title].slice(0,60).join(''),x:64,y:64,locked:false,data}}}]};
-   insert.current={id:crypto.randomUUID(),revision:workspace.graph.revision,operation};
+   insert.current={id:crypto.randomUUID(),revision:workspace.graph.revision,operation,fingerprint};
+   setInsertPending(true);
   }
-  const receipt=await client.command(target,insert.current.revision,insert.current.operation,insert.current.id);if(alive.current){setMessage(replaceNodeId?'已替换目标文字节点，原节点其他输入与库条目保留。':'提示词已插入云端画布 · 修订 '+receipt.revision);setUsing(undefined);}insert.current=undefined;
+  const receipt=await client.command(target,insert.current.revision,insert.current.operation,insert.current.id);if(alive.current){setMessage(replaceNodeId?'已替换目标文字节点，原节点其他输入与库条目保留。':'提示词已插入云端画布 · 修订 '+receipt.revision);setUsing(undefined);}insert.current=undefined;setInsertPending(false);
  });}
+ function abandonInsert(){insert.current=undefined;setInsertPending(false);setMessage('已放弃本次提交；若服务端已接受，可在目标画布核对修订。');}
  const visible=entries.filter(entry=>(entry.title+' '+entry.body+' '+entry.tags.join(' ')).toLowerCase().includes(query.toLowerCase()));
  return <section className="card"><div className="actions"><h1>{trashed?'提示词回收站':'提示词库'}</h1>{!trashed?<Button data-interaction-id="cloud:prompt:new" variant="primary" onClick={()=>open()}>新建提示词</Button>:null}{!trashed?<><label>导入提示词JSON<input data-interaction-id="cloud:prompt:import" type="file" accept=".json,application/json" disabled={busy} onChange={event=>{setImportFile(event.target.files?.[0]);setImportPlan(undefined);setError('');if(event.target.files?.[0])setImporting(true);}}/></label><Button data-interaction-id="cloud:prompt:export" disabled={busy||!selected.length} disabledReason={selected.length?undefined:'先选择提示词。'} onClick={exportSelected}>导出所选提示词</Button></>:null}<Button data-interaction-id="cloud:prompt:reload" disabled={busy} onClick={()=>action(reload)}>重新加载提示词</Button></div>{!trashed?<div className="actions"><Button data-interaction-id="cloud:prompts:view-library" aria-pressed={view==='library'} onClick={()=>setView('library')}>已保存提示词</Button><Button data-interaction-id="cloud:prompts:view-writing" aria-pressed={view==='writing'} onClick={()=>void openWriting()}>写作记录</Button></div>:null}{!trashed&&view==='writing'?null:<label>搜索提示词<input data-interaction-id="cloud:prompt:search" value={query} onChange={e=>setQuery(e.target.value)}/></label>}
   {error?<p role="alert" className="banner error">{error}</p>:null}{message?<p role="status">{message}</p>:null}
@@ -96,8 +105,8 @@ export function CloudPromptsPage({client,trashed=false}:{client:WorkspaceClient;
   <Dialog open={discard} title="放弃未保存提示词输入" onClose={()=>setDiscard(false)} footer={<><Button data-interaction-id="cloud:prompt:keep" onClick={()=>setDiscard(false)}>继续编辑</Button><Button data-interaction-id="cloud:prompt:discard" variant="danger" onClick={()=>{setEditor(undefined);setDiscard(false);frozen.current=undefined;}}>确认放弃输入</Button></>}><p>关闭编辑会放弃本次未保存输入，云端版本保留。</p></Dialog>
   <Dialog open={importing} title="导入提示词JSON" dismissible={!busy} onClose={()=>{setImporting(false);setImportPlan(undefined);}} footer={<><Button data-interaction-id="cloud:prompt:import-cancel" disabled={busy} onClick={()=>{setImporting(false);setImportPlan(undefined);}}>取消</Button>{importPlan?<Button data-interaction-id="cloud:prompt:import-commit" variant="primary" busy={busy} onClick={commitImport}>确认导入当前账号</Button>:<Button data-interaction-id="cloud:prompt:import-inspect" disabled={!importFile} busy={busy} onClick={()=>{if(importFile)void inspectImportFile(importFile);}}>校验并预览</Button>}</>}><p>只读选择的文件，校验通过后才写入当前账号；原文件保留，来源与许可完整保留。</p>{importPlan?importPlan.items.map(item=><article key={item.key} className="card"><h2>{item.entry.title}</h2><p>来源：{item.entry.source} · 许可：{item.entry.license} · 标签：{item.entry.tags.join('、')||'无'}</p></article>):null}{error?<p role="alert">{error}</p>:null}</Dialog>
   <Dialog open={!!history} title="提示词正文历史" onClose={()=>setHistory(undefined)}><label>历史修订<input data-interaction-id="cloud:prompt:revision" type="number" min={0} max={history?.revision} value={revision} onChange={event=>setRevision(Number(event.target.value))}/></label><Button data-interaction-id="cloud:prompt:read-revision" disabled={busy||!Number.isInteger(revision)||revision<0} onClick={()=>action(async()=>{if(history){const value=await client.promptRevision(history.id,revision);if(alive.current)setHistorical(value);}})}>读取历史正文</Button><pre>{historical?.body}</pre>{error?<p role="alert">{error}</p>:null}</Dialog>
-  <Dialog open={!!using} title="填写提示词变量" dismissible={!busy} onClose={()=>setUsing(undefined)} footer={<Button data-interaction-id="cloud:prompt:insert" variant="primary" busy={busy} disabled={!filled?.ok||!target} onClick={insertText}>{replaceNodeId?'替换选中文字节点':'插入云端画布'}</Button>}>
-   {using?templateNames(using).map(name=><label key={name}>{'变量 '+name}<input data-interaction-id="cloud:prompt:variable" disabled={busy||!!insert.current} value={variables[name]??''} onChange={event=>setVariables({...variables,[name]:event.target.value})}/></label>):null}<label>目标项目<select aria-label="目标项目" data-interaction-id="cloud:prompt:target" disabled={busy||!!insert.current} value={target} onChange={event=>setTarget(event.target.value)}><option value="">请选择</option>{projects.map(project=><option key={project.id} value={project.id}>{project.title}</option>)}</select></label>{using&&target?<><label>目标文字节点<select aria-label="目标文字节点" data-interaction-id="cloud:prompt:replace-node" disabled={busy||!!insert.current} value={replaceNodeId} onChange={event=>setReplaceNodeId(event.target.value)}><option value="">新建文字节点</option>{targetNodes.map(node=><option key={node.id} value={node.id}>{node.title}</option>)}</select></label><Button data-interaction-id="cloud:prompt:reload-target" disabled={busy} onClick={()=>void loadTargetNodes()}>重新读取目标项目</Button>{replaceNodeId&&targetNodes.find(node=>node.id===replaceNodeId)?<><p>原正文：{targetNodes.find(node=>node.id===replaceNodeId)!.text}</p><p>新正文：{filled?.ok?filled.value:''}</p><p>来源：{using.title} · {using.source} · {using.license}；只替换正文与来源记录，其他输入、任务与库条目保留。</p></>:null}</>:null}<pre aria-label="最终提示词">{filled?.ok?filled.value:''}</pre>{filled&&!filled.ok?filled.issues.map(issue=><p key={issue.code+issue.path}>{issue.message}</p>):null}{error?<p role="alert">{error}</p>:null}
+  <Dialog open={!!using} title="填写提示词变量" dismissible={!busy} onClose={()=>setUsing(undefined)} footer={<><Button data-interaction-id="cloud:prompt:insert" variant="primary" busy={busy} disabled={!filled?.ok||!target} onClick={insertText}>{replaceNodeId?'替换选中文字节点':'插入云端画布'}</Button>{insertPending?<Button data-interaction-id="cloud:prompt:insert-abandon" disabled={busy} onClick={abandonInsert}>放弃本次提交</Button>:null}</>}>
+   {using?templateNames(using).map(name=><label key={name}>{'变量 '+name}<input data-interaction-id="cloud:prompt:variable" disabled={busy||!!insert.current} value={variables[name]??''} onChange={event=>setVariables({...variables,[name]:event.target.value})}/></label>):null}<label>目标项目<select aria-label="目标项目" data-interaction-id="cloud:prompt:target" disabled={busy||!!insert.current||insertPending} value={target} onChange={event=>setTarget(event.target.value)}><option value="">请选择</option>{projects.map(project=><option key={project.id} value={project.id}>{project.title}</option>)}</select></label>{using&&target?<><label>目标文字节点<select aria-label="目标文字节点" data-interaction-id="cloud:prompt:replace-node" disabled={busy||!!insert.current||insertPending} value={replaceNodeId} onChange={event=>setReplaceNodeId(event.target.value)}><option value="">新建文字节点</option>{targetNodes.map(node=><option key={node.id} value={node.id}>{node.title}</option>)}</select></label>{insertPending?<p>有未完成的提交，请先重试（确认按钮）或放弃；重读与重选已锁定。</p>:<Button data-interaction-id="cloud:prompt:reload-target" disabled={busy} onClick={()=>void loadTargetNodes()}>重新读取目标项目</Button>}{replaceNodeId&&targetNodes.find(node=>node.id===replaceNodeId)?<><p>原正文：{targetNodes.find(node=>node.id===replaceNodeId)!.text}</p><p>新正文：{filled?.ok?filled.value:''}</p><p>来源：{using.title} · {using.source} · {using.license}；只替换正文与来源记录，其他输入、任务与库条目保留。</p></>:null}</>:null}<pre aria-label="最终提示词">{filled?.ok?filled.value:''}</pre>{filled&&!filled.ok?filled.issues.map(issue=><p key={issue.code+issue.path}>{issue.message}</p>):null}{error?<p role="alert">{error}</p>:null}
   </Dialog>
  </section>;
 }
