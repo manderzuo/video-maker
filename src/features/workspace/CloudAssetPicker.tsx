@@ -108,7 +108,7 @@ export function CloudAssetPicker({
           上传到云端素材库
         </Button>
         {error && file ? (
-          <Button disabled={!canWrite || uploading} onClick={() => void upload(file)}>
+          <Button data-interaction-id="cloud:asset:retry-upload" disabled={!canWrite || uploading} onClick={() => void upload(file)}>
             重试上传
           </Button>
         ) : null}

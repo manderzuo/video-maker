@@ -35,7 +35,7 @@ export async function inspectCloudProject(file:Blob):Promise<CloudImportPlan>{
  }
  return {data,files,mapping:{},pending:new Map(),idempotencyKey:crypto.randomUUID()};
 }
-// 旧离线包（infinite-canvas v3 projects.json）：用户明确选择文件后，在内存中
+// 旧离线包（v3 projects.json）：用户明确选择文件后，在内存中
 // 经 migrateLegacyPackage 转换为云端包再走同一校验与导入链。只读用户文件，
 // 不碰匿名库；旧配置/会话/无类型连线不导入，不支持的旧节点隔离计数后丢弃。
 export async function inspectLegacyProject(file:Blob):Promise<CloudImportPlan>{

@@ -235,6 +235,8 @@ P2追加/重试语义（Codex已确认代码修正）：
 
 - 真实点击旅程（本地假上游，零付费）：`cloud-journey.spec.ts`从空项目开始，全程点击完成API配置（含测试连接成功后保存）、提示词新建、画布建流程并保存、素材上传入库、生成确认、经任务详情进入结果页、修改、续写、跨页面恢复；`providerCalls` POST仅1次（生成提交）。
 - 验证矩阵（本轮实际commit与结果）：`typecheck`/`lint`/服务端`typecheck` exit 0；`test:unit` 95文件694项；服务端`workspace-commands` 13项；云全量90 passed；`vite build` exit 0且`check-bundle-budget` passed；构建产物无测试密钥/私钥残留（`dist/assets`无`FAKE_*_KEY`/`aiwork_local_test_only`/私钥头）。
-- 严格HTTPS：`test-account-tls-environment.mjs` 4/4通过；但整套HTTPS浏览器验收阻塞——`trusted-test-tls/`为空（pem/key被gitignore，不在仓库是对的），历史`test-tls/cert.pem`系自签名未受信（CN=127.0.0.1，核对时UTC 2026-10-09T10:03），`run-account-browser-tests.mjs`要求先跑本地受信wrapper；系统根证书安装需用户明确授权，未擅自操作。旧匿名验收套件因合法入口替换不适用（映射见§10），不以静态检查代替。
+- verify子项逐项：`test:coverage`中`check-ui-identities`已从10归零（含本轮新增7处与历史3处补id）；`check-traceability`依赖旧匿名映射表（`interaction-map.json`等无账号体系更新流程），与旧匿名套件同列不适用；`test:security`后半`check-network-negative`通过；`test:trace` 31/36——5失败均与本轮无关（QA-005/T50两项卡品牌许可门；T01-C05系测试硬编码旧检出根路径，本检出下基线必挂；T02-G02系需人工批准视觉基线的人工门，保持pending）；`companion:build`通过；`test:e2e`默认旧匿名runner、`test:distribution`、`test:performance`、`test:live`未执行（入口替换不适用/需授权，见下）。
+- 品牌门现状：`check-brand`仍`passed:false`（`frontendMarkAuthorization` unresolved为基线发布门槛，需人类澄清）；本轮行为——新增UI文案避开第三方标识并清理`emptyOutDir:false`累积的旧构建残留后重建，当前产物无新增违规项（剩余为基线固有的许可文本块与隔离旧格式例外）；第三方运行时许可基线过期（`runtime-*.LICENSE`被标modified）与本轮依赖无关（未改依赖）。
+- 严格HTTPS阻塞（精确版）：`trusted-test-tls/`为空；历史`test-tls`证书系自签名未受信；`run/start-account-browser-tests.ps1`要求Git自带openssl（存在）+PowerShell 7（本机只有5.1，无）+用户显式`-AuthorizeLocalTrust`开关，信任目标仅CurrentUser/Root、24小时非CA叶证书、finally按指纹清理；`prepared-test-tls.json`系旧轮证据不复用。本机客观上跑不起来整套HTTPS浏览器验收（`account-auth.spec.ts`七个账号边界用例随之待跑），缺失项为pwsh7与用户授权，不自行安装/信任/绕过。
 - 待完成（需授权，勿视作已交付）：真实模型验收（文字优化/纯文字视频/带参考视频/续写生成，需用户选定输入模型并确认费用，本轮零触发）；生产数据库/媒体/配置备份、兼容性检查与恢复演练、部署上线与同提交号线上复测（无生产变更授权，均未执行；用户此后写入内容不得覆盖）。
-- 推送阻塞（环境网络，非权限）：`feat/account-api-cloud`本地超前`origin` 13个提交，`git push origin`因经127.0.0.1无法连接github.com:443失败；待网络恢复后推送，不改提交内容重试前先核对远端未被他人改写。
+- 推送阻塞（环境网络，非权限）：`feat/account-api-cloud`本地超前`origin` 15个提交，`git push origin`因经127.0.0.1无法连接github.com:443失败（多次复现同一错误）；待网络恢复后推送，不改提交内容重试前先核对远端未被他人改写。
