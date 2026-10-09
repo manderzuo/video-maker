@@ -13,6 +13,9 @@ export const projectDeleteSchema=z.strictObject({expectedRevision:z.number().int
 export const projectCopySchema=z.strictObject({expectedRevision:z.number().int().min(0),idempotencyKey:z.uuid(),title:title.optional()});
 export const projectListSchema=z.strictObject({trashed:z.enum(['true','false']).optional()});
 export const receiptListSchema=z.strictObject({limit:z.coerce.number().int().min(1).max(100).default(20)});
+export {purgePreviewSchema,purgeConfirmSchema,purgeReceiptSchema} from '../../../src/domain/project-purge.js';
+export type {PurgePreview,PurgeReceipt,PurgeConfirm} from '../../../src/domain/project-purge.js';
+// 客户端复用同一 domain 契约（见 src/domain/project-purge.ts），保持字节一致。
 export const projectViewSchema=z.strictObject({id:z.uuid(),schemaVersion:z.literal(1),...editable,revision:z.number().int().min(0),createdAt:z.number().int().min(0),updatedAt:z.number().int().min(0),trashedAt:z.number().int().min(0).nullable()});
 export const workspaceGraphSchema=graphSchema;
 export const projectCommandSchema=z.strictObject({expectedRevision:z.number().int().min(0),idempotencyKey:z.uuid(),command:z.discriminatedUnion('type',[

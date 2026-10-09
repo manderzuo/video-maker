@@ -3,7 +3,8 @@ import type {FastifyInstance} from 'fastify';
 import type {Pool} from 'pg';
 import {requestAuthContext} from '../auth/context.js';
 import {HttpError} from '../errors.js';
-import {createProjectSchema,projectPatchSchema,projectDeleteSchema,projectListSchema,projectCommandSchema,projectCopySchema,receiptListSchema} from './contracts.js';
+import {createProjectSchema,projectPatchSchema,projectDeleteSchema,projectListSchema,projectCommandSchema,projectCopySchema,receiptListSchema,purgeConfirmSchema} from './contracts.js';
+import {inspectPurge,confirmPurge} from './purge.js';
 import {copyProject} from './copy.js';
 import {exportProjectPackage,importProjectPackage,importProjectSchema} from './package.js';
 import type {AssetStorageOptions} from '../assets/storage.js';
@@ -25,4 +26,6 @@ export function registerProjectRoutes(app:FastifyInstance,pool:Pool,now:()=>Date
  app.post('/studio-api/projects/:id/copy',async(request,reply)=>{noQuery.parse(request.query);return reply.code(201).send(await copyProject(pool,requestAuthContext(request),projectId(request.params),projectCopySchema.parse(request.body),now(),storage));});
  app.post('/studio-api/projects/:id/commands',{bodyLimit:2*1024*1024},async request=>{noQuery.parse(request.query);return applyProjectCommand(pool,requestAuthContext(request),projectId(request.params),projectCommandSchema.parse(request.body),now());});
  app.get('/studio-api/projects/:id/receipts',async request=>{const query=receiptListSchema.parse(request.query);return listReceipts(pool,requestAuthContext(request),projectId(request.params),query.limit);});
+ app.post('/studio-api/projects/:id/purge-preview',async request=>{noQuery.parse(request.query);return inspectPurge(pool,requestAuthContext(request),projectId(request.params));});
+ app.post('/studio-api/projects/:id/purge',async request=>{noQuery.parse(request.query);return confirmPurge(pool,requestAuthContext(request),projectId(request.params),purgeConfirmSchema.parse(request.body),now());});
 }

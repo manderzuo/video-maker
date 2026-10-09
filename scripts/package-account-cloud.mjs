@@ -19,7 +19,7 @@ const add=async(source,relative)=>{const target=path.join(stage,relative);await 
 for(const file of currentDistFiles(path.join(stage,'dist'))){const relative=path.relative(stage,file).replaceAll('\\','/');if(!relative.startsWith('dist/assets/')&&!['dist/index.html','dist/favicon.svg','dist/studio-deployment.json'].includes(relative))throw new Error('Unexpected static file in empty-content release');files.push(relative);}
 const publicMetadata=JSON.parse(await readFile(path.join(stage,'dist/studio-deployment.json'),'utf8'));if(publicMetadata.schemaVersion!==1||publicMetadata.connections.length!==0)throw new Error('No previous connections permitted in the public release');
 for(const name of ['account-server.mjs','package.json','package-lock.json'])await add(path.join(work,'server-build',name),'server/'+name);
-const migrationNames=['001-users.sql','002-api-configs.sql','003-workspace.sql','004-tasks-history.sql','005-video-runs.sql','006-agent.sql','007-workspace-imports.sql'];
+const migrationNames=['001-users.sql','002-api-configs.sql','003-workspace.sql','004-tasks-history.sql','005-video-runs.sql','006-agent.sql','007-workspace-imports.sql','008-project-purge.sql'];
 for(const name of migrationNames)await add(path.join(root,'server/src/db/migrations',name),'server/migrations/'+name);
 for(const name of ['aiwork-studio-cloud.service','nginx-studio-cloud.conf'])await add(path.join(root,'deploy',name),'deploy/'+name);
 for(const name of ['backup-account-cloud.sh'])await add(path.join(root,'scripts',name),'scripts/'+name);

@@ -1,0 +1,107 @@
+import {randomUUID} from 'node:crypto';
+import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
+// 云端单项/批量永久删除：墓碑保留历史，只删可编辑副本。仅隔离合成资料。
+type Ctx={headers(account:unknown):Record<string,string>;call(method:string,path:string,options?:unknown):Promise<{json:()=>unknown;statusCode:number}>;pool:{query(text:string,values?:unknown[]):Promise<{rows:{n?:number}[]}>};account:{view:{user:{id:string}}}};
+const asCtx=(value:unknown)=>value as Ctx;
+async function makeTrashed(ctx:Ctx,title:string,text='待删正文'){
+ const headers=ctx.headers(ctx.account);
+ const project=(await ctx.call('POST','/studio-api/projects',{...headers,payload:{title}})).json() as {id:string;revision:number};
+ expect((await ctx.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:randomUUID(),type:'text',title:'待删节点',x:40,y:40,locked:false,data:{kind:'text',text,referenceTokens:[]}}}}]}}})).statusCode).toBe(200);
+ expect((await ctx.call('DELETE','/studio-api/projects/'+project.id,{...headers,payload:{expectedRevision:1}})).statusCode).toBe(200);
+ return {project,headers};
+}
+test('purges a trashed project after exact-name confirmation keeping history',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ const {project}=await makeTrashed(ctx,'永久删除甲');
+ await page.goto('/trash');
+ await page.getByRole('button',{name:'永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'永久删除项目',exact:true});
+ await expect(dialog.getByText('1 个节点',{exact:false})).toBeVisible();
+ await expect(dialog.getByText('任务、账务、审计收据及共享素材保留',{exact:false})).toBeVisible();
+ await dialog.getByLabel('输入完整项目名称确认',{exact:true}).fill('永久删除甲');
+ await dialog.getByRole('button',{name:'确认永久删除',exact:true}).click();
+ await expect(page.getByRole('checkbox',{name:'选择项目永久删除甲',exact:true})).toHaveCount(0);
+ const graphs=(await ctx.pool.query('SELECT project_id FROM workspace_graphs')).rows;
+ expect(graphs).toHaveLength(0);
+ const history=(await ctx.pool.query('SELECT project_id FROM workspace_command_history')).rows;
+ expect(history).toHaveLength(0);
+ const receipts=(await ctx.pool.query('SELECT id FROM workspace_command_receipts')).rows;
+ expect(receipts).toHaveLength(1);
+ const tombstone=(await ctx.pool.query('SELECT purged_at FROM workspace_projects')).rows as unknown as {purged_at:string|null}[];
+ expect(tombstone).toHaveLength(1);expect(tombstone[0].purged_at).not.toBeNull();
+ await page.goto('/projects/'+project.id+'/canvas');
+ await expect(page.getByText('项目已永久删除',{exact:false}).first()).toBeVisible();
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('cancels purge without deleting and rejects a wrong name',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ await makeTrashed(ctx,'取消删除');
+ await page.goto('/trash');
+ await page.getByRole('button',{name:'永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'永久删除项目',exact:true});
+ await dialog.getByLabel('输入完整项目名称确认',{exact:true}).fill('错名');
+ await expect(dialog.getByRole('button',{name:'确认永久删除',exact:true})).toBeDisabled();
+ await dialog.getByRole('button',{name:'取消',exact:true}).click();
+ await expect(page.getByRole('checkbox',{name:'选择项目取消删除',exact:true})).toBeVisible();
+ const projects=(await ctx.pool.query('SELECT id FROM workspace_projects WHERE purged_at IS NULL')).rows;
+ expect(projects).toHaveLength(1);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('purges selected trashed projects one by one with a report',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ await makeTrashed(ctx,'批量删甲');await makeTrashed(ctx,'批量删乙');
+ await page.goto('/trash');
+ const boxes=page.locator('[data-interaction-id="cloud:project:select"]');
+ await expect(boxes).toHaveCount(2);
+ await boxes.nth(0).check();await boxes.nth(1).check();
+ await page.getByRole('button',{name:'批量永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'批量永久删除项目',exact:true});
+ await expect(dialog.getByRole('heading',{name:'批量删甲',exact:true})).toBeVisible();
+ await expect(dialog.getByRole('heading',{name:'批量删乙',exact:true})).toBeVisible();
+ await dialog.locator('article',{has:page.getByRole('heading',{name:'批量删甲',exact:true})}).getByLabel('输入完整项目名称确认',{exact:true}).fill('批量删甲');
+ await dialog.locator('article',{has:page.getByRole('heading',{name:'批量删乙',exact:true})}).getByLabel('输入完整项目名称确认',{exact:true}).fill('批量删乙');
+ await dialog.getByRole('button',{name:'确认删除已确认项',exact:true}).click();
+ await expect(page.getByText('批量永久删除成功 2',{exact:false})).toBeVisible();
+ const purged=(await ctx.pool.query('SELECT COUNT(*)::int n FROM workspace_projects WHERE purged_at IS NOT NULL')).rows as unknown as {n:number}[];
+ expect(purged[0].n).toBe(2);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('replays the same purge key without a second receipt on unknown response',async({page,workspace})=>{
+ const ctx=asCtx(workspace),headers=workspace.headers(workspace.account);
+ const {project}=await makeTrashed(ctx,'未知重试');
+ await page.goto('/trash');
+ await page.getByRole('button',{name:'永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'永久删除项目',exact:true});
+ await dialog.getByLabel('输入完整项目名称确认',{exact:true}).fill('未知重试');
+ let once=false;
+ await page.route('**/studio-api/projects/*/purge',async route=>{
+  if(!once){once=true;await ctx.call('POST','/studio-api/projects/'+project.id+'/purge',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
+  await route.fallback();
+ });
+ await dialog.getByRole('button',{name:'确认永久删除',exact:true}).click();
+ await expect(dialog.getByRole('alert')).toBeVisible();
+ await dialog.getByRole('button',{name:'确认永久删除',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'未知重试',exact:true})).toHaveCount(0);
+ const receipts=(await ctx.pool.query('SELECT id FROM workspace_project_purges')).rows;
+ expect(receipts).toHaveLength(1);
+ await page.unroute('**/studio-api/projects/*/purge');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('blocks purge while a video run is active with a reason',async({page,workspace})=>{
+ const ctx=asCtx(workspace),headers=workspace.headers(workspace.account);
+ const {project}=await makeTrashed(ctx,'受保护项目');
+ expect((await ctx.call('PATCH','/studio-api/me/model-configs/video',{...headers,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ const configId=((await ctx.pool.query("SELECT id FROM api_configs WHERE channel='video'")).rows as unknown as {id:string}[])[0].id;
+ const secretVersion=(((await ctx.pool.query('SELECT max(secret_version) AS m FROM api_secret_versions WHERE config_id=$1',[configId])).rows as unknown as {m:number}[])[0].m??0)+1;
+ await ctx.pool.query("INSERT INTO api_secret_versions(config_id,user_id,secret_version,key_version,nonce,ciphertext,tag,created_at) VALUES($1,$2,$3,'test',decode('000000000000000000000000','hex'),decode('00','hex'),decode('00000000000000000000000000000000','hex'),now())",[configId,workspace.account.view.user.id,secretVersion]);
+ const runId=randomUUID();
+ await ctx.pool.query("INSERT INTO workspace_video_runs(user_id,id,project_id,config_id,secret_version,frozen_config,frozen_contract,document,created_at,updated_at) VALUES($1,$2,$3,$4,$6,'{}','{}',$5::jsonb,now(),now())",[workspace.account.view.user.id,runId,project.id,configId,JSON.stringify({id:runId,kind:'video',projectId:project.id,nodeId:randomUUID(),graphRevision:1,executionState:'running',queryState:'idle',deliveryState:'idle',billingState:'pending',createdAt:1,updatedAt:1,recordRevision:0}),secretVersion]);
+ await page.goto('/trash');
+ await page.getByRole('button',{name:'永久删除',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'永久删除项目',exact:true});
+ await expect(dialog.getByText('不可删除：视频任务',{exact:false})).toBeVisible();
+ await expect(dialog.getByRole('button',{name:'确认永久删除',exact:true})).toBeDisabled();
+ const projects=(await ctx.pool.query('SELECT id FROM workspace_projects WHERE purged_at IS NULL')).rows;
+ expect(projects).toHaveLength(1);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});

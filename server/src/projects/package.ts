@@ -25,7 +25,7 @@ export const importProjectSchema=z.strictObject({data:cloudProjectPackageSchema,
 type ReceiptRow={id:string;revision:number;command_type:'operations'|'undo'|'redo'|'viewport';before_graph:unknown;after_graph:unknown;created_at:Date};
 export async function exportProjectPackage(pool:Pool,context:AuthContext,id:string,now:Date,storage?:AssetStorageOptions){
  return transaction(pool,async client=>{
-  await client.query('SELECT id FROM workspace_projects WHERE user_id=$1 AND id=$2 FOR SHARE',[context.userId,id]);
+  await client.query('SELECT id FROM workspace_projects WHERE user_id=$1 AND id=$2 AND purged_at IS NULL FOR SHARE',[context.userId,id]);
   const project=await ownedProject(client,context,id),graph=await readProjectGraph(client,context,id);
   const rows=await client.query<ReceiptRow>('SELECT id,revision,command_type,before_graph,after_graph,created_at FROM workspace_command_receipts WHERE user_id=$1 AND project_id=$2 ORDER BY revision,id',[context.userId,id]);
   const receipts=rows.rows.map(row=>({id:row.id,revision:row.revision,type:row.command_type,before:graphSchema.parse(row.before_graph),after:graphSchema.parse(row.after_graph),createdAt:row.created_at.getTime()}));

@@ -6,21 +6,29 @@ import {HttpError} from '../errors.js';
 import {projectViewSchema,workspaceGraphSchema,type ProjectView,type ProjectCreate,type ProjectPatch} from './contracts.js';
 import {receiptSummarySchema} from '../../../src/domain/command-receipt.js';
 
-export async function ownedProject(client:Pool|PoolClient,context:AuthContext,id:string,lock=false):Promise<ProjectView>{
- const result=await client.query<{document:unknown}>('SELECT document FROM workspace_projects WHERE user_id=$1 AND id=$2'+(lock?' FOR UPDATE':''),[context.userId,id]);
- if(!result.rows[0])throw new HttpError(404,'NOT_FOUND');return projectViewSchema.parse(result.rows[0].document);
+export async function ownedProject(client:Pool|PoolClient,context:AuthContext,id:string,lock=false,allowPurged=false):Promise<ProjectView>{
+ const result=await client.query<{document:unknown;purged_at:Date|null}>('SELECT document,purged_at FROM workspace_projects WHERE user_id=$1 AND id=$2'+(lock?' FOR UPDATE':''),[context.userId,id]);
+ if(!result.rows[0])throw new HttpError(404,'NOT_FOUND');
+ if(!allowPurged&&result.rows[0].purged_at)throw new HttpError(410,'PROJECT_PURGED');
+ return projectViewSchema.parse(result.rows[0].document);
 }
 export async function listProjects(pool:Pool,context:AuthContext,trashed=false){
- const result=await pool.query<{document:unknown}>('SELECT document FROM workspace_projects WHERE user_id=$1 AND '+(trashed?'trashed_at IS NOT NULL':'trashed_at IS NULL')+' ORDER BY updated_at DESC,id',[context.userId]);
+ const result=await pool.query<{document:unknown}>('SELECT document FROM workspace_projects WHERE user_id=$1 AND purged_at IS NULL AND '+(trashed?'trashed_at IS NOT NULL':'trashed_at IS NULL')+' ORDER BY updated_at DESC,id',[context.userId]);
  return result.rows.map(row=>projectViewSchema.parse(row.document));
 }
 export async function readProject(pool:Pool,context:AuthContext,id:string){return ownedProject(pool,context,id);}
 export async function readWorkspace(pool:Pool|PoolClient,context:AuthContext,id:string){
- const result=await pool.query<{document:unknown;graph:unknown;undo_depth:number;redo_depth:number}>('SELECT p.document,g.graph,COALESCE(cardinality(h.undo_stack),0) AS undo_depth,COALESCE(cardinality(h.redo_stack),0) AS redo_depth FROM workspace_projects p JOIN workspace_graphs g ON g.user_id=p.user_id AND g.project_id=p.id AND g.revision=p.revision LEFT JOIN workspace_command_history h ON h.user_id=p.user_id AND h.project_id=p.id WHERE p.user_id=$1 AND p.id=$2',[context.userId,id]);
+ const tombstone=await pool.query<{purged_at:Date|null}>('SELECT purged_at FROM workspace_projects WHERE user_id=$1 AND id=$2',[context.userId,id]);
+ if(!tombstone.rows[0])throw new HttpError(404,'NOT_FOUND');
+ if(tombstone.rows[0].purged_at)throw new HttpError(410,'PROJECT_PURGED');
+ const result=await pool.query<{document:unknown;graph:unknown;undo_depth:number;redo_depth:number}>('SELECT p.document,g.graph,COALESCE(cardinality(h.undo_stack),0) AS undo_depth,COALESCE(cardinality(h.redo_stack),0) AS redo_depth FROM workspace_projects p JOIN workspace_graphs g ON g.user_id=p.user_id AND g.project_id=p.id AND g.revision=p.revision LEFT JOIN workspace_command_history h ON h.user_id=p.user_id AND h.project_id=p.id WHERE p.user_id=$1 AND p.id=$2 AND p.purged_at IS NULL',[context.userId,id]);
  if(!result.rows[0])throw new HttpError(404,'NOT_FOUND');const row=result.rows[0];return {project:projectViewSchema.parse(row.document),graph:workspaceGraphSchema.parse(row.graph),history:{undoDepth:row.undo_depth,redoDepth:row.redo_depth}};
 }
 export async function readProjectGraph(pool:Pool|PoolClient,context:AuthContext,id:string){
- const result=await pool.query<{graph:unknown}>('SELECT g.graph FROM workspace_graphs g JOIN workspace_projects p ON p.user_id=g.user_id AND p.id=g.project_id AND p.revision=g.revision WHERE p.user_id=$1 AND p.id=$2',[context.userId,id]);
+ const tombstone=await pool.query<{purged_at:Date|null}>('SELECT purged_at FROM workspace_projects WHERE user_id=$1 AND id=$2',[context.userId,id]);
+ if(!tombstone.rows[0])throw new HttpError(404,'NOT_FOUND');
+ if(tombstone.rows[0].purged_at)throw new HttpError(410,'PROJECT_PURGED');
+ const result=await pool.query<{graph:unknown}>('SELECT g.graph FROM workspace_graphs g JOIN workspace_projects p ON p.user_id=g.user_id AND p.id=g.project_id AND p.revision=g.revision WHERE p.user_id=$1 AND p.id=$2 AND p.purged_at IS NULL',[context.userId,id]);
  if(!result.rows[0])throw new HttpError(404,'NOT_FOUND');return workspaceGraphSchema.parse(result.rows[0].graph);
 }
 export async function createProject(pool:Pool,context:AuthContext,input:ProjectCreate,now:Date){
@@ -65,7 +73,8 @@ export async function restoreProject(pool:Pool,context:AuthContext,id:string,exp
  });
 }
 export async function listReceipts(pool:Pool,context:AuthContext,id:string,limit:number){
- await ownedProject(pool,context,id);
+ // 历史回执保留可查：仅验归属，不拒绝已永久删除项目。
+ await ownedProject(pool,context,id,false,true);
  const result=await pool.query<{id:string;project_id:string;revision:number;command_type:string;created_at:Date}>('SELECT id,project_id,revision,command_type,created_at FROM workspace_command_receipts WHERE user_id=$1 AND project_id=$2 ORDER BY created_at DESC,revision DESC,id LIMIT $3',[context.userId,id,limit]);
  return result.rows.map(row=>receiptSummarySchema.parse({id:row.id,projectId:row.project_id,revision:row.revision,commandType:row.command_type,createdAt:row.created_at.getTime()}));
 }
