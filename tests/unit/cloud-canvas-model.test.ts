@@ -28,3 +28,16 @@ it('saves prolonged typing as one final edit while preserving structural operati
  await model.save();const command=api.command.mock.calls[0][2];expect(command.type).toBe('operations');if(command.type!=='operations')throw new Error('Missing creative command');
  expect(command.operations).toHaveLength(2);expect(command.operations[0]).toEqual(operation);expect(command.operations[1].payload).toMatchObject({patch:{data:{text:'正文 599'}}});model.dispose();
 });
+
+it('autosaves after editing settles and waits for the server receipt',async()=>{
+ vi.useFakeTimers();const api=client(),model=createCloudCanvasModel(project.id,api,{autosaveMs:1500});
+ try{await model.load();model.stage([operation]);await vi.advanceTimersByTimeAsync(1000);model.viewport({x:20,y:30,scale:1.5});await vi.advanceTimersByTimeAsync(1000);expect(api.command).not.toHaveBeenCalled();await vi.advanceTimersByTimeAsync(500);expect(api.command).toHaveBeenCalledTimes(1);expect(api.command.mock.calls[0][2]).toMatchObject({type:'operations',viewport:{x:20,y:30,scale:1.5}});expect(model.getState().status).toBe('saved');}finally{model.dispose();vi.useRealTimers();}
+});
+it('keeps failed autosave input for an explicit identical retry and never retries in the background',async()=>{
+ vi.useFakeTimers();const api=client();api.command.mockRejectedValueOnce(new Error('network'));const model=createCloudCanvasModel(project.id,api,{autosaveMs:1500});
+ try{await model.load();model.stage([operation]);await vi.advanceTimersByTimeAsync(2000);expect(model.getState()).toMatchObject({status:'failed',graph:{nodes:[node]}});await vi.advanceTimersByTimeAsync(10000);expect(api.command).toHaveBeenCalledTimes(1);await model.save();expect(api.command.mock.calls[1]).toEqual(api.command.mock.calls[0]);}finally{model.dispose();vi.useRealTimers();}
+});
+it('waits for composition to finish and cancels autosave when the account editor is disposed',async()=>{
+ vi.useFakeTimers();const api=client(),model=createCloudCanvasModel(project.id,api,{autosaveMs:1500});
+ try{await model.load();model.setComposing(true);model.stage([operation]);await vi.advanceTimersByTimeAsync(10000);expect(api.command).not.toHaveBeenCalled();model.setComposing(false);await vi.advanceTimersByTimeAsync(1000);expect(api.command).not.toHaveBeenCalled();model.dispose();await vi.advanceTimersByTimeAsync(10000);expect(api.command).not.toHaveBeenCalled();}finally{model.dispose();vi.useRealTimers();}
+});

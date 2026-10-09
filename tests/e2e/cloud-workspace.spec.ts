@@ -1,4 +1,7 @@
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
+test('automatically saves settled canvas edits and recovers them after refresh',async({page,workspace})=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'自动保存画布'}})).json();await page.goto('/projects/'+project.id+'/canvas');await page.getByRole('button',{name:'添加文字节点',exact:true}).click();await page.getByLabel('节点文本',{exact:true}).fill('无需另点保存也能恢复');await expect(page.getByRole('status').filter({hasText:'已保存 · 云端修订'})).toContainText('已保存');await page.reload();await expect(page.getByLabel('节点文本',{exact:true})).toHaveValue('无需另点保存也能恢复');
+});
 test('creates a cloud project, edits canvas text, restores after reload, and uses persisted undo/redo',async({page,workspace})=>{
  await page.goto('/projects');await page.getByRole('button',{name:'新建项目',exact:true}).click();await page.getByLabel('项目名称',{exact:true}).fill('我的云端故事');await page.getByRole('button',{name:'创建项目',exact:true}).click();
  await expect(page.getByRole('link',{name:'我的云端故事',exact:true})).toBeVisible();await page.getByRole('link',{name:'我的云端故事',exact:true}).click();

@@ -18,22 +18,26 @@ function appendPending(previous:GraphOperation[],operations:GraphOperation[]){
  return pending;
 }
 export type CloudCanvasState={status:'loading'|'saved'|'dirty'|'saving'|'failed';project?:Project;graph?:Graph;history:WorkspaceSnapshot['history'];pending:GraphOperation[];error?:unknown};
-export function createCloudCanvasModel(projectId:string,client:CanvasApi){
+export function createCloudCanvasModel(projectId:string,client:CanvasApi,options:{autosaveMs?:number}={}){
+ if(options.autosaveMs!==undefined&&(!Number.isFinite(options.autosaveMs)||options.autosaveMs<500))throw new Error('invalid_autosave_interval');
  let state:CloudCanvasState={status:'loading',history:{undoDepth:0,redoDepth:0},pending:[]},base:Graph|undefined,disposed=false,epoch=0;
+ let timer:ReturnType<typeof setTimeout>|undefined,composing=false;
+ function cancelAutosave(){if(timer!==undefined){clearTimeout(timer);timer=undefined;}}
+ function scheduleAutosave(){cancelAutosave();if(disposed||composing||options.autosaveMs===undefined||state.status!=='dirty'||attempt)return;timer=setTimeout(()=>{timer=undefined;void save();},options.autosaveMs);}
  let attempt:{key:string;revision:number;command:CloudCommand}|undefined;
  const listeners=new Set<()=>void>();const publish=(next:CloudCanvasState)=>{if(disposed)return;state=next;for(const cb of listeners)cb();};
  const busy=()=>state.status==='saving'||state.status==='loading';
  async function load(discard=false){
-  if(disposed)return;if((state.pending.length||state.status==='dirty'||state.status==='failed')&&!discard)throw new Error('unsaved_changes');const generation=++epoch;publish({...state,status:'loading'});
+  if(disposed)return;if((state.pending.length||state.status==='dirty'||state.status==='failed')&&!discard)throw new Error('unsaved_changes');cancelAutosave();const generation=++epoch;publish({...state,status:'loading'});
   try{const data=await client.readWorkspace(projectId);if(disposed||epoch!==generation)return;base=data.graph;attempt=undefined;publish({...data,status:'saved',pending:[]});}catch(error){if(epoch===generation)publish({...state,status:'failed',error});}
  }
  function stage(operations:GraphOperation[]){
   if(disposed||busy()||!state.graph)throw new Error('editor_busy');if(attempt)throw new Error('retry_pending_save_first');
-  const graph=executeGraphOperations(state.graph,operations);publish({...state,status:'dirty',graph,pending:appendPending(state.pending,operations),error:undefined});
+  const graph=executeGraphOperations(state.graph,operations);publish({...state,status:'dirty',graph,pending:appendPending(state.pending,operations),error:undefined});scheduleAutosave();
  }
- function viewport(value:Viewport){if(disposed||busy()||!state.graph||attempt)return;publish({...state,status:'dirty',graph:{...state.graph,viewport:value},error:undefined});}
+ function viewport(value:Viewport){if(disposed||busy()||!state.graph||attempt)return;publish({...state,status:'dirty',graph:{...state.graph,viewport:value},error:undefined});scheduleAutosave();}
  async function save(){
-  if(disposed||busy()||!base||!state.graph||state.status==='saved')return;
+  if(disposed||composing||busy()||!base||!state.graph||state.status==='saved')return;cancelAutosave();
   const changedViewport=JSON.stringify(state.graph.viewport)!==JSON.stringify(base.viewport);
   attempt??={key:crypto.randomUUID(),revision:base.revision,command:state.pending.length?{type:'operations',operations:structuredClone(state.pending),...(changedViewport?{viewport:structuredClone(state.graph.viewport)}:{})}:{type:'viewport',viewport:structuredClone(state.graph.viewport)}};
   const request=attempt,generation=epoch;publish({...state,status:'saving',error:undefined});
@@ -46,5 +50,5 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi){
   if(disposed||busy()||state.status!=='saved'||!base)return;
   attempt={key:crypto.randomUUID(),revision:base.revision,command:{type}};publish({...state,status:'dirty'});await save();
  }
- return {getState:()=>state,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},load,stage,viewport,save,history,dispose(){disposed=true;epoch++;listeners.clear();}};
+ return {getState:()=>state,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},load,stage,viewport,save,history,setComposing(value:boolean){composing=value;if(value)cancelAutosave();else scheduleAutosave();},dispose(){disposed=true;epoch++;cancelAutosave();listeners.clear();}};
 }
