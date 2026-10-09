@@ -732,22 +732,7 @@
       "id": "P-09"
     },
     {
-      "code": "source_binding_missing",
-      "kind": "interactions",
-      "id": "P-10"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "P-10"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "P-10"
-    },
-    {
-      "code": "facet_missing:error",
       "kind": "interactions",
       "id": "P-10"
     },
@@ -773,11 +758,6 @@
     },
     {
       "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "P-11"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "P-11"
     },
@@ -4147,26 +4127,21 @@
       "id": "L-09"
     },
     {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "L-09"
-    },
-    {
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "L-09"
     },
     {
+      "code": "facet_missing:sideEffect",
+      "kind": "interactions",
+      "id": "L-09"
+    },
+    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "L-10"
     },
     {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "L-10"
-    },
-    {
       "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "L-10"
@@ -4187,11 +4162,6 @@
       "id": "L-11"
     },
     {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "L-11"
-    },
-    {
       "code": "source_binding_missing",
       "kind": "interactions",
       "id": "L-12"
@@ -5332,22 +5302,7 @@
       "id": "S-05"
     },
     {
-      "code": "source_binding_missing",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
-      "code": "facet_missing:error",
       "kind": "interactions",
       "id": "S-06"
     },
@@ -7569,11 +7524,6 @@
     {
       "code": "facet_missing:normal",
       "kind": "dialogs",
-      "id": "D18"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
       "id": "D20"
     },
     {
@@ -7890,15 +7840,16 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-workspace.spec.ts::creates a cloud project, edits canvas text, restores after reload, and uses persisted undo/redo",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
           "facets": [
             "normal"
           ],
           "assertionLines": [
-            7,
-            8,
-            9,
-            10
+            20,
+            22,
+            24,
+            25,
+            26
           ]
         }
       ],
@@ -8006,16 +7957,19 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
           "facets": [
             "normal"
           ],
           "assertionLines": [
-            20,
-            22,
-            24,
-            25,
-            26
+            33,
+            35,
+            41,
+            42,
+            44,
+            45,
+            46,
+            48
           ]
         }
       ],
@@ -8028,21 +7982,6 @@
     },
     {
       "id": "P-10",
-      "kind": "interactions",
-      "taskId": "T12",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "source_binding_missing",
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
-      ]
-    },
-    {
-      "id": "P-11",
       "kind": "interactions",
       "taskId": "T12",
       "status": "incomplete",
@@ -8064,9 +8003,39 @@
           ]
         },
         {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            33,
+            35,
+            41,
+            42,
+            44,
+            45,
+            46,
+            48
+          ]
+        }
+      ],
+      "missing": [
+        "facet_missing:disabled",
+        "facet_missing:persistence",
+        "facet_missing:sideEffect"
+      ]
+    },
+    {
+      "id": "P-11",
+      "kind": "interactions",
+      "taskId": "T12",
+      "status": "incomplete",
+      "proofs": [
+        {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
           "facets": [
-            "normal"
+            "normal",
+            "sideEffect"
           ],
           "assertionLines": [
             14,
@@ -8080,14 +8049,14 @@
             78,
             82,
             84
-          ]
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
         "facet_missing:disabled",
         "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -9854,66 +9823,34 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
-          "facets": [
-            "normal",
-            "sideEffect"
-          ],
-          "assertionLines": [
-            21,
-            29,
-            31,
-            33,
-            34,
-            35
-          ],
-          "expectedCoreWrites": 0
-        }
-      ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
-    },
-    {
-      "id": "L-10",
-      "kind": "interactions",
-      "taskId": "T17",
-      "status": "incomplete",
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
-          "facets": [
-            "normal",
-            "sideEffect"
-          ],
-          "assertionLines": [
-            58,
-            65,
-            67,
-            70,
-            71
-          ],
-          "expectedCoreWrites": 0
-        }
-      ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
-    },
-    {
-      "id": "L-11",
-      "kind": "interactions",
-      "taskId": "T17",
-      "status": "incomplete",
-      "proofs": [
-        {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
           "facets": [
             "normal"
+          ],
+          "assertionLines": [
+            13,
+            76,
+            80,
+            82,
+            83,
+            91,
+            92,
+            93,
+            94,
+            95,
+            97,
+            98,
+            99,
+            102,
+            103,
+            105,
+            106
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
+          "facets": [
+            "error"
           ],
           "assertionLines": [
             13,
@@ -9938,9 +9875,77 @@
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:error",
         "facet_missing:persistence",
         "facet_missing:sideEffect"
+      ]
+    },
+    {
+      "id": "L-10",
+      "kind": "interactions",
+      "taskId": "T17",
+      "status": "incomplete",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            21,
+            29,
+            31,
+            33,
+            34,
+            35
+          ],
+          "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::rejects broken and oversized prompt files and writes nothing on cancel",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            43,
+            47,
+            51,
+            53,
+            54
+          ]
+        }
+      ],
+      "missing": [
+        "facet_missing:disabled",
+        "facet_missing:persistence"
+      ]
+    },
+    {
+      "id": "L-11",
+      "kind": "interactions",
+      "taskId": "T17",
+      "status": "incomplete",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            58,
+            65,
+            67,
+            70,
+            71
+          ],
+          "expectedCoreWrites": 0
+        }
+      ],
+      "missing": [
+        "facet_missing:disabled",
+        "facet_missing:error",
+        "facet_missing:persistence"
       ]
     },
     {
@@ -10518,12 +10523,46 @@
       "kind": "interactions",
       "taskId": "T37",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            106,
+            107,
+            109,
+            111,
+            112,
+            114,
+            115,
+            123,
+            124,
+            126
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            106,
+            107,
+            109,
+            111,
+            112,
+            114,
+            115,
+            123,
+            124,
+            126
+          ]
+        }
+      ],
       "missing": [
-        "source_binding_missing",
-        "facet_missing:normal",
         "facet_missing:disabled",
-        "facet_missing:error",
         "facet_missing:persistence",
         "facet_missing:sideEffect"
       ]
@@ -10864,18 +10903,22 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
           "facets": [
             "normal"
           ],
           "assertionLines": [
-            10,
-            17,
-            20,
-            21,
-            22,
-            24,
-            27
+            14,
+            134,
+            136,
+            137,
+            139,
+            141,
+            145,
+            146,
+            148,
+            150,
+            152
           ]
         }
       ],
@@ -12248,11 +12291,28 @@
       "id": "D18",
       "kind": "dialogs",
       "taskId": "T37",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            106,
+            107,
+            109,
+            111,
+            112,
+            114,
+            115,
+            123,
+            124,
+            126
+          ]
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D19",
