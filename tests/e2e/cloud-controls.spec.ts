@@ -96,3 +96,14 @@ test('collapsing the sidebar preserves unsaved video and Agent inputs',async({pa
  await expect(page.getByLabel('Agent 任务描述',{exact:true})).toHaveValue('尚未保存的 Agent 描述');
  expect(workspace.providerCalls).toHaveLength(0);
 });
+test('a narrow short viewport degrades to a scrollable layout with a usable canvas floor',async({page,workspace},testInfo)=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'窄窗退化'}})).json();
+ await page.setViewportSize({width:800,height:600});await page.goto('/projects/'+project.id+'/canvas');
+ const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw new Error('Missing stage');
+ expect(stage.height).toBeGreaterThanOrEqual(300);
+ const side=await page.locator('.canvas-side').boundingBox();if(!side)throw new Error('Missing side');
+ expect(side.height).toBeGreaterThan(100);
+ const generate=page.getByRole('button',{name:'生成视频',exact:true});await generate.scrollIntoViewIfNeeded();await expect(generate).toBeVisible();
+ await page.screenshot({path:testInfo.outputPath('audit-layout-800x600.png'),fullPage:true});
+ expect(workspace.providerCalls).toHaveLength(0);
+});
