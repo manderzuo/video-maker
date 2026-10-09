@@ -92,4 +92,18 @@ describe('cloud result actions',()=>{
   const result=tailFrameBatch(emptyGraph(),record(),asset('video-1','video'),asset('frame-1','image'),'x',1);
   expect(result.videoNodeId).toBeUndefined();expect(result.reason).toContain('绑定不一致');
  });
+ it('reuses an existing asset node and unlinks only the new association',()=>{
+  const base=graphSchema.parse({projectId:'p1',revision:1,nodes:[draftNode,{id:'old-asset',type:'asset',title:'Existing video',x:100,y:900,locked:false,data:{kind:'asset',assetId:'video-1'}}],edges:[],viewport:{x:0,y:0,scale:1}});
+  const video=asset('video-1','video','run-1'),run=record();
+  const reused=resultPlacement(base,run,video);
+  expect(reused.placement).toMatchObject({nodeId:'old-asset',created:false});
+  const linked=apply(base,reused.operations);
+  expect(linked.edges.filter(edge=>edge.targetId==='old-asset'&&edge.relation==='result')).toHaveLength(1);
+  expect(linked.nodes.find(candidate=>candidate.id==='old-asset')).toMatchObject({type:'asset',title:'Existing video',data:{generationLinked:true}});
+  const unlinked=apply(linked,unlinkResult(linked,'old-asset'));
+  expect(unlinked.edges.filter(edge=>edge.relation==='result')).toHaveLength(0);
+  expect(unlinked.nodes.find(candidate=>candidate.id==='old-asset')).toMatchObject({type:'asset',title:'Existing video',data:{generationLinked:false}});
+  expect(valid(unlinked,[video],[run]).every(result=>result.ok)).toBe(true);
+  expect(unlinkResult(unlinked,'old-asset')).toEqual([]);
+ });
 });

@@ -203,3 +203,9 @@ P2追加/重试语义（Codex已确认代码修正）：
 - `node scripts/run-account-api-ui-tests.mjs tests/e2e/cloud-result-actions.spec.ts` exit 0：6/6通过——播放/下载/选择/撤销（含刷新后仍能撤销）；尾帧丢失响应后重试（两次命令 POST body 逐字节相同，receipts 与 assets 各只 +1）；上传后读失败恢复（同一素材、命令 0→1、无重复节点）；可读引用保留建边、缺失引用明确跳过、提交成功刷新失败可确认；A/B 比较/未知版本/跨账号隔离/文件缺失不替换；画布与任务中心点击进入结果页并带 run 定位。
 - 浏览器云全量 exit 0：74 passed（`work/account-api-cloud/stage6-final.log`，未截断）。中途一次全量为 72/73：`cloud-prompt-optimize.spec.ts:29` 因草稿列表顺序不确定，首选草稿的`selectOption`偶发为空操作导致后续断言错位；已把“当前即为第一份草稿”（选择值与`原始创意`）固定为用例前提，复跑 11/11 与全量 74/74。
 - 未验：真实供应商目录协议、真实付费生成、严格HTTPS与线上核验（阶段8）。
+
+## 11b. 阶段6后续修正F021-F022（隔离复验定向验证）
+
+- 审计F021（复用撤销）：`CloudResultsPage.undo`原校验只接受`type==='result'`且`runId`匹配的节点，与`placedNode`/`resultPlacement`明确允许的asset复用矛盾，导致复用后撤销只清本地记录、服务端`result`边残留。现校验接受同一素材的`result`/`asset`两类节点；只有本次新建的`result`节点才允许移除，其他情况一律只解除关联，原节点与文件保留；关联已不在时明确提示且不发空命令。
+- 审计F022（未知提交恢复）：续写/修改的冻结请求原只存在弹窗state，取消/关闭/刷新即丢失，重开会用新key重复创建。现`unknown`/`submitted`未确认请求以原key/baseRevision/operations/nodeIds连同输入（正文/时间/帧素材/跳过项/可用性）持久化到本标签页存储（按账号拥有的项目/记录UUID键控，不接匿名库）；重开同记录对话框恢复原请求（续写后台重下帧文件恢复预览，重试不依赖本地文件）；页面横幅提示未确认数量；`放弃未确认请求`为显式动作，文案明确不取消服务端提交；记录消失的条目在读取时清理。
+- 定向检查：`typecheck`/`lint` exit 0；`test:unit` 95文件694项 exit 0（含新增复用unlink纯构建用例）；`cloud-result-actions.spec.ts`新增3条——复用asset撤销（边1→0、原节点保留且`generationLinked:false`）、revision/tail-frame未知提交经取消+刷新后同一key重试（两次POST body逐字节相同、receipts只+1）；云全量77 passed exit 0（`work/account-api-cloud/stage6-fix-final.log`，未截断）。

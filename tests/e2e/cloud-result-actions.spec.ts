@@ -225,3 +225,77 @@ test('reaches the results page from existing canvas and task entries with explic
  await expect(page.locator('article[data-run-id="'+run.id+'"] video')).toHaveCount(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
+test('reuses an existing asset node and undoes only the new association',async({page,workspace})=>{
+ await configureVideo(workspace);
+ const {projectId,nodeIds}=await seedProject(workspace,'复用撤销'),[run]=await generate(page,workspace,projectId,nodeIds);
+ const nodeId=randomUUID(),headers=workspace.headers(workspace.account);
+ const current=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',{...headers})).json() as {graph:{revision:number}};
+ expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...headers,payload:{expectedRevision:current.graph.revision,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'asset',title:'Existing video',x:100,y:900,locked:false,data:{kind:'asset',assetId:run.resultAssetId}}}}]}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+projectId+'/results');
+ const item=page.locator('[data-interaction-id="cloud:results:item"]');
+ await item.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();
+ await expect(page.getByRole('status').first()).toContainText('已复用');
+ expect((await graphOf(workspace,projectId)).edges.filter(edge=>edge.targetId===nodeId&&edge.relation==='result')).toHaveLength(1);
+ await item.getByRole('button',{name:'撤销选择',exact:true}).click();
+ await expect(page.getByRole('status').first()).toContainText('已解除生成来源关联');
+ await expect.poll(async()=>(await graphOf(workspace,projectId)).edges.filter(edge=>edge.targetId===nodeId&&edge.relation==='result').length).toBe(0);
+ expect(await graphOf(workspace,projectId)).toMatchObject({nodes:expect.arrayContaining([expect.objectContaining({id:nodeId,type:'asset',title:'Existing video',data:expect.objectContaining({assetId:run.resultAssetId,generationLinked:false})})])});
+});
+test('unknown revision submission survives cancel and refresh with the same key',async({page,workspace})=>{
+ await configureVideo(workspace);
+ const {projectId,nodeIds}=await seedProject(workspace,'未知恢复'),[run]=await generate(page,workspace,projectId,nodeIds);
+ const before=await countOf(workspace,receiptQuery,[projectId]),posted:string[]=[];let lose=true;
+ await page.route('**/studio-api/projects/'+projectId+'/commands',async route=>{
+  const body=route.request().postData()??'';posted.push(body);
+  if(lose){lose=false;expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...workspace.headers(workspace.account),payload:JSON.parse(body)})).statusCode).toBe(200);await route.fulfill({status:500,contentType:'application/json',body:JSON.stringify({code:'INTERNAL_ERROR'})});return;}
+  await route.fallback();
+ });
+ await page.goto('/projects/'+projectId+'/results');
+ await page.getByRole('button',{name:'修改后重新生成',exact:true}).click();
+ let dialog=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
+ await dialog.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('需要恢复的修改');
+ await dialog.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();
+ await expect(dialog.getByRole('alert')).toContainText('提交结果未知');
+ await dialog.getByRole('button',{name:'取消',exact:true}).click();
+ await expect(page.getByRole('status').first()).toContainText('有 1 个提交未确认');
+ await page.reload();
+ await expect(page.getByRole('status').first()).toContainText('有 1 个提交未确认');
+ await page.getByRole('button',{name:'修改后重新生成',exact:true}).click();
+ dialog=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
+ await expect(dialog.getByRole('status')).toContainText('已恢复此前未确认的请求');
+ await dialog.getByRole('button',{name:'重试保存新草稿',exact:true}).click();
+ await expect(dialog).toHaveCount(0);
+ expect(posted).toHaveLength(2);expect(posted[1]).toBe(posted[0]);
+ expect(await countOf(workspace,receiptQuery,[projectId])).toBe(before+1);
+ expect((await workspace.pool.query('SELECT document FROM workspace_video_runs WHERE id=$1',[run.id])).rows[0].document).toMatchObject({id:run.id,executionState:'succeeded'});
+});
+test('unknown tail-frame submission survives cancel and refresh with the same key',async({page,workspace})=>{
+ await configureVideo(workspace);
+ const {projectId,nodeIds}=await seedProject(workspace,'续写未知恢复');await generate(page,workspace,projectId,nodeIds);
+ const userId=workspace.account.view.user.id,assets=await countOf(workspace,assetQuery,[userId]),receipts=await countOf(workspace,receiptQuery,[projectId]);
+ const posted:string[]=[];let lose=true;
+ await page.route('**/studio-api/projects/'+projectId+'/commands',async route=>{
+  const body=route.request().postData()??'';posted.push(body);
+  if(lose){lose=false;expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...workspace.headers(workspace.account),payload:JSON.parse(body)})).statusCode).toBe(200);await route.fulfill({status:500,contentType:'application/json',body:JSON.stringify({code:'INTERNAL_ERROR'})});return;}
+  await route.fallback();
+ });
+ await page.goto('/projects/'+projectId+'/results');const item=page.locator('[data-interaction-id="cloud:results:item"]');
+ await item.getByRole('button',{name:'尾帧续写',exact:true}).click();let dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});
+ await dialog.locator('[data-interaction-id="cloud:results:tail-frame-time"]').fill('0.2');await dialog.getByRole('button',{name:'抽取并预览尾帧',exact:true}).click();
+ await expect(dialog.locator('[data-interaction-id="cloud:results:tail-frame-preview"]')).toBeVisible();
+ await dialog.locator('[data-interaction-id="cloud:results:tail-frame-prompt"]').fill('未知提交后恢复续写');
+ await dialog.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();
+ await expect(dialog.getByRole('alert')).toContainText('提交结果未知');
+ await dialog.getByRole('button',{name:'取消',exact:true}).click();
+ await expect(page.getByRole('status').first()).toContainText('有 1 个提交未确认');
+ await page.reload();
+ await item.getByRole('button',{name:'尾帧续写',exact:true}).click();dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});
+ await expect(dialog.getByRole('status')).toContainText('已恢复此前未确认的请求');
+ await dialog.getByRole('button',{name:'重试保存续写流程',exact:true}).click();
+ await expect(dialog).toHaveCount(0);
+ await expect(page.getByRole('status').first()).toContainText('尾帧续写已保存为一个命令批次');
+ expect(posted).toHaveLength(2);expect(posted[1]).toBe(posted[0]);
+ expect(await countOf(workspace,assetQuery,[userId])).toBe(assets+1);expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts+1);
+ expect((await graphOf(workspace,projectId)).nodes.filter(node=>node.title==='尾帧参考')).toHaveLength(1);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
+});
