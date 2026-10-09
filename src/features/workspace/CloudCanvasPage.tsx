@@ -33,24 +33,26 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
  type WritingRequest=Parameters<WorkspaceClient['createDraft']>[0];
  const writing=useRef<{key:string;busy:boolean;fingerprint:string;nodeId?:string;request?:WritingRequest}|undefined>(undefined);
  const [writingPending,setWritingPending]=useState(false);
- const writingStorageKey='aiwork:writing-pending:'+projectId;
+ function writingKeyFor(userId:string){return 'aiwork:writing-pending:'+userId+':'+projectId;}
  function storeWriting(value:{key:string;fingerprint:string;nodeId:string;request:WritingRequest}|undefined){
   const identity=sessionStore.getState();
-  if(identity.status!=='authenticated'){try{localStorage.removeItem(writingStorageKey);}catch{} return;}
+  if(identity.status!=='authenticated')return;
+  const storageKey=writingKeyFor(identity.session.user.id);
   try{
-   if(!value)localStorage.removeItem(writingStorageKey);
-   else localStorage.setItem(writingStorageKey,JSON.stringify({userId:identity.session.user.id,projectId,nodeId:value.nodeId,key:value.key,fingerprint:value.fingerprint,request:value.request}));
+   if(!value)localStorage.removeItem(storageKey);
+   else localStorage.setItem(storageKey,JSON.stringify({userId:identity.session.user.id,projectId,nodeId:value.nodeId,key:value.key,fingerprint:value.fingerprint,request:value.request}));
   }catch{/* 持久化失败不阻断提交 */}
  }
- // 未决动作随页面恢复：仅同用户同项目同节点才沿用旧身份，否则丢弃本项目键（不动其他项目）。
+ // 未决动作随页面恢复：仅同用户同项目同节点才沿用旧身份；归属不一致则丢弃本用户本项目键（不动其他用户或项目）。
  useEffect(()=>{
   try{
-   const raw=localStorage.getItem(writingStorageKey);
-   if(!raw)return;
    const identity=sessionStore.getState();
    if(identity.status!=='authenticated')return;
+   const storageKey=writingKeyFor(identity.session.user.id);
+   const raw=localStorage.getItem(storageKey);
+   if(!raw)return;
    const saved=JSON.parse(raw) as {userId?:unknown;projectId?:unknown;nodeId?:unknown;key?:unknown;fingerprint?:unknown;request?:unknown};
-   if(saved.userId!==identity.session.user.id||saved.projectId!==projectId||typeof saved.nodeId!=='string'||typeof saved.key!=='string'||!saved.key||typeof saved.fingerprint!=='string'||!saved.request||typeof saved.request!=='object'||typeof (saved.request as {userRequest?:unknown}).userRequest!=='string'){localStorage.removeItem(writingStorageKey);return;}
+   if(saved.userId!==identity.session.user.id||saved.projectId!==projectId||typeof saved.nodeId!=='string'||typeof saved.key!=='string'||!saved.key||typeof saved.fingerprint!=='string'||!saved.request||typeof saved.request!=='object'||typeof (saved.request as {userRequest?:unknown}).userRequest!=='string'){localStorage.removeItem(storageKey);return;}
    writing.current={key:saved.key,busy:false,fingerprint:saved.fingerprint,nodeId:saved.nodeId,request:saved.request as WritingRequest};
    setWritingPending(true);
   }catch{/* 损坏的冻结忽略 */}
@@ -110,9 +112,9 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   await model.save();
   for(let attempt=0;attempt<50&&model.getState().status==='saving';attempt++)await new Promise(resolve=>setTimeout(resolve,100));
   const current=model.getState();
-  if(current.status!=='saved'||!current.graph){writing.current=undefined;setError('画布尚未保存成功，未创建写作草稿；输入已保留。');return;}
+  if(current.status!=='saved'||!current.graph){const heldSave=writing.current;if(heldSave)heldSave.busy=false;setError('画布尚未保存成功，未创建写作草稿；输入与未决动作已保留。');return;}
   const fresh=current.graph.nodes.find(n=>n.id===nodeId);
-  if(!fresh||fresh.type!=='text'||fresh.locked){writing.current=undefined;setError('所选文字节点已不可用。');return;}
+  if(!fresh||fresh.type!=='text'||fresh.locked){const heldNode=writing.current;if(heldNode)heldNode.busy=false;setError('所选文字节点已不可用；未决动作已保留。');return;}
   const fingerprint=JSON.stringify({nodeId,revision:current.graph.revision,text:fresh.data.text});
   const held=writing.current;
   let key: string,request: WritingRequest;
@@ -139,11 +141,24 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   }catch(e){const heldNow=writing.current;if(heldNow)heldNow.busy=false;setError(workspaceMessage(e));}
  }
  function abandonWriting(){writing.current=undefined;storeWriting(undefined);setWritingPending(false);setError('');}
+ async function retryWriting(){
+  const held=writing.current;
+  if(!held?.key||!held.request)return;
+  setError('');
+  held.busy=true;
+  try{
+   const value=await client.createDraft(held.request,held.key);
+   writing.current=undefined;
+   storeWriting(undefined);
+   setWritingPending(false);
+   navigate('/prompt-generator?draft='+encodeURIComponent(value.id));
+  }catch(e){held.busy=false;setError(workspaceMessage(e));}
+ }
  function alignSelected(mode:'left'|'top'|'horizontal-spacing'){if(!graph)return;const patches=alignNodes(graph,selected,mode);if(!patches.length){setError(mode==='horizontal-spacing'?'等间距需要至少三个可编辑节点。':'对齐需要至少两个可编辑节点。');return;}void commitOps(moveOperations(patches));}
  if(!graph)return <section className="card"><h1>云端画布</h1>{state.error?<p role="alert">{workspaceMessage(state.error)}</p>:<p>正在读取画布…</p>}<Button data-interaction-id="cloud:canvas:retry-load" onClick={()=>model.load(true)}>重新加载</Button></section>;
  const view=graph.viewport;
  const branch=branchTarget();
- return <section className="cloud-canvas-page"><div className="actions"><h1>{state.project?.title}</h1><LocalLink data-interaction-id="cloud:canvas:projects" href="/projects">返回项目</LocalLink><Button data-interaction-id="cloud:canvas:save" variant="primary" busy={busy} disabled={state.status==='saved'} onClick={()=>model.save()}>{state.status==='failed'?'重试保存':'保存到云端'}</Button><Button data-interaction-id="cloud:canvas:reload" disabled={busy} onClick={()=>state.status==='saved'?model.load():setDiscardOpen(true)}>重新加载画布</Button>{writingPending?<Button data-interaction-id="cloud:canvas:writing-abandon" onClick={abandonWriting}>放弃本次写作打开</Button>:null}<span role="status">{state.status==='saved'?'已保存 · 云端修订 '+graph.revision:state.status==='saving'?'正在保存到云端…':state.status==='failed'?'保存未完成 · 输入已保留':'未保存'}</span></div>{error||state.error?<p role="alert" className="banner error">{error||workspaceMessage(state.error)}</p>:null}
+ return <section className="cloud-canvas-page"><div className="actions"><h1>{state.project?.title}</h1><LocalLink data-interaction-id="cloud:canvas:projects" href="/projects">返回项目</LocalLink><Button data-interaction-id="cloud:canvas:save" variant="primary" busy={busy} disabled={state.status==='saved'} onClick={()=>model.save()}>{state.status==='failed'?'重试保存':'保存到云端'}</Button><Button data-interaction-id="cloud:canvas:reload" disabled={busy} onClick={()=>state.status==='saved'?model.load():setDiscardOpen(true)}>重新加载画布</Button>{writingPending?<><Button data-interaction-id="cloud:canvas:writing-retry" onClick={()=>void retryWriting()}>重试原动作</Button><Button data-interaction-id="cloud:canvas:writing-abandon" onClick={abandonWriting}>放弃本次写作打开</Button></>:null}<span role="status">{state.status==='saved'?'已保存 · 云端修订 '+graph.revision:state.status==='saving'?'正在保存到云端…':state.status==='failed'?'保存未完成 · 输入已保留':'未保存'}</span></div>{error||state.error?<p role="alert" className="banner error">{error||workspaceMessage(state.error)}</p>:null}
  <CanvasToolbar scale={view.scale} onZoom={scale=>model.viewport({...view,scale})} tool={tool} onTool={setTool} onFit={()=>fit()} onLocate={()=>fit(selected)} selectedCount={selected.length} minimap={minimap} onMinimap={()=>setMinimap(!minimap)} background={background} onBackground={setBackground} onAdd={()=>setAddOpen(true)} canWrite={canEdit} onUndo={()=>{void model.history('undo');}} onRedo={()=>{void model.history('redo');}} canUndo={state.status==='saved'&&state.history.undoDepth>0} canRedo={state.status==='saved'&&state.history.redoDepth>0}/>
  <div className="actions"><Button data-interaction-id="cloud:canvas:add-text" disabled={!canEdit} onClick={()=>add('text')}>添加文字节点</Button><Button data-interaction-id="cloud:canvas:copy" disabled={!selected.length} onClick={()=>{setClipboard(copyNodes(graph,selected));}}>复制节点</Button><Button data-interaction-id="cloud:canvas:paste" disabled={!canEdit||!clipboard} onClick={()=>{if(clipboard)void commitOps(pasteNodes(clipboard,graph));}}>粘贴节点</Button><Button data-interaction-id="cloud:canvas:branch" disabled={!canEdit||!branch} title={!branch?'请选择一个可分支的文字或视频草稿节点。':undefined} onClick={()=>{if(branch)void commitOps(createBranch(graph,branch.node.id,{defaultDraft:branch.draft}));}}>复制为分支</Button><Button data-interaction-id="cloud:canvas:group" disabled={!canEdit||selected.length<2} onClick={()=>{try{stage(groupSelection(graph,selected,'分组'));}catch{setError('请选择至少两个可编辑节点进行分组。');}}}>创建分组</Button><Button data-interaction-id="cloud:canvas:arrange" disabled={!canEdit||!selected.length} onClick={()=>stage(arrangeNodes(graph,selected).map(p=>op('move_node',p)))}>整理选中</Button><Button data-interaction-id="cloud:canvas:align" disabled={!canEdit||selected.length<2} onClick={()=>alignSelected('left')}>对齐</Button><Button data-interaction-id="cloud:canvas:distribute" disabled={!canEdit||selected.length<3} onClick={()=>alignSelected('horizontal-spacing')}>等间距</Button><Button data-interaction-id="cloud:canvas:layout-preview" disabled={!canEdit||!selected.length} onClick={()=>setPatches(arrangeNodes(graph,selected))}>布局预览</Button><Button data-interaction-id="cloud:canvas:delete" disabled={!canEdit||!selected.length} onClick={()=>{const targets=selected.filter(nodeId=>!graph.nodes.find(n=>n.id===nodeId)?.locked);if(targets.length)void commitOps(targets.map(nodeId=>op('remove_node',{nodeId})));setSelected([]);}}>删除选中节点</Button><Button data-interaction-id="cloud:canvas:outline-toggle" aria-expanded={outlineOpen} onClick={()=>setOutlineOpen(open=>!open)}>{outlineOpen?'收起大纲':'展开大纲'}</Button><Button data-interaction-id="cloud:canvas:side-toggle" aria-expanded={sideOpen} onClick={()=>setSideOpen(open=>!open)}>{sideOpen?'收起侧栏':'展开侧栏'}</Button><label>导入素材<input data-interaction-id="cloud:canvas:files" type="file" multiple disabled={!canEdit} onChange={event=>{void files(Array.from(event.target.files??[]));event.target.value='';}}/></label></div>
  <div className={'canvas-main'+(sideOpen?'':' side-collapsed')+(outlineOpen?'':' outline-collapsed')}><div className="canvas-layout" onCompositionStartCapture={()=>model.setComposing(true)} onCompositionEndCapture={()=>model.setComposing(false)}>

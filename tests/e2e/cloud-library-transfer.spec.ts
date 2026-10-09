@@ -207,6 +207,60 @@ test('creates only one writing draft on unknown response and double click',async
  expect(twice.filter(row=>row.document.sourceNodeId===textId)).toHaveLength(2);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+test('keeps the pending writing identity when canvas save fails',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ const seed=await seedTextProject(workspace,'原正文','保存失败'),project=seed.project,textId=seed.textId,headers=seed.headers;
+ await page.goto('/projects/'+project.id+'/canvas');
+ let saveFailPosts=0;
+ await page.route('**/studio-api/prompt-drafts',async route=>{
+  if(route.request().method()!=='POST'){await route.fallback();return;}
+  saveFailPosts++;
+  if(saveFailPosts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
+  await route.fallback();
+ });
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page.getByRole('alert')).toBeVisible();
+ await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('改后正文');
+ await page.route('**/studio-api/projects/*/commands',async route=>{await route.fulfill({status:500,body:'{}'});});
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page.getByText('画布尚未保存成功',{exact:false})).toBeVisible();
+ await page.unroute('**/studio-api/projects/*/commands');
+ await expect(page.getByRole('button',{name:'重试保存',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'重试保存',exact:true}).click();
+ await expect(page.getByRole('status')).toContainText('已保存');
+ await page.getByRole('button',{name:'重试原动作',exact:true}).click();
+ await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{userRequest:string;sourceNodeId:string}}[];
+ const mine=drafts.filter(row=>row.document.sourceNodeId===textId);
+ expect(mine).toHaveLength(1);
+ expect(mine[0].document.userRequest).toBe('原正文');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('ignores another account project without deleting the pending identity',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ const a=workspace.account;
+ const seed=await seedTextProject(workspace,'甲正文不泄漏','跨项目保持'),project=seed.project,textId=seed.textId,headers=seed.headers;
+ await page.goto('/projects/'+project.id+'/canvas');
+ let crossPosts=0;
+ await page.route('**/studio-api/prompt-drafts',async route=>{
+  if(route.request().method()!=='POST'){await route.fallback();return;}
+  crossPosts++;
+  if(crossPosts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
+  await route.fallback();
+ });
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page.getByRole('alert')).toBeVisible();
+ const b=await workspace.signup('Cloud_UI_B');workspace.switchAccount(b);
+ await page.goto('/projects/'+project.id+'/canvas');
+ await expect(page.getByText('甲正文不泄漏',{exact:false})).toHaveCount(0);
+ workspace.switchAccount(a);
+ await page.goto('/projects/'+project.id+'/canvas');
+ await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
+ expect(drafts.filter(row=>row.document.sourceNodeId===textId)).toHaveLength(1);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
 test('keeps another project pending identity when visiting a different project',async({page,workspace})=>{
  const ctx=asCtx(workspace);
  const a=await seedTextProject(workspace,'甲正文','项目甲'),b=await seedTextProject(workspace,'乙正文','项目乙');
