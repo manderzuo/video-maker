@@ -28,7 +28,7 @@ test('lists recent command receipts across projects with canvas links',async({pa
 });
 test('shows an empty activity page when the account has no commands',async({page})=>{
  await page.goto('/activity');
- await expect(page.getByText('暂无云端操作记录',{exact:false})).toBeVisible();
+ await expect(page.getByText('没有符合筛选的回执',{exact:false})).toBeVisible();
 });
 test('surfaces unknown and failed runs for recovery without sending requests',async({page,workspace})=>{
  const headers=workspace.headers(workspace.account);
@@ -81,5 +81,5 @@ test('exports a redacted cloud diagnostics report',async({page,workspace},testIn
  expect(report.runs[0]).not.toHaveProperty('finalBody');
  expect(JSON.stringify(report)).not.toContain('FAKE_VIDEO_UI_KEY');
  expect(JSON.stringify(report)).not.toContain('诊断用的正文');
- await expect(page.getByRole('status')).toContainText('脱敏诊断');
+ await expect(page.getByText('已触发浏览器下载脱敏诊断报告',{exact:false})).toBeVisible();
 });
