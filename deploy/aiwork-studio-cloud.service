@@ -1,0 +1,29 @@
+[Unit]
+Description=AI WORK Studio account and cloud service
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/aiwork-studio/cloud-current/server
+ExecStart=/opt/aiwork-studio/runtime/node-v22.23.3-linux-x64/bin/node account-server.mjs serve /etc/aiwork-studio/cloud-runtime.json
+LoadCredential=account-secrets:/etc/aiwork-studio/cloud-secrets.json
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+ReadWritePaths=/var/lib/aiwork-studio/private
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+UMask=0077
+MemoryMax=768M
+
+[Install]
+WantedBy=multi-user.target

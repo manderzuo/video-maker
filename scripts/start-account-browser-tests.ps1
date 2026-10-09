@@ -25,8 +25,11 @@ function Invoke-AccountCertificateWorkflow {
     }
     finally {
         # Always reread the disk journal, including when Prepare threw before returning.
-        $cleanupInfo=Read-AccountCleanupRecord $MetadataPath $AttemptId
-        & $Action 'Cleanup' $cleanupInfo.thumbprint
+        $record=if(Test-Path -LiteralPath $MetadataPath){Get-Content -LiteralPath $MetadataPath -Raw | ConvertFrom-Json}else{$null}
+        if($record -and $record.attemptId -eq $AttemptId -and $record.thumbprint -match '^[A-Fa-f0-9]{40}$'){
+            $cleanupInfo=Read-AccountCleanupRecord $MetadataPath $AttemptId
+            & $Action 'Cleanup' $cleanupInfo.thumbprint
+        }
     }
 }
 

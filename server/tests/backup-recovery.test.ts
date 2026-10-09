@@ -1,0 +1,50 @@
+import {execFileSync} from 'node:child_process';
+import {randomUUID,createHash} from 'node:crypto';
+import {mkdtemp,mkdir,writeFile,readFile,cp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import pg from 'pg';
+import {it,expect} from 'vitest';
+import {fixture,origin} from './account-fixture.js';
+import {ApiSecrets} from '../src/security/api-secrets.js';
+import {RestrictedOutbound} from '../src/security/outbound.js';
+import {buildStudioApp} from '../src/app.js';
+import {parseRuntimeSecrets} from '../src/runtime-config.js';
+const docker=(args:string[],input?:Buffer)=>execFileSync('docker',['exec',...(input?['-i']:[]),'aiwork-studio-account-test-20261008',...args],{input,windowsHide:true,maxBuffer:64*1024*1024});
+it('restores PostgreSQL, original media and a separate versioned keyring into a fresh isolated service',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'aiwork-recovery-test-')),storage={root:join(root,'source'),maxAssetBytes:1024,userQuotaBytes:4096,maxThumbnailBytes:512},keys=new Map([['old',Buffer.alloc(32,1)],['new',Buffer.alloc(32,2)]]);
+ let calls=0;
+ const dependencies={secrets:new ApiSecrets({activeVersion:'old',keys}),outbound:new RestrictedOutbound({resolve:async()=>{calls++;throw Error('No provider permitted in recovery');},request:async()=>{calls++;throw Error('No provider permitted in recovery');}})};
+ const env=await fixture({workspace:true,content:true,assets:storage,apiSettings:dependencies}),database='recovery_test_'+randomUUID().replaceAll('-','');
+ let pool:pg.Pool|undefined,app:Awaited<ReturnType<typeof buildStudioApp>>|undefined,created=false;
+ try{
+  const account=await env.signup('Fake_Recovery_A'),headers=env.headers(account);
+  const save=(key:string,revision:number|null)=>env.call('PATCH','/studio-api/me/model-configs/text',{...headers,payload:{apiBase:'https://api.example.test',model:'Fake/Text',apiKey:key,expectedRevision:revision}});
+  expect((await save('FAKE_OLD_KEY',null)).statusCode).toBe(200);
+  const draft=(await env.call('POST','/studio-api/prompt-drafts',{...headers,payload:{type:'video',userRequest:'需要恢复的草稿',sceneId:'text',requestedSpec:{},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1',idempotencyKey:randomUUID()}})).json();
+  const preview=await env.call('POST','/studio-api/prompt-drafts/'+draft.id+'/optimization-preview',{...headers,payload:{expectedRevision:0,configRevision:1,referenceAliases:[]}});expect(preview.statusCode).toBe(201);
+  const task=await env.call('POST','/studio-api/prompt-drafts/'+draft.id+'/optimize',{...headers,payload:{approvalId:preview.json().id,decision:{confirmed:true,acknowledgeTextFee:true}}});expect(task.statusCode).toBe(202);
+  dependencies.secrets=new ApiSecrets({activeVersion:'new',keys});expect((await save('FAKE_NEW_KEY',1)).statusCode).toBe(200);
+  const bytes=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6nRAAAAAASUVORK5CYII=','base64'),sha256=createHash('sha256').update(bytes).digest('hex');
+  const asset=(await env.call('POST','/studio-api/assets',{...headers,payload:{title:'恢复原件',mimeType:'image/png',bytes:bytes.length,sha256}})).json();
+  expect((await env.app.inject({method:'PUT',url:'/studio-api/assets/'+asset.id+'/content',headers:{cookie:account.cookie,'x-workspace-context':account.view.contextId,'x-csrf-token':account.view.csrfToken,origin,'content-type':'application/octet-stream'},payload:bytes})).statusCode).toBe(204);
+  expect((await env.call('POST','/studio-api/assets/'+asset.id+'/complete',{...headers,payload:{}})).statusCode).toBe(200);
+  await mkdir(join(root,'data'));await mkdir(join(root,'secrets'));
+  await writeFile(join(root,'data/database.dump'),docker(['pg_dump','-U','aiwork_test','-d','aiwork_studio_test','--schema',env.schema,'-Fc','--no-owner','--no-acl']));
+  await cp(storage.root,join(root,'data/private'),{recursive:true});
+  await writeFile(join(root,'secrets/keyring.json'),JSON.stringify({databasePassword:'aiwork_local_test_only',activeVersion:'new',keys:Object.fromEntries([...keys].map(([name,key])=>[name,key.toString('base64')]))}));
+  docker(['psql','-U','aiwork_test','-d','aiwork_studio_test','-v','ON_ERROR_STOP=1','-c','CREATE DATABASE '+database]);created=true;
+  docker(['pg_restore','-U','aiwork_test','-d',database,'--no-owner','--no-acl','--exit-on-error'],await readFile(join(root,'data/database.dump')));
+  const restored=parseRuntimeSecrets(JSON.parse(await readFile(join(root,'secrets/keyring.json'),'utf8'))),restoredSecrets=new ApiSecrets(restored);
+  await cp(join(root,'data/private'),join(root,'restored/private'),{recursive:true});
+  pool=new pg.Pool({host:'127.0.0.1',port:55432,database,user:'aiwork_test',password:'aiwork_local_test_only',options:'-c search_path='+env.schema});
+  app=await buildStudioApp({pool,origin,now:()=>new Date('2026-10-08T12:00:00Z'),workspace:true,content:true,assets:{...storage,root:join(root,'restored/private')},apiSettings:{...dependencies,secrets:restoredSecrets}});
+  const rows=(await pool.query('SELECT * FROM api_secret_versions ORDER BY secret_version')).rows;
+  expect(rows.map(row=>restoredSecrets.open({userId:row.user_id,configId:row.config_id,secretVersion:row.secret_version},{keyVersion:row.key_version,nonce:row.nonce,ciphertext:row.ciphertext,tag:row.tag}))).toEqual(['FAKE_OLD_KEY','FAKE_NEW_KEY']);
+  const missing=new ApiSecrets({activeVersion:'new',keys:new Map([['new',keys.get('new')!]])}),old=rows[0];expect(()=>missing.open({userId:old.user_id,configId:old.config_id,secretVersion:1},{keyVersion:old.key_version,nonce:old.nonce,ciphertext:old.ciphertext,tag:old.tag})).toThrow('SECRET_UNAVAILABLE');
+  const restoredTask=await app.inject({method:'GET',url:'/studio-api/runs/'+task.json().id,headers:{cookie:account.cookie,'x-workspace-context':account.view.contextId}});expect(restoredTask.statusCode).toBe(200);expect(restoredTask.json()).toMatchObject({id:task.json().id,executionState:task.json().executionState});
+  const file=await app.inject({method:'GET',url:'/studio-api/assets/'+asset.id+'/content',headers:{cookie:account.cookie}});expect(file.statusCode).toBe(200);expect(file.rawPayload).toEqual(bytes);expect(calls).toBe(0);
+ }finally{
+  await app?.close();await pool?.end();if(created&&/^recovery_test_[a-f0-9]{32}$/.test(database))docker(['psql','-U','aiwork_test','-d','aiwork_studio_test','-v','ON_ERROR_STOP=1','-c','DROP DATABASE '+database]);await env.close();if(root.startsWith(join(tmpdir(),'aiwork-recovery-test-')))await rm(root,{recursive:true,force:true});
+ }
+},30000);

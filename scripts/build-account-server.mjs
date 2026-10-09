@@ -1,0 +1,10 @@
+import {build} from 'esbuild';
+import {mkdir,copyFile,readdir} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),output=path.join(root,'work/account-api-cloud/server-build');
+await mkdir(path.join(output,'migrations'),{recursive:true});
+await build({entryPoints:[path.join(root,'server/src/main.ts')],outfile:path.join(output,'account-server.mjs'),bundle:true,packages:'external',platform:'node',target:'node22',format:'esm',sourcemap:false,logLevel:'warning'});
+for(const name of await readdir(path.join(root,'server/src/db/migrations')))if(/^\d{3}-[a-z0-9-]+\.sql$/.test(name))await copyFile(path.join(root,'server/src/db/migrations',name),path.join(output,'migrations',name));
+for(const name of ['package.json','package-lock.json'])await copyFile(path.join(root,'server',name),path.join(output,name));
+console.log('Account server built: program, pinned dependency manifest and schema-only migrations; no user data or secrets');

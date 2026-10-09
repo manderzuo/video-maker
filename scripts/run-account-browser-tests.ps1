@@ -65,10 +65,11 @@ if($PrepareOnly){
  if((Test-Path -LiteralPath $keyPath) -or (Test-Path -LiteralPath $certPath)){throw 'Existing TLS files must be cleaned by their exact recorded fingerprint first'}
  New-Item -ItemType Directory -Force -Path $certDir | Out-Null
  Assert-OwnedPath
- $acl=[Security.AccessControl.DirectorySecurity]::new();$acl.SetAccessRuleProtection($true,$false)
+ $acl=[IO.FileSystemAclExtensions]::GetAccessControl([IO.DirectoryInfo]::new($certDir),[Security.AccessControl.AccessControlSections]::Access);$acl.SetAccessRuleProtection($true,$false)
+ foreach($rule in @($acl.GetAccessRules($true,$false,[Security.Principal.SecurityIdentifier]))){$null=$acl.RemoveAccessRuleSpecific($rule)}
  $inherit=[Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [Security.AccessControl.InheritanceFlags]::ObjectInherit
  foreach($sid in @($userSid,[Security.Principal.SecurityIdentifier]::new('S-1-5-18'))){$acl.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new($sid,[Security.AccessControl.FileSystemRights]::FullControl,$inherit,[Security.AccessControl.PropagationFlags]::None,[Security.AccessControl.AccessControlType]::Allow))}
- Set-Acl -LiteralPath $certDir -AclObject $acl
+ [IO.FileSystemAclExtensions]::SetAccessControl([IO.DirectoryInfo]::new($certDir),$acl)
  if(!(Get-Acl -LiteralPath $certDir).AreAccessRulesProtected){throw 'Test directory ACL must be protected before key creation'}
  $directorySids=Get-AllowedAcl $certDir
  $public=$null
