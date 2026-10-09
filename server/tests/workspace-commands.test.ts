@@ -100,3 +100,12 @@ it('lists recent command receipts newest-first for the owning account only',asyn
  expect((await env.call('GET',`/studio-api/projects/${p.id}/receipts?limit=0`,env.headers(a))).statusCode).toBe(400);
  expect((await env.call('GET','/studio-api/projects/not-a-uuid/receipts',env.headers(a))).statusCode).toBe(404);
 });
+it('orders same-timestamp receipts by revision, not by random id',async()=>{
+ const a=await env.signup('ReceiptOrder_A'),p=await project(a);
+ // 最小 UUID 建旧修订、最大 UUID 建新修订：同毫秒提交时旧排序会把两者颠倒。
+ expect((await command(a,p.id,0,add(),'00000000-0000-4000-8000-000000000001')).statusCode).toBe(200);
+ expect((await command(a,p.id,1,add(),'ffffffff-ffff-4fff-8fff-ffffffffffff')).statusCode).toBe(200);
+ const listed=await env.call('GET',`/studio-api/projects/${p.id}/receipts?limit=10`,env.headers(a));
+ expect(listed.statusCode).toBe(200);
+ expect(listed.json().map((row:{revision:number})=>row.revision)).toEqual([2,1]);
+});

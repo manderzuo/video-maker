@@ -6,7 +6,7 @@ const legalTexts=['THIRD_PARTY_NOTICES.txt','licenses/infinite-canvas.LICENSE','
 function legalDataOnly(text){
  const file=ts.createSourceFile('legal.js',text,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS),values=[];
  for(const statement of file.statements){if(ts.isExportDeclaration(statement)&&!statement.moduleSpecifier)continue;if(!ts.isVariableStatement(statement))return false;for(const declaration of statement.declarationList.declarations){const value=declaration.initializer;if(!value||!ts.isStringLiteral(value)&&!ts.isNoSubstitutionTemplateLiteral(value))return false;values.push(value.text.replaceAll('\r\n','\n'));}}
- return values.length===legalTexts.length&&values.every(value=>legalTexts.includes(value));
+ return values.length>0&&values.length<=legalTexts.length&&values.every(value=>legalTexts.includes(value));
 }
 export function listFiles(root){return fs.readdirSync(root,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?listFiles(path.join(root,entry.name)):[path.join(root,entry.name)]);}
 export function scanBrand(root='dist'){

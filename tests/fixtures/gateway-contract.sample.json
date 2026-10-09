@@ -1,0 +1,2066 @@
+{
+  "contract": {
+    "version": "gemstory-seedance-live-20261003-5s480p-v2",
+    "verification": "reviewed",
+    "evidence": [
+      {
+        "kind": "fixed_source",
+        "reference": "Trae-core@345670bb3c4e6eb673afcb412e7a1dbd17eeffae; deployed binary e22a51ce4b65c59b7291eb8fe4ace94844332ece25c3da9b33e446e312ea3251; src/user_routes.rs MAX_SEEDANCE_ASSIST_PROMPT_BYTES = 12 * 1024"
+      },
+      {
+        "kind": "live_probe",
+        "reference": "docs/review/qa-20261003/live/seedance-recovery-verification-ledger.json; task request_V_JmZ6Oz9faBPGfGzjLKSw; download SHA256 be91cc313e0eb45e98549ed2dc3ba6c0a1322fa01a4359cf7459357092649bc0"
+      },
+      {
+        "kind": "deployment_review",
+        "reference": "deploy/seedance-spec-review.json; Core@345670bb3c4e6eb673afcb412e7a1dbd17eeffae; user_routes.rs SHA256 fca8c5a85148e0b17a58bc47f6e18f41e905c867074f52b9231f0697b8a3e7a4; 336 input tuples source-reviewed; ONLY 5s/16:9/480p live verified. Existing contract identity retained for original task bindings."
+      },
+      {
+        "kind": "deployment_review",
+        "reference": "deploy/seedance-image-reference-review.json; Core@345670bb3c4e6eb673afcb412e7a1dbd17eeffae; assets.rs SHA256 cc2d99038f37fe7775da358acef9f33bdc97e6ab0368ff31d559828fcdaea202; user_routes.rs SHA256 fca8c5a85148e0b17a58bc47f6e18f41e905c867074f52b9231f0697b8a3e7a4; one image via owned image_asset_ids; fixed source review, not a live generation receipt."
+      }
+    ],
+    "routes": {
+      "models": true,
+      "videoSubmit": true,
+      "videoQuery": true,
+      "videoContent": true,
+      "chat": false,
+      "assets": true,
+      "workContext": false,
+      "continuation": false,
+      "backup": false
+    },
+    "textModels": [],
+    "videoModels": [
+      "seedance"
+    ],
+    "videoAliases": [],
+    "videoSpecs": [
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 2,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 3,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 4,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 5,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 6,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 7,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 8,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 9,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 10,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 11,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 12,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 13,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 14,
+        "ratio": "21:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "16:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "16:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "16:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "16:9",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "9:16",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "9:16",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "9:16",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "9:16",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "1:1",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "1:1",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "1:1",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "1:1",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "4:3",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "4:3",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "4:3",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "4:3",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "3:4",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "3:4",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "3:4",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "3:4",
+        "resolution": "4k"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "21:9",
+        "resolution": "480p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "21:9",
+        "resolution": "720p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "21:9",
+        "resolution": "1080p"
+      },
+      {
+        "modelId": "seedance",
+        "durationSeconds": 15,
+        "ratio": "21:9",
+        "resolution": "4k"
+      }
+    ],
+    "videoIdempotencyReplay": false,
+    "limits": {
+      "promptBytes": 12288,
+      "imageReferences": 1,
+      "videoReferences": 0,
+      "assetBytes": 33554432
+    }
+  },
+  "allowWrites": true
+}

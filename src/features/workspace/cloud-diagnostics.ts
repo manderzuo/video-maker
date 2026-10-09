@@ -6,7 +6,8 @@ import type {ReceiptSummary} from '../../domain/command-receipt';
 export type ModelConfigPresence={channel:string;apiBase:string;model:string;hasKey:boolean};
 const runFields=['executionState','queryState','deliveryState','billingState','issueCode','errorCode','model','apiBase','requestedSpec','createdAt','updatedAt'] as const;
 function pickRun(run:CloudRun){
- const record=run as unknown as Record<string,unknown>,picked:Record<string,unknown>={id:run.id,kind:run.kind,projectId:run.projectId};
+ const record=run as unknown as Record<string,unknown>,picked:Record<string,unknown>={id:run.id,kind:run.kind};
+ if('projectId' in run)picked.projectId=run.projectId;
  for(const key of runFields)if(record[key]!==undefined)picked[key]=record[key];
  const failure=record['failure'];
  if(failure&&typeof failure==='object'&&typeof (failure as {message?:unknown}).message==='string')picked['failureMessage']=(failure as {message:string}).message;

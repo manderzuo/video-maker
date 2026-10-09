@@ -66,6 +66,8 @@ export async function restoreProject(pool:Pool,context:AuthContext,id:string,exp
 }
 export async function listReceipts(pool:Pool,context:AuthContext,id:string,limit:number){
  await ownedProject(pool,context,id);
- const result=await pool.query<{id:string;project_id:string;revision:number;command_type:string;created_at:Date}>('SELECT id,project_id,revision,command_type,created_at FROM workspace_command_receipts WHERE user_id=$1 AND project_id=$2 ORDER BY created_at DESC,id LIMIT $3',[context.userId,id,limit]);
+ const result=await pool.query<{id:string;project_id:string;revision:number;command_type:string;created_at:Date}>('SELECT id,project_id,revision,command_type,created_at FROM workspace_command_receipts WHERE user_id=$1 AND project_id=$2 ORDER BY created_at DESC,revision DESC,id LIMIT $3',[context.userId,id,limit]);
  return result.rows.map(row=>receiptSummarySchema.parse({id:row.id,projectId:row.project_id,revision:row.revision,commandType:row.command_type,createdAt:row.created_at.getTime()}));
 }
+
+

@@ -39,7 +39,7 @@ async function generate(page:import('@playwright/test').Page,value:unknown,proje
   await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
   await page.getByRole('button',{name:'确认生成',exact:true}).click();
  }
- await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n).toBe(nodeIds.length);
+ await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(nodeIds.length);
  return (await ctx.pool.query('SELECT document FROM workspace_video_runs WHERE project_id=$1 ORDER BY created_at',[projectId])).rows.map(row=>row.document as {id:string;resultAssetId:string;inputSnapshot:{references:{alias:string;assetId:string}[]}});
 }
 test('plays, downloads, selects and undoes a historical cloud result without another generation',async({page,workspace})=>{

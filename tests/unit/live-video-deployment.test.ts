@@ -1,11 +1,11 @@
 import {readFileSync} from 'node:fs';
 import {it,expect} from 'vitest';
 import {resolveCapabilities,deploymentContractSchema} from '../../src/adapters/core/capabilities';
-import type {ConnectionProfile} from '../../src/domain/connection';
 
 it('QA43 the gateway enables the reviewed input tuples without claiming every output was live verified',()=>{
- const runtime=JSON.parse(readFileSync('deploy/local/gemstory-live-20261003.json','utf8').replace(/^\uFEFF/,''));
- const entry=runtime.connections.find((e:{profile:ConnectionProfile})=>e.profile.originSnapshot==='https://api.gemstory.cn');
+ // 只读提交内的脱敏能力样本（合同形状与写入许可），不读被忽略的生产运行时文件。
+ const sample=JSON.parse(readFileSync('tests/fixtures/gateway-contract.sample.json','utf8')) as {contract:unknown;allowWrites:boolean};
+ const entry={contract:sample.contract};
  const contract=deploymentContractSchema.parse(entry.contract);
  const caps=resolveCapabilities(contract,[{id:'seedance'},{id:'deepseek-v4-flash'}]);
  expect(caps.videoModels).toEqual(['seedance']);
@@ -20,6 +20,6 @@ it('QA43 the gateway enables the reviewed input tuples without claiming every ou
  expect(caps.limits).toMatchObject({promptBytes:12288,assetBytes:33554432,imageReferences:1,videoReferences:0});
  expect(contract.routes.assets).toBe(true);
  expect(contract.evidence.some(e=>e.kind==='deployment_review'&&e.reference.includes('cc2d99038f37fe7775da358acef9f33bdc97e6ab0368ff31d559828fcdaea202'))).toBe(true);
- expect(runtime.coreTargets.find((t:{origin:string})=>t.origin==='https://api.gemstory.cn').allowWrites).toBe(true);
+ expect(sample.allowWrites).toBe(true);
  expect(resolveCapabilities(contract,[{id:'unrelated'}]).videoModels).toEqual([]);
 });
