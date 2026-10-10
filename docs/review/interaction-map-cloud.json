@@ -1887,6 +1887,29 @@
             25,
             26
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::retries template commands on the same project without duplicates",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            206
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "facets": [
+            "sideEffect"
+          ],
+          "assertionLines": [
+            20,
+            22,
+            24,
+            25,
+            26
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "candidates": [
@@ -2501,7 +2524,10 @@
           "testId": "tests/e2e/cloud-workspace.spec.ts::exports and explicitly imports a complete package with an original, thumbnail and undo history",
           "status": "passed"
         }
-      ]
+      ],
+      "notApplicable": {
+        "persistence": "项目选择是本地临时状态，仅用于批量操作确认，不持久化；刷新后 cleared 是设计，不视为丢失。"
+      }
     },
     {
       "id": "P-10",
@@ -2551,6 +2577,23 @@
             46,
             48
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "sideEffect"
+          ],
+          "assertionLines": [
+            33,
+            35,
+            41,
+            42,
+            44,
+            45,
+            46,
+            48
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "candidates": [
@@ -2657,6 +2700,25 @@
             84
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            14,
+            58,
+            64,
+            65,
+            66,
+            70,
+            71,
+            73,
+            78,
+            82,
+            84
+          ]
         }
       ],
       "candidates": [
@@ -2818,6 +2880,20 @@
           "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
           "facets": [
             "normal"
+          ],
+          "assertionLines": [
+            93,
+            94,
+            95,
+            97,
+            99,
+            100
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
+          "facets": [
+            "persistence"
           ],
           "assertionLines": [
             93,
@@ -8205,6 +8281,21 @@
             414
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::resumes a pending writing open after refresh with the same identity",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            13,
+            373,
+            375,
+            376,
+            378,
+            380,
+            381
+          ]
         }
       ],
       "candidates": [
@@ -15982,6 +16073,22 @@
             110,
             111
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            86,
+            93,
+            95,
+            100,
+            101,
+            107,
+            110,
+            111
+          ]
         }
       ],
       "candidates": [
@@ -19094,7 +19201,10 @@
           "testId": "tests/e2e/account-auth.spec.ts::Codex strict HTTPS: actual cloud save, private media reload and owner-cookie isolation across fresh contexts",
           "status": "unobserved"
         }
-      ]
+      ],
+      "notApplicable": {
+        "persistence": "重置前快照仅保留在内存 before 变量，用于同页恢复；刷新后丢失是设计，云端偏好以保存版本为准。"
+      }
     },
     {
       "id": "D-01",
@@ -20288,7 +20398,10 @@
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::exports a redacted cloud diagnostics report",
           "status": "passed"
         }
-      ]
+      ],
+      "notApplicable": {
+        "persistence": "活动筛选是本地临时状态，不持久化；刷新重置为全部显示是设计。"
+      }
     },
     {
       "id": "H-02",
@@ -22226,6 +22339,28 @@
             414
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            13,
+            385,
+            388,
+            392,
+            394,
+            397,
+            400,
+            401,
+            402,
+            404,
+            408,
+            411,
+            413,
+            414
+          ]
         }
       ],
       "candidates": [
