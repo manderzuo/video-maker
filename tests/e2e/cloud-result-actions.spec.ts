@@ -41,7 +41,28 @@ async function generate(page:import('@playwright/test').Page,value:unknown,proje
  await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(nodeIds.length);
  return (await ctx.pool.query('SELECT document FROM workspace_video_runs WHERE project_id=$1 ORDER BY created_at',[projectId])).rows.map(row=>row.document as {id:string;resultAssetId:string;inputSnapshot:{references:{alias:string;assetId:string}[]}});
 }
-test('plays, downloads, selects and undoes a historical cloud result without another generation',async({page,workspace})=>{
+test('optimizes a revision through the text API and saves a new draft while preserving the original result',async({page,workspace})=>{
+ await configureVideo(workspace);const h=workspace.headers(workspace.account);
+ await workspace.call('PATCH','/studio-api/me/model-configs/text',{...h,payload:{apiBase:'https://api.example.test',model:'Vendor/Cloud-Text',apiKey:'FAKE_TEXT_UI_KEY',expectedRevision:null}});
+ const {projectId,nodeIds}=await seedProject(workspace,'修改 AI 贯通'),[run]=await generate(page,workspace,projectId,nodeIds);
+ await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'修改后重新生成',exact:true}).click();
+ const revision=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
+ await revision.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('改成日落街道，保持原镜头');
+ await revision.getByRole('button',{name:'AI 优化提示词',exact:true}).click();
+ const confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
+ await confirm.getByLabel('我确认此文字调用可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
+ const panel=page.locator('.prompt-generator-panel');await expect(panel.getByLabel('结果正文',{exact:true})).toHaveValue('云端 AI 优化的雨后街道');
+ await panel.getByRole('button',{name:'使用此正文修改视频',exact:true}).click();
+ await expect(revision.locator('[data-interaction-id="cloud:results:revision-prompt"]')).toHaveValue('云端 AI 优化的雨后街道');
+ await revision.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();await expect(revision).not.toBeVisible();
+ const graph=await graphOf(workspace,projectId);expect(graph.nodes.find(node=>node.title==='修改提示词')?.data.text).toBe('云端 AI 优化的雨后街道');
+ expect(graph.nodes.filter(node=>node.type==='result')).toHaveLength(1);
+ const original=(await workspace.call('GET','/studio-api/runs/'+run.id,h)).json();expect(original.inputSnapshot.prompt).toBe('雨后的街道，一镜到底');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/videos/'))).toHaveLength(1);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/chat/'))).toHaveLength(1);
+});
+test('plays an automatically placed result and undoes only its lineage without another generation',async({page,workspace})=>{
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'结果审片'),[run]=await generate(page,workspace,projectId,nodeIds);
  await page.goto('/projects/'+projectId+'/results');
@@ -49,15 +70,15 @@ test('plays, downloads, selects and undoes a historical cloud result without ano
  await expect(item.locator('video')).toHaveCount(1);await expect(item.getByRole('link',{name:'下载视频',exact:true})).toHaveAttribute('href',new RegExp(run.resultAssetId));
  await item.getByRole('button',{name:'查看任务详情',exact:true}).click();await expect(page.getByRole('dialog',{name:'云端视频任务',exact:true})).toContainText('雨后的街道，一镜到底');await page.keyboard.press('Escape');
  const before=await countOf(workspace,receiptQuery,[projectId]);
- await item.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('结果已放入画布');
- expect(await countOf(workspace,receiptQuery,[projectId])).toBe(before+1);
+ await item.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('此结果已经关联到原画布');
+ expect(await countOf(workspace,receiptQuery,[projectId])).toBe(before);
  const selected=await graphOf(workspace,projectId),placed=selected.nodes.find(node=>node.type==='result');
  expect(placed?.data).toMatchObject({assetId:run.resultAssetId,runId:run.id,generationLinked:true});
  expect(selected.edges.filter(edge=>edge.relation==='result')).toHaveLength(1);
  await page.reload();const reloaded=page.locator('[data-interaction-id="cloud:results:item"]');
  await expect(reloaded.getByRole('button',{name:'撤销选择',exact:true})).toBeEnabled();await expect(reloaded).toContainText('已在画布中');
- await reloaded.getByRole('button',{name:'撤销选择',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已移除本次放入的结果节点');
- const cleared=await graphOf(workspace,projectId);expect(cleared.nodes.filter(node=>node.type==='result')).toHaveLength(0);expect(cleared.edges.filter(edge=>edge.relation==='result')).toHaveLength(0);
+ await reloaded.getByRole('button',{name:'撤销选择',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已解除生成来源关联');
+ const cleared=await graphOf(workspace,projectId);expect(cleared.nodes.filter(node=>node.type==='result')).toHaveLength(1);expect(cleared.edges.filter(edge=>edge.relation==='result')).toHaveLength(0);
  await expect(reloaded.getByRole('button',{name:'撤销选择',exact:true})).toBeDisabled();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
@@ -65,7 +86,7 @@ test('plays, downloads, selects and undoes a historical cloud result without ano
 test('generated result video preview grows with its node and keeps result actions inside the card',async({page,workspace},testInfo)=>{
  await page.setViewportSize({width:1920,height:1440});await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'结果画面调整'),[run]=await generate(page,workspace,projectId,nodeIds);
- await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('结果已放入画布');
+ await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('此结果已经关联到原画布');
  const h=workspace.headers(workspace.account),snapshot=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',h)).json(),node=snapshot.graph.nodes.find((n:{type:string})=>n.type==='result');expect(node).toBeTruthy();
  expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...h,payload:{expectedRevision:snapshot.graph.revision,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'move_node',payload:{nodeId:node.id,x:64,y:64}},{id:randomUUID(),type:'update_node',payload:{nodeId:node.id,patch:{size:{width:480,height:660}}}}],viewport:{x:0,y:0,scale:1}}}})).statusCode).toBe(200);
  await page.goto('/projects/'+projectId+'/canvas');const card=page.locator('[data-node-id="'+node.id+'"]'),video=card.locator('video');await expect.poll(()=>video.evaluate(v=>(v as HTMLVideoElement).videoHeight)).toBeGreaterThan(0);await card.locator('header').click();
@@ -248,6 +269,8 @@ test('reuses an existing asset node and undoes only the new association',async({
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'复用撤销'),[run]=await generate(page,workspace,projectId,nodeIds);
  const nodeId=randomUUID(),headers=workspace.headers(workspace.account);
+ const placed=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',headers)).json();
+ expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...headers,payload:{expectedRevision:placed.graph.revision,idempotencyKey:randomUUID(),command:{type:'undo'}}})).statusCode).toBe(200);
  const current=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',{...headers})).json() as {graph:{revision:number}};
  expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...headers,payload:{expectedRevision:current.graph.revision,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'asset',title:'Existing video',x:100,y:900,locked:false,data:{kind:'asset',assetId:run.resultAssetId}}}}]}}})).statusCode).toBe(200);
  await page.goto('/projects/'+projectId+'/results');
@@ -324,7 +347,7 @@ test('restored result card opens exact tail and revision actions and repairs a r
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'原结果卡片与来源'),[run]=await generate(page,workspace,projectId,nodeIds);
  await page.goto('/projects/'+projectId+'/results');
- await page.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('结果已放入画布');
+ await page.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('此结果已经关联到原画布');
  let snapshot=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',workspace.headers(workspace.account))).json();
  const node=snapshot.graph.nodes.find((value:{type:string;data:{runId?:string}})=>value.type==='result'&&value.data.runId===run.id);
  expect(node).toBeTruthy();

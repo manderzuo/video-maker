@@ -40,3 +40,5 @@
 }
 @media(max-width:1023px){.account-shell.app-shell{grid-template-columns:140px minmax(0,1fr)}.account-shell .account-content{padding:24px}.account-user{display:none}}
 @media(max-width:767px){.account-shell.app-shell{display:flex;padding:0}.account-shell .account-content{padding:16px}.account-shell .account-header{flex-wrap:wrap}.account-shell .account-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.account-shell .cloud-canvas-page{overflow:visible}.account-shell .canvas-stage{height:520px;min-height:420px}.account-shell .canvas-main{display:block}.account-shell .canvas-main .canvas-side{max-height:none}.account-shell .canvas-main.side-collapsed .canvas-side{display:none}}
+
+.account-shell .cloud-canvas-page .canvas-asset-preview video{pointer-events:auto}

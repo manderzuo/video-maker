@@ -51,10 +51,10 @@ test('locks ports, undoes work and retains input on save conflicts',async({page,
  await expect(page.locator('.canvas-node')).toHaveCount(0);
  await page.getByRole('button',{name:'重做',exact:true}).click();
  await expect(page.locator('.canvas-node')).toHaveCount(1);
- await page.getByRole('button',{name:'锁定',exact:true}).first().click();
+ await page.locator('.node-text header').first().click();await page.getByRole('button',{name:'锁定选中',exact:true}).click();
  await expect(page.getByRole('status').first()).toContainText('已保存');
  await expect(page.getByRole('button',{name:'输出文本',exact:true})).toBeDisabled();
- await page.getByRole('button',{name:'解锁',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');
+ await page.getByRole('button',{name:'解锁选中',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');
  await expect(page.getByRole('button',{name:'输出文本',exact:true})).toBeEnabled();
  expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:5,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:randomUUID(),type:'text',title:'外部',x:40,y:400,locked:false,data:{kind:'text',text:'外部',referenceTokens:[]}}}}]}}})).statusCode).toBe(200);
  await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('冲突保留');

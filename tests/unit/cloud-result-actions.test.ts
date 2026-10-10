@@ -51,7 +51,8 @@ describe('cloud result actions',()=>{
   expect(removePlacement(next,node!.id)).toHaveLength(2);
   expect(apply(next,removePlacement(next,node!.id)).nodes).toHaveLength(1);
   expect(affectedResultNodes(next,'draft-1')).toEqual([node!.id]);
-  expect(nextColumnX(next)).toBe(808);
+  expect(node?.size).toEqual({width:420,height:640});
+  expect(nextColumnX(next)).toBe(908);
  });
  it('refuses a result whose asset is not bound to the succeeded run',()=>{
   const video=asset('video-1','video','other-run');

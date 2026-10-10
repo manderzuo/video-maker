@@ -15,7 +15,11 @@ import {parseVideoTask,classifyCoreError} from '../../../src/adapters/core/contr
 import {ownedAsset,manifests,reserveVideoResult,completeAsset} from '../assets/repository.js';
 import {verifyAssetFile,writeAssetFile} from '../assets/storage.js';
 import {detectMediaMime} from '../../../src/features/assets/media-probe.js';
-type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow;lease_token:string};
+import {ownedProject,readProjectGraph} from '../projects/repository.js';
+import {applyProjectCommandInTransaction} from '../projects/commands.js';
+import {projectCommandSchema} from '../projects/contracts.js';
+import {resultPlacement} from '../../../src/features/workspace/cloud-result-actions.js';
+type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow&{canvasAutoPlace?:boolean};lease_token:string};
 const owner=(userId:string)=>({userId,sessionId:'persistent-video',contextId:'persistent-video'});
 function safeRedactor(keys:string[]){return (text:string)=>{for(const key of keys)text=text.split(key).join('[已隐藏密钥]');return text.replace(/Bearer\s+[^\s,;"']+/gi,'Bearer [已隐藏密钥]');};}
 async function save(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date){return pool.query("UPDATE workspace_video_runs SET document=jsonb_set($4::jsonb,'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1)),lease_until=NULL,lease_token=NULL,next_query_at=$5,updated_at=$6 WHERE user_id=$1 AND id=$2 AND lease_token=$3",[row.user_id,row.id,row.lease_token,JSON.stringify(run),new Date(at.getTime()+3000),at]);}
@@ -44,13 +48,34 @@ async function copyResult(pool:Pool,row:VideoRow,run:CloudVideoRun,dependencies:
  }
  await pool.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[row.user_id,run.projectId,asset.id,'run:'+run.id]);return {...run,resultAssetId:asset.id,deliveryState:'available_for_preview' as const,updatedAt:now.getTime()};
 }
+async function placeCanvasResult(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date){
+ if(!row.frozen_config.canvasAutoPlace||!run.resultAssetId)return;
+ const resultAssetId=run.resultAssetId;
+ await transaction(pool,async db=>{
+  const context=owner(row.user_id),project=await ownedProject(db,context,run.projectId,true);
+  if(project.trashedAt!==null)return;
+  const prior=await db.query('SELECT id FROM workspace_command_receipts WHERE user_id=$1 AND id=$2',[row.user_id,run.id]);
+  if(prior.rowCount)return; // Includes results that the user subsequently undid.
+  const graph=await readProjectGraph(db,context,run.projectId),asset=manifests(await ownedAsset(db,context,resultAssetId)).asset;
+  const existing=graph.nodes.find(node=>node.type==='result'&&node.data.runId===run.id&&node.data.assetId===asset.id);
+  const batch=existing?.locked?{operations:[],reason:undefined}:resultPlacement(graph,run,asset);
+  if(batch.reason)throw new HttpError(409,'RESULT_SAVE_PENDING');
+  await applyProjectCommandInTransaction(db,context,run.projectId,projectCommandSchema.parse({expectedRevision:graph.revision,idempotencyKey:run.id,command:batch.operations.length?{type:'operations',operations:batch.operations}:{type:'viewport',viewport:graph.viewport}}),at);
+ });
+}
 export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDependencies,clock:()=>Date=()=>new Date()){
  const now=clock(),row=await transaction(pool,async db=>{
-  const result=await db.query<VideoRow>("SELECT user_id,id,document,frozen_config,lease_token FROM workspace_video_runs WHERE lease_token IS NULL AND (document->>'executionState'='persisted' OR (document->>'taskId' IS NOT NULL AND document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted') AND (next_query_at IS NULL OR next_query_at<=$1) AND (document->>'executionState' IN ('accepted','running') OR document->>'billingState'='pending_reconciliation' OR document->>'executionState'='succeeded' AND document->>'deliveryState'<>'available_for_preview'))) ORDER BY CASE WHEN document->>'executionState'='persisted' THEN 0 ELSE 1 END,created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED",[now]);const stored=result.rows[0];if(!stored)return undefined;
+  const result=await db.query<VideoRow>("SELECT v.user_id,v.id,v.document,v.frozen_config,v.lease_token FROM workspace_video_runs v WHERE v.lease_token IS NULL AND (v.document->>'executionState'='persisted' OR (v.document->>'taskId' IS NOT NULL AND v.document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted') AND (v.next_query_at IS NULL OR v.next_query_at<=$1) AND (v.document->>'executionState' IN ('accepted','running') OR v.document->>'billingState'='pending_reconciliation' OR v.document->>'executionState'='succeeded' AND v.document->>'deliveryState'<>'available_for_preview')) OR ((v.next_query_at IS NULL OR v.next_query_at<=$1) AND v.frozen_config->>'canvasAutoPlace'='true' AND v.document->>'executionState'='succeeded' AND v.document->>'deliveryState'='available_for_preview' AND NOT EXISTS(SELECT 1 FROM workspace_command_receipts c WHERE c.user_id=v.user_id AND c.id=v.id) AND EXISTS(SELECT 1 FROM workspace_projects p WHERE p.user_id=v.user_id AND p.id=v.project_id AND p.trashed_at IS NULL AND p.purged_at IS NULL))) ORDER BY CASE WHEN v.document->>'executionState'='persisted' THEN 0 ELSE 1 END,v.created_at,v.id LIMIT 1 FOR UPDATE OF v SKIP LOCKED",[now]);const stored=result.rows[0];if(!stored)return undefined;
   const current=cloudVideoRunSchema.parse(stored.document),run=current.executionState==='persisted'?{...current,executionState:current.inputSnapshot.references.length?'uploading' as const:'submitting' as const,updatedAt:now.getTime()}:current,token=randomUUID();await db.query("UPDATE workspace_video_runs SET document=jsonb_set($3::jsonb,'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1)),lease_token=$4,lease_until=$5 WHERE user_id=$1 AND id=$2",[stored.user_id,stored.id,JSON.stringify(run),token,new Date(now.getTime()+150000)]);return {...stored,document:run,lease_token:token};
  });if(!row)return false;
  let run=cloudVideoRunSchema.parse(row.document),sending=false;
  try{
+  // Placement retries use only local transactions; they never repeat a paid
+  // submission, download or upstream query, and still work after key rotation.
+  if(run.executionState==='succeeded'&&run.deliveryState==='available_for_preview'&&run.billingState!=='pending_reconciliation'){
+   try{await placeCanvasResult(pool,row,run,clock());}catch{/* Retry the local placement, preserving delivery and billing. */}
+   await save(pool,row,run,clock());return true;
+  }
   const key=await frozenTaskKey(pool,row.user_id,row.frozen_config,dependencies),redact=safeRedactor(await userSecrets(pool,row.user_id,dependencies));
   if(['uploading','submitting'].includes(run.executionState)){
    const mappings=await prepareReferences(pool,row,run,dependencies,key,redact,clock),finalBody=run.finalBody??buildVideoRequestBody(run.inputSnapshot,mappings);
@@ -63,6 +88,10 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
    const observed=observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact));run=cloudVideoRunSchema.parse({...run,...observed,inputSnapshot:run.inputSnapshot,...(!run.executionFinishedAt&&observed.executionFinishedAt?{executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});
   }
   if(run.executionState==='succeeded'&&run.deliveryState!=='available_for_preview'){await stage(pool,row,{...run,deliveryState:'fetching'},clock());try{run=await copyResult(pool,row,run,dependencies,key,clock());}catch{run={...run,deliveryState:'download_failed',issueCode:'RESULT_SAVE_PENDING',updatedAt:clock().getTime()};}}
+  if(run.executionState==='succeeded'&&run.deliveryState==='available_for_preview'){
+   await stage(pool,row,run,clock());
+   try{await placeCanvasResult(pool,row,run,clock());}catch{/* The available result stays intact and the local placement is retried. */}
+  }
   await save(pool,row,cloudVideoRunSchema.parse(run),clock());
  }catch(error){
   const notSent=error instanceof HttpError&&['SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','REFERENCE_CHANGED'].includes(error.code),submission=['submitting','uploading'].includes(run.executionState);

@@ -1,7 +1,7 @@
 import {randomUUID} from 'node:crypto';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 
-test('original T06 confirms one fake AI request and applies only to its exact saved source',async({page,workspace})=>{
+test('canvas writing panel confirms one fake AI request and applies only to its exact saved source',async({page,workspace})=>{
  const headers=workspace.headers(workspace.account);
  expect((await workspace.call('PATCH','/studio-api/me/model-configs/text',{...headers,payload:{apiBase:'https://api.example.test',model:'Vendor/Outside-Catalog',apiKey:'FAKE_CLOUD_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
  const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'原 AI 入口'}})).json();
@@ -11,8 +11,9 @@ test('original T06 confirms one fake AI request and applies only to its exact sa
  await page.goto('/projects/'+project.id+'/canvas');
  const source=page.locator('[data-node-id="'+sourceId+'"]');
  await source.locator('textarea').fill('指定节点的最新需求');
- await expect(source.locator('[data-interaction-id="T-06"]')).toBeEnabled();
- await source.locator('[data-interaction-id="T-06"]').click();
+ await source.locator('header').click();
+ await page.getByRole('button',{name:'提示词生成面板',exact:true}).click();
+ await page.getByRole('button',{name:'AI 优化',exact:true}).click();
  const confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});
  await expect(confirm).toBeVisible();
  await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas$'));

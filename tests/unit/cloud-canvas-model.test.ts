@@ -6,6 +6,13 @@ const graph={projectId:project.id,revision:0,nodes:[],edges:[],viewport:{x:0,y:0
 const snapshot={project,graph,history:{undoDepth:0,redoDepth:0}};
 const node={id:'node',type:'text' as const,title:'文字',x:0,y:0,locked:false,data:{kind:'text' as const,text:'不丢失的输入',referenceTokens:[]}};
 const operation={id:'op',type:'add_node' as const,payload:{node}};
+it('merges only appended server results while preserving dirty text and viewport',async()=>{
+ const api=client(),model=createCloudCanvasModel(project.id,api);await model.load();model.stage([operation]);model.viewport({x:77,y:22,scale:1});
+ const result={id:'result',type:'result' as const,title:'完成的视频',x:500,y:0,locked:false,data:{kind:'result' as const,assetId:'asset',runId:'run',generationLinked:true}};
+ api.readWorkspace.mockResolvedValueOnce({...snapshot,graph:{...graph,revision:1,nodes:[result]} as typeof graph,project:{...project,revision:1}});
+ await model.refreshResults();expect(model.getState()).toMatchObject({status:'dirty',pending:[operation],graph:{revision:1,nodes:[result,node],viewport:{x:77,y:22,scale:1}}});
+ await model.save();expect(api.command).toHaveBeenCalledWith(project.id,1,{type:'operations',operations:[operation],viewport:{x:77,y:22,scale:1}},expect.any(String));model.dispose();
+});
 function client(){return {readWorkspace:vi.fn(async()=>structuredClone(snapshot)),command:vi.fn<WorkspaceClient["command"]>(async()=>({id:'11111111-1111-4111-8111-111111111111',status:'applied' as const,revision:1,project:{...project,revision:1},graph:{...graph,revision:1,nodes:[node]},history:{undoDepth:1,redoDepth:0}}))};}
 it('marks changes unsaved until the server receipt is accepted',async()=>{
  const api=client(),model=createCloudCanvasModel(project.id,api);await model.load();model.stage([operation]);expect(model.getState()).toMatchObject({status:'dirty',graph:{revision:0,nodes:[node]}});await model.save();expect(model.getState()).toMatchObject({status:'saved',graph:{revision:1,nodes:[node]}});expect(api.command).toHaveBeenCalledWith(project.id,0,{type:'operations',operations:[operation]},expect.any(String));model.dispose();

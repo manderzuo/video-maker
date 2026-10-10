@@ -8,7 +8,6 @@ import {type WorkspaceClient} from '../../infrastructure/api/workspace-client';
 import {isEditableTarget} from '../../ui/copy.zh-CN';
 import {Button} from '../../ui/Button';
 import {CloudAssetMedia} from './CloudAssetsPage';
-import {LocalLink} from '../../app/routes';
 import {nodeSize, visibleNodes, worldPosition} from '../canvas/geometry';
 import {updateViewport} from '../canvas/viewport';
 import {selectNodes} from '../canvas/selection';
@@ -178,12 +177,19 @@ export function CloudCanvasSurface({
   }
 
   function pointerStart(event: ReactPointerEvent<HTMLElement>, node?: CanvasNode) {
+    if (graph && event.button === 1) {
+      event.preventDefault();
+      const p = point(event);
+      gesture.current = {type:'pan',startX:p.x,startY:p.y,lastX:p.x,lastY:p.y,view,graph:structuredClone(graph),shift:false};
+      event.currentTarget.setPointerCapture(event.pointerId);
+      return;
+    }
     connections.clearSelection();
     if (connections.hasPending()) {
       connections.cancel();
       return;
     }
-    if (!graph || event.button !== 0 || (event.target as HTMLElement).closest('button,input,textarea,select,a')) return;
+    if (!graph || event.button !== 0 || (event.target as HTMLElement).closest('button,input,textarea,select,a,video,audio')) return;
     let moveIds: string[] | undefined;
     if (node) {
       const already = selected.includes(node.id);
@@ -343,6 +349,7 @@ export function CloudCanvasSurface({
       tabIndex={0}
       onContextMenu={event=>{event.preventDefault();const id=(event.target as HTMLElement).closest<HTMLElement>('[data-node-id]')?.dataset.nodeId;nodeMenu.current?.open(id?(selected.includes(id)?selected:[id]):selected);}}
       onPointerDown={(event) => void pointerStart(event)}
+      onAuxClick={event=>{if(event.button===1)event.preventDefault();}}
       onPointerMove={pointerMove}
       onPointerUp={pointerEnd}
       onPointerCancel={() => {
@@ -478,11 +485,11 @@ export function CloudCanvasSurface({
                       />
                     </label>
                   ) : null}
-                  {node.type === 'text' ? <TextNode node={node} readonly={!canEdit||node.locked} interactionId="cloud:canvas:node-text" references={references} fontSize={fontSize(node.id)} onFontSize={size=>changeFont(node.id,size)} onDraft={data=>{const valid=localText.safeParse(data.text).success;onTextValidity(node.id,valid);if(valid)updateData(node.id,data);}} onChange={()=>{}} onSavePrompt={()=>onSaveNodePrompt(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0} onCreateFlow={()=>onCreateFlow(node.id)}/>
-                    : node.type==='video-generation'?<VideoNode node={node} graph={graph} assets={assets} capability={capability} readonly={!canEdit||node.locked} onChange={data=>updateData(node.id,data)} onCommand={ops=>void commitOps(ops)} onPreflight={()=>onGenerate(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0}/>
-                    : node.type==='asset'||node.type==='result'?<><AssetNode assetId={node.data.assetId} asset={asset} renderMedia={(media,thumbnail)=><CloudAssetMedia client={client} asset={media} preferOriginal={!thumbnail}/>}/>{node.type==='result'?<div className="node-actions"><LocalLink data-interaction-id="restore:cloudcanvassurface:1" href={'/projects/'+encodeURIComponent(graph.projectId)+'/results?runId='+encodeURIComponent(node.data.runId)}>查看结果、尾帧与修改生成</LocalLink><Button data-interaction-id="restore:cloudcanvassurface:2" disabled={!canEdit} onClick={()=>onResultAction(node,'details')}> 查看任务详情</Button><Button data-interaction-id="restore:cloudcanvassurface:3" disabled={!canEdit} onClick={()=>onResultAction(node,'tail-frame')}> 尾帧续写</Button><Button data-interaction-id="restore:cloudcanvassurface:4" disabled={!canEdit} onClick={()=>onResultAction(node,'revision')}> 修改后重新生成</Button></div>:null}</>
+                  {node.type === 'text' ? <TextNode compact node={node} readonly={!canEdit||node.locked} interactionId="cloud:canvas:node-text" references={references} fontSize={fontSize(node.id)} onFontSize={size=>changeFont(node.id,size)} onDraft={data=>{const valid=localText.safeParse(data.text).success;onTextValidity(node.id,valid);if(valid)updateData(node.id,data);}} onChange={()=>{}} onSavePrompt={()=>onSaveNodePrompt(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0} onCreateFlow={()=>onCreateFlow(node.id)}/>
+                    : node.type==='video-generation'?<VideoNode compact node={node} graph={graph} assets={assets} capability={capability} readonly={!canEdit||node.locked} onChange={data=>updateData(node.id,data)} onCommand={ops=>void commitOps(ops)} onPreflight={()=>onGenerate(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0}/>
+                    : node.type==='asset'||node.type==='result'?<><AssetNode compact assetId={node.data.assetId} asset={asset} renderMedia={(media,thumbnail)=><CloudAssetMedia client={client} asset={media} preferOriginal={!thumbnail}/>}/>{node.type==='result'?<div className="node-actions"><Button data-interaction-id="restore:cloudcanvassurface:3" disabled={!canEdit} onClick={()=>onResultAction(node,'tail-frame')}> 尾帧续写</Button><Button data-interaction-id="restore:cloudcanvassurface:4" disabled={!canEdit} onClick={()=>onResultAction(node,'revision')}> 修改后重新生成</Button></div>:null}</>
                     : <GroupNode count={node.data.childIds.length} collapsed={node.data.collapsed}/>}
-                  {node.type !== 'group' ? <div className="node-actions"><Button data-interaction-id="cloud:canvas:select" onClick={()=>setSelected(selected.includes(node.id)?selected.filter(id=>id!==node.id):[...selected,node.id])}>{selected.includes(node.id)?'取消选中':'选中节点'}</Button><Button data-interaction-id="cloud:canvas:lock" disabled={!canEdit} onClick={()=>void commitOps([op('update_node',{nodeId:node.id,patch:{locked:!node.locked}})])}>{node.locked?'解锁':'锁定'}</Button></div>:null}
+
                 </div>
               </article>
             );

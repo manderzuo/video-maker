@@ -5,7 +5,7 @@ test.beforeEach(async({page})=>{
  await page.addInitScript(()=>{const open=indexedDB.open.bind(indexedDB);Object.defineProperty(window,'__localDbOpens',{value:[],writable:true});indexedDB.open=((...args:Parameters<IDBFactory['open']>)=>{(window as unknown as {__localDbOpens:string[]}).__localDbOpens.push(args[0]);return open(...args);}) as IDBFactory['open'];});
 });
 
-test('original text card creates a connected cloud flow and restores text after reload',async({page,workspace},testInfo)=>{
+test('compact text card connects a cloud flow through ports and restores text after reload',async({page,workspace},testInfo)=>{
  await page.setViewportSize({width:1920,height:1080});
  const h=workspace.headers(workspace.account);
  await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}});
@@ -16,8 +16,10 @@ test('original text card creates a connected cloud flow and restores text after 
  await text.getByRole('textbox',{name:'节点文本',exact:true}).fill('只绑定这段原始提示词');
  await text.getByRole('combobox',{name:'文本字号'}).selectOption('20');
  await expect(text.getByRole('textbox',{name:'节点文本'})).toHaveCSS('font-size','20px');
- await text.getByRole('button',{name:'从文本创建视频流程',exact:true}).click();
- await page.getByRole('dialog',{name:'从文本创建视频流程'}).getByRole('button',{name:'确认仅创建草稿'}).click();
+ await page.getByRole('button',{name:'添加节点',exact:true}).click();
+ await page.getByRole('button',{name:'添加视频草稿',exact:true}).click();
+ await page.getByRole('button',{name:'输出文本',exact:true}).press('Enter');
+ await page.getByRole('button',{name:'接收文本',exact:true}).click();
  await expect(page.locator('.node-video-generation')).toHaveCount(1);
  await expect(page.locator('.canvas-wire')).toHaveCount(1);
  await expect(page.getByRole('status').first()).toContainText('已保存');
@@ -35,8 +37,7 @@ test('original text card creates a connected cloud flow and restores text after 
    expect(title&&label&&(title.x>=label.x+label.width||title.y>=label.y+label.height||title.x+title.width<=label.x||title.y+title.height<=label.y)).toBeTruthy();
   }
  }
- await text.getByRole('button',{name:'复制文本',exact:true}).scrollIntoViewIfNeeded();
- expect(await text.getByRole('button',{name:'复制文本',exact:true}).evaluate(button=>{const rect=button.getBoundingClientRect();return button.contains(document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2));})).toBe(true);
+ await expect(text.locator('button')).toHaveCount(0);
  await page.screenshot({path:testInfo.outputPath('restored-original-canvas.png'),fullPage:true});
  expect(await page.evaluate(()=>(window as unknown as {__localDbOpens:string[]}).__localDbOpens)).toEqual([]);
  expect(workspace.providerCalls.filter(c=>c.method==='POST')).toHaveLength(0);
@@ -85,7 +86,8 @@ test('node prompt generation stays docked in the original canvas and preserves i
  const h=workspace.headers(workspace.account),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'画布内写作'}})).json();
  await page.goto('/projects/'+project.id+'/canvas');await page.getByRole('button',{name:'添加文字节点',exact:true}).click();
  await page.locator('.text-node-editor textarea').fill('原节点写作内容');
- await page.locator('.text-node-editor').getByRole('button',{name:'提示词生成',exact:true}).click();
+ await page.locator('.node-text header').click();
+ await page.getByRole('button',{name:'提示词生成面板',exact:true}).click();
  await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas$'));
  await expect(page.locator('.prompt-generator-panel')).toBeVisible();
  await expect(page.locator('.prompt-generator-panel textarea').first()).toHaveValue('原节点写作内容');
@@ -116,9 +118,9 @@ test('original asset preview uses private cloud media without opening the anonym
  const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=8;return canvas.toDataURL('image/png').split(',')[1];});
  await page.locator('[data-interaction-id="cloud:asset:picker-files"]').setInputFiles({name:'原卡片.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});
  await page.getByRole('button',{name:'上传到云端素材库',exact:true}).click();await page.getByRole('button',{name:'选择此素材',exact:true}).click();
- await page.locator('.canvas-asset-content').getByRole('button',{name:'预览素材',exact:true}).click();
- await expect(page.getByRole('dialog',{name:'素材预览'}).getByRole('img',{name:'原卡片.png'})).toBeVisible();
- await expect(page.getByRole('dialog',{name:'素材预览'}).getByRole('img',{name:'原卡片.png'})).toHaveAttribute('src',/original$/);
+ await expect(page.locator('.node-asset img')).toBeVisible();
+ await expect(page.locator('.node-asset img')).toHaveAttribute('src',/original$/);
+ await expect(page.locator('.node-asset .node-body button')).toHaveCount(0);
  expect(await page.evaluate(()=>(window as unknown as {__localDbOpens:string[]}).__localDbOpens)).toEqual([]);
  expect(workspace.providerCalls.filter(c=>c.method==='POST')).toHaveLength(0);
 });

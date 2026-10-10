@@ -66,7 +66,8 @@ test('exports a redacted cloud diagnostics report',async({page,workspace},testIn
  await page.getByRole('button',{name:'确认生成',exact:true}).click();
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
  await page.goto('/activity');
- await expect(page.locator('article').filter({hasText:'诊断导出'})).toHaveCount(1);
+ // Initial graph save plus the new server-side completed-result placement.
+ await expect(page.locator('article').filter({hasText:'诊断导出'})).toHaveCount(2);
  const downloading=page.waitForEvent('download');
  await page.getByRole('button',{name:'导出脱敏诊断',exact:true}).click();
  const path=testInfo.outputPath('cloud-diagnostics.json');

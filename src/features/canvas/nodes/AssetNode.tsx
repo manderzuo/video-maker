@@ -9,18 +9,18 @@ function NodeAssetPreview({assetId,image}:{assetId:string;image:boolean}){
  if(!url)return <small>{missing?'本地文件缺失':error??'预览加载中…'}</small>;
  return <div className="canvas-asset-preview">{asset?.mediaType==='image'?<img src={url} alt={asset.title}/>:asset?.mediaType==='video'?<video src={url} aria-label={asset.title+' 预览'} preload="metadata" muted playsInline/>:null}</div>;
 }
-export function AssetNode({assetId,asset,renderMedia}:{assetId:string;asset?:Asset;renderMedia?:(asset:Asset,thumbnail:boolean)=>ReactNode}){
+export function AssetNode({assetId,asset,renderMedia,compact=false}:{compact?:boolean;assetId:string;asset?:Asset;renderMedia?:(asset:Asset,thumbnail:boolean)=>ReactNode}){
  const [open,setOpen]=useState(false),isVideo=asset?.mediaType==='video';
  return <div className="canvas-asset-content">
-  {asset&&['image','video'].includes(asset.mediaType)?renderMedia?<div className="canvas-asset-preview">{renderMedia(asset,true)}</div>:<NodeAssetPreview assetId={assetId} image={asset.mediaType==='image'}/>:null}
+  {asset&&['image','video'].includes(asset.mediaType)?renderMedia?<div className="canvas-asset-preview">{renderMedia(asset,!compact)}</div>:<NodeAssetPreview assetId={assetId} image={asset.mediaType==='image'}/>:null}
   <div className="canvas-asset-info"><p title={asset?.title}>{asset?.title??'素材缺失'}</p>
   <small className="canvas-asset-meta" title={'素材编号：'+assetId}><span>素材 {assetId}</span>{asset?` · ${asset.mediaType} · ${asset.bytes} 字节`:' · 请在素材库修复关联。'}</small>
-  <div className="node-actions">
+  {!compact?<div className="node-actions">
   <Button data-interaction-id="ui:AssetNode:Button:1add113221bb" variant={isVideo?'primary':'secondary'} disabled={!asset} onClick={()=>setOpen(true)}>
    {isVideo?<><span aria-hidden="true">▶ </span>播放视频</>:'预览素材'}
   </Button>
   <LocalLink data-interaction-id="ui:AssetNode:LocalLink:a9dc8e97d702" href={'/assets?asset='+encodeURIComponent(assetId)}>素材详情与恢复</LocalLink>
-  </div></div>
+  </div>:null}</div>
   <Dialog open={open} title={isVideo?'视频播放':'素材预览'} onClose={()=>setOpen(false)}>
    {open?<div className={isVideo?'review-media':undefined}>{renderMedia&&asset?renderMedia(asset,false):<AssetPreview assetId={assetId} playVideoOnOpen={isVideo} compact={isVideo}/>}</div>:null}
   </Dialog>

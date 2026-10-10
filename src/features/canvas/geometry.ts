@@ -1,7 +1,7 @@
 // Adapted from basketikun/infinite-canvas dab19adc0847e32e39b7fc8ff90cb392561fb826,
 // web/src/lib/canvas/canvas-node-geometry.ts. Copyright (c) 2026 basketikun.
 // MIT license: third-party/licenses/infinite-canvas.LICENSE. Domain/UI adaptation by AI WORK Studio.
-import type {CanvasNode,Graph} from '../../domain/graph';
+import type {CanvasNode,Graph} from '../../domain/graph.js';
 export type Rect={left:number;top:number;right:number;bottom:number};
 export function nodeSize(node:CanvasNode,graph?:Graph,seen=new Set<string>()):{width:number;height:number}{
  if(node.type!=='group'&&node.size)return node.size;

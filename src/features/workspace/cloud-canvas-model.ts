@@ -27,6 +27,23 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi,options
  let attempt:{key:string;revision:number;command:CloudCommand}|undefined;
  const listeners=new Set<()=>void>();const publish=(next:CloudCanvasState)=>{if(disposed)return;state=next;for(const cb of listeners)cb();};
  const busy=()=>state.status==='saving'||state.status==='loading';
+ async function refreshResults(){
+  if(disposed||busy()||!base||!state.graph||attempt&&!(state.error&&typeof state.error==='object'&&'code' in state.error&&state.error.code==='REVISION_CONFLICT'))return;
+  const previous=base,generation=epoch,data=await client.readWorkspace(projectId);
+  if(disposed||generation!==epoch||base!==previous||busy()||!state.graph||data.graph.revision<=previous.revision)return;
+  if(attempt&&!(state.error&&typeof state.error==='object'&&'code' in state.error&&state.error.code==='REVISION_CONFLICT'))return;
+  if(state.status!=='saved'){
+   const next=data.graph;
+   if(previous.nodes.some(node=>JSON.stringify(next.nodes.find(value=>value.id===node.id))!==JSON.stringify(node))||previous.edges.some(edge=>JSON.stringify(next.edges.find(value=>value.id===edge.id))!==JSON.stringify(edge)))return;
+   const added=next.nodes.filter(node=>!previous.nodes.some(value=>value.id===node.id));
+   if(!added.length||added.some(node=>node.type!=='result')||next.edges.some(edge=>!previous.edges.some(value=>value.id===edge.id)&&!(edge.relation==='result'&&added.some(node=>node.id===edge.targetId))))return;
+   if(JSON.stringify(previous.viewport)!==JSON.stringify(next.viewport))return;
+   const dirtyViewport=JSON.stringify(state.graph.viewport)!==JSON.stringify(previous.viewport);
+   let merged:Graph;try{merged=executeGraphOperations(next,state.pending);}catch{return;}
+   if(dirtyViewport)merged.viewport=state.graph.viewport;
+   base=next;attempt=undefined;publish({...data,status:'dirty',graph:merged,pending:state.pending,error:undefined});scheduleAutosave();
+  }else{base=data.graph;publish({...data,status:'saved',pending:[]});}
+ }
  async function load(discard=false){
   if(disposed)return;if((state.pending.length||state.status==='dirty'||state.status==='failed')&&!discard)throw new Error('unsaved_changes');cancelAutosave();const generation=++epoch;publish({...state,status:'loading'});
   try{const data=await client.readWorkspace(projectId);if(disposed||epoch!==generation)return;base=data.graph;attempt=undefined;publish({...data,status:'saved',pending:[]});}catch(error){if(epoch===generation)publish({...state,status:'failed',error});}
@@ -50,5 +67,5 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi,options
   if(disposed||busy()||state.status!=='saved'||!base)return;
   attempt={key:crypto.randomUUID(),revision:base.revision,command:{type}};publish({...state,status:'dirty'});await save();
  }
- return {getState:()=>state,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},load,stage,viewport,save,history,setComposing(value:boolean){composing=value;if(value)cancelAutosave();else scheduleAutosave();},dispose(){disposed=true;epoch++;cancelAutosave();listeners.clear();}};
+ return {getState:()=>state,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},load,refreshResults,stage,viewport,save,history,setComposing(value:boolean){composing=value;if(value)cancelAutosave();else scheduleAutosave();},dispose(){disposed=true;epoch++;cancelAutosave();listeners.clear();}};
 }

@@ -1,11 +1,11 @@
-import type {Asset} from '../../domain/asset';
-import type {VideoSpec} from '../../domain/common';
-import type {CanvasNode,Graph} from '../../domain/graph';
-import {nodeSchema} from '../../domain/graph';
-import type {GraphOperation} from '../../application/commands/registry';
-import type {CloudVideoRecord} from '../../domain/cloud-video-run';
-import {videoRunSnapshotSchema} from '../../domain/video-request';
-import {nodeRect} from '../canvas/geometry';
+import type {Asset} from '../../domain/asset.js';
+import type {VideoSpec} from '../../domain/common.js';
+import type {CanvasNode,Graph} from '../../domain/graph.js';
+import {nodeSchema} from '../../domain/graph.js';
+import type {GraphOperation} from '../../application/commands/registry.js';
+import type {CloudVideoRecord} from '../../domain/cloud-video-run.js';
+import {videoRunSnapshotSchema} from '../../domain/video-request.js';
+import {nodeRect} from '../canvas/geometry.js';
 // Cloud result actions keep the pure command building separate from the local
 // read/write helpers of the legacy review feature: every batch is produced from
 // an already authenticated CloudVideoRecord plus the owned assets, and the
@@ -17,7 +17,7 @@ const operation=(type:GraphOperation['type'],payload:Record<string,unknown>):Gra
 export function frozenSnapshot(record:VideoRecord){return videoRunSnapshotSchema.parse(record.inputSnapshot);}
 export function frozenSpec(record:VideoRecord):VideoSpec{return record.executionSpec??record.requestedSpec??frozenSnapshot(record).spec;}
 export function nextColumnX(graph:Graph){return Math.max(0,...graph.nodes.map(node=>nodeRect(node,graph).right))+64;}
-export function placedNode(graph:Graph,assetId:string,runId:string){return graph.nodes.find(node=>(node.type==='asset'||node.type==='result')&&node.data.assetId===assetId&&!node.locked&&(node.type!=='result'||node.data.runId===runId));}
+export function placedNode(graph:Graph,assetId:string,runId:string){return graph.nodes.find((node):node is Extract<CanvasNode,{type:'asset'|'result'}>=>(node.type==='asset'||node.type==='result')&&node.data.assetId===assetId&&!node.locked&&(node.type!=='result'||node.data.runId===runId));}
 export function resultNodesFor(graph:Graph,assetId:string){return graph.nodes.filter(node=>node.type==='result'&&node.data.assetId===assetId).map(node=>node.id);}
 export function affectedResultNodes(graph:Graph,nodeId:string){const ids=new Set<string>(),queue=[nodeId];while(queue.length){const current=queue.shift()!;for(const edge of graph.edges.filter(edge=>edge.sourceId===current))if(!ids.has(edge.targetId)){ids.add(edge.targetId);queue.push(edge.targetId);}}return [...ids];}
 // A result asset only supports lineage while the server still binds it to the
@@ -49,7 +49,7 @@ export function resultPlacement(graph:Graph,record:VideoRecord,asset:Asset,posit
  const existing=placedNode(graph,asset.id,record.id);
  if(existing)return {operations:resultLink(graph,existing,record),placement:{nodeId:existing.id,created:false}};
  const id=crypto.randomUUID(),source=graph.nodes.find(node=>node.id===record.nodeId&&node.type==='video-generation');
- const node=nodeSchema.parse({id,type:'result',title:asset.title,x:position?.x??nextColumnX(graph),y:position?.y??0,locked:false,data:{kind:'result',assetId:asset.id,runId:record.id,generationLinked:true}});
+ const node=nodeSchema.parse({id,type:'result',title:asset.title,size:{width:420,height:640},x:position?.x??nextColumnX(graph),y:position?.y??0,locked:false,data:{kind:'result',assetId:asset.id,runId:record.id,generationLinked:true}});
  const operations:GraphOperation[]=[operation('add_node',{node})];
  if(source)operations.push(operation('add_edge',{edge:{id:crypto.randomUUID(),sourceId:source.id,targetId:id,port:'video',order:0,relation:'result'}}));
  return {operations,placement:{nodeId:id,created:true}};
