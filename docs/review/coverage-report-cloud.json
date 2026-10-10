@@ -2087,11 +2087,6 @@
       "id": "T-05"
     },
     {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "T-05"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "T-06"
@@ -4118,11 +4113,6 @@
     },
     {
       "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "L-09"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "L-09"
     },
@@ -8753,13 +8743,31 @@
             129,
             130
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "sideEffect"
+          ],
+          "assertionLines": [
+            13,
+            114,
+            115,
+            116,
+            122,
+            123,
+            126,
+            128,
+            129,
+            130
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
         "facet_missing:disabled",
         "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -9905,12 +9913,62 @@
             105,
             106
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            13,
+            76,
+            80,
+            82,
+            83,
+            91,
+            92,
+            93,
+            94,
+            95,
+            97,
+            98,
+            99,
+            102,
+            103,
+            105,
+            106
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
+          "facets": [
+            "sideEffect"
+          ],
+          "assertionLines": [
+            13,
+            76,
+            80,
+            82,
+            83,
+            91,
+            92,
+            93,
+            94,
+            95,
+            97,
+            98,
+            99,
+            102,
+            103,
+            105,
+            106
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -9964,6 +10022,20 @@
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
           "facets": [
             "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            58,
+            65,
+            67,
+            70,
+            71
+          ],
+          "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "facets": [
             "sideEffect"
           ],
           "assertionLines": [
