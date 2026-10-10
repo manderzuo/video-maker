@@ -2695,21 +2695,66 @@
       ],
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
           "facets": [
-            "disabled"
+            "normal",
+            "sideEffect"
           ],
           "assertionLines": [
-            86,
-            93,
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
             95,
-            100,
-            101,
-            107,
-            110,
-            111
+            99,
+            101
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
+          "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ],
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ],
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [

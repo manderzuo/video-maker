@@ -722,22 +722,7 @@
       "id": "P-09"
     },
     {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "P-11"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "P-11"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "P-11"
-    },
-    {
-      "code": "facet_missing:sideEffect",
+      "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "P-11"
     },
@@ -5757,7 +5742,7 @@
       "id": "I-08"
     },
     {
-      "code": "assertion_not_executed",
+      "code": "source_hash_mismatch",
       "kind": "interactions",
       "id": "H-01"
     },
@@ -7322,6 +7307,26 @@
       "id": "P23"
     },
     {
+      "code": "source_hash_mismatch",
+      "kind": "dialogs",
+      "id": "D01"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "dialogs",
+      "id": "D01"
+    },
+    {
+      "code": "source_hash_mismatch",
+      "kind": "dialogs",
+      "id": "D02"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "dialogs",
+      "id": "D02"
+    },
+    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D04"
@@ -7370,6 +7375,16 @@
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D15"
+    },
+    {
+      "code": "source_hash_mismatch",
+      "kind": "dialogs",
+      "id": "D16"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "dialogs",
+      "id": "D16"
     },
     {
       "code": "facet_missing:normal",
@@ -7913,28 +7928,70 @@
       "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
           "facets": [
-            "disabled"
+            "normal",
+            "sideEffect"
           ],
           "assertionLines": [
-            86,
-            93,
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
             95,
-            100,
-            101,
-            107,
-            110,
-            111
+            99,
+            101
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
+          "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ],
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ],
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -11240,7 +11297,7 @@
         }
       ],
       "missing": [
-        "assertion_not_executed",
+        "source_hash_mismatch",
         "facet_missing:normal",
         "facet_missing:sideEffect"
       ]
@@ -12584,7 +12641,7 @@
       "id": "D01",
       "kind": "dialogs",
       "taskId": "T12",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-workspace.spec.ts::creates a cloud project, edits canvas text, restores after reload, and uses persisted undo/redo",
@@ -12600,13 +12657,16 @@
           "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
         }
       ],
-      "missing": []
+      "missing": [
+        "source_hash_mismatch",
+        "facet_missing:normal"
+      ]
     },
     {
       "id": "D02",
       "kind": "dialogs",
       "taskId": "T12",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-workspace.spec.ts::copies a project with its current cloud graph and preserves project search and metadata actions",
@@ -12622,7 +12682,10 @@
           "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
         }
       ],
-      "missing": []
+      "missing": [
+        "source_hash_mismatch",
+        "facet_missing:normal"
+      ]
     },
     {
       "id": "D03",
@@ -12812,7 +12875,7 @@
       "id": "D16",
       "kind": "dialogs",
       "taskId": "T36",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
@@ -12835,7 +12898,10 @@
           "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         }
       ],
-      "missing": []
+      "missing": [
+        "source_hash_mismatch",
+        "facet_missing:normal"
+      ]
     },
     {
       "id": "D17",

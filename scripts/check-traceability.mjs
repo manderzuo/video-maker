@@ -25,6 +25,7 @@ export function evaluateTraceability({interactions,pages,dialogs,map,results,ver
    for(const proof of entry?.proofs??[]){
     const result=executed.get(proof.testId);
     if(!result||result.status!=='passed'){issues.push('test_not_passed');continue;}
+    if(typeof result.sourceHash!=='string'||!result.sourceHash||typeof proof.sourceHash!=='string'||!proof.sourceHash||result.sourceHash!==proof.sourceHash){issues.push('source_hash_mismatch');continue;}
     if(!result.assertions||!proof.assertionLines?.length){issues.push('assertion_missing');continue;}
     const assertionLines=result.assertionLocations?.filter(location=>normalize(location.file)===normalize(result.file)).map(location=>location.line)??[];
     if(!proof.assertionLines.every(line=>assertionLines.includes(line))){issues.push('assertion_not_executed');continue;}
