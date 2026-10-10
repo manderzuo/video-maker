@@ -13,10 +13,12 @@ export function manifests(row:AssetRow){const asset=assetSchema.parse(row.docume
 export async function listAssetReferences(pool:Pool,context:AuthContext,id:string){
  await ownedAsset(pool,context,id);
  const refs=await pool.query<{project_id:string;source_id:string;title:string;graph:unknown}>(`SELECT r.project_id,r.source_id,p.document->>'title' AS title,g.graph FROM workspace_asset_references r JOIN workspace_projects p ON p.user_id=r.user_id AND p.id=r.project_id AND p.purged_at IS NULL LEFT JOIN workspace_graphs g ON g.user_id=r.user_id AND g.project_id=r.project_id WHERE r.user_id=$1 AND r.asset_id=$2`,[context.userId,id]);
- return refs.rows.map(row=>{
+ return refs.rows.flatMap((row):{projectId:string;projectTitle:string;nodeId:string|undefined;nodeTitle:string|undefined;source:string;current:boolean}[]=>{
   const nodes=(row.graph as {nodes?:{id:string;title:string;data?:{assetId?:string}}[]}|null)?.nodes??[];
-  const node=nodes.find(item=>item.data?.assetId===id);
-  return {projectId:row.project_id,projectTitle:row.title,nodeId:node?.id,nodeTitle:node?.title,source:row.source_id};
+  const matched=nodes.filter(item=>item.data?.assetId===id);
+  // graph 当前引用：枚举每个实际使用节点；历史引用不冒充当前节点。
+  if(row.source_id==='graph')return matched.map(node=>({projectId:row.project_id,projectTitle:row.title,nodeId:node.id,nodeTitle:node.title,source:row.source_id,current:true}));
+  return [{projectId:row.project_id,projectTitle:row.title,nodeId:undefined,nodeTitle:undefined,source:row.source_id,current:false}];
  });
 }
 export async function reserveAsset(pool:Pool,context:AuthContext,input:Upload,options:AssetStorageOptions,now:Date){

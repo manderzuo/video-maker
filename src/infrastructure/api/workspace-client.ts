@@ -125,7 +125,7 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   trashDraft:async(id:string,expectedRevision:number)=>request('/studio-api/prompt-drafts/'+resource(id),promptDraftSchema,{method:'DELETE',body:{expectedRevision}}),
   restoreDraft:async(id:string,expectedRevision:number)=>request('/studio-api/prompt-drafts/'+resource(id)+'/restore',promptDraftSchema,{method:'POST',body:{expectedRevision}}),
   readAsset:async(id:string)=>request('/studio-api/assets/'+resource(id),assetSchema),
-  assetReferences:async(id:string)=>request('/studio-api/assets/'+resource(id)+'/references',z.array(z.strictObject({projectId:z.uuid(),projectTitle:z.string(),nodeId:z.uuid().optional(),nodeTitle:z.string().optional(),source:z.string()}))),
+  assetReferences:async(id:string)=>request('/studio-api/assets/'+resource(id)+'/references',z.array(z.strictObject({projectId:z.uuid(),projectTitle:z.string(),nodeId:z.uuid().optional(),nodeTitle:z.string().optional(),source:z.string(),current:z.boolean()}))),
   readAssetFiles:async(id:string)=>request('/studio-api/assets/'+resource(id)+'/files',z.strictObject({asset:assetSchema,thumbnail:privateFileSchema.optional()})),
   reserveAsset:(input:{title:string;description?:string;tags?:string[];mimeType:string;bytes:number;sha256:string;thumbnail?:{bytes:number;sha256:string;mimeType:string};width?:number;height?:number;durationSeconds?:number})=>request('/studio-api/assets',z.union([assetSchema,z.strictObject({id:z.uuid(),state:z.literal('pending')})]),{method:'POST',body:input}),
   uploadFile:async(id:string,blob:Blob,variant:'original'|'thumbnail'='original')=>request('/studio-api/assets/'+resource(id)+'/content?variant='+variant,z.undefined(),{method:'PUT',binary:blob}),

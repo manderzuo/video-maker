@@ -280,6 +280,7 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 审计F059第一批（reporter源hash/过期清理/重认领）：reporter记录执行时源hash；refresh三方一致才更新，过期清理旧proofs；P-10/P-11 busy挂起、S-06恢复刷新DB核对、T-06/PG02确认禁用、P-11 disabled认领。P-10/P-11自检通过；passed 7。verify/planning迁移与剩余登记持续进行。
 - 审计F060第四批（PGD对话框精确登记）：PGD02（确认AI优化）、PGD01（放弃未保存输入）、PGD04（应用结果到画布）按实际标题绑定并用真实用例登记，全部通过。PGD03/05/06语义不明，保持pending。
 - 审计F068第一批（M-15素材详情恢复/planning加固）：新增引用查询接口＋详情dialog（hash/来源/规格/节点/定位），详情用例通过并登记M-15 normal；P01真实DDL＋数组解析，P03核心hash抽查，planning 5/5。剩余facets/d登记持续进行。
+- 审计F069（素材引用三缺陷修复）：同素材多节点完整枚举（历史不冒充当前，key区分节点）；定位链接带node参数选中fit；详情请求身份约束防迟到覆盖。双节点/定位/竞态三用例通过，controls全文件通过。
 - 审计F067第一批（planning真修复/D07）：P01要求真实DDL＋数组变量解析；P03抽查核心文件hash等于当前；D07改绑修改素材信息并用素材元数据用例通过。planning 5/5。剩余登记持续进行。
 - 审计F061第一批（证据源真修复/D02/D22）：refresh要求执行hash非空且三方一致（fileHash真调用），三负例拒绝；D02改绑复制按钮并用复制用例通过；D22撤回错配，补导出诊断下载用例后通过；活动用例扩展。D07待资产用例，下一批。
 - 审计F063第一批（检查器三方门/证据同步）：检查器验证proof与执行源hash＋当前文件三方一致（负例拒绝验证通过）；重跑workspace/batch reporter同步hash，stale清零。passed 7；planning迁移与剩余登记持续进行。

@@ -44,6 +44,53 @@ test('shows asset details with hash and node references and navigates to the can
  await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas'));
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+test('lists every current node using the asset and keeps late responses from overwriting',async({page,workspace})=>{
+ const ctx=workspace as unknown as {headers(a:unknown):Record<string,string>;call(m:string,p:string,o?:unknown):Promise<{json:()=>unknown;statusCode:number}>;pool:{query(t:string,v?:unknown[]):Promise<{rows:{id?:string}[]}>};account:{view:{user:{id:string}}}};
+ const headers=ctx.headers(ctx.account);
+ const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'多节点项目'}})).json() as {id:string};
+ await page.goto('/assets');
+ const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=2;return canvas.toDataURL('image/png').split(',')[1];});
+ await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'多节点素材.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});
+ await page.getByRole('button',{name:'上传到云端',exact:true}).click();
+ await expect(page.getByText('多节点素材.png',{exact:true})).toBeVisible();
+ const assetId=((await ctx.pool.query('SELECT id FROM workspace_assets')).rows[0] as unknown as {id:string}).id;
+ expect((await ctx.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:'00000000-0000-4000-8000-444444444444',command:{type:'operations',operations:[{id:'00000000-0000-4000-8000-555555555555',type:'add_node',payload:{node:{id:'00000000-0000-4000-8000-666666666666',type:'asset',title:'当前节点甲',x:10,y:10,locked:false,data:{kind:'asset',assetId}}}},{id:'00000000-0000-4000-8000-777777777777',type:'add_node',payload:{node:{id:'00000000-0000-4000-8000-888888888888',type:'asset',title:'当前节点乙',x:100,y:100,locked:false,data:{kind:'asset',assetId}}}}]}}})).statusCode).toBe(200);
+ await page.goto('/assets');
+ await page.locator('article',{has:page.getByText('多节点素材.png',{exact:true})}).getByRole('button',{name:'查看详情',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'素材详情',exact:true});
+ await expect(dialog.getByText('当前节点甲',{exact:false})).toBeVisible();
+ await expect(dialog.getByText('当前节点乙',{exact:false})).toBeVisible();
+ await dialog.locator('p',{hasText:'当前节点甲'}).getByRole('link',{name:'定位项目画布',exact:true}).click();
+ const url=new URL(page.url());
+ expect(url.searchParams.get('node')).toBeTruthy();
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('keeps the later asset selection when an earlier detail response arrives late',async({page,workspace})=>{
+ const ctx=workspace as unknown as {headers(a:unknown):Record<string,string>;call(m:string,p:string,o?:unknown):Promise<{json:()=>unknown;statusCode:number}>};
+ const headers=ctx.headers(ctx.account);
+ await page.goto('/assets');
+ const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=2;return canvas.toDataURL('image/png').split(',')[1];});
+ await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'甲素材.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});
+ await page.getByRole('button',{name:'上传到云端',exact:true}).click();
+ await expect(page.getByText('甲素材.png',{exact:true})).toBeVisible();
+ await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'乙素材.png',mimeType:'image/png',buffer:Buffer.from(await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=3;canvas.height=3;return canvas.toDataURL('image/png').split(',')[1];}),'base64')});
+ await page.getByRole('button',{name:'上传到云端',exact:true}).click();
+ await expect(page.getByText('乙素材.png',{exact:true})).toBeVisible();
+ let n=0;
+ await page.route('**/studio-api/assets/*/references',async route=>{
+  n++;
+  if(n===1)await new Promise(resolve=>setTimeout(resolve,1000));
+  await route.fallback();
+ });
+ await page.locator('article',{has:page.getByText('甲素材.png',{exact:true})}).getByRole('button',{name:'查看详情',exact:true}).click();
+ await page.locator('article',{has:page.getByText('乙素材.png',{exact:true})}).getByRole('button',{name:'查看详情',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'素材详情',exact:true});
+ await expect(dialog).toContainText('乙素材.png');
+ await expect(dialog).not.toContainText('甲素材.png');
+ await page.unroute('**/studio-api/assets/*/references');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+ void headers;
+});
 test('workspace fills the viewport width and canvas fills the remaining height at desktop boundaries',async({page,workspace},testInfo)=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'布局验收'}})).json();
  for(const viewport of [{width:1366,height:768},{width:1920,height:1080}]){
