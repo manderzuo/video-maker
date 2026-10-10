@@ -2521,12 +2521,12 @@
             "disabled"
           ],
           "assertionLines": [
-            186,
-            188,
-            189,
-            192
+            192,
+            194,
+            195,
+            198
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2546,7 +2546,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2566,7 +2566,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2586,7 +2586,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2606,7 +2606,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38",
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2",
           "expectedCoreWrites": 0
         }
       ],
@@ -19071,22 +19071,24 @@
             "persistence"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19094,22 +19096,24 @@
             "normal"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19117,22 +19121,24 @@
             "error"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         }
       ],
       "candidates": [
@@ -28481,22 +28487,24 @@
             "normal"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         }
       ],
       "candidates": [

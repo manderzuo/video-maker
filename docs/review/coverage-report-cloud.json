@@ -722,16 +722,6 @@
       "id": "P-09"
     },
     {
-      "code": "assertion_not_executed",
-      "kind": "interactions",
-      "id": "P-10"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "P-10"
-    },
-    {
       "code": "facet_missing:normal",
       "kind": "interactions",
       "id": "P-11"
@@ -5217,27 +5207,7 @@
       "id": "S-05"
     },
     {
-      "code": "assertion_not_executed",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "S-06"
-    },
-    {
-      "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "S-06"
     },
@@ -7392,16 +7362,6 @@
       "id": "D17"
     },
     {
-      "code": "assertion_not_executed",
-      "kind": "dialogs",
-      "id": "D18"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D18"
-    },
-    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D20"
@@ -7832,7 +7792,7 @@
       "id": "P-10",
       "kind": "interactions",
       "taskId": "T12",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
@@ -7840,12 +7800,12 @@
             "disabled"
           ],
           "assertionLines": [
-            186,
-            188,
-            189,
-            192
+            192,
+            194,
+            195,
+            198
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -7865,7 +7825,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -7885,7 +7845,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -7905,7 +7865,7 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -7925,14 +7885,11 @@
             63,
             65
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38",
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2",
           "expectedCoreWrites": 0
         }
       ],
-      "missing": [
-        "assertion_not_executed",
-        "facet_missing:disabled"
-      ]
+      "missing": []
     },
     {
       "id": "P-11",
@@ -10892,22 +10849,24 @@
             "persistence"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -10915,22 +10874,24 @@
             "normal"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -10938,30 +10899,28 @@
             "error"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         }
       ],
       "missing": [
-        "assertion_not_executed",
-        "facet_missing:normal",
         "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
         "facet_missing:sideEffect"
       ]
     },
@@ -12901,7 +12860,7 @@
       "id": "D18",
       "kind": "dialogs",
       "taskId": "T37",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -12909,28 +12868,27 @@
             "normal"
           ],
           "assertionLines": [
-            136,
-            137,
             139,
-            141,
+            140,
             142,
             144,
             145,
+            147,
             148,
             151,
-            153,
-            161,
-            162,
-            166,
-            167
+            154,
+            156,
+            164,
+            165,
+            169,
+            170,
+            172,
+            173
           ],
-          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
         }
       ],
-      "missing": [
-        "assertion_not_executed",
-        "facet_missing:normal"
-      ]
+      "missing": []
     },
     {
       "id": "D19",
@@ -13170,7 +13128,7 @@
     "interactions": 260,
     "pages": 23,
     "dialogs": 30,
-    "passed": 6
+    "passed": 7
   },
   "review": "待用户统一验收与独立审查"
 }
