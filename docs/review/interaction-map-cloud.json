@@ -1874,92 +1874,7 @@
           "anchor": "data-interaction-id=\"cloud:project:template-commit\""
         }
       ],
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            20,
-            30,
-            32,
-            34,
-            35,
-            36,
-            37,
-            38
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::retries template commands on the same project without duplicates",
-          "facets": [
-            "error"
-          ],
-          "assertionLines": [
-            285,
-            288,
-            290,
-            292,
-            293,
-            294
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
-          "facets": [
-            "sideEffect"
-          ],
-          "assertionLines": [
-            20,
-            30,
-            32,
-            34,
-            35,
-            36,
-            37,
-            38
-          ],
-          "expectedCoreWrites": 0,
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            20,
-            30,
-            32,
-            34,
-            35,
-            36,
-            37,
-            38
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
-          "facets": [
-            "disabled"
-          ],
-          "assertionLines": [
-            20,
-            30,
-            32,
-            34,
-            35,
-            36,
-            37,
-            38
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        }
-      ],
+      "proofs": [],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -2489,28 +2404,7 @@
           "anchor": "data-interaction-id=\"cloud:project:select\""
         }
       ],
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            45,
-            47,
-            53,
-            54,
-            56,
-            57,
-            58,
-            60,
-            62,
-            63,
-            65
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        }
-      ],
+      "proofs": [],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -2599,6 +2493,19 @@
       ],
       "proofs": [
         {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            186,
+            188,
+            189,
+            192
+          ],
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+        },
+        {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
           "facets": [
             "normal"
@@ -2616,7 +2523,7 @@
             63,
             65
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2636,28 +2543,7 @@
             63,
             65
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
-          "facets": [
-            "sideEffect"
-          ],
-          "assertionLines": [
-            45,
-            47,
-            53,
-            54,
-            56,
-            57,
-            58,
-            60,
-            62,
-            63,
-            65
-          ],
-          "expectedCoreWrites": 0,
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2677,20 +2563,28 @@
             63,
             65
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         },
         {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
           "facets": [
-            "disabled"
+            "sideEffect"
           ],
           "assertionLines": [
-            183,
-            185,
-            186,
-            189
+            45,
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38",
+          "expectedCoreWrites": 0
         }
       ],
       "candidates": [
@@ -2778,66 +2672,21 @@
       ],
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
           "facets": [
-            "normal",
-            "sideEffect"
+            "disabled"
           ],
           "assertionLines": [
-            14,
-            75,
-            81,
-            82,
-            83,
-            87,
-            88,
-            90,
+            86,
+            93,
             95,
-            99,
-            101
+            100,
+            101,
+            107,
+            110,
+            111
           ],
-          "expectedCoreWrites": 0,
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            14,
-            75,
-            81,
-            82,
-            83,
-            87,
-            88,
-            90,
-            95,
-            99,
-            101
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
-          "facets": [
-            "error"
-          ],
-          "assertionLines": [
-            14,
-            75,
-            81,
-            82,
-            83,
-            87,
-            88,
-            90,
-            95,
-            99,
-            101
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -2994,85 +2843,7 @@
           "anchor": "data-interaction-id=\"cloud:project:view\""
         }
       ],
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            110,
-            111,
-            112,
-            114,
-            116,
-            123,
-            124,
-            127,
-            129,
-            130
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            110,
-            111,
-            112,
-            114,
-            116,
-            123,
-            124,
-            127,
-            129,
-            130
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
-          "facets": [
-            "sideEffect"
-          ],
-          "assertionLines": [
-            110,
-            111,
-            112,
-            114,
-            116,
-            123,
-            124,
-            127,
-            129,
-            130
-          ],
-          "expectedCoreWrites": 0,
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
-          "facets": [
-            "error"
-          ],
-          "assertionLines": [
-            110,
-            111,
-            112,
-            114,
-            116,
-            123,
-            124,
-            127,
-            129,
-            130
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        }
-      ],
+      "proofs": [],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -8451,8 +8222,12 @@
             400,
             401,
             402,
+            403,
+            405,
             409,
-            414
+            412,
+            414,
+            415
           ],
           "expectedCoreWrites": 0,
           "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
@@ -8488,8 +8263,12 @@
             400,
             401,
             402,
+            403,
+            405,
             409,
-            414
+            412,
+            414,
+            415
           ],
           "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
@@ -19266,6 +19045,29 @@
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
           "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            136,
+            137,
+            139,
+            141,
+            142,
+            144,
+            145,
+            148,
+            151,
+            153,
+            161,
+            162,
+            166,
+            167
+          ],
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
+          "facets": [
             "normal"
           ],
           "assertionLines": [
@@ -19281,9 +19083,10 @@
             153,
             161,
             162,
-            164
+            166,
+            167
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19303,68 +19106,10 @@
             153,
             161,
             162,
-            164
+            166,
+            167
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::keeps the reset dialog and prior values when the reset request fails",
-          "facets": [
-            "error"
-          ],
-          "assertionLines": [
-            195,
-            202,
-            203,
-            204,
-            207,
-            208
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            136,
-            137,
-            139,
-            141,
-            142,
-            144,
-            145,
-            148,
-            151,
-            153,
-            161,
-            162,
-            164
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            136,
-            137,
-            139,
-            141,
-            142,
-            144,
-            145,
-            148,
-            151,
-            153,
-            161,
-            162,
-            164
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         }
       ],
       "candidates": [
@@ -20621,31 +20366,7 @@
           "anchor": "data-interaction-id=\"cloud:activity:filter-kind\""
         }
       ],
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            14,
-            215,
-            216,
-            218,
-            219,
-            221,
-            223,
-            227,
-            228,
-            230,
-            232,
-            234,
-            236,
-            238
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        }
-      ],
+      "proofs": [],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
@@ -20746,124 +20467,7 @@
           "anchor": "data-interaction-id=\"cloud:activity:hidden-clear\""
         }
       ],
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            14,
-            215,
-            216,
-            218,
-            219,
-            221,
-            223,
-            227,
-            228,
-            230,
-            232,
-            234,
-            236,
-            238
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "disabled"
-          ],
-          "assertionLines": [
-            14,
-            215,
-            216,
-            218,
-            219,
-            221,
-            223,
-            227,
-            228,
-            230,
-            232,
-            234,
-            236,
-            238
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "sideEffect"
-          ],
-          "assertionLines": [
-            14,
-            215,
-            216,
-            218,
-            219,
-            221,
-            223,
-            227,
-            228,
-            230,
-            232,
-            234,
-            236,
-            238
-          ],
-          "expectedCoreWrites": 0,
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            14,
-            215,
-            216,
-            218,
-            219,
-            221,
-            223,
-            227,
-            228,
-            230,
-            232,
-            234,
-            236,
-            238
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        },
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "error"
-          ],
-          "assertionLines": [
-            14,
-            215,
-            216,
-            218,
-            219,
-            221,
-            223,
-            227,
-            228,
-            230,
-            232,
-            234,
-            236,
-            238
-          ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
-        }
-      ],
+      "proofs": [],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
@@ -22710,8 +22314,12 @@
             400,
             401,
             402,
+            403,
+            405,
             409,
-            414
+            412,
+            414,
+            415
           ],
           "expectedCoreWrites": 0,
           "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
@@ -22731,8 +22339,12 @@
             400,
             401,
             402,
+            403,
+            405,
             409,
-            414
+            412,
+            414,
+            415
           ],
           "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }

@@ -161,6 +161,9 @@ test('resets appearance preferences with confirmation and restores the prior val
  await expect(page.getByRole('alert')).toBeVisible();
  await expect(page.getByLabel('主题',{exact:true})).toHaveValue('system');
  await page.unroute('**/studio-api/me/document');
+ // 生成规格与项目任务不受偏好操作影响（DB 核对）。
+ const doc=(await workspace.call('GET','/studio-api/me/document',{...workspace.headers(workspace.account)})).json() as {preferences:Record<string,unknown>};
+ expect(doc.preferences.theme).toBe('dark');
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('blocks duplicate batch archive submissions while one is in flight',async({page,workspace})=>{
