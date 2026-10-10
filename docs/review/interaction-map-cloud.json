@@ -19898,18 +19898,22 @@
       ],
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
           "facets": [
             "normal"
           ],
           "assertionLines": [
-            10,
-            17,
-            20,
-            21,
-            22,
-            24,
-            27
+            14,
+            153,
+            155,
+            156,
+            158,
+            160,
+            164,
+            165,
+            167,
+            169,
+            171
           ]
         }
       ],
@@ -20018,9 +20022,16 @@
           ],
           "assertionLines": [
             14,
-            139,
-            141,
-            145
+            153,
+            155,
+            156,
+            158,
+            160,
+            164,
+            165,
+            167,
+            169,
+            171
           ]
         }
       ],
@@ -21776,8 +21787,16 @@
       "reason": "固定提交上有真实浏览器相关流程证据；未将家族覆盖换算成每个旧控件五种状态全部验收。",
       "sources": [
         {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "data-interaction-id=\"cloud:canvas:open-writing\""
+        },
+        {
           "file": "src/features/workspace/CloudPromptGeneratorPage.tsx",
-          "anchor": "data-interaction-id=\"cloud:draft:apply\""
+          "anchor": "data-interaction-id=\"cloud:draft:ai-preview\""
+        },
+        {
+          "file": "src/features/workspace/CloudPromptGeneratorPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:draft:ai-confirm\""
         }
       ],
       "proofs": [

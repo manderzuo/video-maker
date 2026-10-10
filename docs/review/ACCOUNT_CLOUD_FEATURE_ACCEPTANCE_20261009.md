@@ -270,5 +270,6 @@ P2追加/重试语义（Codex已确认代码修正）：
 - 审计F049（登记语义纠正）：L-09改应用到当前文本（替换节点）、L-10改导入、L-11改导出；P-02改使用模板、P-09改选择、P-10改批量归档、P-11改批量导出（去混入）；H-04改清理显示（隐藏/恢复）、S-06改重置偏好、D18改重置快照可恢复（对话框+真实打开证据，通过）。另认L-09/L-10/P-10/S-06的error真实证据。T-06/PG02仅保留打开入口normal，AI优化确认等保持pending。
 - 审计F050（D18/S-06/T-06/PG02证据补强）：D18改绑AccountPreferences实际Dialog；新增重置请求失败定向用例（对话框保持、前值保留）并登记S-06 error；T-06/PG02登记optimize真实确认/保留原文用例。无系统点击测试步骤变更，不改产品认证/证书。
 - 审计F051（H行号/桥接/Z-03子集）：重跑活动reporter刷新全部proofs行号；新增节点→保存→打开→预览取消/确认→单次调用→刷新恢复→邻居保留的桥接用例并登记T-06/PG02 normal/sideEffect；transfer 15/15。Z-02/D18/D19保持通过。
+- 审计F052（类型门/活动证据/PG02入口）：Ctx查询泛型化修复TEST-GATE-001，typecheck/lint双过；H-01/H-04改绑batch活动用例真实行（筛选/隐藏/恢复）；PG02改绑节点入口与优化确认控件。不把legacy coreWrites等同写操作，未覆盖facet保持pending。
 - F033/F034/F035/F036/F037/F038后复验：`typecheck`/`lint`/服务端`typecheck` exit 0；`test:unit` 97文件699项 exit 0；服务端`workspace-commands` 14/14；`check-ui-identities` 0；`cloud-library-transfer` 11/11；`cloud-project-batch` 9/9；`cloud-writing-layout` 1/1；`vite build`+`check-bundle-budget` exit 0；云全量113 passed exit 0（`work/account-api-cloud/stage8-final3.log`，未截断）；`cloud-library-transfer`追加F035拒绝/F037未知连点/刷新恢复/跨项目保留/改文阻止/保存失败保留后14/14；最终云全量117 passed exit 0（`work/account-api-cloud/stage8-final4.log`，未截断）。
 - 待完成（需授权，勿视作已交付）：真实模型验收（文字优化/纯文字视频/带参考视频/续写生成，需用户选定输入模型并确认费用，本轮零触发）；生产数据库/媒体/配置备份、兼容性检查与恢复演练、部署上线与同提交号线上复测（无生产变更授权，均未执行；用户此后写入内容不得覆盖）。

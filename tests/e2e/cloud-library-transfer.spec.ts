@@ -2,7 +2,7 @@ import {randomUUID} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 // F030 提示词库 JSON 导入/导出、F031 应用到现有文字节点、F032 画布节点两入口。
-type Ctx={headers(account:unknown):Record<string,string>;call(method:string,path:string,options?:unknown):Promise<{json:()=>unknown;statusCode:number}>;pool:{query(text:string,values?:unknown[]):Promise<{rows:{n?:number}[]}>};account:{view:{user:{id:string}}}};
+type Ctx={headers(account:unknown):Record<string,string>;call(method:string,path:string,options?:unknown):Promise<{json:()=>unknown;statusCode:number}>;pool:{query<T=unknown>(text:string,values?:unknown[]):Promise<{rows:T[]}>};account:{view:{user:{id:string}}}};
 const asCtx=(value:unknown)=>value as Ctx;
 const transferFile=(entries:unknown[])=>Buffer.from(JSON.stringify({version:1,entries}));
 const sampleEntry=(patch:Record<string,unknown>={})=>({title:'导入条目',body:'导入正文',tags:['旧库'],variables:['name'],source:'旧库',license:'CC0',...patch});
@@ -346,7 +346,7 @@ test('optimizes a canvas node text end to end keeping neighbors',async({page,wor
  await page.getByRole('button',{name:'在写作中打开',exact:true}).first().click();
  await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
  const draftId=new URL(page.url()).searchParams.get('draft')!;
- const draft=(await ctx.pool.query("SELECT document FROM workspace_content WHERE id=$1",[draftId])).rows[0].document as {userRequest:string;sourceNodeId:string;sourceRevision:number};
+ const draft=(await ctx.pool.query<{document:{userRequest:string;sourceNodeId:string;sourceRevision:number}}>("SELECT document FROM workspace_content WHERE id=$1",[draftId])).rows[0].document;
  expect(draft.userRequest).toBe('桥接正文已编辑');expect(draft.sourceNodeId).toBe(textId);expect(draft.sourceRevision).toBe(3);
  await page.getByRole('button',{name:'AI 优化',exact:true}).click();
  const preview=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});
