@@ -10,6 +10,15 @@ export async function ownedAsset(client:Pool|PoolClient,context:AuthContext,id:s
  if(!result.rows[0])throw new HttpError(404,'NOT_FOUND');return result.rows[0];
 }
 export function manifests(row:AssetRow){const asset=assetSchema.parse(row.document);return {asset,original:{bytes:asset.bytes,sha256:asset.sha256,mimeType:asset.mimeType},thumbnail:row.thumbnail?thumbnailSchema.parse(row.thumbnail):undefined};}
+export async function listAssetReferences(pool:Pool,context:AuthContext,id:string){
+ await ownedAsset(pool,context,id);
+ const refs=await pool.query<{project_id:string;source_id:string;title:string;graph:unknown}>(`SELECT r.project_id,r.source_id,p.document->>'title' AS title,g.graph FROM workspace_asset_references r JOIN workspace_projects p ON p.user_id=r.user_id AND p.id=r.project_id AND p.purged_at IS NULL LEFT JOIN workspace_graphs g ON g.user_id=r.user_id AND g.project_id=r.project_id WHERE r.user_id=$1 AND r.asset_id=$2`,[context.userId,id]);
+ return refs.rows.map(row=>{
+  const nodes=(row.graph as {nodes?:{id:string;title:string;data?:{assetId?:string}}[]}|null)?.nodes??[];
+  const node=nodes.find(item=>item.data?.assetId===id);
+  return {projectId:row.project_id,projectTitle:row.title,nodeId:node?.id,nodeTitle:node?.title,source:row.source_id};
+ });
+}
 export async function reserveAsset(pool:Pool,context:AuthContext,input:Upload,options:AssetStorageOptions,now:Date){
  if(input.bytes>options.maxAssetBytes||(input.thumbnail?.bytes??0)>options.maxThumbnailBytes)throw new HttpError(400,'INVALID_REQUEST');
  return transaction(pool,async client=>{

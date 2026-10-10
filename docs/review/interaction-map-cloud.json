@@ -10458,8 +10458,30 @@
       "label": "详情与引用位置",
       "disposition": "cloud_counterpart_row_proof_pending",
       "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
-      "sources": [],
-      "proofs": [],
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudAssetsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:asset:detail\""
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::shows asset details with hash and node references and navigates to the canvas",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            32,
+            36,
+            40,
+            41,
+            42,
+            44,
+            45
+          ],
+          "sourceHash": "fa968ff4a49dae4bc32696fb90c2f0c4843cb46f888e078418a3974370619309"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::connects text to video through visible ports with typed errors and keeps side-panel flow",

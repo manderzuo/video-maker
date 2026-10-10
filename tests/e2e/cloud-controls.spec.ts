@@ -21,6 +21,29 @@ test('edits project and asset metadata, searches and archives, and restores owne
  await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'初始项目'}});await page.goto('/projects');await page.getByRole('button',{name:'修改项目信息',exact:true}).click();await page.getByLabel('项目名称',{exact:true}).fill('修改后的项目');await page.getByLabel('项目说明',{exact:true}).fill('项目说明');await page.getByLabel('项目标签（逗号分隔）',{exact:true}).fill('验收,云端');await page.getByRole('button',{name:'保存项目信息',exact:true}).click();await expect(page.getByRole('link',{name:'修改后的项目',exact:true})).toBeVisible();await page.getByRole('button',{name:'星标',exact:true}).click();await expect(page.getByRole('button',{name:'取消星标',exact:true})).toBeVisible();await page.getByRole('button',{name:'取消星标',exact:true}).click();await page.getByRole('button',{name:'归档',exact:true}).click();await page.getByRole('combobox',{name:'项目筛选',exact:true}).selectOption('archived');await expect(page.getByRole('link',{name:'修改后的项目',exact:true})).toBeVisible();await page.getByRole('button',{name:'取消归档',exact:true}).click();await page.getByRole('combobox',{name:'项目筛选',exact:true}).selectOption('all');await page.getByLabel('搜索项目',{exact:true}).fill('云端');await page.getByRole('combobox',{name:'排序',exact:true}).selectOption('title');await page.getByRole('button',{name:'重新加载项目',exact:true}).click();await expect(page.getByRole('link',{name:'修改后的项目',exact:true})).toBeVisible();await page.getByRole('button',{name:'移入回收站',exact:true}).click();await page.getByRole('link',{name:'回收站',exact:true}).click();await page.getByRole('button',{name:'恢复项目',exact:true}).click();await expect(page.getByRole('button',{name:'恢复项目',exact:true})).toHaveCount(0);
  await page.getByRole('link',{name:'素材库',exact:true}).click();const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=2;return canvas.toDataURL('image/png').split(',')[1];});await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'初始素材.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});await page.getByRole('button',{name:'上传到云端',exact:true}).click();await expect(page.getByText('初始素材.png',{exact:true})).toBeVisible();await page.getByRole('button',{name:'修改素材信息',exact:true}).click();await page.getByLabel('素材名称',{exact:true}).fill('修改后的素材');await page.getByLabel('素材说明',{exact:true}).fill('恢复时应保留的说明');await page.getByLabel('素材标签（逗号分隔）',{exact:true}).fill('验收');await page.getByRole('button',{name:'保存素材信息',exact:true}).click();await expect(page.getByText('修改后的素材',{exact:true})).toBeVisible();await page.getByLabel('搜索素材',{exact:true}).fill('验收');await page.getByRole('combobox',{name:'素材类型',exact:true}).selectOption('image');await page.getByRole('button',{name:'重新加载素材',exact:true}).click();await page.getByRole('button',{name:'移入回收站',exact:true}).click();await page.getByRole('link',{name:'回收站',exact:true}).click();await page.getByRole('button',{name:'恢复素材',exact:true}).click();await page.getByRole('link',{name:'素材库',exact:true}).click();await expect(page.getByText('恢复时应保留的说明',{exact:true})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
 });
+test('shows asset details with hash and node references and navigates to the canvas',async({page,workspace})=>{
+ const ctx=workspace as unknown as {headers(a:unknown):Record<string,string>;call(m:string,p:string,o?:unknown):Promise<{json:()=>unknown;statusCode:number}>;pool:{query(t:string,v?:unknown[]):Promise<{rows:{id?:string;document?:{sha256?:string}}[]}>};account:{view:{user:{id:string}}}};
+ const headers=ctx.headers(ctx.account);
+ const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'引用项目'}})).json() as {id:string};
+ await page.goto('/assets');
+ const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=2;return canvas.toDataURL('image/png').split(',')[1];});
+ await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'详情素材.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});
+ await page.getByRole('button',{name:'上传到云端',exact:true}).click();
+ await expect(page.getByText('详情素材.png',{exact:true})).toBeVisible();
+ const assetId=((await ctx.pool.query('SELECT id FROM workspace_assets')).rows[0] as unknown as {id:string}).id;
+ const assetSha=((await ctx.pool.query('SELECT document FROM workspace_assets WHERE id=$1',[assetId])).rows[0] as unknown as {document:{sha256:string}}).document.sha256;
+ const nodeId='00000000-0000-4000-8000-111111111111';
+ expect((await ctx.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:'00000000-0000-4000-8000-222222222222',command:{type:'operations',operations:[{id:'00000000-0000-4000-8000-333333333333',type:'add_node',payload:{node:{id:nodeId,type:'asset',title:'引用节点',x:10,y:10,locked:false,data:{kind:'asset',assetId}}}}]}}})).statusCode).toBe(200);
+ await page.goto('/assets');
+ await page.locator('article',{has:page.getByText('详情素材.png',{exact:true})}).getByRole('button',{name:'查看详情',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'素材详情',exact:true});
+ await expect(dialog).toContainText(assetSha.slice(0,16));
+ await expect(dialog).toContainText('引用项目');
+ await expect(dialog).toContainText('引用节点');
+ await dialog.getByRole('link',{name:'定位项目画布',exact:true}).first().click();
+ await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas'));
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
 test('workspace fills the viewport width and canvas fills the remaining height at desktop boundaries',async({page,workspace},testInfo)=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'布局验收'}})).json();
  for(const viewport of [{width:1366,height:768},{width:1920,height:1080}]){

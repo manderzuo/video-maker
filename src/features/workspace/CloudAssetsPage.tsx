@@ -6,6 +6,7 @@ import {createThumbnail} from '../assets/thumbnail-service';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {usePreferences} from '../settings/preferences-store';
+import {LocalLink} from '../../app/routes';
 const hash=async(blob:Blob)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(n=>n.toString(16).padStart(2,'0')).join('');
 export async function uploadCloudAsset(client:WorkspaceClient,file:File){
  const metadata=await probeMedia(file),thumbnail=await createThumbnail(file,metadata.mimeType),sha256=await hash(file);
@@ -25,12 +26,14 @@ export function CloudAssetMedia({client,asset,mediaRef,onReady,onPause,onEnded}:
 export function CloudAssetsPage({client,trashed=false}:{client:WorkspaceClient;trashed?:boolean}){
  const [assets,setAssets]=useState<Asset[]>([]),[files,setFiles]=useState<File[]>([]),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[loading,setLoading]=useState(true);
  const [query,setQuery]=useState(''),[kind,setKind]=useState('all'),[target,setTarget]=useState<Asset>(),[title,setTitle]=useState(''),[description,setDescription]=useState(''),[tags,setTags]=useState('');
+ const [detail,setDetail]=useState<{asset:Asset;references:{projectId:string;projectTitle:string;nodeId?:string;nodeTitle?:string;source:string}[]}>();
  const alive=useRef(true);
  const reload=async()=>{const rows=await client.listAssets(trashed);if(alive.current){setAssets(rows);setLoading(false);}};
  useEffect(()=>{let active=true;alive.current=true;setLoading(true);void client.listAssets(trashed).then(rows=>{if(active){setAssets(rows);setLoading(false);}}).catch(e=>{if(active){setError(workspaceMessage(e));setLoading(false);}});return()=>{active=false;alive.current=false;};},[client,trashed]);
  async function action(work:()=>Promise<unknown>){if(busy)return;setBusy(true);setError('');setMessage('');try{await work();if(alive.current)await reload();}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{if(alive.current)setBusy(false);}}
  async function upload(){await action(async()=>{for(const file of files)await uploadCloudAsset(client,file);if(alive.current){setFiles([]);setMessage('素材已保存到云端');}});}
  async function saveMetadata(){if(!target)return;await action(async()=>{await client.patchAsset(target.id,target.metadataRevision??0,{title,description,tags:tags.split(',').map(s=>s.trim()).filter(Boolean)});if(alive.current)setTarget(undefined);});}
+ async function openDetail(asset:Asset){setError('');try{const references=await client.assetReferences(asset.id);if(alive.current)setDetail({asset,references});}catch(e){if(alive.current)setError(workspaceMessage(e));}}
  const visible=assets.filter(asset=>(kind==='all'||asset.mediaType===kind)&&(asset.title+' '+(asset.description??'')+' '+(asset.tags??[]).join(' ')).toLowerCase().includes(query.toLowerCase()));
  return <section className="card"><div className="actions"><h1>{trashed?'素材回收站':'素材库'}</h1><Button data-interaction-id="cloud:asset:reload" disabled={busy} onClick={()=>action(reload)}>重新加载素材</Button></div>
   {!trashed?<div className="form-stack"><label>选择素材文件<input data-interaction-id="cloud:asset:files" type="file" accept="image/png,image/jpeg,image/gif,image/webp,video/mp4,video/webm,audio/*" multiple disabled={busy} onChange={e=>setFiles(Array.from(e.target.files??[]))}/></label><Button data-interaction-id="cloud:asset:upload" variant="primary" disabled={!files.length} busy={busy} onClick={upload}>上传到云端</Button></div>:null}
@@ -40,6 +43,7 @@ export function CloudAssetsPage({client,trashed=false}:{client:WorkspaceClient;t
    <h2>{asset.title}</h2>{!trashed?<CloudAssetMedia client={client} asset={asset}/>:null}<p>{asset.description}</p><p>{(asset.tags??[]).join(' · ')}</p><p>{asset.mimeType} · {asset.bytes} 字节</p>
    <div className="actions">{trashed?<Button data-interaction-id="cloud:asset:restore" disabled={busy} onClick={()=>action(()=>client.restoreAsset(asset.id,asset.metadataRevision??0))}>恢复素材</Button>:<>
     <a className="button" data-interaction-id="cloud:asset:download" href={client.contentUrl(asset.id)} download={asset.title}>下载原件</a>
+     <Button data-interaction-id="cloud:asset:detail" disabled={busy} onClick={()=>void openDetail(asset)}>查看详情</Button>
     <Button data-interaction-id="cloud:asset:metadata" disabled={busy} onClick={()=>{setTarget(asset);setTitle(asset.title);setDescription(asset.description??'');setTags((asset.tags??[]).join(', '));setError('');}}>修改素材信息</Button>
     <Button data-interaction-id="cloud:asset:trash" disabled={busy} onClick={()=>action(()=>client.trashAsset(asset.id,asset.metadataRevision??0))}>移入回收站</Button>
    </>}</div>
@@ -47,5 +51,6 @@ export function CloudAssetsPage({client,trashed=false}:{client:WorkspaceClient;t
   <Dialog open={!!target} title="修改素材信息" dismissible={!busy} onClose={()=>setTarget(undefined)} footer={<><Button data-interaction-id="cloud:asset:cancel" disabled={busy} onClick={()=>setTarget(undefined)}>取消</Button><Button data-interaction-id="cloud:asset:save" variant="primary" busy={busy} disabled={!title.trim()||[...description].length>500} onClick={saveMetadata}>保存素材信息</Button></>}>
    <label>素材名称<input data-interaction-id="cloud:asset:title" value={title} onChange={e=>setTitle(e.target.value)}/></label><label>素材说明<textarea data-interaction-id="cloud:asset:description" value={description} onChange={e=>setDescription(e.target.value)}/></label><label>素材标签（逗号分隔）<input data-interaction-id="cloud:asset:tags" value={tags} onChange={e=>setTags(e.target.value)}/></label>{error?<p role="alert">{error}</p>:null}
   </Dialog>
+  <Dialog open={!!detail} title="素材详情" onClose={()=>setDetail(undefined)} footer={<Button data-interaction-id="cloud:asset:detail-close" onClick={()=>setDetail(undefined)}>关闭</Button>}>{detail?<><p>素材：{detail.asset.title}</p><p>内容哈希：{detail.asset.sha256}</p><p>{detail.asset.mimeType} · {detail.asset.bytes} 字节{detail.asset.width?` · ${detail.asset.width}×${detail.asset.height}`:''}{detail.asset.durationSeconds?` · ${detail.asset.durationSeconds} 秒`:''}</p>{detail.asset.sourceRunId?<p>来源任务：{detail.asset.sourceRunId}</p>:null}<h3>使用位置</h3>{detail.references.length?detail.references.map(reference=><p key={reference.projectId+reference.source}>项目{reference.projectTitle}{reference.nodeTitle?` · 节点${reference.nodeTitle}`:' · 历史引用'} <LocalLink data-interaction-id="cloud:asset:detail-open" href={'/projects/'+encodeURIComponent(reference.projectId)+'/canvas'}>定位项目画布</LocalLink></p>):<p>暂无项目引用。</p>}</>:null}</Dialog>
  </section>;
 }

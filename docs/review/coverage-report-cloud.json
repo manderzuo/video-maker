@@ -2522,16 +2522,6 @@
       "id": "M-14"
     },
     {
-      "code": "source_binding_missing",
-      "kind": "interactions",
-      "id": "M-15"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "M-15"
-    },
-    {
       "code": "facet_missing:disabled",
       "kind": "interactions",
       "id": "M-15"
@@ -7307,6 +7297,16 @@
       "id": "D06"
     },
     {
+      "code": "source_hash_stale",
+      "kind": "dialogs",
+      "id": "D07"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "dialogs",
+      "id": "D07"
+    },
+    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D08"
@@ -9132,10 +9132,25 @@
       "kind": "interactions",
       "taskId": "T16",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::shows asset details with hash and node references and navigates to the canvas",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            32,
+            36,
+            40,
+            41,
+            42,
+            44,
+            45
+          ],
+          "sourceHash": "fa968ff4a49dae4bc32696fb90c2f0c4843cb46f888e078418a3974370619309"
+        }
+      ],
       "missing": [
-        "source_binding_missing",
-        "facet_missing:normal",
         "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence",
@@ -12712,7 +12727,7 @@
       "id": "D07",
       "kind": "dialogs",
       "taskId": "T16",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::edits project and asset metadata, searches and archives, and restores owned trash through the actual buttons",
@@ -12726,7 +12741,10 @@
           "sourceHash": "88fd2213cf952f46acf615f9b92008c3d6c6301c31a4640e0762ba4393c493a7"
         }
       ],
-      "missing": []
+      "missing": [
+        "source_hash_stale",
+        "facet_missing:normal"
+      ]
     },
     {
       "id": "D08",

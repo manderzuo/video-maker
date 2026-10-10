@@ -15631,6 +15631,97 @@
         "paidRequests": 0,
         "blockedRequests": 0
       }
+    },
+    {
+      "id": "tests/e2e/cloud-controls.spec.ts::shows asset details with hash and node references and navigates to the canvas",
+      "file": "tests/e2e/cloud-controls.spec.ts",
+      "title": "shows asset details with hash and node references and navigates to the canvas",
+      "status": "passed",
+      "sourceHash": "fa968ff4a49dae4bc32696fb90c2f0c4843cb46f888e078418a3974370619309",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 32,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 36,
+          "column": 394
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 40,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 41,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 42,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 44,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 45,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 30,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 31,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 38,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 43,
+          "column": 68
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
     }
   ]
 }
