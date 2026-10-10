@@ -7344,27 +7344,7 @@
     {
       "code": "facet_missing:normal",
       "kind": "dialogs",
-      "id": "D01"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D02"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D03"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
       "id": "D04"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D05"
     },
     {
       "code": "facet_missing:normal",
@@ -7374,17 +7354,7 @@
     {
       "code": "facet_missing:normal",
       "kind": "dialogs",
-      "id": "D07"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
       "id": "D08"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D09"
     },
     {
       "code": "facet_missing:normal",
@@ -7419,11 +7389,6 @@
     {
       "code": "facet_missing:normal",
       "kind": "dialogs",
-      "id": "D16"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
       "id": "D17"
     },
     {
@@ -7445,11 +7410,6 @@
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D21"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D22"
     },
     {
       "code": "facet_missing:normal",
@@ -12663,31 +12623,78 @@
       "id": "D01",
       "kind": "dialogs",
       "taskId": "T12",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-workspace.spec.ts::creates a cloud project, edits canvas text, restores after reload, and uses persisted undo/redo",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D02",
       "kind": "dialogs",
       "taskId": "T12",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            20,
+            30,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D03",
       "kind": "dialogs",
       "taskId": "T08",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            45,
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D04",
@@ -12703,11 +12710,26 @@
       "id": "D05",
       "kind": "dialogs",
       "taskId": "T26",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D06",
@@ -12723,11 +12745,33 @@
       "id": "D07",
       "kind": "dialogs",
       "taskId": "T16",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            224,
+            225,
+            227,
+            228,
+            230,
+            232,
+            236,
+            237,
+            239,
+            241,
+            243,
+            245,
+            247
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D08",
@@ -12743,11 +12787,31 @@
       "id": "D09",
       "kind": "dialogs",
       "taskId": "T17",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            13,
+            155,
+            156,
+            157,
+            159,
+            166,
+            167,
+            170,
+            173,
+            175,
+            176,
+            177
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D10",
@@ -12813,11 +12877,30 @@
       "id": "D16",
       "kind": "dialogs",
       "taskId": "T36",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D17",
@@ -12936,11 +13019,33 @@
       "id": "D22",
       "kind": "dialogs",
       "taskId": "T38",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            224,
+            225,
+            227,
+            228,
+            230,
+            232,
+            236,
+            237,
+            239,
+            241,
+            243,
+            245,
+            247
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D23",

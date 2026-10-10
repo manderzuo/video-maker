@@ -26802,10 +26802,24 @@
       "sources": [
         {
           "file": "src/ui/dialog-contracts.ts",
-          "anchor": "'重命名项目'"
+          "anchor": "'新建项目'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-workspace.spec.ts::creates a cloud project, edits canvas text, restores after reload, and uses persisted undo/redo",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -26885,7 +26899,25 @@
           "anchor": "'使用原创模板'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            20,
+            30,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -26961,11 +26993,32 @@
       "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
       "sources": [
         {
-          "file": "src/features/workspace/CloudProjectsPage.tsx",
-          "anchor": "title=\"批量归档\""
+          "file": "src/ui/dialog-contracts.ts",
+          "anchor": "'批量归档'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            45,
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -27181,7 +27234,24 @@
           "anchor": "'生成确认单'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -27405,7 +27475,31 @@
           "anchor": "'回执详情'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            224,
+            225,
+            227,
+            228,
+            230,
+            232,
+            236,
+            237,
+            239,
+            241,
+            243,
+            245,
+            247
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::connects text to video through visible ports with typed errors and keeps side-panel flow",
@@ -27633,11 +27727,33 @@
       "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
       "sources": [
         {
-          "file": "src/features/workspace/CloudPromptsPage.tsx",
-          "anchor": "title=\"编辑提示词\""
+          "file": "src/ui/dialog-contracts.ts",
+          "anchor": "'编辑提示词'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            13,
+            155,
+            156,
+            157,
+            159,
+            166,
+            167,
+            170,
+            173,
+            175,
+            176,
+            177
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
@@ -28241,7 +28357,28 @@
           "anchor": "'批量导出项目包'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-legacy-import.spec.ts::converts an explicitly chosen legacy offline package and imports it without secrets",
@@ -28837,7 +28974,31 @@
           "anchor": "'导出脱敏诊断'"
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            224,
+            225,
+            227,
+            228,
+            230,
+            232,
+            236,
+            237,
+            239,
+            241,
+            243,
+            245,
+            247
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
