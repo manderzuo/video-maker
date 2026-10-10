@@ -1,11 +1,25 @@
 import {randomUUID} from 'node:crypto';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
+test('canvas keeps both connection lights visible within the viewport in both themes',async({page,workspace},testInfo)=>{
+ const {projectId}=await seedProject(workspace,'画布连接灯');await page.goto('/projects/'+projectId+'/canvas');
+ const lights=page.getByRole('region',{name:'侧栏 API 连接状态',exact:true});
+ for(const theme of ['dark','light']){for(const viewport of [{width:1366,height:768},{width:1280,height:720},{width:800,height:600}]){await page.setViewportSize(viewport);for(const channel of ['video','text']){const button=lights.locator('[data-channel="'+channel+'"]');await expect(button).toBeVisible();await expect(button).toBeInViewport();}await page.screenshot({path:testInfo.outputPath('canvas-lights-'+theme+'-'+viewport.width+'.png')});}if(theme==='dark')await page.getByRole('button',{name:'切换到浅色主题',exact:true}).click();}
+ await lights.locator('[data-channel="video"]').click();await expect(page.getByRole('dialog',{name:'连接详情',exact:true})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
+});
+test('saved connections automatically test on cold canvas load and refresh expired checks without generation',async({page,workspace},testInfo)=>{
+ const headers=workspace.headers(workspace.account);for(const channel of ['text','video'])await workspace.call('PATCH','/studio-api/me/model-configs/'+channel,{...headers,payload:{apiBase:channel==='text'?'https://api.example.test':'https://video.example.test',model:channel==='text'?'Vendor/Cloud-Text':'seedance',apiKey:'FAKE_AUTO_LIGHT_KEY',expectedRevision:null}});
+ const {projectId}=await seedProject(workspace,'自动连接检测');const probes:{channel:string;body:Record<string,unknown>}[]=[];page.on('request',request=>{if(/model-configs\/(text|video)\/test$/.test(request.url()))probes.push({channel:request.url().includes('/text/')?'text':'video',body:request.postDataJSON()});});await page.clock.install();await page.goto('/projects/'+projectId+'/canvas');
+ const lights=page.getByRole('region',{name:'侧栏 API 连接状态',exact:true});for(const channel of ['text','video'])await expect(lights.locator('[data-channel="'+channel+'"]')).toHaveAttribute('data-state','success');expect(probes).toHaveLength(2);expect(probes.every(probe=>!('apiKey' in probe.body))).toBe(true);
+ await page.screenshot({path:testInfo.outputPath('canvas-lights-auto-green.png')});
+ await page.getByRole('link',{name:'项目',exact:true}).click();await expect(lights.locator('[data-channel="text"]')).toHaveAttribute('data-state','success');expect(probes).toHaveLength(2);
+ await page.clock.fastForward(331000);await expect.poll(()=>probes.length).toBe(4);for(const channel of ['text','video'])await expect(lights.locator('[data-channel="'+channel+'"]')).toHaveAttribute('data-state','success');expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+ await page.reload();for(const channel of ['text','video'])await expect(lights.locator('[data-channel="'+channel+'"]')).toHaveAttribute('data-state','success');await expect.poll(()=>probes.length).toBe(6);
+});
 test('sidebar connection lights distinguish missing, untested, checking, connected and failed APIs in both themes',async({page,workspace},testInfo)=>{
  const headers=workspace.headers(workspace.account),lights=page.getByRole('region',{name:'侧栏 API 连接状态',exact:true}),text=lights.locator('[data-channel="text"]'),video=lights.locator('[data-channel="video"]');
  await page.goto('/projects');await expect(text).toHaveAttribute('data-state','missing');await expect(video).toHaveAttribute('data-state','missing');
  for(const channel of ['text','video'])await workspace.call('PATCH','/studio-api/me/model-configs/'+channel,{...headers,payload:{apiBase:channel==='text'?'https://api.example.test':'https://video.example.test',model:channel==='text'?'Vendor/Cloud-Text':'seedance',apiKey:'FAKE_LIGHT_KEY',expectedRevision:null}});
- await page.reload();await expect(text).toHaveAttribute('data-state','pending');await expect(video).toHaveAttribute('data-state','pending');expect(workspace.providerCalls).toHaveLength(0);
- let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});await page.route('**/studio-api/me/model-configs/*/test',async route=>{await gate;await route.fallback();});await page.goto('/settings/connections');await expect(text).toHaveAttribute('data-state','checking');await expect(video).toHaveAttribute('data-state','checking');release();
+ let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});await page.route('**/studio-api/me/model-configs/*/test',async route=>{await gate;await route.fallback();});await page.reload();await expect(text).toHaveAttribute('data-state','checking');await expect(video).toHaveAttribute('data-state','checking');expect(workspace.providerCalls).toHaveLength(0);release();
  await expect(text).toHaveAttribute('data-state','success');await expect(video).toHaveAttribute('data-state','success');await expect(text.locator('.connection-dot')).toHaveCSS('background-color','rgb(60, 219, 145)');
  await page.getByRole('link',{name:'项目',exact:true}).click();await expect(text).toHaveAttribute('data-state','success');await expect(video).toHaveAttribute('data-state','success');await expect(page.locator('.topbar [data-interaction-id="account:connection"]')).toHaveCount(0);
  await page.screenshot({path:testInfo.outputPath('connection-lights-dark.png'),fullPage:true});await page.getByRole('button',{name:'切换到浅色主题',exact:true}).click();await expect(text.locator('.connection-dot')).toHaveCSS('background-color','rgb(60, 219, 145)');await page.screenshot({path:testInfo.outputPath('connection-lights-light.png'),fullPage:true});
@@ -17,7 +31,8 @@ test('old connection success never colors a new configuration or another account
  const headers=workspace.headers(workspace.account);await workspace.call('PATCH','/studio-api/me/model-configs/text',{...headers,payload:{apiBase:'https://api.example.test',model:'Vendor/Cloud-Text',apiKey:'FAKE_LIGHT_KEY',expectedRevision:null}});
  const text=page.getByRole('region',{name:'侧栏 API 连接状态',exact:true}).locator('[data-channel="text"]');await page.goto('/settings/connections');await expect(text).toHaveAttribute('data-state','success');
  const saved=(await workspace.call('GET','/studio-api/me/model-configs',headers)).json().configs.find((c:{channel:string})=>c.channel==='text');await workspace.call('PATCH','/studio-api/me/model-configs/text',{...headers,payload:{apiBase:'https://other-api.example.test',model:'Vendor/Other',apiKey:'FAKE_OTHER_KEY',expectedRevision:saved.revision}});
- await page.getByRole('link',{name:'项目',exact:true}).click();await expect(text).toHaveAttribute('data-state','pending');
+ await page.route('**/studio-api/me/model-configs/text/test',route=>route.fulfill({status:200,json:{requestId:route.request().postDataJSON().requestId,connection:'failed',catalogStatus:'failed',models:[],message:'Rejected changed credentials',failure:'denied'}}));
+ await page.getByRole('link',{name:'项目',exact:true}).click();await expect(text).toHaveAttribute('data-state','failed');
  const other=await workspace.signup('Cloud_Lights_B');workspace.switchAccount(other);await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await expect(page.getByTitle('当前账号：Cloud_Lights_B',{exact:true})).toBeVisible();await expect(text).toHaveAttribute('data-state','missing');
 });
 type Ctx={headers(account:unknown):Record<string,string>;call(method:string,path:string,options?:unknown):Promise<{json:()=>unknown;statusCode:number}>;pool:{query(text:string,values?:unknown[]):Promise<{rows:{n?:number}[]}>};account:{view:{user:{id:string}}}};
@@ -65,6 +80,8 @@ test('opens the command palette, filters and navigates',async({page})=>{
  await expect(page.getByRole('dialog',{name:'命令面板',exact:true})).toHaveCount(0);
 });
 test('reports saved-but-untested configs as unverified, never as connected',async({page,workspace})=>{
+ // An unavailable catalog remains unverified even after the new automatic check.
+ await page.route('**/studio-api/me/model-configs/*/test',route=>route.fulfill({status:200,json:{requestId:route.request().postDataJSON().requestId,connection:'unknown',catalogStatus:'unavailable',models:[],message:'No verified probe response'}}));
  const headers=workspace.headers(workspace.account);
  const revision=async(channel:string)=>((await workspace.call('GET','/studio-api/me/model-configs',{...headers})).json() as {configs:{channel:string;revision:number}[]}).configs.find(config=>config.channel===channel)?.revision??null;
  await page.goto('/projects');
@@ -144,6 +161,7 @@ test('refreshes the sidebar status after a settings save without reload',async({
  await video.getByLabel('模型名称',{exact:true}).fill('other-model');
  await video.getByRole('button',{name:'保存',exact:true}).click();
  await expect(video.getByText('已保存到当前账号',{exact:false})).toBeVisible();
+ await expect(status()).toHaveAttribute('data-state','success');
  await expect(status()).toContainText('视频规格未验证');
  await expect(status()).not.toContainText('已核验');
  await video.getByLabel('模型名称',{exact:true}).fill('seedance');

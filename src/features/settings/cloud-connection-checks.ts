@@ -1,4 +1,4 @@
-import type {ApiSettingsIdentity,ModelConfig,ModelProbe} from './api-settings-client';
+import type {ApiSettingsClient,ApiSettingsIdentity,ModelConfig,ModelProbe} from './api-settings-client';
 export type ConnectionCheckState='checking'|'success'|'failed'|'pending';
 type Check={signature:string;id:string;state:ConnectionCheckState;checkedAt:number};
 export type ConnectionCheckTicket={key:string;signature:string;id:string};
@@ -19,3 +19,15 @@ export function finishCloudConnectionCheck(ticket:ConnectionCheckTicket,result:P
  const check=checks.get(ticket.key);if(check?.id!==ticket.id)return;checks.set(ticket.key,{...check,state:result.connection==='verified'?'success':result.connection==='failed'?'failed':'pending',checkedAt:Date.now()});emit();
 }
 export function cancelCloudConnectionCheck(ticket:ConnectionCheckTicket){const check=checks.get(ticket.key);if(check?.id===ticket.id&&check.state==='checking'){checks.delete(ticket.key);emit();}}
+export async function checkSavedCloudConnection(identity:ApiSettingsIdentity,config:ModelConfig,client:ApiSettingsClient,signal:AbortSignal,onlyExpired=false):Promise<void>{
+ if(!config.hasKey||signal.aborted)return;
+ const current=checks.get(key(identity,config));
+ if(onlyExpired&&current?.signature!==signature(config))return;
+ // Share in-flight checks and keep a five-minute retry interval for failed or
+ // unknown results as well, so an unavailable supplier cannot trigger a loop.
+ if(current?.signature===signature(config)&&Date.now()-current.checkedAt<300000)return;
+ const ticket=beginCloudConnectionCheck(identity,config);
+ try{const result=await client.test(config.channel,{apiBase:config.apiBase,requestId:ticket.id},identity,signal);if(!signal.aborted)finishCloudConnectionCheck(ticket,result);}
+ catch{if(!signal.aborted)finishCloudConnectionCheck(ticket,{connection:'failed'});}
+ finally{cancelCloudConnectionCheck(ticket);}
+}

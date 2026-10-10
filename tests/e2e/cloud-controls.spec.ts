@@ -148,7 +148,7 @@ test('a small viewport keeps generation reachable and reports missing input with
  await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
  const generate=page.locator('[data-interaction-id="V-08"]');await generate.scrollIntoViewIfNeeded();await expect(generate).toBeEnabled();await generate.click();
  await expect(page.getByText('这个视频草稿还没有提示词',{exact:false}).first()).toBeVisible();
- await expect(page.getByText('缺少明确连接的提示词正文',{exact:false})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
+ await expect(page.getByText('缺少明确连接的提示词正文',{exact:false})).toBeVisible();expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
 });
 test('desktop canvas bottom stays within the remaining viewport at desktop boundaries',async({page,workspace},testInfo)=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'布局边界验收'}})).json();
@@ -178,7 +178,7 @@ test('collapsing the sidebar preserves unsaved video input without Agent control
  await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
  await expect(page.getByLabel('为视频草稿填写提示词',{exact:true})).toHaveValue('尚未保存的视频正文');
  await expect(page.getByRole('button',{name:/Agent 协作|Agent 提案/})).toHaveCount(0);
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
 });
 test('a narrow short viewport degrades to a scrollable layout with a usable canvas floor',async({page,workspace},testInfo)=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'窄窗退化'}})).json();

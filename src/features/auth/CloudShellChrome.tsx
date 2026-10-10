@@ -5,8 +5,9 @@ import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {attentionItems} from '../workspace/cloud-attention';
 import {sessionStore} from '../../infrastructure/api/session';
-import type {ModelConfig} from '../settings/api-settings-client';
-import {readCloudConnectionCheck,subscribeCloudConnectionChecks} from '../settings/cloud-connection-checks';
+import {createApiSettingsClient,type ModelConfig} from '../settings/api-settings-client';
+import {checkSavedCloudConnection,readCloudConnectionCheck,subscribeCloudConnectionChecks} from '../settings/cloud-connection-checks';
+const connectionCheckClient=createApiSettingsClient();
 type Hit={kind:'项目'|'节点'|'提示词';title:string;href:string};
 export function CloudGlobalSearch({client}:{client:WorkspaceClient}){
  const [query,setQuery]=useState(''),[hits,setHits]=useState<Hit[]>([]),[state,setState]=useState<'idle'|'loading'|'ready'|'failed'>('idle');
@@ -40,12 +41,14 @@ export function CloudCommandPalette({projectId}:{projectId?:string}){
  return <><Button data-interaction-id="account:palette" onClick={()=>{setQuery('');setOpen(true);}}>命令面板</Button><Dialog open={open} title="命令面板" onClose={()=>setOpen(false)} footer={<Button data-interaction-id="account:palette:close" onClick={()=>setOpen(false)}>关闭</Button>}><label>搜索操作<input data-interaction-id="account:palette:query" value={query} onChange={event=>setQuery(event.target.value)}/></label><ul className="command-list">{entries.map(item=><li key={item.href+' '+item.label}><Button data-interaction-id="account:palette:go" onClick={()=>{setOpen(false);navigate(item.href);}}>{'前往'+item.label}</Button></li>)}</ul>{entries.length?null:<p>没有匹配操作</p>}<p>Ctrl / Cmd + K 打开命令面板；输入框与输入法组合优先。</p></Dialog></>;
 }
 export function CloudConnectionStatus({client}:{client:WorkspaceClient}){
- const [open,setOpen]=useState(false),[configs,setConfigs]=useState<ModelConfig[]>(),[videoVerified,setVideoVerified]=useState<boolean>(),[failed,setFailed]=useState(false),[,refresh]=useState(0);
+ const [open,setOpen]=useState(false),[configs,setConfigs]=useState<ModelConfig[]>(),[videoVerified,setVideoVerified]=useState<boolean>(),[failed,setFailed]=useState(false),[checkVersion,refresh]=useState(0),[probeController]=useState(()=>new AbortController());
  const route=useRoute();
  useEffect(()=>{const update=()=>refresh(value=>value+1),stop=subscribeCloudConnectionChecks(update),timer=setInterval(update,30000);return()=>{stop();clearInterval(timer);};},[]);
+ useEffect(()=>()=>probeController.abort(),[probeController]);
  // 保存、路由变化都重读；序号守卫丢弃迟到响应，旧核验不会盖掉新结果。
  useEffect(()=>{let active=true,seq=0;const load=async()=>{const current=++seq;try{const {configs}=await client.modelConfigs();if(!active||current!==seq)return;setConfigs(configs);setFailed(false);if(!configs.some(config=>config.channel==='video')){setVideoVerified(undefined);return;}try{const capability=await client.videoCapability();if(active&&current===seq)setVideoVerified(capability.verified&&capability.videoSpecs.some(spec=>spec.modelId===capability.model));}catch{if(active&&current===seq)setVideoVerified(false);}}catch{if(active&&current===seq)setFailed(true);}};void load();const onConfig=()=>{void load();};window.addEventListener('aiwork:model-configs-changed',onConfig);return()=>{active=false;window.removeEventListener('aiwork:model-configs-changed',onConfig);};},[client,route]);
  const session=sessionStore.getState(),identity=session.status==='authenticated'?{userId:session.session.user.id,contextId:session.session.contextId,csrfToken:session.session.csrfToken}:undefined;
+ useEffect(()=>{if(!identity||!configs||failed)return;const onlyExpired=/^\/(settings\/(connections|models|capabilities)|welcome)(?:\?|$)/.test(route);for(const config of configs)void checkSavedCloudConnection(identity,config,connectionCheckClient,probeController.signal,onlyExpired);},[configs,failed,route,checkVersion,probeController,identity?.userId,identity?.contextId,identity?.csrfToken]);
  const views=(['video','text'] as const).map(channel=>{
   const config=configs?.find(value=>value.channel===channel),name=channel==='video'?'视频':'文字';
   const state=!configs||failed?'pending':!config?'missing':identity?readCloudConnectionCheck(identity,config):'pending';

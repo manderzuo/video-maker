@@ -8,7 +8,7 @@ async function savedProject(workspace:Awaited<ReturnType<typeof fixture>>&{accou
 test('previews exact owned cloud video inputs, confirms once, saves the private result and inserts durable lineage',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}});
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'云端视频流程'}})).json(),textId=randomUUID(),nodeId=randomUUID();await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'雨后街道',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}});
- await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="V-08"]').click();const preview=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(preview).toContainText('雨后街道');await expect(preview).toContainText('5 秒');expect(workspace.providerCalls).toHaveLength(0);await expect(page.getByRole('button',{name:'确认生成',exact:true})).toBeDisabled();await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();await page.getByRole('button',{name:'确认生成',exact:true}).click();await expect(page.getByRole('button',{name:'查看视频任务',exact:true})).toBeVisible();
+ await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="V-08"]').click();const preview=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(preview).toContainText('雨后街道');await expect(preview).toContainText('5 秒');expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);await expect(page.getByRole('button',{name:'确认生成',exact:true})).toBeDisabled();await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();await page.getByRole('button',{name:'确认生成',exact:true}).click();await expect(page.getByRole('button',{name:'查看视频任务',exact:true})).toBeVisible();
  await page.reload();await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'deliveryState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('available_for_preview');await page.getByRole('button',{name:'展开侧栏',exact:true}).click();await page.getByRole('button',{name:'查看视频任务',exact:true}).click();const detail=page.getByRole('dialog',{name:'云端视频任务',exact:true});await expect(detail).toContainText('生成已完成');await expect(page.locator('.node-result')).toHaveCount(1);await detail.getByRole('button',{name:'关闭云端视频任务',exact:true}).click();await page.reload();await expect(page.locator('.node-result')).toHaveCount(1);expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);expect(workspace.providerCalls.every(call=>call.apiKey==='FAKE_VIDEO_UI_KEY')).toBe(true);await page.screenshot({path:'work/account-api-cloud/cloud-video-result.png',fullPage:true});
  await page.getByRole('link',{name:'任务',exact:true}).click();await page.getByRole('button',{name:'查看任务详情',exact:true}).click();await expect(page.getByRole('dialog',{name:'云端任务详情',exact:true})).toContainText('雨后街道');
 });
@@ -16,7 +16,7 @@ test('keeps the safe 3003 reason and pending billing in both cloud task views af
  workspace.setVideoOutcome('failed');const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="V-08"]').click();await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();await page.getByRole('button',{name:'确认生成',exact:true}).click();await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state).toBe('failed_confirmed');await page.reload();await page.getByRole('button',{name:'展开侧栏',exact:true}).click();await page.getByRole('button',{name:'查看视频任务',exact:true}).click();const detail=page.getByRole('dialog',{name:'云端视频任务',exact:true});for(const text of ['生成失败：上游判定参考图片可能包含真人，拒绝生成。','错误码：3003。','积分仍在核对，尚未确认最终扣费。'])await expect(detail).toContainText(text);await expect(detail).not.toContainText('FAKE_PRIVATE');await expect(detail).not.toContainText('input image');await page.getByRole('button',{name:'暂停原任务查询',exact:true}).click();await expect(detail).toContainText('原任务查询已暂停');await detail.getByRole('button',{name:'关闭云端视频任务',exact:true}).click();await page.getByRole('link',{name:'任务',exact:true}).click();await page.getByRole('button',{name:'查看任务详情',exact:true}).click();await expect(page.getByRole('dialog',{name:'云端任务详情',exact:true})).toContainText('生成失败：上游判定参考图片可能包含真人，拒绝生成。');expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
 test('canceling a video preview sends no provider request and does not create a run',async({page,workspace})=>{
- const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="V-08"]').click();await page.getByRole('dialog',{name:'确认云端视频生成',exact:true}).getByRole('button',{name:'取消',exact:true}).click();expect(workspace.providerCalls).toHaveLength(0);expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
+ const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="V-08"]').click();await page.getByRole('dialog',{name:'确认云端视频生成',exact:true}).getByRole('button',{name:'取消',exact:true}).click();expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
 });
 test('builds text, draft and connection purely through the canvas UI before generating',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);
@@ -37,7 +37,7 @@ test('builds text, draft and connection purely through the canvas UI before gene
  await page.locator('[data-interaction-id="V-08"]').click();
  const preview=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});
  await expect(preview).toContainText('纯界面雨后街道');
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
  await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
  await page.getByRole('button',{name:'确认生成',exact:true}).click();
  await expect(page.getByRole('button',{name:'查看视频任务',exact:true})).toBeVisible();
@@ -55,7 +55,7 @@ test('blocks local preview when the text is missing and recovers after补接 wit
  await expect(page.locator('.node-video-generation')).toHaveCount(1);
  await page.locator('[data-interaction-id="V-08"]').click();
  await expect(page.getByText('以下视频草稿缺少明确连接的提示词正文',{exact:false})).toContainText('空草稿');
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
  // 就地填写提示词并保存后可生成
  await page.locator('[data-interaction-id="cloud:video:new-text"]').fill('补接后的正文');
  await page.getByRole('button',{name:'保存文字并连接',exact:true}).click();
@@ -63,7 +63,7 @@ test('blocks local preview when the text is missing and recovers after补接 wit
  await expect(page.getByRole('status')).toContainText('已保存');
  await page.locator('[data-interaction-id="V-08"]').click();
  await expect(page.getByRole('dialog',{name:'确认云端视频生成',exact:true})).toContainText('补接后的正文');
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
 });
 test('lists each missing target for multiple videos and never mixes their inputs',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);
@@ -84,7 +84,7 @@ test('lists each missing target for multiple videos and never mixes their inputs
  const summary=page.getByText('以下视频草稿缺少明确连接的提示词正文',{exact:false});
  await expect(summary).toContainText('视频二');
  await expect(summary).not.toContainText('视频一');
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
  await expect(page.getByRole('dialog',{name:'确认云端视频生成',exact:true})).not.toBeVisible();
  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
 });
@@ -107,7 +107,7 @@ test('keeps unsaved canvas edits from reaching preview and sends no upstream POS
  await expect(page.getByRole('status')).toContainText('保存未完成');
  await expect(page.getByRole('dialog',{name:'确认云端视频生成',exact:true})).not.toBeVisible();
  await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('未保存的新正文');
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
 });
 test('retains editor text after a cloud save conflict and recovers the latest revision on reload',async({page,workspace})=>{
@@ -130,7 +130,7 @@ test('retains editor text after a cloud save conflict and recovers the latest re
  await expect(page.getByRole('status')).toContainText('保存未完成',{timeout:15000});
  await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('冲突下不丢失的正文');
  await expect(page.locator('[data-interaction-id="V-08"]')).toBeDisabled();
- expect(workspace.providerCalls).toHaveLength(0);
+ expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
  // 放弃本页输入并重载：采用最新云端修订
  await page.getByRole('button',{name:'重新加载画布',exact:true}).click();
