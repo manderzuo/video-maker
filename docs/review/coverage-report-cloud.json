@@ -2074,21 +2074,6 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "T-05"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "T-05"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "T-05"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "T-06"
     },
     {
@@ -4109,35 +4094,10 @@
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "L-09"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "L-09"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
       "id": "L-10"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "L-10"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "L-11"
     },
     {
       "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "L-11"
-    },
-    {
-      "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "L-11"
     },
@@ -8724,7 +8684,7 @@
       "id": "T-05",
       "kind": "interactions",
       "taskId": "T17",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8733,15 +8693,16 @@
           ],
           "assertionLines": [
             13,
-            114,
-            115,
-            116,
+            118,
+            119,
+            120,
             122,
-            123,
-            126,
-            128,
             129,
-            130
+            130,
+            133,
+            135,
+            136,
+            137
           ]
         },
         {
@@ -8751,24 +8712,78 @@
           ],
           "assertionLines": [
             13,
-            114,
-            115,
-            116,
+            118,
+            119,
+            120,
             122,
-            123,
-            126,
-            128,
             129,
-            130
+            130,
+            133,
+            135,
+            136,
+            137
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            13,
+            118,
+            119,
+            120,
+            122,
+            129,
+            130,
+            133,
+            135,
+            136,
+            137
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            13,
+            118,
+            119,
+            120,
+            122,
+            129,
+            130,
+            133,
+            135,
+            136,
+            137
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            13,
+            118,
+            119,
+            120,
+            122,
+            129,
+            130,
+            133,
+            135,
+            136,
+            137
+          ]
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "T-06",
@@ -8784,10 +8799,6 @@
           "assertionLines": [
             13,
             137,
-            139,
-            141,
-            142,
-            143,
             144
           ]
         },
@@ -8834,16 +8845,11 @@
             338,
             341,
             345,
-            347,
-            350,
-            353,
             354,
-            355,
             357,
             361,
-            364,
-            366,
-            367
+            362,
+            364
           ],
           "expectedCoreWrites": 0
         }
@@ -9862,7 +9868,7 @@
       "id": "L-09",
       "kind": "interactions",
       "taskId": "T17",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -9871,22 +9877,23 @@
           ],
           "assertionLines": [
             13,
-            76,
-            80,
+            78,
             82,
-            83,
-            91,
-            92,
+            84,
+            85,
             93,
             94,
             95,
+            96,
             97,
-            98,
             99,
-            102,
-            103,
+            100,
+            101,
+            104,
             105,
-            106
+            107,
+            109,
+            110
           ]
         },
         {
@@ -9896,22 +9903,23 @@
           ],
           "assertionLines": [
             13,
-            76,
-            80,
+            78,
             82,
-            83,
-            91,
-            92,
+            84,
+            85,
             93,
             94,
             95,
+            96,
             97,
-            98,
             99,
-            102,
-            103,
+            100,
+            101,
+            104,
             105,
-            106
+            107,
+            109,
+            110
           ]
         },
         {
@@ -9921,22 +9929,23 @@
           ],
           "assertionLines": [
             13,
-            76,
-            80,
+            78,
             82,
-            83,
-            91,
-            92,
+            84,
+            85,
             93,
             94,
             95,
+            96,
             97,
-            98,
             99,
-            102,
-            103,
+            100,
+            101,
+            104,
             105,
-            106
+            107,
+            109,
+            110
           ]
         },
         {
@@ -9946,30 +9955,80 @@
           ],
           "assertionLines": [
             13,
-            76,
-            80,
+            78,
             82,
-            83,
-            91,
-            92,
+            84,
+            85,
             93,
             94,
             95,
+            96,
             97,
-            98,
             99,
-            102,
-            103,
+            100,
+            101,
+            104,
             105,
-            106
+            107,
+            109,
+            110
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            13,
+            78,
+            82,
+            84,
+            85,
+            93,
+            94,
+            95,
+            96,
+            97,
+            99,
+            100,
+            101,
+            104,
+            105,
+            107,
+            109,
+            110
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            13,
+            78,
+            82,
+            84,
+            85,
+            93,
+            94,
+            95,
+            96,
+            97,
+            99,
+            100,
+            101,
+            104,
+            105,
+            107,
+            109,
+            110
+          ]
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "L-10",
@@ -9989,7 +10048,8 @@
             31,
             33,
             34,
-            35
+            36,
+            37
           ],
           "expectedCoreWrites": 0
         },
@@ -9999,17 +10059,27 @@
             "error"
           ],
           "assertionLines": [
-            43,
-            47,
-            51,
-            53,
-            54
+            53
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            21,
+            29,
+            31,
+            33,
+            34,
+            36,
+            37
           ]
         }
       ],
       "missing": [
-        "facet_missing:disabled",
-        "facet_missing:persistence"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -10025,11 +10095,11 @@
             "sideEffect"
           ],
           "assertionLines": [
-            58,
-            65,
+            60,
             67,
-            70,
-            71
+            69,
+            72,
+            73
           ],
           "expectedCoreWrites": 0
         },
@@ -10039,19 +10109,43 @@
             "sideEffect"
           ],
           "assertionLines": [
-            58,
-            65,
+            60,
             67,
-            70,
-            71
+            69,
+            72,
+            73
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            60,
+            67,
+            69,
+            72,
+            73
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            60,
+            67,
+            69,
+            72,
+            73
+          ]
         }
       ],
       "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence"
+        "facet_missing:error"
       ]
     },
     {
@@ -11590,16 +11684,11 @@
             338,
             341,
             345,
-            347,
-            350,
-            353,
             354,
-            355,
             357,
             361,
-            364,
-            366,
-            367
+            362,
+            364
           ],
           "expectedCoreWrites": 0
         }
@@ -12657,7 +12746,7 @@
     "interactions": 260,
     "pages": 23,
     "dialogs": 30,
-    "passed": 1
+    "passed": 3
   },
   "review": "待用户统一验收与独立审查"
 }

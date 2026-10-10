@@ -4828,7 +4828,7 @@
       "file": "tests/e2e/cloud-library-transfer.spec.ts",
       "title": "imports chosen prompt entries and replays the same batch without duplicates",
       "status": "passed",
-      "assertions": 9,
+      "assertions": 10,
       "actions": 4,
       "assertionLocations": [
         {
@@ -4858,7 +4858,12 @@
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 35,
+          "line": 36,
+          "column": 67
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 37,
           "column": 69
         },
         {
@@ -5023,32 +5028,32 @@
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 58,
+          "line": 60,
           "column": 238
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 58,
+          "line": 60,
           "column": 238
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 65,
-          "column": 48
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 67,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 69,
           "column": 69
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 70,
+          "line": 72,
           "column": 66
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 71,
+          "line": 73,
           "column": 69
         },
         {
@@ -5073,17 +5078,17 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 60,
+          "line": 62,
           "column": 143
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 62,
+          "line": 64,
           "column": 61
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 66,
+          "line": 68,
           "column": 143
         }
       ],
@@ -5098,7 +5103,7 @@
       "file": "tests/e2e/cloud-library-transfer.spec.ts",
       "title": "applies a library template onto an existing text node with preview and frozen retry",
       "status": "passed",
-      "assertions": 22,
+      "assertions": 23,
       "actions": 4,
       "assertionLocations": [
         {
@@ -5109,92 +5114,97 @@
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 76,
+          "line": 78,
           "column": 204
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 80,
+          "line": 82,
           "column": 91
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 82,
+          "line": 84,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 83,
+          "line": 85,
           "column": 58
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 91,
-          "column": 42
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 92,
-          "column": 57
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 93,
-          "column": 58
+          "column": 42
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 94,
-          "column": 72
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 95,
           "column": 57
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 97,
+          "line": 95,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 98,
-          "column": 17
+          "line": 96,
+          "column": 72
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 98,
-          "column": 51
+          "line": 97,
+          "column": 57
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 99,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 100,
+          "column": 17
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 100,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 101,
           "column": 83
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 102,
+          "line": 104,
           "column": 26
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 103,
+          "line": 105,
           "column": 41
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 105,
+          "line": 107,
           "column": 16
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 105,
+          "line": 107,
           "column": 63
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 106,
+          "line": 109,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 110,
           "column": 69
         },
         {
@@ -5219,22 +5229,22 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 78,
+          "line": 80,
           "column": 139
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 81,
+          "line": 83,
           "column": 49
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 90,
+          "line": 92,
           "column": 64
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 96,
+          "line": 98,
           "column": 64
         }
       ],
@@ -5249,8 +5259,8 @@
       "file": "tests/e2e/cloud-library-transfer.spec.ts",
       "title": "saves a canvas text node into the prompt library with full text",
       "status": "passed",
-      "assertions": 13,
-      "actions": 3,
+      "assertions": 14,
+      "actions": 5,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
@@ -5260,47 +5270,52 @@
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 114,
+          "line": 118,
           "column": 21
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 115,
+          "line": 119,
           "column": 54
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 116,
+          "line": 120,
           "column": 54
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 122,
-          "column": 60
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 123,
-          "column": 54
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 126,
           "column": 67
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 128,
-          "column": 15
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 129,
-          "column": 34
+          "column": 60
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 130,
+          "column": 54
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 133,
+          "column": 67
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 135,
+          "column": 15
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 136,
+          "column": 34
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 137,
           "column": 69
         },
         {
@@ -5325,17 +5340,27 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 113,
+          "line": 117,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 121,
+          "column": 46
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 123,
+          "column": 46
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 128,
           "column": 59
         },
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 125,
+          "line": 132,
           "column": 59
         }
       ],

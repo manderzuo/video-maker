@@ -32,6 +32,8 @@ test('imports chosen prompt entries and replays the same batch without duplicate
  const rows=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='prompt'")).rows as unknown as {document:{title:string;body:string;source:string;license:string}}[];
  expect(rows.filter(row=>row.document.title==='导入条目')).toHaveLength(1);
  expect(rows[0].document).toMatchObject({body:'导入正文',source:'旧库',license:'CC0'});
+ await page.reload();
+ await expect(page.getByRole('heading',{name:'导入条目',exact:true})).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('rejects broken and oversized prompt files and writes nothing on cancel',async({page,workspace})=>{
@@ -103,6 +105,8 @@ test('applies a library template onto an existing text node with preview and fro
  expect(node?.data.promptLibrarySource).toMatchObject({source:'库内'});
  const entry=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='prompt'")).rows as unknown as {document:{body:string}}[];
  expect(entry).toHaveLength(1);expect(entry[0].document.body).toBe('新正文');
+ await page.goto('/projects/'+project.id+'/canvas');
+ await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('新正文');
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('saves a canvas text node into the prompt library with full text',async({page,workspace})=>{
@@ -114,6 +118,9 @@ test('saves a canvas text node into the prompt library with full text',async({pa
  await expect(page).toHaveURL(/\/prompts\?seed=1/);
  await expect(page.getByLabel('提示词正文',{exact:true})).toHaveValue('节点全文内容');
  await expect(page.getByLabel('提示词名称',{exact:true})).toHaveValue('流转节点');
+ await page.getByLabel('提示词正文',{exact:true}).fill('');
+ await expect(page.getByRole('button',{name:'保存提示词',exact:true})).toBeDisabled();
+ await page.getByLabel('提示词正文',{exact:true}).fill('节点全文内容');
  await page.route('**/studio-api/prompts',async route=>{
   if(route.request().method()!=='POST'){await route.fallback();return;}
   await route.fulfill({status:500,body:'{}'});
