@@ -73,17 +73,23 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
  const [continuation,setContinuation]=useState<{result:ProjectResult;time:number;prompt:string;file?:File;preview?:string;frameAssetId?:string;request?:FrozenRequest;phase:Phase;error:string;message:string}>();
  const [revision,setRevision]=useState<{result:ProjectResult;prompt:string;skipped:string[];request?:FrozenRequest;phase:Phase;error:string;message:string;availability?:Record<string,boolean>}>();
  const alive=useRef(true),preview=useRef<string|undefined>(undefined),openedAction=useRef<string|undefined>(undefined);
- const [optimizing,setOptimizing]=useState(false),[optimization,setOptimization]=useState<{draftId:string;recordId:string;prompt:string}>();
+ const [optimizing,setOptimizing]=useState(false),[optimization,setOptimization]=useState<{draftId:string;kind:'tail-frame'|'revision';recordId:string;prompt:string}>();
+ const optimizationBusy=useRef(false);
  const optimizationRequest=useRef<{identity:string;key:string;request:Parameters<WorkspaceClient['createDraft']>[0]}|undefined>(undefined);
- async function optimizeRevision(){
-  if(!revision||revision.phase!=='editing'||optimizing||!revision.prompt.trim())return;
-  const current=revision,identity=JSON.stringify([current.result.record.id,current.prompt]),snapshot=frozenSnapshot(current.result.record);
+ async function polishPrompt(kind:'tail-frame'|'revision'){
+  const current=kind==='revision'?revision:continuation;
+  if(!current||current.phase!=='editing'||optimizationBusy.current||!current.prompt.trim())return;
+  const updateError=(error:string)=>{if(!alive.current)return;const update=<T extends {result:ProjectResult;prompt:string;error:string}>(value:T|undefined)=>value&&value.result.record.id===current.result.record.id&&value.prompt===current.prompt?{...value,error}:value;if(kind==='revision')setRevision(update);else setContinuation(update);};
+  if(new TextEncoder().encode(current.prompt).length>65536){updateError('提示词超过64KiB，请缩短后重试；原输入已保留。');return;}
+  const identity=JSON.stringify([kind,current.result.record.id,current.prompt]),snapshot=frozenSnapshot(current.result.record);
   const spec=frozenSpec(current.result.record);
-  optimizationRequest.current=optimizationRequest.current?.identity===identity?optimizationRequest.current:{identity,key:crypto.randomUUID(),request:{type:'video',userRequest:current.prompt,sceneId:'text',requestedSpec:{durationSeconds:spec.durationSeconds,ratio:spec.ratio},audioPlan:'',lockedConstraints:[],references:snapshot.references.filter(reference=>current.availability?.[reference.assetId]!==false&&assets.get(reference.assetId)?.trashedAt==null).map(reference=>({assetId:reference.assetId,alias:reference.alias,mediaType:reference.mediaType,role:reference.role,description:'',available:true,unbound:false})),ruleVersion:'studio-video-rules-v1'}};
-  const held=optimizationRequest.current;setOptimizing(true);
-  try{const value=await client.createDraft(held.request,held.key);if(alive.current){optimizationRequest.current=undefined;setOptimization({draftId:value.id,recordId:current.result.record.id,prompt:current.prompt});}}
-  catch(error){if(alive.current)setRevision(value=>value&&value.result.record.id===current.result.record.id?{...value,error:workspaceMessage(error)}:value);}
-  finally{if(alive.current)setOptimizing(false);}
+  optimizationRequest.current=optimizationRequest.current?.identity===identity?optimizationRequest.current:{identity,key:crypto.randomUUID(),request:{type:'video',userRequest:current.prompt,sceneId:'text',requestedSpec:{durationSeconds:spec.durationSeconds,ratio:spec.ratio},audioPlan:'',lockedConstraints:[],references:kind==='tail-frame'?[]:snapshot.references.filter(reference=>revision?.availability?.[reference.assetId]!==false&&assets.get(reference.assetId)?.trashedAt==null).map(reference=>({assetId:reference.assetId,alias:reference.alias,mediaType:reference.mediaType,role:reference.role,description:'',available:true,unbound:false})),ruleVersion:'studio-video-rules-v1'}};
+  const held=optimizationRequest.current;optimizationBusy.current=true;setOptimizing(true);updateError('');
+  try{
+   const {configs}=await client.modelConfigs();if(!configs.some(config=>config.channel==='text'&&config.hasKey)){updateError('请先配置文字 API，再回来润色；当前正文与尾帧已保留。');return;}
+   const value=await client.createDraft(held.request,held.key);if(alive.current){optimizationRequest.current=undefined;setOptimization({draftId:value.id,kind,recordId:current.result.record.id,prompt:current.prompt});}
+  }catch(error){updateError(workspaceMessage(error));}
+  finally{optimizationBusy.current=false;if(alive.current)setOptimizing(false);}
  }
  useEffect(()=>{
   const action=params.get('action'),key=highlight+':'+action;
@@ -290,18 +296,20 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    {existing?<p data-interaction-id="cloud:results:linked">已在画布中：结果节点 {existing.id}（{existing.data.generationLinked?'来源关系已记录':'来源关系已解除'}）</p>:null}
   </article>;}):<p>当前项目还没有已完成的视频结果。</p>}
   <Dialog open={!!details} title="云端视频任务" onClose={()=>setDetails(undefined)}>{details?<><CloudVideoTaskDetail client={client} task={details} onChanged={()=>void reload()}/><Button data-interaction-id="cloud:results:details-close" onClick={()=>setDetails(undefined)}>关闭云端视频结果</Button></>:null}</Dialog>
-  <Dialog open={!!continuation} title="尾帧续写" dismissible={continuation?.phase!=='sending'} onClose={()=>setContinuation(undefined)} footer={<>
-   <Button data-interaction-id="cloud:results:tail-frame-cancel" disabled={continuation?.phase==='sending'} onClick={()=>setContinuation(undefined)}>取消</Button>
+  <Dialog open={!!continuation&&!optimization} title="尾帧续写" dismissible={continuation?.phase!=='sending'&&!optimizing} onClose={()=>setContinuation(undefined)} footer={<>
+   <Button data-interaction-id="cloud:results:tail-frame-cancel" disabled={continuation?.phase==='sending'||optimizing} onClick={()=>setContinuation(undefined)}>取消</Button>
    {(continuation?.phase==='unknown'||continuation?.phase==='submitted')&&continuation.request?<Button data-interaction-id="cloud:results:tail-frame-discard" onClick={discardContinuation}>放弃未确认请求</Button>:null}
    {continuation?.request?<Button data-interaction-id="cloud:results:tail-frame-check" disabled={continuation.phase==='sending'} onClick={()=>void resolveUnknown(continuation.request!,present=>{if(present){clearPendingRequest(projectId,'tail-frame',continuation.result.record.id);setPendingCount(readPendingRequests(projectId).length);setContinuation(undefined);setMessage('此前的请求其实已保存；未重复创建。');}else setContinuation(current=>current?{...current,message:'未发现本次请求创建的节点；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
-   <Button data-interaction-id="cloud:results:tail-frame-save" variant="primary" busy={continuation?.phase==='sending'} disabled={(!continuation?.file&&!continuation?.request)||!continuation.prompt.trim()} onClick={saveContinuation}>{continuation?.request?(continuation.frameAssetId?'重试保存续写流程':'重试保存续写流程'):'上传尾帧并保存续写流程'}</Button>
+   <Button data-interaction-id="cloud:results:tail-frame-save" variant="primary" busy={continuation?.phase==='sending'} disabled={optimizing||(!continuation?.file&&!continuation?.request)||!continuation.prompt.trim()} onClick={saveContinuation}>{continuation?.request?(continuation.frameAssetId?'重试保存续写流程':'重试保存续写流程'):'上传尾帧并保存续写流程'}</Button>
   </>}>
    {continuation?<>
     <p>抽帧只读取当前账号的结果视频；上传后作为本账号素材引用，原视频与原任务不变。</p>
-    <label>抽取时间（秒）<input data-interaction-id="cloud:results:tail-frame-time" type="number" min="0" step="0.1" disabled={frozenBusy(continuation.phase)} value={continuation.time} onChange={event=>setContinuation({...continuation,time:Number(event.target.value)})}/></label>
-    <Button data-interaction-id="cloud:results:tail-frame-extract" disabled={frozenBusy(continuation.phase)} onClick={()=>void extract()}>抽取并预览尾帧</Button>
+    <label>抽取时间（秒）<input data-interaction-id="cloud:results:tail-frame-time" type="number" min="0" step="0.1" disabled={optimizing||frozenBusy(continuation.phase)} value={continuation.time} onChange={event=>setContinuation({...continuation,time:Number(event.target.value)})}/></label>
+    <Button data-interaction-id="cloud:results:tail-frame-extract" disabled={optimizing||frozenBusy(continuation.phase)} onClick={()=>void extract()}>抽取并预览尾帧</Button>
     {continuation.preview?<img data-interaction-id="cloud:results:tail-frame-preview" src={continuation.preview} alt="尾帧预览" style={{maxWidth:'100%',maxHeight:240}}/>:null}
-    <label>续写提示词<textarea data-interaction-id="cloud:results:tail-frame-prompt" disabled={frozenBusy(continuation.phase)} value={continuation.prompt} onChange={event=>setContinuation({...continuation,prompt:event.target.value})}/></label>
+    <label>续写提示词<textarea data-interaction-id="cloud:results:tail-frame-prompt" disabled={optimizing||frozenBusy(continuation.phase)} value={continuation.prompt} onChange={event=>setContinuation({...continuation,prompt:event.target.value})}/></label>
+    <Button data-interaction-id="cloud:results:tail-frame-ai" busy={optimizing} disabled={optimizing||frozenBusy(continuation.phase)||!continuation.prompt.trim()} onClick={()=>void polishPrompt('tail-frame')}>文字 API 润色</Button>
+    <a data-interaction-id="cloud:results:tail-frame-text-settings" href="/settings/connections#text-api" target="_blank" rel="noopener noreferrer">配置文字 API</a>
     {continuation.message?<p role="status">{continuation.message}</p>:null}
     {continuation.error?<p role="alert">{continuation.error}</p>:null}
    </>:null}
@@ -316,15 +324,17 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
     <p>从原任务冻结的输入快照复制正文、规格与仍可读的素材引用；原视频、原快照与原任务不变。</p>
     <p>规格：{frozenSpec(revision.result.record).modelId} · {frozenSpec(revision.result.record).durationSeconds??'未指定'} 秒 · {frozenSpec(revision.result.record).ratio??'未指定'}</p>
     <label>正文<textarea data-interaction-id="cloud:results:revision-prompt" disabled={optimizing||frozenBusy(revision.phase)} value={revision.prompt} onChange={event=>setRevision({...revision,prompt:event.target.value})}/></label>
-    <Button data-interaction-id="cloud:results:revision-ai" busy={optimizing} disabled={optimizing||frozenBusy(revision.phase)||!revision.prompt.trim()||(frozenSnapshot(revision.result.record).references.length>0&&!revision.availability)} onClick={()=>void optimizeRevision()}>AI 优化提示词</Button>
+    <Button data-interaction-id="cloud:results:revision-ai" busy={optimizing} disabled={optimizing||frozenBusy(revision.phase)||!revision.prompt.trim()||(frozenSnapshot(revision.result.record).references.length>0&&!revision.availability)} onClick={()=>void polishPrompt('revision')}>文字 API 润色</Button>
+    <a data-interaction-id="cloud:results:revision-text-settings" href="/settings/connections#text-api" target="_blank" rel="noopener noreferrer">配置文字 API</a>
     <p data-interaction-id="cloud:results:revision-references">引用：{frozenSnapshot(revision.result.record).references.length?frozenSnapshot(revision.result.record).references.map(reference=>{const state=!revision.availability?'确认中':revision.availability[reference.assetId]&&assets.get(reference.assetId)?.trashedAt==null?'可读':'缺失或已删除';return reference.alias+'（'+state+'）';}).join('、'):'无'}</p>
     {revision.skipped.length?<p role="alert">以下引用不可读，未自动替换：{revision.skipped.join('、')}</p>:null}
     {revision.message?<p role="status">{revision.message}</p>:null}
     {revision.error?<p role="alert">{revision.error}</p>:null}
    </>:null}
   </Dialog>
-  {optimization?<CloudPromptGeneratorPage key={optimization.draftId} client={client} initialDraftId={optimization.draftId} initialAI canApplyCanvas={false} onClose={()=>setOptimization(undefined)} onChoosePrompt={prompt=>{
-   setRevision(current=>current&&current.result.record.id===optimization.recordId&&current.prompt===optimization.prompt?{...current,prompt,error:'',message:'已采用文字 API 优化正文；视频规格与原结果保留。'}:current);
+  {optimization?<CloudPromptGeneratorPage key={optimization.draftId} client={client} initialDraftId={optimization.draftId} initialAI canApplyCanvas={false} choosePromptLabel="采用润色正文" onClose={()=>setOptimization(undefined)} onChoosePrompt={prompt=>{
+   const adopt=<T extends {result:ProjectResult;prompt:string;error:string;message:string}>(current:T|undefined)=>current&&current.result.record.id===optimization.recordId&&current.prompt===optimization.prompt?{...current,prompt,error:'',message:'已采用文字 API 润色正文；视频规格与原结果保留。'}:current;
+   if(optimization.kind==='revision')setRevision(adopt);else setContinuation(adopt);
    setOptimization(undefined);
   }}/>:null}
  </section>;

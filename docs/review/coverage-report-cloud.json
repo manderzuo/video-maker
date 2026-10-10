@@ -7302,6 +7302,11 @@
       "id": "P08"
     },
     {
+      "code": "source_binding_missing",
+      "kind": "pages",
+      "id": "P09"
+    },
+    {
       "code": "facet_missing:normal",
       "kind": "pages",
       "id": "P09"
@@ -7407,9 +7412,19 @@
       "id": "D12"
     },
     {
+      "code": "source_binding_missing",
+      "kind": "dialogs",
+      "id": "D13"
+    },
+    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D13"
+    },
+    {
+      "code": "source_binding_missing",
+      "kind": "dialogs",
+      "id": "D14"
     },
     {
       "code": "facet_missing:normal",
@@ -8996,7 +9011,7 @@
             46,
             47
           ],
-          "sourceHash": "d740323bdc9b395daeff065abcca8573ed2da40a9b9a9f0c66d46ca0ef497cb3"
+          "sourceHash": "58c54fa68443afe0e9a5039cfc09f98d426b10910c57d63320bccca98fcb9248"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
@@ -12235,6 +12250,7 @@
       "status": "incomplete",
       "proofs": [],
       "missing": [
+        "source_binding_missing",
         "facet_missing:normal"
       ]
     },
@@ -12530,7 +12546,7 @@
             23,
             24
           ],
-          "sourceHash": "d740323bdc9b395daeff065abcca8573ed2da40a9b9a9f0c66d46ca0ef497cb3"
+          "sourceHash": "58c54fa68443afe0e9a5039cfc09f98d426b10910c57d63320bccca98fcb9248"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
@@ -12637,6 +12653,7 @@
       "status": "incomplete",
       "proofs": [],
       "missing": [
+        "source_binding_missing",
         "facet_missing:normal"
       ]
     },
@@ -12647,6 +12664,7 @@
       "status": "incomplete",
       "proofs": [],
       "missing": [
+        "source_binding_missing",
         "facet_missing:normal"
       ]
     },

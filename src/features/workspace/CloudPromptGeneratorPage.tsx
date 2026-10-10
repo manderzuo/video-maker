@@ -12,7 +12,7 @@ import {ApiError} from '../../infrastructure/api/client';
 import {cloudTaskStatus} from './CloudTasksPage';
 import {CloudPromptInputSnapshot} from './CloudPromptInputSnapshot';
 import {triggerLocalDownload} from '../../ui/local-download';
-export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,initialAI=false,onClose,onDirtyChange,onCanvasApplied,canApplyCanvas=true,onChoosePrompt}:{onChoosePrompt?:(prompt:string)=>void;canApplyCanvas?:boolean;client:WorkspaceClient;trashed?:boolean;initialDraftId?:string;initialAI?:boolean;onClose?:()=>void;onDirtyChange?:(dirty:boolean)=>void;onCanvasApplied?:()=>void}){
+export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,initialAI=false,onClose,onDirtyChange,onCanvasApplied,canApplyCanvas=true,onChoosePrompt,choosePromptLabel="使用此正文修改视频"}:{choosePromptLabel?:string;onChoosePrompt?:(prompt:string)=>void;canApplyCanvas?:boolean;client:WorkspaceClient;trashed?:boolean;initialDraftId?:string;initialAI?:boolean;onClose?:()=>void;onDirtyChange?:(dirty:boolean)=>void;onCanvasApplied?:()=>void}){
  const [drafts,setDrafts]=useState<PromptDraft[]>([]),[draft,setDraft]=useState<PromptDraft>(),[saved,setSaved]=useState<PromptDraft>(),[assets,setAssets]=useState<Asset[]>([]);
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState(''),[snapshot,setSnapshot]=useState<PromptDraft>(),[discard,setDiscard]=useState(false),[draftSelectEpoch,setDraftSelectEpoch]=useState(0);
  const [selectedId,setSelectedId]=useState<string>(),[centerText,setCenterText]=useState(''),[versionInput,setVersionInput]=useState<PromptDraft>(),[inputFailed,setInputFailed]=useState(false),[inspector,setInspector]=useState(true),[library,setLibrary]=useState<{title:string;source:string}>(),[libraryKey,setLibraryKey]=useState(''),[applying,setApplying]=useState<PromptResultVersion>(),[applyingMode,setApplyingMode]=useState<'text'|'video'|'flow'>('text');
@@ -62,7 +62,7 @@ export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,in
 <label>结果正文<textarea aria-label="结果正文" data-interaction-id="cloud:draft:result-text" disabled={busy} value={centerText} onChange={event=>{edited.current=true;setCenterText(event.target.value);setMessage('');}}/></label>
 {manualDirty?<p data-interaction-id="cloud:draft:result-dirty">正文已人工修改；保存会新增人工版本，AI 原结果保持不变。</p>:null}
 <div className="actions">
-{onChoosePrompt?<Button data-interaction-id="cloud:draft:use-revision-prompt" variant="primary" disabled={busy||dirty||manualDirty||draft.id!==initialDraftId||selected.origin==='local'} onClick={()=>onChoosePrompt(selected.finalPrompt)}>使用此正文修改视频</Button>:null}
+{onChoosePrompt?<Button data-interaction-id="cloud:draft:use-revision-prompt" variant="primary" disabled={busy||dirty||manualDirty||draft.id!==initialDraftId||selected.origin==='local'} onClick={()=>onChoosePrompt(selected.finalPrompt)}>{choosePromptLabel}</Button>:null}
 <Button data-interaction-id="cloud:draft:manual-save" variant="primary" busy={busy} disabled={busy||dirty||!manualDirty||!centerText.trim()} disabledReason={dirty?'请先保存写作输入，再保存正文修改。':undefined} onClick={saveManual}>保存为新的人工结果</Button>
 <Button data-interaction-id="cloud:draft:result-revert" disabled={busy||!manualDirty} onClick={()=>{edited.current=false;setCenterText(selected.finalPrompt);}}>放弃正文修改</Button>
 <Button data-interaction-id="cloud:draft:copy" disabled={!centerText.trim()} onClick={()=>void copyResult()}>复制正文</Button>

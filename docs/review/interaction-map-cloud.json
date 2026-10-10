@@ -45,7 +45,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -156,7 +156,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -267,7 +267,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -378,7 +378,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -489,7 +489,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -600,7 +600,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -711,7 +711,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -822,7 +822,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -933,7 +933,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -1044,7 +1044,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -1821,7 +1821,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -1905,7 +1905,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -1980,7 +1980,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2055,7 +2055,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2130,7 +2130,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2205,7 +2205,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2280,7 +2280,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2355,7 +2355,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2456,7 +2456,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2640,7 +2640,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2787,7 +2787,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2862,7 +2862,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -2942,7 +2942,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3017,7 +3017,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3125,7 +3125,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3249,7 +3249,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3368,7 +3368,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3492,7 +3492,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3616,7 +3616,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3740,7 +3740,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3864,7 +3864,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -3988,7 +3988,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4112,7 +4112,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4236,7 +4236,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4355,7 +4355,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4479,7 +4479,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4603,7 +4603,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4727,7 +4727,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4846,7 +4846,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -4965,7 +4965,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5084,7 +5084,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5203,7 +5203,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5322,7 +5322,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5441,7 +5441,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5560,7 +5560,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5671,7 +5671,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5782,7 +5782,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -5893,7 +5893,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6004,7 +6004,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6115,7 +6115,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6226,7 +6226,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6337,7 +6337,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6448,7 +6448,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6559,7 +6559,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6670,7 +6670,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6781,7 +6781,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -6892,7 +6892,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -7003,7 +7003,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -7114,7 +7114,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -7225,7 +7225,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -7336,7 +7336,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -7447,7 +7447,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -7558,7 +7558,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8004,7 +8004,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8135,7 +8135,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8266,7 +8266,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8397,7 +8397,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8528,7 +8528,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8659,7 +8659,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8790,7 +8790,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -8921,7 +8921,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9052,7 +9052,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9183,7 +9183,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9314,7 +9314,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9445,7 +9445,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9576,7 +9576,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9707,7 +9707,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -9799,7 +9799,7 @@
             46,
             47
           ],
-          "sourceHash": "d740323bdc9b395daeff065abcca8573ed2da40a9b9a9f0c66d46ca0ef497cb3"
+          "sourceHash": "58c54fa68443afe0e9a5039cfc09f98d426b10910c57d63320bccca98fcb9248"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
@@ -9905,7 +9905,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -15418,305 +15418,161 @@
       "id": "A-01",
       "taskId": "T39",
       "label": "连接本地Agent",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-02",
       "taskId": "T39",
       "label": "授予项目访问",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-03",
       "taskId": "T39",
       "label": "只读/建议修改权限",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-04",
       "taskId": "T42",
       "label": "发送任务描述",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-05",
       "taskId": "T42",
       "label": "选择上下文",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-06",
       "taskId": "T40",
       "label": "查看修改提案",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-07",
       "taskId": "T40",
       "label": "接受选中修改",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-08",
       "taskId": "T40",
       "label": "拒绝修改",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-09",
       "taskId": "T40",
       "label": "全部接受",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-10",
       "taskId": "T41",
       "label": "运行提案节点",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-11",
       "taskId": "T42",
       "label": "停止当前Agent回合",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-12",
       "taskId": "T39",
       "label": "断开并撤销授权",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-13",
       "taskId": "T42",
       "label": "新会话",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-14",
       "taskId": "T42",
       "label": "删除本地会话",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-15",
       "taskId": "T42",
       "label": "查看Agent操作记录",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "A-16",
       "taskId": "T40",
       "label": "刷新冲突提案",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
       "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "K-01",
@@ -19897,7 +19753,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -20052,7 +19908,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -20234,7 +20090,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -23895,7 +23751,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -24003,7 +23859,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -24127,7 +23983,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -24592,25 +24448,11 @@
       "id": "P09",
       "taskId": "T42",
       "label": "Agent 协作",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
-      "sources": [
-        {
-          "file": "src/features/workspace/CloudAgentPanel.tsx",
-          "anchor": "export function"
-        }
-      ],
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
+      "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "P10",
@@ -25243,7 +25085,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -25812,7 +25654,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -25906,7 +25748,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -26007,7 +25849,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -26115,7 +25957,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -26447,7 +26289,7 @@
             23,
             24
           ],
-          "sourceHash": "d740323bdc9b395daeff065abcca8573ed2da40a9b9a9f0c66d46ca0ef497cb3"
+          "sourceHash": "58c54fa68443afe0e9a5039cfc09f98d426b10910c57d63320bccca98fcb9248"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
@@ -26553,7 +26395,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -26877,7 +26719,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {
@@ -27154,49 +26996,21 @@
       "id": "D13",
       "taskId": "T39",
       "label": "Agent首次授权",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
-      "sources": [
-        {
-          "file": "src/ui/dialog-contracts.ts",
-          "anchor": "'Agent 项目授权'"
-        }
-      ],
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
+      "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "D14",
       "taskId": "T40",
       "label": "Agent提案审阅",
-      "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
-      "sources": [
-        {
-          "file": "src/ui/dialog-contracts.ts",
-          "anchor": "'Agent 提案审阅'"
-        }
-      ],
+      "disposition": "user_requested_entry_replacement",
+      "reason": "2026-10-10 用户明确删除云端画布 Agent 协作及提案链条。入口、面板和对应调用链移除，旧地址返回画布；既有任务、账务、历史记录保留。原旧版能力不再作为本轮交付门，移除行为由真实浏览器检查。",
+      "sources": [],
       "proofs": [],
-      "candidates": [
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
-          "status": "passed"
-        },
-        {
-          "testId": "tests/e2e/cloud-agent.spec.ts::retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
-          "status": "passed"
-        }
-      ]
+      "candidates": []
     },
     {
       "id": "D15",
@@ -28040,7 +27854,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video and Agent inputs",
+          "testId": "tests/e2e/cloud-controls.spec.ts::collapsing the sidebar preserves unsaved video input without Agent controls",
           "status": "passed"
         },
         {

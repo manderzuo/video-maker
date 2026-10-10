@@ -48,12 +48,12 @@ test('optimizes a revision through the text API and saves a new draft while pres
  await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'修改后重新生成',exact:true}).click();
  const revision=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
  await revision.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('改成日落街道，保持原镜头');
- await revision.getByRole('button',{name:'AI 优化提示词',exact:true}).click();
+ await revision.getByRole('button',{name:'文字 API 润色',exact:true}).click();
  const confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
  await confirm.getByLabel('我确认此文字调用可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
  const panel=page.locator('.prompt-generator-panel');await expect(panel.getByLabel('结果正文',{exact:true})).toHaveValue('云端 AI 优化的雨后街道');
- await panel.getByRole('button',{name:'使用此正文修改视频',exact:true}).click();
+ await panel.getByRole('button',{name:'采用润色正文',exact:true}).click();
  await expect(revision.locator('[data-interaction-id="cloud:results:revision-prompt"]')).toHaveValue('云端 AI 优化的雨后街道');
  await revision.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();await expect(revision).not.toBeVisible();
  const graph=await graphOf(workspace,projectId);expect(graph.nodes.find(node=>node.title==='修改提示词')?.data.text).toBe('云端 AI 优化的雨后街道');
@@ -61,6 +61,35 @@ test('optimizes a revision through the text API and saves a new draft while pres
  const original=(await workspace.call('GET','/studio-api/runs/'+run.id,h)).json();expect(original.inputSnapshot.prompt).toBe('雨后的街道，一镜到底');
  expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/videos/'))).toHaveLength(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/chat/'))).toHaveLength(1);
+});
+test('tail-frame text polishing can be cancelled and explicitly adopted without changing the frame, original result or video specifications',async({page,workspace})=>{
+ await configureVideo(workspace);const h=workspace.headers(workspace.account);
+ await workspace.call('PATCH','/studio-api/me/model-configs/text',{...h,payload:{apiBase:'https://api.example.test',model:'Vendor/Cloud-Text',apiKey:'FAKE_TEXT_UI_KEY',expectedRevision:null}});
+ const {projectId,nodeIds}=await seedProject(workspace,'续写文字润色'),[run]=await generate(page,workspace,projectId,nodeIds);
+ await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'尾帧续写',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});const prompt=dialog.locator('[data-interaction-id="cloud:results:tail-frame-prompt"]');
+ await dialog.getByLabel('抽取时间（秒）',{exact:true}).fill('0.2');await dialog.getByRole('button',{name:'抽取并预览尾帧',exact:true}).click();await expect(dialog.getByAltText('尾帧预览')).toBeVisible();
+ await prompt.fill('继续雨后街道，镜头慢慢抬高');
+ await dialog.getByRole('button',{name:'文字 API 润色',exact:true}).click();
+ let confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();await confirm.getByRole('button',{name:'取消',exact:true}).click();
+ await page.getByRole('button',{name:'关闭写作面板',exact:true}).click();await expect(prompt).toHaveValue('继续雨后街道，镜头慢慢抬高');await expect(dialog.getByAltText('尾帧预览')).toBeVisible();expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/chat/'))).toHaveLength(0);
+ await dialog.getByRole('button',{name:'文字 API 润色',exact:true}).click();confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();
+ await confirm.getByLabel('我确认此文字调用可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
+ const panel=page.locator('.prompt-generator-panel');await expect(panel.getByLabel('结果正文',{exact:true})).toHaveValue('云端 AI 优化的雨后街道');await panel.getByRole('button',{name:'采用润色正文',exact:true}).click();
+ await expect(prompt).toHaveValue('云端 AI 优化的雨后街道');await expect(dialog.getByLabel('抽取时间（秒）',{exact:true})).toHaveValue('0.2');await expect(dialog.getByAltText('尾帧预览')).toBeVisible();
+ await dialog.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();await expect(dialog).not.toBeVisible();
+ const graph=await graphOf(workspace,projectId);expect(graph.nodes.find(node=>node.title==='续写提示词')?.data.text).toBe('云端 AI 优化的雨后街道');expect(graph.nodes.filter(node=>node.type==='result')).toHaveLength(1);
+ const drafts=graph.nodes.filter(node=>node.type==='video-generation');expect(drafts).toHaveLength(2);expect(drafts[1].data.draft).toMatchObject({durationSeconds:5,ratio:'16:9',resolution:'480p'});
+ expect((await workspace.call('GET','/studio-api/runs/'+run.id,h)).json().inputSnapshot).toEqual(run.inputSnapshot);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/videos/'))).toHaveLength(1);expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/chat/'))).toHaveLength(1);
+});
+test('both result dialogs keep the entered prompt and offer text API settings when no text model is configured',async({page,workspace})=>{
+ await configureVideo(workspace);const {projectId,nodeIds}=await seedProject(workspace,'未配置文字模型');await generate(page,workspace,projectId,nodeIds);await page.goto('/projects/'+projectId+'/results');
+ for(const action of ['尾帧续写','修改后重新生成']){
+  await page.getByRole('button',{name:action,exact:true}).click();const dialog=page.getByRole('dialog',{name:action,exact:true});const prompt=dialog.locator('textarea');await prompt.fill('保留未保存的正文');await dialog.getByRole('button',{name:'文字 API 润色',exact:true}).click();
+  await expect(dialog.getByRole('alert')).toContainText('配置文字 API');await expect(prompt).toHaveValue('保留未保存的正文');await expect(dialog.getByRole('link',{name:'配置文字 API',exact:true})).toHaveAttribute('href','/settings/connections#text-api');await expect(dialog.getByRole('link',{name:'配置文字 API',exact:true})).toHaveAttribute('target','_blank');await expect(page.locator('.prompt-generator-panel')).toHaveCount(0);await dialog.getByRole('button',{name:'取消',exact:true}).click();
+ }
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
 test('plays an automatically placed result and undoes only its lineage without another generation',async({page,workspace})=>{
  await configureVideo(workspace);
@@ -268,6 +297,9 @@ test('reaches the results page from existing canvas and task entries with explic
 test('reuses an existing asset node and undoes only the new association',async({page,workspace})=>{
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'复用撤销'),[run]=await generate(page,workspace,projectId,nodeIds);
+ // Supplier completion precedes the separate durable canvas insertion transaction.
+ // Undo its committed history only after that result is actually present.
+ await expect.poll(async()=>(await graphOf(workspace,projectId)).nodes.some(node=>node.type==='result'&&node.data.runId===run.id)).toBe(true);
  const nodeId=randomUUID(),headers=workspace.headers(workspace.account);
  const placed=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',headers)).json();
  expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...headers,payload:{expectedRevision:placed.graph.revision,idempotencyKey:randomUUID(),command:{type:'undo'}}})).statusCode).toBe(200);

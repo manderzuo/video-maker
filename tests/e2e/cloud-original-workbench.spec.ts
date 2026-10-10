@@ -126,10 +126,11 @@ test('original asset preview uses private cloud media without opening the anonym
 });
 
 
-test('original agent address and the canvas prompt button open their usable panels without supplier calls',async({page,workspace})=>{
+test('old Agent address returns to canvas and the prompt panel remains usable without supplier calls',async({page,workspace})=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'原工作台面板入口'}})).json();
  await page.goto('/projects/'+project.id+'/agent');
- await expect(page.getByRole('button',{name:'新建 Agent 会话',exact:true})).toBeVisible();
+ await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas$'));
+ await expect(page.getByRole('button',{name:/Agent 协作|Agent 提案|新建 Agent 会话/})).toHaveCount(0);
  await page.getByRole('button',{name:'提示词生成面板',exact:true}).click();
  await expect(page.locator('.prompt-generator-panel')).toBeVisible();
  await expect(page.getByRole('button',{name:'新建视频写作草稿',exact:true})).toBeVisible();

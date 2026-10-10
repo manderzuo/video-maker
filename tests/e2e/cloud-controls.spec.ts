@@ -166,7 +166,7 @@ test('desktop canvas bottom stays within the remaining viewport at desktop bound
  await testInfo.attach('layout-measurements',{body:JSON.stringify(measurements,null,2),contentType:'application/json'});
  expect(workspace.providerCalls).toHaveLength(0);
 });
-test('collapsing the sidebar preserves unsaved video and Agent inputs',async({page,workspace})=>{
+test('collapsing the sidebar preserves unsaved video input without Agent controls',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);
  expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'侧栏输入保留'}})).json();
@@ -174,12 +174,10 @@ test('collapsing the sidebar preserves unsaved video and Agent inputs',async({pa
  expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:'55555555-5555-4555-8555-555555555555',command:{type:'operations',operations:[{id:'66666666-6666-4666-8666-666666666666',type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}}]}}})).statusCode).toBe(200);
  await page.goto('/projects/'+project.id+'/canvas');await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
  await page.getByLabel('为视频草稿填写提示词',{exact:true}).fill('尚未保存的视频正文');
- await page.getByRole('button',{name:'Agent 协作',exact:true}).click();await page.getByRole('button',{name:'新建 Agent 会话',exact:true}).click();
- await page.getByLabel('Agent 任务描述',{exact:true}).fill('尚未保存的 Agent 描述');
  await page.getByRole('button',{name:'收起侧栏',exact:true}).click();
  await page.getByRole('button',{name:'展开侧栏',exact:true}).click();
  await expect(page.getByLabel('为视频草稿填写提示词',{exact:true})).toHaveValue('尚未保存的视频正文');
- await expect(page.getByLabel('Agent 任务描述',{exact:true})).toHaveValue('尚未保存的 Agent 描述');
+ await expect(page.getByRole('button',{name:/Agent 协作|Agent 提案/})).toHaveCount(0);
  expect(workspace.providerCalls).toHaveLength(0);
 });
 test('a narrow short viewport degrades to a scrollable layout with a usable canvas floor',async({page,workspace},testInfo)=>{
