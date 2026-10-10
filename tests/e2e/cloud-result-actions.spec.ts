@@ -41,6 +41,42 @@ async function generate(page:import('@playwright/test').Page,value:unknown,proje
  await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(nodeIds.length);
  return (await ctx.pool.query('SELECT document FROM workspace_video_runs WHERE project_id=$1 ORDER BY created_at',[projectId])).rows.map(row=>row.document as {id:string;resultAssetId:string;inputSnapshot:{references:{alias:string;assetId:string}[]}});
 }
+test('generates a saved tail-frame continuation from its canvas node with the exact frame and prompt',async({page,workspace})=>{
+ workspace.setVideoReferenceSupport({imageReferences:1,videoReferences:0,assetUploads:true});
+ await configureVideo(workspace);
+ const {projectId,nodeIds}=await seedProject(workspace,'续写生成入口'),[original]=await generate(page,workspace,projectId,nodeIds);
+ await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'尾帧续写',exact:true}).click();
+ const tail=page.getByRole('dialog',{name:'尾帧续写',exact:true});
+ await tail.locator('[data-interaction-id="cloud:results:tail-frame-time"]').fill('0.2');
+ await tail.getByRole('button',{name:'抽取并预览尾帧',exact:true}).click();
+ await expect(tail.locator('[data-interaction-id="cloud:results:tail-frame-preview"]')).toBeVisible();
+ await tail.locator('[data-interaction-id="cloud:results:tail-frame-prompt"]').fill('从这张尾帧继续向前推进');
+ await tail.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();await expect(tail).not.toBeVisible();
+ const graph=await graphOf(workspace,projectId),draft=graph.nodes.find(node=>node.title==='尾帧续写视频')!,frame=graph.nodes.find(node=>node.title==='尾帧参考')!;
+ await page.goto('/projects/'+projectId+'/canvas?node='+draft.id);
+ await page.locator('[data-node-id="'+draft.id+'"] [data-interaction-id="V-08"]').click();
+ const confirm=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(confirm).toBeVisible();
+ await expect(confirm.getByLabel('视频生成预览正文',{exact:true})).toContainText('从这张尾帧继续向前推进');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.endsWith('/v1/videos/generations'))).toHaveLength(1);
+ await confirm.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
+ const approval=(await workspace.pool.query('SELECT id FROM workspace_video_previews WHERE project_id=$1 AND consumed_runs IS NULL ORDER BY (document->>\'expiresAt\')::bigint DESC',[projectId])).rows[0].id;
+ await workspace.pool.query("UPDATE workspace_video_previews SET document=jsonb_set(document,'{expiresAt}',to_jsonb($2::bigint)) WHERE id=$1",[approval,Date.now()-1]);
+ await confirm.getByRole('button',{name:'确认生成',exact:true}).click();
+ await expect(confirm.getByRole('button',{name:'重新预览',exact:true})).toBeVisible();
+ await expect(confirm.getByLabel('我确认所列视频生成可能收费',{exact:true})).not.toBeChecked();
+ await confirm.getByRole('button',{name:'重新预览',exact:true}).click();
+ await expect(confirm.getByRole('button',{name:'确认生成',exact:true})).toBeDisabled();
+ await expect(confirm.getByLabel('视频生成预览正文',{exact:true})).toContainText('从这张尾帧继续向前推进');
+ await expect(confirm).toContainText('tail-frame-200ms.png');
+ expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1',[projectId])).rows[0].n).toBe(1);
+ await confirm.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认生成',exact:true}).click();
+ await expect.poll(async()=>(await workspace.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(2);
+ const continuation=(await workspace.pool.query("SELECT document FROM workspace_video_runs WHERE project_id=$1 AND document->>'nodeId'=$2",[projectId,draft.id])).rows[0].document;
+ expect(continuation.inputSnapshot.references.map((reference:{assetId:string})=>reference.assetId)).toEqual([frame.data.assetId]);
+ expect(continuation.inputSnapshot.prompt).toContain('从这张尾帧继续向前推进');
+ expect((await workspace.call('GET','/studio-api/runs/'+original.id,workspace.headers(workspace.account))).json().inputSnapshot.prompt).toBe('雨后的街道，一镜到底');
+});
+
 test('optimizes a revision through the text API and saves a new draft while preserving the original result',async({page,workspace})=>{
  await configureVideo(workspace);const h=workspace.headers(workspace.account);
  await workspace.call('PATCH','/studio-api/me/model-configs/text',{...h,payload:{apiBase:'https://api.example.test',model:'Vendor/Cloud-Text',apiKey:'FAKE_TEXT_UI_KEY',expectedRevision:null}});

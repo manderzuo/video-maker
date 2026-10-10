@@ -5,6 +5,63 @@ async function savedProject(workspace:Awaited<ReturnType<typeof fixture>>&{accou
  const h=workspace.headers(workspace.account);expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'失败与取消检查'}})).json(),textId=randomUUID(),nodeId=randomUUID();expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'安全转换的输入',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}})).statusCode).toBe(200);return project;
 }
+test('expires an open confirmation before submission and offers a fresh preview without generating',async({page,workspace})=>{
+ await page.clock.install();
+ const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');
+ await page.locator('[data-interaction-id="V-08"]').click();
+ const dialog=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(dialog).toBeVisible();
+ await dialog.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
+ await page.clock.fastForward(121000);
+ await expect(dialog.getByRole('button',{name:'重新预览',exact:true})).toBeVisible();
+ await expect(dialog.getByRole('button',{name:'确认生成',exact:true})).not.toBeVisible();
+ await expect(dialog.getByLabel('我确认所列视频生成可能收费',{exact:true})).toBeDisabled();
+ await expect(dialog.getByLabel('视频生成预览正文',{exact:true})).toContainText('安全转换的输入');
+ expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+
+test('refreshes a confirmation invalidated by a pending viewport save without changing its target',async({page,workspace})=>{
+ const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');
+ let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});let received=false;
+ await page.route('**/studio-api/projects/*/video-run-preview',async route=>{
+  const response=await workspace.call('POST',new URL(route.request().url()).pathname,{...workspace.headers(workspace.account),payload:route.request().postDataJSON()});
+  received=true;await gate;await route.fulfill({status:response.statusCode,contentType:'application/json',body:JSON.stringify(response.json())});
+ });
+ try{
+  await page.locator('[data-interaction-id="V-08"]').click();await expect.poll(()=>received).toBe(true);
+  await page.getByRole('button',{name:'放大',exact:true}).click();
+  await expect.poll(async()=>(await workspace.call('GET','/studio-api/projects/'+project.id+'/workspace',workspace.headers(workspace.account))).json().graph.revision).toBe(2);
+  release();const dialog=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole('button',{name:'重新预览',exact:true})).toBeVisible();
+  await dialog.getByRole('button',{name:'重新预览',exact:true}).click();
+  await expect(dialog.getByRole('button',{name:'确认生成',exact:true})).toBeDisabled();
+  await expect(dialog.getByLabel('视频生成预览正文',{exact:true})).toContainText('安全转换的输入');
+  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
+  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+ }finally{release();}
+});
+
+test('retries the same approval after a lost confirmation response even when its displayed expiry has passed',async({page,workspace})=>{
+ await page.clock.install();const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');
+ await page.locator('[data-interaction-id="V-08"]').click();const dialog=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});
+ await dialog.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
+ const attempts:{approvalId:string}[]=[];let lose=true;
+ await page.route('**/studio-api/projects/*/video-runs',async route=>{
+  attempts.push(route.request().postDataJSON());
+  if(!lose){await route.fallback();return;}
+  lose=false;const response=await workspace.call('POST',new URL(route.request().url()).pathname,{...workspace.headers(workspace.account),payload:route.request().postDataJSON()});
+  expect(response.statusCode).toBe(202);await route.abort('failed');
+ });
+ await dialog.getByRole('button',{name:'确认生成',exact:true}).click();
+ await expect(dialog.getByRole('alert')).toBeVisible();await page.clock.fastForward(121000);
+ await expect(dialog.getByRole('button',{name:'确认生成',exact:true})).toBeEnabled();
+ await expect(dialog.getByRole('button',{name:'重新预览',exact:true})).not.toBeVisible();
+ await dialog.getByRole('button',{name:'确认生成',exact:true}).click();await expect(dialog).not.toBeVisible();
+ expect(attempts).toHaveLength(2);expect(attempts[1].approvalId).toBe(attempts[0].approvalId);
+ expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(1);
+ await expect.poll(()=>workspace.providerCalls.filter(call=>call.method==='POST').length).toBe(1);
+});
+
 test('previews exact owned cloud video inputs, confirms once, saves the private result and inserts durable lineage',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}});
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'云端视频流程'}})).json(),textId=randomUUID(),nodeId=randomUUID();await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'雨后街道',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}});
