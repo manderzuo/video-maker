@@ -1,6 +1,9 @@
 # 第三方运行时许可原文按 LF 保留与检出
 # 与 npm 安装包内逐字节一致，check-license 直接比对字节 hash
 third-party/licenses/runtime-*.LICENSE text eol=lf
+# 固定来源许可保留来源快照的原字节，包括原有 CRLF。
+third-party/licenses/infinite-canvas.LICENSE -text
+third-party/licenses/prompt-for-seedance-gptimage2.5.LICENSE -text
 # 已应用迁移按原字节保存；数据库校验和不接受 Git 换行转换。
 server/src/db/migrations/*.sql -text
 # 浏览器执行证明使用原文件 SHA256；固定测试换行以跨平台复核。

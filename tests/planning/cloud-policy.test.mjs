@@ -4,6 +4,7 @@ import {migrationReferences, packageMigrations, containsMigrationDdl, validateRe
 import { readFileSync, readdirSync, existsSync, mkdirSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync, rmSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
 // Cloud planning gate: runs inside the current test-owned isolation root,
 // never creates junctions in the legacy E:/trae-studio/TRAEWORK/aiwork-studio root.
 // Mirrors the traversal/symlink denials and license provenance of the legacy gate.
@@ -65,7 +66,14 @@ test('CLOUD-P06: original pinned sources and retained license bytes are independ
  }
  for(const [repository,retained] of [['basketikun/infinite-canvas','infinite-canvas.LICENSE'],['manderzuo/prompt-for-seedance-gptimage2.5','prompt-for-seedance-gptimage2.5.LICENSE']]){
   const source=manifest.sources.find(entry=>entry.repository===repository);assert.ok(source,repository);
-  assert.deepEqual(readFileSync(resolve(root,'third-party/licenses',retained)),readFileSync(resolve(source.snapshotPath,'LICENSE')));
+  const file='third-party/licenses/'+retained;
+  const original=readFileSync(resolve(source.snapshotPath,'LICENSE'));
+  const retainedBytes=readFileSync(resolve(root,file));
+  assert.equal(createHash('sha256').update(retainedBytes).digest('hex'),createHash('sha256').update(original).digest('hex'),file+' must preserve the pinned source bytes');
+  const filtered=execFileSync('git',['hash-object','--path='+file,'--stdin'],{cwd:root,input:original,encoding:'utf8',windowsHide:true}).trim();
+  const raw=execFileSync('git',['hash-object','--stdin'],{cwd:root,input:original,encoding:'utf8',windowsHide:true}).trim();
+  assert.equal(filtered,raw,file+' must survive the Git clean filter without byte conversion');
+  assert.equal(execFileSync('git',['rev-parse',':'+file],{cwd:root,encoding:'utf8',windowsHide:true}).trim(),raw,file+' must be staged with the original bytes');
  }
 });
 test('CLOUD-P05: write policy denies traversal and junctions inside the test-owned work area', async () => {
