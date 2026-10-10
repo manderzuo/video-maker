@@ -2102,11 +2102,6 @@
       "id": "T-06"
     },
     {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "T-06"
-    },
-    {
       "code": "source_binding_missing",
       "kind": "interactions",
       "id": "T-07"
@@ -5930,16 +5925,6 @@
       "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "H-03"
-    },
-    {
-      "code": "assertion_not_observable",
-      "kind": "interactions",
-      "id": "H-04"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "H-04"
     },
     {
       "code": "facet_missing:disabled",
@@ -6468,11 +6453,6 @@
     },
     {
       "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "PG02"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "PG02"
     },
@@ -8834,12 +8814,35 @@
             25,
             26
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            13,
+            338,
+            341,
+            345,
+            347,
+            350,
+            353,
+            354,
+            355,
+            357,
+            361,
+            364,
+            366,
+            367
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {
@@ -10954,22 +10957,13 @@
           ],
           "assertionLines": [
             14,
-            134,
-            136,
-            137,
             139,
             141,
-            145,
-            146,
-            148,
-            150,
-            152
+            145
           ]
         }
       ],
       "missing": [
-        "assertion_not_observable",
-        "facet_missing:normal",
         "facet_missing:disabled",
         "facet_missing:error",
         "facet_missing:persistence",
@@ -11501,12 +11495,35 @@
             46,
             47
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            13,
+            338,
+            341,
+            345,
+            347,
+            350,
+            353,
+            354,
+            355,
+            357,
+            361,
+            364,
+            366,
+            367
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:persistence"
       ]
     },
     {

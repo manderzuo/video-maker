@@ -15049,6 +15049,167 @@
         "paidRequests": 0,
         "blockedRequests": 0
       }
+    },
+    {
+      "id": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+      "file": "tests/e2e/cloud-library-transfer.spec.ts",
+      "title": "optimizes a canvas node text end to end keeping neighbors",
+      "status": "passed",
+      "assertions": 21,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 338,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 13,
+          "column": 356,
+          "function": "seedTextProject"
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 341,
+          "column": 369
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 345,
+          "column": 41
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 347,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 350,
+          "column": 28
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 350,
+          "column": 71
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 350,
+          "column": 113
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 353,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 354,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 355,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 357,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 361,
+          "column": 41
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 362,
+          "column": 91
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 364,
+          "column": 61
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 366,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 367,
+          "column": 86
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 343,
+          "column": 79
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 344,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 346,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 351,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 356,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 358,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 359,
+          "column": 53
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 360,
+          "column": 62
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
     }
   ]
 }

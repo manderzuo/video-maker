@@ -8078,6 +8078,30 @@
             25,
             26
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            13,
+            338,
+            341,
+            345,
+            347,
+            350,
+            353,
+            354,
+            355,
+            357,
+            361,
+            364,
+            366,
+            367
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "candidates": [
@@ -19994,16 +20018,9 @@
           ],
           "assertionLines": [
             14,
-            134,
-            136,
-            137,
             139,
             141,
-            145,
-            146,
-            148,
-            150,
-            152
+            145
           ]
         }
       ],
@@ -21816,6 +21833,30 @@
             46,
             47
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+          "facets": [
+            "normal",
+            "sideEffect"
+          ],
+          "assertionLines": [
+            13,
+            338,
+            341,
+            345,
+            347,
+            350,
+            353,
+            354,
+            355,
+            357,
+            361,
+            364,
+            366,
+            367
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "candidates": [
