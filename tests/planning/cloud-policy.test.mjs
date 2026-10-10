@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, mkdirSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync, rmSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 // Cloud planning gate: runs inside the current test-owned isolation root,
 // never creates junctions in the legacy E:/trae-studio/TRAEWORK/aiwork-studio root.
@@ -10,13 +10,18 @@ test('CLOUD-P01: migration list is identical across engine, fixtures and package
  const dir = resolve(root, 'server/src/db/migrations');
  const files = readdirSync(dir).filter(name => /^\d{3}-.+\.sql$/.test(name)).sort();
  assert.ok(files.length >= 8 && files[files.length - 1] === '008-project-purge.sql');
+ for (const file of files) {
+  const sql = readFileSync(resolve(dir, file), 'utf8');
+  assert.ok(sql.trim().length > 50, file + ' must not be empty');
+ }
  const accountFixture = readFileSync(resolve(root, 'server/tests/account-fixture.ts'), 'utf8');
  const browserFixture = readFileSync(resolve(root, 'server/tests/browser-fixture.ts'), 'utf8');
  const packager = readFileSync(resolve(root, 'scripts/package-account-cloud.mjs'), 'utf8');
+ const packaged = [...packager.matchAll(/'(\d{3}-[a-z0-9-]+\.sql)'/g)].map(match => match[1]);
  for (const file of files) {
   assert.ok(accountFixture.includes(file), 'account-fixture misses ' + file);
   assert.ok(browserFixture.includes(`'${file}'`), 'browser-fixture misses ' + file);
-  assert.ok(packager.includes(`'${file}'`), 'package misses ' + file);
+  assert.ok(packaged.includes(file), 'package array misses ' + file);
  }
 });
 test('CLOUD-P02: cloud planning never creates junctions in the legacy root', () => {
@@ -30,9 +35,13 @@ test('CLOUD-P03: cloud traceability registration consumes real executed evidence
  assert.equal(results.format, 'aiwork-studio-executed-test-evidence');
  assert.ok(results.tests.length > 100);
  assert.ok(results.tests.every(test => test.id && test.file && test.status));
+ const withSource = results.tests.filter(test => typeof test.sourceHash === 'string' && test.sourceHash);
+ assert.ok(withSource.length > 40, 'executed tests must carry source hashes, got ' + withSource.length);
  const map = JSON.parse(readFileSync(resolve(root, 'docs/review/interaction-map-cloud.json'), 'utf8'));
  assert.equal(map.interactions.length, 260);
  assert.ok(map.interactions.every(row => Array.isArray(row.sources) && Array.isArray(row.proofs)));
+ const sealed = map.interactions.flatMap(row => row.proofs).filter(proof => typeof proof.sourceHash === 'string' && proof.sourceHash);
+ assert.ok(sealed.length > 50, 'proofs must carry sealed source hashes, got ' + sealed.length);
 });
 test('CLOUD-P04: traversal and symlink denials stay enforced, brand and visual gates stay manual', () => {
  const packager = readFileSync(resolve(root, 'scripts/package-account-cloud.mjs'), 'utf8');
@@ -47,7 +56,9 @@ test('CLOUD-P05: write policy denies traversal and junctions inside the test-own
  for (const outside of ['../outside.txt', 'C:/outside.txt', '../account-api-cloud-20261008-other/test']) {
   assert.throws(() => assertProjectWritePath(root, outside), /outside_authorized_project/);
  }
- const owned = mkdtempSync(resolve(root, 'work/cloud-policy-owned-'));
+ const workDir = resolve(root, 'work');
+ if (!existsSync(workDir)) mkdirSync(workDir, { recursive: true });
+ const owned = mkdtempSync(resolve(workDir, 'cloud-policy-owned-'));
  const link = resolve(owned, 'escape-link');
  try {
   symlinkSync(resolve(root, '..'), link, 'junction');
