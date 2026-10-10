@@ -7309,11 +7309,6 @@
     {
       "code": "facet_missing:normal",
       "kind": "dialogs",
-      "id": "D07"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
       "id": "D08"
     },
     {
@@ -12717,11 +12712,21 @@
       "id": "D07",
       "kind": "dialogs",
       "taskId": "T16",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::edits project and asset metadata, searches and archives, and restores owned trash through the actual buttons",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            21,
+            22
+          ],
+          "sourceHash": "88fd2213cf952f46acf615f9b92008c3d6c6301c31a4640e0762ba4393c493a7"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "D08",

@@ -3506,6 +3506,7 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "edits project and asset metadata, searches and archives, and restores owned trash through the actual buttons",
       "status": "passed",
+      "sourceHash": "88fd2213cf952f46acf615f9b92008c3d6c6301c31a4640e0762ba4393c493a7",
       "assertions": 12,
       "actions": 32,
       "assertionLocations": [

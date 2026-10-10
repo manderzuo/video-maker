@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, existsSync, mkdirSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync, rmSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 // Cloud planning gate: runs inside the current test-owned isolation root,
@@ -12,12 +13,13 @@ test('CLOUD-P01: migration list is identical across engine, fixtures and package
  assert.ok(files.length >= 8 && files[files.length - 1] === '008-project-purge.sql');
  for (const file of files) {
   const sql = readFileSync(resolve(dir, file), 'utf8');
-  assert.ok(sql.trim().length > 50, file + ' must not be empty');
+  assert.ok(/(CREATE|ALTER)\s+(TABLE|INDEX)/i.test(sql), file + ' must contain real DDL, not comments');
  }
  const accountFixture = readFileSync(resolve(root, 'server/tests/account-fixture.ts'), 'utf8');
  const browserFixture = readFileSync(resolve(root, 'server/tests/browser-fixture.ts'), 'utf8');
  const packager = readFileSync(resolve(root, 'scripts/package-account-cloud.mjs'), 'utf8');
- const packaged = [...packager.matchAll(/'(\d{3}-[a-z0-9-]+\.sql)'/g)].map(match => match[1]);
+ const packaged = [...packager.matchAll(/const\s+migrationNames\s*=\s*\[([^\]]+)\]/g)].flatMap(match => [...match[1].matchAll(/'(\d{3}-[a-z0-9-]+\.sql)'/g)].map(entry => entry[1]));
+ assert.ok(packaged.length >= 8, 'package migration array must list real entries, got ' + packaged.length);
  for (const file of files) {
   assert.ok(accountFixture.includes(file), 'account-fixture misses ' + file);
   assert.ok(browserFixture.includes(`'${file}'`), 'browser-fixture misses ' + file);
@@ -37,6 +39,13 @@ test('CLOUD-P03: cloud traceability registration consumes real executed evidence
  assert.ok(results.tests.every(test => test.id && test.file && test.status));
  const withSource = results.tests.filter(test => typeof test.sourceHash === 'string' && test.sourceHash);
  assert.ok(withSource.length > 40, 'executed tests must carry source hashes, got ' + withSource.length);
+ // 抽查核心文件的 hash 必须等于当前文件（防伪造 hash）。
+ for (const file of ['tests/e2e/cloud-library-transfer.spec.ts', 'tests/e2e/cloud-project-batch.spec.ts']) {
+  const current = createHash('sha256').update(readFileSync(resolve(root, file))).digest('hex');
+  const executed = results.tests.filter(test => test.file === file && test.status === 'passed');
+  assert.ok(executed.length > 0, file + ' must have executed tests');
+  assert.ok(executed.every(test => test.sourceHash === current), file + ' executed hash must match current source');
+ }
  const map = JSON.parse(readFileSync(resolve(root, 'docs/review/interaction-map-cloud.json'), 'utf8'));
  assert.equal(map.interactions.length, 260);
  assert.ok(map.interactions.every(row => Array.isArray(row.sources) && Array.isArray(row.proofs)));
