@@ -302,8 +302,8 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
     <Button data-interaction-id="cloud:results:details" disabled={busy} onClick={()=>setDetails(record)}>查看任务详情</Button>
     <Button data-interaction-id="cloud:results:choose" disabled={busy||!asset} onClick={()=>choose({record,asset})}>选择此结果放入画布</Button>
     <Button data-interaction-id="cloud:results:undo" disabled={busy||!existing||!existing.data.generationLinked&&!placements[record.id]?.created} onClick={()=>undo({record,asset})}>撤销选择</Button>
-    <Button data-interaction-id="cloud:results:tail-frame" disabled={busy||!asset} onClick={()=>openContinuation({record,asset})}>尾帧续写</Button>
-    <Button data-interaction-id="cloud:results:revision" disabled={busy||!asset} onClick={()=>openRevision({record,asset})}>修改后重新生成</Button>
+    <Button className="result-generation-action" variant="primary" data-interaction-id="cloud:results:tail-frame" disabled={busy||!asset} onClick={()=>openContinuation({record,asset})}>尾帧续写</Button>
+    <Button className="result-generation-action" variant="primary" data-interaction-id="cloud:results:revision" disabled={busy||!asset} onClick={()=>openRevision({record,asset})}>修改后重新生成</Button>
     <label>加入比较<input data-interaction-id="cloud:results:compare" type="checkbox" checked={compare.includes(record.id)} onChange={event=>setCompare(current=>event.target.checked?[...new Set([...current,record.id])].slice(0,2):current.filter(id=>id!==record.id))}/></label>
    </div>
    {existing?<p data-interaction-id="cloud:results:linked">已在画布中：结果节点 {existing.id}（{existing.data.generationLinked?'来源关系已记录':'来源关系已解除'}）</p>:null}

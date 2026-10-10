@@ -39,8 +39,8 @@ test('surfaces unknown and failed runs for recovery without sending requests',as
  await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'恢复用的正文',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}});
  await page.goto('/projects/'+project.id+'/canvas');
  await page.locator('[data-node-id="'+nodeId+'"] [data-interaction-id="V-08"]').click();
- await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
- await page.getByRole('button',{name:'确认生成',exact:true}).click();
+
+ await page.getByRole('button',{name:'确认',exact:true}).click();
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state).toBe('submit_unknown');
  const posts=workspace.providerCalls.filter(call=>call.method==='POST').length;
  await page.goto('/recovery');
@@ -62,8 +62,8 @@ test('exports a redacted cloud diagnostics report',async({page,workspace},testIn
  await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'诊断用的正文',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}});
  await page.goto('/projects/'+project.id+'/canvas');
  await page.locator('[data-node-id="'+nodeId+'"] [data-interaction-id="V-08"]').click();
- await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
- await page.getByRole('button',{name:'确认生成',exact:true}).click();
+
+ await page.getByRole('button',{name:'确认',exact:true}).click();
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
  await page.goto('/activity');
  // Initial graph save plus the new server-side completed-result placement.

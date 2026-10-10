@@ -47,3 +47,7 @@
 .account-shell .video-task-list article[data-execution-state="succeeded"]{border-color:#34d399}
 .account-shell .video-task-list article:is([data-execution-state="failed_confirmed"],[data-execution-state="submit_unknown"]){border-color:#f87171}
 .account-shell .video-task-list p{margin:0 0 8px}
+.account-shell .result-generation-actions{display:flex;flex-wrap:wrap;gap:8px}
+.account-shell .result-generation-actions .button-group{flex:1 1 120px;min-width:0}
+.account-shell .result-generation-actions .button.primary,.account-shell .button.result-generation-action{min-height:44px;padding:10px 16px;font-size:14px;font-weight:600;line-height:1.4}
+.account-shell .result-generation-actions .button{width:100%}

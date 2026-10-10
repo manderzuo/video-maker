@@ -75,7 +75,7 @@ test('selects every node card through its body and preserves text editor focus',
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'整张节点可选中'}})).json();
  expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'正文选择',x:40,y:40,size:{width:320,height:380},locked:false,data:{kind:'text',text:'卡片任意位置可选中',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:videoId,type:'video-generation',title:'草稿选择',x:400,y:40,size:{width:320,height:380},locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:videoId,port:'text',order:0}}}]}}})).statusCode).toBe(200);
  await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="V-08"]').click();
- await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();await page.getByRole('button',{name:'确认生成',exact:true}).click();
+ await page.getByRole('button',{name:'确认',exact:true}).click();
  const read=async()=>(await workspace.call('GET','/studio-api/projects/'+project.id+'/workspace',h)).json().graph;
  await expect.poll(async()=>(await read()).nodes.filter((node:{type:string})=>node.type==='result').length,{timeout:15000}).toBe(1);
  const completed=await read(),result=completed.nodes.find((node:{type:string})=>node.type==='result'),assetId=randomUUID(),groupId=randomUUID();

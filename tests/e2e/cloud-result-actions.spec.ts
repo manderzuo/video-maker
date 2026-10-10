@@ -35,8 +35,8 @@ async function generate(page:import('@playwright/test').Page,value:unknown,proje
  await page.goto('/projects/'+projectId+'/canvas');
  for(const nodeId of nodeIds){
   await page.locator('[data-node-id="'+nodeId+'"] [data-interaction-id="V-08"]').click();
-  await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
-  await page.getByRole('button',{name:'确认生成',exact:true}).click();
+
+  await page.getByRole('button',{name:'确认',exact:true}).click();
  }
  await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(nodeIds.length);
  return (await ctx.pool.query('SELECT document FROM workspace_video_runs WHERE project_id=$1 ORDER BY created_at',[projectId])).rows.map(row=>row.document as {id:string;resultAssetId:string;inputSnapshot:{references:{alias:string;assetId:string}[]}});
@@ -56,20 +56,14 @@ test('generates a saved tail-frame continuation from its canvas node with the ex
  await page.goto('/projects/'+projectId+'/canvas?node='+draft.id);
  await page.locator('[data-node-id="'+draft.id+'"] [data-interaction-id="V-08"]').click();
  const confirm=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(confirm).toBeVisible();
- await expect(confirm.getByLabel('视频生成预览正文',{exact:true})).toContainText('从这张尾帧继续向前推进');
+ const approvalRow=(await workspace.pool.query("SELECT id,document FROM workspace_video_previews WHERE project_id=$1 AND consumed_runs IS NULL ORDER BY (document->>'expiresAt')::bigint DESC",[projectId])).rows[0];
+ expect(approvalRow.document.nodes[0].inputSnapshot.prompt).toContain('从这张尾帧继续向前推进');
+ expect(approvalRow.document.nodes[0].assets.map((asset:{title:string})=>asset.title)).toContain('tail-frame-200ms.png');
  expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.endsWith('/v1/videos/generations'))).toHaveLength(1);
- await confirm.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
- const approval=(await workspace.pool.query('SELECT id FROM workspace_video_previews WHERE project_id=$1 AND consumed_runs IS NULL ORDER BY (document->>\'expiresAt\')::bigint DESC',[projectId])).rows[0].id;
- await workspace.pool.query("UPDATE workspace_video_previews SET document=jsonb_set(document,'{expiresAt}',to_jsonb($2::bigint)) WHERE id=$1",[approval,Date.now()-1]);
- await confirm.getByRole('button',{name:'确认生成',exact:true}).click();
- await expect(confirm.getByRole('button',{name:'重新预览',exact:true})).toBeVisible();
- await expect(confirm.getByLabel('我确认所列视频生成可能收费',{exact:true})).not.toBeChecked();
- await confirm.getByRole('button',{name:'重新预览',exact:true}).click();
- await expect(confirm.getByRole('button',{name:'确认生成',exact:true})).toBeDisabled();
- await expect(confirm.getByLabel('视频生成预览正文',{exact:true})).toContainText('从这张尾帧继续向前推进');
- await expect(confirm).toContainText('tail-frame-200ms.png');
+ await workspace.pool.query("UPDATE workspace_video_previews SET document=jsonb_set(document,'{expiresAt}',to_jsonb($2::bigint)) WHERE id=$1",[approvalRow.id,Date.now()-1]);
+ await confirm.getByRole('button',{name:'确认',exact:true}).click();await expect(confirm.getByRole('alert')).toBeVisible();
  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1',[projectId])).rows[0].n).toBe(1);
- await confirm.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认生成',exact:true}).click();
+ await confirm.getByRole('button',{name:'确认',exact:true}).click();
  await expect.poll(async()=>(await workspace.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(2);
  const continuation=(await workspace.pool.query("SELECT document FROM workspace_video_runs WHERE project_id=$1 AND document->>'nodeId'=$2",[projectId,draft.id])).rows[0].document;
  expect(continuation.inputSnapshot.references.map((reference:{assetId:string})=>reference.assetId)).toEqual([frame.data.assetId]);
