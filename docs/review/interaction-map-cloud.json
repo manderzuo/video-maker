@@ -10479,7 +10479,7 @@
             46,
             47
           ],
-          "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530"
+          "sourceHash": "8c23c6e6937aad9296b782b4208c3af4e1ed1c519b373c943e606630edc5f960"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
@@ -26935,7 +26935,7 @@
             9,
             10
           ],
-          "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
+          "sourceHash": "f95704f2dac601b7612c0999c7dfe33dd88fda65ace21a4a14a5751e985c5b38"
         }
       ],
       "candidates": [
@@ -27029,7 +27029,7 @@
             24,
             25
           ],
-          "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
+          "sourceHash": "f95704f2dac601b7612c0999c7dfe33dd88fda65ace21a4a14a5751e985c5b38"
         }
       ],
       "candidates": [
@@ -27603,7 +27603,7 @@
             23,
             24
           ],
-          "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530"
+          "sourceHash": "8c23c6e6937aad9296b782b4208c3af4e1ed1c519b373c943e606630edc5f960"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",

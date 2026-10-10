@@ -3,3 +3,5 @@
 third-party/licenses/runtime-*.LICENSE text eol=lf
 # 已应用迁移按原字节保存；数据库校验和不接受 Git 换行转换。
 server/src/db/migrations/*.sql -text
+# 浏览器执行证明使用原文件 SHA256；固定测试换行以跨平台复核。
+tests/e2e/*.ts text eol=lf
