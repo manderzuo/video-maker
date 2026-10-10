@@ -47,5 +47,3 @@
 .account-shell .video-task-list article[data-execution-state="succeeded"]{border-color:#34d399}
 .account-shell .video-task-list article:is([data-execution-state="failed_confirmed"],[data-execution-state="submit_unknown"]){border-color:#f87171}
 .account-shell .video-task-list p{margin:0 0 8px}
-.account-shell .video-generation-settings{margin-top:12px}
-.account-shell .video-generation-settings>summary{cursor:pointer;padding:8px 0;font-weight:600}

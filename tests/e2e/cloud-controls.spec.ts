@@ -116,12 +116,12 @@ test('workspace fills the viewport width and canvas fills the remaining height a
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
   await expect(page.getByRole('toolbar',{name:'画布工具',exact:true})).toBeVisible();
-  await expect(page.getByRole('button',{name:'生成视频',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'隐藏视频任务',exact:true})).toBeVisible();
   const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw new Error('Missing stage');
   expect(stage.height).toBeGreaterThan(300);expect(stage.y+stage.height).toBeGreaterThan(viewport.height-120);
   expect(stage.y+stage.height).toBeLessThanOrEqual(viewport.height+8);
-  const generateBox=await page.getByRole('button',{name:'生成视频',exact:true}).boundingBox();if(!generateBox)throw new Error('Missing generate entry');
-  expect(generateBox.y+generateBox.height).toBeLessThanOrEqual(viewport.height+8);
+  const toggleBox=await page.getByRole('button',{name:'隐藏视频任务',exact:true}).boundingBox();if(!toggleBox)throw new Error('Missing sidebar toggle');
+  expect(toggleBox.y+toggleBox.height).toBeLessThanOrEqual(viewport.height+8);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:testInfo.outputPath('cloud-layout-'+viewport.width+'x'+viewport.height+'.png')});
  }
@@ -135,7 +135,7 @@ test('removes the outline and preserves the task sidebar when restoring the canv
  const before=(await page.locator('.canvas-stage').boundingBox())?.width??0;expect(before).toBeGreaterThan(400);
  await expect(page.getByRole('heading',{name:'节点大纲',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:/显示节点列表|隐藏节点列表|收起侧栏/})).toHaveCount(0);
  await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(side).toBeVisible();expect((await page.locator('.canvas-stage').boundingBox())?.width).toBe(before);
- await expect(page.getByRole('button',{name:'生成视频',exact:true})).toBeVisible();expect(workspace.providerCalls).toHaveLength(0);
+ await expect(side.getByRole('button',{name:'生成视频',exact:true})).toHaveCount(0);await expect(side.getByLabel('本项目视频任务',{exact:true})).toContainText('尚无已确认的视频任务');expect(workspace.providerCalls).toHaveLength(0);
 });
 test('a small viewport keeps generation reachable and reports missing input without upstream calls',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);
@@ -144,16 +144,16 @@ test('a small viewport keeps generation reachable and reports missing input with
  const v1='11111111-1111-4111-8111-111111111111';
  await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:'22222222-2222-4222-8222-222222222222',command:{type:'operations',operations:[{id:'33333333-3333-4333-8333-333333333333',type:'add_node',payload:{node:{id:v1,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}}]}}});
  await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await expect(page.locator('.canvas-side')).toBeHidden();
  const generate=page.locator('[data-interaction-id="V-08"]');await generate.scrollIntoViewIfNeeded();await expect(generate).toBeEnabled();await generate.click();
- await expect(page.getByText('这个视频草稿还没有提示词',{exact:false}).first()).toBeVisible();
- await expect(page.getByText('缺少明确连接的提示词正文',{exact:false})).toBeVisible();expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
+ await expect(page.locator('.banner.error')).toContainText('缺少明确连接的提示词正文');await expect(page.locator('.banner.error')).toBeVisible();expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
 });
 test('desktop canvas bottom stays within the remaining viewport at desktop boundaries',async({page,workspace},testInfo)=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'布局边界验收'}})).json();
  const measurements=[];
  for(const viewport of [{width:1366,height:768},{width:1920,height:1080}]){
   await page.setViewportSize(viewport);await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
-  await expect(page.getByRole('button',{name:'生成视频',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'隐藏视频任务',exact:true})).toBeVisible();
   const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw Error('Missing canvas');
   const measure={...viewport,stage,bottom:stage.y+stage.height,documentHeight:await page.evaluate(()=>document.documentElement.scrollHeight)};
   measurements.push(measure);
@@ -164,17 +164,20 @@ test('desktop canvas bottom stays within the remaining viewport at desktop bound
  await testInfo.attach('layout-measurements',{body:JSON.stringify(measurements,null,2),contentType:'application/json'});
  expect(workspace.providerCalls).toHaveLength(0);
 });
-test('restoring the layout preserves unsaved video input with a permanent task sidebar',async({page,workspace})=>{
+test('restoring the layout preserves canvas prompt edits when the task sidebar was hidden',async({page,workspace})=>{
  const h=workspace.headers(workspace.account);
  expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...h,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:'FAKE_VIDEO_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
  const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'侧栏输入保留'}})).json();
  const nodeId='44444444-4444-4444-8444-444444444444';
  expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:'55555555-5555-4555-8555-555555555555',command:{type:'operations',operations:[{id:'66666666-6666-4666-8666-666666666666',type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}}]}}})).statusCode).toBe(200);
  await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
- await page.getByLabel('为视频草稿填写提示词',{exact:true}).fill('尚未保存的视频正文');await page.getByRole('button',{name:'恢复布局',exact:true}).click();
+ await page.getByRole('button',{name:'添加文字节点',exact:true}).click();
+ const prompt=page.locator('[data-interaction-id="cloud:canvas:node-text"]');await prompt.fill('尚未保存的视频正文');
+ await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();
+ await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).not.toBeVisible();
+ await page.getByRole('button',{name:'恢复布局',exact:true}).click();
  await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
- await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
- await expect(page.getByLabel('为视频草稿填写提示词',{exact:true})).toHaveValue('尚未保存的视频正文');
+ await expect(prompt).toHaveValue('尚未保存的视频正文');
  await expect(page.getByRole('button',{name:/Agent 协作|Agent 提案/})).toHaveCount(0);
  expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
 });
@@ -185,7 +188,7 @@ test('a narrow short viewport degrades to a scrollable layout with a usable canv
  expect(stage.height).toBeGreaterThanOrEqual(300);
  const side=await page.locator('.canvas-side').boundingBox();if(!side)throw new Error('Missing side');
  expect(side.height).toBeGreaterThan(100);
- const generate=page.getByRole('button',{name:'生成视频',exact:true});await generate.scrollIntoViewIfNeeded();await expect(generate).toBeVisible();
+ const toggle=page.getByRole('button',{name:'隐藏视频任务',exact:true});await toggle.scrollIntoViewIfNeeded();await expect(toggle).toBeVisible();
  await page.screenshot({path:testInfo.outputPath('audit-layout-800x600.png'),fullPage:true});
  expect(workspace.providerCalls).toHaveLength(0);
 });
