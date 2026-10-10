@@ -189,11 +189,14 @@ export function CloudCanvasSurface({
       connections.cancel();
       return;
     }
-    if (!graph || event.button !== 0 || (event.target as HTMLElement).closest('button,input,textarea,select,a,video,audio')) return;
+    if (!graph || event.button !== 0) return;
+    if ((event.target as HTMLElement).closest('[data-interaction-id="cloud:canvas:select"]')) return;
+    const interactive = !!(event.target as HTMLElement).closest('button,input,textarea,select,a,video,audio,[contenteditable="true"]');
+    if (!node && interactive) return;
     let moveIds: string[] | undefined;
     if (node) {
       const already = selected.includes(node.id);
-      if (event.shiftKey) {
+      if (event.shiftKey && !interactive) {
         if (already) {
           // Shift 点击已选节点表示取消选择，不开始拖动。
           setSelected(selected.filter((id) => id !== node.id));
@@ -212,7 +215,9 @@ export function CloudCanvasSurface({
     } else if (tool !== 'pan') {
       if (!event.shiftKey) setSelected([]);
     }
-    if (!canEdit && node) return;
+    // Select controls' owning card without capturing their pointer or moving
+    // focus away from native text editing, selects, buttons and media controls.
+    if (interactive || !canEdit && node) return;
     const p = point(event);
     if (tool === 'pan') {
       event.preventDefault();
@@ -224,6 +229,8 @@ export function CloudCanvasSurface({
     } else {
       return;
     }
+    // Blank card areas move the node rather than starting native text dragging.
+    event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
     stageRef.current?.focus({preventScroll: true});
   }
@@ -385,15 +392,12 @@ export function CloudCanvasSurface({
                 data-node-id={node.id}
                 className={'canvas-node node-' + node.type + (selected.includes(node.id) ? ' selected' : '')}
                 style={{left: p.x + offset.dx, top: p.y + offset.dy, width: preview.width, height: preview.height}}
+                onPointerDown={(event) => {
+                  event.stopPropagation();
+                  void pointerStart(event, node);
+                }}
               >
-                <header
-                  onPointerDown={(event) => {
-                    event.stopPropagation();
-                    void pointerStart(event, node);
-                  }}
-                  onPointerMove={pointerMove}
-                  onPointerUp={pointerEnd}
-                >
+                <header>
                   {node.type === 'group' ? (
                     <>
                       <input

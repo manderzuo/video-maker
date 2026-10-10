@@ -7558,7 +7558,7 @@
       "file": "tests/e2e/cloud-node-simplification.spec.ts",
       "title": "offers only 5 through 15 seconds and 480p or 720p while retaining an old out of range draft",
       "status": "passed",
-      "sourceHash": "4c0104e7aea71ba0908d2420b0b01bd2d6b46b1e7ab875b476f0b4b8ab45dacb",
+      "sourceHash": "319861d9f38a99cd4df3a08db2de1bc704ab5ebcb02ec53c06bd9697b0280510",
       "assertions": 10,
       "actions": 3,
       "assertionLocations": [
@@ -7644,7 +7644,7 @@
       "file": "tests/e2e/cloud-node-simplification.spec.ts",
       "title": "keeps cloud text and draft cards compact and pans with the middle mouse without moving nodes",
       "status": "passed",
-      "sourceHash": "4c0104e7aea71ba0908d2420b0b01bd2d6b46b1e7ab875b476f0b4b8ab45dacb",
+      "sourceHash": "319861d9f38a99cd4df3a08db2de1bc704ab5ebcb02ec53c06bd9697b0280510",
       "assertions": 11,
       "actions": 5,
       "assertionLocations": [
@@ -7745,9 +7745,9 @@
       "file": "tests/e2e/cloud-node-simplification.spec.ts",
       "title": "lets the native canvas video play button receive real pointer input",
       "status": "passed",
-      "sourceHash": "4c0104e7aea71ba0908d2420b0b01bd2d6b46b1e7ab875b476f0b4b8ab45dacb",
-      "assertions": 10,
-      "actions": 1,
+      "sourceHash": "319861d9f38a99cd4df3a08db2de1bc704ab5ebcb02ec53c06bd9697b0280510",
+      "assertions": 11,
+      "actions": 2,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-node-simplification.spec.ts",
@@ -7777,11 +7777,16 @@
         {
           "file": "tests/e2e/cloud-node-simplification.spec.ts",
           "line": 66,
-          "column": 47
+          "column": 87
         },
         {
           "file": "tests/e2e/cloud-node-simplification.spec.ts",
           "line": 67,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 68,
           "column": 62
         },
         {
@@ -7808,6 +7813,386 @@
           "file": "tests/e2e/cloud-node-simplification.spec.ts",
           "line": 64,
           "column": 19
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 66,
+          "column": 14
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-node-simplification.spec.ts::selects every node card through its body and preserves text editor focus",
+      "file": "tests/e2e/cloud-node-simplification.spec.ts",
+      "title": "selects every node card through its body and preserves text editor focus",
+      "status": "passed",
+      "sourceHash": "319861d9f38a99cd4df3a08db2de1bc704ab5ebcb02ec53c06bd9697b0280510",
+      "assertions": 31,
+      "actions": 17,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 76,
+          "column": 802
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 80,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 80,
+          "column": 125
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 82,
+          "column": 743
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 83,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 90,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 90,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 90,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 90,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 89,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 90,
+          "column": 48
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 92,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 93,
+          "column": 148
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 94,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 96,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 96,
+          "column": 105
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 97,
+          "column": 52
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 97,
+          "column": 96
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 99,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 77,
+          "column": 104
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 78,
+          "column": 54
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 78,
+          "column": 118
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 86,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 88,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 86,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 88,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 86,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 88,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 86,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 88,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 86,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 88,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 93,
+          "column": 116
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 94,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 95,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 97,
+          "column": 15
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-node-simplification.spec.ts::body shift selection and repeated body drags preserve the selected node group",
+      "file": "tests/e2e/cloud-node-simplification.spec.ts",
+      "title": "body shift selection and repeated body drags preserve the selected node group",
+      "status": "passed",
+      "sourceHash": "319861d9f38a99cd4df3a08db2de1bc704ab5ebcb02ec53c06bd9697b0280510",
+      "assertions": 15,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 104,
+          "column": 391
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 108,
+          "column": 97
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 111,
+          "column": 50
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 111,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 112,
+          "column": 3
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 112,
+          "column": 187
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 111,
+          "column": 50
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 111,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 112,
+          "column": 3
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 112,
+          "column": 187
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 114,
+          "column": 88
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 115,
+          "column": 34
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 107,
+          "column": 119,
+          "function": "clickBody"
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 107,
+          "column": 119,
+          "function": "clickBody"
+        },
+        {
+          "file": "tests/e2e/cloud-node-simplification.spec.ts",
+          "line": 107,
+          "column": 119,
+          "function": "clickBody"
         }
       ],
       "network": {
