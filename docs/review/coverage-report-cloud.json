@@ -7297,16 +7297,6 @@
       "id": "D06"
     },
     {
-      "code": "source_hash_stale",
-      "kind": "dialogs",
-      "id": "D07"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D07"
-    },
-    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D08"
@@ -9139,15 +9129,60 @@
             "normal"
           ],
           "assertionLines": [
-            32,
+            34,
+            38,
+            42,
+            43,
+            44,
+            46,
+            47
+          ],
+          "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530"
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            20,
+            35,
             36,
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit latest selected asset survives a late earlier detail response",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            10,
+            11,
             40,
             41,
-            42,
-            44,
-            45
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::asset details show cloud identity import source unknown properties and reference count",
+          "facets": [
+            "normal"
           ],
-          "sourceHash": "fa968ff4a49dae4bc32696fb90c2f0c4843cb46f888e078418a3974370619309"
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            52,
+            53,
+            7
+          ]
         }
       ],
       "missing": [
@@ -12727,7 +12762,7 @@
       "id": "D07",
       "kind": "dialogs",
       "taskId": "T16",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::edits project and asset metadata, searches and archives, and restores owned trash through the actual buttons",
@@ -12735,16 +12770,58 @@
             "normal"
           ],
           "assertionLines": [
-            21,
-            22
+            23,
+            24
           ],
-          "sourceHash": "88fd2213cf952f46acf615f9b92008c3d6c6301c31a4640e0762ba4393c493a7"
+          "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530"
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            20,
+            35,
+            36,
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit latest selected asset survives a late earlier detail response",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            10,
+            11,
+            40,
+            41,
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::asset details show cloud identity import source unknown properties and reference count",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            52,
+            53,
+            7
+          ]
         }
       ],
-      "missing": [
-        "source_hash_stale",
-        "facet_missing:normal"
-      ]
+      "missing": []
     },
     {
       "id": "D08",

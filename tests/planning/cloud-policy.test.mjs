@@ -1,8 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
+import {migrationReferences, packageMigrations, containsMigrationDdl, validateRegisteredEvidence} from '../../scripts/cloud-planning-contracts.mjs';
 import { readFileSync, readdirSync, existsSync, mkdirSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync, rmSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
+import {execFileSync} from 'node:child_process';
 // Cloud planning gate: runs inside the current test-owned isolation root,
 // never creates junctions in the legacy E:/trae-studio/TRAEWORK/aiwork-studio root.
 // Mirrors the traversal/symlink denials and license provenance of the legacy gate.
@@ -13,18 +14,14 @@ test('CLOUD-P01: migration list is identical across engine, fixtures and package
  assert.ok(files.length >= 8 && files[files.length - 1] === '008-project-purge.sql');
  for (const file of files) {
   const sql = readFileSync(resolve(dir, file), 'utf8');
-  assert.ok(/(CREATE|ALTER)\s+(TABLE|INDEX)/i.test(sql), file + ' must contain real DDL, not comments');
+  assert.ok(containsMigrationDdl(sql), file + ' must contain real DDL, not comments or quoted data');
  }
  const accountFixture = readFileSync(resolve(root, 'server/tests/account-fixture.ts'), 'utf8');
  const browserFixture = readFileSync(resolve(root, 'server/tests/browser-fixture.ts'), 'utf8');
  const packager = readFileSync(resolve(root, 'scripts/package-account-cloud.mjs'), 'utf8');
- const packaged = [...packager.matchAll(/const\s+migrationNames\s*=\s*\[([^\]]+)\]/g)].flatMap(match => [...match[1].matchAll(/'(\d{3}-[a-z0-9-]+\.sql)'/g)].map(entry => entry[1]));
- assert.ok(packaged.length >= 8, 'package migration array must list real entries, got ' + packaged.length);
- for (const file of files) {
-  assert.ok(accountFixture.includes(file), 'account-fixture misses ' + file);
-  assert.ok(browserFixture.includes(`'${file}'`), 'browser-fixture misses ' + file);
-  assert.ok(packaged.includes(file), 'package array misses ' + file);
- }
+ assert.deepEqual(packageMigrations(packager),files,'package must list exactly the executable migration array');
+ assert.deepEqual(migrationReferences(accountFixture),files,'account fixture must reference all migrations outside comments');
+ assert.deepEqual(migrationReferences(browserFixture),files,'browser fixture must reference all migrations outside comments');
 });
 test('CLOUD-P02: cloud planning never creates junctions in the legacy root', () => {
  for (const file of ['scripts/check-traceability.mjs', 'scripts/build-cloud-trace-map.mjs', 'scripts/refresh-cloud-proof-lines.mjs']) {
@@ -37,27 +34,39 @@ test('CLOUD-P03: cloud traceability registration consumes real executed evidence
  assert.equal(results.format, 'aiwork-studio-executed-test-evidence');
  assert.ok(results.tests.length > 100);
  assert.ok(results.tests.every(test => test.id && test.file && test.status));
- const withSource = results.tests.filter(test => typeof test.sourceHash === 'string' && test.sourceHash);
- assert.ok(withSource.length > 40, 'executed tests must carry source hashes, got ' + withSource.length);
- // 抽查核心文件的 hash 必须等于当前文件（防伪造 hash）。
- for (const file of ['tests/e2e/cloud-library-transfer.spec.ts', 'tests/e2e/cloud-project-batch.spec.ts']) {
-  const current = createHash('sha256').update(readFileSync(resolve(root, file))).digest('hex');
-  const executed = results.tests.filter(test => test.file === file && test.status === 'passed');
-  assert.ok(executed.length > 0, file + ' must have executed tests');
-  assert.ok(executed.every(test => test.sourceHash === current), file + ' executed hash must match current source');
- }
  const map = JSON.parse(readFileSync(resolve(root, 'docs/review/interaction-map-cloud.json'), 'utf8'));
  assert.equal(map.interactions.length, 260);
  assert.ok(map.interactions.every(row => Array.isArray(row.sources) && Array.isArray(row.proofs)));
- const sealed = map.interactions.flatMap(row => row.proofs).filter(proof => typeof proof.sourceHash === 'string' && proof.sourceHash);
- assert.ok(sealed.length > 50, 'proofs must carry sealed source hashes, got ' + sealed.length);
+ const validation=validateRegisteredEvidence({report:results,map,readSource:file=>readFileSync(resolve(root,file),'utf8')});
+ assert.equal(validation.valid,true,JSON.stringify(validation.errors));
+ // This checks the integrity of registered evidence. Complete 313-row semantic
+ // coverage is independently enforced by check-traceability.mjs --cloud.
 });
 test('CLOUD-P04: traversal and symlink denials stay enforced, brand and visual gates stay manual', () => {
  const packager = readFileSync(resolve(root, 'scripts/package-account-cloud.mjs'), 'utf8');
  assert.ok(packager.includes('symlink') || packager.includes('traversal') || packager.includes('..'));
  const report = JSON.parse(readFileSync(resolve(root, 'docs/review/coverage-report-cloud.json'), 'utf8'));
  assert.equal(report.review, '待用户统一验收与独立审查');
- assert.equal(report.complete, false);
+ assert.equal(typeof report.complete,'boolean');
+ assert.ok(Array.isArray(report.errors));
+ assert.equal(report.complete,report.errors.length===0,'coverage completion must agree with actual errors');
+});
+
+test('CLOUD-P06: original pinned sources and retained license bytes are independently verifiable',()=>{
+ const manifest=JSON.parse(readFileSync(resolve(root,'docs/review/source-manifest.json'),'utf8'));
+ assert.equal(manifest.sources.length,5);
+ for(const source of manifest.sources){
+  assert.match(source.commit,/^[a-f0-9]{40}$/);
+  assert.equal(execFileSync('git',['-C',source.snapshotPath,'rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim(),source.commit);
+  assert.equal(source.actualCommit,source.commit);
+  assert.equal(source.productCodeMigrated,false,'unlicensed reference source must not silently become product code');
+  assert.ok(source.license.status);
+  for(const file of source.license.evidencePaths)assert.ok(existsSync(file),'missing source/license evidence '+file);
+ }
+ for(const [repository,retained] of [['basketikun/infinite-canvas','infinite-canvas.LICENSE'],['manderzuo/prompt-for-seedance-gptimage2.5','prompt-for-seedance-gptimage2.5.LICENSE']]){
+  const source=manifest.sources.find(entry=>entry.repository===repository);assert.ok(source,repository);
+  assert.deepEqual(readFileSync(resolve(root,'third-party/licenses',retained)),readFileSync(resolve(source.snapshotPath,'LICENSE')));
+ }
 });
 test('CLOUD-P05: write policy denies traversal and junctions inside the test-owned work area', async () => {
  const { assertProjectWritePath } = await import('../../scripts/source-policy.mjs');

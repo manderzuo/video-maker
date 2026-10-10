@@ -1,3 +1,5 @@
+import {createHash,randomUUID} from 'node:crypto';
+import type {Graph} from '../../src/domain/graph';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 test('copies and pastes canvas nodes through the actual controls and persists the resulting graph',async({page,workspace})=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'画布操作验收'}})).json();
@@ -65,8 +67,22 @@ test('lists every current node using the asset and keeps late responses from ove
  expect(url.searchParams.get('node')).toBeTruthy();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+test('lists nested text and video bindings using the asset',async({page,workspace},testInfo)=>{
+ const h=workspace.headers(workspace.account),bytes=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6nRAAAAAASUVORK5CYII=','base64');
+ const reserve=await workspace.call('POST','/studio-api/assets',{...h,payload:{title:'嵌套引用素材',mimeType:'image/png',bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')}});expect(reserve.statusCode).toBe(201);const assetId=reserve.json<{id:string}>().id;
+ expect((await workspace.app.inject({method:'PUT',url:'/studio-api/assets/'+assetId+'/content',payload:bytes,headers:{cookie:h.cookie,'x-workspace-context':h.context,'x-csrf-token':h.csrf,origin:'https://studio.test','content-type':'application/octet-stream'}})).statusCode).toBe(204);
+ expect((await workspace.call('POST','/studio-api/assets/'+assetId+'/complete',{...h,payload:{}})).statusCode).toBe(200);
+ const project=await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'真实嵌套引用项目'}});expect(project.statusCode).toBe(201);const projectId=project.json<{id:string}>().id,assetNodeId=randomUUID(),textId=randomUUID(),videoId=randomUUID();
+ const nodes=[{id:assetNodeId,type:'asset',title:'直接素材节点',x:40,y:40,locked:false,data:{kind:'asset',assetId}},{id:textId,type:'text',title:'文字素材引用节点',x:40,y:400,locked:false,data:{kind:'text',text:'含明确素材引用的文字',referenceTokens:[{assetId,alias:'ref',mediaType:'image',role:'reference',description:'合成素材',available:true,unbound:false}]}},{id:videoId,type:'video-generation',title:'视频输入绑定节点',x:600,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance'},inputBindings:[],stale:true}}];
+ const saved=await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[...nodes.map(node=>({id:randomUUID(),type:'add_node',payload:{node}})),{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:assetNodeId,targetId:videoId,port:'image',order:0}}}]}}});expect(saved.statusCode).toBe(200);const graph=saved.json<{graph:Graph}>().graph,video=graph.nodes.find(n=>n.id===videoId);expect(video?.type).toBe('video-generation');if(video?.type!=='video-generation')throw Error('video fixture missing');expect(video.data.inputBindings).toContainEqual({nodeId:assetNodeId,assetId,order:0,role:'image'});
+ const response=await workspace.call('GET','/studio-api/assets/'+assetId+'/references',h);expect(response.statusCode).toBe(200);const refs=response.json<{source:string;current:boolean;nodeId?:string}[]>();
+ await testInfo.attach('actual-nested-asset-usage',{contentType:'application/json',body:JSON.stringify({expectedBoundNodes:nodes.map(n=>({id:n.id,title:n.title})),actual:refs,persistedVideoBindings:video.data.inputBindings,actualGraph:graph})});
+ expect.soft(refs.filter(r=>r.current).map(r=>r.nodeId).sort()).toEqual([assetNodeId,textId,videoId].sort());
+ await page.goto('/assets');await page.getByRole('button',{name:'查看详情',exact:true}).click();const dialog=page.getByRole('dialog',{name:'素材详情',exact:true});await expect(dialog).toContainText('直接素材节点');await expect.soft(dialog).toContainText('文字素材引用节点');await expect.soft(dialog).toContainText('视频输入绑定节点');expect(workspace.providerCalls).toHaveLength(0);
+});
+
 test('keeps the later asset selection when an earlier detail response arrives late',async({page,workspace})=>{
- const ctx=workspace as unknown as {headers(a:unknown):Record<string,string>;call(m:string,p:string,o?:unknown):Promise<{json:()=>unknown;statusCode:number}>};
+ const ctx=workspace as unknown as {headers(a:unknown):Record<string,string>;call(m:string,p:string,o?:unknown):Promise<{json:()=>unknown;statusCode:number}>;account:{view:{user:{id:string}}}};
  const headers=ctx.headers(ctx.account);
  await page.goto('/assets');
  const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=2;return canvas.toDataURL('image/png').split(',')[1];});

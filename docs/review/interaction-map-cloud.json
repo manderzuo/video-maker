@@ -10471,15 +10471,60 @@
             "normal"
           ],
           "assertionLines": [
-            32,
+            34,
+            38,
+            42,
+            43,
+            44,
+            46,
+            47
+          ],
+          "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530"
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            20,
+            35,
             36,
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit latest selected asset survives a late earlier detail response",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            10,
+            11,
             40,
             41,
-            42,
-            44,
-            45
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::asset details show cloud identity import source unknown properties and reference count",
+          "facets": [
+            "normal"
           ],
-          "sourceHash": "fa968ff4a49dae4bc32696fb90c2f0c4843cb46f888e078418a3974370619309"
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            52,
+            53,
+            7
+          ]
         }
       ],
       "candidates": [
@@ -20860,8 +20905,8 @@
       "id": "Z-02",
       "taskId": "T12",
       "label": "永久删除",
-      "disposition": "user_authorized_restore_in_progress",
-      "reason": "D19原sources实际绑定TrashPage单项/批量永久删除，不归类为匿名全量清库。用户已确认恢复范围，反馈038accepted，尚未交付。",
+      "disposition": "restored_workflow_locally_verified_row_facets_pending",
+      "reason": "云端单项及批量永久删除已有真实确认、未知提交重放和刷新恢复用例；当前142项执行通过。未检查的旧控件状态不冒称通过。",
       "sources": [
         {
           "file": "src/features/workspace/CloudProjectsPage.tsx",
@@ -21015,8 +21060,8 @@
       "id": "Z-03",
       "taskId": "T12",
       "label": "批量永久删除",
-      "disposition": "user_authorized_restore_in_progress",
-      "reason": "D19原sources实际绑定TrashPage单项/批量永久删除，不归类为匿名全量清库。用户已确认恢复范围，反馈038accepted，尚未交付。",
+      "disposition": "restored_workflow_locally_verified_row_facets_pending",
+      "reason": "云端单项及批量永久删除已有真实确认、未知提交重放和刷新恢复用例；当前142项执行通过。未检查的旧控件状态不冒称通过。",
       "sources": [
         {
           "file": "src/features/workspace/CloudProjectsPage.tsx",
@@ -27542,6 +27587,10 @@
         {
           "file": "src/features/workspace/CloudAssetsPage.tsx",
           "anchor": "title=\"修改素材信息\""
+        },
+        {
+          "file": "src/features/workspace/CloudAssetsPage.tsx",
+          "anchor": "title=\"素材详情\""
         }
       ],
       "proofs": [
@@ -27551,10 +27600,55 @@
             "normal"
           ],
           "assertionLines": [
-            21,
-            22
+            23,
+            24
           ],
-          "sourceHash": "88fd2213cf952f46acf615f9b92008c3d6c6301c31a4640e0762ba4393c493a7"
+          "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530"
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            20,
+            35,
+            36,
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::audit latest selected asset survives a late earlier detail response",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            10,
+            11,
+            40,
+            41,
+            7
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-asset-details.spec.ts::asset details show cloud identity import source unknown properties and reference count",
+          "facets": [
+            "normal"
+          ],
+          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "assertionLines": [
+            15,
+            16,
+            17,
+            52,
+            53,
+            7
+          ]
         }
       ],
       "candidates": [
@@ -28665,8 +28759,8 @@
       "id": "D19",
       "taskId": "T08",
       "label": "清空数据/永久删除",
-      "disposition": "user_authorized_restore_in_progress",
-      "reason": "D19原sources实际绑定TrashPage单项/批量永久删除，不归类为匿名全量清库。用户已确认恢复范围，反馈038accepted，尚未交付。",
+      "disposition": "restored_workflow_locally_verified_row_facets_pending",
+      "reason": "云端单项及批量永久删除已有真实确认、未知提交重放和刷新恢复用例；当前142项执行通过。未检查的旧控件状态不冒称通过。",
       "sources": [
         {
           "file": "src/ui/dialog-contracts.ts",

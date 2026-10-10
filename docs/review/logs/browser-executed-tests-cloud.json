@@ -8,6 +8,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "shared cards have three fields / three actions, video first, with address-key-model order for text",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 21,
       "actions": 0,
       "assertionLocations": [
@@ -132,6 +133,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "text tests without model; unavailable catalog permits manual save; saved key remains an empty input",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 11,
       "actions": 5,
       "assertionLocations": [
@@ -232,6 +234,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "settings and welcome reload the same saved values, retain typed model on retest and keep text controls visible",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 11,
       "actions": 8,
       "assertionLocations": [
@@ -347,6 +350,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "Chinese composition Enter does not submit; only the save button makes a request",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 7,
       "actions": 8,
       "assertionLocations": [
@@ -442,6 +446,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "save conflict and failure retain entered credentials until explicit reload",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 10,
       "actions": 6,
       "assertionLocations": [
@@ -542,6 +547,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "an auto probe cleared by an address change cannot restore catalog; saving then requires a key",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 8,
       "actions": 3,
       "assertionLocations": [
@@ -612,6 +618,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "account switch discards A draft and late results before showing B configurations",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 11,
       "actions": 3,
       "assertionLocations": [
@@ -697,6 +704,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "first login lands on projects without a guide gate; empty config offers the settings entry",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 12,
       "actions": 1,
       "assertionLocations": [
@@ -782,6 +790,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "both themes at 1440/1280/1024/720 keep fields visible, targets 44px and cards follow the width boundary",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 35,
       "actions": 0,
       "assertionLocations": [
@@ -976,6 +985,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "success shows the model count, save keeps it visible, and key change drops the stale success",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 8,
       "actions": 6,
       "assertionLocations": [
@@ -1066,6 +1076,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "failed probe reports a permission error and unknown catalog is never shown as success",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 6,
       "actions": 4,
       "assertionLocations": [
@@ -1136,6 +1147,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "a long catalog can be searched and its tail model selected, then saved exactly",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 9,
       "actions": 7,
       "assertionLocations": [
@@ -1236,6 +1248,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "saving without a prior probe triggers one read-only probe that does not resend the key",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 7,
       "actions": 4,
       "assertionLocations": [
@@ -1311,6 +1324,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "re-entering settings probes the saved key once with a checking indicator and no generation",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 10,
       "actions": 2,
       "assertionLocations": [
@@ -1381,6 +1395,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "legacy welcome entry redirects to settings and keeps typed drafts across the redirect",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 7,
       "actions": 3,
       "assertionLocations": [
@@ -1451,6 +1466,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "expand all models with a saved selection exposes the complete catalog without clearing that selection",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 7,
       "actions": 1,
       "assertionLocations": [
@@ -1511,6 +1527,7 @@
       "file": "tests/e2e/account-api-settings.spec.ts",
       "title": "an upstream 503 is not presented as bad credentials",
       "status": "passed",
+      "sourceHash": "0e769b0f5ddc8a1302b07b959fa185aac6d2a65e2997c327246696df7eeac4d4",
       "assertions": 5,
       "actions": 3,
       "assertionLocations": [
@@ -1571,6 +1588,7 @@
       "file": "tests/e2e/cloud-activity-recovery.spec.ts",
       "title": "lists recent command receipts across projects with canvas links",
       "status": "passed",
+      "sourceHash": "762f1d0102a06dd70f02e51c08eff3ffd4c69e87dc2af775ef4b1e01d372e07e",
       "assertions": 11,
       "actions": 2,
       "assertionLocations": [
@@ -1658,6 +1676,7 @@
       "file": "tests/e2e/cloud-activity-recovery.spec.ts",
       "title": "shows an empty activity page when the account has no commands",
       "status": "passed",
+      "sourceHash": "762f1d0102a06dd70f02e51c08eff3ffd4c69e87dc2af775ef4b1e01d372e07e",
       "assertions": 4,
       "actions": 0,
       "assertionLocations": [
@@ -1697,6 +1716,7 @@
       "file": "tests/e2e/cloud-activity-recovery.spec.ts",
       "title": "surfaces unknown and failed runs for recovery without sending requests",
       "status": "passed",
+      "sourceHash": "762f1d0102a06dd70f02e51c08eff3ffd4c69e87dc2af775ef4b1e01d372e07e",
       "assertions": 9,
       "actions": 5,
       "assertionLocations": [
@@ -1787,6 +1807,7 @@
       "file": "tests/e2e/cloud-activity-recovery.spec.ts",
       "title": "shows an empty recovery page when nothing needs attention",
       "status": "passed",
+      "sourceHash": "762f1d0102a06dd70f02e51c08eff3ffd4c69e87dc2af775ef4b1e01d372e07e",
       "assertions": 4,
       "actions": 0,
       "assertionLocations": [
@@ -1826,6 +1847,7 @@
       "file": "tests/e2e/cloud-activity-recovery.spec.ts",
       "title": "exports a redacted cloud diagnostics report",
       "status": "passed",
+      "sourceHash": "762f1d0102a06dd70f02e51c08eff3ffd4c69e87dc2af775ef4b1e01d372e07e",
       "assertions": 15,
       "actions": 5,
       "assertionLocations": [
@@ -1946,6 +1968,7 @@
       "file": "tests/e2e/cloud-agent.spec.ts",
       "title": "stores an agent description, explicitly grants scope and fees, and applies only a reviewed proposal with persisted history",
       "status": "passed",
+      "sourceHash": "a2a360b7c08090cae1d23881e68e68317533c8c8ec63080c118fe2ddcfdf25db",
       "assertions": 14,
       "actions": 11,
       "assertionLocations": [
@@ -2091,6 +2114,7 @@
       "file": "tests/e2e/cloud-agent.spec.ts",
       "title": "retries an uncertain conversation creation with the original name and preserves descriptions across a rejected save",
       "status": "passed",
+      "sourceHash": "a2a360b7c08090cae1d23881e68e68317533c8c8ec63080c118fe2ddcfdf25db",
       "assertions": 13,
       "actions": 8,
       "assertionLocations": [
@@ -2216,6 +2240,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "connects text to video through visible ports with typed errors and keeps side-panel flow",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 11,
       "actions": 10,
       "assertionLocations": [
@@ -2341,6 +2366,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "picks cloud thumbnails and uploads into the library before adding nodes",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 10,
       "actions": 5,
       "assertionLocations": [
@@ -2436,6 +2462,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "locks ports, undoes work and retains input on save conflicts",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 14,
       "actions": 7,
       "assertionLocations": [
@@ -2561,6 +2588,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "box-selects nodes and applies alignment through the action bar",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 10,
       "actions": 5,
       "assertionLocations": [
@@ -2656,6 +2684,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "branches from text, resizes with the keyboard and restores everything on refresh",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 12,
       "actions": 6,
       "assertionLocations": [
@@ -2766,6 +2795,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "keeps the file for retry when asset reservation fails and adds no fake node",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 12,
       "actions": 5,
       "assertionLocations": [
@@ -2871,6 +2901,7 @@
       "file": "tests/e2e/cloud-canvas-interactions.spec.ts",
       "title": "dragging a selected node preserves the whole multi-selection across repeated drags and reload",
       "status": "passed",
+      "sourceHash": "89fe80ece7d35aa4fd517a65ed7d4c3ab25ef84988de2493ada3d7f2892c9cec",
       "assertions": 24,
       "actions": 2,
       "assertionLocations": [
@@ -3021,42 +3052,43 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "copies and pastes canvas nodes through the actual controls and persists the resulting graph",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 10,
       "actions": 4,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 4,
+          "line": 6,
           "column": 228
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 130
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 251
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 313
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 397
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 471
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 529
         },
         {
@@ -3081,22 +3113,22 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 4,
+          "line": 6,
           "column": 111
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 4,
+          "line": 6,
           "column": 162
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 5,
+          "line": 7,
           "column": 200
         }
       ],
@@ -3111,197 +3143,198 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "uses grouping, layout, locking, view tools, undo and reload controls on the persisted cloud canvas",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 37,
       "actions": 34,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
           "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 13,
           "column": 346
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 12,
+          "line": 14,
           "column": 123
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 12,
+          "line": 14,
           "column": 259
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 12,
+          "line": 14,
           "column": 395
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 13,
+          "line": 15,
           "column": 145
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 13,
+          "line": 15,
           "column": 295
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 130
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
-          "column": 786
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
-          "column": 1008
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
-          "column": 200,
-          "function": "saved"
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
           "line": 16,
+          "column": 786
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 16,
+          "column": 1008
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 11,
+          "column": 200,
+          "function": "saved"
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 18,
           "column": 281
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 187
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 9,
+          "line": 11,
           "column": 200,
           "function": "saved"
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 321
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 399
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 446
         },
         {
@@ -3326,172 +3359,172 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 10,
+          "line": 12,
           "column": 111
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 10,
+          "line": 12,
           "column": 191
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 11,
+          "line": 13,
           "column": 109
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 11,
+          "line": 13,
           "column": 140
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 11,
+          "line": 13,
           "column": 204
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 11,
+          "line": 13,
           "column": 282
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 12,
+          "line": 14,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 12,
+          "line": 14,
           "column": 194
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 12,
+          "line": 14,
           "column": 330
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 13,
+          "line": 15,
           "column": 64
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 13,
+          "line": 15,
           "column": 214
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 225
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 287
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 363
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 429
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 484
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 569
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 647
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 726
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 857
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 14,
+          "line": 16,
           "column": 923
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 15,
+          "line": 17,
           "column": 53
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 15,
+          "line": 17,
           "column": 126
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 15,
+          "line": 17,
           "column": 190
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 15,
+          "line": 17,
           "column": 266
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 15,
+          "line": 17,
           "column": 342
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 16,
+          "line": 18,
           "column": 53
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 16,
+          "line": 18,
           "column": 128
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 16,
+          "line": 18,
           "column": 200
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 25
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 56
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 122
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 17,
+          "line": 19,
           "column": 256
         }
       ],
@@ -3506,53 +3539,53 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "edits project and asset metadata, searches and archives, and restores owned trash through the actual buttons",
       "status": "passed",
-      "sourceHash": "88fd2213cf952f46acf615f9b92008c3d6c6301c31a4640e0762ba4393c493a7",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 12,
       "actions": 32,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 521
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 661
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 948
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1366
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1634
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 478
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 855
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1375
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1421
         },
         {
@@ -3577,163 +3610,537 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 206
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 257
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 315
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 377
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 449
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 589
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 731
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 793
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 859
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1018
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1084
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1147
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1214
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1294
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1437
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1498
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 21,
+          "line": 23,
           "column": 1562
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 55
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 227
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 416
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 550
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 601
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 659
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 726
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 795
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 912
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 981
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1061
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1126
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1187
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1251
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 22,
+          "line": 24,
           "column": 1312
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-controls.spec.ts::shows asset details with hash and node references and navigates to the canvas",
+      "file": "tests/e2e/cloud-controls.spec.ts",
+      "title": "shows asset details with hash and node references and navigates to the canvas",
+      "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
+      "assertions": 10,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 34,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 38,
+          "column": 394
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 42,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 43,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 44,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 46,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 47,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 32,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 33,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 40,
+          "column": 123
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 45,
+          "column": 68
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-controls.spec.ts::lists every current node using the asset and keeps late responses from overwriting",
+      "file": "tests/e2e/cloud-controls.spec.ts",
+      "title": "lists every current node using the asset and keeps late responses from overwriting",
+      "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
+      "assertions": 9,
+      "actions": 4,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 57,
+          "column": 57
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 59,
+          "column": 626
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 63,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 64,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 67,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 68,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 55,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 56,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 61,
+          "column": 124
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 65,
+          "column": 91
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-controls.spec.ts::lists nested text and video bindings using the asset",
+      "file": "tests/e2e/cloud-controls.spec.ts",
+      "title": "lists nested text and video bindings using the asset",
+      "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
+      "assertions": 16,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 72,
+          "column": 221
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 73,
+          "column": 276
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 74,
+          "column": 112
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 75,
+          "column": 129
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 77,
+          "column": 416
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 77,
+          "column": 534
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 77,
+          "column": 665
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 78,
+          "column": 119
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 80,
+          "column": 65
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 81,
+          "column": 177
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 81,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 81,
+          "column": 279
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 81,
+          "column": 337
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 81,
+          "column": 85
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-controls.spec.ts::keeps the later asset selection when an earlier detail response arrives late",
+      "file": "tests/e2e/cloud-controls.spec.ts",
+      "title": "keeps the later asset selection when an earlier detail response arrives late",
+      "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
+      "assertions": 8,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 91,
+          "column": 55
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 94,
+          "column": 55
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 104,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 105,
+          "column": 27
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 107,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 89,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 90,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 92,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 93,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 101,
+          "column": 122
+        },
+        {
+          "file": "tests/e2e/cloud-controls.spec.ts",
+          "line": 102,
+          "column": 122
         }
       ],
       "network": {
@@ -3747,102 +4154,103 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "workspace fills the viewport width and canvas fills the remaining height at desktop boundaries",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 22,
       "actions": 0,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 29,
+          "line": 115,
           "column": 48
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 30,
+          "line": 116,
           "column": 85
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 32,
+          "line": 118,
           "column": 68
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 33,
+          "line": 119,
           "column": 67
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 35,
+          "line": 121,
           "column": 24
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 35,
+          "line": 121,
           "column": 74
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 36,
+          "line": 122,
           "column": 32
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 38,
+          "line": 124,
           "column": 44
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 39,
+          "line": 125,
           "column": 85
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 29,
+          "line": 115,
           "column": 48
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 30,
+          "line": 116,
           "column": 85
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 32,
+          "line": 118,
           "column": 68
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 33,
+          "line": 119,
           "column": 67
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 35,
+          "line": 121,
           "column": 24
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 35,
+          "line": 121,
           "column": 74
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 36,
+          "line": 122,
           "column": 32
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 38,
+          "line": 124,
           "column": 44
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 39,
+          "line": 125,
           "column": 85
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 42,
+          "line": 128,
           "column": 34
         },
         {
@@ -3876,42 +4284,43 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "collapsing the side panel and outline expands the canvas stage",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 10,
       "actions": 5,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 47,
+          "line": 133,
           "column": 115
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 48,
+          "line": 134,
           "column": 92
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 49,
+          "line": 135,
           "column": 130
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 50,
+          "line": 136,
           "column": 92
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 52,
+          "line": 138,
           "column": 98
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 54,
+          "line": 140,
           "column": 66
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 54,
+          "line": 140,
           "column": 112
         },
         {
@@ -3936,27 +4345,27 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 47,
+          "line": 133,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 49,
+          "line": 135,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 51,
+          "line": 137,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 53,
+          "line": 139,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 53,
+          "line": 139,
           "column": 122
         }
       ],
@@ -3971,32 +4380,33 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "a small viewport keeps generation reachable and reports missing input without upstream calls",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 8,
       "actions": 1,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 58,
+          "line": 144,
           "column": 210
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 63,
+          "line": 149,
           "column": 130
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 64,
+          "line": 150,
           "column": 69
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 65,
+          "line": 151,
           "column": 61
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 65,
+          "line": 151,
           "column": 107
         },
         {
@@ -4021,7 +4431,7 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 63,
+          "line": 149,
           "column": 159
         }
       ],
@@ -4036,42 +4446,43 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "desktop canvas bottom stays within the remaining viewport at desktop boundaries",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 10,
       "actions": 0,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 72,
+          "line": 158,
           "column": 67
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 77,
+          "line": 163,
           "column": 97
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 78,
+          "line": 164,
           "column": 31
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 72,
+          "line": 158,
           "column": 67
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 77,
+          "line": 163,
           "column": 97
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 78,
+          "line": 164,
           "column": 31
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 81,
+          "line": 167,
           "column": 34
         },
         {
@@ -4105,32 +4516,33 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "collapsing the sidebar preserves unsaved video and Agent inputs",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 8,
       "actions": 5,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 85,
+          "line": 171,
           "column": 210
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 88,
+          "line": 174,
           "column": 513
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 95,
+          "line": 181,
           "column": 59
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 96,
+          "line": 182,
           "column": 59
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 97,
+          "line": 183,
           "column": 34
         },
         {
@@ -4155,27 +4567,27 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 90,
+          "line": 176,
           "column": 51
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 91,
+          "line": 177,
           "column": 65
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 92,
+          "line": 178,
           "column": 51
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 93,
+          "line": 179,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 94,
+          "line": 180,
           "column": 58
         }
       ],
@@ -4190,27 +4602,28 @@
       "file": "tests/e2e/cloud-controls.spec.ts",
       "title": "a narrow short viewport degrades to a scrollable layout with a usable canvas floor",
       "status": "passed",
+      "sourceHash": "83ba5ddb501d341f38b228cb53b8a9a0c13a7ce9ab78cfab31dd9f3bcdeff530",
       "assertions": 7,
       "actions": 0,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 103,
+          "line": 189,
           "column": 23
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 105,
+          "line": 191,
           "column": 22
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 106,
+          "line": 192,
           "column": 130
         },
         {
           "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 108,
+          "line": 194,
           "column": 34
         },
         {
@@ -4244,6 +4657,7 @@
       "file": "tests/e2e/cloud-journey.spec.ts",
       "title": "completes an empty-project journey purely through clicks without paid calls",
       "status": "passed",
+      "sourceHash": "c16eef621edd1197d05452978fd815fce23c2ba39c251e0d0f72389683cdf443",
       "assertions": 18,
       "actions": 40,
       "assertionLocations": [
@@ -4554,6 +4968,7 @@
       "file": "tests/e2e/cloud-legacy-import.spec.ts",
       "title": "converts an explicitly chosen legacy offline package and imports it without secrets",
       "status": "passed",
+      "sourceHash": "5819f91fbbceaac995a5adfc0735b30fba6ce24aeb2480369f7d3af0c00d0d90",
       "assertions": 21,
       "actions": 8,
       "assertionLocations": [
@@ -4719,6 +5134,7 @@
       "file": "tests/e2e/cloud-legacy-import.spec.ts",
       "title": "carries real legacy media bytes into the account library",
       "status": "passed",
+      "sourceHash": "5819f91fbbceaac995a5adfc0735b30fba6ce24aeb2480369f7d3af0c00d0d90",
       "assertions": 14,
       "actions": 4,
       "assertionLocations": [
@@ -4906,6 +5322,92 @@
         {
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 30,
+          "column": 62
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-library-transfer.spec.ts::blocks concurrent import submissions while one is in flight",
+      "file": "tests/e2e/cloud-library-transfer.spec.ts",
+      "title": "blocks concurrent import submissions while one is in flight",
+      "status": "passed",
+      "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 44,
+          "column": 67
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 55,
+          "column": 64
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 56,
+          "column": 76
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 58,
+          "column": 57
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 59,
+          "column": 16
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 61,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 63,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 42,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 43,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 53,
           "column": 62
         }
       ],
@@ -6199,6 +6701,173 @@
       }
     },
     {
+      "id": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+      "file": "tests/e2e/cloud-library-transfer.spec.ts",
+      "title": "optimizes a canvas node text end to end keeping neighbors",
+      "status": "passed",
+      "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1",
+      "assertions": 22,
+      "actions": 8,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 385,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 13,
+          "column": 356,
+          "function": "seedTextProject"
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 388,
+          "column": 369
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 392,
+          "column": 41
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 394,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 397,
+          "column": 28
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 397,
+          "column": 71
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 397,
+          "column": 113
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 400,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 401,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 402,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 403,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 405,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 409,
+          "column": 41
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 410,
+          "column": 91
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 412,
+          "column": 61
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 414,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 415,
+          "column": 86
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 390,
+          "column": 79
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 391,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 393,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 398,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 404,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 406,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 407,
+          "column": 53
+        },
+        {
+          "file": "tests/e2e/cloud-library-transfer.spec.ts",
+          "line": 408,
+          "column": 62
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
       "id": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
       "file": "tests/e2e/cloud-project-batch.spec.ts",
       "title": "creates a project from the original template with two text nodes",
@@ -6842,6 +7511,168 @@
           "file": "tests/e2e/cloud-project-batch.spec.ts",
           "line": 163,
           "column": 58
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
+      "file": "tests/e2e/cloud-project-batch.spec.ts",
+      "title": "blocks duplicate batch archive submissions while one is in flight",
+      "status": "passed",
+      "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 192,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 194,
+          "column": 62
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 195,
+          "column": 16
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 198,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 179,
+          "column": 136
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 189,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 190,
+          "column": 60
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-project-batch.spec.ts::keeps the reset dialog and prior values when the reset request fails",
+      "file": "tests/e2e/cloud-project-batch.spec.ts",
+      "title": "keeps the reset dialog and prior values when the reset request fails",
+      "status": "passed",
+      "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
+      "assertions": 9,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 204,
+          "column": 54
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 211,
+          "column": 40
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 212,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 213,
+          "column": 51
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 216,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 217,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 202,
+          "column": 43
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 203,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 209,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 210,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 215,
+          "column": 60
         }
       ],
       "network": {
@@ -8215,6 +9046,116 @@
           "file": "tests/e2e/cloud-project-purge.spec.ts",
           "line": 204,
           "column": 58
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-project-purge.spec.ts::confirms only named batch items and keeps unnamed canvases",
+      "file": "tests/e2e/cloud-project-purge.spec.ts",
+      "title": "confirms only named batch items and keeps unnamed canvases",
+      "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
+      "assertions": 12,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 9,
+          "column": 362,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 10,
+          "column": 125,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 9,
+          "column": 362,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 10,
+          "column": 125,
+          "function": "makeTrashed"
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 227,
+          "column": 64
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 228,
+          "column": 16
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 230,
+          "column": 34
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 232,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 234,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 216,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 217,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 218,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 220,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 226,
+          "column": 64
         }
       ],
       "network": {
@@ -9845,6 +10786,7 @@
       "file": "tests/e2e/cloud-prompts.spec.ts",
       "title": "persists complete prompt library metadata and historical text and restores its trash",
       "status": "passed",
+      "sourceHash": "ef453e05935418222dcc45235d631f4dfafa0c99c641ff2442b8aef6ad813d2e",
       "assertions": 10,
       "actions": 10,
       "assertionLocations": [
@@ -9965,6 +10907,7 @@
       "file": "tests/e2e/cloud-prompts.spec.ts",
       "title": "retains video writing input, local results and historical input snapshots after reload",
       "status": "passed",
+      "sourceHash": "ef453e05935418222dcc45235d631f4dfafa0c99c641ff2442b8aef6ad813d2e",
       "assertions": 22,
       "actions": 14,
       "assertionLocations": [
@@ -10165,6 +11108,7 @@
       "file": "tests/e2e/cloud-prompts.spec.ts",
       "title": "keeps every out-of-preset legacy writing value visible and requires an explicit choice",
       "status": "passed",
+      "sourceHash": "ef453e05935418222dcc45235d631f4dfafa0c99c641ff2442b8aef6ad813d2e",
       "assertions": 28,
       "actions": 5,
       "assertionLocations": [
@@ -10350,6 +11294,7 @@
       "file": "tests/e2e/cloud-prompts.spec.ts",
       "title": "opens the exact writing record instead of the list head and never silently falls back",
       "status": "passed",
+      "sourceHash": "ef453e05935418222dcc45235d631f4dfafa0c99c641ff2442b8aef6ad813d2e",
       "assertions": 16,
       "actions": 2,
       "assertionLocations": [
@@ -10460,6 +11405,7 @@
       "file": "tests/e2e/cloud-prompts.spec.ts",
       "title": "keeps exported and library provenance equal to the persisted result version",
       "status": "passed",
+      "sourceHash": "ef453e05935418222dcc45235d631f4dfafa0c99c641ff2442b8aef6ad813d2e",
       "assertions": 24,
       "actions": 9,
       "assertionLocations": [
@@ -10645,6 +11591,7 @@
       "file": "tests/e2e/cloud-prompts.spec.ts",
       "title": "rejects stale draft writes while preserving typed input and never reads anonymous IndexedDB",
       "status": "passed",
+      "sourceHash": "ef453e05935418222dcc45235d631f4dfafa0c99c641ff2442b8aef6ad813d2e",
       "assertions": 7,
       "actions": 3,
       "assertionLocations": [
@@ -10715,6 +11662,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "plays, downloads, selects and undoes a historical cloud result without another generation",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 22,
       "actions": 8,
       "assertionLocations": [
@@ -10892,6 +11840,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "freezes the tail-frame request so a lost response is retried with the identical command and no duplicate node",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 23,
       "actions": 10,
       "assertionLocations": [
@@ -11084,6 +12033,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "keeps an uploaded tail frame when reading the new asset fails and reuses it without a new upload",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 25,
       "actions": 10,
       "assertionLocations": [
@@ -11286,6 +12236,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "keeps a readable reference, reports a deleted one and reports a committed command whose refresh failed",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 29,
       "actions": 13,
       "assertionLocations": [
@@ -11523,6 +12474,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "compares two owned cloud results and reports a deleted result asset instead of substituting one",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 29,
       "actions": 15,
       "assertionLocations": [
@@ -11774,6 +12726,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "reaches the results page from existing canvas and task entries with explicit run targeting",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 14,
       "actions": 9,
       "assertionLocations": [
@@ -11916,6 +12869,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "reuses an existing asset node and undoes only the new association",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 14,
       "actions": 6,
       "assertionLocations": [
@@ -12043,6 +12997,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "unknown revision submission survives cancel and refresh with the same key",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 17,
       "actions": 10,
       "assertionLocations": [
@@ -12205,6 +13160,7 @@
       "file": "tests/e2e/cloud-result-actions.spec.ts",
       "title": "unknown tail-frame submission survives cancel and refresh with the same key",
       "status": "passed",
+      "sourceHash": "e2bd9b4fd9f427f479bf074ace8871559b5e81875f18415e9e00bcc6b1c00ac9",
       "assertions": 20,
       "actions": 12,
       "assertionLocations": [
@@ -12392,6 +13348,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "searches owned projects, nodes and prompts and follows the hits",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 14,
       "actions": 12,
       "assertionLocations": [
@@ -12543,6 +13500,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "opens the command palette, filters and navigates",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 6,
       "actions": 5,
       "assertionLocations": [
@@ -12618,6 +13576,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "reports saved-but-untested configs as unverified, never as connected",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 20,
       "actions": 2,
       "assertionLocations": [
@@ -12748,6 +13707,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "lists failed runs as notifications without sending requests",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 10,
       "actions": 8,
       "assertionLocations": [
@@ -12858,6 +13818,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "renders help with cloud-scoped guidance and working links",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 6,
       "actions": 3,
       "assertionLocations": [
@@ -12923,6 +13884,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "refreshes the top status after a settings save without reload",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 10,
       "actions": 4,
       "assertionLocations": [
@@ -13013,6 +13975,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "follows consecutive node searches within the same project",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 10,
       "actions": 4,
       "assertionLocations": [
@@ -13103,6 +14066,7 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "drops a stale verified status when a save lands after further edits",
       "status": "passed",
+      "sourceHash": "ed0791ca3524943fcf3d928022d41481c8459460d73f3347474eb9f3cda7b6ef",
       "assertions": 11,
       "actions": 3,
       "assertionLocations": [
@@ -13188,6 +14152,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "previews exact owned cloud video inputs, confirms once, saves the private result and inserts durable lineage",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 16,
       "actions": 8,
       "assertionLocations": [
@@ -13328,6 +14293,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "keeps the safe 3003 reason and pending billing in both cloud task views after refresh",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 15,
       "actions": 8,
       "assertionLocations": [
@@ -13465,6 +14431,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "canceling a video preview sends no provider request and does not create a run",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 7,
       "actions": 2,
       "assertionLocations": [
@@ -13532,6 +14499,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "builds text, draft and connection purely through the canvas UI before generating",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 10,
       "actions": 12,
       "assertionLocations": [
@@ -13662,6 +14630,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "blocks local preview when the text is missing and recovers after补接 without an upstream POST",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 10,
       "actions": 5,
       "assertionLocations": [
@@ -13757,6 +14726,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "lists each missing target for multiple videos and never mixes their inputs",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 10,
       "actions": 3,
       "assertionLocations": [
@@ -13842,6 +14812,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "keeps unsaved canvas edits from reaching preview and sends no upstream POST",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 8,
       "actions": 1,
       "assertionLocations": [
@@ -13907,6 +14878,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "retains editor text after a cloud save conflict and recovers the latest revision on reload",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 13,
       "actions": 4,
       "assertionLocations": [
@@ -14012,6 +14984,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "concurrent double confirmation with one approval yields a single run",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 9,
       "actions": 2,
       "assertionLocations": [
@@ -14087,6 +15060,7 @@
       "file": "tests/e2e/cloud-video.spec.ts",
       "title": "double clicking confirm while the request is pending sends one request and one provider POST",
       "status": "passed",
+      "sourceHash": "ef34889f107e9263a312e7d473b2684abb731621f787d167999b4217590d8f9e",
       "assertions": 13,
       "actions": 3,
       "assertionLocations": [
@@ -14177,6 +15151,7 @@
       "file": "tests/e2e/cloud-workspace.spec.ts",
       "title": "automatically saves settled canvas edits and recovers them after refresh",
       "status": "passed",
+      "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa",
       "assertions": 5,
       "actions": 2,
       "assertionLocations": [
@@ -14343,6 +15318,7 @@
       "file": "tests/e2e/cloud-workspace.spec.ts",
       "title": "uploads an original and reads it from cloud assets after refresh",
       "status": "passed",
+      "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa",
       "assertions": 7,
       "actions": 2,
       "assertionLocations": [
@@ -14408,6 +15384,7 @@
       "file": "tests/e2e/cloud-workspace.spec.ts",
       "title": "switches accounts without showing the previous owned projects or reading old IndexedDB",
       "status": "passed",
+      "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa",
       "assertions": 7,
       "actions": 0,
       "assertionLocations": [
@@ -14538,6 +15515,7 @@
       "file": "tests/e2e/cloud-workspace.spec.ts",
       "title": "exports and explicitly imports a complete package with an original, thumbnail and undo history",
       "status": "passed",
+      "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa",
       "assertions": 11,
       "actions": 7,
       "assertionLocations": [
@@ -14648,8 +15626,9 @@
       "file": "tests/e2e/cloud-writing-layout.spec.ts",
       "title": "keeps input and result side by side at desktop widths",
       "status": "passed",
-      "assertions": 53,
-      "actions": 0,
+      "sourceHash": "16c7c4c3288b47f16ce547875f5f6d11f51fcccb9c6b11ff3cf736f5afe4ca8f",
+      "assertions": 79,
+      "actions": 4,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-writing-layout.spec.ts",
@@ -14658,247 +15637,377 @@
         },
         {
           "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
+          "line": 13,
+          "column": 55
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
         },
         {
           "file": "tests/e2e/cloud-writing-layout.spec.ts",
           "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
+          "column": 24
         },
         {
           "file": "tests/e2e/cloud-writing-layout.spec.ts",
           "line": 21,
-          "column": 37
+          "column": 45
         },
         {
           "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
+          "line": 24,
           "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 16,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 19,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 20,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 21,
-          "column": 37
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 22,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-writing-layout.spec.ts",
-          "line": 23,
-          "column": 86
         },
         {
           "file": "tests/e2e/cloud-writing-layout.spec.ts",
           "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 21,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 21,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 21,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 13,
+          "column": 55
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 22,
+          "column": 32
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 22,
+          "column": 32
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 22,
+          "column": 32
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 17,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 19,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 22,
+          "column": 32
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 24,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 27,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 28,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 29,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 30,
+          "column": 73
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 31,
+          "column": 86
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 35,
           "column": 69
         },
         {
@@ -14920,7 +16029,28 @@
           "function": "Object.base.extend.apiGuard.auto"
         }
       ],
-      "actionLocations": [],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 11,
+          "column": 44
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 12,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 11,
+          "column": 44
+        },
+        {
+          "file": "tests/e2e/cloud-writing-layout.spec.ts",
+          "line": 12,
+          "column": 59
+        }
+      ],
       "network": {
         "coreWrites": 0,
         "paidRequests": 0,
@@ -14932,6 +16062,7 @@
       "file": "tests/e2e/legacy-user-import.spec.ts",
       "title": "recovers unexported legacy browser content only after an explicit read and downloads a complete package without uploading",
       "status": "passed",
+      "sourceHash": "7ffeee93d9929eac5688bdfc0949aeb4096f5908f287f4c455221b3b1d0cc00d",
       "assertions": 21,
       "actions": 11,
       "assertionLocations": [
@@ -15108,572 +16239,337 @@
       }
     },
     {
-      "id": "tests/e2e/cloud-project-purge.spec.ts::confirms only named batch items and keeps unnamed canvases",
-      "file": "tests/e2e/cloud-project-purge.spec.ts",
-      "title": "confirms only named batch items and keeps unnamed canvases",
+      "id": "tests/e2e/cloud-asset-details.spec.ts::audit asset references authorize the owning account and do not change storage",
+      "file": "tests/e2e/cloud-asset-details.spec.ts",
+      "title": "audit asset references authorize the owning account and do not change storage",
       "status": "passed",
-      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
+      "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+      "assertions": 14,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 15,
+          "column": 221,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 289,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 410,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 17,
+          "column": 116,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 20,
+          "column": 404,
+          "function": "add"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 25,
+          "column": 31
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 25,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 25,
+          "column": 101
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 25,
+          "column": 198
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 25,
+          "column": 316
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 7,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-asset-details.spec.ts::audit references list all current nodes and keep history distinct",
+      "file": "tests/e2e/cloud-asset-details.spec.ts",
+      "title": "audit references list all current nodes and keep history distinct",
+      "status": "passed",
+      "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
       "assertions": 12,
-      "actions": 5,
+      "actions": 0,
       "assertionLocations": [
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 9,
-          "column": 362,
-          "function": "makeTrashed"
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 15,
+          "column": 221,
+          "function": "seed"
         },
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 10,
-          "column": 125,
-          "function": "makeTrashed"
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 289,
+          "function": "seed"
         },
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 9,
-          "column": 362,
-          "function": "makeTrashed"
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 410,
+          "function": "seed"
         },
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 10,
-          "column": 125,
-          "function": "makeTrashed"
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 17,
+          "column": 116,
+          "function": "seed"
         },
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 227,
-          "column": 64
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 20,
+          "column": 404,
+          "function": "add"
         },
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 228,
-          "column": 16
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 30,
+          "column": 129
         },
         {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 230,
-          "column": 34
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 232,
-          "column": 87
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 234,
-          "column": 69
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 216,
-          "column": 63
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 217,
-          "column": 63
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 218,
-          "column": 60
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 220,
-          "column": 128
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 226,
-          "column": 64
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-project-batch.spec.ts::keeps the reset dialog and prior values when the reset request fails",
-      "file": "tests/e2e/cloud-project-batch.spec.ts",
-      "title": "keeps the reset dialog and prior values when the reset request fails",
-      "status": "passed",
-      "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
-      "assertions": 9,
-      "actions": 5,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 204,
-          "column": 54
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 211,
-          "column": 40
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 212,
-          "column": 68
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 213,
-          "column": 51
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 216,
-          "column": 59
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 217,
-          "column": 69
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 202,
-          "column": 43
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 203,
-          "column": 58
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 209,
-          "column": 63
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 210,
-          "column": 60
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 215,
-          "column": 60
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
-      "file": "tests/e2e/cloud-library-transfer.spec.ts",
-      "title": "optimizes a canvas node text end to end keeping neighbors",
-      "status": "passed",
-      "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1",
-      "assertions": 22,
-      "actions": 8,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 385,
-          "column": 227
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 13,
-          "column": 356,
-          "function": "seedTextProject"
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 388,
-          "column": 369
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 392,
-          "column": 41
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 394,
-          "column": 21
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 397,
-          "column": 28
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 397,
-          "column": 71
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 397,
-          "column": 113
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 400,
-          "column": 24
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 401,
-          "column": 24
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 402,
-          "column": 73
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 403,
-          "column": 69
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 405,
-          "column": 69
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 409,
-          "column": 41
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 410,
-          "column": 91
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 412,
-          "column": 61
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 414,
-          "column": 87
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 415,
-          "column": 86
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 390,
-          "column": 79
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 391,
-          "column": 59
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 393,
-          "column": 68
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 398,
-          "column": 59
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 404,
-          "column": 59
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 406,
-          "column": 59
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 407,
-          "column": 53
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 408,
-          "column": 62
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-library-transfer.spec.ts::blocks concurrent import submissions while one is in flight",
-      "file": "tests/e2e/cloud-library-transfer.spec.ts",
-      "title": "blocks concurrent import submissions while one is in flight",
-      "status": "passed",
-      "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1",
-      "assertions": 10,
-      "actions": 3,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 44,
-          "column": 67
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 55,
-          "column": 64
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 56,
-          "column": 76
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 58,
-          "column": 57
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 59,
-          "column": 16
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 61,
-          "column": 56
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 63,
-          "column": 69
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 42,
-          "column": 2
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 43,
-          "column": 59
-        },
-        {
-          "file": "tests/e2e/cloud-library-transfer.spec.ts",
-          "line": 53,
-          "column": 62
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
-      "file": "tests/e2e/cloud-project-batch.spec.ts",
-      "title": "blocks duplicate batch archive submissions while one is in flight",
-      "status": "passed",
-      "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
-      "assertions": 7,
-      "actions": 3,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 192,
-          "column": 68
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 194,
-          "column": 62
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 195,
-          "column": 16
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 198,
-          "column": 69
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 179,
-          "column": 136
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 189,
-          "column": 58
-        },
-        {
-          "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 190,
-          "column": 60
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-controls.spec.ts::shows asset details with hash and node references and navigates to the canvas",
-      "file": "tests/e2e/cloud-controls.spec.ts",
-      "title": "shows asset details with hash and node references and navigates to the canvas",
-      "status": "passed",
-      "sourceHash": "fa968ff4a49dae4bc32696fb90c2f0c4843cb46f888e078418a3974370619309",
-      "assertions": 10,
-      "actions": 4,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
           "line": 32,
-          "column": 56
+          "column": 74
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 32,
+          "column": 190
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 7,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
+      "file": "tests/e2e/cloud-asset-details.spec.ts",
+      "title": "audit asset detail link focuses the referenced node",
+      "status": "passed",
+      "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+      "assertions": 12,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 15,
+          "column": 221,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 289,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 410,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 17,
+          "column": 116,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 20,
+          "column": 404,
+          "function": "add"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 35,
+          "column": 296
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 35,
+          "column": 441
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
           "line": 36,
+          "column": 205
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 7,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 35,
+          "column": 204
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 35,
+          "column": 414
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-asset-details.spec.ts::audit latest selected asset survives a late earlier detail response",
+      "file": "tests/e2e/cloud-asset-details.spec.ts",
+      "title": "audit latest selected asset survives a late earlier detail response",
+      "status": "passed",
+      "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+      "assertions": 12,
+      "actions": 6,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 258,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 11,
+          "column": 186,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 258,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 11,
+          "column": 186,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 40,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 41,
           "column": 394
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 40,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
           "line": 41,
-          "column": 23
+          "column": 691
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 42,
-          "column": 23
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 41,
+          "column": 903
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 44,
-          "column": 21
-        },
-        {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 45,
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 7,
           "column": 69
         },
         {
@@ -15697,24 +16593,233 @@
       ],
       "actionLocations": [
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 30,
-          "column": 2
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 2,
+          "function": "upload"
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 31,
-          "column": 59
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 186,
+          "function": "upload"
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 38,
-          "column": 123
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 2,
+          "function": "upload"
         },
         {
-          "file": "tests/e2e/cloud-controls.spec.ts",
-          "line": 43,
-          "column": 68
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 186,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 41,
+          "column": 143
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 41,
+          "column": 302
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-asset-details.spec.ts::audit a late old account asset detail cannot enter the new account",
+      "file": "tests/e2e/cloud-asset-details.spec.ts",
+      "title": "audit a late old account asset detail cannot enter the new account",
+      "status": "passed",
+      "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+      "assertions": 10,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 258,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 11,
+          "column": 186,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 46,
+          "column": 209
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 47,
+          "column": 291
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 47,
+          "column": 393
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 47,
+          "column": 465
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 7,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 2,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 10,
+          "column": 186,
+          "function": "upload"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 47,
+          "column": 62
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-asset-details.spec.ts::asset details show cloud identity import source unknown properties and reference count",
+      "file": "tests/e2e/cloud-asset-details.spec.ts",
+      "title": "asset details show cloud identity import source unknown properties and reference count",
+      "status": "passed",
+      "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+      "assertions": 15,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 15,
+          "column": 221,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 289,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 16,
+          "column": 410,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 17,
+          "column": 116,
+          "function": "seed"
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 52,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 53,
+          "column": 55
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 53,
+          "column": 124
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 53,
+          "column": 159
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 53,
+          "column": 202
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 53,
+          "column": 258
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 53,
+          "column": 316
+        },
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 7,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-asset-details.spec.ts",
+          "line": 51,
+          "column": 115
         }
       ],
       "network": {
@@ -15723,5 +16828,10 @@
         "blockedRequests": 0
       }
     }
-  ]
+  ],
+  "provenance": {
+    "fullRun": "cloud-full-receipt.json",
+    "assetDetailRecheck": "asset-details-final-receipt.json",
+    "workingTree": true
+  }
 }

@@ -14,8 +14,10 @@ export async function listAssetReferences(pool:Pool,context:AuthContext,id:strin
  await ownedAsset(pool,context,id);
  const refs=await pool.query<{project_id:string;source_id:string;title:string;graph:unknown}>(`SELECT r.project_id,r.source_id,p.document->>'title' AS title,g.graph FROM workspace_asset_references r JOIN workspace_projects p ON p.user_id=r.user_id AND p.id=r.project_id AND p.purged_at IS NULL LEFT JOIN workspace_graphs g ON g.user_id=r.user_id AND g.project_id=r.project_id WHERE r.user_id=$1 AND r.asset_id=$2`,[context.userId,id]);
  return refs.rows.flatMap((row):{projectId:string;projectTitle:string;nodeId:string|undefined;nodeTitle:string|undefined;source:string;current:boolean}[]=>{
-  const nodes=(row.graph as {nodes?:{id:string;title:string;data?:{assetId?:string}}[]}|null)?.nodes??[];
-  const matched=nodes.filter(item=>item.data?.assetId===id);
+  const nodes=(row.graph as {nodes?:{id:string;title:string;data?:unknown}[]}|null)?.nodes??[];
+  // 沿用项目图资源收集语义：节点子树含 assetId/sourceAssetId 即为使用（含嵌套绑定）。
+  const uses=(node:{data?:unknown})=>{let found=false;const visit=(value:unknown):void=>{if(found||!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if((key==='assetId'||key==='sourceAssetId')&&item===id){found=true;return;}visit(item);}};visit(node.data);return found;};
+  const matched=nodes.filter(uses);
   // graph 当前引用：枚举每个实际使用节点；历史引用不冒充当前节点。
   if(row.source_id==='graph')return matched.map(node=>({projectId:row.project_id,projectTitle:row.title,nodeId:node.id,nodeTitle:node.title,source:row.source_id,current:true}));
   return [{projectId:row.project_id,projectTitle:row.title,nodeId:undefined,nodeTitle:undefined,source:row.source_id,current:false}];
