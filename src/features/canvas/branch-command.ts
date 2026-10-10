@@ -1,6 +1,8 @@
 import type {Graph,CanvasNode,Edge} from '../../domain/graph';
 import type {VideoSpec} from '../../domain/common';
 import type {Run} from '../../domain/run';
+// Historic account imports omit execution credentials; branching reads only these public fields.
+export type BranchRun=Pick<Run,'id'|'resultAssetId'|'executionState'|'requestedSpec'|'executionSpec'>;
 import type {GraphOperation} from '../../application/commands/registry';
 import {worldPosition,nodeRect,nodeSize} from './geometry';
 export type NodeClipboard={nodes:CanvasNode[];edges:Edge[];externalInputs:number;positions:Record<string,{x:number;y:number}>;missingInputs:Record<string,string[]>};
@@ -21,13 +23,13 @@ export function pasteNodes(clipboard:NodeClipboard,sourceGraph:Graph):GraphOpera
  // The copied draft has a new identity; the fixed historic result still belongs to its original Run.
  for(const edge of clipboard.edges.filter(edge=>edge.relation!=='result'))ops.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),sourceId:ids.get(edge.sourceId)!,targetId:ids.get(edge.targetId)!}}});return ops;
 }
-export function branchSpec(graph:Graph,sourceId:string,options:{sourceRun?:Run;defaultDraft?:VideoSpec}={}):VideoSpec|undefined{
+export function branchSpec(graph:Graph,sourceId:string,options:{sourceRun?:BranchRun;defaultDraft?:VideoSpec}={}):VideoSpec|undefined{
  const source=graph.nodes.find(n=>n.id===sourceId);if(source?.type==='video-generation')return source.data.draft;
  const linked=graph.edges.filter(e=>e.sourceId===sourceId).map(e=>graph.nodes.find(n=>n.id===e.targetId)).find(n=>n?.type==='video-generation');if(linked?.type==='video-generation')return linked.data.draft;
  if(source?.type==='result'){const run=options.sourceRun;if(!run||run.id!==source.data.runId||run.resultAssetId!==source.data.assetId||run.executionState!=='succeeded')return undefined;return run.requestedSpec??run.executionSpec??options.defaultDraft;}
  return source?.type==='text'?options.defaultDraft:undefined;
 }
-export function createBranch(graph:Graph,sourceId:string,options:{sourceRun?:Run;defaultDraft?:VideoSpec}={}):GraphOperation[]{
+export function createBranch(graph:Graph,sourceId:string,options:{sourceRun?:BranchRun;defaultDraft?:VideoSpec}={}):GraphOperation[]{
  const source=graph.nodes.find(n=>n.id===sourceId),draft=branchSpec(graph,sourceId,options);if(!source||!draft)throw new Error('branch_video_parameters_missing');
  const bounds=nodeRect(source,graph),node:CanvasNode={id:crypto.randomUUID(),title:'新分支',type:'video-generation',x:bounds.right+48,y:bounds.top,locked:false,data:{kind:'video-generation',draft:structuredClone(draft),inputBindings:[],stale:true}};
  const size=nodeSize(node,graph),occupied=graph.nodes.map(existing=>nodeRect(existing,graph));
@@ -41,4 +43,3 @@ export function createBranch(graph:Graph,sourceId:string,options:{sourceRun?:Run
  if(source.type==='video-generation')for(const edge of graph.edges.filter(e=>e.targetId===source.id&&!e.relation))operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{...edge,id:crypto.randomUUID(),targetId:node.id}}});
  else operations.push({id:crypto.randomUUID(),type:'add_edge',payload:{edge:{id:crypto.randomUUID(),sourceId,targetId:node.id,port:source.type==='text'?'text':'video',order:0}}});return operations;
 }
-

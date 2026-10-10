@@ -71,7 +71,16 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
  const [placements,setPlacements]=useState<Record<string,Placement>>(()=>readStoredPlacements(projectId)),[compare,setCompare]=useState<string[]>([]),[details,setDetails]=useState<VideoRecord>(),[pendingCount,setPendingCount]=useState(0);
  const [continuation,setContinuation]=useState<{result:ProjectResult;time:number;prompt:string;file?:File;preview?:string;frameAssetId?:string;request?:FrozenRequest;phase:Phase;error:string;message:string}>();
  const [revision,setRevision]=useState<{result:ProjectResult;prompt:string;skipped:string[];request?:FrozenRequest;phase:Phase;error:string;message:string;availability?:Record<string,boolean>}>();
- const alive=useRef(true),preview=useRef<string|undefined>(undefined);
+ const alive=useRef(true),preview=useRef<string|undefined>(undefined),openedAction=useRef<string|undefined>(undefined);
+ useEffect(()=>{
+  const action=params.get('action'),key=highlight+':'+action;
+  if(!highlight||!action||openedAction.current===key||!snapshot)return;
+  const result=results.find(value=>value.record.id===highlight);
+  if(!result)return;
+  openedAction.current=key;
+  if(action==='details')setDetails(result.record);
+  else if(result.asset&&!result.asset.trashedAt){if(action==='tail-frame')openContinuation(result);else if(action==='revision')openRevision(result);}
+ },[route,results,snapshot]);
  // The reference check needs every owned asset, not only the ones that produced a
  // result; otherwise still readable images would be reported as missing.
  const assets=new Map(media.map(asset=>[asset.id,asset] as const));

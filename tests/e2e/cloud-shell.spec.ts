@@ -94,8 +94,7 @@ test('lists failed runs as notifications without sending requests',async({page,w
  const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'通知检查'}})).json() as {id:string};
  await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'创意',x:40,y:40,locked:false,data:{kind:'text',text:'通知用的正文',referenceTokens:[]}}}},{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId:textId,targetId:nodeId,port:'text',order:0}}}]}}});
  await page.goto('/projects/'+project.id+'/canvas');
- await page.getByLabel('本次视频草稿',{exact:true}).selectOption(nodeId);
- await page.getByRole('button',{name:'生成视频',exact:true}).click();
+ await page.locator('[data-node-id="'+nodeId+'"] [data-interaction-id="V-08"]').click();
  await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
  await page.getByRole('button',{name:'确认生成',exact:true}).click();
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state).toBe('failed_confirmed');
@@ -112,7 +111,7 @@ test('renders help with cloud-scoped guidance and working links',async({page})=>
  await page.getByRole('button',{name:'第三方许可与来源',exact:true}).click();
  await expect(page.getByRole('dialog',{name:'第三方许可与来源',exact:true})).toContainText('画布逻辑许可');
  await page.getByRole('button',{name:'关闭',exact:true}).click();
- await page.getByRole('link',{name:'恢复中心',exact:true}).click();
+ await page.getByRole('main').getByRole('link',{name:'恢复中心',exact:true}).click();
  await expect(page).toHaveURL(/\/recovery$/);
 });
 test('refreshes the top status after a settings save without reload',async({page,workspace})=>{

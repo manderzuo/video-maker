@@ -180,9 +180,10 @@ test('opens a canvas text node in cloud writing with saved revision bound',async
  const seed=await seedTextProject(workspace,'写作源正文','节点写作'),project=seed.project,textId=seed.textId;
  await page.goto('/projects/'+project.id+'/canvas');
  await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('写作源正文已修改');
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
- const id=new URL(page.url()).searchParams.get('draft')!;
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
+ const id=await page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]').inputValue();
  await expect(page.locator('[data-interaction-id="cloud:draft:select"]')).toHaveValue(id);
  const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft' AND id=$1",[id])).rows as unknown as {document:{userRequest:string;sourceProjectId:string;sourceNodeId:string;sourceRevision:number}}[];
  expect(drafts).toHaveLength(1);
@@ -197,7 +198,7 @@ test('keeps input and stays when opening writing fails',async({page,workspace})=
   if(route.request().method()!=='POST'){await route.fallback();return;}
   await route.fulfill({status:500,body:'{}'});
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
  await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
  await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('写作源正文');
@@ -208,7 +209,7 @@ test('refuses a prompt seed from another account and clears it',async({page,work
  const b=await workspace.signup('Cloud_UI_B');workspace.switchAccount(b);
  await page.goto('/projects');
  await page.evaluate(()=>window.dispatchEvent(new Event('focus')));
- await expect(page.getByText('当前账号：Cloud_UI_B',{exact:true})).toBeVisible();
+ await expect(page.getByTitle('当前账号：Cloud_UI_B',{exact:true})).toBeVisible();
  await page.evaluate(a=>sessionStorage.setItem('aiwork:prompt-seed',JSON.stringify({userId:a,title:'A私密',body:'A账号未保存私密全文',source:'画布项目 x'})),aId);
  await page.goto('/prompts?seed=1');
  await expect(page.getByRole('heading',{name:'提示词库',exact:true})).toBeVisible();
@@ -231,10 +232,11 @@ test('creates only one writing draft on unknown response and double click',async
   if(posts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
   await route.fallback();
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  expect(posts).toBe(2);
  expect(bodies[0]).toBe(bodies[1]);
  const once=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
@@ -246,10 +248,11 @@ test('creates only one writing draft on unknown response and double click',async
   await route.fallback();
  });
  await page.goto('/projects/'+project.id+'/canvas');
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await page.waitForTimeout(100);
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  const twice=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
  expect(twice.filter(row=>row.document.sourceNodeId===textId)).toHaveLength(2);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
@@ -265,18 +268,19 @@ test('keeps the pending writing identity when canvas save fails',async({page,wor
   if(saveFailPosts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
   await route.fallback();
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
  await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('改后正文');
  await page.route('**/studio-api/projects/*/commands',async route=>{await route.fulfill({status:500,body:'{}'});});
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByText('画布尚未保存成功',{exact:false})).toBeVisible();
  await page.unroute('**/studio-api/projects/*/commands');
  await expect(page.getByRole('button',{name:'重试保存',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'重试保存',exact:true}).click();
  await expect(page.getByRole('status')).toContainText('已保存');
  await page.getByRole('button',{name:'重试原动作',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{userRequest:string;sourceNodeId:string}}[];
  const mine=drafts.filter(row=>row.document.sourceNodeId===textId);
  expect(mine).toHaveLength(1);
@@ -295,15 +299,16 @@ test('ignores another account project without deleting the pending identity',asy
   if(crossPosts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
   await route.fallback();
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
  const b=await workspace.signup('Cloud_UI_B');workspace.switchAccount(b);
  await page.goto('/projects/'+project.id+'/canvas');
  await expect(page.getByText('甲正文不泄漏',{exact:false})).toHaveCount(0);
  workspace.switchAccount(a);
  await page.goto('/projects/'+project.id+'/canvas');
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
  expect(drafts.filter(row=>row.document.sourceNodeId===textId)).toHaveLength(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
@@ -319,12 +324,13 @@ test('keeps another project pending identity when visiting a different project',
   if(posts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...a.headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
   await route.fallback();
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
  await page.goto('/projects/'+b.project.id+'/canvas'); await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('乙正文');
  await page.goto('/projects/'+a.project.id+'/canvas');
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
  expect(drafts.filter(row=>row.document.sourceNodeId===a.textId)).toHaveLength(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
@@ -340,18 +346,19 @@ test('blocks a new submission after edits until the pending one is resolved',asy
   if(posts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
   await route.fallback();
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
  await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('后续人工编辑必须保留');
  await page.getByRole('button',{name:'保存到云端',exact:true}).click();
  await expect(page.getByRole('status')).toContainText('已保存');
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByText('有未完成的写作打开',{exact:false})).toBeVisible();
  expect(posts).toBe(1);
  await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('后续人工编辑必须保留');
  await page.getByRole('button',{name:'放弃本次写作打开',exact:true}).click();
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{userRequest:string;sourceNodeId:string}}[];
  const mine=drafts.filter(row=>row.document.sourceNodeId===textId);
  expect(mine).toHaveLength(2);
@@ -369,13 +376,14 @@ test('resumes a pending writing open after refresh with the same identity',async
   if(posts===1){await ctx.call('POST','/studio-api/prompt-drafts',{...headers,payload:route.request().postDataJSON()});await route.fulfill({status:500,body:'{}'});return;}
   await route.fallback();
  });
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
  await expect(page.getByRole('alert')).toBeVisible();
  await page.reload();
  await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('刷新正文');
  await expect(page.getByRole('button',{name:'放弃本次写作打开',exact:true})).toBeVisible();
- await page.getByRole('button',{name:'在写作中打开',exact:true}).click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
+ await page.getByRole('button',{name:'提示词生成',exact:true}).click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
  const drafts=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows as unknown as {document:{sourceNodeId:string}}[];
  expect(drafts.filter(row=>row.document.sourceNodeId===textId)).toHaveLength(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
@@ -390,9 +398,10 @@ test('optimizes a canvas node text end to end keeping neighbors',async({page,wor
  await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('桥接正文已编辑');
  await page.getByRole('button',{name:'保存到云端',exact:true}).click();
  await expect(page.getByRole('status')).toContainText('已保存');
- await page.getByRole('button',{name:'在写作中打开',exact:true}).first().click();
- await expect(page).toHaveURL(/\/prompt-generator\?draft=/);
- const draftId=new URL(page.url()).searchParams.get('draft')!;
+ await page.getByRole('button',{name:'提示词生成',exact:true}).first().click();
+ await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
+ await expect(page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]')).toHaveValue(/.+/);
+ const draftId=await page.locator('.prompt-generator-panel [data-interaction-id="cloud:draft:select"]').inputValue();
  const draft=(await ctx.pool.query<{document:{userRequest:string;sourceNodeId:string;sourceRevision:number}}>("SELECT document FROM workspace_content WHERE id=$1",[draftId])).rows[0].document;
  expect(draft.userRequest).toBe('桥接正文已编辑');expect(draft.sourceNodeId).toBe(textId);expect(draft.sourceRevision).toBe(3);
  await page.getByRole('button',{name:'AI 优化',exact:true}).click();
@@ -406,9 +415,9 @@ test('optimizes a canvas node text end to end keeping neighbors',async({page,wor
  await page.getByRole('button',{name:'AI 优化',exact:true}).click();
  await page.getByLabel('我确认此文字调用可能收费',{exact:true}).check();
  await page.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
- await expect(page.getByRole('status')).toContainText('任务已保存');
+ await expect(page.locator('.prompt-generator-panel').getByRole('status')).toContainText('任务已保存');
  await expect.poll(()=>workspace.providerCalls.filter(call=>call.method==='POST').length).toBe(1);
- await page.reload();
+ await page.goto('/prompt-generator?draft='+draftId);
  await expect(page.getByLabel('结果正文',{exact:true}).first()).toHaveValue('云端 AI 优化的雨后街道');
  await page.goto('/projects/'+project.id+'/canvas');
  await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('桥接正文已编辑');

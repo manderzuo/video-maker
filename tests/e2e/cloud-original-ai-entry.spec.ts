@@ -1,0 +1,36 @@
+import {randomUUID} from 'node:crypto';
+import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
+
+test('original T06 confirms one fake AI request and applies only to its exact saved source',async({page,workspace})=>{
+ const headers=workspace.headers(workspace.account);
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/text',{...headers,payload:{apiBase:'https://api.example.test',model:'Vendor/Outside-Catalog',apiKey:'FAKE_CLOUD_UI_KEY',expectedRevision:null}})).statusCode).toBe(200);
+ const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'原 AI 入口'}})).json();
+ const sourceId=randomUUID(),neighborId=randomUUID();
+ const nodes=[{id:sourceId,type:'text',title:'指定原文',x:40,y:40,locked:false,data:{kind:'text',text:'原始需求',referenceTokens:[]}},{id:neighborId,type:'text',title:'相邻节点',x:420,y:40,locked:false,data:{kind:'text',text:'相邻正文保持',referenceTokens:[]}}];
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:nodes.map(node=>({id:randomUUID(),type:'add_node',payload:{node}}))}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');
+ const source=page.locator('[data-node-id="'+sourceId+'"]');
+ await source.locator('textarea').fill('指定节点的最新需求');
+ await expect(source.locator('[data-interaction-id="T-06"]')).toBeEnabled();
+ await source.locator('[data-interaction-id="T-06"]').click();
+ const confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});
+ await expect(confirm).toBeVisible();
+ await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas$'));
+ await expect(confirm.getByRole('button',{name:'确认调用文字模型',exact:true})).toBeDisabled();
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+ const draft=(await workspace.pool.query("SELECT document FROM workspace_content WHERE kind='draft'")).rows[0].document;
+ expect(draft.sourceNodeId).toBe(sourceId);expect(draft.userRequest).toBe('指定节点的最新需求');
+ await confirm.getByLabel('我确认此文字调用可能收费',{exact:true}).check();
+ await confirm.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
+ const panel=page.locator('.prompt-generator-panel');
+ await expect(panel.getByLabel('结果正文',{exact:true})).toHaveValue('云端 AI 优化的雨后街道');
+ await panel.getByRole('button',{name:'插入文字',exact:true}).first().click();
+ const apply=page.getByRole('dialog',{name:'应用写作结果到画布',exact:true});
+ await apply.getByLabel('目标文字节点',{exact:true}).selectOption(sourceId);
+ await apply.getByRole('button',{name:'确认应用到云端画布',exact:true}).click();
+ await expect(apply).not.toBeVisible();
+ await page.reload();
+ await expect(page.locator('[data-node-id="'+sourceId+'"] textarea')).toHaveValue('云端 AI 优化的雨后街道');
+ await expect(page.locator('[data-node-id="'+neighborId+'"] textarea')).toHaveValue('相邻正文保持');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
+});

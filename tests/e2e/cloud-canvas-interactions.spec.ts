@@ -70,10 +70,11 @@ test('locks ports, undoes work and retains input on save conflicts',async({page,
  await expect(page.getByRole('status').first()).toContainText('已保存');
  const box=await page.locator('.canvas-stage').boundingBox();if(!box)throw new Error('Missing stage');
  await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+900,box.y+500,{steps:8});await page.mouse.up();
- await expect(page.getByRole('button',{name:'对齐',exact:true})).toBeEnabled();
- await page.getByRole('button',{name:'对齐',exact:true}).click();
+ await expect(page.getByRole('button',{name:'对齐左侧',exact:true})).toBeEnabled();
+ await page.getByRole('button',{name:'对齐左侧',exact:true}).click();
+ await page.getByRole('dialog',{name:'预览布局',exact:true}).getByRole('button',{name:'应用布局',exact:true}).click();
  await expect(page.getByRole('status').first()).toContainText('已保存');
- await page.getByRole('button',{name:'布局预览',exact:true}).click();
+ await page.getByRole('button',{name:'整理布局',exact:true}).click();
  await expect(page.getByRole('dialog',{name:'预览布局',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'应用布局',exact:true}).click();
  await expect(page.getByRole('status').first()).toContainText('已保存');
@@ -88,7 +89,7 @@ test('branches from text, resizes with the keyboard and restores everything on r
  await page.getByRole('button',{name:'添加文字节点',exact:true}).click();
  await page.locator('[data-interaction-id="cloud:canvas:node-text"]').first().fill('分支来源');
  await expect(page.getByRole('status').first()).toContainText('已保存');
- await page.locator('[data-interaction-id="cloud:canvas:outline-select"]').check();
+ await page.locator('[data-interaction-id="ui:NodeOutline:input:f09b25dd00af"]').check();
  await page.getByRole('button',{name:'复制为分支',exact:true}).click();
  await expect(page.locator('.node-video-generation')).toHaveCount(1);
  await page.locator('[data-interaction-id="canvas:resize"]').first().focus();
@@ -122,8 +123,8 @@ test('dragging a selected node preserves the whole multi-selection across repeat
  const ids=[randomUUID(),randomUUID()];
  expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:ids.map((id,index)=>({id:randomUUID(),type:'add_node',payload:{node:{id,type:'text',title:'多选'+index,x:40+400*index,y:30,locked:false,data:{kind:'text',text:'内容'+index,referenceTokens:[]}}}}))}}})).statusCode).toBe(200);
  await page.setViewportSize({width:1920,height:1080});await page.goto('/projects/'+project.id+'/canvas');
- await expect(page.locator('[data-interaction-id="cloud:canvas:outline-select"]')).toHaveCount(2);
- for(const checkbox of await page.locator('[data-interaction-id="cloud:canvas:outline-select"]').all())await checkbox.check();
+ await expect(page.locator('[data-interaction-id="ui:NodeOutline:input:f09b25dd00af"]')).toHaveCount(2);
+ for(const checkbox of await page.locator('[data-interaction-id="ui:NodeOutline:input:f09b25dd00af"]').all())await checkbox.check();
  await expect(page.locator('.canvas-node.selected')).toHaveCount(2);
  const readGraph=async()=>(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
  const initial=await readGraph();

@@ -12,7 +12,6 @@ import {LocalLink} from '../../app/routes';
 import {nodeSize, visibleNodes, worldPosition} from '../canvas/geometry';
 import {updateViewport} from '../canvas/viewport';
 import {selectNodes} from '../canvas/selection';
-import {copyNodes, pasteNodes, type NodeClipboard} from '../canvas/branch-command';
 import {
   CanvasEdges,
   ConnectionMenu,
@@ -21,6 +20,13 @@ import {
   useCanvasConnections,
 } from '../canvas/CanvasConnections';
 import {NodeResizeHandles} from '../canvas/NodeResizeHandles';
+import {TextNode} from '../canvas/nodes/TextNode';
+import {VideoNode} from '../canvas/nodes/VideoNode';
+import {AssetNode} from '../canvas/nodes/AssetNode';
+import {GroupNode} from '../canvas/nodes/GroupNode';
+import type {NodeMenuHandle} from '../canvas/NodeMenu';
+import {localText} from '../../domain/common';
+import {sessionStore} from '../../infrastructure/api/session';
 
 type Gesture =
   | {type: 'pan' | 'box'; startX: number; startY: number; lastX: number; lastY: number; view: Viewport; graph: Graph; shift: boolean}
@@ -41,8 +47,6 @@ export function CloudCanvasSurface({
   setTool,
   background,
   minimap,
-  clipboard,
-  setClipboard,
   stageOps,
   commitOps,
   onViewport,
@@ -54,6 +58,7 @@ export function CloudCanvasSurface({
   onRedo,
   onFiles,
   fit,
+  nodeMenu,onCreateFlow,onGenerate,onTextValidity,onResultAction,
 }: {
   client: WorkspaceClient;
   graph: Graph;
@@ -69,19 +74,22 @@ export function CloudCanvasSurface({
   setTool: (tool: 'select' | 'pan') => void;
   background: string;
   minimap: boolean;
-  clipboard: NodeClipboard | undefined;
-  setClipboard: (clipboard: NodeClipboard | undefined) => void;
   stageOps: (operations: GraphOperation[]) => boolean;
   commitOps: (operations: GraphOperation[]) => Promise<boolean>;
   onViewport: (viewport: Viewport) => void;
   onError: (message: string) => void;
   onSave: () => void;
   onSaveNodePrompt: (nodeId: string) => void;
-  onOpenNodeWriting: (nodeId: string) => void;
+  onOpenNodeWriting: (nodeId: string, ai?:boolean) => void;
   onUndo: () => void;
   onRedo: () => void;
   onFiles: (files: File[]) => void;
   fit: (ids?: string[]) => void;
+  nodeMenu: RefObject<NodeMenuHandle | null>;
+  onResultAction: (node:Extract<CanvasNode,{type:'result'}>,action:'details'|'tail-frame'|'revision') => void;
+  onCreateFlow: (nodeId:string) => void;
+  onGenerate: (nodeId:string) => void;
+  onTextValidity: (nodeId:string,valid:boolean) => void;
 }) {
   const op = (type: GraphOperation['type'], payload: Record<string, unknown>): GraphOperation => ({
     id: crypto.randomUUID(),
@@ -93,6 +101,13 @@ export function CloudCanvasSurface({
   const [dragPreview, setDragPreview] = useState<Record<string, {dx: number; dy: number}>>({});
   const [resizing, setResizing] = useState<{nodeId: string; size: CanvasNodeSize} | null>(null);
   const view = graph.viewport;
+  const identity=sessionStore.getState();
+  const fontsKey=identity.status==='authenticated'?'aiwork:canvas-fonts:'+identity.session.user.id+':'+graph.projectId:undefined;
+  const [fonts,setFonts]=useState<Record<string,number>>(()=>{try{return fontsKey?JSON.parse(localStorage.getItem(fontsKey)??'{}'):{};}catch{return {};}});
+  const fontSize=(id:string)=>[12,14,16,20].includes(fonts[id])?fonts[id]:14;
+  function changeFont(id:string,size:number){const next={...fonts,[id]:size};setFonts(next);try{if(fontsKey)localStorage.setItem(fontsKey,JSON.stringify(next));}catch{/* Presentation remains available in memory. */}}
+  function updateData(nodeId:string,data:CanvasNode['data']){return stageOps([op('update_node',{nodeId,patch:{data}})]);}
+  const references=assets.filter(asset=>!asset.trashedAt&&['image','video','audio'].includes(asset.mediaType)).map((asset,index)=>({assetId:asset.id,alias:'asset-'+(index+1),mediaType:asset.mediaType as 'image'|'video'|'audio',role:'reference',description:asset.title,available:true,unbound:false}));
   const canResize = canEdit && saved;
   const connections = useCanvasConnections({
     graph,
@@ -113,32 +128,14 @@ export function CloudCanvasSurface({
     return {x: event.clientX - rect.left, y: event.clientY - rect.top};
   }
 
-  function copySelected() {
-    const nodes = graph.nodes.filter((n) => selected.includes(n.id));
-    if (!nodes.length) return;
-    setClipboard(copyNodes(graph, selected));
-  }
-
-  function pasteClipboard() {
-    if (!clipboard || !canEdit) return false;
-    void commitOps(pasteNodes(clipboard, graph));
-    return true;
-  }
-
   function deleteSelected() {
     if (!canEdit) return;
     if (connections.selectedEdgeId) {
       void connections.disconnect();
       return;
     }
-    const targets = selected.filter((id) => {
-      const node = graph.nodes.find((n) => n.id === id);
-      return node && !node.locked;
-    });
-    if (!targets.length) return;
-    void commitOps(targets.map((nodeId) => op('remove_node', {nodeId}))).then((ok) => {
-      if (ok) setSelected([]);
-    });
+    nodeMenu.current?.remove();
+    return;
   }
 
   function keyboard(event: React.KeyboardEvent) {
@@ -163,16 +160,12 @@ export function CloudCanvasSurface({
       onRedo();
     } else if (mod && event.key.toLowerCase() === 'd') {
       event.preventDefault();
-      if (selected.length && canEdit) {
-        const next = copyNodes(graph, selected);
-        setClipboard(next);
-        void commitOps(pasteNodes(next, graph));
-      }
+      if (selected.length && canEdit) nodeMenu.current?.duplicate();
     } else if (mod && event.key.toLowerCase() === 'c') {
       event.preventDefault();
-      copySelected();
+      nodeMenu.current?.copy();
     } else if (mod && event.key.toLowerCase() === 'v' && !event.shiftKey) {
-      if (pasteClipboard()) event.preventDefault();
+      if (nodeMenu.current?.paste()) event.preventDefault();
     } else if (event.key === 'Delete' || event.key === 'Backspace') {
       event.preventDefault();
       deleteSelected();
@@ -348,6 +341,7 @@ export function CloudCanvasSurface({
       aria-label="云端画布"
       role="region"
       tabIndex={0}
+      onContextMenu={event=>{event.preventDefault();const id=(event.target as HTMLElement).closest<HTMLElement>('[data-node-id]')?.dataset.nodeId;nodeMenu.current?.open(id?(selected.includes(id)?selected:[id]):selected);}}
       onPointerDown={(event) => void pointerStart(event)}
       onPointerMove={pointerMove}
       onPointerUp={pointerEnd}
@@ -484,81 +478,11 @@ export function CloudCanvasSurface({
                       />
                     </label>
                   ) : null}
-                  {node.type === 'text' ? (
-                    <label>
-                      节点文本
-                      <textarea
-                        data-interaction-id="cloud:canvas:node-text"
-                        aria-label="节点文本"
-                        disabled={!canEdit || node.locked}
-                        value={node.data.text}
-                        style={{minHeight: 150, width: '100%'}}
-                        onChange={(event) => stageOps([op('update_node', {nodeId: node.id, patch: {data: {...node.data, text: event.target.value}}})])}
-                      />
-                    </label>
-                  ) : node.type === 'asset' || node.type === 'result' ? (
-                    asset ? (
-                      <CloudAssetMedia client={client} asset={asset} />
-                    ) : (
-                      <p>素材无法读取</p>
-                    )
-                  ) : node.type === 'group' ? null : (
-                    <>
-                      <label>
-                        模型名称
-                        <input
-                          data-interaction-id="cloud:canvas:model"
-                          value={node.data.draft.modelId}
-                          disabled={!canEdit || node.locked}
-                          onChange={(event) => {
-                            if (event.target.value.trim())
-                              stageOps([op('update_node', {nodeId: node.id, patch: {data: {...node.data, draft: {...node.data.draft, modelId: event.target.value}}}})]);
-                          }}
-                        />
-                      </label>
-                      <p>{graph.edges.filter((e) => e.targetId === node.id).length} 个显式输入</p>
-                      <LocalLink data-interaction-id="cloud:canvas:api" href="/settings/connections">
-                        查看视频 API 设置
-                      </LocalLink>
-                    </>
-                  )}
-                  {node.type !== 'group' ? (
-                    <div className="node-actions">
-                      <Button
-                        data-interaction-id="cloud:canvas:select"
-                        onClick={() => setSelected(selected.includes(node.id) ? selected.filter((id) => id !== node.id) : [...selected, node.id])}
-                      >
-                        {selected.includes(node.id) ? '取消选中' : '选中节点'}
-                      </Button>
-                      <Button
-                        data-interaction-id="cloud:canvas:lock"
-                        disabled={!canEdit}
-                        onClick={() => void commitOps([op('update_node', {nodeId: node.id, patch: {locked: !node.locked}})])}
-                      >
-                        {node.locked ? '解锁' : '锁定'}
-                      </Button>
-                      {node.type === 'text' ? (
-                        <>
-                          <Button
-                            data-interaction-id="cloud:canvas:save-prompt"
-                            disabled={!canEdit || node.locked || !node.data.text.trim()}
-                            disabledReason={!canEdit || node.locked ? '当前节点只读或已锁定' : '请先输入有效文字'}
-                            onClick={() => onSaveNodePrompt(node.id)}
-                          >
-                            保存为提示词
-                          </Button>
-                          <Button
-                            data-interaction-id="cloud:canvas:open-writing"
-                            disabled={!canEdit || node.locked || !node.data.text.trim()}
-                            disabledReason={!canEdit || node.locked ? '当前节点只读或已锁定' : '请先输入有效文字'}
-                            onClick={() => onOpenNodeWriting(node.id)}
-                          >
-                            在写作中打开
-                          </Button>
-                        </>
-                      ) : null}
-                    </div>
-                  ) : null}
+                  {node.type === 'text' ? <TextNode node={node} readonly={!canEdit||node.locked} interactionId="cloud:canvas:node-text" references={references} fontSize={fontSize(node.id)} onFontSize={size=>changeFont(node.id,size)} onDraft={data=>{const valid=localText.safeParse(data.text).success;onTextValidity(node.id,valid);if(valid)updateData(node.id,data);}} onChange={()=>{}} onSavePrompt={()=>onSaveNodePrompt(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0} onCreateFlow={()=>onCreateFlow(node.id)}/>
+                    : node.type==='video-generation'?<VideoNode node={node} graph={graph} assets={assets} capability={capability} readonly={!canEdit||node.locked} onChange={data=>updateData(node.id,data)} onCommand={ops=>void commitOps(ops)} onPreflight={()=>onGenerate(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0}/>
+                    : node.type==='asset'||node.type==='result'?<><AssetNode assetId={node.data.assetId} asset={asset} renderMedia={(media,thumbnail)=><CloudAssetMedia client={client} asset={media} preferOriginal={!thumbnail}/>}/>{node.type==='result'?<div className="node-actions"><LocalLink data-interaction-id="restore:cloudcanvassurface:1" href={'/projects/'+encodeURIComponent(graph.projectId)+'/results?runId='+encodeURIComponent(node.data.runId)}>查看结果、尾帧与修改生成</LocalLink><Button data-interaction-id="restore:cloudcanvassurface:2" disabled={!canEdit} onClick={()=>onResultAction(node,'details')}> 查看任务详情</Button><Button data-interaction-id="restore:cloudcanvassurface:3" disabled={!canEdit} onClick={()=>onResultAction(node,'tail-frame')}> 尾帧续写</Button><Button data-interaction-id="restore:cloudcanvassurface:4" disabled={!canEdit} onClick={()=>onResultAction(node,'revision')}> 修改后重新生成</Button></div>:null}</>
+                    : <GroupNode count={node.data.childIds.length} collapsed={node.data.collapsed}/>}
+                  {node.type !== 'group' ? <div className="node-actions"><Button data-interaction-id="cloud:canvas:select" onClick={()=>setSelected(selected.includes(node.id)?selected.filter(id=>id!==node.id):[...selected,node.id])}>{selected.includes(node.id)?'取消选中':'选中节点'}</Button><Button data-interaction-id="cloud:canvas:lock" disabled={!canEdit} onClick={()=>void commitOps([op('update_node',{nodeId:node.id,patch:{locked:!node.locked}})])}>{node.locked?'解锁':'锁定'}</Button></div>:null}
                 </div>
               </article>
             );

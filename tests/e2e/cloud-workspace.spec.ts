@@ -16,7 +16,7 @@ test('uploads an original and reads it from cloud assets after refresh',async({p
 test('switches accounts without showing the previous owned projects or reading old IndexedDB',async({page,workspace})=>{
  await page.addInitScript(()=>{Object.defineProperty(window,'indexedDB',{get(){throw new Error('LEGACY_DB_MUST_NOT_OPEN');}});});
  await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'仅属于账号 A'}});await page.goto('/projects');await expect(page.getByRole('link',{name:'仅属于账号 A',exact:true})).toBeVisible();
- const b=await workspace.signup('Cloud_UI_B');workspace.switchAccount(b);await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await expect(page.getByText('当前账号：Cloud_UI_B',{exact:true})).toBeVisible();await expect(page.getByRole('link',{name:'仅属于账号 A',exact:true})).toHaveCount(0);await expect(page.getByText('还没有项目',{exact:true})).toBeVisible();
+ const b=await workspace.signup('Cloud_UI_B');workspace.switchAccount(b);await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await expect(page.getByTitle('当前账号：Cloud_UI_B',{exact:true})).toBeVisible();await expect(page.getByRole('link',{name:'仅属于账号 A',exact:true})).toHaveCount(0);await expect(page.getByText('还没有项目',{exact:true})).toBeVisible();
 });
 test('copies a project with its current cloud graph and preserves project search and metadata actions',async({page,workspace})=>{
  const created=await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'可复制项目',tags:['云端']}});expect(created.statusCode).toBe(201);

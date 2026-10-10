@@ -2042,6 +2042,21 @@
       "id": "T-04"
     },
     {
+      "code": "facet_missing:disabled",
+      "kind": "interactions",
+      "id": "T-06"
+    },
+    {
+      "code": "facet_missing:error",
+      "kind": "interactions",
+      "id": "T-06"
+    },
+    {
+      "code": "facet_missing:sideEffect",
+      "kind": "interactions",
+      "id": "T-06"
+    },
+    {
       "code": "source_binding_missing",
       "kind": "interactions",
       "id": "T-07"
@@ -8641,7 +8656,7 @@
             176,
             177
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8663,7 +8678,7 @@
             177
           ],
           "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8684,7 +8699,7 @@
             176,
             177
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8705,7 +8720,7 @@
             176,
             177
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8726,7 +8741,7 @@
             176,
             177
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8747,7 +8762,7 @@
             176,
             177
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         }
       ],
       "missing": []
@@ -8756,126 +8771,37 @@
       "id": "T-06",
       "kind": "interactions",
       "taskId": "T30",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::opens a canvas text node in cloud writing with saved revision bound",
+          "testId": "tests/e2e/cloud-original-ai-entry.spec.ts::original T06 confirms one fake AI request and applies only to its exact saved source",
           "facets": [
-            "normal"
+            "normal",
+            "persistence"
           ],
           "assertionLines": [
-            13,
-            184,
-            186,
-            188,
-            189,
-            190,
-            191
-          ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
-        },
-        {
-          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            4,
-            5,
             6,
-            7,
-            8,
-            9,
-            10
-          ],
-          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
-        },
-        {
-          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::keeps an unsaved central body when a late AI result arrives and applies the saved version instead",
-          "facets": [
-            "error"
-          ],
-          "assertionLines": [
+            10,
+            14,
             17,
             18,
             19,
             20,
-            21,
-            23,
-            24,
-            25,
-            26
+            22,
+            26,
+            31,
+            33,
+            34,
+            35
           ],
-          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
-        },
-        {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
-          "facets": [
-            "normal",
-            "sideEffect"
-          ],
-          "assertionLines": [
-            13,
-            385,
-            388,
-            392,
-            394,
-            397,
-            400,
-            401,
-            402,
-            403,
-            405,
-            409,
-            412,
-            414,
-            415
-          ],
-          "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
-        },
-        {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::resumes a pending writing open after refresh with the same identity",
-          "facets": [
-            "persistence"
-          ],
-          "assertionLines": [
-            13,
-            373,
-            375,
-            376,
-            378,
-            380,
-            381
-          ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
-        },
-        {
-          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
-          "facets": [
-            "disabled"
-          ],
-          "assertionLines": [
-            13,
-            385,
-            388,
-            392,
-            394,
-            397,
-            400,
-            401,
-            402,
-            403,
-            405,
-            409,
-            412,
-            414,
-            415
-          ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "b88806f9d33fba0d321556d37231e493a4f3007ba16c58f325c1147c9239c626"
         }
       ],
-      "missing": []
+      "missing": [
+        "facet_missing:disabled",
+        "facet_missing:error",
+        "facet_missing:sideEffect"
+      ]
     },
     {
       "id": "T-07",
@@ -9137,22 +9063,22 @@
             46,
             47
           ],
-          "sourceHash": "8c23c6e6937aad9296b782b4208c3af4e1ed1c519b373c943e606630edc5f960"
+          "sourceHash": "475d1230265626df59608135b278034d6a99a0e62d825a5f46ea0d662a447573"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
           "facets": [
             "normal"
           ],
-          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "sourceHash": "c5964b5ea2529fb7617b0643c8700fbe7b7a1a1404894302438141573e3f61a1",
           "assertionLines": [
+            7,
             15,
             16,
             17,
             20,
             35,
-            36,
-            7
+            36
           ]
         },
         {
@@ -9160,13 +9086,13 @@
           "facets": [
             "normal"
           ],
-          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "sourceHash": "c5964b5ea2529fb7617b0643c8700fbe7b7a1a1404894302438141573e3f61a1",
           "assertionLines": [
+            7,
             10,
             11,
             40,
-            41,
-            7
+            41
           ]
         },
         {
@@ -9174,14 +9100,14 @@
           "facets": [
             "normal"
           ],
-          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "sourceHash": "c5964b5ea2529fb7617b0643c8700fbe7b7a1a1404894302438141573e3f61a1",
           "assertionLines": [
+            7,
             15,
             16,
             17,
             52,
-            53,
-            7
+            53
           ]
         }
       ],
@@ -9973,7 +9899,7 @@
             146,
             147
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -10000,7 +9926,7 @@
             146,
             147
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -10027,7 +9953,7 @@
             146,
             147
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -10055,7 +9981,7 @@
             147
           ],
           "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -10082,7 +10008,7 @@
             146,
             147
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -10109,7 +10035,7 @@
             146,
             147
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -10136,7 +10062,7 @@
             146,
             147
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         }
       ],
       "missing": []
@@ -10163,7 +10089,7 @@
             37
           ],
           "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::rejects broken and oversized prompt files and writes nothing on cancel",
@@ -10177,7 +10103,7 @@
             81,
             82
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
@@ -10193,7 +10119,7 @@
             36,
             37
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::blocks concurrent import submissions while one is in flight",
@@ -10209,7 +10135,7 @@
             61,
             63
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
@@ -10225,7 +10151,7 @@
             36,
             37
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         }
       ],
       "missing": []
@@ -10253,7 +10179,7 @@
             111
           ],
           "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -10271,7 +10197,7 @@
             111
           ],
           "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -10288,7 +10214,7 @@
             110,
             111
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -10305,7 +10231,7 @@
             110,
             111
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -10322,7 +10248,7 @@
             110,
             111
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -10339,7 +10265,7 @@
             110,
             111
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         }
       ],
       "missing": []
@@ -11902,23 +11828,24 @@
           ],
           "assertionLines": [
             13,
-            385,
-            388,
-            392,
-            394,
-            397,
+            393,
+            396,
             400,
-            401,
             402,
             403,
-            405,
+            406,
             409,
+            410,
+            411,
             412,
             414,
-            415
+            418,
+            421,
+            423,
+            424
           ],
           "expectedCoreWrites": 0,
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
@@ -11927,22 +11854,23 @@
           ],
           "assertionLines": [
             13,
-            385,
-            388,
-            392,
-            394,
-            397,
+            393,
+            396,
             400,
-            401,
             402,
             403,
-            405,
+            406,
             409,
+            410,
+            411,
             412,
             414,
-            415
+            418,
+            421,
+            423,
+            424
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         }
       ],
       "missing": [
@@ -12657,7 +12585,7 @@
             9,
             10
           ],
-          "sourceHash": "f95704f2dac601b7612c0999c7dfe33dd88fda65ace21a4a14a5751e985c5b38"
+          "sourceHash": "214a66bfd3bdbe6e1d2e9a765115fbe5c00f7266c158a802c9392a5460a557d1"
         }
       ],
       "missing": []
@@ -12679,7 +12607,7 @@
             24,
             25
           ],
-          "sourceHash": "f95704f2dac601b7612c0999c7dfe33dd88fda65ace21a4a14a5751e985c5b38"
+          "sourceHash": "214a66bfd3bdbe6e1d2e9a765115fbe5c00f7266c158a802c9392a5460a557d1"
         }
       ],
       "missing": []
@@ -12773,22 +12701,22 @@
             23,
             24
           ],
-          "sourceHash": "8c23c6e6937aad9296b782b4208c3af4e1ed1c519b373c943e606630edc5f960"
+          "sourceHash": "475d1230265626df59608135b278034d6a99a0e62d825a5f46ea0d662a447573"
         },
         {
           "testId": "tests/e2e/cloud-asset-details.spec.ts::audit asset detail link focuses the referenced node",
           "facets": [
             "normal"
           ],
-          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "sourceHash": "c5964b5ea2529fb7617b0643c8700fbe7b7a1a1404894302438141573e3f61a1",
           "assertionLines": [
+            7,
             15,
             16,
             17,
             20,
             35,
-            36,
-            7
+            36
           ]
         },
         {
@@ -12796,13 +12724,13 @@
           "facets": [
             "normal"
           ],
-          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "sourceHash": "c5964b5ea2529fb7617b0643c8700fbe7b7a1a1404894302438141573e3f61a1",
           "assertionLines": [
+            7,
             10,
             11,
             40,
-            41,
-            7
+            41
           ]
         },
         {
@@ -12810,14 +12738,14 @@
           "facets": [
             "normal"
           ],
-          "sourceHash": "617ecac2920be7a342a8a0e431306b9b5594deeaf5ff95513813514504b8fd73",
+          "sourceHash": "c5964b5ea2529fb7617b0643c8700fbe7b7a1a1404894302438141573e3f61a1",
           "assertionLines": [
+            7,
             15,
             16,
             17,
             52,
-            53,
-            7
+            53
           ]
         }
       ],
@@ -12858,7 +12786,7 @@
             176,
             177
           ],
-          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+          "sourceHash": "928c91acafea7c79f5ab148d877309a134374d01baed7adc52399bbf76461024"
         }
       ],
       "missing": []
@@ -13234,7 +13162,7 @@
     "interactions": 260,
     "pages": 23,
     "dialogs": 30,
-    "passed": 7
+    "passed": 6
   },
   "review": "待用户统一验收与独立审查"
 }

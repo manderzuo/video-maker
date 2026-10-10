@@ -9,7 +9,7 @@ import {sessionStore} from '../../infrastructure/api/session';
 import {savePreferences} from '../settings/preferences-store';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
-import {LocalLink,navigate} from '../../app/routes';
+import {LocalLink,navigate,useRoute} from '../../app/routes';
 import {usePreferences} from '../settings/preferences-store';
 type BatchFailure={id:string;title:string;message:string};
 type PurgeBatchItem={project:Project;preview:PurgePreview|undefined;failed:string;key:string;name:string;done:boolean};
@@ -21,7 +21,8 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
  const [projects,setProjects]=useState<Project[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState('');
  const [query,setQuery]=useState(''),[sort,setSort]=useState<string>(preferences.projectSort),[filter,setFilter]=useState('all');
  useEffect(()=>setSort(preferences.projectSort),[preferences.projectSort]);
- const [open,setOpen]=useState(false),[target,setTarget]=useState<Project>(),[title,setTitle]=useState(''),[description,setDescription]=useState(''),[tags,setTags]=useState(''),[busy,setBusy]=useState(false);
+ const route=useRoute();
+ const [open,setOpen]=useState(!trashed&&new URLSearchParams(route.split('?')[1]??'').get('create')==='1'),[target,setTarget]=useState<Project>(),[title,setTitle]=useState(''),[description,setDescription]=useState(''),[tags,setTags]=useState(''),[busy,setBusy]=useState(false);
  const [importOpen,setImportOpen]=useState(false),[file,setFile]=useState<File>(),[plan,setPlan]=useState<CloudImportPlan>();
  const [selection,setSelection]=useState<Set<string>>(new Set()),[batchOpen,setBatchOpen]=useState<'archive'|'export'>(),[batchFailures,setBatchFailures]=useState<BatchFailure[]>([]),[templateOpen,setTemplateOpen]=useState(false),[batchMessage,setBatchMessage]=useState(''),[viewMode,setViewMode]=useState<'grid'|'list'>(preferences.projectList?'list':'grid');
  const [purgeSingle,setPurgeSingle]=useState<{project:Project;preview:PurgePreview|undefined;failed:string;key:string}>(),[purgeName,setPurgeName]=useState('');

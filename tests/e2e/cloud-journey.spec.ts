@@ -29,9 +29,8 @@ test('completes an empty-project journey purely through clicks without paid call
  await page.getByRole('button',{name:'添加节点',exact:true}).click();
  await page.locator('[data-interaction-id="cloud:canvas:dialog-model"]').fill('seedance');
  await page.getByRole('button',{name:'添加视频草稿',exact:true}).click();
- await page.locator('[data-interaction-id="cloud:canvas:source"]').selectOption({index:1});
- await page.locator('[data-interaction-id="cloud:canvas:target"]').selectOption({index:1});
- await page.getByRole('button',{name:'连接节点',exact:true}).click();
+ await page.getByRole('button',{name:'选择输入',exact:true}).click();
+ await page.getByRole('dialog',{name:'选择输入',exact:true}).getByRole('button',{name:'连接 文字',exact:true}).click();
  await page.getByRole('button',{name:'保存到云端',exact:true}).click();
  await expect(page.getByRole('status')).toContainText('已保存');
  await page.goto('/assets');
@@ -40,7 +39,7 @@ test('completes an empty-project journey purely through clicks without paid call
  await page.getByRole('button',{name:'上传到云端',exact:true}).click();
  await expect(page.getByText('旅程素材.png',{exact:true})).toBeVisible();
  await page.goto('/projects');await page.getByRole('link',{name:'全程旅程',exact:true}).click();
- await page.getByRole('button',{name:'生成视频',exact:true}).click();
+ await page.locator('[data-interaction-id="V-08"]').click();
  await page.getByLabel('我确认所列视频生成可能收费',{exact:true}).check();
  await page.getByRole('button',{name:'确认生成',exact:true}).click();
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
