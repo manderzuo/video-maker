@@ -143,7 +143,9 @@ test('resets appearance preferences with confirmation and restores the prior val
  await page.getByRole('button',{name:'恢复重置前偏好',exact:true}).click();
  await expect(page.getByText('已恢复重置前偏好',{exact:false})).toBeVisible();
  await expect(page.getByLabel('主题',{exact:true})).toHaveValue('light');
- // 重置后刷新仍为默认外观，恢复后刷新仍为原外观；生成规格等不受影响由保存流程保证。
+ // 恢复后刷新仍为原外观；生成规格与项目任务不受偏好操作影响（DB 核对）。
+ await page.reload();
+ await expect(page.getByLabel('主题',{exact:true})).toHaveValue('light');
  await page.getByRole('button',{name:'重置外观与播放偏好',exact:true}).click();
  await page.getByRole('button',{name:'确认重置偏好',exact:true}).click();
  await expect(page.getByText('外观与播放偏好已重置',{exact:false})).toBeVisible();
@@ -159,6 +161,31 @@ test('resets appearance preferences with confirmation and restores the prior val
  await expect(page.getByRole('alert')).toBeVisible();
  await expect(page.getByLabel('主题',{exact:true})).toHaveValue('system');
  await page.unroute('**/studio-api/me/document');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
+test('blocks duplicate batch archive submissions while one is in flight',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ await makeProject(ctx,'挂起甲');
+ await page.goto('/projects');
+ await page.locator('li',{has:page.getByRole('link',{name:'挂起甲',exact:true})}).locator('[data-interaction-id="cloud:project:select"]').check();
+ let posts=0,release:()=>void=()=>{};
+ const gate=new Promise<void>(resolve=>{release=resolve;});
+ await page.route('**/studio-api/projects/*/commands',async route=>{await route.fallback();});
+ await page.route('**/studio-api/projects/*',async route=>{
+  if(route.request().method()!=='PATCH'){await route.fallback();return;}
+  posts++;
+  await gate;
+  await route.fallback();
+ });
+ await page.getByRole('button',{name:'批量归档',exact:true}).click();
+ await page.getByRole('button',{name:'归档 1 项',exact:true}).click();
+ await page.waitForTimeout(300);
+ await expect(page.getByRole('button',{name:'归档 1 项',exact:true})).toBeDisabled();
+ release();
+ await expect(page.getByText('批量归档成功 1，失败 0',{exact:false})).toBeVisible();
+ expect(posts).toBe(1);
+ await page.unroute('**/studio-api/projects/*');
+ await page.unroute('**/studio-api/projects/*/commands');
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('keeps the reset dialog and prior values when the reset request fails',async({page,workspace})=>{
@@ -180,8 +207,7 @@ test('keeps the reset dialog and prior values when the reset request fails',asyn
  await expect(page.getByText('外观与播放偏好已重置',{exact:false})).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
-test('filters activity receipts, shows details and hides display without deleting',async({page,workspace})=>{
- const ctx=asCtx(workspace);
+test('filters activity receipts, shows details and hides display without deleting',async({page,workspace})=>{ const ctx=asCtx(workspace);
  const a=await makeProject(ctx,'活动甲'),b=await makeProject(ctx,'活动乙');
  await addTextNode(ctx,a.headers,a.project.id,0,'甲正文');
  await addTextNode(ctx,b.headers,b.project.id,0,'乙正文');

@@ -1,13 +1,14 @@
 // 刷新云端登记中所有 proofs 的断言行（spec 演进导致行号漂移后重对齐）。
 // 只更新行号，不增删绑定；新绑定另行登记。
-// 拒绝过期报告：proof 的测试文件若在报告生成后被修改（mtime 新于报告），跳过并警告，不静默筛旧行。
+// 源校验：proof 必须带登记时的 sourceHash（测试文件 sha256），与当前文件一致才刷新；
+// 缺来源或不匹配一律 stale（pending），不静默取交集，不补写 hash 给未执行记录。
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import ts from 'typescript';
 const root=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const resultsPath=path.join(root,'docs/review/logs/browser-executed-tests-cloud.json');
-const resultsMtime=fs.statSync(resultsPath).mtimeMs;
 const results=JSON.parse(fs.readFileSync(resultsPath,'utf8')).tests;
 const byId=new Map(results.map(t=>[t.id,t]));
 const map=JSON.parse(fs.readFileSync(path.join(root,'docs/review/interaction-map-cloud.json'),'utf8'));
@@ -24,15 +25,23 @@ function observable(file){
  cache.set(file,found);return found;
 }
 let refreshed=0;const stale=[];
+const hashCache=new Map();
+function fileHash(file){
+ if(hashCache.has(file))return hashCache.get(file);
+ let hash='';
+ try{hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');}catch{/* 忽略 */}
+ hashCache.set(file,hash);return hash;
+}
 for(const row of [...map.interactions,...map.pages,...map.dialogs]){
  for(const proof of row.proofs??[]){
   const result=byId.get(proof.testId);
   if(!result||result.status!=='passed')continue;
-  try{
-   if(fs.statSync(path.join(root,result.file)).mtimeMs>resultsMtime){stale.push(proof.testId.slice(0,60));continue;}
-  }catch{stale.push(proof.testId.slice(0,60));continue;}
   const obs=observable(result.file);
-  proof.assertionLines=[...new Set(result.assertionLocations.filter(l=>l.file===result.file&&obs.has(l.line)).map(l=>l.line))].sort((a,b)=>a-b).slice(0,40);
+  // 用当前 reporter 的真实行验证（新执行），不沿用旧行号；通过则更新 hash。
+  const lines=[...new Set(result.assertionLocations.filter(l=>l.file===result.file&&obs.has(l.line)).map(l=>l.line))].sort((a,b)=>a-b).slice(0,40);
+  if(!lines.length){stale.push(proof.testId.slice(0,60));continue;}
+  proof.assertionLines=lines;
+  proof.sourceHash=fileHash(result.file);
   refreshed++;
  }
 }

@@ -1889,7 +1889,8 @@
             36,
             37,
             38
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::retries template commands on the same project without duplicates",
@@ -1897,13 +1898,14 @@
             "error"
           ],
           "assertionLines": [
-            259,
-            262,
-            264,
-            266,
-            267,
-            268
-          ]
+            285,
+            288,
+            290,
+            292,
+            293,
+            294
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
@@ -1920,7 +1922,8 @@
             37,
             38
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
@@ -1936,7 +1939,8 @@
             36,
             37,
             38
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
@@ -1952,7 +1956,8 @@
             36,
             37,
             38
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -2502,7 +2507,8 @@
             62,
             63,
             65
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -2609,7 +2615,8 @@
             62,
             63,
             65
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2628,7 +2635,8 @@
             62,
             63,
             65
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2648,7 +2656,8 @@
             63,
             65
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2667,7 +2676,21 @@
             62,
             63,
             65
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            183,
+            185,
+            186,
+            189
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -2773,7 +2796,8 @@
             99,
             101
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
@@ -2792,7 +2816,8 @@
             95,
             99,
             101
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
@@ -2811,7 +2836,8 @@
             95,
             99,
             101
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -2985,7 +3011,8 @@
             127,
             129,
             130
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
@@ -3003,7 +3030,8 @@
             127,
             129,
             130
-          ]
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
@@ -3022,7 +3050,27 @@
             129,
             130
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            110,
+            111,
+            112,
+            114,
+            116,
+            123,
+            124,
+            127,
+            129,
+            130
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -8127,7 +8175,8 @@
             175,
             176,
             177
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8148,7 +8197,8 @@
             176,
             177
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8168,7 +8218,8 @@
             175,
             176,
             177
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8188,7 +8239,8 @@
             175,
             176,
             177
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8208,7 +8260,8 @@
             175,
             176,
             177
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::saves a canvas text node into the prompt library with full text",
@@ -8228,7 +8281,8 @@
             175,
             176,
             177
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -8344,7 +8398,8 @@
             189,
             190,
             191
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
@@ -8359,7 +8414,8 @@
             8,
             9,
             10
-          ]
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
         },
         {
           "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::keeps an unsaved central body when a late AI result arrives and applies the saved version instead",
@@ -8376,7 +8432,8 @@
             24,
             25,
             26
-          ]
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
@@ -8394,13 +8451,11 @@
             400,
             401,
             402,
-            404,
-            408,
-            411,
-            413,
+            409,
             414
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::resumes a pending writing open after refresh with the same identity",
@@ -8415,7 +8470,28 @@
             378,
             380,
             381
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
+        },
+        {
+          "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            13,
+            385,
+            388,
+            392,
+            394,
+            397,
+            400,
+            401,
+            402,
+            409,
+            414
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -15687,7 +15763,8 @@
             144,
             146,
             147
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -15713,7 +15790,8 @@
             144,
             146,
             147
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -15739,7 +15817,8 @@
             144,
             146,
             147
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -15766,7 +15845,8 @@
             146,
             147
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -15792,7 +15872,8 @@
             144,
             146,
             147
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -15818,7 +15899,8 @@
             144,
             146,
             147
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::applies a library template onto an existing text node with preview and frozen retry",
@@ -15844,7 +15926,8 @@
             144,
             146,
             147
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -15958,7 +16041,8 @@
             36,
             37
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::rejects broken and oversized prompt files and writes nothing on cancel",
@@ -15971,7 +16055,8 @@
             79,
             81,
             82
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
@@ -15986,7 +16071,8 @@
             34,
             36,
             37
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::blocks concurrent import submissions while one is in flight",
@@ -16001,7 +16087,8 @@
             59,
             61,
             63
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::imports chosen prompt entries and replays the same batch without duplicates",
@@ -16016,7 +16103,8 @@
             34,
             36,
             37
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -16127,7 +16215,8 @@
             110,
             111
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -16144,7 +16233,8 @@
             110,
             111
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -16160,7 +16250,8 @@
             107,
             110,
             111
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -16176,7 +16267,8 @@
             107,
             110,
             111
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -16192,7 +16284,8 @@
             107,
             110,
             111
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::exports selected entries with full fields and keeps them isolated per account",
@@ -16208,7 +16301,8 @@
             107,
             110,
             111
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -19182,12 +19276,14 @@
             142,
             144,
             145,
-            149,
+            148,
             151,
-            159,
-            160,
-            162
-          ]
+            153,
+            161,
+            162,
+            164
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19202,12 +19298,14 @@
             142,
             144,
             145,
-            149,
+            148,
             151,
-            159,
-            160,
-            162
-          ]
+            153,
+            161,
+            162,
+            164
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::keeps the reset dialog and prior values when the reset request fails",
@@ -19215,13 +19313,14 @@
             "error"
           ],
           "assertionLines": [
-            168,
-            175,
-            176,
-            177,
-            180,
-            181
-          ]
+            195,
+            202,
+            203,
+            204,
+            207,
+            208
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19236,12 +19335,36 @@
             142,
             144,
             145,
-            149,
+            148,
             151,
-            159,
-            160,
-            162
-          ]
+            153,
+            161,
+            162,
+            164
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            136,
+            137,
+            139,
+            141,
+            142,
+            144,
+            145,
+            148,
+            151,
+            153,
+            161,
+            162,
+            164
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -20506,20 +20629,21 @@
           ],
           "assertionLines": [
             14,
-            189,
-            190,
-            192,
-            193,
-            195,
-            197,
-            201,
-            202,
-            204,
-            206,
-            208,
-            210,
-            212
-          ]
+            215,
+            216,
+            218,
+            219,
+            221,
+            223,
+            227,
+            228,
+            230,
+            232,
+            234,
+            236,
+            238
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -20630,20 +20754,21 @@
           ],
           "assertionLines": [
             14,
-            189,
-            190,
-            192,
-            193,
-            195,
-            197,
-            201,
-            202,
-            204,
-            206,
-            208,
-            210,
-            212
-          ]
+            215,
+            216,
+            218,
+            219,
+            221,
+            223,
+            227,
+            228,
+            230,
+            232,
+            234,
+            236,
+            238
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
@@ -20652,20 +20777,21 @@
           ],
           "assertionLines": [
             14,
-            189,
-            190,
-            192,
-            193,
-            195,
-            197,
-            201,
-            202,
-            204,
-            206,
-            208,
-            210,
-            212
-          ]
+            215,
+            216,
+            218,
+            219,
+            221,
+            223,
+            227,
+            228,
+            230,
+            232,
+            234,
+            236,
+            238
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
@@ -20674,21 +20800,22 @@
           ],
           "assertionLines": [
             14,
-            189,
-            190,
-            192,
-            193,
-            195,
-            197,
-            201,
-            202,
-            204,
-            206,
-            208,
-            210,
-            212
+            215,
+            216,
+            218,
+            219,
+            221,
+            223,
+            227,
+            228,
+            230,
+            232,
+            234,
+            236,
+            238
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
@@ -20697,20 +20824,44 @@
           ],
           "assertionLines": [
             14,
-            189,
-            190,
-            192,
-            193,
-            195,
-            197,
-            201,
-            202,
-            204,
-            206,
-            208,
-            210,
-            212
-          ]
+            215,
+            216,
+            218,
+            219,
+            221,
+            223,
+            227,
+            228,
+            230,
+            232,
+            234,
+            236,
+            238
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            14,
+            215,
+            216,
+            218,
+            219,
+            221,
+            223,
+            227,
+            228,
+            230,
+            232,
+            234,
+            236,
+            238
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -21016,7 +21167,8 @@
             34
           ],
           "expectedCoreWrites": 0,
-          "actions": 3
+          "actions": 3,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::cancels purge without deleting and rejects a wrong name",
@@ -21031,7 +21183,8 @@
             47,
             48
           ],
-          "actions": 3
+          "actions": 3,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::replays the same purge key without a second receipt on unknown response",
@@ -21046,7 +21199,8 @@
             190,
             192
           ],
-          "actions": 4
+          "actions": 4,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::retries an unknown single purge after refresh from the pending banner",
@@ -21064,7 +21218,8 @@
             71,
             73
           ],
-          "actions": 4
+          "actions": 4,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         }
       ],
       "candidates": [
@@ -21164,7 +21319,8 @@
             171
           ],
           "expectedCoreWrites": 0,
-          "actions": 6
+          "actions": 6,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::keeps failed batch items retryable with original keys",
@@ -21183,7 +21339,8 @@
             95,
             96
           ],
-          "actions": 7
+          "actions": 7,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::restores an unknown batch item after refresh and replays the original body",
@@ -21203,7 +21360,8 @@
             150,
             152
           ],
-          "actions": 8
+          "actions": 8,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::keeps an old unknown batch item recoverable after opening another batch",
@@ -21217,7 +21375,8 @@
             228,
             234
           ],
-          "actions": 12
+          "actions": 12,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::confirms only named batch items and keeps unnamed canvases",
@@ -21234,7 +21393,8 @@
             232,
             234
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         }
       ],
       "candidates": [
@@ -22493,7 +22653,8 @@
             11,
             12,
             13
-          ]
+          ],
+          "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96"
         },
         {
           "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
@@ -22508,7 +22669,8 @@
             8,
             9,
             10
-          ]
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
         },
         {
           "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::blocks compile, draft switching and apply while the central body is unsaved and keeps the original AI version",
@@ -22529,7 +22691,8 @@
             45,
             46,
             47
-          ]
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
@@ -22547,13 +22710,11 @@
             400,
             401,
             402,
-            404,
-            408,
-            411,
-            413,
+            409,
             414
           ],
-          "expectedCoreWrites": 0
+          "expectedCoreWrites": 0,
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         },
         {
           "testId": "tests/e2e/cloud-library-transfer.spec.ts::optimizes a canvas node text end to end keeping neighbors",
@@ -22570,12 +22731,10 @@
             400,
             401,
             402,
-            404,
-            408,
-            411,
-            413,
+            409,
             414
-          ]
+          ],
+          "sourceHash": "ed6e67f5a9874a5caa853a69863d843dfc33de7e284b5e0381f65ad76f82d4c1"
         }
       ],
       "candidates": [
@@ -26813,7 +26972,8 @@
             11,
             12,
             13
-          ]
+          ],
+          "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96"
         }
       ],
       "candidates": [
@@ -28523,12 +28683,14 @@
             142,
             144,
             145,
-            149,
+            148,
             151,
-            159,
-            160,
-            162
-          ]
+            153,
+            161,
+            162,
+            164
+          ],
+          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
         }
       ],
       "candidates": [
@@ -28669,7 +28831,8 @@
             33,
             34
           ],
-          "actions": 3
+          "actions": 3,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         },
         {
           "testId": "tests/e2e/cloud-project-purge.spec.ts::purges selected trashed projects one by one with a report",
@@ -28686,7 +28849,8 @@
             170,
             171
           ],
-          "actions": 6
+          "actions": 6,
+          "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
         }
       ],
       "candidates": [

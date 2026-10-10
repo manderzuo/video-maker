@@ -6655,7 +6655,7 @@
       "file": "tests/e2e/cloud-project-batch.spec.ts",
       "title": "resets appearance preferences with confirmation and restores the prior values",
       "status": "passed",
-      "assertions": 15,
+      "assertions": 16,
       "actions": 9,
       "assertionLocations": [
         {
@@ -6695,27 +6695,32 @@
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 149,
-          "column": 59
+          "line": 148,
+          "column": 51
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
           "line": 151,
+          "column": 59
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 153,
           "column": 51
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 159,
+          "line": 161,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 160,
+          "line": 162,
           "column": 51
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 162,
+          "line": 164,
           "column": 69
         },
         {
@@ -6765,22 +6770,22 @@
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 147,
+          "line": 149,
           "column": 63
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 148,
+          "line": 150,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 157,
+          "line": 159,
           "column": 43
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 158,
+          "line": 160,
           "column": 58
         }
       ],
@@ -6812,67 +6817,67 @@
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 189,
+          "line": 215,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 190,
+          "line": 216,
           "column": 69
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 192,
+          "line": 218,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 193,
+          "line": 219,
           "column": 65
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 195,
+          "line": 221,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 197,
+          "line": 223,
           "column": 66
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 201,
+          "line": 227,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 202,
+          "line": 228,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 204,
+          "line": 230,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 206,
+          "line": 232,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 208,
+          "line": 234,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 210,
+          "line": 236,
           "column": 16
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 212,
+          "line": 238,
           "column": 69
         },
         {
@@ -6897,32 +6902,32 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 191,
+          "line": 217,
           "column": 48
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 194,
+          "line": 220,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 196,
+          "line": 222,
           "column": 87
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 198,
+          "line": 224,
           "column": 56
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 200,
+          "line": 226,
           "column": 83
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 205,
+          "line": 231,
           "column": 61
         }
       ],
@@ -6954,37 +6959,37 @@
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 221,
+          "line": 247,
           "column": 22
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 224,
+          "line": 250,
           "column": 69
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 230,
+          "line": 256,
           "column": 29
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 234,
+          "line": 260,
           "column": 30
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 234,
+          "line": 260,
           "column": 30
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 237,
+          "line": 263,
           "column": 16
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 238,
+          "line": 264,
           "column": 69
         },
         {
@@ -7009,22 +7014,22 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 222,
+          "line": 248,
           "column": 21
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 222,
+          "line": 248,
           "column": 48
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 223,
+          "line": 249,
           "column": 62
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 226,
+          "line": 252,
           "column": 60
         }
       ],
@@ -7044,17 +7049,17 @@
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 247,
+          "line": 273,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 250,
+          "line": 276,
           "column": 65
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 251,
+          "line": 277,
           "column": 69
         },
         {
@@ -7079,17 +7084,17 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 244,
+          "line": 270,
           "column": 128
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 246,
+          "line": 272,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 248,
+          "line": 274,
           "column": 90
         }
       ],
@@ -7109,32 +7114,32 @@
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 259,
+          "line": 285,
           "column": 87
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 262,
+          "line": 288,
           "column": 21
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 264,
+          "line": 290,
           "column": 19
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 266,
+          "line": 292,
           "column": 17
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 267,
+          "line": 293,
           "column": 61
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 268,
+          "line": 294,
           "column": 69
         },
         {
@@ -7159,17 +7164,17 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 256,
+          "line": 282,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 258,
+          "line": 284,
           "column": 62
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 261,
+          "line": 287,
           "column": 62
         }
       ],
@@ -15135,32 +15140,32 @@
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 168,
+          "line": 195,
           "column": 54
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 175,
+          "line": 202,
           "column": 40
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 176,
+          "line": 203,
           "column": 68
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 177,
+          "line": 204,
           "column": 51
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 180,
+          "line": 207,
           "column": 59
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 181,
+          "line": 208,
           "column": 69
         },
         {
@@ -15185,27 +15190,27 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 166,
+          "line": 193,
           "column": 43
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 167,
+          "line": 194,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 173,
+          "line": 200,
           "column": 63
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 174,
+          "line": 201,
           "column": 60
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 179,
+          "line": 206,
           "column": 60
         }
       ],
@@ -15453,6 +15458,76 @@
           "file": "tests/e2e/cloud-library-transfer.spec.ts",
           "line": 53,
           "column": 62
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
+      "file": "tests/e2e/cloud-project-batch.spec.ts",
+      "title": "blocks duplicate batch archive submissions while one is in flight",
+      "status": "passed",
+      "assertions": 7,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 183,
+          "column": 68
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 185,
+          "column": 62
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 186,
+          "column": 16
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 189,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 170,
+          "column": 136
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 180,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 181,
+          "column": 60
         }
       ],
       "network": {

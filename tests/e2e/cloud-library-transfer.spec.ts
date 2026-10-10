@@ -399,6 +399,7 @@ test('optimizes a canvas node text end to end keeping neighbors',async({page,wor
  const preview=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});
  await expect(preview).toContainText('Vendor/Outside-Catalog');
  await expect(preview).toContainText('输入修订 0');
+ await expect(preview.getByRole('button',{name:'确认调用文字模型',exact:true})).toBeDisabled();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
  await preview.getByRole('button',{name:'取消',exact:true}).click();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
