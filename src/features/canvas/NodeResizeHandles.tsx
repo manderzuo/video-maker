@@ -1,5 +1,6 @@
 import {useEffect,useRef,type PointerEvent,type KeyboardEvent} from 'react';
 import type {CanvasNodeSize} from '../../domain/graph';
+import './node-resize.css';
 type Direction='width'|'height'|'both';
 type Drag={pointerId:number;startX:number;startY:number;scale:number;initial:CanvasNodeSize;next:CanvasNodeSize;direction:Direction};
 const clamp=(value:number)=>Math.max(160,Math.min(2400,Math.round(value)));

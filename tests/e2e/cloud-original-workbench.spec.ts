@@ -133,3 +133,56 @@ test('original agent address and the canvas prompt button open their usable pane
  await expect(page.getByRole('button',{name:'新建视频写作草稿',exact:true})).toBeVisible();
  expect(workspace.providerCalls.filter(c=>c.method==='POST')).toHaveLength(0);
 });
+
+test('canvas selection keeps the card body in place and exposes usable edge resize handles',async({page,workspace},testInfo)=>{
+ const h=workspace.headers(workspace.account),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'点击节点显示回归'}})).json();
+ const id=randomUUID();
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id,type:'text',title:'选中尺寸',x:64,y:64,locked:false,data:{kind:'text',text:'点击前后正文位置保持稳定',referenceTokens:[]}}}}]}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');
+ const card=page.locator('[data-node-id="'+id+'"]'),body=card.locator('.node-body');
+ await expect(card).toBeVisible();
+ const before=await body.boundingBox();if(!before)throw Error('Missing unselected node body');
+ await card.locator('header').click();
+ await expect(card).toHaveClass(/selected/);
+ const after=await body.boundingBox(),bounds=await card.boundingBox(),corner=await card.getByRole('button',{name:'调整节点大小 选中尺寸',exact:true}).boundingBox();
+ if(!after||!bounds||!corner)throw Error('Missing selected card bounds');
+ await page.screenshot({path:testInfo.outputPath('canvas-click-selection.png'),fullPage:true});
+ await testInfo.attach('selection-layout',{body:JSON.stringify({before,after,bounds,corner}),contentType:'application/json'});
+ expect.soft(Math.abs(after.y-before.y),'Selecting a node must not push its editor downward').toBeLessThanOrEqual(2);
+ expect.soft(Math.abs(corner.x+corner.width/2-(bounds.x+bounds.width)),'Corner grip must sit on the right edge').toBeLessThanOrEqual(2);
+ expect.soft(Math.abs(corner.y+corner.height/2-(bounds.y+bounds.height)),'Corner grip must sit on the bottom edge').toBeLessThanOrEqual(2);
+ expect.soft(corner.width,'Grip must provide a 28px pointer target').toBeCloseTo(28,0);
+ await expect(card.locator('textarea')).toHaveValue('点击前后正文位置保持稳定');
+ expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('mouse corner resize changes both dimensions and persists one undoable cloud command',async({page,workspace},testInfo)=>{
+ const h=workspace.headers(workspace.account),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'鼠标拖动尺寸'}})).json(),id=randomUUID();
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id,type:'text',title:'拖动尺寸',x:64,y:64,locked:false,data:{kind:'text',text:'正文不会随调整尺寸改变',referenceTokens:[]}}}}]}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');
+ const card=page.locator('[data-node-id="'+id+'"]');await card.locator('header').click();
+ const grip=await card.getByRole('button',{name:'调整节点大小 拖动尺寸',exact:true}).boundingBox();if(!grip)throw Error('Missing corner grip');
+ await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);await page.mouse.down();await page.mouse.move(grip.x+grip.width/2+80,grip.y+grip.height/2+50,{steps:8});await page.mouse.up();
+ await expect(card).toHaveCSS('width','400px');await expect(card).toHaveCSS('height','430px');
+ await expect(page.getByRole('status').first()).toContainText('已保存');
+ const read=async()=>(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
+ const resized=await read();expect(resized.revision).toBe(2);expect(resized.nodes[0].size).toEqual({width:400,height:430});expect(resized.nodes[0].data.text).toBe('正文不会随调整尺寸改变');
+ await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(card).toHaveCSS('width','320px');await expect(card).toHaveCSS('height','380px');
+ await expect(page.getByRole('status').first()).toContainText('已保存');
+ await page.getByRole('button',{name:'重做',exact:true}).click();await expect(card).toHaveCSS('width','400px');await expect(page.getByRole('status').first()).toContainText('已保存');
+ await page.reload();await expect(card).toHaveCSS('width','400px');await expect(card).toHaveCSS('height','430px');await expect(card.locator('textarea')).toHaveValue('正文不会随调整尺寸改变');
+ await card.locator('header').click();await page.screenshot({path:testInfo.outputPath('canvas-mouse-resize.png'),fullPage:true});
+ expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('canvas resize hit targets retain screen size at half zoom and drag by world dimensions',async({page,workspace})=>{
+ const h=workspace.headers(workspace.account),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'缩放下尺寸手柄'}})).json(),id=randomUUID();
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id,type:'text',title:'半倍缩放',x:64,y:64,locked:false,data:{kind:'text',text:'按世界坐标调整',referenceTokens:[]}}}}],viewport:{x:0,y:0,scale:.5}}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');const card=page.locator('[data-node-id="'+id+'"]');await card.locator('header').click();
+ const grip=await card.getByRole('button',{name:'调整节点大小 半倍缩放',exact:true}).boundingBox();if(!grip)throw Error('Missing half-zoom grip');
+ expect(grip.width).toBeCloseTo(28,0);expect(grip.height).toBeCloseTo(28,0);
+ await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);await page.mouse.down();await page.mouse.move(grip.x+grip.width/2+40,grip.y+grip.height/2+25,{steps:8});await page.mouse.up();
+ await expect(card).toHaveCSS('width','400px');await expect(card).toHaveCSS('height','430px');await expect(page.getByRole('status').first()).toContainText('已保存');
+ const graph=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
+ expect(graph.nodes[0].size).toEqual({width:400,height:430});expect(graph.viewport.scale).toBe(.5);expect(workspace.providerCalls).toHaveLength(0);
+});

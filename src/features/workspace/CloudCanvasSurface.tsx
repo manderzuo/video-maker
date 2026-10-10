@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type RefObject} from 'react';
+import {useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type RefObject} from 'react';
 import type {CanvasNode, CanvasNodeSize, Graph, Viewport} from '../../domain/graph';
 import type {Asset} from '../../domain/asset';
 import type {CapabilityProfile} from '../../domain/connection';
@@ -362,7 +362,7 @@ export function CloudCanvasSurface({
         }
       }}
     >
-      <div className="canvas-world" style={{transform: `translate(${view.x}px,${view.y}px) scale(${view.scale})`}}>
+      <div className="canvas-world" style={{transform: `translate(${view.x}px,${view.y}px) scale(${view.scale})`, '--canvas-scale':view.scale} as CSSProperties}>
         <CanvasEdges graph={graph} connections={connections} />
         <ConnectionPreview graph={graph} connections={connections} />
         {visibleNodes(graph)
