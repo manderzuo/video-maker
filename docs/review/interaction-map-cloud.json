@@ -2423,7 +2423,7 @@
             63,
             65
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [
@@ -2526,7 +2526,7 @@
             195,
             198
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2546,7 +2546,7 @@
             63,
             65
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2566,7 +2566,7 @@
             63,
             65
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2586,7 +2586,7 @@
             63,
             65
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
@@ -2606,7 +2606,7 @@
             63,
             65
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2",
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
           "expectedCoreWrites": 0
         }
       ],
@@ -19133,7 +19133,7 @@
             172,
             173
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19158,7 +19158,7 @@
             172,
             173
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         },
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -19183,7 +19183,7 @@
             172,
             173
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [
@@ -20460,9 +20460,9 @@
             241,
             243,
             245,
-            247
+            250
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [
@@ -27063,7 +27063,7 @@
             63,
             65
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [
@@ -28399,7 +28399,7 @@
             99,
             101
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [
@@ -28521,7 +28521,7 @@
             172,
             173
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [

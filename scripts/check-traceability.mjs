@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -10,7 +11,7 @@ export function observableAssertionLines(text){
  function visit(node){if(ts.isCallExpression(node)&&node.expression.getText(source)==='expect'&&node.arguments.length&&!literal(node.arguments[0]))lines.add(source.getLineAndCharacterOfPosition(node.getStart(source)).line+1);ts.forEachChild(node,visit);}
  visit(source);return [...lines];
 }
-export function evaluateTraceability({interactions,pages,dialogs,map,results,verifySource,verifyAssertions}){
+export function evaluateTraceability({interactions,pages,dialogs,map,results,verifySource,verifyAssertions,verifySourceHash}){
  const errors=[],rows=[],executed=new Map(results.map(result=>[result.id,result]));
  for(const [kind,canonical] of Object.entries({interactions,pages,dialogs})){
   const entries=map[kind]??[],known=new Set(canonical.map(row=>row.id));
@@ -26,6 +27,7 @@ export function evaluateTraceability({interactions,pages,dialogs,map,results,ver
     const result=executed.get(proof.testId);
     if(!result||result.status!=='passed'){issues.push('test_not_passed');continue;}
     if(typeof result.sourceHash!=='string'||!result.sourceHash||typeof proof.sourceHash!=='string'||!proof.sourceHash||result.sourceHash!==proof.sourceHash){issues.push('source_hash_mismatch');continue;}
+    if(verifySourceHash&&!verifySourceHash(proof,result)){issues.push('source_hash_stale');continue;}
     if(!result.assertions||!proof.assertionLines?.length){issues.push('assertion_missing');continue;}
     const assertionLines=result.assertionLocations?.filter(location=>normalize(location.file)===normalize(result.file)).map(location=>location.line)??[];
     if(!proof.assertionLines.every(line=>assertionLines.includes(line))){issues.push('assertion_not_executed');continue;}
@@ -62,8 +64,9 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
  let report;
  try{
   const map=read(mapFile),resultFiles=process.argv.filter(arg=>arg.endsWith('.json')&&arg!==mapFile).length?process.argv.filter(arg=>arg.endsWith('.json')):[defaultResults],results=resultFiles.flatMap(file=>read(file).tests??[]);
-  const assertionCache=new Map();
-  report=evaluateTraceability({interactions,pages,dialogs,map,results,verifyAssertions:(proof,result)=>{if(!result.file?.startsWith('tests/e2e/'))return false;try{if(!assertionCache.has(result.file))assertionCache.set(result.file,new Set(observableAssertionLines(fs.readFileSync(path.join(root,result.file),'utf8'))));return proof.assertionLines.every(line=>assertionCache.get(result.file).has(line));}catch{return false;}},verifySource:entry=>Array.isArray(entry.sources)&&entry.sources.length>0&&entry.sources.every(binding=>{if(!binding.file?.startsWith('src/')||!binding.anchor)return false;try{return fs.readFileSync(path.join(root,binding.file),'utf8').includes(binding.anchor);}catch{return false;}})});
+  const assertionCache=new Map(),hashCache=new Map();
+  const currentHash=file=>{if(hashCache.has(file))return hashCache.get(file);let hash='';try{hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');}catch{/* 忽略 */}hashCache.set(file,hash);return hash;};
+  report=evaluateTraceability({interactions,pages,dialogs,map,results,verifySourceHash:(proof,result)=>{if(typeof proof.sourceHash!=='string'||!proof.sourceHash)return false;return currentHash(result.file)===proof.sourceHash;},verifyAssertions:(proof,result)=>{if(!result.file?.startsWith('tests/e2e/'))return false;try{if(!assertionCache.has(result.file))assertionCache.set(result.file,new Set(observableAssertionLines(fs.readFileSync(path.join(root,result.file),'utf8'))));return proof.assertionLines.every(line=>assertionCache.get(result.file).has(line));}catch{return false;}},verifySource:entry=>Array.isArray(entry.sources)&&entry.sources.length>0&&entry.sources.every(binding=>{if(!binding.file?.startsWith('src/')||!binding.anchor)return false;try{return fs.readFileSync(path.join(root,binding.file),'utf8').includes(binding.anchor);}catch{return false;}})});
   if(interactions.length!==260||pages.length!==23||dialogs.length!==30)report.errors.push({code:'canonical_count_mismatch'});
   for(const list of [interactions,pages,dialogs])if(new Set(list.map(row=>row.id)).size!==list.length)report.errors.push({code:'canonical_duplicate'});
   report.complete=report.errors.length===0;
