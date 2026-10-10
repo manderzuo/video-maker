@@ -16,7 +16,10 @@
 .account-shell .cloud-canvas-page .canvas-node .node-body{padding:48px 16px 16px;overflow:auto;overscroll-behavior:contain}
 .account-shell .cloud-canvas-page .node-video-generation .node-body{padding-left:96px}
 .account-shell .canvas-workspace .node-actions select{min-height:0}
-.account-shell .canvas-asset-preview img,.account-shell .canvas-asset-preview video{width:100%;height:100%;max-height:110px!important;object-fit:contain}
+.account-shell .cloud-canvas-page :is(.node-asset,.node-result) .node-body{display:flex;flex-direction:column;gap:8px}
+.account-shell .cloud-canvas-page :is(.node-asset,.node-result) .node-body>label,.account-shell .cloud-canvas-page :is(.node-asset,.node-result) .node-body>.node-actions{flex-shrink:0}
+.account-shell .cloud-canvas-page :is(.node-asset,.node-result) .canvas-asset-content{height:auto;min-height:200px;flex:1 0 200px}
+.account-shell .cloud-canvas-page .canvas-asset-preview img,.account-shell .cloud-canvas-page .canvas-asset-preview video{width:100%;height:100%;max-height:none!important;object-fit:contain}
 .account-shell .prompt-generator-panel{overflow:auto;padding:16px}
 .account-shell .prompt-generator-panel .cloud-prompt-workspace{display:block}
 .account-shell .prompt-generator-panel .cloud-prompt-pane{margin:16px 0}

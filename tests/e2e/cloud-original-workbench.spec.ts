@@ -186,3 +186,55 @@ test('canvas resize hit targets retain screen size at half zoom and drag by worl
  const graph=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
  expect(graph.nodes[0].size).toEqual({width:400,height:430});expect(graph.viewport.scale).toBe(.5);expect(workspace.providerCalls).toHaveLength(0);
 });
+
+test('portrait image preview grows with mouse node resize instead of leaving an empty frame',async({page,workspace},testInfo)=>{
+ const kind='image' as 'image'|'video';
+ await page.setViewportSize({width:1920,height:1440});await page.goto('/assets');
+ const bytes=await page.evaluate(async kind=>{
+  const c=document.createElement('canvas');c.width=180;c.height=320;const ctx=c.getContext('2d')!;ctx.fillStyle='#1d6da4';ctx.fillRect(0,0,180,160);ctx.fillStyle='#46d7b6';ctx.fillRect(0,160,180,160);ctx.fillStyle='white';ctx.font='20px sans-serif';ctx.fillText('Portrait 9:16',20,100);
+  if(kind==='image')return [...new Uint8Array(await (await new Promise<Blob>(resolve=>c.toBlob(b=>resolve(b!),'image/png'))).arrayBuffer())];
+  const stream=c.captureStream(15),parts:Blob[]=[];const recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8'});recorder.ondataavailable=e=>parts.push(e.data);await new Promise<void>(resolve=>{recorder.onstart=()=>resolve();recorder.start();});let tick=0;const paint=setInterval(()=>{ctx.fillStyle=++tick%2?"#1d6da4":"#46d7b6";ctx.fillRect(0,0,2,2);},30);await new Promise(resolve=>setTimeout(resolve,600));clearInterval(paint);await new Promise<void>(resolve=>{recorder.onstop=()=>resolve();recorder.stop();});stream.getTracks().forEach(t=>t.stop());return [...new Uint8Array(await new Blob(parts,{type:'video/webm'}).arrayBuffer())];
+ },kind);
+ const title='竖屏尺寸.'+(kind==='image'?'png':'webm');
+ await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:title,mimeType:kind==='image'?'image/png':'video/webm',buffer:Buffer.from(bytes)});await page.getByRole('button',{name:'上传到云端',exact:true}).click();await expect(page.getByRole('heading',{name:title,exact:true})).toBeVisible();
+ const h=workspace.headers(workspace.account),asset=(await workspace.call('GET','/studio-api/assets',h)).json().find((a:{title:string})=>a.title===title),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'竖屏预览调整'}})).json(),id=randomUUID();
+ expect(asset).toBeTruthy();expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id,type:'asset',title:'竖屏预览',x:64,y:64,size:{width:480,height:660},locked:false,data:{kind:'asset',assetId:asset.id}}}}],viewport:{x:0,y:0,scale:1}}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');const card=page.locator('[data-node-id="'+id+'"]'),media=card.locator('.canvas-asset-preview '+(kind==='image'?'img':'video'));
+ await expect.poll(()=>media.evaluate(el=>el instanceof HTMLVideoElement?el.videoHeight: (el as HTMLImageElement).naturalHeight)).toBeGreaterThan(0);
+ expect(await media.evaluate(el=>el instanceof HTMLVideoElement?el.videoWidth/el.videoHeight:(el as HTMLImageElement).naturalWidth/(el as HTMLImageElement).naturalHeight)).toBeCloseTo(9/16,2);
+ await card.locator('header').click();const before=await media.boundingBox(),grip=await card.getByRole('button',{name:'调整节点大小 竖屏预览',exact:true}).boundingBox();if(!before||!grip)throw Error('Missing media or corner');
+ await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);await page.mouse.down();await page.mouse.move(grip.x+grip.width/2+120,grip.y+grip.height/2+160,{steps:8});
+ const during=await media.boundingBox();await page.mouse.up();await expect(page.getByRole('status').first()).toContainText('已保存');
+ const after=await media.boundingBox(),frame=await card.locator('.canvas-asset-preview').boundingBox();if(!after||!frame||!during)throw Error('Missing resized preview');
+ await page.screenshot({path:testInfo.outputPath('portrait-'+kind+'-resized.png'),fullPage:true});await testInfo.attach('media-resize-bounds',{body:JSON.stringify({before,during,after,frame}),contentType:'application/json'});
+ expect.soft(during.height-before.height,'Preview must grow during pointer movement').toBeGreaterThan(140);expect.soft(after.height-before.height,'Saved preview must grow with node height').toBeGreaterThan(140);expect.soft(Math.abs(frame.height-after.height),'Media must use its full preview frame').toBeLessThanOrEqual(2);await expect(media).toHaveCSS('object-fit','contain');
+ expect(await card.locator('.node-body').evaluate(el=>el.scrollHeight-el.clientHeight)).toBeLessThanOrEqual(2);
+ await page.reload();await expect(media).toBeVisible();await expect.poll(async()=>((await media.boundingBox())?.height??0)).toBeGreaterThan(before.height+140);
+ const graph=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;expect(graph.nodes[0].size).toEqual({width:600,height:820});expect(graph.nodes[0].data.assetId).toBe(asset.id);expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('portrait video preview grows with mouse node resize instead of leaving an empty frame',async({page,workspace},testInfo)=>{
+ const kind='video' as 'image'|'video';
+ await page.setViewportSize({width:1920,height:1440});await page.goto('/assets');
+ const bytes=await page.evaluate(async kind=>{
+  const c=document.createElement('canvas');c.width=180;c.height=320;const ctx=c.getContext('2d')!;ctx.fillStyle='#1d6da4';ctx.fillRect(0,0,180,160);ctx.fillStyle='#46d7b6';ctx.fillRect(0,160,180,160);ctx.fillStyle='white';ctx.font='20px sans-serif';ctx.fillText('Portrait 9:16',20,100);
+  if(kind==='image')return [...new Uint8Array(await (await new Promise<Blob>(resolve=>c.toBlob(b=>resolve(b!),'image/png'))).arrayBuffer())];
+  const stream=c.captureStream(15),parts:Blob[]=[];const recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8'});recorder.ondataavailable=e=>parts.push(e.data);await new Promise<void>(resolve=>{recorder.onstart=()=>resolve();recorder.start();});let tick=0;const paint=setInterval(()=>{ctx.fillStyle=++tick%2?"#1d6da4":"#46d7b6";ctx.fillRect(0,0,2,2);},30);await new Promise(resolve=>setTimeout(resolve,600));clearInterval(paint);await new Promise<void>(resolve=>{recorder.onstop=()=>resolve();recorder.stop();});stream.getTracks().forEach(t=>t.stop());return [...new Uint8Array(await new Blob(parts,{type:'video/webm'}).arrayBuffer())];
+ },kind);
+ const title='竖屏尺寸.'+(kind==='image'?'png':'webm');
+ await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:title,mimeType:kind==='image'?'image/png':'video/webm',buffer:Buffer.from(bytes)});await page.getByRole('button',{name:'上传到云端',exact:true}).click();await expect(page.getByRole('heading',{name:title,exact:true})).toBeVisible();
+ const h=workspace.headers(workspace.account),asset=(await workspace.call('GET','/studio-api/assets',h)).json().find((a:{title:string})=>a.title===title),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'竖屏预览调整'}})).json(),id=randomUUID();
+ expect(asset).toBeTruthy();expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id,type:'asset',title:'竖屏预览',x:64,y:64,size:{width:480,height:660},locked:false,data:{kind:'asset',assetId:asset.id}}}}],viewport:{x:0,y:0,scale:1}}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+project.id+'/canvas');const card=page.locator('[data-node-id="'+id+'"]'),media=card.locator('.canvas-asset-preview '+(kind==='image'?'img':'video'));
+ await expect.poll(()=>media.evaluate(el=>el instanceof HTMLVideoElement?el.videoHeight: (el as HTMLImageElement).naturalHeight)).toBeGreaterThan(0);
+ expect(await media.evaluate(el=>el instanceof HTMLVideoElement?el.videoWidth/el.videoHeight:(el as HTMLImageElement).naturalWidth/(el as HTMLImageElement).naturalHeight)).toBeCloseTo(9/16,2);
+ await card.locator('header').click();const before=await media.boundingBox(),grip=await card.getByRole('button',{name:'调整节点大小 竖屏预览',exact:true}).boundingBox();if(!before||!grip)throw Error('Missing media or corner');
+ await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);await page.mouse.down();await page.mouse.move(grip.x+grip.width/2+120,grip.y+grip.height/2+160,{steps:8});
+ const during=await media.boundingBox();await page.mouse.up();await expect(page.getByRole('status').first()).toContainText('已保存');
+ const after=await media.boundingBox(),frame=await card.locator('.canvas-asset-preview').boundingBox();if(!after||!frame||!during)throw Error('Missing resized preview');
+ await page.screenshot({path:testInfo.outputPath('portrait-'+kind+'-resized.png'),fullPage:true});await testInfo.attach('media-resize-bounds',{body:JSON.stringify({before,during,after,frame}),contentType:'application/json'});
+ expect.soft(during.height-before.height,'Preview must grow during pointer movement').toBeGreaterThan(140);expect.soft(after.height-before.height,'Saved preview must grow with node height').toBeGreaterThan(140);expect.soft(Math.abs(frame.height-after.height),'Media must use its full preview frame').toBeLessThanOrEqual(2);await expect(media).toHaveCSS('object-fit','contain');
+ expect(await card.locator('.node-body').evaluate(el=>el.scrollHeight-el.clientHeight)).toBeLessThanOrEqual(2);
+ await page.reload();await expect(media).toBeVisible();await expect.poll(async()=>((await media.boundingBox())?.height??0)).toBeGreaterThan(before.height+140);
+ const graph=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;expect(graph.nodes[0].size).toEqual({width:600,height:820});expect(graph.nodes[0].data.assetId).toBe(asset.id);expect(workspace.providerCalls).toHaveLength(0);
+});

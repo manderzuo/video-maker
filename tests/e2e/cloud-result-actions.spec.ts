@@ -61,6 +61,25 @@ test('plays, downloads, selects and undoes a historical cloud result without ano
  await expect(reloaded.getByRole('button',{name:'撤销选择',exact:true})).toBeDisabled();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
+
+test('generated result video preview grows with its node and keeps result actions inside the card',async({page,workspace},testInfo)=>{
+ await page.setViewportSize({width:1920,height:1440});await configureVideo(workspace);
+ const {projectId,nodeIds}=await seedProject(workspace,'结果画面调整'),[run]=await generate(page,workspace,projectId,nodeIds);
+ await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'选择此结果放入画布',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('结果已放入画布');
+ const h=workspace.headers(workspace.account),snapshot=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',h)).json(),node=snapshot.graph.nodes.find((n:{type:string})=>n.type==='result');expect(node).toBeTruthy();
+ expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...h,payload:{expectedRevision:snapshot.graph.revision,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'move_node',payload:{nodeId:node.id,x:64,y:64}},{id:randomUUID(),type:'update_node',payload:{nodeId:node.id,patch:{size:{width:480,height:660}}}}],viewport:{x:0,y:0,scale:1}}}})).statusCode).toBe(200);
+ await page.goto('/projects/'+projectId+'/canvas');const card=page.locator('[data-node-id="'+node.id+'"]'),video=card.locator('video');await expect.poll(()=>video.evaluate(v=>(v as HTMLVideoElement).videoHeight)).toBeGreaterThan(0);await card.locator('header').click();
+ const before=await video.boundingBox(),grip=await card.getByRole('button',{name:'调整节点大小 '+node.title,exact:true}).boundingBox();if(!before||!grip)throw Error('Missing result preview');
+ await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);await page.mouse.down();await page.mouse.move(grip.x+grip.width/2+120,grip.y+grip.height/2+160,{steps:8});await page.mouse.up();await expect(page.getByRole('status').first()).toContainText('已保存');
+ const after=await video.boundingBox(),frame=await card.locator('.canvas-asset-preview').boundingBox();if(!after||!frame)throw Error('Missing expanded result');
+ await page.screenshot({path:testInfo.outputPath('result-video-resized.png'),fullPage:true});await testInfo.attach('result-media-resize',{body:JSON.stringify({before,after,frame}),contentType:'application/json'});
+ expect.soft(after.height-before.height,'Result video must grow with the card').toBeGreaterThan(140);expect.soft(Math.abs(frame.height-after.height),'Result video must fill its available frame').toBeLessThanOrEqual(2);await expect(video).toHaveCSS('object-fit','contain');
+ expect.soft(await card.locator('.node-body').evaluate(el=>el.scrollHeight-el.clientHeight),'Result controls should fit a large card without hidden overflow').toBeLessThanOrEqual(2);
+ await expect(card.getByRole('button',{name:'尾帧续写',exact:true})).toBeVisible();await expect(card.getByRole('button',{name:'修改后重新生成',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');await expect.poll(async()=>Math.abs(((await video.boundingBox())?.height??0)-before.height)).toBeLessThanOrEqual(2);
+ await page.getByRole('button',{name:'重做',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');await page.reload();await expect.poll(async()=>((await video.boundingBox())?.height??0)).toBeGreaterThan(before.height+140);
+ const restored=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',h)).json().graph.nodes.find((n:{id:string})=>n.id===node.id);expect(restored.size).toEqual({width:600,height:820});expect(restored.data).toMatchObject({assetId:run.resultAssetId,runId:run.id});expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
+});
 test('freezes the tail-frame request so a lost response is retried with the identical command and no duplicate node',async({page,workspace})=>{
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'尾帧续写'),[run]=await generate(page,workspace,projectId,nodeIds);
