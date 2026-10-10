@@ -73,7 +73,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -184,7 +184,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -295,7 +295,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -406,7 +406,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -517,7 +517,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -628,7 +628,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -739,7 +739,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -850,7 +850,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -961,7 +961,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -1072,7 +1072,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14039,7 +14039,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14126,7 +14126,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14213,7 +14213,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14300,7 +14300,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14387,7 +14387,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14474,7 +14474,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14561,7 +14561,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14648,7 +14648,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -14939,7 +14939,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -15116,7 +15116,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -15314,7 +15314,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -15401,7 +15401,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -15672,7 +15672,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -15783,7 +15783,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -15894,7 +15894,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16005,7 +16005,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16116,7 +16116,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16227,7 +16227,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16338,7 +16338,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16449,7 +16449,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16560,7 +16560,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -16671,7 +16671,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -19573,7 +19573,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -19616,7 +19616,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -19659,7 +19659,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -19702,7 +19702,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -20843,7 +20843,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -20891,7 +20891,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -20939,7 +20939,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -20987,7 +20987,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -24127,7 +24127,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -24557,7 +24557,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -25029,7 +25029,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -25153,7 +25153,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -26635,7 +26635,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {
@@ -27882,7 +27882,7 @@
           "status": "passed"
         },
         {
-          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+          "testId": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
           "status": "passed"
         },
         {

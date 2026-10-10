@@ -1,4 +1,5 @@
 import {ApiSettingsError,apiSettingsMessage,normalizeApiBase,type ApiSettingsIdentity,type ApiSettingsClient,type ModelChannel,type ModelConfig,type ModelProbe} from './api-settings-client';
+import {beginCloudConnectionCheck,finishCloudConnectionCheck,cancelCloudConnectionCheck,type ConnectionCheckTicket} from './cloud-connection-checks';
 export type ApiSettingsBridge={getIdentity:()=>ApiSettingsIdentity|null;subscribe:(listener:()=>void)=>()=>void;refresh:()=>Promise<void>};
 export type ApiDraft={apiBase:string;model:string;apiKey:string;saved:ModelConfig|null;pending:'test'|'save'|null;result:ModelProbe|null;testedAt:number|null;testedBase:string|null;error:string;message:string;conflict:boolean;draftRevision:number};
 export type ApiSettingsState={status:'loading'|'ready'|'error'|'inactive';video:ApiDraft;text:ApiDraft;error:string};
@@ -46,17 +47,19 @@ export function createApiSettingsStore(bridge:ApiSettingsBridge,client:ApiSettin
   try{input=connectionInput(channel);if(operation==='save'&&(!draft.model.trim()||draft.model.trim().length>256||/[\u0000-\u001f\u007f-\u009f]/.test(draft.model)))throw new ApiSettingsError(0,'MODEL_REQUIRED');}
   catch(error){update(channel,{error:apiSettingsMessage(error),message:''});return;}
   controllers.add(controller);if(operation==='test')probes[channel]=controller;update(channel,{pending:operation,error:'',message:opts.keepMessage?draft.message:'',...(operation==='test'?{result:null,testedAt:null,testedBase:null}:{})});
-  let savedUnchanged=false;
+  let savedUnchanged=false,ticket:ConnectionCheckTicket|undefined;
+  if(operation==='test'&&draft.saved&&!input.apiKey&&input.apiBase===draft.saved.apiBase)ticket=beginCloudConnectionCheck(captured,draft.saved);
   try{
    if(operation==='test'){
     const requestId=crypto.randomUUID(),result=await client.test(channel,{...input,requestId},captured,controller.signal);
-    if(valid(generation)&&state[channel].draftRevision===revision&&probes[channel]===controller)update(channel,{result,testedAt:Date.now(),testedBase:input.apiBase});
+    if(valid(generation)&&state[channel].draftRevision===revision&&probes[channel]===controller){update(channel,{result,testedAt:Date.now(),testedBase:input.apiBase});if(ticket)finishCloudConnectionCheck(ticket,result);}
    }else{
     const saved=await client.save(channel,{...input,model:draft.model.trim(),expectedRevision:draft.saved?.revision??null},captured,controller.signal);
     if(valid(generation)){const unchanged=state[channel].draftRevision===revision;savedUnchanged=unchanged;update(channel,{saved,conflict:false,message:unchanged?'已保存到当前账号。':'提交的配置已保存；新的输入尚未保存。',...(unchanged?{apiBase:saved.apiBase,model:saved.model,apiKey:''}:{})});if(typeof window!=='undefined')window.dispatchEvent(new CustomEvent('aiwork:model-configs-changed'));}
    }
-  }catch(error){if(valid(generation)&&!identityFailure(error)&&(operation==='save'||state[channel].draftRevision===revision))update(channel,{error:apiSettingsMessage(error),conflict:error instanceof ApiSettingsError&&error.code==='REVISION_CONFLICT'});}
-  finally{controllers.delete(controller);const ownsPending=operation==='save'||probes[channel]===controller;if(probes[channel]===controller)delete probes[channel];if(ownsPending&&valid(generation)&&state[channel].pending===operation)update(channel,{pending:null});}
+  }catch(error){if(valid(generation)&&!identityFailure(error)&&(operation==='save'||state[channel].draftRevision===revision)){update(channel,{error:apiSettingsMessage(error),conflict:error instanceof ApiSettingsError&&error.code==='REVISION_CONFLICT'});if(ticket)finishCloudConnectionCheck(ticket,{connection:'failed'});}}
+  finally{if(ticket)cancelCloudConnectionCheck(ticket);controllers.delete(controller);const ownsPending=operation==='save'||probes[channel]===controller;if(probes[channel]===controller)delete probes[channel];if(ownsPending&&valid(generation)&&state[channel].pending===operation)update(channel,{pending:null});}
+  if(operation==='save'&&savedUnchanged&&valid(generation)&&matchesSaved(state[channel])){const draft=state[channel];finishCloudConnectionCheck(beginCloudConnectionCheck(captured,draft.saved!),draft.result!);}
   // 保存成功后，若没有与该保存配置匹配的有效检测结果，自动做一次只读检测（仍不调用生成，不覆盖保存提示）。
   if(autoProbe&&operation==='save'&&savedUnchanged&&valid(generation)&&needsProbe(channel))void operate(channel,'test',{keepMessage:true});
  }

@@ -16729,406 +16729,102 @@
       }
     },
     {
-      "id": "tests/e2e/cloud-shell.spec.ts::searches owned projects, nodes and prompts and follows the hits",
+      "id": "tests/e2e/cloud-shell.spec.ts::sidebar connection lights distinguish missing, untested, checking, connected and failed APIs in both themes",
       "file": "tests/e2e/cloud-shell.spec.ts",
-      "title": "searches owned projects, nodes and prompts and follows the hits",
+      "title": "sidebar connection lights distinguish missing, untested, checking, connected and failed APIs in both themes",
       "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
-      "assertions": 14,
-      "actions": 12,
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
+      "assertions": 21,
+      "actions": 3,
       "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 5,
+          "column": 50
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 5,
+          "column": 110
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 7,
+          "column": 41
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 7,
+          "column": 101
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 7,
+          "column": 173
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 8,
+          "column": 250
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 8,
+          "column": 311
+        },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
           "line": 9,
-          "column": 624,
-          "function": "seedProject"
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 16,
-          "column": 70
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 18,
-          "column": 103
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 21,
-          "column": 45
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 22,
-          "column": 44
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 24,
           "column": 21
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 25,
-          "column": 76
+          "line": 9,
+          "column": 81
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 28,
-          "column": 21
+          "line": 9,
+          "column": 167
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 29,
-          "column": 70
+          "line": 10,
+          "column": 81
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 31,
-          "column": 83
+          "line": 10,
+          "column": 141
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 33,
-          "column": 75
+          "line": 10,
+          "column": 262
         },
         {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 11,
+          "column": 209
         },
         {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 13,
+          "column": 81
         },
         {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 13,
+          "column": 166
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 13,
+          "column": 235
+        },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
           "line": 14,
-          "column": 87
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 15,
-          "column": 46
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 15,
-          "column": 106
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 15,
-          "column": 165
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 15,
-          "column": 235
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 18,
-          "column": 15
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 19,
-          "column": 15
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 23,
-          "column": 36
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 26,
-          "column": 74
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 27,
-          "column": 91
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 30,
-          "column": 74
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 32,
-          "column": 58
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-shell.spec.ts::opens the command palette, filters and navigates",
-      "file": "tests/e2e/cloud-shell.spec.ts",
-      "title": "opens the command palette, filters and navigates",
-      "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
-      "assertions": 6,
-      "actions": 5,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 41,
-          "column": 21
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 43,
-          "column": 66
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 45,
-          "column": 66
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 37,
-          "column": 58
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 39,
-          "column": 72
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 40,
-          "column": 60
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 42,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 44,
-          "column": 22
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-shell.spec.ts::reports saved-but-untested configs as unverified, never as connected",
-      "file": "tests/e2e/cloud-shell.spec.ts",
-      "title": "reports saved-but-untested configs as unverified, never as connected",
-      "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
-      "assertions": 20,
-      "actions": 2,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 51,
-          "column": 74
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 55,
-          "column": 227
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 57,
-          "column": 246
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 60,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 61,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 62,
-          "column": 27
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 63,
-          "column": 27
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 65,
-          "column": 235
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 67,
-          "column": 78
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 68,
-          "column": 82
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 70,
-          "column": 246
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 73,
-          "column": 246
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 76,
-          "column": 22
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 77,
-          "column": 26
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 80,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 81,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 83,
-          "column": 21
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 379,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 421,
-          "function": "Object.base.extend.apiGuard.auto"
-        },
-        {
-          "file": "tests/helpers/account-api-ui-fixture.ts",
-          "line": 54,
-          "column": 462,
-          "function": "Object.base.extend.apiGuard.auto"
-        }
-      ],
-      "actionLocations": [
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 78,
-          "column": 14
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 82,
-          "column": 60
-        }
-      ],
-      "network": {
-        "coreWrites": 0,
-        "paidRequests": 0,
-        "blockedRequests": 0
-      }
-    },
-    {
-      "id": "tests/e2e/cloud-shell.spec.ts::lists failed runs as notifications without sending requests",
-      "file": "tests/e2e/cloud-shell.spec.ts",
-      "title": "lists failed runs as notifications without sending requests",
-      "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
-      "assertions": 10,
-      "actions": 7,
-      "assertionLocations": [
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 87,
-          "column": 216
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 90,
-          "column": 66
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 100,
-          "column": 2
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 100,
-          "column": 144
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 103,
-          "column": 23
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 105,
-          "column": 21
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 106,
           "column": 69
         },
         {
@@ -17153,37 +16849,543 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 89,
-          "column": 56
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 91,
-          "column": 56
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 97,
-          "column": 81
-        },
-        {
-          "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 98,
+          "line": 10,
           "column": 54
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 99,
+          "line": 11,
+          "column": 155
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 13,
+          "column": 54
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-shell.spec.ts::old connection success never colors a new configuration or another account green",
+      "file": "tests/e2e/cloud-shell.spec.ts",
+      "title": "old connection success never colors a new configuration or another account green",
+      "status": "passed",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
+      "assertions": 7,
+      "actions": 1,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 18,
+          "column": 163
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 20,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 21,
+          "column": 218
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 21,
+          "column": 251
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 20,
+          "column": 54
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-shell.spec.ts::searches owned projects, nodes and prompts and follows the hits",
+      "file": "tests/e2e/cloud-shell.spec.ts",
+      "title": "searches owned projects, nodes and prompts and follows the hits",
+      "status": "passed",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
+      "assertions": 14,
+      "actions": 12,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 29,
+          "column": 624,
+          "function": "seedProject"
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 36,
+          "column": 70
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 38,
+          "column": 103
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 41,
+          "column": 45
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 42,
+          "column": 44
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 44,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 45,
+          "column": 76
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 48,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 49,
+          "column": 70
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 51,
+          "column": 83
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 53,
+          "column": 75
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 34,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 35,
+          "column": 46
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 35,
+          "column": 106
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 35,
+          "column": 165
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 35,
+          "column": 235
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 38,
+          "column": 15
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 39,
+          "column": 15
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 43,
+          "column": 36
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 46,
+          "column": 74
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 47,
+          "column": 91
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 50,
+          "column": 74
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 52,
+          "column": 58
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-shell.spec.ts::opens the command palette, filters and navigates",
+      "file": "tests/e2e/cloud-shell.spec.ts",
+      "title": "opens the command palette, filters and navigates",
+      "status": "passed",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
+      "assertions": 6,
+      "actions": 5,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 61,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 63,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 65,
+          "column": 66
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 57,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 59,
+          "column": 72
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 60,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 62,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 64,
+          "column": 22
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-shell.spec.ts::reports saved-but-untested configs as unverified, never as connected",
+      "file": "tests/e2e/cloud-shell.spec.ts",
+      "title": "reports saved-but-untested configs as unverified, never as connected",
+      "status": "passed",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
+      "assertions": 20,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 71,
+          "column": 74
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 75,
+          "column": 227
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 77,
+          "column": 246
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 80,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 81,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 82,
+          "column": 27
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 83,
+          "column": 27
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 85,
+          "column": 235
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 87,
+          "column": 78
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 88,
+          "column": 82
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 90,
+          "column": 246
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 93,
+          "column": 246
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 96,
+          "column": 22
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 97,
+          "column": 26
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 100,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
           "line": 101,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 103,
+          "column": 21
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 98,
+          "column": 14
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 102,
+          "column": 60
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-shell.spec.ts::lists failed runs as notifications without sending requests",
+      "file": "tests/e2e/cloud-shell.spec.ts",
+      "title": "lists failed runs as notifications without sending requests",
+      "status": "passed",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
+      "assertions": 10,
+      "actions": 7,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 107,
+          "column": 216
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 110,
+          "column": 66
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 120,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 120,
+          "column": 144
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 123,
+          "column": 23
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 125,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 126,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 109,
           "column": 56
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 104,
+          "line": 111,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 117,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 118,
+          "column": 54
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 119,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 121,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-shell.spec.ts",
+          "line": 124,
           "column": 58
         }
       ],
@@ -17198,23 +17400,23 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "renders help with cloud-scoped guidance and working links",
       "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
       "assertions": 6,
       "actions": 3,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 110,
+          "line": 130,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 112,
+          "line": 132,
           "column": 70
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 115,
+          "line": 135,
           "column": 21
         },
         {
@@ -17239,17 +17441,17 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 111,
+          "line": 131,
           "column": 62
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 113,
+          "line": 133,
           "column": 56
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 114,
+          "line": 134,
           "column": 74
         }
       ],
@@ -17260,47 +17462,47 @@
       }
     },
     {
-      "id": "tests/e2e/cloud-shell.spec.ts::refreshes the top status after a settings save without reload",
+      "id": "tests/e2e/cloud-shell.spec.ts::refreshes the sidebar status after a settings save without reload",
       "file": "tests/e2e/cloud-shell.spec.ts",
-      "title": "refreshes the top status after a settings save without reload",
+      "title": "refreshes the sidebar status after a settings save without reload",
       "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
       "assertions": 10,
       "actions": 4,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 119,
+          "line": 139,
           "column": 216
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 122,
+          "line": 142,
           "column": 25
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 126,
+          "line": 146,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 127,
+          "line": 147,
           "column": 25
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 128,
+          "line": 148,
           "column": 29
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 131,
+          "line": 151,
           "column": 58
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 132,
+          "line": 152,
           "column": 25
         },
         {
@@ -17325,22 +17527,22 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 124,
+          "line": 144,
           "column": 46
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 125,
+          "line": 145,
           "column": 57
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 129,
+          "line": 149,
           "column": 46
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 130,
+          "line": 150,
           "column": 57
         }
       ],
@@ -17355,43 +17557,43 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "follows consecutive node searches within the same project",
       "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
       "assertions": 10,
       "actions": 4,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 139,
+          "line": 159,
           "column": 344
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 143,
+          "line": 163,
           "column": 21
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 144,
+          "line": 164,
           "column": 77
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 145,
+          "line": 165,
           "column": 41
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 148,
+          "line": 168,
           "column": 21
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 149,
+          "line": 169,
           "column": 78
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 150,
+          "line": 170,
           "column": 77
         },
         {
@@ -17416,22 +17618,22 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 141,
+          "line": 161,
           "column": 15
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 142,
+          "line": 162,
           "column": 91
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 146,
+          "line": 166,
           "column": 15
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 147,
+          "line": 167,
           "column": 91
         }
       ],
@@ -17446,43 +17648,43 @@
       "file": "tests/e2e/cloud-shell.spec.ts",
       "title": "drops a stale verified status when a save lands after further edits",
       "status": "passed",
-      "sourceHash": "f02c28f8ec9a5070cf039a0daeb41e18148ac6b15425512a443562cf2d61a3a1",
+      "sourceHash": "bfa3930db18a70b1fc70bcdfe60c6f0f9962b488c578c5eaaed2abc933adf4a2",
       "assertions": 11,
       "actions": 3,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 154,
+          "line": 174,
           "column": 216
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 157,
+          "line": 177,
           "column": 25
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 168,
+          "line": 188,
           "column": 30
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 171,
+          "line": 191,
           "column": 67
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 172,
+          "line": 192,
           "column": 192
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 173,
+          "line": 193,
           "column": 25
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 174,
+          "line": 194,
           "column": 29
         },
         {
@@ -17507,17 +17709,17 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 166,
+          "line": 186,
           "column": 46
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 167,
+          "line": 187,
           "column": 57
         },
         {
           "file": "tests/e2e/cloud-shell.spec.ts",
-          "line": 169,
+          "line": 189,
           "column": 46
         }
       ],
