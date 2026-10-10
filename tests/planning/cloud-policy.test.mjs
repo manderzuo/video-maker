@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 // Cloud planning gate: runs inside the current test-owned isolation root,
 // never creates junctions in the legacy E:/trae-studio/TRAEWORK/aiwork-studio root.
