@@ -717,24 +717,19 @@
       "id": "P-08"
     },
     {
-      "code": "facet_missing:normal",
+      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "P-09"
+    },
+    {
+      "code": "assertion_not_executed",
+      "kind": "interactions",
+      "id": "P-10"
     },
     {
       "code": "facet_missing:disabled",
       "kind": "interactions",
-      "id": "P-09"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "P-09"
-    },
-    {
-      "code": "facet_missing:sideEffect",
-      "kind": "interactions",
-      "id": "P-09"
+      "id": "P-10"
     },
     {
       "code": "facet_missing:normal",
@@ -5222,7 +5217,27 @@
       "id": "S-05"
     },
     {
+      "code": "assertion_not_executed",
+      "kind": "interactions",
+      "id": "S-06"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "interactions",
+      "id": "S-06"
+    },
+    {
       "code": "facet_missing:disabled",
+      "kind": "interactions",
+      "id": "S-06"
+    },
+    {
+      "code": "facet_missing:error",
+      "kind": "interactions",
+      "id": "S-06"
+    },
+    {
+      "code": "facet_missing:persistence",
       "kind": "interactions",
       "id": "S-06"
     },
@@ -5770,21 +5785,6 @@
       "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "I-08"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "interactions",
-      "id": "H-01"
-    },
-    {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "H-01"
-    },
-    {
-      "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "H-01"
     },
     {
       "code": "facet_missing:sideEffect",
@@ -7427,6 +7427,16 @@
       "id": "D17"
     },
     {
+      "code": "assertion_not_executed",
+      "kind": "dialogs",
+      "id": "D18"
+    },
+    {
+      "code": "facet_missing:normal",
+      "kind": "dialogs",
+      "id": "D18"
+    },
+    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D20"
@@ -7847,11 +7857,29 @@
       "kind": "interactions",
       "taskId": "T12",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            45,
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
         "facet_missing:sideEffect"
       ]
     },
@@ -7859,7 +7887,7 @@
       "id": "P-10",
       "kind": "interactions",
       "taskId": "T12",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::blocks duplicate batch archive submissions while one is in flight",
@@ -7956,7 +7984,10 @@
           "expectedCoreWrites": 0
         }
       ],
-      "missing": []
+      "missing": [
+        "assertion_not_executed",
+        "facet_missing:disabled"
+      ]
     },
     {
       "id": "P-11",
@@ -10981,7 +11012,11 @@
         }
       ],
       "missing": [
+        "assertion_not_executed",
+        "facet_missing:normal",
         "facet_missing:disabled",
+        "facet_missing:error",
+        "facet_missing:persistence",
         "facet_missing:sideEffect"
       ]
     },
@@ -11260,11 +11295,32 @@
       "kind": "interactions",
       "taskId": "T38",
       "status": "incomplete",
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            224,
+            225,
+            227,
+            228,
+            230,
+            232,
+            236,
+            237,
+            239,
+            241,
+            243,
+            245,
+            247
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "missing": [
-        "facet_missing:normal",
-        "facet_missing:disabled",
-        "facet_missing:error",
         "facet_missing:sideEffect"
       ]
     },
@@ -12777,7 +12833,7 @@
       "id": "D18",
       "kind": "dialogs",
       "taskId": "T37",
-      "status": "self_check_passed",
+      "status": "incomplete",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -12803,7 +12859,10 @@
           "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         }
       ],
-      "missing": []
+      "missing": [
+        "assertion_not_executed",
+        "facet_missing:normal"
+      ]
     },
     {
       "id": "D19",
@@ -12968,7 +13027,7 @@
     "interactions": 260,
     "pages": 23,
     "dialogs": 30,
-    "passed": 7
+    "passed": 6
   },
   "review": "待用户统一验收与独立审查"
 }

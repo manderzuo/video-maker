@@ -2404,7 +2404,28 @@
           "anchor": "data-interaction-id=\"cloud:project:select\""
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            45,
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-controls.spec.ts::copies and pastes canvas nodes through the actual controls and persists the resulting graph",
@@ -2472,7 +2493,9 @@
         }
       ],
       "notApplicable": {
-        "persistence": "项目选择是本地临时状态，仅用于批量操作确认，不持久化；刷新后 cleared 是设计，不视为丢失。"
+        "persistence": "项目选择是本地临时状态，仅用于批量操作确认，不持久化；刷新后 cleared 是设计，不视为丢失。",
+        "disabled": "项目选择复选框无禁用设计（CloudProjectsPage选择输入无disabled条件，任何状态可切换；批量提交按钮的忙碌禁用属提交动作，不属选择控件）。",
+        "error": "项目选择是本地集合切换，无服务端调用、无失败路径；选择错误不适用。"
       }
     },
     {
@@ -20366,7 +20389,31 @@
           "anchor": "data-interaction-id=\"cloud:activity:filter-kind\""
         }
       ],
-      "proofs": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            14,
+            224,
+            225,
+            227,
+            228,
+            230,
+            232,
+            236,
+            237,
+            239,
+            241,
+            243,
+            245,
+            247
+          ],
+          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
@@ -20390,7 +20437,9 @@
         }
       ],
       "notApplicable": {
-        "persistence": "活动筛选是本地临时状态，不持久化；刷新重置为全部显示是设计。"
+        "persistence": "活动筛选是本地临时状态，不持久化；刷新重置为全部显示是设计。",
+        "disabled": "活动筛选输入无禁用设计（任何状态可输入筛选；重读按钮忙碌禁用属读取动作）。",
+        "error": "活动筛选是本地过滤，无服务端调用、无失败路径。"
       }
     },
     {
