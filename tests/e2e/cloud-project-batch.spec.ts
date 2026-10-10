@@ -18,11 +18,23 @@ test('creates a project from the original template with two text nodes',async({p
  await page.goto('/projects');
  await page.getByRole('button',{name:'使用原创模板',exact:true}).click();
  await expect(page.getByText('原创静态结构',{exact:false})).toBeVisible();
+ let release:()=>void=()=>{};
+ const gate=new Promise<void>(resolve=>{release=resolve;});
+ await page.route('**/studio-api/projects',async route=>{
+  if(route.request().method()!=='POST'){await route.fallback();return;}
+  await gate;
+  await route.fallback();
+ });
  await page.getByRole('button',{name:'创建原创分镜草稿',exact:true}).click();
+ await page.waitForTimeout(300);
+ await expect(page.getByRole('button',{name:'创建原创分镜草稿',exact:true})).toBeDisabled();
+ release();
  await expect(page).toHaveURL(/\/projects\/.+\/canvas$/);
  const graphs=(await ctx.pool.query('SELECT graph FROM workspace_graphs')).rows as unknown as {graph:{nodes:{type:string;title:string;data:{text:string}}[]}}[];
  expect(graphs).toHaveLength(1);
  expect(graphs[0].graph.nodes.map(node=>node.title).sort()).toEqual(['分镜约束','创作需求']);
+ await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toBeVisible();
+ await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').nth(1)).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('selects projects and archives them one by one with failures listed',async({page,workspace})=>{
@@ -44,6 +56,11 @@ test('selects projects and archives them one by one with failures listed',async(
  expect(archived.find(row=>row.document.title==='批量甲')?.document.archived).toBe(true);
  expect(archived.find(row=>row.document.title==='批量丙')?.document.archived).toBe(true);
  expect(archived.find(row=>row.document.title==='批量乙')?.document.archived).toBe(false);
+ await page.reload();
+ await expect(page.locator('[data-interaction-id="cloud:project:filter"]')).toBeVisible();
+ await page.locator('[data-interaction-id="cloud:project:filter"]').selectOption('archived');
+ await expect(page.getByRole('link',{name:'批量甲',exact:true})).toBeVisible();
+ await expect(page.getByRole('link',{name:'批量乙',exact:true})).toHaveCount(0);
  void a;void c;
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
@@ -97,6 +114,19 @@ test('switches project views keeping filter and selection with account preferenc
  await expect(page.locator('table.cloud-project-table')).toBeVisible();
  await page.getByRole('button',{name:'网格视图',exact:true}).click();
  await expect(page.locator('ul.cloud-project-list')).toBeVisible();
+ // 视图保存失败保持原视图并提示，重试后持久。
+ await page.route('**/studio-api/me/document',async route=>{
+  if(route.request().method()!=='PATCH'){await route.fallback();return;}
+  await route.fulfill({status:500,body:'{}'});
+ });
+ await page.getByRole('button',{name:'列表视图',exact:true}).click();
+ await expect(page.getByRole('alert')).toBeVisible();
+ await expect(page.locator('ul.cloud-project-list')).toBeVisible();
+ await page.unroute('**/studio-api/me/document');
+ await page.getByRole('button',{name:'列表视图',exact:true}).click();
+ await expect(page.locator('table.cloud-project-table')).toBeVisible();
+ await page.reload();
+ await expect(page.locator('table.cloud-project-table')).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('resets appearance preferences with confirmation and restores the prior values',async({page,workspace})=>{
@@ -113,6 +143,12 @@ test('resets appearance preferences with confirmation and restores the prior val
  await page.getByRole('button',{name:'恢复重置前偏好',exact:true}).click();
  await expect(page.getByText('已恢复重置前偏好',{exact:false})).toBeVisible();
  await expect(page.getByLabel('主题',{exact:true})).toHaveValue('light');
+ // 重置后刷新仍为默认外观，恢复后刷新仍为原外观；生成规格等不受影响由保存流程保证。
+ await page.getByRole('button',{name:'重置外观与播放偏好',exact:true}).click();
+ await page.getByRole('button',{name:'确认重置偏好',exact:true}).click();
+ await expect(page.getByText('外观与播放偏好已重置',{exact:false})).toBeVisible();
+ await page.reload();
+ await expect(page.getByLabel('主题',{exact:true})).toHaveValue('dark');
  // 保存失败保留输入
  await page.route('**/studio-api/me/document',async route=>{
   if(route.request().method()!=='PATCH'){await route.fallback();return;}
@@ -151,6 +187,7 @@ test('filters activity receipts, shows details and hides display without deletin
  await addTextNode(ctx,b.headers,b.project.id,0,'乙正文');
  await page.goto('/activity');
  await expect(page.locator('article')).toHaveCount(2);
+ await expect(page.getByRole('button',{name:/恢复隐藏显示/,exact:false})).toBeDisabled();
  await page.getByLabel('按项目标题筛选',{exact:true}).fill('活动甲');
  await expect(page.locator('article')).toHaveCount(1);
  await expect(page.getByText('共 2 条回执，当前显示 1 条',{exact:false})).toBeVisible();
@@ -163,7 +200,11 @@ test('filters activity receipts, shows details and hides display without deletin
  await page.locator('article').first().getByRole('button',{name:'隐藏',exact:true}).click();
  await expect(page.locator('article')).toHaveCount(1);
  await expect(page.getByText(/已隐藏 1 条本地显示/,{exact:false})).toBeVisible();
+ await page.reload();
+ await expect(page.locator('article')).toHaveCount(1);
  await page.getByRole('button',{name:/恢复隐藏显示/,exact:false}).click();
+ await expect(page.locator('article')).toHaveCount(2);
+ await page.reload();
  await expect(page.locator('article')).toHaveCount(2);
  const count=(await ctx.pool.query('SELECT id FROM workspace_command_receipts')).rows.length;
  expect(count).toBe(2);

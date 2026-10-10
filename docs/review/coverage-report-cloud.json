@@ -512,16 +512,6 @@
       "id": "P-01"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "P-02"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "P-02"
-    },
-    {
       "code": "source_binding_missing",
       "kind": "interactions",
       "id": "P-03"
@@ -722,17 +712,7 @@
       "id": "P-10"
     },
     {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "P-10"
-    },
-    {
       "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "P-11"
-    },
-    {
-      "code": "facet_missing:error",
       "kind": "interactions",
       "id": "P-11"
     },
@@ -773,11 +753,6 @@
     },
     {
       "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "P-13"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "P-13"
     },
@@ -5822,22 +5797,7 @@
       "id": "H-03"
     },
     {
-      "code": "facet_missing:disabled",
-      "kind": "interactions",
-      "id": "H-04"
-    },
-    {
       "code": "facet_missing:error",
-      "kind": "interactions",
-      "id": "H-04"
-    },
-    {
-      "code": "facet_missing:persistence",
-      "kind": "interactions",
-      "id": "H-04"
-    },
-    {
-      "code": "facet_missing:sideEffect",
       "kind": "interactions",
       "id": "H-04"
     },
@@ -7707,7 +7667,7 @@
       "id": "P-02",
       "kind": "interactions",
       "taskId": "T12",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
@@ -7716,10 +7676,13 @@
           ],
           "assertionLines": [
             20,
-            22,
-            24,
-            25,
-            26
+            30,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38
           ]
         },
         {
@@ -7728,7 +7691,12 @@
             "error"
           ],
           "assertionLines": [
-            206
+            259,
+            262,
+            264,
+            266,
+            267,
+            268
           ]
         },
         {
@@ -7738,18 +7706,50 @@
           ],
           "assertionLines": [
             20,
-            22,
-            24,
-            25,
-            26
+            30,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            20,
+            30,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            20,
+            30,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38
+          ]
         }
       ],
-      "missing": [
-        "facet_missing:disabled",
-        "facet_missing:persistence"
-      ]
+      "missing": []
     },
     {
       "id": "P-03",
@@ -7853,14 +7853,17 @@
             "normal"
           ],
           "assertionLines": [
-            33,
-            35,
-            41,
-            42,
-            44,
             45,
-            46,
-            48
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
           ]
         }
       ],
@@ -7882,14 +7885,17 @@
             "normal"
           ],
           "assertionLines": [
-            33,
-            35,
-            41,
-            42,
-            44,
             45,
-            46,
-            48
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
           ]
         },
         {
@@ -7898,14 +7904,17 @@
             "error"
           ],
           "assertionLines": [
-            33,
-            35,
-            41,
-            42,
-            44,
             45,
-            46,
-            48
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
           ]
         },
         {
@@ -7914,21 +7923,42 @@
             "sideEffect"
           ],
           "assertionLines": [
-            33,
-            35,
-            41,
-            42,
-            44,
             45,
-            46,
-            48
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::selects projects and archives them one by one with failures listed",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            45,
+            47,
+            53,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63,
+            65
+          ]
         }
       ],
       "missing": [
-        "facet_missing:disabled",
-        "facet_missing:persistence"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -7945,16 +7975,16 @@
           ],
           "assertionLines": [
             14,
-            58,
-            64,
-            65,
-            66,
-            70,
-            71,
-            73,
-            78,
+            75,
+            81,
             82,
-            84
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
           ],
           "expectedCoreWrites": 0
         },
@@ -7965,22 +7995,40 @@
           ],
           "assertionLines": [
             14,
-            58,
-            64,
-            65,
-            66,
-            70,
-            71,
-            73,
-            78,
+            75,
+            81,
             82,
-            84
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::exports selected projects as one batch without secrets and refuses empty failure",
+          "facets": [
+            "error"
+          ],
+          "assertionLines": [
+            14,
+            75,
+            81,
+            82,
+            83,
+            87,
+            88,
+            90,
+            95,
+            99,
+            101
           ]
         }
       ],
       "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error"
+        "facet_missing:disabled"
       ]
     },
     {
@@ -8010,12 +8058,16 @@
             "normal"
           ],
           "assertionLines": [
-            93,
-            94,
-            95,
-            97,
-            99,
-            100
+            110,
+            111,
+            112,
+            114,
+            116,
+            123,
+            124,
+            127,
+            129,
+            130
           ]
         },
         {
@@ -8024,19 +8076,41 @@
             "persistence"
           ],
           "assertionLines": [
-            93,
-            94,
-            95,
-            97,
-            99,
-            100
+            110,
+            111,
+            112,
+            114,
+            116,
+            123,
+            124,
+            127,
+            129,
+            130
           ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::switches project views keeping filter and selection with account preference",
+          "facets": [
+            "sideEffect"
+          ],
+          "assertionLines": [
+            110,
+            111,
+            112,
+            114,
+            116,
+            123,
+            124,
+            127,
+            129,
+            130
+          ],
+          "expectedCoreWrites": 0
         }
       ],
       "missing": [
         "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:sideEffect"
+        "facet_missing:error"
       ]
     },
     {
@@ -10885,16 +10959,18 @@
             "normal"
           ],
           "assertionLines": [
-            106,
-            107,
-            109,
-            111,
-            112,
-            114,
-            115,
-            123,
-            124,
-            126
+            136,
+            137,
+            139,
+            141,
+            142,
+            144,
+            145,
+            149,
+            151,
+            159,
+            160,
+            162
           ]
         },
         {
@@ -10903,16 +10979,18 @@
             "error"
           ],
           "assertionLines": [
-            106,
-            107,
-            109,
-            111,
-            112,
-            114,
-            115,
-            123,
-            124,
-            126
+            136,
+            137,
+            139,
+            141,
+            142,
+            144,
+            145,
+            149,
+            151,
+            159,
+            160,
+            162
           ]
         },
         {
@@ -10921,12 +10999,32 @@
             "error"
           ],
           "assertionLines": [
-            132,
+            168,
+            175,
+            176,
+            177,
+            180,
+            181
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            136,
+            137,
             139,
-            140,
             141,
+            142,
             144,
-            145
+            145,
+            149,
+            151,
+            159,
+            160,
+            162
           ]
         }
       ],
@@ -11218,16 +11316,19 @@
           ],
           "assertionLines": [
             14,
-            153,
-            155,
-            156,
-            158,
-            160,
-            164,
-            165,
-            167,
-            169,
-            171
+            189,
+            190,
+            192,
+            193,
+            195,
+            197,
+            201,
+            202,
+            204,
+            206,
+            208,
+            210,
+            212
           ]
         }
       ],
@@ -11280,24 +11381,91 @@
           ],
           "assertionLines": [
             14,
-            153,
-            155,
-            156,
-            158,
-            160,
-            164,
-            165,
-            167,
-            169,
-            171
+            189,
+            190,
+            192,
+            193,
+            195,
+            197,
+            201,
+            202,
+            204,
+            206,
+            208,
+            210,
+            212
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "disabled"
+          ],
+          "assertionLines": [
+            14,
+            189,
+            190,
+            192,
+            193,
+            195,
+            197,
+            201,
+            202,
+            204,
+            206,
+            208,
+            210,
+            212
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "sideEffect"
+          ],
+          "assertionLines": [
+            14,
+            189,
+            190,
+            192,
+            193,
+            195,
+            197,
+            201,
+            202,
+            204,
+            206,
+            208,
+            210,
+            212
+          ],
+          "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
+          "facets": [
+            "persistence"
+          ],
+          "assertionLines": [
+            14,
+            189,
+            190,
+            192,
+            193,
+            195,
+            197,
+            201,
+            202,
+            204,
+            206,
+            208,
+            210,
+            212
           ]
         }
       ],
       "missing": [
-        "facet_missing:disabled",
-        "facet_missing:error",
-        "facet_missing:persistence",
-        "facet_missing:sideEffect"
+        "facet_missing:error"
       ]
     },
     {
@@ -12749,16 +12917,18 @@
             "normal"
           ],
           "assertionLines": [
-            106,
-            107,
-            109,
-            111,
-            112,
-            114,
-            115,
-            123,
-            124,
-            126
+            136,
+            137,
+            139,
+            141,
+            142,
+            144,
+            145,
+            149,
+            151,
+            159,
+            160,
+            162
           ]
         }
       ],
@@ -12925,7 +13095,7 @@
     "interactions": 260,
     "pages": 23,
     "dialogs": 30,
-    "passed": 5
+    "passed": 6
   },
   "review": "待用户统一验收与独立审查"
 }
