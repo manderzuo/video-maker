@@ -16,10 +16,10 @@ test('lists recent command receipts across projects with canvas links',async({pa
  const textId=randomUUID();
  expect((await workspace.call('POST','/studio-api/projects/'+first+'/commands',{...headers,payload:{expectedRevision:1,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:textId,type:'text',title:'第二笔',x:40,y:520,locked:false,data:{kind:'text',text:'第二笔正文',referenceTokens:[]}}}}]}}})).statusCode).toBe(200);
  await page.goto('/activity');
- const rows=page.locator('article');
+ const rows=page.locator('article').filter({hasText:'画布编辑与保存'});
  await expect(rows.filter({hasText:'活动项目甲'})).toHaveCount(2);
  await expect(rows.filter({hasText:'活动项目乙'})).toHaveCount(1);
- await expect(page.getByText('修订 2',{exact:false}).first()).toBeVisible();
+ await expect(rows.first()).toBeVisible();
  await rows.filter({hasText:'活动项目乙'}).getByRole('link',{name:'打开项目画布',exact:true}).click();
  await expect(page).toHaveURL(new RegExp('/projects/'+second+'/canvas$'));
  await page.goto('/activity');
@@ -28,7 +28,7 @@ test('lists recent command receipts across projects with canvas links',async({pa
 });
 test('shows an empty activity page when the account has no commands',async({page})=>{
  await page.goto('/activity');
- await expect(page.getByText('没有符合筛选的回执',{exact:false})).toBeVisible();
+ await expect(page.getByText('暂无符合分类的操作记录。',{exact:true})).toBeVisible();
 });
 test('surfaces unknown and failed runs for recovery without sending requests',async({page,workspace})=>{
  const headers=workspace.headers(workspace.account);
@@ -67,7 +67,7 @@ test('exports a redacted cloud diagnostics report',async({page,workspace},testIn
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
  await page.goto('/activity');
  // Initial graph save plus the new server-side completed-result placement.
- await expect(page.locator('article').filter({hasText:'诊断导出'})).toHaveCount(2);
+ await expect(page.locator('article').filter({hasText:'诊断导出'}).filter({hasText:'画布编辑与保存'})).toHaveCount(2);
  const downloading=page.waitForEvent('download');
  await page.getByRole('button',{name:'导出脱敏诊断',exact:true}).click();
  const path=testInfo.outputPath('cloud-diagnostics.json');

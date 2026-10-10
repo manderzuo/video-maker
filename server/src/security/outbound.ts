@@ -77,7 +77,7 @@ export class RestrictedOutbound {
  async completion(base:string,apiKey:string,body:string,idempotencyKey:string,textSessionId:string):Promise<OutboundResponse>{
   const normalized=normalizeModelBase(base),endpoint=new URL(normalized);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/v1/chat/completions';
   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
-  if(!/^[-A-Za-z0-9._~]{1,256}$/.test(idempotencyKey)||!/^[-A-Za-z0-9._~]{1,256}$/.test(textSessionId)||Buffer.byteLength(body)>256*1024)throw new HttpError(400,'INVALID_REQUEST');
+  if(!/^[-A-Za-z0-9._~]{1,256}$/.test(idempotencyKey)||!/^[-A-Za-z0-9._~]{1,256}$/.test(textSessionId)||Buffer.byteLength(body)>8*1024*1024)throw new HttpError(400,'INVALID_REQUEST');
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),120000);
   try{
    const hostname=hostName(endpoint),literal=isIP(hostname),addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);

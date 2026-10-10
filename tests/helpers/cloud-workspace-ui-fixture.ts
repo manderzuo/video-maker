@@ -25,7 +25,7 @@ export const test=base.extend<{workspace:Awaited<ReturnType<typeof fixture>>&{ac
  },
  workspaceRoutes:[async({context,workspace,apiGuard},use,testInfo)=>{
   void apiGuard;
-  const pattern=/\/studio-api\/(projects|assets|prompts|prompt-drafts|runs|agent-conversations|agent-proposals|me\/(model-configs|video-capability|imports))(\/|\?|$)/,inFlight=new Set<Promise<unknown>>();
+  const pattern=/\/studio-api\/(activity|projects|assets|prompts|prompt-drafts|runs|agent-conversations|agent-proposals|me\/(model-configs|video-capability|imports))(\/|\?|$)/,inFlight=new Set<Promise<unknown>>();
   const handle=async(route:Route)=>{
    const request=route.request(),url=new URL(request.url()),headers=request.headers();
    if(url.origin!=='http://127.0.0.1:4310')return route.abort();

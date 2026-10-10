@@ -42,3 +42,10 @@
 @media(max-width:767px){.account-shell.app-shell{display:flex;padding:0}.account-shell .account-content{padding:16px}.account-shell .account-header{flex-wrap:wrap}.account-shell .account-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.account-shell .cloud-canvas-page{overflow:visible}.account-shell .canvas-stage{height:520px;min-height:420px}.account-shell .canvas-main{display:block}.account-shell .canvas-main .canvas-side{max-height:none}.account-shell .canvas-main.side-collapsed .canvas-side{display:none}}
 
 .account-shell .cloud-canvas-page .canvas-asset-preview video{pointer-events:auto}
+.account-shell .cloud-canvas-page .canvas-layout{grid-template-columns:minmax(0,1fr)}
+.account-shell .video-task-list article{border-left:3px solid var(--accent);padding:8px;margin:8px 0;background:var(--panel);border-radius:6px}
+.account-shell .video-task-list article[data-execution-state="succeeded"]{border-color:#34d399}
+.account-shell .video-task-list article:is([data-execution-state="failed_confirmed"],[data-execution-state="submit_unknown"]){border-color:#f87171}
+.account-shell .video-task-list p{margin:0 0 8px}
+.account-shell .video-generation-settings{margin-top:12px}
+.account-shell .video-generation-settings>summary{cursor:pointer;padding:8px 0;font-weight:600}

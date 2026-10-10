@@ -34,6 +34,7 @@ function writeStoredPlacements(projectId:string,placements:Record<string,Placeme
 // operations are retried, so an unknown outcome can never duplicate work.
 type FrozenRequest={key:string;baseRevision:number;operations:GraphOperation[];nodeIds:string[]};
 type Phase='editing'|'sending'|'unknown'|'submitted';
+type Continuation={result:ProjectResult;time?:number;prompt:string;file?:File;preview?:string;frameAssetId?:string;request?:FrozenRequest;phase:Phase;error:string;message:string};
 type PendingKind='tail-frame'|'revision';
 type PendingRequest={projectId:string;kind:PendingKind;recordId:string;key:string;baseRevision:number;operations:GraphOperation[];nodeIds:string[];prompt:string;time?:number;frameAssetId?:string;skipped?:string[];availability?:Record<string,boolean>;phase:'unknown'|'submitted';savedAt:number};
 // Unknown or unconfirmed submissions survive cancel, close and refresh in this
@@ -70,8 +71,8 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
  const route=useRoute(),params=new URLSearchParams(route.split('?')[1]??''),highlight=params.get('runId')??undefined;
  const [snapshot,setSnapshot]=useState<Snapshot>(),[results,setResults]=useState<ProjectResult[]>([]),[media,setMedia]=useState<Asset[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState('');
  const [placements,setPlacements]=useState<Record<string,Placement>>(()=>readStoredPlacements(projectId)),[compare,setCompare]=useState<string[]>([]),[details,setDetails]=useState<VideoRecord>(),[pendingCount,setPendingCount]=useState(0);
- const [continuation,setContinuation]=useState<{result:ProjectResult;time:number;prompt:string;file?:File;preview?:string;frameAssetId?:string;request?:FrozenRequest;phase:Phase;error:string;message:string}>();
- const [revision,setRevision]=useState<{result:ProjectResult;prompt:string;skipped:string[];request?:FrozenRequest;phase:Phase;error:string;message:string;availability?:Record<string,boolean>}>();
+ const [continuation,setContinuation]=useState<Continuation>();
+ const [revision,setRevision]=useState<{result:ProjectResult;prompt:string;instructions?:string;skipped:string[];request?:FrozenRequest;phase:Phase;error:string;message:string;availability?:Record<string,boolean>}>();
  const alive=useRef(true),preview=useRef<string|undefined>(undefined),openedAction=useRef<string|undefined>(undefined);
  const [optimizing,setOptimizing]=useState(false),[optimization,setOptimization]=useState<{draftId:string;kind:'tail-frame'|'revision';recordId:string;prompt:string}>();
  const optimizationBusy=useRef(false);
@@ -81,12 +82,22 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   if(!current||current.phase!=='editing'||optimizationBusy.current||!current.prompt.trim())return;
   const updateError=(error:string)=>{if(!alive.current)return;const update=<T extends {result:ProjectResult;prompt:string;error:string}>(value:T|undefined)=>value&&value.result.record.id===current.result.record.id&&value.prompt===current.prompt?{...value,error}:value;if(kind==='revision')setRevision(update);else setContinuation(update);};
   if(new TextEncoder().encode(current.prompt).length>65536){updateError('提示词超过64KiB，请缩短后重试；原输入已保留。');return;}
-  const identity=JSON.stringify([kind,current.result.record.id,current.prompt]),snapshot=frozenSnapshot(current.result.record);
+  const snapshot=frozenSnapshot(current.result.record),instructions=kind==='revision'?revision?.instructions?.trim()??'':'';
   const spec=frozenSpec(current.result.record);
-  optimizationRequest.current=optimizationRequest.current?.identity===identity?optimizationRequest.current:{identity,key:crypto.randomUUID(),request:{type:'video',userRequest:current.prompt,sceneId:'text',requestedSpec:{durationSeconds:spec.durationSeconds,ratio:spec.ratio},audioPlan:'',lockedConstraints:[],references:kind==='tail-frame'?[]:snapshot.references.filter(reference=>revision?.availability?.[reference.assetId]!==false&&assets.get(reference.assetId)?.trashedAt==null).map(reference=>({assetId:reference.assetId,alias:reference.alias,mediaType:reference.mediaType,role:reference.role,description:'',available:true,unbound:false})),ruleVersion:'studio-video-rules-v1'}};
-  const held=optimizationRequest.current;optimizationBusy.current=true;setOptimizing(true);updateError('');
+  optimizationBusy.current=true;setOptimizing(true);updateError('');
   try{
    const {configs}=await client.modelConfigs();if(!configs.some(config=>config.channel==='text'&&config.hasKey)){updateError('请先配置文字 API，再回来润色；当前正文与尾帧已保留。');return;}
+   let frameAssetId=kind==='tail-frame'?continuation?.frameAssetId:undefined;
+   if(kind==='tail-frame'){
+    if(!continuation?.file){updateError('请先抽取并预览尾帧；不能在没有尾帧时进行续写润色。');return;}
+    if(!frameAssetId){frameAssetId=(await uploadCloudAsset(client,continuation.file)).id;if(alive.current)setContinuation(value=>value?.result.record.id===current.result.record.id?{...value,frameAssetId}:value);}
+   }
+   const userRequest=kind==='tail-frame'?JSON.stringify({任务:'尾帧续写',原视频提示词:snapshot.prompt,续写要求:current.prompt,衔接要求:'以所附尾帧的实际画面为起点，保持主体、姿态、场景、机位和光线连续；只生成新增片段，不重演原视频。不确定的内容明确说明。'}):JSON.stringify({任务:'针对原视频修正错误',原始提示词:snapshot.prompt,当前完整提示词:current.prompt,本次修正要求:instructions||'以当前完整提示词相对原始提示词的修改为准',保留要求:'保留未要求修改的主体、场景、动作、镜头、对白及时间轴上下文。针对指定错误给出具体替换写法，输出修正后的完整提示词，不只输出修改说明；不要新增无关情节。'});
+   if(new TextEncoder().encode(userRequest).length>65536){updateError('原提示词与本次要求合计超过64KiB，请缩短后重试；原内容保留。');return;}
+   const references=kind==='tail-frame'?[{assetId:frameAssetId!,alias:'@图片1',mediaType:'image' as const,role:'尾帧',description:'上一段实际抽取的尾帧，续写必须从此画面开始',available:true,unbound:false}]:snapshot.references.filter(reference=>revision?.availability?.[reference.assetId]!==false&&assets.get(reference.assetId)?.trashedAt==null).map(reference=>({assetId:reference.assetId,alias:reference.alias,mediaType:reference.mediaType,role:reference.role,description:'原视频的参考素材，保留未要求修改的内容',available:true,unbound:false}));
+   const identity=JSON.stringify([kind,current.result.record.id,userRequest,frameAssetId]);
+   optimizationRequest.current=optimizationRequest.current?.identity===identity?optimizationRequest.current:{identity,key:crypto.randomUUID(),request:{type:'video',userRequest,sceneId:kind==='tail-frame'?'extension':'edit',requestedSpec:{durationSeconds:spec.durationSeconds,ratio:spec.ratio},audioPlan:'',lockedConstraints:[],references,ruleVersion:'studio-video-rules-v1'}};
+   const held=optimizationRequest.current;
    const value=await client.createDraft(held.request,held.key);if(alive.current){optimizationRequest.current=undefined;setOptimization({draftId:value.id,kind,recordId:current.result.record.id,prompt:current.prompt});}
   }catch(error){updateError(workspaceMessage(error));}
   finally{optimizationBusy.current=false;if(alive.current)setOptimizing(false);}
@@ -139,7 +150,8 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    if(pending.frameAssetId)void restoreFramePreview(pending.frameAssetId,result.record.id);
    return;
   }
-  setContinuation({result,time:1,prompt:'',phase:'editing',error:'',message:''});
+  const value:Continuation={result,prompt:'',phase:'sending',error:'',message:'正在提取视频最后一帧…'};
+  setContinuation(value);void extract(value);
  }
  async function restoreFramePreview(frameAssetId:string,recordId:string){
   try{
@@ -156,13 +168,13 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   setContinuation(undefined);setPendingCount(readPendingRequests(projectId).length);
   setMessage('已放弃本地未确认的续写请求；如服务端已提交，节点仍保留在画布中，请核对后再决定。');
  }
- async function extract(){if(!continuation)return;const current=continuation;setContinuation({...current,phase:'sending',error:'',message:''});try{
+ async function extract(input=continuation){if(!input)return;const current=input;setContinuation({...current,phase:'sending',error:'',message:''});try{
   if(!current.result.asset)throw new Error('result_asset_missing');
-  const file=await extractFrameFile(client.contentUrl(current.result.asset.id),Math.max(0,current.time));
+  const {file,timeSeconds}=await extractFrameFile(client.contentUrl(current.result.asset.id),current.time);
   if(preview.current)URL.revokeObjectURL(preview.current);
   const url=URL.createObjectURL(file);preview.current=url;
-  if(alive.current)setContinuation(value=>value?{...value,phase:'editing',file,preview:url,frameAssetId:undefined,request:undefined,message:'尾帧已抽取；上传与保存前不会创建节点。'}:value);
- }catch(e){if(alive.current)setContinuation(value=>value?{...value,phase:'editing',error:e instanceof Error&&e.message==='frame_video_unreadable'?'无法读取该视频，未抽取尾帧；原文件保留。':workspaceMessage(e)}:value);}}
+  if(alive.current)setContinuation(value=>value?.result.record.id===current.result.record.id?{...value,time:timeSeconds,phase:'editing',file,preview:url,frameAssetId:undefined,request:undefined,message:'尾帧已抽取；上传与保存前不会创建节点。'}:value);
+ }catch(e){if(alive.current)setContinuation(value=>value?.result.record.id===current.result.record.id?{...value,phase:'editing',error:e instanceof Error&&e.message==='frame_video_unreadable'?'无法读取该视频，未抽取尾帧；原文件保留。':workspaceMessage(e)}:value);}}
  async function saveContinuation(){if(!continuation||!snapshot||(!continuation.file&&!continuation.request))return;const current=continuation,file=current.file;
   if(current.phase!=='editing'&&current.request){await retryContinuation(current);return;}
   if(!current.prompt.trim()){setContinuation({...current,error:'请填写续写提示词；尾帧与输入会保留。'});return;}
@@ -179,7 +191,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   let request=current.request;
   try{
    if(!request){
-    const frame=await client.readAsset(frameAssetId),batch=tailFrameBatch(snapshot.graph,current.result.record,current.result.asset!,frame,current.prompt.trim(),current.time);
+    const frame=await client.readAsset(frameAssetId),batch=tailFrameBatch(snapshot.graph,current.result.record,current.result.asset!,frame,current.prompt.trim(),current.time!);
     if(batch.reason){if(alive.current)setContinuation(value=>value?{...value,frameAssetId,phase:'editing',error:batch.reason!}:value);return;}
     request=freeze(batch.operations,snapshot.graph.revision);
    }
@@ -188,7 +200,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   if(alive.current)setContinuation(value=>value?{...value,frameAssetId,request,phase:'sending'}:value);
   if(request)await retryContinuation({result:current.result,time:current.time,prompt:current.prompt,file,preview:current.preview,frameAssetId,request,phase:'sending',error:'',message:''});
  }
- async function retryContinuation(current:{result:ProjectResult;time:number;prompt:string;file?:File;preview?:string;frameAssetId?:string;request?:FrozenRequest;phase:Phase;error:string;message:string}){
+ async function retryContinuation(current:Continuation){
   const frozen=current.request;if(!frozen)return;
   const pending=():PendingRequest=>({projectId,kind:'tail-frame',recordId:current.result.record.id,key:frozen.key,baseRevision:frozen.baseRevision,operations:frozen.operations,nodeIds:frozen.nodeIds,prompt:current.prompt,time:current.time,frameAssetId:current.frameAssetId,phase:'unknown',savedAt:Date.now()});
   try{await client.command(projectId,frozen.baseRevision,{type:'operations',operations:frozen.operations},frozen.key);}
@@ -200,7 +212,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    return;
   }
   const applied=await settle(frozen,value=>setContinuation(state=>state?{...state,...value}:state));
-  if(applied){clearPendingRequest(projectId,'tail-frame',current.result.record.id);setPendingCount(readPendingRequests(projectId).length);if(alive.current)setMessage('尾帧续写已保存为一个命令批次：帧素材、续写正文、视频草稿与关系');setContinuation(undefined);}
+  if(applied){clearPendingRequest(projectId,'tail-frame',current.result.record.id);setPendingCount(readPendingRequests(projectId).length);setContinuation(undefined);returnToDraft(frozen);}
   else {writePendingRequest({...pending(),phase:'submitted'});setPendingCount(readPendingRequests(projectId).length);}
  }
  async function settle(frozen:FrozenRequest,apply:(patch:{phase:Phase;message:string;error:string})=>void){
@@ -208,7 +220,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    await reload();
    const present=await hasNodes(frozen.nodeIds);
    apply({phase:'submitted',message:present?'本次请求已保存；节点与素材未重复创建。':'本次请求已保存；正在读取最新结果。',error:''});
-   return true;
+   return present;
   }catch{
    apply({phase:'submitted',message:'命令已提交成功，但重新读取失败；请点击重新读取结果确认，不会重复创建。',error:''});
    return false;
@@ -216,8 +228,9 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
  }
  async function hasNodes(ids:string[]){
   const workspace=await client.readWorkspace(projectId);
-  return ids.some(id=>workspace.graph.nodes.some(node=>node.id===id));
+  return ids.every(id=>workspace.graph.nodes.some(node=>node.id===id));
  }
+ function returnToDraft(frozen:FrozenRequest){const node=frozen.operations.find(operation=>operation.type==='add_node'&&(operation.payload as {node:{type:string}}).node.type==='video-generation');const id=(node?.payload as {node:{id:string}}|undefined)?.node.id;if(id)navigate('/projects/'+encodeURIComponent(projectId)+'/canvas?node='+encodeURIComponent(id));}
  async function resolveUnknown(frozen:FrozenRequest,close:(present:boolean)=>void){
   try{const present=await hasNodes(frozen.nodeIds);await reload();close(present);}
   catch(e){setError(workspaceMessage(e));}
@@ -253,9 +266,9 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   const usable=new Map([...assets].filter(([id,asset])=>asset.trashedAt==null&&current.availability?.[id]!==false));
   setRevision({...current,phase:'sending',error:'',message:''});
   try{
-   const copy=revisionCopy(snapshot.graph,current.result.record,current.result.asset!,current.prompt.trim(),usable),request=current.request??freeze(copy.operations,snapshot.graph.revision);
-   setRevision({...current,skipped:copy.skipped,request,phase:'sending'});
-   await retryRevision({...current,request,phase:'sending'});
+   const prompt=current.prompt.trim()+(current.instructions?.trim()?'\n\n本次修正要求（其余内容保留）：\n'+current.instructions.trim():''),copy=revisionCopy(snapshot.graph,current.result.record,current.result.asset!,prompt,usable),request=current.request??freeze(copy.operations,snapshot.graph.revision);
+   setRevision({...current,prompt,instructions:'',skipped:copy.skipped,request,phase:'sending'});
+   await retryRevision({...current,prompt,request,phase:'sending'});
   }catch(error){if(alive.current)setRevision(value=>value?{...value,phase:'editing',error:workspaceMessage(error)}:value);}
  }
  async function retryRevision(current:{result:ProjectResult;prompt:string;skipped:string[];request?:FrozenRequest;phase:Phase;availability?:Record<string,boolean>}){
@@ -268,7 +281,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    return;
   }
   const applied=await settle(frozen,value=>setRevision(state=>state?{...state,...value,skipped:state.skipped}:state));
-  if(applied){clearPendingRequest(projectId,'revision',current.result.record.id);setPendingCount(readPendingRequests(projectId).length);if(alive.current)setMessage('已创建修改后的视频草稿；原视频、原快照与原任务保留。');setRevision(undefined);}
+  if(applied){clearPendingRequest(projectId,'revision',current.result.record.id);setPendingCount(readPendingRequests(projectId).length);setRevision(undefined);returnToDraft(frozen);}
   else {writePendingRequest({...pending(),phase:'submitted'});setPendingCount(readPendingRequests(projectId).length);}
  }
  const frozenBusy=(phase:Phase)=>phase!=='editing';
@@ -299,12 +312,13 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   <Dialog open={!!continuation&&!optimization} title="尾帧续写" dismissible={continuation?.phase!=='sending'&&!optimizing} onClose={()=>setContinuation(undefined)} footer={<>
    <Button data-interaction-id="cloud:results:tail-frame-cancel" disabled={continuation?.phase==='sending'||optimizing} onClick={()=>setContinuation(undefined)}>取消</Button>
    {(continuation?.phase==='unknown'||continuation?.phase==='submitted')&&continuation.request?<Button data-interaction-id="cloud:results:tail-frame-discard" onClick={discardContinuation}>放弃未确认请求</Button>:null}
-   {continuation?.request?<Button data-interaction-id="cloud:results:tail-frame-check" disabled={continuation.phase==='sending'} onClick={()=>void resolveUnknown(continuation.request!,present=>{if(present){clearPendingRequest(projectId,'tail-frame',continuation.result.record.id);setPendingCount(readPendingRequests(projectId).length);setContinuation(undefined);setMessage('此前的请求其实已保存；未重复创建。');}else setContinuation(current=>current?{...current,message:'未发现本次请求创建的节点；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
+   {continuation?.request?<Button data-interaction-id="cloud:results:tail-frame-check" disabled={continuation.phase==='sending'} onClick={()=>void resolveUnknown(continuation.request!,present=>{if(present){clearPendingRequest(projectId,'tail-frame',continuation.result.record.id);setPendingCount(readPendingRequests(projectId).length);returnToDraft(continuation.request!);setContinuation(undefined);}else setContinuation(current=>current?{...current,message:'未发现本次请求创建的节点；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
    <Button data-interaction-id="cloud:results:tail-frame-save" variant="primary" busy={continuation?.phase==='sending'} disabled={optimizing||(!continuation?.file&&!continuation?.request)||!continuation.prompt.trim()} onClick={saveContinuation}>{continuation?.request?(continuation.frameAssetId?'重试保存续写流程':'重试保存续写流程'):'上传尾帧并保存续写流程'}</Button>
   </>}>
    {continuation?<>
     <p>抽帧只读取当前账号的结果视频；上传后作为本账号素材引用，原视频与原任务不变。</p>
-    <label>抽取时间（秒）<input data-interaction-id="cloud:results:tail-frame-time" type="number" min="0" step="0.1" disabled={optimizing||frozenBusy(continuation.phase)} value={continuation.time} onChange={event=>setContinuation({...continuation,time:Number(event.target.value)})}/></label>
+    <p>默认自动提取最后一帧。文字 API 润色会发送该尾帧和原提示词，需要使用支持图片输入的文字模型；不会退回没有尾帧的纯文字续写。</p>
+    <label>抽取时间（秒）<input data-interaction-id="cloud:results:tail-frame-time" type="number" min="0" step="any" disabled={optimizing||frozenBusy(continuation.phase)} value={continuation.time??''} onChange={event=>setContinuation({...continuation,time:event.target.value===''?undefined:Number(event.target.value),file:undefined,preview:undefined,frameAssetId:undefined})}/></label>
     <Button data-interaction-id="cloud:results:tail-frame-extract" disabled={optimizing||frozenBusy(continuation.phase)} onClick={()=>void extract()}>抽取并预览尾帧</Button>
     {continuation.preview?<img data-interaction-id="cloud:results:tail-frame-preview" src={continuation.preview} alt="尾帧预览" style={{maxWidth:'100%',maxHeight:240}}/>:null}
     <label>续写提示词<textarea data-interaction-id="cloud:results:tail-frame-prompt" disabled={optimizing||frozenBusy(continuation.phase)} value={continuation.prompt} onChange={event=>setContinuation({...continuation,prompt:event.target.value})}/></label>
@@ -317,13 +331,15 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   <Dialog open={!!revision&&!optimization} title="修改后重新生成" dismissible={revision?.phase!=='sending'&&!optimizing} onClose={()=>setRevision(undefined)} footer={<>
    <Button data-interaction-id="cloud:results:revision-cancel" disabled={revision?.phase==='sending'||optimizing} onClick={()=>setRevision(undefined)}>取消</Button>
    {(revision?.phase==='unknown'||revision?.phase==='submitted')&&revision.request?<Button data-interaction-id="cloud:results:revision-discard" onClick={discardRevision}>放弃未确认请求</Button>:null}
-   {revision?.request?<Button data-interaction-id="cloud:results:revision-check" disabled={revision.phase==='sending'} onClick={()=>void resolveUnknown(revision.request!,present=>{if(present){clearPendingRequest(projectId,'revision',revision.result.record.id);setPendingCount(readPendingRequests(projectId).length);setRevision(undefined);setMessage('此前的请求其实已保存；未重复创建草稿。');}else setRevision(current=>current?{...current,message:'未发现本次请求创建的草稿；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
+   {revision?.request?<Button data-interaction-id="cloud:results:revision-check" disabled={revision.phase==='sending'} onClick={()=>void resolveUnknown(revision.request!,present=>{if(present){clearPendingRequest(projectId,'revision',revision.result.record.id);setPendingCount(readPendingRequests(projectId).length);returnToDraft(revision.request!);setRevision(undefined);}else setRevision(current=>current?{...current,message:'未发现本次请求创建的草稿；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
    <Button data-interaction-id="cloud:results:revision-save" variant="primary" busy={revision?.phase==='sending'} disabled={optimizing||!revision?.prompt.trim()||(revision&&frozenSnapshot(revision.result.record).references.length>0&&!revision.availability)} disabledReason={revision&&frozenSnapshot(revision.result.record).references.length>0&&!revision.availability?'正在确认引用素材是否可读，请稍候再保存。':undefined} onClick={saveRevision}>{revision?.request?'重试保存新草稿':'保存为新的视频草稿'}</Button>
   </>}>
    {revision?<>
     <p>从原任务冻结的输入快照复制正文、规格与仍可读的素材引用；原视频、原快照与原任务不变。</p>
     <p>规格：{frozenSpec(revision.result.record).modelId} · {frozenSpec(revision.result.record).durationSeconds??'未指定'} 秒 · {frozenSpec(revision.result.record).ratio??'未指定'}</p>
     <label>正文<textarea data-interaction-id="cloud:results:revision-prompt" disabled={optimizing||frozenBusy(revision.phase)} value={revision.prompt} onChange={event=>setRevision({...revision,prompt:event.target.value})}/></label>
+    <label>需要修正的问题<textarea data-interaction-id="cloud:results:revision-instructions" disabled={optimizing||frozenBusy(revision.phase)} value={revision.instructions??''} onChange={event=>setRevision({...revision,instructions:event.target.value})}/></label>
+    <p>文字 API 会结合原提示词和本次问题生成完整修正正文。直接保存则保留当前正文并附上修正要求；原视频保留。</p>
     <Button data-interaction-id="cloud:results:revision-ai" busy={optimizing} disabled={optimizing||frozenBusy(revision.phase)||!revision.prompt.trim()||(frozenSnapshot(revision.result.record).references.length>0&&!revision.availability)} onClick={()=>void polishPrompt('revision')}>文字 API 润色</Button>
     <a data-interaction-id="cloud:results:revision-text-settings" href="/settings/connections#text-api" target="_blank" rel="noopener noreferrer">配置文字 API</a>
     <p data-interaction-id="cloud:results:revision-references">引用：{frozenSnapshot(revision.result.record).references.length?frozenSnapshot(revision.result.record).references.map(reference=>{const state=!revision.availability?'确认中':revision.availability[reference.assetId]&&assets.get(reference.assetId)?.trashedAt==null?'可读':'缺失或已删除';return reference.alias+'（'+state+'）';}).join('、'):'无'}</p>
@@ -334,7 +350,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   </Dialog>
   {optimization?<CloudPromptGeneratorPage key={optimization.draftId} client={client} initialDraftId={optimization.draftId} initialAI canApplyCanvas={false} choosePromptLabel="采用润色正文" onClose={()=>setOptimization(undefined)} onChoosePrompt={prompt=>{
    const adopt=<T extends {result:ProjectResult;prompt:string;error:string;message:string}>(current:T|undefined)=>current&&current.result.record.id===optimization.recordId&&current.prompt===optimization.prompt?{...current,prompt,error:'',message:'已采用文字 API 润色正文；视频规格与原结果保留。'}:current;
-   if(optimization.kind==='revision')setRevision(adopt);else setContinuation(adopt);
+   if(optimization.kind==='revision')setRevision(value=>{const next=adopt(value);return next?{...next,instructions:''}:next;});else setContinuation(adopt);
    setOptimization(undefined);
   }}/>:null}
  </section>;

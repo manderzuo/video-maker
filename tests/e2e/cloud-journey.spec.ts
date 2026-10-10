@@ -45,14 +45,14 @@ test('completes an empty-project journey purely through clicks without paid call
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
  await page.getByRole('button',{name:'查看视频任务',exact:true}).click();
  const detail=page.getByRole('dialog',{name:'云端视频任务',exact:true});
- await detail.getByRole('link',{name:'打开视频结果页',exact:true}).click();
+ await detail.getByRole('link',{name:'打开视频结果页',exact:true}).click();const resultUrl=page.url();
  const item=page.locator('[data-interaction-id="cloud:results:item"]');
  await expect(item.locator('video')).toHaveCount(1);
  await item.getByRole('button',{name:'修改后重新生成',exact:true}).click();
  const revision=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
  await revision.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('旅程修改后的夜晚版本');
  await revision.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();
- await expect(page.getByRole('status').first()).toContainText('已创建修改后的视频草稿');
+ await expect(page).toHaveURL(/\/canvas\?node=/);await page.goto(resultUrl);
  await item.getByRole('button',{name:'尾帧续写',exact:true}).click();
  const tail=page.getByRole('dialog',{name:'尾帧续写',exact:true});
  await tail.locator('[data-interaction-id="cloud:results:tail-frame-time"]').fill('0.2');
@@ -60,7 +60,7 @@ test('completes an empty-project journey purely through clicks without paid call
  await expect(tail.locator('[data-interaction-id="cloud:results:tail-frame-preview"]')).toBeVisible();
  await tail.locator('[data-interaction-id="cloud:results:tail-frame-prompt"]').fill('旅程续写向前推进');
  await tail.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();
- await expect(page.getByRole('status').first()).toContainText('尾帧续写已保存为一个命令批次');
+ await expect(page).toHaveURL(/\/canvas\?node=/);await page.goto(resultUrl);
  await page.reload();
  await expect(page.locator('[data-interaction-id="cloud:results:item"] video')).toHaveCount(1);
  await page.getByRole('link',{name:'返回画布',exact:true}).click();

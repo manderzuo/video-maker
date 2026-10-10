@@ -1,37 +1,38 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import type {Project} from '../../domain/project';
-import type {ReceiptSummary} from '../../domain/command-receipt';
+import {activityLabel,activityStateLabel,type Activity} from '../../domain/activity';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
 import {LocalLink} from '../../app/routes';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {triggerLocalDownload} from '../../ui/local-download';
 import {buildCloudDiagnostics} from './cloud-diagnostics';
-const commandLabels:Record<ReceiptSummary['commandType'],string>={operations:'画布操作',undo:'撤销',redo:'重做',viewport:'视角'};
-const hiddenKey='aiwork:activity:hidden';
-function readHidden():string[]{try{const raw=localStorage.getItem(hiddenKey);const parsed=raw?JSON.parse(raw):[];return Array.isArray(parsed)?parsed.filter(id=>typeof id==='string'):[];}catch{return [];}}
+
 export function CloudActivityPage({client}:{client:WorkspaceClient}){
- const [rows,setRows]=useState<{project:Project;receipt:ReceiptSummary}[]>(),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
- const [query,setQuery]=useState(''),[kind,setKind]=useState(''),[from,setFrom]=useState(''),[to,setTo]=useState(''),[hidden,setHidden]=useState<string[]>(()=>readHidden()),[detail,setDetail]=useState<{project:Project;receipt:ReceiptSummary}>();
- async function reload(){setError('');try{
-  const projects=await client.listProjects();
-  const per=await Promise.all(projects.map(async project=>({project,receipts:await client.listReceipts(project.id,10)})));
-  const merged=per.flatMap(entry=>entry.receipts.map(receipt=>({project:entry.project,receipt}))).sort((a,b)=>b.receipt.createdAt-a.receipt.createdAt||b.receipt.revision-a.receipt.revision).slice(0,50);
-  setRows(merged);
- }catch(e){setError(workspaceMessage(e));}}
- function hide(id:string){setHidden(current=>{const next=[...current,id];try{localStorage.setItem(hiddenKey,JSON.stringify(next));}catch{/* 仅本地显示状态，失败不影响记录 */}return next;});}
- function showAll(){setHidden([]);try{localStorage.removeItem(hiddenKey);}catch{/* 同上 */}}
- async function exportReport(){if(busy)return;setBusy(true);setError('');setMessage('');try{
-  const [projects,runs,{configs}]=await Promise.all([client.listProjects(),client.listTasks(),client.modelConfigs()]);
-  const per=await Promise.all(projects.map(async project=>({project,receipts:await client.listReceipts(project.id,10)})));
-  const report=buildCloudDiagnostics({projects,receipts:per.flatMap(entry=>entry.receipts.map(receipt=>({project:entry.project,receipt}))),runs,configs});
-  triggerLocalDownload(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),'aiwork-cloud-diagnostics.json');
-  setMessage('已触发浏览器下载脱敏诊断报告；报告不含提示词全文、提交原文、密钥与媒体文件。');
- }catch(e){setError(workspaceMessage(e));}finally{setBusy(false);}}
- useEffect(()=>{let active=true;void reload().catch(()=>{if(active)setError('云端操作记录读取失败。');});return()=>{active=false;};},[client]);
+ const [rows,setRows]=useState<Activity[]>([]),[projects,setProjects]=useState<Project[]>([]),[projectId,setProjectId]=useState(''),[cursor,setCursor]=useState<string|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
+ const [kind,setKind]=useState(''),[from,setFrom]=useState(''),[to,setTo]=useState(''),[detail,setDetail]=useState<Activity>(),[message,setMessage]=useState('');
+ const generation=useRef(0),alive=useRef(true),reading=useRef(false);
+ useEffect(()=>{alive.current=true;void Promise.all([client.listProjects(),client.listProjects(true)]).then(([active,trashed])=>{if(alive.current)setProjects([...active,...trashed]);}).catch(e=>{if(alive.current)setError(workspaceMessage(e));});return()=>{alive.current=false;generation.current++;};},[client]);
+ async function reload(next?:string){
+  const request=next?generation.current:++generation.current;if(next&&reading.current)return;reading.current=true;setBusy(true);setError('');
+  try{const value=await client.listActivity({...(!projectId||projectId==='unassigned'?{}:{projectId}),...(projectId==='unassigned'?{unassigned:true}:{}),...(next?{cursor:next}:{})});if(alive.current&&request===generation.current){setRows(current=>next?[...current,...value.items.filter(item=>!current.some(row=>row.id===item.id))]:value.items);setCursor(value.nextCursor);}}
+  catch(e){if(alive.current&&request===generation.current)setError(workspaceMessage(e));}
+  finally{if(alive.current&&request===generation.current){reading.current=false;setBusy(false);}}
+ }
+ useEffect(()=>{setRows([]);setCursor(null);void reload();},[client,projectId]);
+ async function exportReport(){if(busy)return;setBusy(true);setError('');try{const [projects,runs,{configs}]=await Promise.all([client.listProjects(),client.listTasks(),client.modelConfigs()]);const per=await Promise.all(projects.map(async project=>({project,receipts:await client.listReceipts(project.id,100)})));const report=buildCloudDiagnostics({projects,receipts:per.flatMap(entry=>entry.receipts.map(receipt=>({project:entry.project,receipt}))),runs,configs});triggerLocalDownload(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),'aiwork-cloud-diagnostics.json');setMessage('已触发浏览器下载脱敏诊断报告');}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{if(alive.current)setBusy(false);}}
  const fromTime=from?new Date(from+'T00:00:00').getTime():undefined,toTime=to?new Date(to+'T23:59:59.999').getTime():undefined;
- const filtered=(rows??[]).filter(({project,receipt})=>!hidden.includes(receipt.id)&&(!query||project.title.toLowerCase().includes(query.toLowerCase()))&&(!kind||receipt.commandType===kind)&&(fromTime===undefined||receipt.createdAt>=fromTime)&&(toTime===undefined||receipt.createdAt<=toTime));
- const clearFilter=()=>{setQuery('');setKind('');setFrom('');setTo('');};
- return <section className="card" aria-label="云端活动记录"><h1>云端活动记录</h1><p>只列出当前账号各项目的云端命令回执；按下述时间倒序，最多 50 条。完整画布历史仍在各项目内，可用撤销/重做查看。隐藏仅影响本地显示，云端记录保留、不可删除。</p><div className="actions"><label>按项目标题筛选<input data-interaction-id="cloud:activity:filter-project" value={query} onChange={event=>setQuery(event.target.value)}/></label><label>命令类型<select data-interaction-id="cloud:activity:filter-kind" value={kind} onChange={event=>setKind(event.target.value)}><option value="">全部类型</option>{(['operations','undo','redo','viewport'] as const).map(type=><option key={type} value={type}>{commandLabels[type]}</option>)}</select></label><label>从日期<input data-interaction-id="cloud:activity:filter-from" type="date" value={from} onChange={event=>setFrom(event.target.value)}/></label><label>到日期<input data-interaction-id="cloud:activity:filter-to" type="date" value={to} onChange={event=>setTo(event.target.value)}/></label></div><div className="actions"><Button data-interaction-id="cloud:activity:filter-clear" onClick={clearFilter}>清除活动筛选</Button><Button data-interaction-id="cloud:activity:hidden-clear" disabled={!hidden.length} onClick={showAll}>恢复隐藏显示{hidden.length?'（'+hidden.length+' 条）':''}</Button><Button data-interaction-id="cloud:activity:reload" onClick={()=>void reload()}>重新读取</Button><Button data-interaction-id="cloud:activity:export" disabled={busy} busy={busy} onClick={()=>void exportReport()}>导出脱敏诊断</Button></div><p role="status">共 {rows?.length??0} 条回执，当前显示 {filtered.length} 条{hidden.length?'，已隐藏 '+hidden.length+' 条本地显示':''}。</p>{error?<p role="alert">{error}</p>:null}{message?<p role="status">{message}</p>:null}{rows===undefined?<p role="status">正在读取云端操作记录…</p>:filtered.length?filtered.map(({project,receipt})=><article key={receipt.id} className="card"><h2>{project.title}</h2><p>修订 {receipt.revision} · {commandLabels[receipt.commandType]} · {new Date(receipt.createdAt).toLocaleString()}</p><div className="actions"><Button data-interaction-id="cloud:activity:detail" onClick={()=>setDetail({project,receipt})}>查看回执详情</Button><Button data-interaction-id="cloud:activity:hide" onClick={()=>hide(receipt.id)}>隐藏</Button></div><LocalLink data-interaction-id="cloud:activity:open" href={'/projects/'+encodeURIComponent(project.id)+'/canvas'}>打开项目画布</LocalLink></article>):<p>没有符合筛选的回执；可以清除筛选或恢复隐藏查看其他记录。云端记录保留，未被删除。</p>}
- <Dialog open={!!detail} title="回执详情" onClose={()=>setDetail(undefined)} footer={<Button data-interaction-id="cloud:activity:detail-close" onClick={()=>setDetail(undefined)}>关闭</Button>}>{detail?<><p>项目：{detail.project.title}</p><p>修订 {detail.receipt.revision} · {commandLabels[detail.receipt.commandType]}</p><p>{new Date(detail.receipt.createdAt).toLocaleString()} · 回执 {detail.receipt.id}</p><LocalLink data-interaction-id="cloud:activity:detail-open" href={'/projects/'+encodeURIComponent(detail.project.id)+'/canvas'}>打开项目画布</LocalLink></>:null}</Dialog></section>;
+ const filtered=rows.filter(row=>(!kind||activityLabel(row)===kind)&&(fromTime===undefined||row.createdAt>=fromTime)&&(toTime===undefined||row.createdAt<=toTime));
+ const labels=[...new Set(rows.map(activityLabel))];
+ return <section className="card" aria-label="云端活动记录"><h1>活动</h1><div className="actions">
+ <label>按项目分类<select aria-label="按项目分类" data-interaction-id="cloud:activity:filter-project" value={projectId} onChange={event=>setProjectId(event.target.value)}><option value="">全部项目</option><option value="unassigned">账号与公共素材操作</option>{projects.map(project=><option key={project.id} value={project.id}>{project.title}{project.trashedAt!==null?'（回收站）':''}</option>)}</select></label>
+ <label>操作类型<select data-interaction-id="cloud:activity:filter-kind" value={kind} onChange={event=>setKind(event.target.value)}><option value="">全部操作</option>{labels.map(label=><option key={label}>{label}</option>)}</select></label>
+ <label>从日期<input data-interaction-id="cloud:activity:filter-from" type="date" value={from} onChange={event=>setFrom(event.target.value)}/></label><label>到日期<input data-interaction-id="cloud:activity:filter-to" type="date" value={to} onChange={event=>setTo(event.target.value)}/></label>
+ <Button data-interaction-id="cloud:activity:filter-clear" onClick={()=>{setProjectId('');setKind('');setFrom('');setTo('');}}>清除活动筛选</Button><Button data-interaction-id="cloud:activity:reload" disabled={busy} onClick={()=>void reload()}>重新读取</Button><Button data-interaction-id="cloud:activity:export" disabled={busy} onClick={()=>void exportReport()}>导出脱敏诊断</Button></div>
+ <p>记录云端保存、编辑、上传、模型确认与失败操作；历史画布回执保留。记录不含密钥、提示词正文或媒体文件。</p>
+ <p role="status">已加载 {rows.length} 条操作，当前显示 {filtered.length} 条{cursor?'；还有更早记录':''}。</p>{error?<p role="alert">{error}</p>:null}{message?<p role="status">{message}</p>:null}
+ {filtered.map(row=><article key={row.id} className="card" data-interaction-id="cloud:activity:record"><h2>{activityLabel(row)}</h2><p>{row.projectTitle??'账号与公共素材'} · {activityStateLabel(row)} · {new Date(row.createdAt).toLocaleString()}{row.historical?' · 历史记录':''}</p><div className="actions"><Button data-interaction-id="cloud:activity:detail" onClick={()=>setDetail(row)}>查看操作详情</Button>{row.projectId?<LocalLink data-interaction-id="cloud:activity:open" href={'/projects/'+encodeURIComponent(row.projectId)+'/canvas'}>打开项目画布</LocalLink>:null}</div></article>)}
+ {!busy&&!filtered.length?<p>暂无符合分类的操作记录。</p>:null}{cursor?<Button data-interaction-id="cloud:activity:more" busy={busy} onClick={()=>void reload(cursor)}>加载更早的操作</Button>:null}
+ <Dialog open={!!detail} title="操作详情" onClose={()=>setDetail(undefined)}>{detail?<><p>{activityLabel(detail)} · {detail.projectTitle??'账号与公共素材'}</p><p>{new Date(detail.createdAt).toLocaleString()} · {activityStateLabel(detail)}</p><p>记录 {detail.id}</p>{detail.projectId?<LocalLink data-interaction-id="cloud:activity:detail-open" href={'/projects/'+encodeURIComponent(detail.projectId)+'/canvas'}>打开项目画布</LocalLink>:null}</>:null}</Dialog>
+ </section>;
 }

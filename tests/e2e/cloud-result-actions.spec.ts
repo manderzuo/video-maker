@@ -84,14 +84,18 @@ test('optimizes a revision through the text API and saves a new draft while pres
  await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'修改后重新生成',exact:true}).click();
  const revision=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
  await revision.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('改成日落街道，保持原镜头');
+ await revision.getByLabel('需要修正的问题',{exact:true}).fill('修复车轮变形，其余主体和动作保持');
  await revision.getByRole('button',{name:'文字 API 润色',exact:true}).click();
  const confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();
+ const saved=(await workspace.pool.query('SELECT document FROM workspace_content WHERE user_id=$1 AND kind=\'draft\' ORDER BY created_at DESC LIMIT 1',[workspace.account.view.user.id])).rows[0].document;
+ expect(saved.sceneId).toBe('edit');expect(saved.userRequest).toContain('雨后的街道，一镜到底');expect(saved.userRequest).toContain('改成日落街道，保持原镜头');expect(saved.userRequest).toContain('修复车轮变形，其余主体和动作保持');
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
  await confirm.getByLabel('我确认此文字调用可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
  const panel=page.locator('.prompt-generator-panel');await expect(panel.getByLabel('结果正文',{exact:true})).toHaveValue('云端 AI 优化的雨后街道');
  await panel.getByRole('button',{name:'采用润色正文',exact:true}).click();
  await expect(revision.locator('[data-interaction-id="cloud:results:revision-prompt"]')).toHaveValue('云端 AI 优化的雨后街道');
  await revision.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();await expect(revision).not.toBeVisible();
+ await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
  const graph=await graphOf(workspace,projectId);expect(graph.nodes.find(node=>node.title==='修改提示词')?.data.text).toBe('云端 AI 优化的雨后街道');
  expect(graph.nodes.filter(node=>node.type==='result')).toHaveLength(1);
  const original=(await workspace.call('GET','/studio-api/runs/'+run.id,h)).json();expect(original.inputSnapshot.prompt).toBe('雨后的街道，一镜到底');
@@ -110,19 +114,45 @@ test('tail-frame text polishing can be cancelled and explicitly adopted without 
  let confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();await confirm.getByRole('button',{name:'取消',exact:true}).click();
  await page.getByRole('button',{name:'关闭写作面板',exact:true}).click();await expect(prompt).toHaveValue('继续雨后街道，镜头慢慢抬高');await expect(dialog.getByAltText('尾帧预览')).toBeVisible();expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/chat/'))).toHaveLength(0);
  await dialog.getByRole('button',{name:'文字 API 润色',exact:true}).click();confirm=page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true});await expect(confirm).toBeVisible();
+ const frozen=(await workspace.pool.query("SELECT request_body FROM workspace_prompt_previews ORDER BY (document->>'expiresAt')::bigint DESC LIMIT 1")).rows[0].request_body;
+ const body=JSON.parse(frozen);expect(body.messages[1].content).toEqual(expect.arrayContaining([expect.objectContaining({type:'image_url',image_url:expect.objectContaining({url:expect.stringMatching(/^data:image\/png;base64,/)} )})]));
+ const source=JSON.parse(body.messages[1].content[0].text);expect(source.scene.title).toBe('视频延长');expect(source.userRequest).toContain('雨后的街道，一镜到底');expect(source.userRequest).toContain('继续雨后街道，镜头慢慢抬高');
  await confirm.getByLabel('我确认此文字调用可能收费',{exact:true}).check();await confirm.getByRole('button',{name:'确认调用文字模型',exact:true}).click();
  const panel=page.locator('.prompt-generator-panel');await expect(panel.getByLabel('结果正文',{exact:true})).toHaveValue('云端 AI 优化的雨后街道');await panel.getByRole('button',{name:'采用润色正文',exact:true}).click();
  await expect(prompt).toHaveValue('云端 AI 优化的雨后街道');await expect(dialog.getByLabel('抽取时间（秒）',{exact:true})).toHaveValue('0.2');await expect(dialog.getByAltText('尾帧预览')).toBeVisible();
  await dialog.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();await expect(dialog).not.toBeVisible();
+ await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
  const graph=await graphOf(workspace,projectId);expect(graph.nodes.find(node=>node.title==='续写提示词')?.data.text).toBe('云端 AI 优化的雨后街道');expect(graph.nodes.filter(node=>node.type==='result')).toHaveLength(1);
  const drafts=graph.nodes.filter(node=>node.type==='video-generation');expect(drafts).toHaveLength(2);expect(drafts[1].data.draft).toMatchObject({durationSeconds:5,ratio:'16:9',resolution:'480p'});
  expect((await workspace.call('GET','/studio-api/runs/'+run.id,h)).json().inputSnapshot).toEqual(run.inputSnapshot);
  expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/videos/'))).toHaveLength(1);expect(workspace.providerCalls.filter(call=>call.method==='POST'&&call.url.includes('/chat/'))).toHaveLength(1);
 });
+
+test('opens continuation with the actual final frame and saves directly to the exact canvas draft',async({page,workspace})=>{
+ await configureVideo(workspace);const {projectId,nodeIds}=await seedProject(workspace,'自动最后一帧');await generate(page,workspace,projectId,nodeIds);
+ await page.goto('/projects/'+projectId+'/results');await page.getByRole('button',{name:'尾帧续写',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'尾帧续写',exact:true});await expect(dialog.getByAltText('尾帧预览')).toBeVisible();
+ const duration=await page.locator('[data-interaction-id="cloud:results:item"] video').evaluate((video:HTMLVideoElement)=>video.duration);
+ const time=Number(await dialog.getByLabel('抽取时间（秒）',{exact:true}).inputValue());expect(time).toBeGreaterThan(duration-0.005);expect(time).toBeLessThan(duration);
+ await dialog.getByLabel('续写提示词',{exact:true}).fill('延续最后一帧的机位，向前行进');await dialog.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();
+ await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
+ const graph=await graphOf(workspace,projectId),node=graph.nodes.find(node=>node.title==='尾帧续写视频')!;
+ expect(new URL(page.url()).searchParams.get('node')).toBe(node.id);expect(graph.nodes.find(node=>node.title==='尾帧参考')?.data.sourceVideo).toMatchObject({timeSeconds:time});
+});
+
+test('keeps a compact video task status permanently visible without an outline or prompt dump',async({page,workspace})=>{
+ await configureVideo(workspace);const {projectId,nodeIds}=await seedProject(workspace,'常驻任务栏'),[run]=await generate(page,workspace,projectId,nodeIds);
+ await workspace.pool.query("UPDATE workspace_video_runs SET document=jsonb_set(document,'{executionState}','\"running\"') WHERE id=$1",[run.id]);
+ await page.goto('/projects/'+projectId+'/canvas');const status=page.getByRole('complementary',{name:'视频生成与任务',exact:true});
+ await expect(status).toBeVisible();await expect(status).toContainText('正在生成');await expect(page.getByRole('heading',{name:'节点大纲',exact:true})).toHaveCount(0);
+ await expect(status.locator('pre')).toHaveCount(0);await expect(status).not.toContainText('将使用的正文');
+ await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(status).toBeVisible();
+ await page.getByRole('button',{name:'提示词生成面板',exact:true}).click();await expect(status).toBeVisible();
+});
 test('both result dialogs keep the entered prompt and offer text API settings when no text model is configured',async({page,workspace})=>{
  await configureVideo(workspace);const {projectId,nodeIds}=await seedProject(workspace,'未配置文字模型');await generate(page,workspace,projectId,nodeIds);await page.goto('/projects/'+projectId+'/results');
  for(const action of ['尾帧续写','修改后重新生成']){
-  await page.getByRole('button',{name:action,exact:true}).click();const dialog=page.getByRole('dialog',{name:action,exact:true});const prompt=dialog.locator('textarea');await prompt.fill('保留未保存的正文');await dialog.getByRole('button',{name:'文字 API 润色',exact:true}).click();
+  await page.getByRole('button',{name:action,exact:true}).click();const dialog=page.getByRole('dialog',{name:action,exact:true});const prompt=dialog.locator('textarea').first();await prompt.fill('保留未保存的正文');await dialog.getByRole('button',{name:'文字 API 润色',exact:true}).click();
   await expect(dialog.getByRole('alert')).toContainText('配置文字 API');await expect(prompt).toHaveValue('保留未保存的正文');await expect(dialog.getByRole('link',{name:'配置文字 API',exact:true})).toHaveAttribute('href','/settings/connections#text-api');await expect(dialog.getByRole('link',{name:'配置文字 API',exact:true})).toHaveAttribute('target','_blank');await expect(page.locator('.prompt-generator-panel')).toHaveCount(0);await dialog.getByRole('button',{name:'取消',exact:true}).click();
  }
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
@@ -185,7 +215,7 @@ test('freezes the tail-frame request so a lost response is retried with the iden
  await expect(dialog.getByRole('alert')).toContainText('提交结果未知');await expect(dialog.locator('[data-interaction-id="cloud:results:tail-frame-prompt"]')).toBeDisabled();
  expect(await countOf(workspace,assetQuery,[workspace.account.view.user.id])).toBe(assets+1);
  expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts+1);
- await dialog.getByRole('button',{name:'重试保存续写流程',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('尾帧续写已保存为一个命令批次');
+ await dialog.getByRole('button',{name:'重试保存续写流程',exact:true}).click();await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
  expect(posted).toHaveLength(2);expect(posted[0]).toBe(posted[1]);
  expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts+1);
  expect(await countOf(workspace,assetQuery,[workspace.account.view.user.id])).toBe(assets+1);
@@ -193,7 +223,7 @@ test('freezes the tail-frame request so a lost response is retried with the iden
  expect(frame?.data.sourceVideo).toMatchObject({sourceAssetId:run.resultAssetId,sourceRunId:run.id});
  expect(text?.data).toMatchObject({kind:'text',text:'从尾帧继续向前推进'});expect(draft).toBeTruthy();
  expect(graph.edges.map(edge=>[edge.port,edge.order,edge.relation??null])).toEqual(expect.arrayContaining([['video',0,'tail-frame'],['image',0,null],['text',1,null]]));
- await page.reload();await expect(page.locator('[data-interaction-id="cloud:results:item"]').locator('video')).toHaveCount(1);
+ await page.goto('/projects/'+projectId+'/results');await expect(page.locator('[data-interaction-id="cloud:results:item"]').locator('video')).toHaveCount(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
 test('keeps an uploaded tail frame when reading the new asset fails and reuses it without a new upload',async({page,workspace})=>{
@@ -221,7 +251,7 @@ test('keeps an uploaded tail frame when reading the new asset fails and reuses i
  expect(await countOf(workspace,assetQuery,[userId])).toBe(assets+1);
  const failedFrame=((await workspace.pool.query("SELECT document FROM workspace_assets WHERE user_id=$1 AND document->>'title' LIKE 'tail-frame-%'",[userId])).rows[0].document) as {id:string};
  expect(posted).toHaveLength(0);expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts);
- await dialog.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('尾帧续写已保存为一个命令批次');
+ await dialog.getByRole('button',{name:'上传尾帧并保存续写流程',exact:true}).click();await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
  expect(posted).toHaveLength(1);expect(await countOf(workspace,assetQuery,[userId])).toBe(assets+1);expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts+1);
  const frames=((await workspace.pool.query("SELECT document FROM workspace_assets WHERE user_id=$1 AND document->>'title' LIKE 'tail-frame-%'",[userId])).rows.map(row=>row.document)) as {id:string}[];
  expect(frames.map(frame=>frame.id)).toEqual([failedFrame.id]);
@@ -250,7 +280,7 @@ test('keeps a readable reference, reports a deleted one and reports a committed 
  await item().getByRole('button',{name:'修改后重新生成',exact:true}).click();let dialog=page.getByRole('dialog',{name:'修改后重新生成',exact:true});
  await expect(dialog.locator('[data-interaction-id="cloud:results:revision-references"]')).toContainText('（可读）');
  await dialog.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('保留参考图的夜晚版本');
- await dialog.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已创建修改后的视频草稿');
+ await dialog.getByRole('button',{name:'保存为新的视频草稿',exact:true}).click();await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));await page.goto('/projects/'+projectId+'/results');
  const kept=await graphOf(workspace,projectId),keptDraft=kept.nodes.filter(node=>node.title==='修改后重新生成')[0];
  expect(kept.edges.filter(edge=>edge.targetId===keptDraft.id&&edge.port==='image')).toHaveLength(1);
  expect(kept.nodes.some(node=>node.title==='参考图')).toBe(true);
@@ -269,7 +299,7 @@ test('keeps a readable reference, reports a deleted one and reports a committed 
  expect(drafts).toHaveLength(2);
  expect(committed.edges.filter(edge=>edge.port==='image'&&edge.targetId===drafts[1].id)).toHaveLength(0);
  expect(committed.nodes.some(node=>node.title==='修改提示词'&&node.data.text==='参考图已删除后的夜晚版本')).toBe(true);
- await dialog.getByRole('button',{name:'重新读取结果确认',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('此前的请求其实已保存');
+ await dialog.getByRole('button',{name:'重新读取结果确认',exact:true}).click();await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
  expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts+1);
  expect((await graphOf(workspace,projectId)).nodes.filter(node=>node.title==='修改提示词').length).toBe(2);
  expect((await workspace.pool.query('SELECT document FROM workspace_video_runs WHERE id=$1',[run.id])).rows[0].document).toMatchObject({id:run.id,resultAssetId:run.resultAssetId,executionState:'succeeded'});
@@ -313,7 +343,7 @@ test('reaches the results page from existing canvas and task entries with explic
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'结果入口'),[run]=await generate(page,workspace,projectId,nodeIds);
  await page.goto('/projects/'+projectId+'/canvas');
- await page.getByRole('button',{name:'展开任务记录',exact:true}).click();
+ await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'查看视频任务',exact:true}).click();
  const detail=page.getByRole('dialog',{name:'云端视频任务',exact:true});
  await detail.getByRole('link',{name:'打开视频结果页',exact:true}).click();
@@ -403,7 +433,7 @@ test('unknown tail-frame submission survives cancel and refresh with the same ke
  await expect(dialog.getByRole('status')).toContainText('已恢复此前未确认的请求');
  await dialog.getByRole('button',{name:'重试保存续写流程',exact:true}).click();
  await expect(dialog).toHaveCount(0);
- await expect(page.getByRole('status').first()).toContainText('尾帧续写已保存为一个命令批次');
+ await expect(page).toHaveURL(new RegExp('/projects/'+projectId+'/canvas\\?node='));
  expect(posted).toHaveLength(2);expect(posted[1]).toBe(posted[0]);
  expect(await countOf(workspace,assetQuery,[userId])).toBe(assets+1);expect(await countOf(workspace,receiptQuery,[projectId])).toBe(receipts+1);
  expect((await graphOf(workspace,projectId)).nodes.filter(node=>node.title==='尾帧参考')).toHaveLength(1);

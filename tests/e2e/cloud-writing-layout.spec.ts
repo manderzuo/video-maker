@@ -27,7 +27,7 @@ test('keeps input and result side by side at desktop widths',async({page,workspa
    expect(Math.abs(inputBox.y-resultBox.y)).toBeLessThan(2);
    expect(textBox.y).toBeLessThan(900);
    expect(textBox.y+textBox.height).toBeGreaterThan(textBox.y);
-   await expect(page.getByRole('button',{name:'保存为新的人工结果',exact:true})).toBeVisible();
+   await expect(page.getByRole('button',{name:'插入到画布中',exact:true})).toBeVisible();
    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
    await page.screenshot({path:testInfo.outputPath('writing-'+theme+'-'+width+'.png')});
   }

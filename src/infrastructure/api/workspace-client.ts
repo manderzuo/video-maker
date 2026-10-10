@@ -7,6 +7,7 @@ import type {GraphOperation} from '../../application/commands/registry';
 import {ApiError} from './client';
 import {cloudProjectPackageSchema,privateFileSchema,type CloudProjectPackage} from '../../domain/cloud-project-package';
 import {receiptSummarySchema} from '../../domain/command-receipt';
+import {activityPageSchema} from '../../domain/activity';
 import {purgePreviewSchema,purgeReceiptSchema} from '../../domain/project-purge';
 import {workspaceMigrationSchema,migrationBatchSchema,type WorkspaceMigration} from '../../domain/workspace-migration';
 import {cloudTaskSchema,promptOptimizationPreviewSchema} from '../../domain/cloud-task';
@@ -79,6 +80,7 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   importProject:(data:CloudProjectPackage,assets:Record<string,string>,idempotencyKey:string)=>request('/studio-api/projects/import',workspaceSchema,{method:'POST',body:{data,assets,idempotencyKey}}),
   command:async(id:string,expectedRevision:number,command:CloudCommand,idempotencyKey:string=crypto.randomUUID())=>request('/studio-api/projects/'+resource(id)+'/commands',receiptSchema,{method:'POST',body:{expectedRevision,command,idempotencyKey}}),
   listReceipts:async(id:string,limit=20)=>request('/studio-api/projects/'+resource(id)+'/receipts?limit='+limit,z.array(receiptSummarySchema)),
+  listActivity:async(options:{projectId?:string;unassigned?:boolean;cursor?:string}={})=>{const query=new URLSearchParams();if(options.projectId)query.set('projectId',resource(options.projectId));if(options.unassigned)query.set('unassigned','true');if(options.cursor)query.set('cursor',options.cursor);return request('/studio-api/activity?'+query.toString(),activityPageSchema);},
   purgePreview:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/purge-preview',purgePreviewSchema,{method:'POST',body:{}}),
   purgeProject:async(id:string,input:{title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string})=>request('/studio-api/projects/'+resource(id)+'/purge',purgeReceiptSchema,{method:'POST',body:input}),
   listAssets:(trashed=false)=>request('/studio-api/assets'+(trashed?'?trashed=true':''),z.array(assetSchema)),

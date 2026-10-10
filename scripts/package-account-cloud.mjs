@@ -1,5 +1,5 @@
 import {build as viteBuild} from 'vite';
-import {mkdir,readFile,writeFile,copyFile,mkdtemp} from 'node:fs/promises';
+import {mkdir,readFile,writeFile,copyFile,mkdtemp,readdir} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -18,9 +18,12 @@ const files=[];
 const add=async(source,relative)=>{const target=path.join(stage,relative);await mkdir(path.dirname(target),{recursive:true});await copyFile(source,target);files.push(relative);};
 for(const file of currentDistFiles(path.join(stage,'dist'))){const relative=path.relative(stage,file).replaceAll('\\','/');if(!relative.startsWith('dist/assets/')&&!['dist/index.html','dist/favicon.svg','dist/studio-deployment.json'].includes(relative))throw new Error('Unexpected static file in empty-content release');files.push(relative);}
 const publicMetadata=JSON.parse(await readFile(path.join(stage,'dist/studio-deployment.json'),'utf8'));if(publicMetadata.schemaVersion!==1||publicMetadata.connections.length!==0)throw new Error('No previous connections permitted in the public release');
-for(const name of ['account-server.mjs','package.json','package-lock.json'])await add(path.join(work,'server-build',name),'server/'+name);
-const migrationNames=['001-users.sql','002-api-configs.sql','003-workspace.sql','004-tasks-history.sql','005-video-runs.sql','006-agent.sql','007-workspace-imports.sql','008-project-purge.sql'];
-for(const name of migrationNames)await add(path.join(root,'server/src/db/migrations',name),'server/migrations/'+name);
+await add(path.join(work,'server-build/account-server.mjs'),'server/account-server.mjs');
+// Use committed bytes: migration checksums must not depend on checkout line endings.
+const addCommitted=async(source,relative)=>{const target=path.join(stage,relative);await mkdir(path.dirname(target),{recursive:true});await writeFile(target,execFileSync('git',['show',commit+':'+source],{cwd:root,windowsHide:true}));files.push(relative);};
+for(const name of ['package.json','package-lock.json'])await addCommitted('server/'+name,'server/'+name);
+const migrationNames=(await readdir(path.join(root,'server/src/db/migrations'))).filter(name=>/^\d{3}-[a-z0-9-]+\.sql$/.test(name)).sort();
+for(const name of migrationNames)await addCommitted('server/src/db/migrations/'+name,'server/migrations/'+name);
 for(const name of ['aiwork-studio-cloud.service','nginx-studio-cloud.conf'])await add(path.join(root,'deploy',name),'deploy/'+name);
 for(const name of ['backup-account-cloud.sh'])await add(path.join(root,'scripts',name),'scripts/'+name);
 for(const name of ['THIRD_PARTY_NOTICES.txt','runtime-licenses.json'])await add(path.join(root,'third-party',name),'third-party/'+name);

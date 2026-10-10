@@ -73,18 +73,7 @@ export function CloudVideoInputEditor({
     if (applied) setText('');
   }
 
-  if (!missing) {
-    return (
-      <div>
-        <p>将使用的正文（{sources.length} 个输入）</p>
-        {sources.map((s) => (
-          <pre key={s.edgeId} aria-label={'视频输入正文-' + s.title}>
-            {s.title}：{s.text}
-          </pre>
-        ))}
-      </div>
-    );
-  }
+  if (!missing) return null;
 
   return (
     <div>

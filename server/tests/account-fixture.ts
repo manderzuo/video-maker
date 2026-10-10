@@ -30,6 +30,7 @@ export async function fixture(options:{apiSettings?:ApiSettingsDependencies;sche
   if(options.workspace)await pool.query(await readFile(new URL('../src/db/migrations/006-agent.sql',import.meta.url),'utf8'));
   if(options.workspace)await pool.query(await readFile(new URL('../src/db/migrations/007-workspace-imports.sql',import.meta.url),'utf8'));
   if(options.workspace)await pool.query(await readFile(new URL('../src/db/migrations/008-project-purge.sql',import.meta.url),'utf8'));
+  if(options.workspace)await pool.query(await readFile(new URL('../src/db/migrations/009-activity.sql',import.meta.url),'utf8'));
   app=await buildStudioApp({pool,origin,now:()=>options.realClock?new Date():new Date(time),apiSettings:options.apiSettings,...(options.workspace?{workspace:true as const}:{}),...(options.content?{content:true as const}:{}),...(options.taskWorker?{taskWorker:true as const}:{}),videoContracts:options.videoContracts,assets:options.assets});
  }catch(error){await pool.end();await control.query(`DROP SCHEMA "${schema}" CASCADE`);await control.end();throw error;}
  // Test-only adapter proves resource-ID ownership using the real auth hook/repository.

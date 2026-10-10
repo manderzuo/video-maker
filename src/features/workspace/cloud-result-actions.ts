@@ -113,14 +113,16 @@ export function tailFrameBatch(graph:Graph,record:VideoRecord,video:Asset,frame:
 }
 // Browser-side frame extraction: the bytes stay in the current account because
 // the caller uploads the returned file through uploadCloudAsset before use.
-export async function extractFrameFile(url:string,timeSeconds:number):Promise<File>{
+export async function extractFrameFile(url:string,timeSeconds?:number):Promise<{file:File;timeSeconds:number}>{
  const video=document.createElement('video');
  video.muted=true;video.preload='metadata';video.src=url;
- await new Promise<void>((resolve,reject)=>{video.onloadedmetadata=()=>resolve();video.onerror=()=>reject(new Error('frame_video_unreadable'));});
- const duration=Number.isFinite(video.duration)&&video.duration>0?video.duration:timeSeconds;
- const at=Math.min(Math.max(timeSeconds,0),Math.max(0,duration-0.05));
- video.currentTime=at;
- await new Promise<void>((resolve,reject)=>{video.onseeked=()=>resolve();video.onerror=()=>reject(new Error('frame_seek_failed'));});
+ let fail:(error:Error)=>void=()=>{};
+ const timer=setTimeout(()=>fail(new Error('frame_video_unreadable')),15000);
+ try{
+ await new Promise<void>((resolve,reject)=>{fail=reject;video.onloadedmetadata=()=>resolve();video.onerror=()=>reject(new Error('frame_video_unreadable'));});
+ if(!Number.isFinite(video.duration)||video.duration<=0)throw new Error('frame_video_unreadable');
+ const last=Math.max(0,video.duration-0.000001),at=Math.min(Math.max(timeSeconds??last,0),last);
+ await new Promise<void>((resolve,reject)=>{fail=reject;video.onerror=()=>reject(new Error('frame_seek_failed'));video.onseeked=()=>resolve();if(at===0){if(video.readyState>=2)resolve();else video.onloadeddata=()=>resolve();}else video.currentTime=at;});
  const canvas=document.createElement('canvas');
  canvas.width=video.videoWidth||1280;canvas.height=video.videoHeight||720;
  const context=canvas.getContext('2d');
@@ -128,5 +130,6 @@ export async function extractFrameFile(url:string,timeSeconds:number):Promise<Fi
  context.drawImage(video,0,0,canvas.width,canvas.height);
  const blob=await new Promise<Blob|null>(resolve=>canvas.toBlob(value=>resolve(value),'image/png'));
  if(!blob)throw new Error('frame_encode_failed');
- return new File([blob],'tail-frame-'+Math.round(at*1000)+'ms.png',{type:'image/png'});
+ return {file:new File([blob],'tail-frame-'+Math.round(at*1000)+'ms.png',{type:'image/png'}),timeSeconds:at};
+ }finally{clearTimeout(timer);video.pause();video.removeAttribute('src');video.load();}
 }
