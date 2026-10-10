@@ -36,6 +36,32 @@ test('imports chosen prompt entries and replays the same batch without duplicate
  await expect(page.getByRole('heading',{name:'导入条目',exact:true})).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+test('blocks concurrent import submissions while one is in flight',async({page,workspace})=>{
+ const ctx=asCtx(workspace);
+ await page.goto('/prompts');
+ await page.locator('[data-interaction-id="cloud:prompt:import"]').setInputFiles({name:'prompts.json',mimeType:'application/json',buffer:transferFile([sampleEntry({title:'挂起条目'})])});
+ await page.getByRole('button',{name:'校验并预览',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'挂起条目',exact:true})).toBeVisible();
+ let posts=0,release:()=>void=()=>{};
+ const gate=new Promise<void>(resolve=>{release=resolve;});
+ await page.route('**/studio-api/prompts',async route=>{
+  if(route.request().method()!=='POST'){await route.fallback();return;}
+  posts++;
+  await gate;
+  await route.fallback();
+ });
+ await page.getByRole('button',{name:'确认导入当前账号',exact:true}).click();
+ await page.waitForTimeout(300);
+ await expect(page.getByRole('button',{name:'取消',exact:true})).toBeDisabled();
+ await expect(page.locator('[data-interaction-id="cloud:prompt:import"]')).toBeDisabled();
+ release();
+ await expect(page.getByText('已导入1条提示词',{exact:false})).toBeVisible();
+ expect(posts).toBe(1);
+ const rows=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='prompt'")).rows as unknown as {document:{title:string}}[];
+ expect(rows.filter(row=>row.document.title==='挂起条目')).toHaveLength(1);
+ await page.unroute('**/studio-api/prompts');
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
 test('rejects broken and oversized prompt files and writes nothing on cancel',async({page,workspace})=>{
  const ctx=asCtx(workspace);
  const dialog=()=>page.getByRole('dialog',{name:'导入提示词JSON',exact:true});
@@ -67,13 +93,24 @@ test('exports selected entries with full fields and keeps them isolated per acco
  expect(JSON.parse(readFileSync(path,'utf8'))).toEqual({version:1,entries:[{title:'导出甲',body:'导出甲正文',tags:['库'],variables:[],source:'库内',license:'CC0'}]});
  await page.locator('article',{has:page.getByRole('heading',{name:'导出甲',exact:true})}).locator('[data-interaction-id="cloud:prompt:select"]').uncheck();
  await expect(page.getByRole('button',{name:'导出所选提示词',exact:true})).toBeDisabled();
+ // 本地下载故障注入：明确提示、条目与选择保持，解除后重试成功且不含秘密。
+ await page.locator('article',{has:page.getByRole('heading',{name:'导出甲',exact:true})}).locator('[data-interaction-id="cloud:prompt:select"]').check();
+ await page.evaluate(()=>{const proto=window.HTMLAnchorElement.prototype as unknown as {click:()=>void;__orig?:()=>void};proto.__orig=proto.click;proto.click=()=>{throw new Error('synthetic download fault');};});
+ await page.getByRole('button',{name:'导出所选提示词',exact:true}).click();
+ await expect(page.getByText('提示词导出未完成',{exact:false})).toBeVisible();
+ await expect(page.locator('article',{has:page.getByRole('heading',{name:'导出甲',exact:true})}).locator('[data-interaction-id="cloud:prompt:select"]')).toBeChecked();
+ await page.evaluate(()=>{const proto=window.HTMLAnchorElement.prototype as unknown as {click:()=>void;__orig?:()=>void};if(proto.__orig)proto.click=proto.__orig;});
+ const retrying=page.waitForEvent('download');
+ await page.getByRole('button',{name:'导出所选提示词',exact:true}).click();
+ const retryPath=testInfo.outputPath('prompts-export-retry.json');
+ await (await retrying).saveAs(retryPath);
+ expect(JSON.parse(readFileSync(retryPath,'utf8'))).toEqual({version:1,entries:[{title:'导出甲',body:'导出甲正文',tags:['库'],variables:[],source:'库内',license:'CC0'}]});
  const b=await workspace.signup('Cloud_UI_B');workspace.switchAccount(b);
  await page.evaluate(()=>window.dispatchEvent(new Event('focus')));
  await expect(page.getByRole('heading',{name:'导出甲',exact:true})).toHaveCount(0);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
-test('applies a library template onto an existing text node with preview and frozen retry',async({page,workspace})=>{
- const ctx=asCtx(workspace);
+test('applies a library template onto an existing text node with preview and frozen retry',async({page,workspace})=>{ const ctx=asCtx(workspace);
  const seed=await seedTextProject(workspace,'旧正文','替换目标'),project=seed.project,textId=seed.textId,headers=seed.headers;
  expect((await ctx.call('POST','/studio-api/prompts',{...headers,payload:{title:'替换模板',body:'新正文',tags:[],variables:[],source:'库内',license:'CC0',starred:false,idempotencyKey:randomUUID()}})).statusCode).toBe(201);
  await page.goto('/prompts');
@@ -131,6 +168,9 @@ test('saves a canvas text node into the prompt library with full text',async({pa
  await page.unroute('**/studio-api/prompts');
  await page.getByRole('button',{name:'保存提示词',exact:true}).click();
  await expect(page.getByRole('heading',{name:'流转节点',exact:true})).toBeVisible();
+ await page.reload();
+ await page.locator('article',{has:page.getByRole('heading',{name:'流转节点',exact:true})}).getByRole('button',{name:'编辑提示词',exact:true}).click();
+ await expect(page.getByLabel('提示词正文',{exact:true})).toHaveValue('节点全文内容');
  const rows=(await ctx.pool.query("SELECT document FROM workspace_content WHERE kind='prompt'")).rows as unknown as {document:{title:string;body:string;source:string}}[];
  expect(rows).toHaveLength(1);
  expect(rows[0].document.source).toContain('画布项目');
