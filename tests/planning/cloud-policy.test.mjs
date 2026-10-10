@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, readdirSync, existsSync, symlinkSync, rmdirSync, lstatSync, mkdtempSync, rmSync } from 'node:fs';
+import { resolve, relative } from 'node:path';
 // Cloud planning gate: runs inside the current test-owned isolation root,
 // never creates junctions in the legacy E:/trae-studio/TRAEWORK/aiwork-studio root.
 // Mirrors the traversal/symlink denials and license provenance of the legacy gate.
@@ -40,4 +40,24 @@ test('CLOUD-P04: traversal and symlink denials stay enforced, brand and visual g
  const report = JSON.parse(readFileSync(resolve(root, 'docs/review/coverage-report-cloud.json'), 'utf8'));
  assert.equal(report.review, '待用户统一验收与独立审查');
  assert.equal(report.complete, false);
+});
+test('CLOUD-P05: write policy denies traversal and junctions inside the test-owned work area', async () => {
+ const { assertProjectWritePath } = await import('../../scripts/source-policy.mjs');
+ assert.equal(assertProjectWritePath(root, 'docs/review/example.json'), resolve(root, 'docs/review/example.json'));
+ for (const outside of ['../outside.txt', 'C:/outside.txt', '../account-api-cloud-20261008-other/test']) {
+  assert.throws(() => assertProjectWritePath(root, outside), /outside_authorized_project/);
+ }
+ const owned = mkdtempSync(resolve(root, 'work/cloud-policy-owned-'));
+ const link = resolve(owned, 'escape-link');
+ try {
+  symlinkSync(resolve(root, '..'), link, 'junction');
+  assert.throws(() => assertProjectWritePath(root, relative(root, resolve(link, 'outside.txt'))), /outside_authorized_project/);
+ } finally {
+  if (existsSync(link)) {
+   assert.equal(lstatSync(link).isSymbolicLink(), true, 'only remove the test junction itself');
+   rmdirSync(link);
+  }
+  rmSync(owned, { recursive: true, force: true });
+ }
+ assert.ok(!existsSync(resolve(root, 'work/cloud-policy-owned-')));
 });

@@ -21,6 +21,8 @@
     "test:coverage:cloud": "node scripts/check-ui-identities.mjs && node scripts/check-traceability.mjs --cloud",
     "test:trace:cloud": "node --test tests/planning/cloud-*.test.mjs",
     "verify:cloud": "npm run typecheck && npm run lint && npm run test:unit && npm run test:coverage:cloud && npm run test:trace:cloud && npm run build && npm run test:bundle",
+    "verify:cloud:server": "npm --prefix server run typecheck && npm --prefix server run test",
+    "verify:cloud:security": "npm run test:security",
     "test:live": "node scripts/run-authorized-live.mjs",
     "verify": "npm run typecheck && npm run lint && npm run test:unit && npm run test:e2e && npm run test:coverage && npm run test:security && npm run test:trace && npm run build && npm run test:bundle && npm run companion:build && npm run test:distribution",
     "companion:build": "vite build --config companion/vite.config.ts",
