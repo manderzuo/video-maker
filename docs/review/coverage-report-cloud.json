@@ -7424,22 +7424,7 @@
     {
       "code": "facet_missing:normal",
       "kind": "dialogs",
-      "id": "PGD01"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "PGD02"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
       "id": "PGD03"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "PGD04"
     },
     {
       "code": "facet_missing:normal",
@@ -13071,21 +13056,57 @@
       "id": "PGD01",
       "kind": "dialogs",
       "taskId": "T21",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::blocks compile, draft switching and apply while the central body is unsaved and keeps the original AI version",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            32,
+            34,
+            35,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            45,
+            46,
+            47
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "PGD02",
       "kind": "dialogs",
       "taskId": "T30",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-optimize.spec.ts::confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "PGD03",
@@ -13101,11 +13122,28 @@
       "id": "PGD04",
       "kind": "dialogs",
       "taskId": "T22",
-      "status": "incomplete",
-      "proofs": [],
-      "missing": [
-        "facet_missing:normal"
-      ]
+      "status": "self_check_passed",
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-prompt-apply.spec.ts::retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
+          "facets": [
+            "normal"
+          ],
+          "assertionLines": [
+            4,
+            5,
+            6,
+            7,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96"
+        }
+      ],
+      "missing": []
     },
     {
       "id": "PGD05",
