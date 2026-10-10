@@ -216,7 +216,7 @@ test('keeps the reset dialog and prior values when the reset request fails',asyn
  await expect(page.getByText('外观与播放偏好已重置',{exact:false})).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
-test('filters activity receipts, shows details and hides display without deleting',async({page,workspace})=>{ const ctx=asCtx(workspace);
+test('filters activity receipts, shows details and hides display without deleting',async({page,workspace},testInfo)=>{ const ctx=asCtx(workspace);
  const a=await makeProject(ctx,'活动甲'),b=await makeProject(ctx,'活动乙');
  await addTextNode(ctx,a.headers,a.project.id,0,'甲正文');
  await addTextNode(ctx,b.headers,b.project.id,0,'乙正文');
@@ -244,6 +244,9 @@ test('filters activity receipts, shows details and hides display without deletin
  const count=(await ctx.pool.query('SELECT id FROM workspace_command_receipts')).rows.length;
  expect(count).toBe(2);
  void firstId;
+ const downloading=page.waitForEvent('download');
+ await page.getByRole('button',{name:'导出脱敏诊断',exact:true}).click();
+ await (await downloading).saveAs(testInfo.outputPath('diagnostics.json'));
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('exports same-titled projects as separate packages',async({page,workspace},testInfo)=>{

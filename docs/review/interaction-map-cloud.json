@@ -26901,27 +26901,23 @@
       "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
       "sources": [
         {
-          "file": "src/ui/dialog-contracts.ts",
-          "anchor": "'使用原创模板'"
+          "file": "src/features/workspace/CloudProjectsPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:project:copy\""
         }
       ],
       "proofs": [
         {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::creates a project from the original template with two text nodes",
+          "testId": "tests/e2e/cloud-workspace.spec.ts::copies a project with its current cloud graph and preserves project search and metadata actions",
           "facets": [
             "normal"
           ],
           "assertionLines": [
-            20,
-            30,
-            32,
-            34,
-            35,
-            36,
-            37,
-            38
+            22,
+            23,
+            24,
+            25
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "79b8aa2eef19625641e4f43eaecb3999c5f0e9bc574ebf93e2b086056f6096aa"
         }
       ],
       "candidates": [
@@ -27477,35 +27473,11 @@
       "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
       "sources": [
         {
-          "file": "src/ui/dialog-contracts.ts",
-          "anchor": "'回执详情'"
+          "file": "src/features/workspace/CloudAssetsPage.tsx",
+          "anchor": "title=\"修改素材信息\""
         }
       ],
-      "proofs": [
-        {
-          "testId": "tests/e2e/cloud-project-batch.spec.ts::filters activity receipts, shows details and hides display without deleting",
-          "facets": [
-            "normal"
-          ],
-          "assertionLines": [
-            14,
-            224,
-            225,
-            227,
-            228,
-            230,
-            232,
-            236,
-            237,
-            239,
-            241,
-            243,
-            245,
-            247
-          ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
-        }
-      ],
+      "proofs": [],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::connects text to video through visible ports with typed errors and keeps side-panel flow",
@@ -28978,8 +28950,8 @@
       "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
       "sources": [
         {
-          "file": "src/ui/dialog-contracts.ts",
-          "anchor": "'导出脱敏诊断'"
+          "file": "src/features/workspace/CloudActivityPage.tsx",
+          "anchor": "data-interaction-id=\"cloud:activity:export\""
         }
       ],
       "proofs": [
@@ -29002,9 +28974,9 @@
             241,
             243,
             245,
-            247
+            250
           ],
-          "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2"
+          "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5"
         }
       ],
       "candidates": [

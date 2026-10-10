@@ -6854,9 +6854,9 @@
       "file": "tests/e2e/cloud-project-batch.spec.ts",
       "title": "filters activity receipts, shows details and hides display without deleting",
       "status": "passed",
-      "sourceHash": "2361018df3a824f74acaa731ec7fabae99dcd01eb8c0225d6e7207e75e3073e2",
+      "sourceHash": "a0b65ba251c5ecfd244c2a8d2c4268c668859f3dc4bf925408987474f46ef8a5",
       "assertions": 18,
-      "actions": 6,
+      "actions": 7,
       "assertionLocations": [
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
@@ -6932,7 +6932,7 @@
         },
         {
           "file": "tests/e2e/cloud-project-batch.spec.ts",
-          "line": 247,
+          "line": 250,
           "column": 69
         },
         {
@@ -6984,6 +6984,11 @@
           "file": "tests/e2e/cloud-project-batch.spec.ts",
           "line": 240,
           "column": 61
+        },
+        {
+          "file": "tests/e2e/cloud-project-batch.spec.ts",
+          "line": 248,
+          "column": 60
         }
       ],
       "network": {
