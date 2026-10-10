@@ -7427,16 +7427,6 @@
       "id": "D17"
     },
     {
-      "code": "assertion_not_executed",
-      "kind": "dialogs",
-      "id": "D18"
-    },
-    {
-      "code": "facet_missing:normal",
-      "kind": "dialogs",
-      "id": "D18"
-    },
-    {
       "code": "facet_missing:normal",
       "kind": "dialogs",
       "id": "D20"
@@ -11556,8 +11546,15 @@
           "assertionLines": [
             9,
             10,
-            228,
-            234
+            252,
+            258,
+            259,
+            262,
+            265,
+            266,
+            268,
+            270,
+            272
           ],
           "actions": 12,
           "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351"
@@ -12780,7 +12777,7 @@
       "id": "D18",
       "kind": "dialogs",
       "taskId": "T37",
-      "status": "incomplete",
+      "status": "self_check_passed",
       "proofs": [
         {
           "testId": "tests/e2e/cloud-project-batch.spec.ts::resets appearance preferences with confirmation and restores the prior values",
@@ -12800,15 +12797,13 @@
             153,
             161,
             162,
-            164
+            166,
+            167
           ],
-          "sourceHash": "4259efe5cef989811098be90117f83ff042a8bc821724bc667b1af83c49a3da5"
+          "sourceHash": "3b7d4364ef79b8a78b33c6643015c80914d6f884232ad7181c465c044d475d38"
         }
       ],
-      "missing": [
-        "assertion_not_executed",
-        "facet_missing:normal"
-      ]
+      "missing": []
     },
     {
       "id": "D19",

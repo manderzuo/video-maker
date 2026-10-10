@@ -7217,6 +7217,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "purges a trashed project after exact-name confirmation keeping history",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 15,
       "actions": 3,
       "assertionLocations": [
@@ -7329,6 +7330,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "cancels purge without deleting and rejects a wrong name",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 9,
       "actions": 3,
       "assertionLocations": [
@@ -7411,6 +7413,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "retries an unknown single purge after refresh from the pending banner",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 11,
       "actions": 4,
       "assertionLocations": [
@@ -7508,6 +7511,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "keeps failed batch items retryable with original keys",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 14,
       "actions": 7,
       "assertionLocations": [
@@ -7637,6 +7641,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "retries a failed batch preview without losing other names",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 13,
       "actions": 7,
       "assertionLocations": [
@@ -7761,6 +7766,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "restores an unknown batch item after refresh and replays the original body",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 15,
       "actions": 8,
       "assertionLocations": [
@@ -7900,6 +7906,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "purges selected trashed projects one by one with a report",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 13,
       "actions": 6,
       "assertionLocations": [
@@ -8019,6 +8026,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "replays the same purge key without a second receipt on unknown response",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 9,
       "actions": 4,
       "assertionLocations": [
@@ -8106,6 +8114,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "blocks purge while a video run is active with a reason",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 10,
       "actions": 1,
       "assertionLocations": [
@@ -8183,6 +8192,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "keeps an old unknown batch item recoverable after opening another batch",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 18,
       "actions": 12,
       "assertionLocations": [
@@ -8224,47 +8234,47 @@
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 228,
+          "line": 252,
           "column": 64
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 234,
+          "line": 258,
           "column": 68
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 235,
+          "line": 259,
           "column": 68
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 238,
+          "line": 262,
           "column": 57
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 241,
+          "line": 265,
           "column": 70
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 242,
+          "line": 266,
           "column": 70
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 244,
+          "line": 268,
           "column": 70
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 246,
+          "line": 270,
           "column": 41
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 248,
+          "line": 272,
           "column": 69
         },
         {
@@ -8289,62 +8299,62 @@
       "actionLocations": [
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 217,
+          "line": 241,
           "column": 63
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 218,
+          "line": 242,
           "column": 63
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 219,
-          "column": 60
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 221,
-          "column": 128
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 222,
-          "column": 128
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 227,
-          "column": 64
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 229,
-          "column": 58
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 231,
-          "column": 63
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 232,
-          "column": 60
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 236,
-          "column": 58
-        },
-        {
-          "file": "tests/e2e/cloud-project-purge.spec.ts",
-          "line": 239,
-          "column": 60
         },
         {
           "file": "tests/e2e/cloud-project-purge.spec.ts",
           "line": 243,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 245,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 246,
+          "column": 128
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 251,
+          "column": 64
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 253,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 255,
+          "column": 63
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 256,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 260,
+          "column": 58
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 263,
+          "column": 60
+        },
+        {
+          "file": "tests/e2e/cloud-project-purge.spec.ts",
+          "line": 267,
           "column": 66
         }
       ],
@@ -8359,6 +8369,7 @@
       "file": "tests/e2e/cloud-prompt-apply.spec.ts",
       "title": "retains manual revisions and inserts the selected result with its owned provenance into a cloud canvas",
       "status": "passed",
+      "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96",
       "assertions": 18,
       "actions": 13,
       "assertionLocations": [
@@ -8534,6 +8545,7 @@
       "file": "tests/e2e/cloud-prompt-apply.spec.ts",
       "title": "applies a writing result to a named video draft and creates a new flow without touching the other draft",
       "status": "passed",
+      "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96",
       "assertions": 15,
       "actions": 13,
       "assertionLocations": [
@@ -8694,6 +8706,7 @@
       "file": "tests/e2e/cloud-prompt-apply.spec.ts",
       "title": "creates a new video flow from a writing result in one cloud command batch",
       "status": "passed",
+      "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96",
       "assertions": 11,
       "actions": 9,
       "assertionLocations": [
@@ -8814,6 +8827,7 @@
       "file": "tests/e2e/cloud-prompt-apply.spec.ts",
       "title": "replays the identical committed apply request after the browser response is lost",
       "status": "passed",
+      "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96",
       "assertions": 20,
       "actions": 9,
       "assertionLocations": [
@@ -8979,6 +8993,7 @@
       "file": "tests/e2e/cloud-prompt-apply.spec.ts",
       "title": "refuses to silently substitute when the writing request exceeds the verified capability",
       "status": "passed",
+      "sourceHash": "821597e4ef5cd83f88a22977ee17cc86ba6e8e71b11c30d486be0d236f51bd96",
       "assertions": 11,
       "actions": 10,
       "assertionLocations": [
@@ -9104,6 +9119,7 @@
       "file": "tests/e2e/cloud-prompt-optimize.spec.ts",
       "title": "confirms a cloud AI task, recovers its result after reload and reads its immutable input in the task center",
       "status": "passed",
+      "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b",
       "assertions": 18,
       "actions": 9,
       "assertionLocations": [
@@ -9259,6 +9275,7 @@
       "file": "tests/e2e/cloud-prompt-optimize.spec.ts",
       "title": "keeps an unsaved central body when a late AI result arrives and applies the saved version instead",
       "status": "passed",
+      "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b",
       "assertions": 20,
       "actions": 10,
       "assertionLocations": [
@@ -9429,6 +9446,7 @@
       "file": "tests/e2e/cloud-prompt-optimize.spec.ts",
       "title": "blocks compile, draft switching and apply while the central body is unsaved and keeps the original AI version",
       "status": "passed",
+      "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b",
       "assertions": 27,
       "actions": 7,
       "assertionLocations": [
@@ -9619,6 +9637,7 @@
       "file": "tests/e2e/cloud-prompt-optimize.spec.ts",
       "title": "cancels the text optimization preview without creating or sending a task",
       "status": "passed",
+      "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b",
       "assertions": 6,
       "actions": 5,
       "assertionLocations": [
@@ -9694,6 +9713,7 @@
       "file": "tests/e2e/cloud-prompt-optimize.spec.ts",
       "title": "reconciles a completed task when the initial draft read returned an older version",
       "status": "passed",
+      "sourceHash": "a5832ca57b5500ee5f59ea65e91337b1da56b34360091d87f4c9c80f4506c36b",
       "assertions": 9,
       "actions": 6,
       "assertionLocations": [
@@ -15054,6 +15074,7 @@
       "file": "tests/e2e/cloud-project-purge.spec.ts",
       "title": "confirms only named batch items and keeps unnamed canvases",
       "status": "passed",
+      "sourceHash": "0f5a0a71b686d5f68c10befa7009154ed53e83c9f1cc7b14543ab65a26cf2351",
       "assertions": 12,
       "actions": 5,
       "assertionLocations": [

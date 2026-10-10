@@ -36,14 +36,15 @@ for(const row of [...map.interactions,...map.pages,...map.dialogs]){
  for(const proof of row.proofs??[]){
   const result=byId.get(proof.testId);
   if(!result||result.status!=='passed')continue;
-  // 用当前 reporter 的真实行验证（新执行），不沿用旧行号。
-  // sourceHash 若存在则需一致（防旧记录冒充），缺失时以行验证为准并补上。
-  if(typeof proof.sourceHash==='string'&&proof.sourceHash&&result.sourceHash&&result.sourceHash!==proof.sourceHash){stale.push(proof.testId.slice(0,60));continue;}
+  // 执行记录必须带源 hash；缺失一律 stale。
+  // 登记 hash 若存在必须与执行一致；缺失时以行验证为准并密封（首次登记）。
+  if(typeof result.sourceHash!=='string'||!result.sourceHash){stale.push(proof.testId.slice(0,60));continue;}
+  if(typeof proof.sourceHash==='string'&&proof.sourceHash&&proof.sourceHash!==result.sourceHash){stale.push(proof.testId.slice(0,60));continue;}
   const obs=observable(result.file);
   const lines=[...new Set(result.assertionLocations.filter(l=>l.file===result.file&&obs.has(l.line)).map(l=>l.line))].sort((a,b)=>a-b).slice(0,40);
   if(!lines.length){stale.push(proof.testId.slice(0,60));continue;}
   proof.assertionLines=lines;
-  if(result.sourceHash)proof.sourceHash=result.sourceHash;
+  proof.sourceHash=result.sourceHash;
   refreshed++;
  }
 }

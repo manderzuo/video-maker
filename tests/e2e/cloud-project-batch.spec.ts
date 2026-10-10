@@ -130,6 +130,9 @@ test('switches project views keeping filter and selection with account preferenc
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('resets appearance preferences with confirmation and restores the prior values',async({page,workspace})=>{
+ const ctx=asCtx(workspace),headers=workspace.headers(workspace.account);
+ await makeProject(ctx,'偏好隔离项目');
+ const before=(await workspace.call('GET','/studio-api/me/document',{...headers})).json() as {preferences:Record<string,unknown>};
  await page.goto('/settings/appearance');
  await page.getByLabel('主题',{exact:true}).selectOption('light');
  await page.getByRole('button',{name:'保存偏好',exact:true}).click();
@@ -161,9 +164,12 @@ test('resets appearance preferences with confirmation and restores the prior val
  await expect(page.getByRole('alert')).toBeVisible();
  await expect(page.getByLabel('主题',{exact:true})).toHaveValue('system');
  await page.unroute('**/studio-api/me/document');
- // 生成规格与项目任务不受偏好操作影响（DB 核对）。
- const doc=(await workspace.call('GET','/studio-api/me/document',{...workspace.headers(workspace.account)})).json() as {preferences:Record<string,unknown>};
+ // 生成规格与项目任务不受偏好操作影响（DB 核对前后对比）。
+ const doc=(await workspace.call('GET','/studio-api/me/document',{...headers})).json() as {preferences:Record<string,unknown>};
  expect(doc.preferences.theme).toBe('dark');
+ for(const key of ['defaultTextModel','defaultVideoModel','defaultDuration','defaultRatio','showUnavailable'])expect(doc.preferences[key]).toEqual(before.preferences[key]);
+ const projects=(await ctx.pool.query("SELECT id FROM workspace_projects")).rows;
+ expect(projects).toHaveLength(1);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('blocks duplicate batch archive submissions while one is in flight',async({page,workspace})=>{
