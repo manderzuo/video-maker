@@ -20,7 +20,7 @@ test('CLOUD-P01: migration list is identical across engine, fixtures and package
  const accountFixture = readFileSync(resolve(root, 'server/tests/account-fixture.ts'), 'utf8');
  const browserFixture = readFileSync(resolve(root, 'server/tests/browser-fixture.ts'), 'utf8');
  const packager = readFileSync(resolve(root, 'scripts/package-account-cloud.mjs'), 'utf8');
- assert.deepEqual(packageMigrations(packager),files,'package must list exactly the executable migration array');
+ assert.deepEqual(packageMigrations(packager,readdirSync(dir)),files,'package must list exactly the executable migration array');
  assert.deepEqual(migrationReferences(accountFixture),files,'account fixture must reference all migrations outside comments');
  assert.deepEqual(migrationReferences(browserFixture),files,'browser fixture must reference all migrations outside comments');
 });
@@ -31,7 +31,7 @@ test('CLOUD-P02: cloud planning never creates junctions in the legacy root', () 
  }
 });
 test('CLOUD-P03: cloud traceability registration consumes real executed evidence', () => {
- const results = JSON.parse(readFileSync(resolve(root, 'docs/review/logs/browser-executed-tests-cloud.json'), 'utf8'));
+ const results = JSON.parse(readFileSync(resolve(root, process.env.STUDIO_CLOUD_EXECUTED_EVIDENCE??'docs/review/logs/browser-executed-tests-cloud.json'), 'utf8'));
  assert.equal(results.format, 'aiwork-studio-executed-test-evidence');
  assert.ok(results.tests.length > 100);
  assert.ok(results.tests.every(test => test.id && test.file && test.status));

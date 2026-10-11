@@ -61,3 +61,10 @@ test('cloud planning rejects comment migrations and invented execution records e
   rmSync(owned,{recursive:true,force:true});
  }
 });
+
+test('dynamic migration packaging enumerates only the actual sorted SQL directory',()=>{
+ const source="const migrationNames=(await readdir(path.join(root,'server/src/db/migrations'))).filter(name=>/^\\d{3}-[a-z0-9-]+\\.sql$/.test(name)).sort();";
+ assert.deepEqual(packageMigrations(source,['009-activity.sql','README.md','001-users.sql','008-project-purge.sql']),['001-users.sql','008-project-purge.sql','009-activity.sql']);
+ assert.throws(()=>packageMigrations(source.replace('server/src/db/migrations','other'),['001-users.sql']));
+ assert.throws(()=>packageMigrations(source.replace('.sort()', '.reverse()'),['001-users.sql']));
+});

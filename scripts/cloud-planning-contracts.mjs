@@ -9,9 +9,22 @@ export function migrationReferences(text){
  walk(parse(text),node=>{if(ts.isStringLiteral(node))for(const name of node.text.match(/\d{3}-[a-z0-9-]+\.sql/g)??[])names.push(name);});
  return [...new Set(names)].sort();
 }
-export function packageMigrations(text){
+export function packageMigrations(text,directoryFiles){
  const names=[];
- walk(parse(text),node=>{if(ts.isVariableDeclaration(node)&&node.name.getText()==='migrationNames'&&node.initializer&&ts.isArrayLiteralExpression(node.initializer))for(const item of node.initializer.elements){if(!ts.isStringLiteral(item))throw Error('nonliteral_package_migration');names.push(item.text);}});
+ const unwrap=node=>ts.isParenthesizedExpression(node)||ts.isAwaitExpression(node)?unwrap(node.expression):node;
+ const method=(node,name)=>ts.isCallExpression(node)&&ts.isPropertyAccessExpression(node.expression)&&node.expression.name.text===name;
+ walk(parse(text),node=>{
+  if(!ts.isVariableDeclaration(node)||node.name.getText()!=='migrationNames'||!node.initializer)return;
+  if(ts.isArrayLiteralExpression(node.initializer)){for(const item of node.initializer.elements){if(!ts.isStringLiteral(item))throw Error('nonliteral_package_migration');names.push(item.text);}return;}
+  const sorted=node.initializer,filtered=method(sorted,'sort')?sorted.expression.expression:null;
+  const predicate=filtered&&method(filtered,'filter')?filtered.arguments[0]:null;
+  const body=predicate&&ts.isArrowFunction(predicate)?predicate.body:null;
+  const directory=filtered&&method(filtered,'filter')?unwrap(filtered.expression.expression):null;
+  const joined=directory&&ts.isCallExpression(directory)?directory.arguments[0]:null;
+  if(!method(sorted,'sort')||sorted.arguments.length||!filtered||!method(filtered,'filter')||filtered.arguments.length!==1||!predicate||!ts.isArrowFunction(predicate)||predicate.parameters.length!==1||!body||!method(body,'test')||body.arguments.length!==1||body.arguments[0].getText()!==predicate.parameters[0].name.getText()||body.expression.expression.kind!==ts.SyntaxKind.RegularExpressionLiteral||!directory||!ts.isCallExpression(directory)||directory.expression.getText()!=='readdir'||directory.arguments.length!==1||!joined||!method(joined,'join')||joined.expression.expression.getText()!=='path'||joined.arguments.length!==2||joined.arguments[0].getText()!=='root'||!ts.isStringLiteral(joined.arguments[1])||joined.arguments[1].text!=='server/src/db/migrations'||!Array.isArray(directoryFiles))throw Error('unsupported_dynamic_package_migrations');
+  const literal=body.expression.expression.getText(),slash=literal.lastIndexOf('/'),pattern=new RegExp(literal.slice(1,slash),literal.slice(slash+1));
+  names.push(...directoryFiles.filter(name=>{pattern.lastIndex=0;return pattern.test(name);}).sort());
+ });
  return names;
 }
 // Strip comments and quoted data before testing SQL syntax. A comment, string or
