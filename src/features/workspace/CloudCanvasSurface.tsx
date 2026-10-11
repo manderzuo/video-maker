@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type RefObject} from 'react';
+import {useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type RefObject} from 'react';
 import type {CanvasNode, CanvasNodeSize, Graph, Viewport} from '../../domain/graph';
 import type {Asset} from '../../domain/asset';
 import type {CapabilityProfile} from '../../domain/connection';
@@ -37,6 +37,7 @@ export function CloudCanvasSurface({
   selected,
   setSelected,
   canEdit,
+  viewportBusy=false,
   saved,
   assets,
   runs,
@@ -64,6 +65,7 @@ export function CloudCanvasSurface({
   selected: string[];
   setSelected: (ids: string[]) => void;
   canEdit: boolean;
+  viewportBusy?:boolean;
   saved: boolean;
   assets: Asset[];
   runs: ResultSourceRun[];
@@ -95,6 +97,7 @@ export function CloudCanvasSurface({
     type,
     payload,
   });
+  const gestureFrame=useRef<DOMRect|null>(null);
   const gesture = useRef<Gesture | undefined>(undefined);
   const [box, setBox] = useState<{left: number; top: number; width: number; height: number}>();
   const [dragPreview, setDragPreview] = useState<Record<string, {dx: number; dy: number}>>({});
@@ -103,7 +106,20 @@ export function CloudCanvasSurface({
   const identity=sessionStore.getState();
   const fontsKey=identity.status==='authenticated'?'aiwork:canvas-fonts:'+identity.session.user.id+':'+graph.projectId:undefined;
   const [fonts,setFonts]=useState<Record<string,number>>(()=>{try{return fontsKey?JSON.parse(localStorage.getItem(fontsKey)??'{}'):{};}catch{return {};}});
-  const fontSize=(id:string)=>[12,14,16,20].includes(fonts[id])?fonts[id]:14;
+  const fontSize=(id:string)=>[12,14,16,20].includes(fonts[id])?fonts[id]:16;
+  const readable=useRef<{editor:HTMLTextAreaElement;start:number;end:number;direction:'forward'|'backward'|'none'}|null>(null);
+  useLayoutEffect(()=>{const request=readable.current;if(!request||view.scale!==1)return;readable.current=null;if(request.editor.isConnected&&stageRef.current?.contains(request.editor)){request.editor.focus({preventScroll:true});request.editor.setSelectionRange(request.start,request.end,request.direction);}},[view,stageRef]);
+  function readableEdit(node:CanvasNode,editor:HTMLTextAreaElement){
+    const stage=stageRef.current,card=editor.closest<HTMLElement>('[data-node-id]');
+    if(!stage||!card||!editor.isConnected||!stage.contains(editor)||!graph.nodes.some(item=>item.id===node.id))return;
+    readable.current={editor,start:editor.selectionStart,end:editor.selectionEnd,direction:editor.selectionDirection};
+    const body=editor.closest<HTMLElement>('.node-body');
+    if(body){const top=(editor.getBoundingClientRect().top-body.getBoundingClientRect().top)/view.scale;if(top<0||top>body.clientHeight-24)body.scrollTop+=top-24;}
+    const rect=editor.getBoundingClientRect(),cardRect=card.getBoundingClientRect(),stageRect=stage.getBoundingClientRect(),p=worldPosition(node,graph);
+    const x=p.x+(rect.left-cardRect.left)/view.scale,y=p.y+(rect.top-cardRect.top)/view.scale;
+    const width=rect.width/view.scale,height=rect.height/view.scale;
+    onViewport({...view,scale:1,x:Math.max(24,(stageRect.width-width)/2)-x,y:Math.max(24,(stageRect.height-height)/2)-y});
+  }
   function changeFont(id:string,size:number){const next={...fonts,[id]:size};setFonts(next);try{if(fontsKey)localStorage.setItem(fontsKey,JSON.stringify(next));}catch{/* Presentation remains available in memory. */}}
   function updateData(nodeId:string,data:CanvasNode['data']){return stageOps([op('update_node',{nodeId,patch:{data}})]);}
   const references=assets.filter(asset=>!asset.trashedAt&&['image','video','audio'].includes(asset.mediaType)).map((asset,index)=>({assetId:asset.id,alias:'asset-'+(index+1),mediaType:asset.mediaType as 'image'|'video'|'audio',role:'reference',description:asset.title,available:true,unbound:false}));
@@ -177,6 +193,7 @@ export function CloudCanvasSurface({
   }
 
   function pointerStart(event: ReactPointerEvent<HTMLElement>, node?: CanvasNode) {
+    gestureFrame.current=stageRef.current?.getBoundingClientRect()??null;
     if (graph && event.button === 1) {
       event.preventDefault();
       const p = point(event);
@@ -238,7 +255,8 @@ export function CloudCanvasSurface({
   function pointerMove(event: ReactPointerEvent<HTMLElement>) {
     const g = gesture.current;
     if (!g) return;
-    const p = point(event);
+    const frame=gestureFrame.current;
+    const p=frame?{x:event.clientX-frame.left,y:event.clientY-frame.top}:point(event);
     g.lastX = p.x;
     g.lastY = p.y;
     const dx = p.x - g.startX;
@@ -258,6 +276,7 @@ export function CloudCanvasSurface({
     const g = gesture.current;
     if (!g) return;
     gesture.current = undefined;
+    gestureFrame.current=null;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     const dx = g.lastX - g.startX;
     const dy = g.lastY - g.startY;
@@ -489,7 +508,7 @@ export function CloudCanvasSurface({
                       />
                     </label>
                   ) : null}
-                  {node.type === 'text' ? <TextNode compact node={node} readonly={!canEdit||node.locked} interactionId="cloud:canvas:node-text" references={references} fontSize={fontSize(node.id)} onFontSize={size=>changeFont(node.id,size)} onDraft={data=>{const valid=localText.safeParse(data.text).success;onTextValidity(node.id,valid);if(valid)updateData(node.id,data);}} onChange={()=>{}} onSavePrompt={()=>onSaveNodePrompt(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0} onCreateFlow={()=>onCreateFlow(node.id)}/>
+                  {node.type === 'text' ? <TextNode compact readableEditBusy={viewportBusy} onRequestReadableEdit={editor=>readableEdit(node,editor)} node={node} readonly={!canEdit||node.locked} interactionId="cloud:canvas:node-text" references={references} fontSize={fontSize(node.id)} onFontSize={size=>changeFont(node.id,size)} onDraft={data=>{const valid=localText.safeParse(data.text).success;onTextValidity(node.id,valid);if(valid)updateData(node.id,data);}} onChange={()=>{}} onSavePrompt={()=>onSaveNodePrompt(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0} onCreateFlow={()=>onCreateFlow(node.id)}/>
                     : node.type==='video-generation'?<VideoNode compact node={node} graph={graph} assets={assets} capability={capability} readonly={!canEdit||node.locked} onChange={data=>updateData(node.id,data)} onCommand={ops=>void commitOps(ops)} onPreflight={()=>onGenerate(node.id)} onOptimize={()=>onOpenNodeWriting(node.id)} onAIOptimize={()=>onOpenNodeWriting(node.id,true)} canAI={capability.textModels.length>0}/>
                     : node.type==='asset'||node.type==='result'?<><AssetNode compact assetId={node.data.assetId} asset={asset} renderMedia={(media,thumbnail)=><CloudAssetMedia client={client} asset={media} preferOriginal={!thumbnail}/>}/>{node.type==='result'?<div className="node-actions result-generation-actions"><Button variant="primary" data-interaction-id="restore:cloudcanvassurface:3" disabled={!canEdit} onClick={()=>onResultAction(node,'tail-frame')}>尾帧续写</Button><Button variant="primary" data-interaction-id="restore:cloudcanvassurface:4" disabled={!canEdit} onClick={()=>onResultAction(node,'revision')}>修改后重新生成</Button></div>:null}</>
                     : <GroupNode count={node.data.childIds.length} collapsed={node.data.collapsed}/>}

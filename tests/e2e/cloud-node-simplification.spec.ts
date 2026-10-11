@@ -24,7 +24,7 @@ test('keeps cloud text and draft cards compact and pans with the middle mouse wi
  await page.locator('[data-interaction-id="cloud:canvas:dialog-model"]').fill('seedance');
  await page.getByRole('button',{name:'添加视频草稿',exact:true}).click();
  await expect(page.getByRole('status').first()).toContainText('已保存');
- await expect(page.locator('.node-text .node-body button')).toHaveCount(0);
+ await expect(page.locator('.node-text .node-body button')).toHaveCount(1);await expect(page.locator('[data-interaction-id="cloud:canvas:readable-edit"]')).toBeVisible();
  await expect(page.locator('.node-video-generation .node-body button')).toHaveCount(1);
  const original=(await workspace.call('GET','/studio-api/projects/'+project.id+'/workspace',h)).json().graph;
  const box=(await page.locator('.canvas-stage').boundingBox())!;

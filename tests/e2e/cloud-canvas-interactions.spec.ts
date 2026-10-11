@@ -140,3 +140,26 @@ test('dragging a selected node preserves the whole multi-selection across repeat
  for(const id of ids){const before=initial.nodes.find((n:{id:string})=>n.id===id),after=reloaded.nodes.find((n:{id:string})=>n.id===id);expect(after.x-before.x).toBeCloseTo(80,0);expect(after.y-before.y).toBeCloseTo(40,0);}
  expect(workspace.providerCalls).toHaveLength(0);
 });
+
+test('UI repair readable editing preserves original editor draft selection and composition',async({page,workspace},testInfo)=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'UI repair readable TEST DATA'}})).json();
+ await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');
+ await page.locator('[data-interaction-id="cloud:canvas:add-text"]').click();const editor=page.locator('[data-interaction-id="cloud:canvas:node-text"]').first();await expect(editor).toBeVisible();
+ await editor.fill('UI repair 中文 English 123');await expect(page.getByRole('status').first()).toContainText('已保存');
+ const original=await editor.elementHandle();
+ for(const zoom of ['50','80','100']){
+  await page.locator('[data-interaction-id="C-05"]').fill(zoom);await page.locator('[data-interaction-id="C-05"]').press('Enter');
+  await editor.evaluate((el:HTMLTextAreaElement)=>{el.setSelectionRange(3,9,'backward');});
+  let updates=0;const listener=(request:import('@playwright/test').Request)=>{if(request.method()==='POST'&&request.url().endsWith('/commands')&&request.postData()?.includes('update_node'))updates++;};page.on('request',listener);
+  await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();
+  await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('100');await expect(editor).toBeFocused();
+  expect(await original!.evaluate(el=>el===document.activeElement)).toBe(true);await expect(editor).toHaveValue('UI repair 中文 English 123');
+  expect(await editor.evaluate((el:HTMLTextAreaElement)=>[el.selectionStart,el.selectionEnd,el.selectionDirection])).toEqual([3,9,'backward']);
+  expect(updates).toBe(0);page.off('request',listener);
+ }
+ await page.locator('[data-interaction-id="C-05"]').fill('50');await page.locator('[data-interaction-id="C-05"]').press('Enter');
+ await editor.dispatchEvent('compositionstart');await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('50');await editor.dispatchEvent('compositionend');
+ await editor.fill('x'.repeat(65537));await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(editor).toBeFocused();expect((await editor.inputValue()).length).toBe(65537);await expect(page.getByRole('alert').first()).toBeVisible();
+ await editor.fill('UI repair preserved');await expect(page.getByRole('status').first()).toContainText('已保存');
+ await page.screenshot({path:testInfo.outputPath('ui-repair-readable.png')});expect(workspace.providerCalls).toHaveLength(0);
+});
