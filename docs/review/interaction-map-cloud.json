@@ -3315,9 +3315,25 @@
       "taskId": "T13",
       "label": "框选",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "家族级现行入口和实际相关用例已关联；不是该旧条目全部五种状态通过的证明。",
-      "sources": [],
-      "proofs": [],
+      "reason": "当前框选通过 CloudCanvasSurface rectangle 选区实现；本轮真实拖动后至少两个节点可进入对齐操作的断言证明 normal。未声明锁定、错误、持久化或副作用完整覆盖，保留其余缺口。",
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "const ids = selectNodes(g.graph, {type: 'rectangle', rect});"
+        }
+      ],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::box-selects nodes and applies alignment through the action bar",
+          "sourceHash": "6b106d8a1b0999ad897ff8f536a194a9895eb9a7396f588b46c9746fa97480a3",
+          "assertionLines": [
+            73
+          ],
+          "facets": [
+            "normal"
+          ]
+        }
+      ],
       "candidates": [
         {
           "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::connects text to video through visible ports with typed errors and keeps side-panel flow",
