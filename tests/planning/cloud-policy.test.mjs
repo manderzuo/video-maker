@@ -36,11 +36,11 @@ test('CLOUD-P03: cloud traceability registration consumes real executed evidence
  assert.ok(results.tests.length > 100);
  assert.ok(results.tests.every(test => test.id && test.file && test.status));
  const map = JSON.parse(readFileSync(resolve(root, 'docs/review/interaction-map-cloud.json'), 'utf8'));
- assert.equal(map.interactions.length, 264);
+ assert.equal(map.interactions.length, 266);
  assert.ok(map.interactions.every(row => Array.isArray(row.sources) && Array.isArray(row.proofs)));
  const validation=validateRegisteredEvidence({report:results,map,readSource:file=>readFileSync(resolve(root,file),'utf8')});
  assert.equal(validation.valid,true,JSON.stringify(validation.errors));
- // This checks the integrity of registered evidence. Complete 313-row semantic
+ // This checks the integrity of registered evidence. Complete 319-row semantic
  // coverage is independently enforced by check-traceability.mjs --cloud.
 });
 test('CLOUD-P04: traversal and symlink denials stay enforced, brand and visual gates stay manual', () => {
