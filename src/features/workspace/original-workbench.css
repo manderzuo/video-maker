@@ -2,7 +2,7 @@
 .account-shell.app-shell{display:grid;grid-template-columns:220px minmax(0,1fr);padding:0;margin:0;max-width:none}
 .account-shell .account-nav{display:grid;gap:4px;margin:0;align-items:stretch}
 .account-shell .account-nav a{min-height:44px}
-.account-shell .account-header{margin:0;gap:12px;flex-wrap:nowrap}
+.account-shell .account-header{margin:0;gap:12px;flex-wrap:wrap}
 .account-shell .account-content{display:block;flex:initial;max-width:1600px;padding:32px}
 .account-user{font-size:12px;line-height:18px;white-space:nowrap;color:var(--muted)}
 .account-shell .navigation-footer .account-links{display:grid;gap:6px}

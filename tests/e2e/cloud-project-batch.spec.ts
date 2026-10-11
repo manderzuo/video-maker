@@ -220,8 +220,8 @@ test('filters activity receipts, shows details and hides display without deletin
  const a=await makeProject(ctx,'活动甲'),b=await makeProject(ctx,'活动乙');
  await addTextNode(ctx,a.headers,a.project.id,0,'甲正文');
  await addTextNode(ctx,b.headers,b.project.id,0,'乙正文');
- await page.goto('/activity');
- await expect(page.locator('article')).toHaveCount(2);
+ await page.goto('/activity');await page.getByRole('button',{name:'画布回执',exact:true}).click();
+ await expect(page.locator('article')).toHaveCount(2);await page.getByRole('button',{name:'全部操作记录',exact:true}).click();await expect(page.getByRole('heading',{name:'活动',exact:true})).toBeVisible();await page.getByRole('button',{name:'画布回执',exact:true}).click();await expect(page.locator('article')).toHaveCount(2);
  await expect(page.getByRole('button',{name:/恢复隐藏显示/,exact:false})).toBeDisabled();
  await page.getByLabel('按项目标题筛选',{exact:true}).fill('活动甲');
  await expect(page.locator('article')).toHaveCount(1);
@@ -235,11 +235,11 @@ test('filters activity receipts, shows details and hides display without deletin
  await page.locator('article').first().getByRole('button',{name:'隐藏',exact:true}).click();
  await expect(page.locator('article')).toHaveCount(1);
  await expect(page.getByText(/已隐藏 1 条本地显示/,{exact:false})).toBeVisible();
- await page.reload();
+ await page.reload();await page.getByRole('button',{name:'画布回执',exact:true}).click();
  await expect(page.locator('article')).toHaveCount(1);
  await page.getByRole('button',{name:/恢复隐藏显示/,exact:false}).click();
  await expect(page.locator('article')).toHaveCount(2);
- await page.reload();
+ await page.reload();await page.getByRole('button',{name:'画布回执',exact:true}).click();
  await expect(page.locator('article')).toHaveCount(2);
  const count=(await ctx.pool.query('SELECT id FROM workspace_command_receipts')).rows.length;
  expect(count).toBe(2);
@@ -317,4 +317,14 @@ test('UI repair lays out project grid and confines list overflow to its containe
  const wrapper=page.locator('.cloud-project-table-scroll');await expect(wrapper).toBeVisible();
  await wrapper.evaluate(el=>{el.scrollLeft=el.scrollWidth;});await expect(page.locator('.cloud-project-table tbody tr').first().getByRole('link').last()).toBeVisible();
  await page.screenshot({path:testInfo.outputPath('ui-repair-project-list-narrow.png'),fullPage:true});
+});
+
+test('UI repair receipt display hiding stays isolated across account switches',async({page,workspace})=>{
+ const ctx=asCtx(workspace),a=workspace.account,b=await workspace.signup('Receipt_UI_B');
+ const pa=await makeProject(ctx,'Receipt TEST DATA A');await addTextNode(ctx,pa.headers,pa.project.id,0,'A receipt');
+ const hb=workspace.headers(b),pb=(await workspace.call('POST','/studio-api/projects',{...hb,payload:{title:'Receipt TEST DATA B'}})).json();await addTextNode(ctx,hb,pb.id,0,'B receipt');
+ await page.goto('/activity');await page.getByRole('button',{name:'画布回执',exact:true}).click();await expect(page.locator('article')).toHaveCount(1);await page.getByRole('button',{name:'隐藏',exact:true}).click();await expect(page.locator('article')).toHaveCount(0);
+ workspace.switchAccount(b);await page.reload();await page.getByRole('button',{name:'画布回执',exact:true}).click();await expect(page.locator('article')).toHaveCount(1);await expect(page.getByRole('button',{name:/恢复隐藏显示/})).toBeDisabled();
+ workspace.switchAccount(a);await page.reload();await page.getByRole('button',{name:'画布回执',exact:true}).click();await expect(page.locator('article')).toHaveCount(0);await page.getByRole('button',{name:/恢复隐藏显示/}).click();await expect(page.locator('article')).toHaveCount(1);
+ expect((await workspace.pool.query('SELECT id FROM workspace_command_receipts')).rows).toHaveLength(2);expect(workspace.providerCalls).toHaveLength(0);
 });

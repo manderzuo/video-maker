@@ -1,3 +1,4 @@
+import {CloudReceiptActivityPage} from './CloudReceiptActivityPage';
 import {useEffect,useRef,useState} from 'react';
 import type {Project} from '../../domain/project';
 import {activityLabel,activityStateLabel,type Activity} from '../../domain/activity';
@@ -9,6 +10,7 @@ import {triggerLocalDownload} from '../../ui/local-download';
 import {buildCloudDiagnostics} from './cloud-diagnostics';
 
 export function CloudActivityPage({client}:{client:WorkspaceClient}){
+ const [receiptView,setReceiptView]=useState(false);
  const [rows,setRows]=useState<Activity[]>([]),[projects,setProjects]=useState<Project[]>([]),[projectId,setProjectId]=useState(''),[cursor,setCursor]=useState<string|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
  const [kind,setKind]=useState(''),[from,setFrom]=useState(''),[to,setTo]=useState(''),[detail,setDetail]=useState<Activity>(),[message,setMessage]=useState('');
  const generation=useRef(0),alive=useRef(true),reading=useRef(false);
@@ -24,7 +26,8 @@ export function CloudActivityPage({client}:{client:WorkspaceClient}){
  const fromTime=from?new Date(from+'T00:00:00').getTime():undefined,toTime=to?new Date(to+'T23:59:59.999').getTime():undefined;
  const filtered=rows.filter(row=>(!kind||activityLabel(row)===kind)&&(fromTime===undefined||row.createdAt>=fromTime)&&(toTime===undefined||row.createdAt<=toTime));
  const labels=[...new Set(rows.map(activityLabel))];
- return <section className="card" aria-label="云端活动记录"><h1>活动</h1><div className="actions">
+ if(receiptView)return <><Button data-interaction-id="cloud:activity:view-operations" onClick={()=>setReceiptView(false)}>全部操作记录</Button><CloudReceiptActivityPage client={client}/></>;
+ return <section className="card" aria-label="云端活动记录"><h1>活动</h1><Button data-interaction-id="cloud:activity:view-receipts" onClick={()=>setReceiptView(true)}>画布回执</Button><div className="actions">
  <label>按项目分类<select aria-label="按项目分类" data-interaction-id="cloud:activity:filter-project" value={projectId} onChange={event=>setProjectId(event.target.value)}><option value="">全部项目</option><option value="unassigned">账号与公共素材操作</option>{projects.map(project=><option key={project.id} value={project.id}>{project.title}{project.trashedAt!==null?'（回收站）':''}</option>)}</select></label>
  <label>操作类型<select data-interaction-id="cloud:activity:filter-kind" value={kind} onChange={event=>setKind(event.target.value)}><option value="">全部操作</option>{labels.map(label=><option key={label}>{label}</option>)}</select></label>
  <label>从日期<input data-interaction-id="cloud:activity:filter-from" type="date" value={from} onChange={event=>setFrom(event.target.value)}/></label><label>到日期<input data-interaction-id="cloud:activity:filter-to" type="date" value={to} onChange={event=>setTo(event.target.value)}/></label>

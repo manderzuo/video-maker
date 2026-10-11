@@ -59,7 +59,7 @@ test('opens the exact writing record instead of the list head and never silently
  }
  const listed=(await workspace.call('GET','/studio-api/prompt-drafts',headers)).json() as {id:string;resultVersions:Version[]}[];expect(listed).toHaveLength(2);
  const target=listed[1],body=target.resultVersions[0].finalPrompt;
- await page.goto('/prompts');await page.getByRole('button',{name:'写作记录',exact:true}).click();
+ await page.goto('/prompts');await page.getByRole('button',{name:'全部生成提示词',exact:true}).click();
  const records=page.locator('[data-interaction-id="cloud:prompts:writing-record"]');await expect(records).toHaveCount(2);
  await records.filter({hasText:titles[target.id]}).getByRole('button',{name:'打开写作草稿',exact:true}).click();
  await expect(page.locator('[data-interaction-id="cloud:draft:select"]')).toHaveValue(target.id);await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(titles[target.id]);await expect(page.getByLabel('结果正文',{exact:true})).toHaveValue(body);
