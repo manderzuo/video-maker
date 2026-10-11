@@ -8,11 +8,13 @@ export function CloudVideoInputEditor({
   graph,
   nodeId,
   canEdit,
+  canType = canEdit,
   stage,
 }: {
   graph: Graph;
   nodeId: string;
   canEdit: boolean;
+  canType?: boolean;
   stage: (operations: GraphOperation[]) => boolean;
 }) {
   const target = graph.nodes.find((n) => n.id === nodeId);
@@ -118,7 +120,7 @@ export function CloudVideoInputEditor({
         <textarea
           aria-label={'为' + target.title + '填写提示词'}
           data-interaction-id="cloud:video:new-text"
-          disabled={!canEdit}
+          disabled={!canType}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />

@@ -4,16 +4,18 @@ import {apiMessage} from '../../infrastructure/api/client';
 import {userPreferencesSchema,type UserPreferences} from '../../infrastructure/api/user-document';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
+import {useWorkspacePresentation} from '../workspace/workspace-navigation';
 const appearanceDefaults={theme:'dark',projectSort:'updated',projectList:false,density:'comfortable',animation:'system',autoPlay:false,muted:true,volume:1} as const;
 export function AccountPreferences({state}:{state:Extract<AuthState,{status:'authenticated'}>}){
+ const {presentation}=useWorkspacePresentation(),memory=presentation==='mobile'?{}:{lastVisitedPage:'/settings/appearance' as const};
  const id=useId(),doc=state.document,[values,setValues]=useState(doc.preferences),[message,setMessage]=useState(''),[error,setError]=useState(''),[reload,setReload]=useState(0);
  const [resetOpen,setResetOpen]=useState(false),[before,setBefore]=useState<UserPreferences>();
  useEffect(()=>{setValues(doc.preferences);setMessage('');setError('');},[doc.revision,reload]);
  const patch=<K extends keyof UserPreferences>(key:K,value:UserPreferences[K])=>setValues(current=>({...current,[key]:value}));
  const valid=userPreferencesSchema.safeParse(values).success;
- async function save(){setMessage('');setError('');try{await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:userPreferencesSchema.parse(values),lastVisitedPage:'/settings/appearance'});setMessage('偏好已保存');}catch(failure){setError(apiMessage(failure));}}
- async function resetAppearance(){setMessage('');setError('');try{const snapshot=userPreferencesSchema.parse(doc.preferences);await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:{...snapshot,...appearanceDefaults},lastVisitedPage:'/settings/appearance'});setBefore(snapshot);setResetOpen(false);setMessage('外观与播放偏好已重置；生成规格、模型配置、项目与任务不受影响。');}catch(failure){setError(apiMessage(failure));}}
- async function restoreBefore(){if(!before)return;setMessage('');setError('');try{await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:before,lastVisitedPage:'/settings/appearance'});setBefore(undefined);setMessage('已恢复重置前偏好。');}catch(failure){setError(apiMessage(failure));}}
+ async function save(){setMessage('');setError('');try{await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:userPreferencesSchema.parse(values),...memory});setMessage('偏好已保存');}catch(failure){setError(apiMessage(failure));}}
+ async function resetAppearance(){setMessage('');setError('');try{const snapshot=userPreferencesSchema.parse(doc.preferences);await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:{...snapshot,...appearanceDefaults},...memory});setBefore(snapshot);setResetOpen(false);setMessage('外观与播放偏好已重置；生成规格、模型配置、项目与任务不受影响。');}catch(failure){setError(apiMessage(failure));}}
+ async function restoreBefore(){if(!before)return;setMessage('');setError('');try{await sessionStore.saveDocument({expectedRevision:doc.revision,preferences:before,...memory});setBefore(undefined);setMessage('已恢复重置前偏好。');}catch(failure){setError(apiMessage(failure));}}
  return <section className="card"><h1>账号偏好</h1><p className="muted">保存到当前账号，可在其他设备恢复。</p><fieldset className="form-stack account-fields" disabled={state.busy}><legend>外观与列表</legend>
  <label htmlFor={id+'theme'}>主题</label><select id={id+'theme'} data-interaction-id="account:preferences:theme" value={values.theme} onChange={event=>patch('theme',event.target.value as UserPreferences['theme'])}><option value="dark">深色</option><option value="light">浅色</option><option value="system">跟随系统</option></select>
  <label htmlFor={id+'sort'}>项目排序</label><select id={id+'sort'} data-interaction-id="account:preferences:sort" value={values.projectSort} onChange={event=>patch('projectSort',event.target.value as UserPreferences['projectSort'])}><option value="updated">最近更新</option><option value="title">名称</option></select>

@@ -35,7 +35,7 @@ export function MobileCanvasPage({ client, projectId }: {
         }>['data'];
     } | undefined>(undefined), mapDragging = useRef<number | undefined>(undefined);
     viewRef.current = view;
-    const identity = sessionStore.getState(), context = identity.status === 'authenticated' ? identity.session.contextId : 'anonymous', storageKey = 'aiwork:mobile-view:' + context + ':' + projectId;
+    const [context] = useState(() => { const identity = sessionStore.getState(); return identity.status === 'authenticated' ? identity.session.contextId : 'anonymous'; }), storageKey = 'aiwork:mobile-view:' + context + ':' + projectId;
     useEffect(() => { alive.current = true; void client.readGraph(projectId).then(value => { if (!alive.current)
         return; setGraph(value); let restored: Viewport | undefined; try {
         const raw = sessionStorage.getItem(storageKey);

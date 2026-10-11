@@ -30,6 +30,12 @@ test('creates, polishes, revises and continues a mobile video with one confirmed
     await expect(revision.locator('[data-interaction-id="cloud:results:revision-text-settings"]')).toHaveAttribute('href', '/m/settings/connections#text-api');
     await revision.locator('[data-interaction-id="cloud:results:revision-prompt"]').fill('改成日落街道，保持原镜头');
     await revision.getByLabel('需要修正的问题', { exact: true }).fill('修复车轮变形，保持镜头');
+    expect(await page.evaluate(() => !window.dispatchEvent(new Event('beforeunload', { cancelable: true })))).toBe(true);
+    await page.evaluate(() => history.back());
+    await expect(page).toHaveURL(new RegExp('/m/projects/' + project.id + '/results'));
+    await expect(revision.locator('[data-interaction-id="cloud:results:revision-instructions"]')).toHaveValue('修复车轮变形，保持镜头');
+    await revision.getByRole('button', { name: '取消', exact: true }).click();
+    await page.getByRole('dialog', { name: '放弃未保存结果编辑', exact: true }).getByRole('button', { name: '保留编辑', exact: true }).click();
     await revision.getByRole('button', { name: '文字 API 润色', exact: true }).click();
     const polish = page.getByRole('dialog', { name: '确认 AI 文字优化', exact: true });
     await expect(polish).toHaveClass(/mobile-dialog/);
@@ -63,6 +69,7 @@ test('creates, polishes, revises and continues a mobile video with one confirmed
     }
     await expect(tail.getByAltText('尾帧预览')).toBeVisible();
     await tail.locator('[data-interaction-id="cloud:results:tail-frame-prompt"]').fill('从尾帧继续推进');
+    expect(await page.evaluate(() => !window.dispatchEvent(new Event('beforeunload', { cancelable: true })))).toBe(true);
     await tail.getByRole('button', { name: '上传尾帧并保存续写流程', exact: true }).click();
     await expect(tail).not.toBeVisible();
     await expect(page).toHaveURL(new RegExp('/m/projects/' + project.id + '/video'));

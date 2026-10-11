@@ -257,6 +257,7 @@ test('keeps an uploaded tail frame when reading the new asset fails and reuses i
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
 test('keeps a readable reference, reports a deleted one and reports a committed command whose refresh failed',async({page,workspace})=>{
+ test.setTimeout(60000); // Upload, generate, edit and reload twice share one test budget.
  await configureVideo(workspace);
  const png=await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=8;return canvas.toDataURL('image/png').split(',')[1];});
  await page.goto('/assets');await page.getByLabel('选择素材文件',{exact:true}).setInputFiles({name:'参考图.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});
@@ -302,6 +303,7 @@ test('keeps a readable reference, reports a deleted one and reports a committed 
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(2);
 });
 test('compares two owned cloud results and reports a deleted result asset instead of substituting one',async({page,workspace})=>{
+ test.setTimeout(60000); // Two video jobs, A/B media checks and account switches share this budget.
  await configureVideo(workspace);
  const {projectId,nodeIds}=await seedProject(workspace,'两版本比较',2),[first,second]=await generate(page,workspace,projectId,nodeIds);
  await page.goto('/projects/'+projectId+'/results');const items=page.locator('[data-interaction-id="cloud:results:item"]');await expect(items).toHaveCount(2);

@@ -10,7 +10,7 @@ import {savePreferences} from '../settings/preferences-store';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {useRoute} from '../../app/routes';
-import {WorkspaceLink as LocalLink,useWorkspaceNavigate} from './workspace-navigation';
+import {WorkspaceLink as LocalLink,useWorkspaceNavigate,useWorkspacePresentation} from './workspace-navigation';
 import {usePreferences} from '../settings/preferences-store';
 type BatchFailure={id:string;title:string;message:string};
 type PurgeBatchItem={project:Project;preview:PurgePreview|undefined;failed:string;key:string;name:string;done:boolean};
@@ -18,7 +18,7 @@ function ProjectTable({rows,trashed,selection,toggleSelect,busy,onRestore,onExpo
  return <div className="cloud-project-table-scroll" role="region" aria-label="项目列表" tabIndex={0}><table className="cloud-project-table"><thead><tr><th>选择</th><th>项目</th><th>修订</th><th>更新</th><th>操作</th></tr></thead><tbody>{rows.map(row=>(<tr key={row.id}><td><input data-interaction-id="cloud:project:select" aria-label={'选择项目'+row.title} type="checkbox" checked={selection.has(row.id)} onChange={()=>toggleSelect(row.id)}/></td><td title={row.title}>{trashed?row.title:(<LocalLink data-interaction-id="cloud:project:open" href={'/projects/'+row.id+'/canvas'}>{row.title}</LocalLink>)}</td><td>{row.revision}</td><td>{new Date(row.updatedAt).toLocaleString()}</td><td>{trashed?(<><Button data-interaction-id="cloud:project:restore" disabled={busy} onClick={()=>onRestore(row)}>恢复项目</Button><Button data-interaction-id="cloud:project:export" disabled={busy} onClick={()=>onExport(row)}>导出完整项目包</Button><Button data-interaction-id="cloud:project:purge" variant="danger" disabled={busy} onClick={()=>onPurge(row)}>永久删除</Button></>):(<LocalLink data-interaction-id="cloud:project:open" href={'/projects/'+row.id+'/canvas'}>打开画布</LocalLink>)}</td></tr>))}</tbody></table></div>;
 }
 export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient;trashed?:boolean}){
- const navigate=useWorkspaceNavigate();
+ const navigate=useWorkspaceNavigate(),{presentation}=useWorkspacePresentation();
  const preferences=usePreferences();
  const [projects,setProjects]=useState<Project[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState('');
  const [query,setQuery]=useState(''),[sort,setSort]=useState<string>(preferences.projectSort),[filter,setFilter]=useState('all');
@@ -161,7 +161,7 @@ export function CloudProjectsPage({client,trashed=false}:{client:WorkspaceClient
   const identity=sessionStore.getState();
   if(identity.status!=='authenticated')throw new Error('AUTH_REQUIRED');
   savePreferences({projectList:next==='list'});
-  await sessionStore.saveDocument({expectedRevision:identity.document.revision,preferences:{...identity.document.preferences,projectList:next==='list'},lastVisitedPage:'/projects'});
+  await sessionStore.saveDocument({expectedRevision:identity.document.revision,preferences:{...identity.document.preferences,projectList:next==='list'},...(presentation==='mobile'?{}:{lastVisitedPage:'/projects'})});
   setViewMode(next);
  }catch(e){setError(workspaceMessage(e));}}
  async function openPurge(project:Project){

@@ -47,9 +47,9 @@ export function AuthBoundary(){
  useEffect(()=>{if(isMobilePath(path)&&!mobileEnabled){navigate(toDesktopPath(route));return;}if(mobile){if(state.status==='anonymous'&&!['/m/login','/m/register'].includes(path))navigate('/m/login?returnTo='+encodeURIComponent(route));if(state.status==='authenticated'&&['/m','/m/login','/m/register'].includes(path))navigate(mobileReturnPath(new URLSearchParams(route.split('?')[1]??'').get('returnTo')));return;}if(state.status==='anonymous'&&path!=='/register'&&path!=='/login')navigate('/register');if(state.status==='authenticated'&&['/','/login','/register'].includes(path))navigate(state.document.onboardingCompletedAt?launchTarget(state.document.lastVisitedPage):'/projects');},[state,path,route,mobile]);
  useEffect(()=>{document.title=(path==='/register'?'注册':path==='/login'?'登录':path==='/settings/migration'?'旧版数据迁移':path==='/settings/appearance'?'账号偏好':path==='/activity'?'活动':path==='/recovery'?'恢复':path==='/help'?'帮助':'账号工作区')+' · AI WORK Studio';},[path]);
  if(isMobilePath(path)&&!mobileEnabled)return <p role="status">正在返回桌面版…</p>;
+ if(mobile)return <Suspense fallback={<p role="status">正在打开手机工作区…</p>}><MobileWorkspace state={state} path={path}/></Suspense>;
  if(state.status==='checking')return <main className="account-entry"><p role="status">正在确认登录状态…</p></main>;
  if(state.status==='error')return <main className="account-entry"><section className="card"><h1>暂时无法连接</h1><p role="alert">{state.message}</p><button data-interaction-id="account:session:reload" className="button" onClick={()=>{void sessionStore.refresh();}}>重新检查登录</button></section></main>;
- if(mobile)return <Suspense fallback={<p role="status">正在打开手机工作区…</p>}><MobileWorkspace key={state.status==='authenticated'?state.session.contextId:'anonymous'} state={state} path={path}/></Suspense>;
  if(state.status==='anonymous')return <>{state.message?<p className="banner warning" role="alert">{state.message}</p>:null}{path==='/register'?<RegisterPage/>:<LoginPage/>}</>;
  return <AccountShell key={state.session.contextId} state={state} path={path}/>;
 }

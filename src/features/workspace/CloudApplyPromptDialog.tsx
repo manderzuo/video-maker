@@ -13,14 +13,14 @@ import type {VideoSpec} from '../../domain/common';
 
 type TargetMode = 'text' | 'video' | 'flow';
 
-export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose,onApplied}:{client:WorkspaceClient;draft:PromptDraft;version:PromptResultVersion;initialMode?:TargetMode;onClose:()=>void;onApplied:(revision:number,target:string,nodeId?:string)=>void}){
+export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose,onApplied}:{client:WorkspaceClient;draft:PromptDraft;version:PromptResultVersion;initialMode?:TargetMode;onClose:()=>void;onApplied:(revision:number,target:string,nodeId?:string,mode?:TargetMode)=>void}){
  const {presentation}=useWorkspacePresentation();
  const [projects,setProjects]=useState<Project[]>([]),[target,setTarget]=useState(''),[graph,setGraph]=useState<Graph>(),[input,setInput]=useState<PromptDraft>();
  const [nodeId,setNodeId]=useState(''),[videoNodeId,setVideoNodeId]=useState(''),[replaceEdgeId,setReplaceEdgeId]=useState(''),[flowTitle,setFlowTitle]=useState('视频流程'),[mode,setMode]=useState<TargetMode>(initialMode??'text');
  const [cap,setCap]=useState<FlowCapability|null>(null),[capLoading,setCapLoading]=useState(false),[capError,setCapError]=useState(''),[selectedSpec,setSelectedSpec]=useState('');
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[conflict,setConflict]=useState(false);
  const [acceptResolution,setAcceptResolution]=useState(true);
- const alive=useRef(true),generation=useRef(0),frozen=useRef<{target:string;nodeId?:string;revision:number;key:string;command:Parameters<WorkspaceClient['command']>[2]}|undefined>(undefined);
+ const alive=useRef(true),generation=useRef(0),frozen=useRef<{mode:TargetMode;target:string;nodeId?:string;revision:number;key:string;command:Parameters<WorkspaceClient['command']>[2]}|undefined>(undefined);
  useEffect(()=>{let active=true;alive.current=true;void Promise.all([client.listProjects(),client.draftRevision(draft.id,version.sourceRevision)]).then(([rows,snapshot])=>{if(active){setProjects(rows);setTarget(rows[0]?.id??'');setInput(snapshot);}}).catch(e=>{if(active)setError(workspaceMessage(e));});return()=>{active=false;alive.current=false;};},[client,draft.id,version.sourceRevision]);
  async function readTarget(id:string){const current=++generation.current;setGraph(undefined);setNodeId('');setVideoNodeId('');setReplaceEdgeId('');setError('');try{const workspace=await client.readWorkspace(id);if(alive.current&&current===generation.current){setGraph(workspace.graph);setConflict(false);frozen.current=undefined;}}catch(e){if(alive.current&&current===generation.current)setError(workspaceMessage(e));}}
  useEffect(()=>{if(target)void readTarget(target);},[target]); // The request is guarded against late responses when the target changes.
@@ -82,10 +82,10 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
   if(!frozen.current){
    const operations=await buildOperations();
    const focusNodeId=mode==='text'?(nodeId||(operations[0].payload.node as CanvasNode).id):presentation==='mobile'?(mode==='video'?videoNodeId:((operations.find(operation=>operation.type==='add_node'&&(operation.payload.node as CanvasNode).type==='video-generation')?.payload.node as CanvasNode|undefined)?.id)):undefined;
-   frozen.current={target,nodeId:focusNodeId,revision:graph.revision,key:crypto.randomUUID(),command:{type:'operations',operations}};
+   frozen.current={mode,target,nodeId:focusNodeId,revision:graph.revision,key:crypto.randomUUID(),command:{type:'operations',operations}};
   }
   const attempt=frozen.current,receipt=await client.command(attempt.target,attempt.revision,attempt.command,attempt.key);
-  if(alive.current)onApplied(receipt.revision,attempt.target,attempt.nodeId);
+  if(alive.current)onApplied(receipt.revision,attempt.target,attempt.nodeId,attempt.mode);
  }catch(e){if(alive.current){if(e instanceof ApiError&&e.status===409)setConflict(true);setError(e instanceof Error?e.message:workspaceMessage(e));}}finally{if(alive.current)setBusy(false);}}
  const videoSources=graph&&videoNodeId?inspectVideoTextInputs(graph,videoNodeId):null;
  const flowResolution=input?resolveFlowSpec({requested:input.requestedSpec??{},suggested:version.suggestedSpec??{},capability:cap??undefined,selected:selectedSpec?(JSON.parse(selectedSpec) as VideoSpec):undefined}):null;

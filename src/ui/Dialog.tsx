@@ -5,14 +5,14 @@ import {Button} from './Button';
 import {dialogContracts} from './dialog-contracts';
 import {useWorkspacePresentation} from '../features/workspace/workspace-navigation';
 export function Dialog({open,title,onClose,children,footer,dismissible=true,width=640,returnFocusRef,className}:{open:boolean;title:string;onClose:()=>void;children:ReactNode;footer?:ReactNode;dismissible?:boolean;width?:number;returnFocusRef?:RefObject<HTMLElement|null>;className?:string}){
- const {presentation,viewport}=useWorkspacePresentation();
+ const {presentation,viewport,suspended}=useWorkspacePresentation(),visible=open&&!suspended;
  const ref=useRef<HTMLDialogElement>(null),previous=useRef<HTMLElement|null>(null),titleId=useId();
  useLayoutEffect(()=>{
   const dialog=ref.current!;
-  if(open&&!dialog.open){previous.current=returnFocusRef?.current??(document.activeElement instanceof HTMLElement?document.activeElement:null);dialog.showModal();}
-  if(!open&&dialog.open){dialog.close();previous.current?.focus();}
+  if(visible&&!dialog.open){previous.current=returnFocusRef?.current??(document.activeElement instanceof HTMLElement?document.activeElement:null);dialog.showModal();}
+  if(!visible&&dialog.open){dialog.close();previous.current?.focus();}
   return()=>{if(dialog.open){dialog.close();previous.current?.focus();}};
- },[open,returnFocusRef]);
+ },[visible,returnFocusRef]);
  return createPortal(<dialog data-dialog-id={dialogContracts[title]} ref={ref} className={'dialog dialog-'+width+(className?' '+className:'')+(presentation==='mobile'?' mobile-dialog':'')} style={presentation==='mobile'&&viewport?{maxHeight:Math.max(120,viewport.height-16),top:viewport.top}:undefined} aria-labelledby={titleId} aria-modal="true" onCancel={event=>{event.preventDefault();event.stopPropagation();if(dismissible)onClose();}} onKeyDown={event=>{
   if(event.key!=='Tab')return;
   event.stopPropagation();

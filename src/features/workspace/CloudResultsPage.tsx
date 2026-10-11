@@ -3,7 +3,7 @@ import type {Asset} from '../../domain/asset';
 import type {CloudRun} from '../../domain/cloud-video-run';
 import type {GraphOperation} from '../../application/commands/registry';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
-import {useRoute} from '../../app/routes';
+import {addNavigationGuard,useRoute} from '../../app/routes';
 import {WorkspaceLink as LocalLink,useWorkspaceNavigate,useWorkspacePresentation} from './workspace-navigation';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
@@ -69,7 +69,7 @@ function clearPendingRequest(projectId:string,kind:PendingKind,recordId:string){
 const videoRecords=(runs:CloudRun[],projectId:string)=>runs.filter((run):run is VideoRecord=>run.kind==='video'&&run.projectId===projectId&&run.executionState==='succeeded'&&!!run.resultAssetId);
 const freeze=(operations:GraphOperation[],baseRevision:number):FrozenRequest=>({key:crypto.randomUUID(),baseRevision,operations,nodeIds:operations.flatMap(operation=>operation.type==='add_node'?[(operation.payload as {node:{id:string}}).node.id]:[])});
 export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;projectId:string}){
- const navigate=useWorkspaceNavigate(),{navigation}=useWorkspacePresentation();
+ const navigate=useWorkspaceNavigate(),{navigation,presentation}=useWorkspacePresentation();
  const route=useRoute(),params=new URLSearchParams(route.split('?')[1]??''),highlight=params.get('runId')??undefined;
  const [snapshot,setSnapshot]=useState<Snapshot>(),[results,setResults]=useState<ProjectResult[]>([]),[media,setMedia]=useState<Asset[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState('');
  const [placements,setPlacements]=useState<Record<string,Placement>>(()=>readStoredPlacements(projectId)),[compare,setCompare]=useState<string[]>([]),[details,setDetails]=useState<VideoRecord>(),[pendingCount,setPendingCount]=useState(0);
@@ -78,6 +78,22 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
  const alive=useRef(true),preview=useRef<string|undefined>(undefined),openedAction=useRef<string|undefined>(undefined);
  const [optimizing,setOptimizing]=useState(false),[optimization,setOptimization]=useState<{draftId:string;kind:'tail-frame'|'revision';recordId:string;prompt:string}>();
  const optimizationBusy=useRef(false);
+ const editProtection=useRef(false),[discardEdit,setDiscardEdit]=useState<'revision'|'tail-frame'>();
+ const revisionDirty=!!revision&&revision.phase==='editing'&&(revision.prompt!==frozenSnapshot(revision.result.record).prompt||!!revision.instructions);
+ const continuationDirty=!!continuation&&continuation.phase==='editing'&&!!continuation.prompt;
+ editProtection.current=presentation==='mobile'&&(revisionDirty||continuationDirty||optimizing||revision?.phase==='sending'||continuation?.phase==='sending');
+ useEffect(()=>{
+  if(presentation!=='mobile')return;
+  let active=true;
+  const remove=addNavigationGuard(()=>{if(!active||!editProtection.current)return true;setError('本次结果编辑尚未保存，请保存或明确放弃后离开。');return false;});
+  const beforeUnload=(event:BeforeUnloadEvent)=>{if(editProtection.current){event.preventDefault();event.returnValue='';}};
+  window.addEventListener('beforeunload',beforeUnload);
+  return()=>{active=false;remove();window.removeEventListener('beforeunload',beforeUnload);};
+ },[presentation]);
+ function closeEdit(kind:'revision'|'tail-frame'){
+  if(presentation==='mobile'&&(kind==='revision'?revisionDirty:continuationDirty)){setDiscardEdit(kind);return;}
+  if(kind==='revision')setRevision(undefined);else setContinuation(undefined);
+ }
  const optimizationRequest=useRef<{identity:string;key:string;request:Parameters<WorkspaceClient['createDraft']>[0]}|undefined>(undefined);
  async function polishPrompt(kind:'tail-frame'|'revision'){
   const current=kind==='revision'?revision:continuation;
@@ -232,7 +248,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
   const workspace=await client.readWorkspace(projectId);
   return ids.every(id=>workspace.graph.nodes.some(node=>node.id===id));
  }
- function returnToDraft(frozen:FrozenRequest){const node=frozen.operations.find(operation=>operation.type==='add_node'&&(operation.payload as {node:{type:string}}).node.type==='video-generation');const id=(node?.payload as {node:{id:string}}|undefined)?.node.id;if(id)navigate('/projects/'+encodeURIComponent(projectId)+'/canvas?node='+encodeURIComponent(id));}
+ function returnToDraft(frozen:FrozenRequest){const node=frozen.operations.find(operation=>operation.type==='add_node'&&(operation.payload as {node:{type:string}}).node.type==='video-generation');const id=(node?.payload as {node:{id:string}}|undefined)?.node.id;if(id){editProtection.current=false;navigate('/projects/'+encodeURIComponent(projectId)+'/canvas?node='+encodeURIComponent(id));}}
  async function resolveUnknown(frozen:FrozenRequest,close:(present:boolean)=>void){
   try{const present=await hasNodes(frozen.nodeIds);await reload();close(present);}
   catch(e){setError(workspaceMessage(e));}
@@ -311,8 +327,8 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    {existing?<p data-interaction-id="cloud:results:linked">已在画布中：结果节点 {existing.id}（{existing.data.generationLinked?'来源关系已记录':'来源关系已解除'}）</p>:null}
   </article>;}):<p>当前项目还没有已完成的视频结果。</p>}
   <Dialog open={!!details} title="云端视频任务" onClose={()=>setDetails(undefined)}>{details?<><CloudVideoTaskDetail client={client} task={details} onChanged={()=>void reload()}/><Button data-interaction-id="cloud:results:details-close" onClick={()=>setDetails(undefined)}>关闭云端视频结果</Button></>:null}</Dialog>
-  <Dialog open={!!continuation&&!optimization} title="尾帧续写" dismissible={continuation?.phase!=='sending'&&!optimizing} onClose={()=>setContinuation(undefined)} footer={<>
-   <Button data-interaction-id="cloud:results:tail-frame-cancel" disabled={continuation?.phase==='sending'||optimizing} onClick={()=>setContinuation(undefined)}>取消</Button>
+  <Dialog open={!!continuation&&!optimization} title="尾帧续写" dismissible={continuation?.phase!=='sending'&&!optimizing} onClose={()=>closeEdit('tail-frame')} footer={<>
+   <Button data-interaction-id="cloud:results:tail-frame-cancel" disabled={continuation?.phase==='sending'||optimizing} onClick={()=>closeEdit('tail-frame')}>取消</Button>
    {(continuation?.phase==='unknown'||continuation?.phase==='submitted')&&continuation.request?<Button data-interaction-id="cloud:results:tail-frame-discard" onClick={discardContinuation}>放弃未确认请求</Button>:null}
    {continuation?.request?<Button data-interaction-id="cloud:results:tail-frame-check" disabled={continuation.phase==='sending'} onClick={()=>void resolveUnknown(continuation.request!,present=>{if(present){clearPendingRequest(projectId,'tail-frame',continuation.result.record.id);setPendingCount(readPendingRequests(projectId).length);returnToDraft(continuation.request!);setContinuation(undefined);}else setContinuation(current=>current?{...current,message:'未发现本次请求创建的节点；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
    <Button data-interaction-id="cloud:results:tail-frame-save" variant="primary" busy={continuation?.phase==='sending'} disabled={optimizing||(!continuation?.file&&!continuation?.request)||!continuation.prompt.trim()} onClick={saveContinuation}>{continuation?.request?(continuation.frameAssetId?'重试保存续写流程':'重试保存续写流程'):'上传尾帧并保存续写流程'}</Button>
@@ -330,8 +346,8 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
     {continuation.error?<p role="alert">{continuation.error}</p>:null}
    </>:null}
   </Dialog>
-  <Dialog open={!!revision&&!optimization} title="修改后重新生成" dismissible={revision?.phase!=='sending'&&!optimizing} onClose={()=>setRevision(undefined)} footer={<>
-   <Button data-interaction-id="cloud:results:revision-cancel" disabled={revision?.phase==='sending'||optimizing} onClick={()=>setRevision(undefined)}>取消</Button>
+  <Dialog open={!!revision&&!optimization} title="修改后重新生成" dismissible={revision?.phase!=='sending'&&!optimizing} onClose={()=>closeEdit('revision')} footer={<>
+   <Button data-interaction-id="cloud:results:revision-cancel" disabled={revision?.phase==='sending'||optimizing} onClick={()=>closeEdit('revision')}>取消</Button>
    {(revision?.phase==='unknown'||revision?.phase==='submitted')&&revision.request?<Button data-interaction-id="cloud:results:revision-discard" onClick={discardRevision}>放弃未确认请求</Button>:null}
    {revision?.request?<Button data-interaction-id="cloud:results:revision-check" disabled={revision.phase==='sending'} onClick={()=>void resolveUnknown(revision.request!,present=>{if(present){clearPendingRequest(projectId,'revision',revision.result.record.id);setPendingCount(readPendingRequests(projectId).length);returnToDraft(revision.request!);setRevision(undefined);}else setRevision(current=>current?{...current,message:'未发现本次请求创建的草稿；可用同一请求重试。'}:current);})}>重新读取结果确认</Button>:null}
    <Button data-interaction-id="cloud:results:revision-save" variant="primary" busy={revision?.phase==='sending'} disabled={optimizing||!revision?.prompt.trim()||(revision&&frozenSnapshot(revision.result.record).references.length>0&&!revision.availability)} disabledReason={revision&&frozenSnapshot(revision.result.record).references.length>0&&!revision.availability?'正在确认引用素材是否可读，请稍候再保存。':undefined} onClick={saveRevision}>{revision?.request?'重试保存新草稿':'保存为新的视频草稿'}</Button>
@@ -355,5 +371,6 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
    if(optimization.kind==='revision')setRevision(value=>{const next=adopt(value);return next?{...next,instructions:''}:next;});else setContinuation(adopt);
    setOptimization(undefined);
   }}/>:null}
+  {presentation==='mobile'?<Dialog open={!!discardEdit} title="放弃未保存结果编辑" onClose={()=>setDiscardEdit(undefined)} footer={<><Button onClick={()=>setDiscardEdit(undefined)}>保留编辑</Button><Button variant="danger" onClick={()=>{if(discardEdit==='revision')setRevision(undefined);else setContinuation(undefined);setDiscardEdit(undefined);editProtection.current=false;}}>确认放弃编辑</Button></>}><p>将放弃尚未保存的正文与要求。原视频和已经提交的请求保留。</p></Dialog>:null}
  </section>;
 }

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { test, expect } from '../helpers/cloud-workspace-ui-fixture';
-test('observes a mobile canvas without changing cloud geometry and edits only its text', async ({ page, workspace, browserName }) => {
+test('observes a mobile canvas without changing cloud geometry and edits only its text', async ({ page, context, workspace, browserName }) => {
     const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 手机画布' } })).json(), nodeId = randomUUID();
     await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 0, idempotencyKey: randomUUID(), command: { type: 'operations', operations: [{ id: randomUUID(), type: 'add_node', payload: { node: { id: nodeId, type: 'text', title: '正文节点', x: 40, y: 60, locked: false, data: { kind: 'text', text: 'TEST DATA 原正文', referenceTokens: [] } } } }] } } });
     const before = (await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json();
@@ -29,6 +29,16 @@ test('observes a mobile canvas without changing cloud geometry and edits only it
     await page.getByRole('button', { name: '节点列表', exact: true }).click();
     await page.getByRole('button', { name: '编辑正文节点', exact: true }).click();
     await page.getByLabel('节点正文', { exact: true }).fill('TEST DATA 手机修改正文');
+    let offline = true, failedChecks = 0;
+    const sessionRoute: Parameters<typeof context.route>[1] = route => { if (offline) { failedChecks++; return route.abort('failed'); } return route.fallback(); };
+    await context.route('**/studio-api/session', sessionRoute);
+    await expect.poll(async () => { await page.evaluate(() => window.dispatchEvent(new Event('focus'))); return failedChecks; }).toBeGreaterThan(0);
+    await expect(page.getByRole('button', { name: '重新检查登录', exact: true })).toBeVisible();
+    await expect(page.getByRole('dialog', { name: '编辑节点正文', exact: true })).not.toBeVisible();
+    offline = false;
+    await page.getByRole('button', { name: '重新检查登录', exact: true }).click();
+    await expect(page.getByRole('dialog', { name: '编辑节点正文', exact: true }).getByLabel('节点正文', { exact: true })).toHaveValue('TEST DATA 手机修改正文');
+    await context.unroute('**/studio-api/session', sessionRoute);
     await page.getByRole('button', { name: '保存节点正文', exact: true }).click();
     await expect(page.getByText('正文已保存', { exact: true })).toBeVisible();
     const after = (await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json();

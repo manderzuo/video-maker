@@ -7,6 +7,7 @@ export type WorkspaceNavigation = {
 export const WorkspacePresentation = createContext<{
     presentation: 'desktop' | 'mobile';
     navigation?: WorkspaceNavigation;
+    suspended?: boolean;
     viewport?: {
         height: number;
         top: number;

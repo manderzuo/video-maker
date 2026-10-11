@@ -1,6 +1,8 @@
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 // Catches desktop layout changes caused by mobile CSS, routing or component defaults.
 test('preserves desktop pages in both themes',async({page,workspace})=>{
+ const mobileRequests:string[]=[];
+ page.on('request',request=>{if(request.url().includes('/features/mobile/')||request.url().includes('/MobileWorkspace-'))mobileRequests.push(request.url());});
  const routes=[['projects','/projects'],['writing','/prompt-generator'],['assets','/assets'],['tasks','/tasks'],['settings','/settings/connections']];
  for(const theme of ['dark','light']){
   await page.goto('/settings/appearance');await page.getByLabel('主题',{exact:true}).selectOption(theme);await page.getByRole('button',{name:'保存偏好',exact:true}).click();await expect(page.getByText('偏好已保存',{exact:false})).toBeVisible();
@@ -10,6 +12,7 @@ test('preserves desktop pages in both themes',async({page,workspace})=>{
   }
  }
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+ expect(mobileRequests).toEqual([]);
 });
 
 test('keeps desktop canvas mouse and keyboard operations',async({page,workspace})=>{
