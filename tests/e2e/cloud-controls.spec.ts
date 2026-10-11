@@ -190,7 +190,7 @@ test('a narrow short viewport degrades to a scrollable layout with a usable canv
  expect(stage.height).toBeGreaterThanOrEqual(300);
  const side=await page.locator('.canvas-side').boundingBox();if(!side)throw new Error('Missing side');
  expect(side.height).toBeGreaterThan(100);
- await openCloudToolbarMenu(page,'view');const toggle=page.getByRole('button',{name:'隐藏视频任务',exact:true});await toggle.scrollIntoViewIfNeeded();await expect(toggle).toBeVisible();
+ await openCloudToolbarMenu(page,'视图选项');const toggle=page.getByRole('button',{name:'隐藏视频任务',exact:true});await toggle.scrollIntoViewIfNeeded();await expect(toggle).toBeVisible();
  await page.screenshot({path:testInfo.outputPath('audit-layout-800x600.png'),fullPage:true});
  expect(workspace.providerCalls).toHaveLength(0);
 });
@@ -235,6 +235,7 @@ test('UI repair captures real themed pages and rendered prose fonts with test da
   await page.setViewportSize({width:1366,height:768});await page.goto('/settings/appearance');await page.locator('[data-interaction-id="account:preferences:theme"]').selectOption(theme);await page.locator('[data-interaction-id="account:preferences:density"]').selectOption(theme==='dark'?'comfortable':'compact');await page.locator('[data-interaction-id="account:preferences:save"]').click();await expect(page.locator('html')).toHaveAttribute('data-theme',theme);
   for(const [name,url] of [['projects','/projects'],['canvas','/projects/'+project.id+'/canvas'],['writing','/prompt-generator?draft='+draft.id],['prompts','/prompts'],['api-settings','/settings/connections']]){
    await page.goto(url);await expect(page.locator('.account-shell')).toBeVisible();if(name==='projects')await expect(page.locator('.cloud-project-list > li')).toHaveCount(3);if(name==='writing')await expect(page.locator('[data-interaction-id="cloud:draft:result-text"]')).toBeVisible();if(name==='api-settings')await expect(page.locator('.api-model-card input').first()).toBeVisible();await page.screenshot({path:testInfo.outputPath('ui-repair-'+name+'-'+theme+'.png'),fullPage:true});
+   if(name==='writing'){const proseCdp=await page.context().newCDPSession(page);await proseCdp.send('DOM.enable');await proseCdp.send('CSS.enable');const proseDom=await proseCdp.send('DOM.getDocument');const proseNode=await proseCdp.send('DOM.querySelector',{nodeId:proseDom.root.nodeId,selector:'pre.ui-prose'});metadata.push({theme,fontSample:'natural language snapshot',renderedFonts:proseNode.nodeId?await proseCdp.send('CSS.getPlatformFontsForNode',{nodeId:proseNode.nodeId}):null});await proseCdp.detach();}
    metadata.push(await page.evaluate(()=>({url:location.pathname,width:innerWidth,height:innerHeight,dpr:devicePixelRatio,visualScale:visualViewport?.scale,theme:document.documentElement.dataset.theme,density:document.documentElement.dataset.density,prose:[...document.querySelectorAll('.ui-prose')].map(el=>{const css=getComputedStyle(el);return {font:css.fontFamily,size:css.fontSize,line:css.lineHeight,text:el.textContent?.slice(0,80)};})})));
   }
   await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="cloud:canvas:add-text"]').click();const editor=page.locator('[data-interaction-id="cloud:canvas:node-text"]').first();await editor.fill('UI repair TEST DATA 中文 English 123');await expect(page.getByRole('status').first()).toContainText('已保存');
@@ -245,4 +246,11 @@ test('UI repair captures real themed pages and rendered prose fonts with test da
  }
  writeFileSync(testInfo.outputPath('ui-repair-rendered-metadata.json'),JSON.stringify(metadata,null,2));
  await testInfo.attach('ui-repair-rendered-metadata',{contentType:'application/json',body:JSON.stringify(metadata,null,2)});expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('UI repair anonymous login and register keep readable fields and regular submit controls',async({page},testInfo)=>{
+ await page.route('**/studio-api/session',route=>route.fulfill({status:401,contentType:'application/json',body:JSON.stringify({code:'AUTH_REQUIRED'})}));
+ for(const theme of ['dark','light'])for(const [name,path] of [['login','/login'],['register','/register']]){
+  await page.goto(path);await expect(page.locator('.account-form')).toBeVisible();await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);const submit=page.locator('.account-form button[type="submit"]');expect((await submit.boundingBox())!.height).toBeGreaterThanOrEqual(44);await page.screenshot({path:testInfo.outputPath('ui-repair-'+name+'-'+theme+'.png'),fullPage:true});
+ }
 });

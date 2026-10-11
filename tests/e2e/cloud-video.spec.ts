@@ -115,12 +115,12 @@ test('hides task status to free canvas space without disabling node generation a
  const before=(await page.locator('.canvas-stage').boundingBox())!.width;
  await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await expect(side).toBeHidden();
  expect((await page.locator('.canvas-stage').boundingBox())!.width).toBeGreaterThan(before+300);
- const show=page.getByRole('button',{name:'显示视频任务',exact:true});await expect(show).toHaveAttribute('aria-expanded','false');
+ const show=page.locator('[data-interaction-id="cloud:canvas:toggle-video-tasks"]');await expect(show).toHaveText('显示视频任务');await expect(show).toHaveAttribute('aria-expanded','false');
  await page.locator('[data-interaction-id="V-08"]').click();
  const dialog=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(dialog).toBeVisible();
  await dialog.getByRole('button',{name:'确认',exact:true}).click();await expect(dialog).not.toBeVisible();
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
- await expect(side).toBeHidden();await show.click();await expect(side).toBeVisible();await expect(side.getByLabel('本项目视频任务',{exact:true})).toContainText('生成已完成');
+ await expect(side).toBeHidden();await openCloudToolbarMenu(page,'视图选项');await show.click();await expect(side).toBeVisible();await expect(side.getByLabel('本项目视频任务',{exact:true})).toContainText('生成已完成');
  await side.getByRole('button',{name:'查看视频任务',exact:true}).click();const detail=page.getByRole('dialog',{name:'云端视频任务',exact:true});await expect(detail).toContainText('生成已完成');await detail.getByRole('button',{name:'关闭云端视频任务',exact:true}).click();
  await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(side).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);

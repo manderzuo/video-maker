@@ -49,7 +49,7 @@ export function CloudCanvasSurface({
   minimap,
   stageOps,
   commitOps,
-  onViewport,
+  onViewport,onBeforeReadableEdit,
   onError,
   onSave,
   onSaveNodePrompt,
@@ -78,6 +78,7 @@ export function CloudCanvasSurface({
   stageOps: (operations: GraphOperation[]) => boolean;
   commitOps: (operations: GraphOperation[]) => Promise<boolean>;
   onViewport: (viewport: Viewport) => void;
+  onBeforeReadableEdit?:()=>void;
   onError: (message: string) => void;
   onSave: () => void;
   onSaveNodePrompt: (nodeId: string) => void;
@@ -112,6 +113,7 @@ export function CloudCanvasSurface({
   function readableEdit(node:CanvasNode,editor:HTMLTextAreaElement){
     const stage=stageRef.current,card=editor.closest<HTMLElement>('[data-node-id]');
     if(!stage||!card||!editor.isConnected||!stage.contains(editor)||!graph.nodes.some(item=>item.id===node.id))return;
+    onBeforeReadableEdit?.();
     readable.current={editor,start:editor.selectionStart,end:editor.selectionEnd,direction:editor.selectionDirection};
     const body=editor.closest<HTMLElement>('.node-body');
     if(body){const top=(editor.getBoundingClientRect().top-body.getBoundingClientRect().top)/view.scale;if(top<0||top>body.clientHeight-24)body.scrollTop+=top-24;}

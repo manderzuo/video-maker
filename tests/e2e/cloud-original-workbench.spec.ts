@@ -37,7 +37,7 @@ test('compact text card connects a cloud flow through ports and restores text af
    expect(title&&label&&(title.x>=label.x+label.width||title.y>=label.y+label.height||title.x+title.width<=label.x||title.y+title.height<=label.y)).toBeTruthy();
   }
  }
- await expect(text.locator('button')).toHaveCount(0);
+ await expect(text.locator('button')).toHaveCount(1);await expect(text.getByRole('button',{name:'放大编辑',exact:true})).toBeVisible();
  await page.screenshot({path:testInfo.outputPath('restored-original-canvas.png'),fullPage:true});
  expect(await page.evaluate(()=>(window as unknown as {__localDbOpens:string[]}).__localDbOpens)).toEqual([]);
  expect(workspace.providerCalls.filter(c=>c.method==='POST')).toHaveLength(0);

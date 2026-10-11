@@ -158,7 +158,9 @@ test('UI repair readable editing preserves original editor draft selection and c
   expect(updates).toBe(0);page.off('request',listener);
  }
  await page.locator('[data-interaction-id="C-05"]').fill('50');await page.locator('[data-interaction-id="C-05"]').press('Enter');
+ for(const start of ['50','100']){await page.locator('[data-interaction-id="C-05"]').fill(start);await page.locator('[data-interaction-id="C-05"]').press('Enter');
  await page.locator('[data-interaction-id="C-05"]').fill('80');await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('100');await expect(editor).toBeFocused();
+ }
  await page.locator('[data-interaction-id="C-05"]').fill('50');await page.locator('[data-interaction-id="C-05"]').press('Enter');
  await editor.dispatchEvent('compositionstart');await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('50');await editor.dispatchEvent('compositionend');
  await editor.fill('x'.repeat(65537));await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(editor).toBeFocused();expect((await editor.inputValue()).length).toBe(65537);await expect(page.getByRole('alert').first()).toBeVisible();
