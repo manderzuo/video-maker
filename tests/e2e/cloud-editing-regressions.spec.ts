@@ -85,6 +85,18 @@ test('accepts a five second video revision timeline at the AI preview without se
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 
+test('accepts independent appearance times in a video correction at the AI preview',async({page,workspace})=>{
+ const h=workspace.headers(workspace.account);await workspace.call('PATCH','/studio-api/me/model-configs/text',{...h,payload:{apiBase:'https://api.example.test',model:'Vendor/Cloud-Text',apiKey:'FAKE_APPEARANCE_TIMING_KEY',expectedRevision:null}});
+ const prompt='TEST DATA 5秒，9:16竖屏。动作时间轴：0—2秒向前；2—4秒转向；4—5秒停止。';
+ const userRequest=JSON.stringify({任务:'针对原视频修正错误',原始提示词:prompt,当前完整提示词:prompt,本次修正要求:'TEST DATA 猴子大概第二秒进入画面；熊猫坐在路边，大概在3-4秒左右出现。'});
+ const draft=(await workspace.call('POST','/studio-api/prompt-drafts',{...h,payload:{type:'video',userRequest,sceneId:'edit',requestedSpec:{durationSeconds:5,ratio:'9:16',resolution:'480p'},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1',idempotencyKey:randomUUID()}})).json();
+ await page.goto('/prompt-generator?draft='+draft.id);await expect(page.getByLabel('原始创意',{exact:true})).toHaveValue(userRequest);
+ const preview=page.waitForResponse(response=>new URL(response.url()).pathname==='/studio-api/prompt-drafts/'+draft.id+'/optimization-preview'&&response.request().method()==='POST');
+ await page.getByRole('button',{name:'AI 优化',exact:true}).click();expect((await preview).status()).toBe(201);
+ await expect(page.getByRole('dialog',{name:'确认 AI 文字优化',exact:true})).toBeVisible();await expect(page.getByRole('alert')).toHaveCount(0);
+ expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);expect((await workspace.pool.query('SELECT count(*)::int AS count FROM workspace_tasks')).rows[0].count).toBe(0);
+});
+
 test('keeps a complete minimap overview fixed while the canvas camera zooms and pans',async({page,workspace})=>{
  const h=workspace.headers(workspace.account),project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'TEST DATA 固定小地图'}})).json();
  const nodes=[{x:-400,y:-300},{x:3200,y:1800}].map((p,i)=>({id:randomUUID(),type:'text',title:'TEST DATA 节点'+i,...p,locked:false,data:{kind:'text',text:'TEST DATA',referenceTokens:[]}}));

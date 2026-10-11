@@ -14,14 +14,32 @@ function currentRequest(text:string):string{
 }
 function durationEvidence(text:string):{values:string[];timelineEnd:number}{
  const intervals:RegExpMatchArray[]=[];
- for(const match of text.matchAll(/(\d+(?:\.\d+)?)\s*(?:秒\s*)?(?:[-—–~～]|至|到)\s*(\d+(?:\.\d+)?)\s*秒/g)){
+ const timelineIntervals:RegExpMatchArray[]=[];
+ const points:RegExpMatchArray[]=[];
+ const ranges=[...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:秒\s*)?(?:[-—–~～]|至|到)\s*(\d+(?:\.\d+)?)\s*秒/g)];
+ const durationPrefix=/(?:总时长|时长|持续|总共|片长|视频长度|总长|时长目标)\s*[:：]?\s*(?:(?:大约|约)?(?:为|是)?(?:大约|约)?)\s*$/;
+ const eventTime=(index:number,length:number)=>{
+  const prefix=text.slice(0,index),suffix=text.slice(index+length);
+  if(durationPrefix.test(prefix))return false;
+  // Appearance/entry cues and ordinal timestamps describe when an event happens.
+  // They do not specify how long the video or action lasts.
+  return /第\s*$/.test(prefix)||/^(?:\s*(?:左右|前后))?\s*(?:的时候|时(?!长)|出现|进入|入画|出场|离开|出画|开始|结束|停止|转向|切换)/.test(suffix);
+ };
+ for(const match of ranges){
   const prefix=text.slice(0,match.index),sentence=prefix.slice(Math.max(prefix.lastIndexOf('。'),prefix.lastIndexOf('\n'))+1);
-  const previous=intervals.at(-1);
-  const totalRange=/(?:总时长|时长|持续|总共|片长|视频长度|总长|时长目标)\s*[:：为约]?\s*$/.test(sentence);
+  const previous=timelineIntervals.at(-1);
+  const totalRange=durationPrefix.test(sentence);
   const timeline=/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?/.test(sentence)||/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?\s*$/.test(prefix)||Number(match[1])===0||previous&&Number(previous[2])===Number(match[1]);
-  if(Number(match[2])>Number(match[1])&&!totalRange&&timeline)intervals.push(match);
+  if(Number(match[2])>Number(match[1])&&!totalRange&&(timeline||eventTime(match.index,match[0].length))){
+   intervals.push(match);
+   if(timeline)timelineIntervals.push(match);
+  }
  }
- return {values:[...new Set([...text.matchAll(/(\d+(?:\.\d+)?)\s*秒/g)].filter(match=>!intervals.some(interval=>match.index>=interval.index!&&match.index<interval.index!+interval[0].length)).map(match=>String(Number(match[1]))))],timelineEnd:Math.max(0,...intervals.map(interval=>Number(interval[2])))};
+ const seconds=[...text.matchAll(/(\d+(?:\.\d+)?)\s*秒/g)];
+ const contained=(match:RegExpMatchArray,spans:RegExpMatchArray[])=>spans.some(span=>match.index!>=span.index!&&match.index!<span.index!+span[0].length);
+ const inInterval=(match:RegExpMatchArray)=>contained(match,intervals);
+ for(const match of seconds)if(!contained(match,ranges)&&eventTime(match.index,match[0].length))points.push(match);
+ return {values:[...new Set(seconds.filter(match=>!inInterval(match)&&!points.includes(match)).map(match=>String(Number(match[1]))))],timelineEnd:Math.max(0,...intervals.map(interval=>Number(interval[2])),...points.map(point=>Number(point[1])))};
 }
 export function resolveConstraints(raw:PromptCompileInput):ConstraintResolution{
  const input=promptCompileInputSchema.parse(raw);const resolved=structuredClone(input);
