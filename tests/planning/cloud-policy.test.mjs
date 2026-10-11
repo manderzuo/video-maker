@@ -12,7 +12,7 @@ const root = process.cwd();
 test('CLOUD-P01: migration list is identical across engine, fixtures and package', () => {
  const dir = resolve(root, 'server/src/db/migrations');
  const files = readdirSync(dir).filter(name => /^\d{3}-.+\.sql$/.test(name)).sort();
- assert.ok(files.length >= 8 && files[files.length - 1] === '008-project-purge.sql');
+ assert.ok(files.length >= 9 && files[files.length - 1] === '009-activity.sql');
  for (const file of files) {
   const sql = readFileSync(resolve(dir, file), 'utf8');
   assert.ok(containsMigrationDdl(sql), file + ' must contain real DDL, not comments or quoted data');
@@ -36,7 +36,7 @@ test('CLOUD-P03: cloud traceability registration consumes real executed evidence
  assert.ok(results.tests.length > 100);
  assert.ok(results.tests.every(test => test.id && test.file && test.status));
  const map = JSON.parse(readFileSync(resolve(root, 'docs/review/interaction-map-cloud.json'), 'utf8'));
- assert.equal(map.interactions.length, 260);
+ assert.equal(map.interactions.length, 264);
  assert.ok(map.interactions.every(row => Array.isArray(row.sources) && Array.isArray(row.proofs)));
  const validation=validateRegisteredEvidence({report:results,map,readSource:file=>readFileSync(resolve(root,file),'utf8')});
  assert.equal(validation.valid,true,JSON.stringify(validation.errors));

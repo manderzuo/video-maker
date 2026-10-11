@@ -1,7 +1,7 @@
 {
   "version": 1,
   "counts": {
-    "interactions": 260,
+    "interactions": 264,
     "pages": 23,
     "dialogs": 30
   },
@@ -23589,6 +23589,70 @@
           "status": "passed"
         }
       ]
+    },
+    {
+      "id": "cloud:canvas:readable-edit",
+      "taskId": "T13",
+      "label": "放大编辑或查看",
+      "disposition": "cloud_counterpart_row_proof_pending",
+      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "sources": [
+        {
+          "file": "src/features/canvas/nodes/TextNode.tsx",
+          "anchor": "cloud:canvas:readable-edit"
+        }
+      ],
+      "proofs": [],
+      "candidates": [],
+      "testPath": "tests/e2e/cloud-canvas-interactions.spec.ts"
+    },
+    {
+      "id": "cloud:canvas:more",
+      "taskId": "T13",
+      "label": "更多项目操作",
+      "disposition": "cloud_counterpart_row_proof_pending",
+      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasPage.tsx",
+          "anchor": "cloud:canvas:more"
+        }
+      ],
+      "proofs": [],
+      "candidates": [],
+      "testPath": "tests/e2e/cloud-controls.spec.ts"
+    },
+    {
+      "id": "cloud:canvas:view-options",
+      "taskId": "T13",
+      "label": "视图选项",
+      "disposition": "cloud_counterpart_row_proof_pending",
+      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "sources": [
+        {
+          "file": "src/features/canvas/CanvasToolbar.tsx",
+          "anchor": "cloud:canvas:view-options"
+        }
+      ],
+      "proofs": [],
+      "candidates": [],
+      "testPath": "tests/e2e/cloud-controls.spec.ts"
+    },
+    {
+      "id": "cloud:canvas:import-assets",
+      "taskId": "T13",
+      "label": "导入素材",
+      "disposition": "cloud_counterpart_row_proof_pending",
+      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasPage.tsx",
+          "anchor": "cloud:canvas:import-assets"
+        }
+      ],
+      "proofs": [],
+      "candidates": [],
+      "testPath": "tests/e2e/cloud-controls.spec.ts"
     }
   ],
   "pages": [

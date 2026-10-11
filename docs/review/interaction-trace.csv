@@ -259,3 +259,7 @@ PG29,P21/P22/P23,应用当前节点,T22,本轮主线,存在来源nodeId与revisi
 PG30,P21/P22/P23,创建视频流程,T22,本轮主线,提示词可用且引用可执行,创建提示词、素材连线与视频配置节点；预览后一次性保存。,不自动点击生成；未支持参数阻止执行，不静默替换。,见增补数据契约,仅本地结构变化,AC-PG30,tests/e2e/prompt-canvas-commands.spec.ts,待实施,,Design 1.1
 PG31,P21/P22/P23,历史版本／恢复,T20,本轮主线,存在版本历史,查看或复制指定版本为新草稿。,不恢复旧Key；旧素材无权限时标明；不重跑任何模型。,见增补数据契约,本地修订,AC-PG31,tests/unit/prompt-drafts.test.ts,待实施,,Design 1.1
 PG32,P21/P22/P23,清空／离开／恢复草稿,T21,本轮主线,有未保存变更,清空需确认；离开先保存，保存失败提供导出；恢复保持输入输出一致。,不能沿用旧实现切换类型即清空结果的行为。,见增补数据契约,不发远端请求,AC-PG32,tests/e2e/prompt-workspace.spec.ts,待实施,,Design 1.1
+cloud:canvas:readable-edit,P03,放大编辑或查看,T13,云端UI修复,遵循现有禁用及输入保护,通过原业务处理函数执行,沿用原错误反馈,沿用原保存链路,本地测试无生产操作,cloud:canvas:readable-edit,tests/e2e/cloud-canvas-interactions.spec.ts,待五状态追踪验证,work/account-api-cloud/task3-ui-evidence.json,src/features/canvas/nodes/TextNode.tsx
+cloud:canvas:more,P03,更多项目操作,T13,云端UI修复,遵循现有禁用及输入保护,通过原业务处理函数执行,沿用原错误反馈,沿用原保存链路,本地测试无生产操作,cloud:canvas:more,tests/e2e/cloud-controls.spec.ts,待五状态追踪验证,work/account-api-cloud/task3-ui-evidence.json,src/features/workspace/CloudCanvasPage.tsx
+cloud:canvas:view-options,P03,视图选项,T13,云端UI修复,遵循现有禁用及输入保护,通过原业务处理函数执行,沿用原错误反馈,沿用原保存链路,本地测试无生产操作,cloud:canvas:view-options,tests/e2e/cloud-controls.spec.ts,待五状态追踪验证,work/account-api-cloud/task3-ui-evidence.json,src/features/canvas/CanvasToolbar.tsx
+cloud:canvas:import-assets,P03,导入素材,T13,云端UI修复,遵循现有禁用及输入保护,通过原业务处理函数执行,沿用原错误反馈,沿用原保存链路,本地测试无生产操作,cloud:canvas:import-assets,tests/e2e/cloud-controls.spec.ts,待五状态追踪验证,work/account-api-cloud/task3-ui-evidence.json,src/features/workspace/CloudCanvasPage.tsx
