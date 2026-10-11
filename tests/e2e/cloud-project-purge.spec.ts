@@ -185,6 +185,7 @@ test('replays the same purge key without a second receipt on unknown response',a
  await dialog.getByRole('button',{name:'确认永久删除',exact:true}).click();
  await expect(dialog.getByRole('alert')).toBeVisible();
  await dialog.getByRole('button',{name:'确认永久删除',exact:true}).click();
+ await expect(dialog).not.toBeVisible();
  await expect(page.getByRole('heading',{name:'未知重试',exact:true})).toHaveCount(0);
  const receipts=(await ctx.pool.query('SELECT id FROM workspace_project_purges')).rows;
  expect(receipts).toHaveLength(1);

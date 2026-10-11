@@ -1,0 +1,4 @@
+import {defineConfig} from '@playwright/test';
+import cloud from './playwright.account-api-ui.config';
+const guardOnly=process.env.STUDIO_DESKTOP_GUARD_ONLY==='1';
+export default defineConfig({...cloud,reporter:[['list']],outputDir:'work/mobile-adaptation/desktop-results',snapshotPathTemplate:'{testDir}/snapshots/mobile-desktop/{projectName}/{arg}{ext}',webServer:process.env.STUDIO_GUARD_EXTERNAL_SERVER==='1'?undefined:{command:'node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 4310 --strictPort',url:'http://127.0.0.1:4310',reuseExistingServer:false,env:{STUDIO_MOBILE_ENABLED:process.env.STUDIO_MOBILE_ENABLED??'0'}},projects:[...(!guardOnly?[{name:'desktop-existing',testMatch:cloud.testMatch,use:cloud.use}]:[]),...[720,1024,1280,1440,1920].map(width=>({name:'desktop-'+width,testMatch:'mobile-desktop-guard.spec.ts',use:{...cloud.use,viewport:{width,height:900}}}))]});
