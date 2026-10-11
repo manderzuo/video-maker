@@ -23595,15 +23595,34 @@
       "taskId": "T13",
       "label": "放大编辑或查看",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "reason": "本轮冻结代码实际浏览器正常交互证据已登记。其余五状态覆盖尚未登记齐全；不宣称全量追踪通过。",
       "sources": [
         {
           "file": "src/features/canvas/nodes/TextNode.tsx",
           "anchor": "cloud:canvas:readable-edit"
         }
       ],
-      "proofs": [],
-      "candidates": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::UI repair readable editing preserves original editor draft selection and composition",
+          "sourceHash": "6b106d8a1b0999ad897ff8f536a194a9895eb9a7396f588b46c9746fa97480a3",
+          "assertionLines": [
+            155,
+            157,
+            158,
+            162
+          ],
+          "facets": [
+            "normal"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "testId": "tests/e2e/cloud-canvas-interactions.spec.ts::UI repair readable editing preserves original editor draft selection and composition",
+          "status": "passed"
+        }
+      ],
       "testPath": "tests/e2e/cloud-canvas-interactions.spec.ts"
     },
     {
@@ -23611,15 +23630,32 @@
       "taskId": "T13",
       "label": "更多项目操作",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "reason": "本轮冻结代码实际浏览器正常交互证据已登记。其余五状态覆盖尚未登记齐全；不宣称全量追踪通过。",
       "sources": [
         {
           "file": "src/features/workspace/CloudCanvasPage.tsx",
           "anchor": "cloud:canvas:more"
         }
       ],
-      "proofs": [],
-      "candidates": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::UI repair toolbar disclosures support keyboard return and preserve task visibility",
+          "sourceHash": "1cbf031a6f1a73764d8d0a34da3c860e03faf618d6e7aee8657364b165dbc705",
+          "assertionLines": [
+            217,
+            220
+          ],
+          "facets": [
+            "normal"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::UI repair toolbar disclosures support keyboard return and preserve task visibility",
+          "status": "passed"
+        }
+      ],
       "testPath": "tests/e2e/cloud-controls.spec.ts"
     },
     {
@@ -23627,15 +23663,33 @@
       "taskId": "T13",
       "label": "视图选项",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "本轮新增入口。真实执行证据另存本轮报告；未宣称五种追踪状态全部通过。",
+      "reason": "本轮冻结代码实际浏览器正常交互证据已登记。其余五状态覆盖尚未登记齐全；不宣称全量追踪通过。",
       "sources": [
         {
           "file": "src/features/canvas/CanvasToolbar.tsx",
           "anchor": "cloud:canvas:view-options"
         }
       ],
-      "proofs": [],
-      "candidates": [],
+      "proofs": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::UI repair toolbar disclosures support keyboard return and preserve task visibility",
+          "sourceHash": "1cbf031a6f1a73764d8d0a34da3c860e03faf618d6e7aee8657364b165dbc705",
+          "assertionLines": [
+            218,
+            219,
+            220
+          ],
+          "facets": [
+            "normal"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "testId": "tests/e2e/cloud-controls.spec.ts::UI repair toolbar disclosures support keyboard return and preserve task visibility",
+          "status": "passed"
+        }
+      ],
       "testPath": "tests/e2e/cloud-controls.spec.ts"
     },
     {

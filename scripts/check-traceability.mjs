@@ -60,14 +60,14 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
  const mapFile=cloud?'docs/review/interaction-map-cloud.json':'docs/review/interaction-map.json';
  const defaultResults=cloud?'docs/review/logs/browser-executed-tests-cloud.json':'docs/review/logs/browser-executed-tests.json';
  const outFile=cloud?'docs/review/coverage-report-cloud.json':'docs/review/coverage-report.json';
- const read=file=>JSON.parse(fs.readFileSync(path.join(root,file),'utf8')),interactions=readTraceCsv('docs/review/interaction-trace.csv'),surfaces=readTraceCsv('docs/review/page-dialog-trace.csv'),pages=surfaces.filter(row=>row.id.startsWith('P')&&!row.id.startsWith('PGD')),dialogs=surfaces.filter(row=>!pages.includes(row));
+ const read=file=>JSON.parse(fs.readFileSync(path.join(root,file),'utf8')),interactions=readTraceCsv('docs/review/interaction-trace.csv').filter(row=>cloud||row.scope!=='云端UI修复'),surfaces=readTraceCsv('docs/review/page-dialog-trace.csv'),pages=surfaces.filter(row=>row.id.startsWith('P')&&!row.id.startsWith('PGD')),dialogs=surfaces.filter(row=>!pages.includes(row));
  let report;
  try{
   const map=read(mapFile),resultFiles=process.argv.filter(arg=>arg.endsWith('.json')&&arg!==mapFile).length?process.argv.filter(arg=>arg.endsWith('.json')):[defaultResults],results=resultFiles.flatMap(file=>read(file).tests??[]);
   const assertionCache=new Map(),hashCache=new Map();
   const currentHash=file=>{if(hashCache.has(file))return hashCache.get(file);let hash='';try{hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');}catch{/* 忽略 */}hashCache.set(file,hash);return hash;};
   report=evaluateTraceability({interactions,pages,dialogs,map,results,verifySourceHash:(proof,result)=>{if(typeof proof.sourceHash!=='string'||!proof.sourceHash)return false;return currentHash(result.file)===proof.sourceHash;},verifyAssertions:(proof,result)=>{if(!result.file?.startsWith('tests/e2e/'))return false;try{if(!assertionCache.has(result.file))assertionCache.set(result.file,new Set(observableAssertionLines(fs.readFileSync(path.join(root,result.file),'utf8'))));return proof.assertionLines.every(line=>assertionCache.get(result.file).has(line));}catch{return false;}},verifySource:entry=>Array.isArray(entry.sources)&&entry.sources.length>0&&entry.sources.every(binding=>{if(!binding.file?.startsWith('src/')||!binding.anchor)return false;try{return fs.readFileSync(path.join(root,binding.file),'utf8').includes(binding.anchor);}catch{return false;}})});
-  if(interactions.length!==264||pages.length!==23||dialogs.length!==30)report.errors.push({code:'canonical_count_mismatch'});
+  if(interactions.length!==(cloud?264:260)||pages.length!==23||dialogs.length!==30)report.errors.push({code:'canonical_count_mismatch'});
   for(const list of [interactions,pages,dialogs])if(new Set(list.map(row=>row.id)).size!==list.length)report.errors.push({code:'canonical_duplicate'});
   report.complete=report.errors.length===0;
  }catch(error){report={complete:false,errors:[{code:'coverage_input_unavailable',detail:error.message}],review:'待审查'};}
