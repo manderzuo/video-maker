@@ -2,7 +2,7 @@ import {z} from 'zod';
 import {id,revision,timestamp,localText,bindingSchema,tags,jsonSnapshotText} from './common.js';
 import {referenceTokenSchema} from './graph.js';
 import {billingStateSchema} from './run.js';
-export const requestedSpecSchema=z.strictObject({durationSeconds:z.number().positive().optional(),ratio:id.optional()});
+export const requestedSpecSchema=z.strictObject({durationSeconds:z.number().positive().optional(),ratio:id.optional(),resolution:id.optional()});
 export const lockedConstraintSchema=z.strictObject({id,field:id,originalValue:z.string(),acceptedValue:z.string().optional(),locked:z.boolean()});
 export type LockedConstraint=z.infer<typeof lockedConstraintSchema>;
 export const promptCompileInputSchema=z.strictObject({userRequest:localText,sceneId:id,requestedSpec:requestedSpecSchema,audioPlan:z.string(),lockedConstraints:z.array(lockedConstraintSchema),references:z.array(referenceTokenSchema)});

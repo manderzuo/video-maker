@@ -21,9 +21,9 @@ export type CloudCanvasState={status:'loading'|'saved'|'dirty'|'saving'|'failed'
 export function createCloudCanvasModel(projectId:string,client:CanvasApi,options:{autosaveMs?:number}={}){
  if(options.autosaveMs!==undefined&&(!Number.isFinite(options.autosaveMs)||options.autosaveMs<500))throw new Error('invalid_autosave_interval');
  let state:CloudCanvasState={status:'loading',history:{undoDepth:0,redoDepth:0},pending:[]},base:Graph|undefined,disposed=false,epoch=0;
- let timer:ReturnType<typeof setTimeout>|undefined,composing=false;
+ let timer:ReturnType<typeof setTimeout>|undefined,composing=false,viewportDragging=false;
  function cancelAutosave(){if(timer!==undefined){clearTimeout(timer);timer=undefined;}}
- function scheduleAutosave(){cancelAutosave();if(disposed||composing||options.autosaveMs===undefined||state.status!=='dirty'||attempt)return;timer=setTimeout(()=>{timer=undefined;void save();},options.autosaveMs);}
+ function scheduleAutosave(){cancelAutosave();if(disposed||composing||viewportDragging||options.autosaveMs===undefined||state.status!=='dirty'||attempt)return;timer=setTimeout(()=>{timer=undefined;void save();},options.autosaveMs);}
  let attempt:{key:string;revision:number;command:CloudCommand}|undefined;
  const listeners=new Set<()=>void>();const publish=(next:CloudCanvasState)=>{if(disposed)return;state=next;for(const cb of listeners)cb();};
  const busy=()=>state.status==='saving'||state.status==='loading';
@@ -54,7 +54,7 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi,options
  }
  function viewport(value:Viewport){if(disposed||busy()||!state.graph||attempt)return;publish({...state,status:'dirty',graph:{...state.graph,viewport:value},error:undefined});scheduleAutosave();}
  async function save(){
-  if(disposed||composing||busy()||!base||!state.graph||state.status==='saved')return;cancelAutosave();
+  if(disposed||composing||viewportDragging||busy()||!base||!state.graph||state.status==='saved')return;cancelAutosave();
   const changedViewport=JSON.stringify(state.graph.viewport)!==JSON.stringify(base.viewport);
   attempt??={key:crypto.randomUUID(),revision:base.revision,command:state.pending.length?{type:'operations',operations:structuredClone(state.pending),...(changedViewport?{viewport:structuredClone(state.graph.viewport)}:{})}:{type:'viewport',viewport:structuredClone(state.graph.viewport)}};
   const request=attempt,generation=epoch;publish({...state,status:'saving',error:undefined});
@@ -67,5 +67,5 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi,options
   if(disposed||busy()||state.status!=='saved'||!base)return;
   attempt={key:crypto.randomUUID(),revision:base.revision,command:{type}};publish({...state,status:'dirty'});await save();
  }
- return {getState:()=>state,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},load,refreshResults,stage,viewport,save,history,setComposing(value:boolean){composing=value;if(value)cancelAutosave();else scheduleAutosave();},dispose(){disposed=true;epoch++;cancelAutosave();listeners.clear();}};
+ return {getState:()=>state,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},load,refreshResults,stage,viewport,save,history,setViewportDragging(value:boolean){viewportDragging=value;if(value)cancelAutosave();else scheduleAutosave();},setComposing(value:boolean){composing=value;if(value)cancelAutosave();else scheduleAutosave();},dispose(){disposed=true;epoch++;cancelAutosave();listeners.clear();}};
 }

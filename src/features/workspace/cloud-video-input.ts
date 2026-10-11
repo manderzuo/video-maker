@@ -31,7 +31,7 @@ export function nextEdgeOrder(graph: Graph, targetId: string): number {
   return Math.max(-1, ...graph.edges.filter((e) => e.targetId === targetId).map((e) => e.order)) + 1;
 }
 
-export type FlowSpecRequest = {durationSeconds?: number; ratio?: string};
+export type FlowSpecRequest = {durationSeconds?: number; ratio?: string; resolution?: string};
 export type FlowCapability = {model: string; videoSpecs: VideoSpec[]};
 export type FlowSpecResolution =
   | {kind: 'ready'; spec: VideoSpec; warning?: string}
@@ -60,7 +60,8 @@ export function resolveFlowSpec(args: {
     const wanted = wantedOf(requested, suggested);
     const mismatch =
       (wanted.durationSeconds !== undefined && wanted.durationSeconds !== selected.durationSeconds) ||
-      (wanted.ratio !== undefined && wanted.ratio !== selected.ratio);
+      (wanted.ratio !== undefined && wanted.ratio !== selected.ratio) ||
+      (wanted.resolution !== undefined && wanted.resolution !== selected.resolution);
     return {
       kind: 'ready',
       spec: selected,
@@ -68,12 +69,13 @@ export function resolveFlowSpec(args: {
     };
   }
   const wanted = wantedOf(requested, suggested);
-  if (wanted.durationSeconds === undefined && wanted.ratio === undefined) {
+  if (wanted.durationSeconds === undefined && wanted.ratio === undefined && wanted.resolution === undefined) {
     return {kind: 'need_selection', reason: '该写作输入未指定时长与画幅，请明确选择一个已核验规格。', options, wanted};
   }
   const matches = options.filter((s) =>
     (wanted.durationSeconds === undefined || s.durationSeconds === wanted.durationSeconds) &&
-    (wanted.ratio === undefined || s.ratio === wanted.ratio),
+    (wanted.ratio === undefined || s.ratio === wanted.ratio) &&
+    (wanted.resolution === undefined || s.resolution === wanted.resolution),
   );
   if (matches.length === 1) return {kind: 'ready', spec: matches[0]};
   if (matches.length > 1) {
@@ -88,6 +90,7 @@ function wantedOf(requested: FlowSpecRequest, suggested: FlowSpecRequest): FlowS
       ? {durationSeconds: requested.durationSeconds ?? suggested.durationSeconds}
       : {},
     ...(requested.ratio ?? suggested.ratio) !== undefined ? {ratio: requested.ratio ?? suggested.ratio} : {},
+    ...(requested.resolution ?? suggested.resolution) !== undefined ? {resolution: requested.resolution ?? suggested.resolution} : {},
   };
 }
 
@@ -95,6 +98,7 @@ function describeWanted(wanted: FlowSpecRequest): string {
   const parts: string[] = [];
   if (wanted.durationSeconds !== undefined) parts.push(`${wanted.durationSeconds}秒`);
   if (wanted.ratio !== undefined) parts.push(wanted.ratio);
+  if (wanted.resolution !== undefined) parts.push(wanted.resolution);
   return parts.length ? `（${parts.join(' / ')}）` : '（未指定）';
 }
 

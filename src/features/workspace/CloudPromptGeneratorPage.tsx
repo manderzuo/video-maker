@@ -15,7 +15,7 @@ import {cloudTaskStatus} from './CloudTasksPage';
 import {CloudPromptInputSnapshot} from './CloudPromptInputSnapshot';
 export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,initialAI=false,onClose,onDirtyChange,onCanvasApplied,canApplyCanvas=true,onChoosePrompt,choosePromptLabel="使用此正文修改视频"}:{choosePromptLabel?:string;onChoosePrompt?:(prompt:string)=>void;canApplyCanvas?:boolean;client:WorkspaceClient;trashed?:boolean;initialDraftId?:string;initialAI?:boolean;onClose?:()=>void;onDirtyChange?:(dirty:boolean)=>void;onCanvasApplied?:()=>void}){
  const [drafts,setDrafts]=useState<PromptDraft[]>([]),[draft,setDraft]=useState<PromptDraft>(),[saved,setSaved]=useState<PromptDraft>(),[assets,setAssets]=useState<Asset[]>([]);
- const [busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState(''),[snapshot,setSnapshot]=useState<PromptDraft>(),[discard,setDiscard]=useState(false),[draftSelectEpoch,setDraftSelectEpoch]=useState(0);
+ const [busy,setBusy]=useState(false),[inputSaving,setInputSaving]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState(''),[snapshot,setSnapshot]=useState<PromptDraft>(),[discard,setDiscard]=useState(false),[draftSelectEpoch,setDraftSelectEpoch]=useState(0);
  const [selectedId,setSelectedId]=useState<string>(),[centerText,setCenterText]=useState(''),[versionInput,setVersionInput]=useState<PromptDraft>(),[inputFailed,setInputFailed]=useState(false),[inspector,setInspector]=useState(true),[library,setLibrary]=useState<{title:string;source:string}>(),[libraryKey,setLibraryKey]=useState(''),[applying,setApplying]=useState<PromptResultVersion>();
  const [preview,setPreview]=useState<CloudPromptPreview>(),[fee,setFee]=useState(false),[unknown,setUnknown]=useState(false),[task,setTask]=useState<CloudTask>();
  const alive=useRef(true),composing=useRef(false),creation=useRef<string|undefined>(undefined),touched=useRef(false),edited=useRef(false),wanted=useRef(initialDraftId??(typeof window==='undefined'?undefined:new URLSearchParams(window.location.search).get('draft')??undefined));
@@ -24,10 +24,12 @@ export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,in
  // 加载窗口内空正文误阻断切换与整理。
  const versions=draft?.resultVersions??[],selected=versions.find(version=>version.id===selectedId)??versions[versions.length-1],manualDirty=edited.current&&!!selected&&centerText!==selected.finalPrompt;
  useCloudDraftGuard(dirty||manualDirty,()=>setError('写作草稿有未保存输入，请先保存或明确放弃后再离开。'));
- const accept=(value:PromptDraft)=>{if(alive.current){setDraft(value);setSaved(value);setDrafts(rows=>[value,...rows.filter(row=>row.id!==value.id)]);}};
+ const latestDraft=useRef(draft),latestSaved=useRef(saved),inputSave=useRef<Promise<PromptDraft>|undefined>(undefined);
+ latestDraft.current=draft;latestSaved.current=saved;
+ const accept=(value:PromptDraft)=>{if(alive.current){latestDraft.current=value;latestSaved.current=value;setDraft(value);setSaved(value);setDrafts(rows=>[value,...rows.filter(row=>row.id!==value.id)]);}};
  const pickDraft=(rows:PromptDraft[])=>{if(!wanted.current)return rows[0];const target=rows.find(row=>row.id===wanted.current);if(!target){setError('指定的写作草稿不存在或不属于当前账号；请从草稿列表重新选择，本页不会自动改用其他草稿。');return undefined;}return target;};
  const selectNewest=(value:PromptDraft)=>{const latest=value.resultVersions[value.resultVersions.length-1];if(latest){setSelectedId(latest.id);edited.current=false;setCenterText(latest.finalPrompt);}};
- async function reload(){const rows=await client.listDrafts(trashed);if(alive.current){setDrafts(rows);const current=rows.find(row=>row.id===draft?.id)??pickDraft(rows),latest=current?.resultVersions[current.resultVersions.length-1];setDraft(current);setSaved(current);setSelectedId(latest?.id);edited.current=false;setCenterText(latest?.finalPrompt??'');}}
+ async function reload(){if(inputSave.current){try{await inputSave.current;}catch{/* Reload the authoritative draft after a failed save too. */}}const rows=await client.listDrafts(trashed);if(alive.current){setDrafts(rows);const current=rows.find(row=>row.id===draft?.id)??pickDraft(rows),latest=current?.resultVersions[current.resultVersions.length-1];setDraft(current);setSaved(current);setSelectedId(latest?.id);edited.current=false;setCenterText(latest?.finalPrompt??'');}}
  useEffect(()=>{let active=true;alive.current=true;void Promise.all([client.listDrafts(trashed),client.listAssets()]).then(([rows,media])=>{if(!active)return;setDrafts(rows);setAssets(media);if(touched.current)return;const current=pickDraft(rows);setDraft(current);setSaved(current);}).catch(e=>{if(active)setError(workspaceMessage(e));});return()=>{active=false;alive.current=false;};},[client,trashed]);
  useEffect(()=>{let active=true;setTask(undefined);if(draft&&!trashed)void client.listTasks().then(rows=>{if(active)setTask(rows.filter((row):row is CloudTask=>row.kind==='prompt-optimize').find(row=>row.draftId===draft.id&&!row.historical));}).catch(e=>{if(active)setError(workspaceMessage(e));});return()=>{active=false;};},[client,draft?.id,trashed]);
  useEffect(()=>{if(!task||!['persisted','sending','response_received'].includes(task.executionState))return;let active=true,reading=false;const timer=setInterval(()=>{if(reading)return;reading=true;void client.readTask(task.id).then(current=>{if(active&&current.kind==='prompt-optimize')setTask(current);}).catch(e=>{if(active)setError(workspaceMessage(e));}).finally(()=>{reading=false;});},1000);return()=>{active=false;clearInterval(timer);};},[client,task?.id,task?.executionState]);
@@ -37,10 +39,23 @@ export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,in
  async function action(work:()=>Promise<void>){if(busy||composing.current)return;setBusy(true);setError('');setMessage('');try{await work();}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{if(alive.current)setBusy(false);}}
  async function create(){if(dirty||manualDirty){setError('请先保存当前草稿与正文修改，再新建草稿。');return;}await action(async()=>{creation.current??=crypto.randomUUID();const value=await client.createDraft({type:'video',userRequest:'',sceneId:'text',requestedSpec:{},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1'},creation.current);creation.current=undefined;accept(value);touched.current=true;setMessage('草稿已保存');});}
  async function persistInput(){
-  if(!draft||!saved)throw Error('写作输入尚未加载。');if(!dirty)return draft;
-  const {id:_,revision:__,resultVersions:___,...fields}=draft;void _;void __;void ___;
-  const value=await client.patchDraft(draft.id,saved.revision,fields);accept(value);return value;
+  // Foreground actions wait for the automatic save, then save any newer input.
+  if(inputSave.current)await inputSave.current;
+  const current=latestDraft.current,base=latestSaved.current;
+  if(!current||!base)throw Error('写作输入尚未加载。');if(JSON.stringify(current)===JSON.stringify(base))return current;
+  const {id:_,revision:__,resultVersions:___,...fields}=current;void _;void __;void ___;
+  const pending=client.patchDraft(current.id,base.revision,fields).then(value=>{
+   if(alive.current&&latestDraft.current?.id===value.id){
+    const latest=latestDraft.current;
+    const next=JSON.stringify(latest)===JSON.stringify(current)?value:{...latest,revision:value.revision,resultVersions:value.resultVersions};
+    latestDraft.current=next;latestSaved.current=value;setDraft(next);setSaved(value);setDrafts(rows=>[value,...rows.filter(row=>row.id!==value.id)]);
+   }
+   return value;
+  });
+  inputSave.current=pending;
+  try{return await pending;}finally{if(inputSave.current===pending)inputSave.current=undefined;}
  }
+ async function autoSave(){setInputSaving(true);setError('');try{await persistInput();}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{if(alive.current)setInputSaving(false);}}
  async function save(){await action(async()=>{await persistInput();setMessage('草稿已保存');});}
  async function persistResult(){
   if(!draft||!saved||!selected)throw Error('写作结果尚未加载。');
@@ -57,7 +72,7 @@ export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,in
  async function prepareAI(){if(!draft)return;await action(async()=>{const current=await persistInput();const {configs}=await client.modelConfigs(),config=configs.find(value=>value.channel==='text'&&value.hasKey);if(!config)throw new ApiError(422,'MODEL_CONFIG_REQUIRED');const value=await client.optimizationPreview(current.id,current.revision,config.revision,current.references.map(reference=>reference.alias));if(alive.current){setPreview(value);setFee(false);setUnknown(false);}});}
  const preparedAI=useRef(false),autoAttempt=useRef('');
  // Input saving is serialized with actions; failed saves retain the edited draft.
- useEffect(()=>{if(!dirty||busy||composing.current||!draft||!saved)return;const fingerprint=JSON.stringify(draft);if(autoAttempt.current===fingerprint)return;const timer=setTimeout(()=>{if(composing.current)return;autoAttempt.current=fingerprint;void save();},700);return()=>clearTimeout(timer);},[dirty,busy,draft,saved]);
+ useEffect(()=>{if(!dirty||busy||inputSaving||composing.current||!draft||!saved)return;const fingerprint=JSON.stringify(draft);if(autoAttempt.current===fingerprint)return;const timer=setTimeout(()=>{if(composing.current)return;autoAttempt.current=fingerprint;void autoSave();},700);return()=>clearTimeout(timer);},[dirty,busy,inputSaving,draft,saved]);
  useEffect(()=>{onDirtyChange?.(dirty||manualDirty);},[dirty,manualDirty,onDirtyChange]);
  useEffect(()=>{if(initialAI&&draft&&!dirty&&!preparedAI.current){preparedAI.current=true;void prepareAI();}},[initialAI,draft?.id,dirty]);
  async function confirmAI(){if(!preview||!fee||preview.priorUnknownRunIds.length&&!unknown)return;await action(async()=>{const value=await client.optimizeDraft(preview.draftId,preview.id,unknown);if(alive.current){setTask(value);setPreview(undefined);setMessage('任务已保存，可在任务中心继续查看');}});}
@@ -95,7 +110,7 @@ export function CloudPromptGeneratorPage({client,trashed=false,initialDraftId,in
 </section>
 <aside className={'cloud-prompt-pane pane-inspector'+(inspector?'':' pane-collapsed')} aria-label="写作检查">
 <div className="actions"><Button data-interaction-id="cloud:draft:inspector-toggle" onClick={()=>setInspector(value=>!value)}>{inspector?'收起检查':'展开检查'}</Button><Button data-interaction-id="cloud:draft:input-snapshot" disabled={busy||!selected} onClick={()=>action(async()=>{if(!draft||!selected)return;const input=await client.draftRevision(draft.id,selected.sourceRevision);if(alive.current)setSnapshot(input);})}>查看输入快照</Button></div>
-{selected?<><h3>源参数对照</h3><p>结果输入修订 {selected.sourceRevision} · 当前草稿修订 {draft.revision} · 规则 {versionInput?.ruleVersion??(inputFailed?'读取失败':'读取中')}</p>{versionInput?<CloudPromptInputSnapshot input={versionInput}/>:<p data-interaction-id="cloud:draft:input-state">{inputFailed?'无法读取该结果版本对应的输入快照；不使用当前草稿替代。':'正在读取该结果版本对应的输入快照…'}</p>}<p>结果建议规格：{selected.suggestedSpec.durationSeconds===undefined?'未指定':selected.suggestedSpec.durationSeconds+' 秒'} · {selected.suggestedSpec.ratio??'未指定'}</p></>:<p>尚无结果版本；先规则整理或 AI 优化。</p>}
+{selected?<><h3>源参数对照</h3><p>结果输入修订 {selected.sourceRevision} · 当前草稿修订 {draft.revision} · 规则 {versionInput?.ruleVersion??(inputFailed?'读取失败':'读取中')}</p>{versionInput?<CloudPromptInputSnapshot input={versionInput}/>:<p data-interaction-id="cloud:draft:input-state">{inputFailed?'无法读取该结果版本对应的输入快照；不使用当前草稿替代。':'正在读取该结果版本对应的输入快照…'}</p>}<p>结果建议规格：{selected.suggestedSpec.durationSeconds===undefined?'未指定':selected.suggestedSpec.durationSeconds+' 秒'} · {selected.suggestedSpec.ratio??'未指定'} · {selected.suggestedSpec.resolution??'未指定清晰度'}</p></>:<p>尚无结果版本；先规则整理或 AI 优化。</p>}
    <p>规则整理根据当前输入编写候选文字；结果不会自动应用到画布或执行视频。</p><h2>结果历史</h2>{draft.resultVersions.length?[...draft.resultVersions].reverse().map(version=><article key={version.id} className="card">
 <label className="cloud-result-version"><input type="radio" name={'result-version-'+draft.id} value={version.id} data-interaction-id="cloud:draft:version" checked={selected?.id===version.id} onChange={()=>{setSelectedId(version.id);edited.current=false;setCenterText(version.finalPrompt);}} disabled={manualDirty}/>选择此结果版本{manualDirty?'（先保存或放弃正文修改后可切换）':''}</label><h3>{version.origin==='local'?'规则整理':version.origin==='ai'?'AI 优化':'人工修订'} · 输入修订 {version.sourceRevision}</h3><p>{version.validationState==='valid'?'规则检查通过':'结果待检查'}</p><pre className="ui-prose" aria-label="历史版本正文">{version.finalPrompt}</pre>{version.warnings.map((warning,index)=><p key={index}>{warning}</p>)}</article>):<p>尚无结果版本</p>}
   </aside></div></>:<p>新建草稿后开始写作。</p>}

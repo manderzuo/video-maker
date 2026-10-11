@@ -15,6 +15,14 @@
 .account-shell .canvas-workspace .node-body input{min-height:0}
 .account-shell .cloud-canvas-page .canvas-node .node-body{padding:48px 16px 16px;overflow:auto;overscroll-behavior:contain}
 .account-shell .cloud-canvas-page .node-video-generation .node-body{padding-left:96px}
+.account-shell .cloud-canvas-page .node-text .node-body{display:flex;flex-direction:column;gap:8px}
+.account-shell .cloud-canvas-page .node-text .node-body>label{flex-shrink:0}
+.account-shell .cloud-canvas-page .node-text .text-node-editor{display:flex;flex-direction:column;flex:1 0 180px;min-height:180px}
+.account-shell .cloud-canvas-page .node-text .text-node-editor textarea{flex:1 0 100px;height:auto;min-height:100px;resize:none}
+.account-shell .cloud-canvas-page .node-text .text-node-editor>:not(textarea){flex-shrink:0}
+.canvas-minimap{touch-action:none;cursor:crosshair}
+.canvas-minimap .minimap-viewport{fill:transparent;stroke:var(--accent);stroke-width:1.5;vector-effect:non-scaling-stroke;cursor:grab}
+.canvas-minimap[data-dragging=true],.canvas-minimap[data-dragging=true] .minimap-viewport{cursor:grabbing}
 .account-shell .canvas-workspace .node-actions select{min-height:0}
 .account-shell .cloud-canvas-page :is(.node-asset,.node-result) .node-body{display:flex;flex-direction:column;gap:8px}
 .account-shell .cloud-canvas-page :is(.node-asset,.node-result) .node-body>label,.account-shell .cloud-canvas-page :is(.node-asset,.node-result) .node-body>.node-actions{flex-shrink:0}

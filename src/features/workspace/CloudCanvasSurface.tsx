@@ -26,6 +26,7 @@ import {GroupNode} from '../canvas/nodes/GroupNode';
 import type {NodeMenuHandle} from '../canvas/NodeMenu';
 import {localText} from '../../domain/common';
 import {sessionStore} from '../../infrastructure/api/session';
+import {CanvasMinimap} from './CanvasMinimap';
 
 type Gesture =
   | {type: 'pan' | 'box'; startX: number; startY: number; lastX: number; lastY: number; view: Viewport; graph: Graph; shift: boolean}
@@ -49,7 +50,7 @@ export function CloudCanvasSurface({
   minimap,
   stageOps,
   commitOps,
-  onViewport,onBeforeReadableEdit,
+  onViewport,onBeforeReadableEdit,onViewportGesture,
   onError,
   onSave,
   onSaveNodePrompt,
@@ -57,7 +58,6 @@ export function CloudCanvasSurface({
   onUndo,
   onRedo,
   onFiles,
-  fit,
   nodeMenu,onCreateFlow,onGenerate,onTextValidity,onResultAction,
 }: {
   client: WorkspaceClient;
@@ -78,6 +78,7 @@ export function CloudCanvasSurface({
   stageOps: (operations: GraphOperation[]) => boolean;
   commitOps: (operations: GraphOperation[]) => Promise<boolean>;
   onViewport: (viewport: Viewport) => void;
+  onViewportGesture:(active:boolean)=>void;
   onBeforeReadableEdit?:()=>void;
   onError: (message: string) => void;
   onSave: () => void;
@@ -522,12 +523,7 @@ export function CloudCanvasSurface({
       </div>
       <ConnectionMenu connections={connections} />
       {minimap ? (
-        <svg className="canvas-minimap" aria-label="画布小地图" viewBox="0 0 2400 1600">
-          {graph.nodes.map((n) => {
-            const pt = worldPosition(n, graph);
-            return <rect key={n.id} x={pt.x} y={pt.y} width={nodeSize(n, graph).width} height={nodeSize(n, graph).height} onClick={() => fit([n.id])} />;
-          })}
-        </svg>
+        <CanvasMinimap graph={graph} stageRef={stageRef} disabled={viewportBusy} onViewport={onViewport} onGesture={onViewportGesture}/>
       ) : null}
       {box ? (
         <div className="selection-box" style={{left: box.left, top: box.top, width: box.width, height: box.height}} aria-hidden="true" />

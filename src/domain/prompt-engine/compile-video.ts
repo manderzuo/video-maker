@@ -8,7 +8,7 @@ export function compileVideoPrompt(raw:PromptCompileInput):PromptCompileResult{
  if(!input.userRequest.trim())throw new Error('prompt_input_empty');
  const scene=VIDEO_SCENES.find(item=>item.id===input.sceneId);
  if(!scene)throw new Error('prompt_scene_unknown');
- const {durationSeconds,ratio}=input.requestedSpec;
+ const {durationSeconds,ratio,resolution}=input.requestedSpec;
  const warnings=['规则整理草稿须人工检查；模型、时长、画幅与参考上限须由 Core 契约核验。'];
  if(!durationSeconds||!ratio)warnings.push('时长或画幅未指定；本地写作不证明 Core 可执行。');
  const references=input.references.map(ref=>{
@@ -20,7 +20,7 @@ export function compileVideoPrompt(raw:PromptCompileInput):PromptCompileResult{
   `视频任务：${input.userRequest}`,
   `创作方向：${scene.title}。${scene.guidance}`,
   '约束优先级：用户明确要求及已确认约束优先；下列写作建议仅在不冲突时适用。不得增改品牌汉字、人物数量或对白。',
-  `目标规格：时长 ${durationSeconds===undefined?'未指定':durationSeconds+' 秒'}；画幅 ${ratio??'未指定'}。这是创作目标，尚非执行许可。`,
+  `目标规格：时长 ${durationSeconds===undefined?'未指定':durationSeconds+' 秒'}；画幅 ${ratio??'未指定'}${resolution?'；清晰度 '+resolution:''}。这是创作目标，尚非执行许可。`,
   '主体与场景：明确主体身份、外观、位置、环境、时间、空间层级和情绪；只保留与任务有关的元素。',
   '动作与叙事：按先后顺序写清动作起点、过程、结果和主体互动。',
   '镜头与节奏：描述景别、视角、运镜方向、速度和焦点；只有用户允许时才安排切镜或转场。',

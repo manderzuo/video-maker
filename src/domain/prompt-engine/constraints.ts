@@ -1,11 +1,36 @@
 import {promptCompileInputSchema,type PromptCompileInput} from '../prompt.js';
 export type ConstraintResolution={conflicts:{field:string;originalValue:string;formValue:string}[];readyForAI:boolean;resolved:PromptCompileInput};
+// Revision/continuation envelopes retain historical context for the model, but
+// only the current request defines the output specification.
+function currentRequest(text:string):string{
+ try{
+  const value:unknown=JSON.parse(text);
+  if(!value||typeof value!=='object'||Array.isArray(value))return text;
+  const request=value as Record<string,unknown>;
+  if(request.任务==='针对原视频修正错误'&&typeof request.当前完整提示词==='string')return request.当前完整提示词+'\n'+(typeof request.本次修正要求==='string'?request.本次修正要求:'');
+  if(request.任务==='尾帧续写'&&typeof request.续写要求==='string')return request.续写要求;
+ }catch{/* Ordinary prose is not an envelope. */}
+ return text;
+}
+function durationEvidence(text:string):{values:string[];timelineEnd:number}{
+ const intervals:RegExpMatchArray[]=[];
+ for(const match of text.matchAll(/(\d+(?:\.\d+)?)\s*(?:秒\s*)?(?:[-—–~～]|至|到)\s*(\d+(?:\.\d+)?)\s*秒/g)){
+  const prefix=text.slice(0,match.index),sentence=prefix.slice(Math.max(prefix.lastIndexOf('。'),prefix.lastIndexOf('\n'))+1);
+  const previous=intervals.at(-1);
+  const totalRange=/(?:总时长|时长|持续|总共|片长|视频长度|总长|时长目标)\s*[:：为约]?\s*$/.test(sentence);
+  const timeline=/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?/.test(sentence)||/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?\s*$/.test(prefix)||Number(match[1])===0||previous&&Number(previous[2])===Number(match[1]);
+  if(Number(match[2])>Number(match[1])&&!totalRange&&timeline)intervals.push(match);
+ }
+ return {values:[...new Set([...text.matchAll(/(\d+(?:\.\d+)?)\s*秒/g)].filter(match=>!intervals.some(interval=>match.index>=interval.index!&&match.index<interval.index!+interval[0].length)).map(match=>String(Number(match[1]))))],timelineEnd:Math.max(0,...intervals.map(interval=>Number(interval[2])))};
+}
 export function resolveConstraints(raw:PromptCompileInput):ConstraintResolution{
  const input=promptCompileInputSchema.parse(raw);const resolved=structuredClone(input);
+ const request=currentRequest(input.userRequest);
+ const durations=durationEvidence(request);
  const conflicts:ConstraintResolution['conflicts']=[];
  const candidates:{field:'durationSeconds'|'ratio';values:string[]}[]=[
-  {field:'durationSeconds',values:[...new Set([...input.userRequest.matchAll(/(\d+(?:\.\d+)?)\s*秒/g)].map(m=>String(Number(m[1]))))]},
-  {field:'ratio',values:[...new Set([...input.userRequest.matchAll(/(\d+(?:\.\d+)?)\s*[:：]\s*(\d+(?:\.\d+)?)/g)].map(m=>`${m[1]}:${m[2]}`))]},
+  {field:'durationSeconds',values:durations.values},
+  {field:'ratio',values:[...new Set([...request.matchAll(/(\d+(?:\.\d+)?)\s*[:：]\s*(\d+(?:\.\d+)?)/g)].map(m=>`${m[1]}:${m[2]}`))]},
  ];
  for(const {field,values} of candidates){
   const locks=input.lockedConstraints.filter(c=>c.locked&&c.field===field);
@@ -24,6 +49,7 @@ export function resolveConstraints(raw:PromptCompileInput):ConstraintResolution{
   if(form!==undefined&&String(form)!==all[0])conflicts.push({field,originalValue:all[0],formValue:String(form)});
   else if(form===undefined){if(field==='durationSeconds'){const n=Number(all[0]);if(!Number.isFinite(n)||n<=0)throw new Error('prompt_resolution_invalid');resolved.requestedSpec.durationSeconds=n;}else resolved.requestedSpec.ratio=all[0];}
  }
+ if(resolved.requestedSpec.durationSeconds!==undefined&&durations.timelineEnd>resolved.requestedSpec.durationSeconds&&!conflicts.some(conflict=>conflict.field==='durationSeconds'))conflicts.push({field:'durationSeconds',originalValue:`时间轴终点 ${durations.timelineEnd} 秒`,formValue:String(resolved.requestedSpec.durationSeconds)});
  // Deliberately limited, explainable detection; this is not semantic understanding.
  const literalFields:Record<string,string[]>={
   brand:[...input.userRequest.matchAll(/品牌\s*[:：为]\s*[“"「]?([^，,。\n”"」]+)/g)].map(m=>m[1].trim()),

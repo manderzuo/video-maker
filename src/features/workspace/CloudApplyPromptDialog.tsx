@@ -17,13 +17,14 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
  const [nodeId,setNodeId]=useState(''),[videoNodeId,setVideoNodeId]=useState(''),[replaceEdgeId,setReplaceEdgeId]=useState(''),[flowTitle,setFlowTitle]=useState('视频流程'),[mode,setMode]=useState<TargetMode>(initialMode??'text');
  const [cap,setCap]=useState<FlowCapability|null>(null),[capLoading,setCapLoading]=useState(false),[capError,setCapError]=useState(''),[selectedSpec,setSelectedSpec]=useState('');
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[conflict,setConflict]=useState(false);
+ const [acceptResolution,setAcceptResolution]=useState(true);
  const alive=useRef(true),generation=useRef(0),frozen=useRef<{target:string;nodeId?:string;revision:number;key:string;command:Parameters<WorkspaceClient['command']>[2]}|undefined>(undefined);
  useEffect(()=>{let active=true;alive.current=true;void Promise.all([client.listProjects(),client.draftRevision(draft.id,version.sourceRevision)]).then(([rows,snapshot])=>{if(active){setProjects(rows);setTarget(rows[0]?.id??'');setInput(snapshot);}}).catch(e=>{if(active)setError(workspaceMessage(e));});return()=>{active=false;alive.current=false;};},[client,draft.id,version.sourceRevision]);
  async function readTarget(id:string){const current=++generation.current;setGraph(undefined);setNodeId('');setVideoNodeId('');setReplaceEdgeId('');setError('');try{const workspace=await client.readWorkspace(id);if(alive.current&&current===generation.current){setGraph(workspace.graph);setConflict(false);frozen.current=undefined;}}catch(e){if(alive.current&&current===generation.current)setError(workspaceMessage(e));}}
  useEffect(()=>{if(target)void readTarget(target);},[target]); // The request is guarded against late responses when the target changes.
  async function loadCapability(){setCapLoading(true);setCapError('');try{const value=await client.videoCapability();if(alive.current){setCap({model:value.model,videoSpecs:value.videoSpecs});setSelectedSpec('');}}catch(e){if(alive.current){setCap(null);setCapError(workspaceMessage(e));}}finally{if(alive.current)setCapLoading(false);}}
- useEffect(()=>{if(mode==='flow'&&!cap&&!capLoading&&!capError)void loadCapability();},[mode]);
- useEffect(()=>{frozen.current=undefined;},[mode,nodeId,videoNodeId,replaceEdgeId,flowTitle,selectedSpec]);
+ useEffect(()=>{if((mode==='flow'||mode==='video'&&input?.requestedSpec.resolution)&&!cap&&!capLoading&&!capError)void loadCapability();},[mode,input?.requestedSpec.resolution]);
+ useEffect(()=>{frozen.current=undefined;},[mode,nodeId,videoNodeId,replaceEdgeId,flowTitle,selectedSpec,acceptResolution]);
  function textData():Extract<CanvasNode,{type:'text'}>['data']{
   return {kind:'text',text:version.finalPrompt,referenceTokens:structuredClone(input!.references),promptGenerationSource:{draftId:draft.id,resultVersionId:version.id,sourceRevision:version.sourceRevision,origin:version.origin,ruleVersion:input!.ruleVersion}};
  }
@@ -45,6 +46,11 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
    const textId=crypto.randomUUID();
    const node:CanvasNode={id:textId,type:'text',title:[...(draft.userRequest.trim()||'写作结果')].slice(0,60).join('')||'文字',x:video.x-380,y:video.y,locked:false,data:textData()};
    const ops:GraphOperation[]=[op('add_node',{node})];
+   if(acceptResolution&&input.requestedSpec.resolution){
+    const candidate={...video.data.draft,resolution:input.requestedSpec.resolution};
+    if(!cap?.videoSpecs.some(spec=>spec.modelId===candidate.modelId&&spec.durationSeconds===candidate.durationSeconds&&spec.ratio===candidate.ratio&&spec.resolution===candidate.resolution))throw new Error('目标视频的清晰度组合尚未核验，请重新选择或保留当前清晰度。');
+    ops.push(op('update_node',{nodeId:video.id,patch:{data:{...video.data,draft:candidate,stale:true}}}));
+   }
    if(replaceEdgeId){
     const old=graph.edges.find(e=>e.id===replaceEdgeId&&e.targetId===video.id);
     if(!old) throw new Error('待替换的输入已变化，请重新加载。');
@@ -82,7 +88,9 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
  const videoSources=graph&&videoNodeId?inspectVideoTextInputs(graph,videoNodeId):null;
  const flowResolution=input?resolveFlowSpec({requested:input.requestedSpec??{},suggested:version.suggestedSpec??{},capability:cap??undefined,selected:selectedSpec?(JSON.parse(selectedSpec) as VideoSpec):undefined}):null;
  const flowReady=mode!=='flow'||(flowResolution?.kind==='ready');
- return <Dialog open title="应用写作结果到画布" dismissible={!busy} onClose={onClose} footer={<><Button data-interaction-id="cloud:draft:apply-cancel" disabled={busy} onClick={onClose}>取消</Button><Button data-interaction-id="cloud:draft:apply-confirm" variant="primary" busy={busy} disabled={!graph||!input||!target||conflict||(mode==='video'&&!videoNodeId)||!flowReady} onClick={apply}>确认应用到云端画布</Button></>}>
+ const targetVideo=graph?.nodes.find(node=>node.id===videoNodeId),requestedResolution=input?.requestedSpec.resolution;
+ const resolutionReady=mode!=='video'||!acceptResolution||!requestedResolution||targetVideo?.type==='video-generation'&&!!cap?.videoSpecs.some(spec=>spec.modelId===targetVideo.data.draft.modelId&&spec.durationSeconds===targetVideo.data.draft.durationSeconds&&spec.ratio===targetVideo.data.draft.ratio&&spec.resolution===requestedResolution);
+ return <Dialog open title="应用写作结果到画布" dismissible={!busy} onClose={onClose} footer={<><Button data-interaction-id="cloud:draft:apply-cancel" disabled={busy} onClick={onClose}>取消</Button><Button data-interaction-id="cloud:draft:apply-confirm" variant="primary" busy={busy} disabled={!graph||!input||!target||conflict||(mode==='video'&&!videoNodeId)||!flowReady||!resolutionReady} onClick={apply}>确认应用到云端画布</Button></>}>
   <p>将保存此结果的文字和输入来源。画布中的生成节点不会自动运行。编辑提示词、应用到画布、连接节点、创建草稿均不触发收费生成。</p>
   <fieldset disabled={busy||!!frozen.current}><legend>应用目标</legend>
    <label><input type="radio" data-interaction-id="cloud:draft:apply-mode-text" checked={mode==='text'} onChange={()=>setMode('text')}/>插入文字</label>
@@ -92,6 +100,7 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
   <label>目标项目<select aria-label="目标项目" data-interaction-id="cloud:draft:apply-project" disabled={busy||!!frozen.current} value={target} onChange={event=>setTarget(event.target.value)}><option value="">请选择</option>{projects.map(project=><option key={project.id} value={project.id}>{project.title}</option>)}</select></label>
   {mode==='text'&&<label>目标文字节点<select aria-label="目标文字节点" data-interaction-id="cloud:draft:apply-node" disabled={busy||!!frozen.current||!graph} value={nodeId} onChange={event=>setNodeId(event.target.value)}><option value="">插入新的文字节点</option>{graph?.nodes.filter(node=>node.type==='text'&&!node.locked).map(node=><option key={node.id} value={node.id}>{node.title}</option>)}</select></label>}
   {mode==='video'&&<>
+   {requestedResolution?<><label><input type="checkbox" data-interaction-id="writing:apply-resolution" checked={acceptResolution} disabled={busy||!!frozen.current} onChange={event=>setAcceptResolution(event.target.checked)}/>同时采用写作清晰度 {requestedResolution}</label>{capLoading?<p role="status">正在核验清晰度…</p>:null}{videoNodeId&&!resolutionReady&&!capLoading?<p role="alert">{capError||'此清晰度与目标视频的时长、画幅组合尚未核验；请保留当前清晰度或修改写作选择。'}</p>:null}{capError?<Button data-interaction-id="writing:resolution-cap-retry" disabled={busy||capLoading} onClick={()=>loadCapability()}>重试核验清晰度</Button>:null}</>:null}
    <label>目标视频草稿<select aria-label="目标视频草稿" data-interaction-id="cloud:draft:apply-video" disabled={busy||!!frozen.current||!graph} value={videoNodeId} onChange={event=>{setVideoNodeId(event.target.value);setReplaceEdgeId('');}}><option value="">请选择视频草稿</option>{graph?.nodes.filter(node=>node.type==='video-generation'&&!node.locked).map(node=><option key={node.id} value={node.id}>{node.title}</option>)}</select></label>
    {videoSources&&videoSources.sources.length>0&&<>
     <p>该视频已有 {videoSources.sources.length} 个文字输入，请选择追加或替换其中一个。替换只改变当前视频的连接，原文字和历史任务保留。</p>
@@ -102,7 +111,7 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
   </>}
   {mode==='flow'&&<>
    <label>新建视频草稿标题<input aria-label="新建视频草稿标题" data-interaction-id="cloud:draft:apply-flow-title" disabled={busy||!!frozen.current} value={flowTitle} onChange={event=>setFlowTitle(event.target.value)}/></label>
-   <p>写作请求：{input?.requestedSpec?.durationSeconds!==undefined?input.requestedSpec.durationSeconds+'秒':'未指定'} / {input?.requestedSpec?.ratio??'未指定'}；建议规格：{version.suggestedSpec?.durationSeconds!==undefined?version.suggestedSpec.durationSeconds+'秒':'未指定'} / {version.suggestedSpec?.ratio??'未指定'}。新建规格以此为准，不从旁边视频复制。</p>
+   <p>写作请求：{input?.requestedSpec?.durationSeconds!==undefined?input.requestedSpec.durationSeconds+'秒':'未指定'} / {input?.requestedSpec?.ratio??'未指定'} / {input?.requestedSpec.resolution??'未指定清晰度'}；建议规格：{version.suggestedSpec?.durationSeconds!==undefined?version.suggestedSpec.durationSeconds+'秒':'未指定'} / {version.suggestedSpec?.ratio??'未指定'} / {version.suggestedSpec.resolution??'未指定清晰度'}。新建规格以此为准，不从旁边视频复制。</p>
    {capLoading&&<p role="status">正在读取视频执行能力…</p>}
    {capError&&<><p role="alert">{capError}</p><Button data-interaction-id="cloud:draft:apply-cap-retry" disabled={busy||capLoading} onClick={()=>loadCapability()}>重试读取能力</Button></>}
    {!capLoading&&!capError&&cap&&<>
