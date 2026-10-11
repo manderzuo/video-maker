@@ -18,18 +18,19 @@ function durationEvidence(text:string):{values:string[];timelineEnd:number}{
  const points:RegExpMatchArray[]=[];
  const ranges=[...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:秒\s*)?(?:[-—–~～]|至|到)\s*(\d+(?:\.\d+)?)\s*秒/g)];
  const durationPrefix=/(?:总时长|时长|持续|总共|片长|视频长度|总长|时长目标)\s*[:：]?\s*(?:(?:大约|约)?(?:为|是)?(?:大约|约)?)\s*$/;
+ const eventPrefix=/(?:出现|入画|出场|进入(?:画面|镜头)?|离开(?:画面|镜头)?|出画|开始|结束|停止|转向|切换)(?:(?:的)?时间(?:点|段)?\s*[:：为是在于]?|在|于|[:：])\s*(?:大概|大约|约)?\s*(?:第)?\s*$/;
  const eventTime=(index:number,length:number)=>{
   const prefix=text.slice(0,index),suffix=text.slice(index+length);
   if(durationPrefix.test(prefix))return false;
-  // Appearance/entry cues and ordinal timestamps describe when an event happens.
+  // Check event cues on either side of the timestamp, independent of word order.
   // They do not specify how long the video or action lasts.
-  return /第\s*$/.test(prefix)||/^(?:\s*(?:左右|前后))?\s*(?:的时候|时(?!长)|出现|进入|入画|出场|离开|出画|开始|结束|停止|转向|切换)/.test(suffix);
+  return eventPrefix.test(prefix)&&!/^\s*(?:长\s*)?(?:的\s*)?(?:视频|片段|短片)/.test(suffix)||/第\s*$/.test(prefix)||/^(?:\s*(?:左右|前后|之间|期间))?\s*(?:的时候|时(?!长)|出现|进入|入画|出场|离开|出画|开始|结束|停止|转向|切换)/.test(suffix);
  };
  for(const match of ranges){
   const prefix=text.slice(0,match.index),sentence=prefix.slice(Math.max(prefix.lastIndexOf('。'),prefix.lastIndexOf('\n'))+1);
   const previous=timelineIntervals.at(-1);
   const totalRange=durationPrefix.test(sentence);
-  const timeline=/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?/.test(sentence)||/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?\s*$/.test(prefix)||Number(match[1])===0||previous&&Number(previous[2])===Number(match[1]);
+  const timeline=/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?/.test(sentence)||/(?:时间轴|时间段|分镜时间|动作时序|镜头时序)\s*[:：]?\s*$/.test(prefix)||!eventPrefix.test(prefix)&&(Number(match[1])===0||previous&&Number(previous[2])===Number(match[1]));
   if(Number(match[2])>Number(match[1])&&!totalRange&&(timeline||eventTime(match.index,match[0].length))){
    intervals.push(match);
    if(timeline)timelineIntervals.push(match);

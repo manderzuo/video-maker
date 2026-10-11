@@ -72,3 +72,21 @@ it('does not let an appearance range start a timeline chain that hides a later d
  expect(resolution.readyForAI).toBe(false);
  expect(resolution.conflicts).toContainEqual({field:'durationSeconds',originalValue:'4',formValue:'5'});
 });
+it('accepts correction timing written after the appearance action',()=>{
+ const prompt='5秒，9:16竖屏。动作时间轴：0—2秒向前；2—4秒转向；4—5秒停止。';
+ const userRequest=JSON.stringify({任务:'针对原视频修正错误',当前完整提示词:prompt,本次修正要求:'主体沿对向车道过来，出现在1-2秒。注意车轮与行驶方向。另一主体坐在路边，出现在3-4秒。'});
+ const input=f.promptInput({userRequest,sceneId:'edit',requestedSpec:{durationSeconds:5,ratio:'9:16',resolution:'480p'}});
+ const resolution=resolveConstraints(input);expect(resolution.conflicts).toEqual([]);expect(resolution.resolved.requestedSpec).toEqual(input.requestedSpec);
+ const request=JSON.parse(buildPromptOptimizationRequest({...f.draft(),...input},'mock-text',[]));expect(JSON.parse(request.messages[1].content).userRequest).toBe(userRequest);
+});
+it.each(['出现在1-2秒。','大概出现在3—4秒。','入画时间为1至2秒。','出场时间：3到4秒。','进入画面时间是2秒。','出现在第2秒。','在3-4秒之间出现。','在3-4秒期间出现。'])('recognizes an event time in either word order: %s',timing=>{
+ const resolution=resolveConstraints(f.promptInput({userRequest:'5秒，9:16。'+timing,requestedSpec:{durationSeconds:5,ratio:'9:16'}}));
+ expect(resolution.conflicts).toEqual([]);
+ const unspecified=resolveConstraints(f.promptInput({userRequest:timing,requestedSpec:{}}));expect(unspecified.readyForAI).toBe(true);expect(unspecified.resolved.requestedSpec).toEqual({});
+});
+it.each(['出现在3-8秒。','入画时间为8秒。','出场时间：7秒。'])('rejects appearance timing beyond the chosen duration: %s',timing=>{
+ const resolution=resolveConstraints(f.promptInput({userRequest:timing,requestedSpec:{durationSeconds:5}}));expect(resolution.readyForAI).toBe(false);expect(resolution.conflicts[0].originalValue).toMatch(/^时间轴终点 [78] 秒$/);
+});
+it.each(['主体出现时长为3-4秒。','主体出现持续时间为3-4秒。','入画后视频总时长为3-4秒。','主体出现在1—2秒。制作一段2—4秒的视频。','角色出现在1-2秒的视频中。','主体出现在0—2秒。制作一段2—4秒的视频。','角色出现在3-4秒长的视频中。','角色出现在3秒长的短片中。','角色出现在3-4秒长片段中。'])('retains duration conflicts near appearance wording: %s',timing=>{
+ expect(resolveConstraints(f.promptInput({userRequest:timing,requestedSpec:{durationSeconds:5}})).readyForAI).toBe(false);
+});
