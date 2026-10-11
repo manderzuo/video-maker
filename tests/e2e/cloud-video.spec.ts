@@ -10,9 +10,9 @@ async function savedProject(workspace:Awaited<ReturnType<typeof fixture>>&{accou
 }
 test('compact generation confirmation submits only on confirm and result actions use prominent primary buttons',async({page,workspace},testInfo)=>{
  const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');
- const generate=page.locator('[data-interaction-id="V-08"]'),color=await generate.evaluate(button=>getComputedStyle(button).backgroundColor);
+ const submittedPrompt=await page.getByLabel('节点文本',{exact:true}).inputValue();const generate=page.locator('[data-interaction-id="V-08"]'),color=await generate.evaluate(button=>getComputedStyle(button).backgroundColor);
  await generate.click();const dialog=page.getByRole('dialog',{name:'确认云端视频生成',exact:true});await expect(dialog).toBeVisible();
- await expect(dialog.getByRole('checkbox')).toHaveCount(0);await expect(dialog.locator('pre,article,select')).toHaveCount(0);
+ await expect(dialog.getByRole('checkbox')).toHaveCount(0);await expect(dialog.locator('select')).toHaveCount(0);await expect(dialog.locator('pre.ui-prose')).toContainText(submittedPrompt);await expect(dialog.getByRole('heading',{name:'视频草稿',exact:true})).toBeVisible();await expect(dialog).toContainText('模型：seedance');
  await expect(dialog.locator('.dialog-body')).toContainText('是否确认生成视频');
  await expect(dialog.locator('.dialog-footer button')).toHaveText(['取消','确认']);
  await page.screenshot({path:testInfo.outputPath('compact-confirmation.png')});

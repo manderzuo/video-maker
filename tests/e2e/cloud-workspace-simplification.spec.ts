@@ -4,11 +4,12 @@ import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 test('simplifies navigation and keeps manual save and both writing surfaces consistent',async({page,workspace})=>{
  const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'精简工作区'}})).json();
  await page.goto('/projects');
- for(const name of ['命令面板','通知','使用原创模板','导入云端项目包','重新加载项目'])await expect(page.getByRole('button',{name,exact:true})).toHaveCount(0);
+ for(const name of ['命令面板','通知','使用原创模板','导入云端项目包'])await expect(page.getByRole('button',{name,exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'重新加载项目',exact:true})).toHaveCount(0);
  const nav=page.getByRole('navigation',{name:'主导航'});
  await expect(nav.getByRole('link',{name:'回收站',exact:true})).toBeVisible();
  await expect(nav.getByRole('link',{name:'回收站',exact:true}).locator('svg')).toHaveCount(1);
- for(const label of ['恢复中心','旧版数据迁移','项目备份','账号偏好'])await expect(page.locator('.navigation-footer').getByRole('link',{name:label,exact:true})).toHaveCount(0);
+ await expect(page.locator('.navigation-footer').getByRole('link',{name:'旧版数据迁移',exact:true})).toBeVisible();
+ for(const label of ['恢复中心','项目备份','账号偏好'])await expect(page.locator('.navigation-footer').getByRole('link',{name:label,exact:true})).toHaveCount(0);
  await page.goto('/settings/connections');await expect(page.getByRole('link',{name:'账号偏好',exact:true})).toBeVisible();
  await page.goto('/projects/'+project.id+'/canvas');
  for(const name of ['选择 V','平移 H','保存详情'])await expect(page.getByRole('button',{name,exact:true})).toHaveCount(0);
@@ -16,7 +17,7 @@ test('simplifies navigation and keeps manual save and both writing surfaces cons
  await page.getByRole('button',{name:'提示词生成面板',exact:true}).click();
  await page.getByRole('button',{name:'新建视频写作草稿',exact:true}).click();
  await expect(page.getByRole('region',{name:'写作输入'}).getByRole('button',{name:'AI 优化',exact:true})).toBeVisible();
- for(const name of ['保存写作草稿','规则整理','移入写作草稿回收站'])await expect(page.getByRole('button',{name,exact:true})).toHaveCount(0);
+ for(const name of ['保存写作草稿','规则整理'])await expect(page.getByRole('button',{name,exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'移入写作草稿回收站',exact:true})).toHaveCount(0);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 
@@ -66,16 +67,15 @@ test('lists every generated prompt body by default and inserts an edited result 
  const result=(await workspace.call('POST','/studio-api/prompt-drafts/'+draft.id+'/compile',{...h,payload:{expectedRevision:0}})).json();
  expect((await workspace.call('POST','/studio-api/prompts',{...h,payload:{title:'独立保存的提示词',body:'独立正文',tags:[],variables:[],source:'原创',license:'用户创作',starred:false,idempotencyKey:randomUUID()}})).statusCode).toBe(201);
  await page.goto('/prompts');await expect(page.getByText(result.resultVersions[0].finalPrompt,{exact:true})).toBeVisible();await expect(page.getByRole('heading',{name:'独立保存的提示词',exact:true})).toBeVisible();
- await expect(page.getByText('导入提示词JSON',{exact:true})).toHaveCount(0);
+ await expect(page.locator('[data-interaction-id="cloud:prompt:import"]')).toBeVisible();
  await page.goto('/prompt-generator?draft='+draft.id);
  await page.getByLabel('结果正文',{exact:true}).fill('新的人工镜头正文');
- await page.getByRole('button',{name:'插入到画布中',exact:true}).click();
+ await expect(page.locator('[data-interaction-id="cloud:draft:apply"]')).toBeDisabled();await page.locator('[data-interaction-id="cloud:draft:manual-save"]').click();await expect(page.locator('[data-interaction-id="cloud:draft:apply"]')).toBeEnabled();await page.locator('[data-interaction-id="cloud:draft:apply"]').click();
  await page.getByLabel('目标项目',{exact:true}).selectOption(project.id);
- await page.getByRole('button',{name:'确认插入',exact:true}).click();
- await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas\\?node='));
+ await page.locator('[data-interaction-id="cloud:draft:apply-confirm"]').click();await expect(page.getByRole('dialog',{name:'应用写作结果到画布',exact:true})).not.toBeVisible();await expect(page).toHaveURL(new RegExp('/projects/'+project.id+'/canvas'));expect(new URL(page.url()).searchParams.get('node')).toBeTruthy();
  await expect(page.getByLabel('节点文本',{exact:true})).toHaveValue('新的人工镜头正文');
  const graph=(await workspace.pool.query('SELECT graph FROM workspace_graphs WHERE project_id=$1',[project.id])).rows[0].graph;
- expect(graph.nodes).toHaveLength(1);expect(graph.nodes[0].data.promptGenerationSource.origin).toBe('manual');
+ expect(graph.nodes).toHaveLength(1);expect(new URL(page.url()).searchParams.get('node')).toBe(graph.nodes[0].id);await expect(page.locator('[data-node-id="'+graph.nodes[0].id+'"]')).toHaveClass(/selected/);expect(graph.nodes[0].data.promptGenerationSource.origin).toBe('manual');
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
 test('loads older operations after the first page without repeating or hiding project records',async({page,workspace})=>{
