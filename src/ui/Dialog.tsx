@@ -1,3 +1,4 @@
+import {Icon} from './Icon';
 import {useId,useLayoutEffect,useRef,type ReactNode,type RefObject} from 'react';
 import {createPortal} from 'react-dom';
 import {Button} from './Button';
@@ -19,7 +20,7 @@ export function Dialog({open,title,onClose,children,footer,dismissible=true,widt
   if(event.shiftKey&&(document.activeElement===first||!event.currentTarget.contains(document.activeElement))){event.preventDefault();last!.focus();}
   else if(!event.shiftKey&&(document.activeElement===last||!event.currentTarget.contains(document.activeElement))){event.preventDefault();first.focus();}
  }}>
-  <header className="dialog-header"><h2 id={titleId}>{title}</h2><Button data-interaction-id="G-08" aria-label={'关闭'+title} disabled={!dismissible} disabledReason={!dismissible?'操作处理中，请稍候':undefined} onClick={onClose}>×</Button></header>
+  <header className="dialog-header"><h2 id={titleId}>{title}</h2><Button data-interaction-id="G-08" aria-label={'关闭'+title} disabled={!dismissible} disabledReason={!dismissible?'操作处理中，请稍候':undefined} onClick={onClose}><Icon name="close"/></Button></header>
   <div className="dialog-body">{open?children:null}</div>{open&&footer?<footer className="dialog-footer">{footer}</footer>:null}
  </dialog>,document.body);
 }
