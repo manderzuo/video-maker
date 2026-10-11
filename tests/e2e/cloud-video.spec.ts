@@ -1,3 +1,4 @@
+import {openCloudToolbarMenu} from '../helpers/cloud-toolbar';
 import {randomUUID} from 'node:crypto';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 import type {fixture,Account} from '../../server/tests/account-fixture';
@@ -112,7 +113,7 @@ test('hides task status to free canvas space without disabling node generation a
  const project=await savedProject(workspace);await page.goto('/projects/'+project.id+'/canvas');
  const side=page.locator('.canvas-side');await expect(side).toBeVisible();
  const before=(await page.locator('.canvas-stage').boundingBox())!.width;
- await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await expect(side).toBeHidden();
+ await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await expect(side).toBeHidden();
  expect((await page.locator('.canvas-stage').boundingBox())!.width).toBeGreaterThan(before+300);
  const show=page.getByRole('button',{name:'显示视频任务',exact:true});await expect(show).toHaveAttribute('aria-expanded','false');
  await page.locator('[data-interaction-id="V-08"]').click();
@@ -121,7 +122,7 @@ test('hides task status to free canvas space without disabling node generation a
  await expect.poll(async()=>(await workspace.pool.query("SELECT document->>'executionState' state FROM workspace_video_runs")).rows[0]?.state,{timeout:15000}).toBe('succeeded');
  await expect(side).toBeHidden();await show.click();await expect(side).toBeVisible();await expect(side.getByLabel('本项目视频任务',{exact:true})).toContainText('生成已完成');
  await side.getByRole('button',{name:'查看视频任务',exact:true}).click();const detail=page.getByRole('dialog',{name:'云端视频任务',exact:true});await expect(detail).toContainText('生成已完成');await detail.getByRole('button',{name:'关闭云端视频任务',exact:true}).click();
- await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(side).toBeVisible();
+ await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(side).toBeVisible();
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
 });
 test('builds text, draft and connection purely through the canvas UI before generating',async({page,workspace})=>{
@@ -240,7 +241,7 @@ test('retains editor text after a cloud save conflict and recovers the latest re
  expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
  expect((await workspace.pool.query('SELECT count(*)::int n FROM workspace_video_runs')).rows[0].n).toBe(0);
  // 放弃本页输入并重载：采用最新云端修订
- await page.getByRole('button',{name:'重新加载画布',exact:true}).click();
+ await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'重新加载画布',exact:true}).click();
  await page.getByRole('button',{name:'放弃未保存输入并重新加载',exact:true}).click();
  await expect(page.getByRole('status')).toContainText('已保存');
  await expect(page.getByText('外部新节点',{exact:false}).first()).toBeVisible();

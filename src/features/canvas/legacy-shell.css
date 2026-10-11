@@ -16,7 +16,7 @@
  .canvas-shell:not(.account-shell) .canvas-heading h2{font-size:18px;white-space:nowrap;flex:0 0 auto}
  .canvas-shell:not(.account-shell) .canvas-heading .button{white-space:nowrap;min-height:36px;padding:5px 10px}
  .canvas-shell:not(.account-shell) .canvas-heading [role=status]{white-space:nowrap;font-size:14px;margin-left:auto}
- .canvas-shell:not(.account-shell) .canvas-toolbar{margin:0;padding:6px 10px;gap:6px;border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow-x:auto;min-height:48px;flex-shrink:0}
+ .canvas-shell:not(.account-shell) .canvas-toolbar{margin:0;padding:6px 10px;gap:6px;border-bottom:1px solid var(--line);flex-wrap:wrap;overflow:visible;min-height:48px;flex-shrink:0}
  .canvas-shell:not(.account-shell) .canvas-toolbar label,.canvas-shell:not(.account-shell) .canvas-toolbar .button{white-space:nowrap}
  .canvas-shell:not(.account-shell) .canvas-toolbar .button{min-height:34px;padding:4px 10px}
  .canvas-shell:not(.account-shell) .canvas-toolbar input,.canvas-shell:not(.account-shell) .canvas-toolbar select{padding:4px 6px}
@@ -34,3 +34,5 @@
 }
 @media(max-width:1100px) and (min-width:768px){.canvas-shell:not(.account-shell) .global-search{max-width:260px}.canvas-shell:not(.account-shell) .topbar .command-trigger{display:none}.canvas-shell:not(.account-shell) .canvas-workspace:has(.agent-panel),.canvas-shell:not(.account-shell) .canvas-workspace:has(.prompt-generator-panel){padding-right:0}}
 
+
+.canvas-shell:not(.account-shell) .prompt-generator-panel{position:fixed;right:0;top:0;bottom:0;width:400px;max-width:100vw;background:var(--panel);border-left:1px solid var(--line);padding:20px;overflow:auto;z-index:20;box-shadow:-12px 0 40px #0005}

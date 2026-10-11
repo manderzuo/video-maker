@@ -158,8 +158,22 @@ test('UI repair readable editing preserves original editor draft selection and c
   expect(updates).toBe(0);page.off('request',listener);
  }
  await page.locator('[data-interaction-id="C-05"]').fill('50');await page.locator('[data-interaction-id="C-05"]').press('Enter');
+ await page.locator('[data-interaction-id="C-05"]').fill('80');await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('100');await expect(editor).toBeFocused();
+ await page.locator('[data-interaction-id="C-05"]').fill('50');await page.locator('[data-interaction-id="C-05"]').press('Enter');
  await editor.dispatchEvent('compositionstart');await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('50');await editor.dispatchEvent('compositionend');
  await editor.fill('x'.repeat(65537));await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(editor).toBeFocused();expect((await editor.inputValue()).length).toBe(65537);await expect(page.getByRole('alert').first()).toBeVisible();
  await editor.fill('UI repair preserved');await expect(page.getByRole('status').first()).toContainText('已保存');
+ await page.evaluate(({account,project})=>localStorage.setItem('aiwork:canvas-fonts:'+account+':'+project,'null'),{account:workspace.account.view.user.id,project:project.id});await page.reload();await expect(editor).toBeVisible();expect(await editor.evaluate(el=>getComputedStyle(el).fontSize)).toBe('16px');
  await page.screenshot({path:testInfo.outputPath('ui-repair-readable.png')});expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('UI repair corrupted font preferences fall back without overwriting valid sizes',async({page,workspace})=>{
+ test.setTimeout(90000);
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'Font preference TEST DATA'}})).json();
+ await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="cloud:canvas:add-text"]').click();await expect(page.getByRole('status').first()).toContainText('已保存');
+ const nodeId=await page.locator('.node-text').first().getAttribute('data-node-id'),key='aiwork:canvas-fonts:'+workspace.account.view.user.id+':'+project.id;
+ for(const [raw,size] of [['null',16],['[]',16],['NaN',16],['{broken',16],...['14',true,10,25,null].map(value=>[JSON.stringify({[nodeId!]:value}),16]),...[12,14,16,20].map(value=>[JSON.stringify({[nodeId!]:value}),value])] as [string,number][]){
+  await page.evaluate(({key,raw})=>localStorage.setItem(key,raw),{key,raw});await page.reload();const editor=page.locator('[data-interaction-id="cloud:canvas:node-text"]').first();await expect(editor).toBeVisible();expect(await editor.evaluate(el=>getComputedStyle(el).fontSize)).toBe(size+'px');expect(await page.evaluate(key=>localStorage.getItem(key),key)).toBe(raw);
+ }
+ await page.locator('.node-text header').first().click();await page.getByRole('button',{name:'锁定选中',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveAttribute('readonly','');await expect(page.locator('[data-interaction-id="C-05"]')).toHaveValue('100');expect(workspace.providerCalls).toHaveLength(0);
 });

@@ -1,3 +1,5 @@
+import {writeFileSync} from 'node:fs';
+import {openCloudToolbarMenu} from '../helpers/cloud-toolbar';
 import {createHash,randomUUID} from 'node:crypto';
 import type {Graph} from '../../src/domain/graph';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
@@ -13,9 +15,9 @@ test('uses grouping, layout, locking, view tools, undo and reload controls on th
  await page.locator('.canvas-stage').focus();await page.keyboard.press('Control+a');await page.getByRole('button',{name:'整理布局',exact:true}).click();await page.getByRole('dialog',{name:'预览布局',exact:true}).getByRole('button',{name:'应用布局',exact:true}).click();await saved();await page.getByRole('button',{name:'组合选中',exact:true}).click();await page.getByRole('dialog',{name:'新建分组',exact:true}).getByRole('button',{name:'创建分组',exact:true}).click();await saved();await expect(page.locator('.node-group')).toHaveCount(1);
  await page.getByRole('button',{name:'折叠分组',exact:true}).click();await saved();await expect(page.locator('.canvas-node')).toHaveCount(1);await page.getByLabel('云端画布',{exact:true}).getByRole('button',{name:'展开分组',exact:true}).click();await saved();await expect(page.locator('.canvas-node')).toHaveCount(3);await page.getByRole('button',{name:'解除分组',exact:true}).click();await saved();await expect(page.locator('.canvas-node')).toHaveCount(2);
  await page.locator('.node-text header').first().click();await page.getByRole('button',{name:'锁定选中',exact:true}).click();await saved();await expect(page.getByLabel('节点文本',{exact:true}).first()).toHaveAttribute('readonly','');await page.getByRole('button',{name:'解锁选中',exact:true}).click();await saved();await expect(page.getByLabel('节点文本',{exact:true}).first()).toBeEnabled();
- await page.locator('.canvas-stage').focus();await page.keyboard.press('h');await page.keyboard.press('v');await page.getByRole('button',{name:'缩小',exact:true}).click();await saved();await page.getByRole('button',{name:'放大',exact:true}).click();await saved();await page.getByLabel('缩放百分比',{exact:true}).fill('80');await page.getByLabel('缩放百分比',{exact:true}).press('Enter');await saved();await page.getByRole('button',{name:'适配全部',exact:true}).click();await saved();await page.getByRole('button',{name:'定位选中',exact:true}).click();await saved();await page.getByRole('button',{name:'显示小地图',exact:true}).click();await expect(page.getByLabel('画布小地图',{exact:true})).toBeVisible();await page.getByRole('button',{name:'隐藏小地图',exact:true}).click();await page.getByRole('combobox',{name:'画布背景',exact:true}).selectOption('grid');await expect(page.getByRole('region',{name:'云端画布',exact:true})).toHaveClass(/background-grid/);
- await page.getByLabel('节点文本',{exact:true}).first().fill('待放弃的正文');await page.getByRole('button',{name:'重新加载画布',exact:true}).click();await page.getByRole('button',{name:'保留输入',exact:true}).click();await saved();await page.getByRole('button',{name:'撤销',exact:true}).click();await saved();await page.getByRole('button',{name:'重做',exact:true}).click();await saved();
- await page.getByLabel('节点文本',{exact:true}).first().fill('应明确放弃的正文');await page.getByRole('button',{name:'重新加载画布',exact:true}).click();await page.getByRole('button',{name:'放弃未保存输入并重新加载',exact:true}).click();await saved();await expect(page.getByLabel('节点文本',{exact:true}).first()).toHaveValue('待放弃的正文');
+ await page.locator('.canvas-stage').focus();await page.keyboard.press('h');await page.keyboard.press('v');await page.getByRole('button',{name:'缩小',exact:true}).click();await saved();await page.getByRole('button',{name:'放大',exact:true}).click();await saved();await page.getByLabel('缩放百分比',{exact:true}).fill('80');await page.getByLabel('缩放百分比',{exact:true}).press('Enter');await saved();await page.getByRole('button',{name:'适配全部',exact:true}).click();await saved();await page.getByRole('button',{name:'定位选中',exact:true}).click();await saved();await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'显示小地图',exact:true}).click();await expect(page.getByLabel('画布小地图',{exact:true})).toBeVisible();await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏小地图',exact:true}).click();await openCloudToolbarMenu(page,'视图选项');await page.getByRole('combobox',{name:'画布背景',exact:true}).selectOption('grid');await expect(page.getByRole('region',{name:'云端画布',exact:true})).toHaveClass(/background-grid/);
+ await page.getByLabel('节点文本',{exact:true}).first().fill('待放弃的正文');await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'重新加载画布',exact:true}).click();await page.getByRole('button',{name:'保留输入',exact:true}).click();await saved();await page.getByRole('button',{name:'撤销',exact:true}).click();await saved();await page.getByRole('button',{name:'重做',exact:true}).click();await saved();
+ await page.getByLabel('节点文本',{exact:true}).first().fill('应明确放弃的正文');await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'重新加载画布',exact:true}).click();await page.getByRole('button',{name:'放弃未保存输入并重新加载',exact:true}).click();await saved();await expect(page.getByLabel('节点文本',{exact:true}).first()).toHaveValue('待放弃的正文');
  await page.locator('.canvas-stage').focus();await page.keyboard.press('Control+a');await page.getByRole('button',{name:'删除选中节点',exact:true}).click();await page.getByRole('dialog',{name:'删除节点',exact:true}).getByRole('button',{name:'确认删除节点',exact:true}).click();await saved();await expect(page.locator('.canvas-node')).toHaveCount(0);await page.getByRole('button',{name:'撤销',exact:true}).click();await saved();await expect(page.locator('.canvas-node')).toHaveCount(2);await page.reload();await expect(page.locator('.canvas-node')).toHaveCount(2);expect(workspace.providerCalls).toHaveLength(0);
 });
 test('edits project and asset metadata, searches and archives, and restores owned trash through the actual buttons',async({page,workspace})=>{
@@ -116,11 +118,11 @@ test('workspace fills the viewport width and canvas fills the remaining height a
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
   await expect(page.getByRole('toolbar',{name:'画布工具',exact:true})).toBeVisible();
-  await expect(page.getByRole('button',{name:'隐藏视频任务',exact:true})).toBeVisible();
+  await openCloudToolbarMenu(page,'视图选项');await expect(page.getByRole('button',{name:'隐藏视频任务',exact:true})).toBeVisible();
   const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw new Error('Missing stage');
   expect(stage.height).toBeGreaterThan(300);expect(stage.y+stage.height).toBeGreaterThan(viewport.height-120);
   expect(stage.y+stage.height).toBeLessThanOrEqual(viewport.height+8);
-  const toggleBox=await page.getByRole('button',{name:'隐藏视频任务',exact:true}).boundingBox();if(!toggleBox)throw new Error('Missing sidebar toggle');
+  await openCloudToolbarMenu(page,'视图选项');const toggleBox=await page.getByRole('button',{name:'隐藏视频任务',exact:true}).boundingBox();if(!toggleBox)throw new Error('Missing sidebar toggle');
   expect(toggleBox.y+toggleBox.height).toBeLessThanOrEqual(viewport.height+8);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:testInfo.outputPath('cloud-layout-'+viewport.width+'x'+viewport.height+'.png')});
@@ -134,7 +136,7 @@ test('removes the outline and preserves the task sidebar when restoring the canv
  await page.getByRole('button',{name:'添加文字节点',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');
  const before=(await page.locator('.canvas-stage').boundingBox())?.width??0;expect(before).toBeGreaterThan(400);
  await expect(page.getByRole('heading',{name:'节点大纲',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:/显示节点列表|隐藏节点列表|收起侧栏/})).toHaveCount(0);
- await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(side).toBeVisible();expect((await page.locator('.canvas-stage').boundingBox())?.width).toBe(before);
+ await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(side).toBeVisible();expect((await page.locator('.canvas-stage').boundingBox())?.width).toBe(before);
  await expect(side.getByRole('button',{name:'生成视频',exact:true})).toHaveCount(0);await expect(side.getByLabel('本项目视频任务',{exact:true})).toContainText('尚无已确认的视频任务');expect(workspace.providerCalls).toHaveLength(0);
 });
 test('a small viewport keeps generation reachable and reports missing input without upstream calls',async({page,workspace})=>{
@@ -144,7 +146,7 @@ test('a small viewport keeps generation reachable and reports missing input with
  const v1='11111111-1111-4111-8111-111111111111';
  await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:'22222222-2222-4222-8222-222222222222',command:{type:'operations',operations:[{id:'33333333-3333-4333-8333-333333333333',type:'add_node',payload:{node:{id:v1,type:'video-generation',title:'视频草稿',x:440,y:40,locked:false,data:{kind:'video-generation',draft:{modelId:'seedance',durationSeconds:5,ratio:'16:9',resolution:'480p'},inputBindings:[],stale:true}}}}]}}});
  await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
- await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await expect(page.locator('.canvas-side')).toBeHidden();
+ await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();await expect(page.locator('.canvas-side')).toBeHidden();
  const generate=page.locator('[data-interaction-id="V-08"]');await generate.scrollIntoViewIfNeeded();await expect(generate).toBeEnabled();await generate.click();
  await expect(page.locator('.banner.error')).toContainText('缺少明确连接的提示词正文');await expect(page.locator('.banner.error')).toBeVisible();expect(workspace.providerCalls.filter(call=>!((call.method??'GET')==='GET'&&['/healthz','/v1/models'].includes(new URL(call.url).pathname)))).toHaveLength(0);
 });
@@ -153,7 +155,7 @@ test('desktop canvas bottom stays within the remaining viewport at desktop bound
  const measurements=[];
  for(const viewport of [{width:1366,height:768},{width:1920,height:1080}]){
   await page.setViewportSize(viewport);await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
-  await expect(page.getByRole('button',{name:'隐藏视频任务',exact:true})).toBeVisible();
+  await openCloudToolbarMenu(page,'视图选项');await expect(page.getByRole('button',{name:'隐藏视频任务',exact:true})).toBeVisible();
   const stage=await page.locator('.canvas-stage').boundingBox();if(!stage)throw Error('Missing canvas');
   const measure={...viewport,stage,bottom:stage.y+stage.height,documentHeight:await page.evaluate(()=>document.documentElement.scrollHeight)};
   measurements.push(measure);
@@ -173,9 +175,9 @@ test('restoring the layout preserves canvas prompt edits when the task sidebar w
  await page.goto('/projects/'+project.id+'/canvas');await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'添加文字节点',exact:true}).click();
  const prompt=page.locator('[data-interaction-id="cloud:canvas:node-text"]');await prompt.fill('尚未保存的视频正文');
- await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();
+ await openCloudToolbarMenu(page,'视图选项');await page.getByRole('button',{name:'隐藏视频任务',exact:true}).click();
  await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).not.toBeVisible();
- await page.getByRole('button',{name:'恢复布局',exact:true}).click();
+ await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'恢复布局',exact:true}).click();
  await expect(page.getByRole('complementary',{name:'视频生成与任务',exact:true})).toBeVisible();
  await expect(prompt).toHaveValue('尚未保存的视频正文');
  await expect(page.getByRole('button',{name:/Agent 协作|Agent 提案/})).toHaveCount(0);
@@ -188,7 +190,7 @@ test('a narrow short viewport degrades to a scrollable layout with a usable canv
  expect(stage.height).toBeGreaterThanOrEqual(300);
  const side=await page.locator('.canvas-side').boundingBox();if(!side)throw new Error('Missing side');
  expect(side.height).toBeGreaterThan(100);
- const toggle=page.getByRole('button',{name:'隐藏视频任务',exact:true});await toggle.scrollIntoViewIfNeeded();await expect(toggle).toBeVisible();
+ await openCloudToolbarMenu(page,'view');const toggle=page.getByRole('button',{name:'隐藏视频任务',exact:true});await toggle.scrollIntoViewIfNeeded();await expect(toggle).toBeVisible();
  await page.screenshot({path:testInfo.outputPath('audit-layout-800x600.png'),fullPage:true});
  expect(workspace.providerCalls).toHaveLength(0);
 });
@@ -206,4 +208,41 @@ test('UI repair keeps task sidebar reachable across width and height boundaries'
   await page.screenshot({path:testInfo.outputPath('ui-repair-'+viewport.width+'x'+viewport.height+'.png'),fullPage:true});
  }
  expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('UI repair toolbar disclosures support keyboard return and preserve task visibility',async({page,workspace})=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'UI repair toolbar TEST DATA'}})).json();
+ await page.setViewportSize({width:1366,height:768});await page.goto('/projects/'+project.id+'/canvas');
+ const more=page.locator('[data-interaction-id="cloud:canvas:more"]');await more.press('Enter');
+ const restore=page.locator('[data-interaction-id="G-10"]');await expect(restore).toBeVisible();await restore.focus();await restore.press('Escape');await expect(more).toBeFocused();await expect(restore).toBeHidden();
+ await page.locator('[data-interaction-id="cloud:canvas:view-options"]').click();await page.locator('[data-interaction-id="cloud:canvas:toggle-video-tasks"]').click();await expect(page.locator('.canvas-side')).toBeHidden();
+ await page.setViewportSize({width:800,height:600});await expect(page.locator('.canvas-side')).toBeHidden();
+ await more.click();await restore.click();await expect(page.locator('.canvas-side')).toBeVisible();await expect(restore).toBeHidden();
+ const picker=page.locator('[data-interaction-id="cloud:canvas:files"]');expect(await picker.getAttribute('hidden')).not.toBeNull();
+ await expect(page.locator('[data-interaction-id="cloud:canvas:import-assets"]')).toBeEnabled();
+ expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('UI repair captures real themed pages and rendered prose fonts with test data',async({page,workspace},testInfo)=>{
+ test.setTimeout(90000);const h=workspace.headers(workspace.account);
+ const project=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'UI repair TEST DATA 中文 English 123'}})).json();
+ for(const title of ['UI repair 第二项目','UI repair 第三项目很长的中文名称 English 123'])await workspace.call('POST','/studio-api/projects',{...h,payload:{title}});
+ const draft=(await workspace.call('POST','/studio-api/prompt-drafts',{...h,payload:{type:'video',userRequest:'UI repair TEST DATA 中文 English 123\n第二行和引用 @ref https://example.test/very-long-link',sceneId:'text',requestedSpec:{},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1',idempotencyKey:randomUUID()}})).json();
+ await workspace.call('POST','/studio-api/prompt-drafts/'+draft.id+'/compile',{...h,payload:{expectedRevision:0}});
+ await page.goto('/prompts');await page.locator('[data-interaction-id="cloud:prompt:new"]').click();await page.locator('[data-interaction-id="cloud:prompt:title"]').fill('UI repair TEST DATA prompt');await page.locator('[data-interaction-id="cloud:prompt:body"]').fill('中文 English 123\n保留换行 https://example.test/very-long-link');await page.locator('[data-interaction-id="cloud:prompt:save"]').click();await expect(page.getByRole('heading',{name:'UI repair TEST DATA prompt',exact:true})).toBeVisible();
+ const metadata=[];
+ for(const theme of ['dark','light']){
+  await page.setViewportSize({width:1366,height:768});await page.goto('/settings/appearance');await page.locator('[data-interaction-id="account:preferences:theme"]').selectOption(theme);await page.locator('[data-interaction-id="account:preferences:density"]').selectOption(theme==='dark'?'comfortable':'compact');await page.locator('[data-interaction-id="account:preferences:save"]').click();await expect(page.locator('html')).toHaveAttribute('data-theme',theme);
+  for(const [name,url] of [['projects','/projects'],['canvas','/projects/'+project.id+'/canvas'],['writing','/prompt-generator?draft='+draft.id],['prompts','/prompts'],['api-settings','/settings/connections']]){
+   await page.goto(url);await expect(page.locator('.account-shell')).toBeVisible();if(name==='projects')await expect(page.locator('.cloud-project-list > li')).toHaveCount(3);if(name==='writing')await expect(page.locator('[data-interaction-id="cloud:draft:result-text"]')).toBeVisible();if(name==='api-settings')await expect(page.locator('.api-model-card input').first()).toBeVisible();await page.screenshot({path:testInfo.outputPath('ui-repair-'+name+'-'+theme+'.png'),fullPage:true});
+   metadata.push(await page.evaluate(()=>({url:location.pathname,width:innerWidth,height:innerHeight,dpr:devicePixelRatio,visualScale:visualViewport?.scale,theme:document.documentElement.dataset.theme,density:document.documentElement.dataset.density,prose:[...document.querySelectorAll('.ui-prose')].map(el=>{const css=getComputedStyle(el);return {font:css.fontFamily,size:css.fontSize,line:css.lineHeight,text:el.textContent?.slice(0,80)};})})));
+  }
+  await page.goto('/projects/'+project.id+'/canvas');await page.locator('[data-interaction-id="cloud:canvas:add-text"]').click();const editor=page.locator('[data-interaction-id="cloud:canvas:node-text"]').first();await editor.fill('UI repair TEST DATA 中文 English 123');await expect(page.getByRole('status').first()).toContainText('已保存');
+  await page.locator('[data-interaction-id="cloud:canvas:readable-edit"]').first().click();await expect(editor).toBeFocused();expect(await editor.evaluate(el=>getComputedStyle(el).fontSize)).toBe('16px');
+  const cdp=await page.context().newCDPSession(page);await cdp.send('DOM.enable');await cdp.send('CSS.enable');const dom=await cdp.send('DOM.getDocument');const node=await cdp.send('DOM.querySelector',{nodeId:dom.root.nodeId,selector:'.canvas-heading h2'});metadata.push({theme,fontSample:'canvas heading, same system UI stack',renderedFonts:await cdp.send('CSS.getPlatformFontsForNode',{nodeId:node.nodeId})});const textNode=await cdp.send('DOM.querySelector',{nodeId:dom.root.nodeId,selector:'textarea[data-interaction-id="cloud:canvas:node-text"]'});metadata.push({theme,fontSample:'original text editor',renderedFonts:await cdp.send('CSS.getPlatformFontsForNode',{nodeId:textNode.nodeId})});await cdp.detach();
+  await page.screenshot({path:testInfo.outputPath('ui-repair-readable-'+theme+'.png')});
+  const beforeZoom=await page.evaluate(()=>devicePixelRatio);await page.keyboard.press('Control+Equal');await page.keyboard.press('Control+Equal');const afterZoom=await page.evaluate(()=>({dpr:devicePixelRatio,width:innerWidth}));metadata.push({theme,browserZoomAttempt:{beforeDpr:beforeZoom,after:afterZoom,verified125:Math.abs(afterZoom.dpr/beforeZoom-1.25)<.02}});await page.screenshot({path:testInfo.outputPath('ui-repair-zoom-attempt-'+theme+'.png')});await page.keyboard.press('Control+0');
+ }
+ writeFileSync(testInfo.outputPath('ui-repair-rendered-metadata.json'),JSON.stringify(metadata,null,2));
+ await testInfo.attach('ui-repair-rendered-metadata',{contentType:'application/json',body:JSON.stringify(metadata,null,2)});expect(workspace.providerCalls).toHaveLength(0);
 });

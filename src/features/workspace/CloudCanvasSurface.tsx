@@ -105,7 +105,7 @@ export function CloudCanvasSurface({
   const view = graph.viewport;
   const identity=sessionStore.getState();
   const fontsKey=identity.status==='authenticated'?'aiwork:canvas-fonts:'+identity.session.user.id+':'+graph.projectId:undefined;
-  const [fonts,setFonts]=useState<Record<string,number>>(()=>{try{return fontsKey?JSON.parse(localStorage.getItem(fontsKey)??'{}'):{};}catch{return {};}});
+  const [fonts,setFonts]=useState<Record<string,number>>(()=>{try{const stored=fontsKey?JSON.parse(localStorage.getItem(fontsKey)??'{}'):{};return stored&&typeof stored==='object'&&!Array.isArray(stored)?stored:{};}catch{return {};}});
   const fontSize=(id:string)=>[12,14,16,20].includes(fonts[id])?fonts[id]:16;
   const readable=useRef<{editor:HTMLTextAreaElement;start:number;end:number;direction:'forward'|'backward'|'none'}|null>(null);
   useLayoutEffect(()=>{const request=readable.current;if(!request||view.scale!==1)return;readable.current=null;if(request.editor.isConnected&&stageRef.current?.contains(request.editor)){request.editor.focus({preventScroll:true});request.editor.setSelectionRange(request.start,request.end,request.direction);}},[view,stageRef]);

@@ -4,7 +4,7 @@
 .account-shell .account-nav a{min-height:44px}
 .account-shell .account-header{margin:0;gap:12px;flex-wrap:nowrap}
 .account-shell .account-content{display:block;flex:initial;max-width:1600px;padding:32px}
-.account-user{font-size:13px;white-space:nowrap;color:var(--muted)}
+.account-user{font-size:12px;line-height:18px;white-space:nowrap;color:var(--muted)}
 .account-shell .navigation-footer .account-links{display:grid;gap:6px}
 .account-shell .account-nav .nav-toggle{display:none}
 .account-shell .canvas-heading h2{margin-right:auto}
@@ -24,7 +24,7 @@
 .account-shell .prompt-generator-panel .cloud-prompt-workspace{display:block}
 .account-shell .prompt-generator-panel .cloud-prompt-pane{margin:16px 0}
 .account-shell .prompt-generator-panel .actions{flex-wrap:wrap}
-.account-shell .prompt-generator-panel h1{font-size:20px}
+.account-shell .prompt-generator-panel h1{font-size:18px;line-height:26px}
 .account-shell .cloud-canvas-page .canvas-asset-preview video{pointer-events:auto}
 .account-shell .cloud-canvas-page .canvas-layout{grid-template-columns:minmax(0,1fr)}
 .account-shell .video-task-list article{border-left:3px solid var(--accent);padding:8px;margin:8px 0;background:var(--panel);border-radius:6px}
@@ -33,7 +33,7 @@
 .account-shell .video-task-list p{margin:0 0 8px}
 .account-shell .result-generation-actions{display:flex;flex-wrap:wrap;gap:8px}
 .account-shell .result-generation-actions .button-group{flex:1 1 120px;min-width:0}
-.account-shell .result-generation-actions .button.primary,.account-shell .button.result-generation-action{min-height:44px;padding:10px 16px;font-size:14px;font-weight:600;line-height:1.4}
+.account-shell .result-generation-actions .button.primary,.account-shell .button.result-generation-action{min-height:44px;padding:10px 16px;font-size:14px;font-weight:500;line-height:20px}
 .account-shell .result-generation-actions .button{width:100%}
 
 /* Account shell and cloud canvas geometry have a single owner. Natural flow is the base. */
@@ -48,3 +48,7 @@
 @media(min-width:1024px) and (min-height:720px){.account-shell.canvas-shell{height:100dvh;min-height:0;overflow:hidden}.account-shell.canvas-shell .app-main{display:flex;flex-direction:column;min-height:0}.account-shell.canvas-shell .account-content{display:flex;flex:1;min-height:0;overflow:hidden}.account-shell.canvas-shell .cloud-canvas-page{flex:1;min-height:0;gap:0}.account-shell.canvas-shell .canvas-main{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) 360px;grid-template-rows:minmax(0,1fr);gap:0}.account-shell.canvas-shell .canvas-main.side-collapsed{grid-template-columns:minmax(0,1fr)}.account-shell.canvas-shell .canvas-main>.canvas-layout{min-height:0;grid-template-rows:minmax(0,1fr)}.account-shell.canvas-shell .canvas-stage{height:100%;min-height:0;border-radius:0}.account-shell.canvas-shell .canvas-side{overflow:auto;min-height:0;padding:12px;border-left:1px solid var(--line)}}
 @media(max-width:1023px){.account-shell.app-shell:not(.canvas-shell){grid-template-columns:140px minmax(0,1fr)}.account-shell:not(.canvas-shell) .account-content{padding:24px}.account-user{display:none}}
 @media(max-width:767px){.account-shell.app-shell{display:flex;flex-direction:column}.account-shell .navigation{position:static;height:auto;padding:16px}.account-shell .account-content{padding:16px}.account-shell .account-header{flex-wrap:wrap}.account-shell .account-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.account-shell .brand{padding-bottom:16px}.account-form{width:min(460px,calc(100vw - 32px))}}
+
+.account-shell .canvas-heading h2{flex:1 0 180px;overflow-wrap:anywhere}.account-shell .creation-toolbar{gap:8px}.creation-toolbar>[data-interaction-id="C-10"]{margin-right:8px}.toolbar-disclosure{position:relative;display:inline-block;flex-shrink:0}.toolbar-disclosure>summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;border:1px solid var(--line);border-radius:6px;background:var(--float);min-height:36px;padding:8px 10px;font-size:14px;line-height:20px;font-weight:500}.toolbar-disclosure>summary::-webkit-details-marker{display:none}.toolbar-disclosure>summary:focus-visible{outline:3px solid var(--focus);outline-offset:4px}.toolbar-disclosure[open]>summary{border-color:var(--accent)}.toolbar-menu{position:absolute;top:calc(100% + 4px);right:0;z-index:40;width:max-content;min-width:200px;max-width:min(360px,calc(100vw - 32px));display:grid;gap:8px;padding:12px;background:var(--float);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px #0005}.toolbar-menu .button-group,.toolbar-menu .button{width:100%}.toolbar-menu label{white-space:normal}.toolbar-menu select{min-height:36px;font-size:14px}.account-shell .canvas-toolbar input{min-height:36px;font-size:14px}.account-shell .creation-toolbar .button-group:last-child{margin-left:8px}@media(pointer:coarse){.toolbar-disclosure>summary{min-height:44px}}
+
+html[data-density=compact] .account-shell .canvas-side{padding:8px;gap:8px}html[data-density=comfortable] .cloud-project-list>.card{padding:24px}html[data-density=compact] .cloud-project-list>.card{padding:16px}.account-shell .video-task-list article{border:0;border-left:3px solid var(--accent);border-radius:8px;padding:12px;background:var(--panel)}.account-shell .canvas-side>.card{border:0;background:var(--panel);border-radius:12px}.account-shell .canvas-heading .button{flex-shrink:0}.account-shell .canvas-heading [role=status]{flex:0 0 170px;overflow-wrap:anywhere}

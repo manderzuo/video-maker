@@ -1,3 +1,4 @@
+import {openCloudToolbarMenu} from '../helpers/cloud-toolbar';
 import {randomUUID} from 'node:crypto';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 type GraphLike={nodes:{id:string;type:string;title:string;data:Record<string,unknown>}[];edges:{id:string;sourceId:string;targetId:string;port:string;order:number;relation?:string}[]};
@@ -140,7 +141,7 @@ test('keeps a compact video task status permanently visible without an outline o
  await page.goto('/projects/'+projectId+'/canvas');const status=page.getByRole('complementary',{name:'视频生成与任务',exact:true});
  await expect(status).toBeVisible();await expect(status).toContainText('正在生成');await expect(page.getByRole('heading',{name:'节点大纲',exact:true})).toHaveCount(0);
  await expect(status.locator('pre')).toHaveCount(0);await expect(status).not.toContainText('将使用的正文');
- await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(status).toBeVisible();
+ await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'恢复布局',exact:true}).click();await expect(status).toBeVisible();
  await page.getByRole('button',{name:'提示词生成面板',exact:true}).click();await expect(status).toBeVisible();
 });
 test('both result dialogs keep the entered prompt and offer text API settings when no text model is configured',async({page,workspace})=>{
@@ -189,6 +190,7 @@ test('generated result video preview grows with its node and keeps result action
  await page.getByRole('button',{name:'撤销',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');await expect.poll(async()=>Math.abs(((await video.boundingBox())?.height??0)-before.height)).toBeLessThanOrEqual(2);
  await page.getByRole('button',{name:'重做',exact:true}).click();await expect(page.getByRole('status').first()).toContainText('已保存');await page.reload();await expect.poll(async()=>((await video.boundingBox())?.height??0)).toBeGreaterThan(before.height+140);
  const restored=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',h)).json().graph.nodes.find((n:{id:string})=>n.id===node.id);expect(restored.size).toEqual({width:600,height:820});expect(restored.data).toMatchObject({assetId:run.resultAssetId,runId:run.id});expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(1);
+ await page.screenshot({path:testInfo.outputPath('ui-repair-result-actions.png'),fullPage:true});
 });
 test('freezes the tail-frame request so a lost response is retried with the identical command and no duplicate node',async({page,workspace})=>{
  await configureVideo(workspace);
@@ -446,7 +448,7 @@ test('restored result card opens exact tail and revision actions and repairs a r
  const edges=snapshot.graph.edges.filter((edge:{targetId:string;relation?:string})=>edge.targetId===node.id&&edge.relation==='result');
  expect((await workspace.call('POST','/studio-api/projects/'+projectId+'/commands',{...workspace.headers(workspace.account),payload:{expectedRevision:snapshot.graph.revision,idempotencyKey:randomUUID(),command:{type:'operations',operations:[...edges.map((edge:{id:string})=>({id:randomUUID(),type:'remove_edge',payload:{edgeId:edge.id}})),{id:randomUUID(),type:'update_node',payload:{nodeId:node.id,patch:{data:{...node.data,generationLinked:false}}}}]}}})).statusCode).toBe(200);
  await page.goto('/projects/'+projectId+'/canvas');
- await page.getByRole('button',{name:'补齐来源连线',exact:true}).click();
+ await openCloudToolbarMenu(page,'更多');await page.getByRole('button',{name:'补齐来源连线',exact:true}).click();
  await expect(page.getByRole('status').filter({hasText:'已补齐'})).toContainText('可撤销');
  snapshot=(await workspace.call('GET','/studio-api/projects/'+projectId+'/workspace',workspace.headers(workspace.account))).json();
  expect(snapshot.graph.edges.filter((edge:{targetId:string;relation?:string})=>edge.targetId===node.id&&edge.relation==='result')).toHaveLength(1);
