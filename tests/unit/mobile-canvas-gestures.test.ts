@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { createMobileGesture } from '../../src/features/mobile/mobile-canvas-gestures';
 describe('mobile observation gestures', () => {
+    it('continues pan and pinch below the desktop minimum zoom', () => { const g = createMobileGesture(); g.down(1, { x: 100, y: 100 }, { x: 10, y: 20, scale: .02 }); expect(g.move(1, { x: 130, y: 140 })).toEqual({ x: 40, y: 60, scale: .02 }); g.down(2, { x: 230, y: 140 }, { x: 40, y: 60, scale: .02 }); expect(g.move(2, { x: 330, y: 140 })).toEqual({ x: -50, y: -20, scale: .04 }); });
     it('pans a local viewport without changing its scale', () => { const g = createMobileGesture(); g.down(1, { x: 100, y: 200 }, { x: 10, y: 20, scale: 1 }); expect(g.move(1, { x: 130, y: 240 })).toEqual({ x: 40, y: 60, scale: 1 }); });
     it('keeps the initial pinch midpoint under the moving midpoint', () => { const g = createMobileGesture(); g.down(1, { x: 100, y: 100 }, { x: 0, y: 0, scale: 1 }); g.down(2, { x: 200, y: 100 }, { x: 0, y: 0, scale: 1 }); expect(g.move(2, { x: 300, y: 100 })).toEqual({ x: -100, y: -100, scale: 2 }); });
     it('reanchors a remaining finger without jumping after pinch ends', () => { const g = createMobileGesture(); g.down(1, { x: 100, y: 100 }, { x: 0, y: 0, scale: 1 }); g.down(2, { x: 200, y: 100 }, { x: 0, y: 0, scale: 1 }); g.move(2, { x: 300, y: 100 }); g.up(2); expect(g.move(1, { x: 110, y: 120 })).toEqual({ x: -90, y: -80, scale: 2 }); });

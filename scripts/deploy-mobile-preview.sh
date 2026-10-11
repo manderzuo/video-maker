@@ -10,35 +10,40 @@ current=/opt/aiwork-studio/cloud-current
 desktop="$(readlink -f "$current")"
 [[ "$desktop" == /opt/aiwork-studio/releases/* && -f "$desktop/dist/index.html" ]]
 config=/etc/nginx/conf.d/aiwork-studio.conf
+static_root="$(sudo -n sed -n 's/^ root \(\/opt\/aiwork-studio\/[^;]*\);$/\1/p' "$config")"
+[[ "$static_root" == /opt/aiwork-studio/*/dist && -f "$static_root/index.html" ]]
 backup="/opt/aiwork-studio/preview-configs/$short"
 test ! -e "$release"
-! grep -q 'BEGIN AIWORK MOBILE PREVIEW' "$config"
+test ! -e "$backup"
 printf '%s  %s\n' "$archive_hash" "$archive" | sha256sum -c -
 desktop_hash="$(sha256sum "$desktop/dist/index.html" | cut -d' ' -f1)"
+served_desktop_hash="$(sha256sum "$static_root/index.html" | cut -d' ' -f1)"
 sudo -n install -d -m 0755 "$release"
 sudo -n tar -xzf "$archive" -C "$release"
-sudo -n /opt/aiwork-studio/runtime/node-v22.23.3-linux-x64/bin/node --input-type=module - "$release" "$commit" "$desktop" <<'NODE'
+sudo -n /opt/aiwork-studio/runtime/node-v22.23.3-linux-x64/bin/node --input-type=module - "$release" "$commit" "$static_root" <<'NODE'
 import {readFileSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
-const [root,commit,desktop]=process.argv.slice(2),manifest=JSON.parse(readFileSync(path.join(root,'release.json'),'utf8')),sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const [root,commit,staticRoot]=process.argv.slice(2),manifest=JSON.parse(readFileSync(path.join(root,'release.json'),'utf8')),sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 if(manifest.commit!==commit||manifest.seededAccounts!==0||manifest.seededContent!==0)throw Error('Preview identity mismatch');
-for(const file of manifest.files){if(path.isAbsolute(file.path)||file.path.split('/').includes('..'))throw Error('Invalid inventory');const bytes=readFileSync(path.join(root,file.path));if(bytes.length!==file.bytes||sha(bytes)!==file.sha256)throw Error('Inventory mismatch');if(file.path.startsWith('dist/assets/')){const old=path.join(desktop,file.path);if(existsSync(old)&&sha(readFileSync(old))!==file.sha256)throw Error('Existing desktop asset would be changed');}}
+for(const file of manifest.files){if(path.isAbsolute(file.path)||file.path.split('/').includes('..'))throw Error('Invalid inventory');const bytes=readFileSync(path.join(root,file.path));if(bytes.length!==file.bytes||sha(bytes)!==file.sha256)throw Error('Inventory mismatch');if(file.path.startsWith('dist/assets/')){const old=path.join(staticRoot,file.path.slice(5));if(existsSync(old)&&sha(readFileSync(old))!==file.sha256)throw Error('Existing desktop asset would be changed');}}
 if(!manifest.files.some(file=>/^dist\/assets\/MobileWorkspace-.*\.js$/.test(file.path)))throw Error('Mobile bundle missing');
 console.log(JSON.stringify({previewCommit:commit,verifiedFiles:manifest.files.length,desktopAssetsPreserved:true}));
 NODE
 cmp "$desktop/server/package-lock.json" "$release/server/package-lock.json"
+cmp "$desktop/server/account-server.mjs" "$release/server/account-server.mjs"
 for migration in "$release"/server/migrations/*.sql; do cmp "$migration" "$desktop/server/migrations/$(basename "$migration")"; done
 # New content-addressed files only; the existing desktop HTML and asset bytes stay intact.
-sudo -n cp -an "$release/dist/assets/." "$desktop/dist/assets/"
+sudo -n cp -an "$release/dist/assets/." "$static_root/assets/"
 sudo -n install -d -m 0700 "$backup"
 sudo -n cp -a "$config" "$backup/aiwork-studio.conf"
 sudo -n /opt/aiwork-studio/runtime/node-v22.23.3-linux-x64/bin/node --input-type=module - "$config" "$release" "/tmp/nginx-mobile-preview-$short.conf" <<'NODE'
 import {readFileSync,writeFileSync} from 'node:fs';
-const [config,root,target]=process.argv.slice(2),source=readFileSync(config,'utf8'),marker=' location = /healthz {';
-if(source.split(marker).length!==2||source.includes('BEGIN AIWORK MOBILE PREVIEW'))throw Error('Unexpected Nginx configuration');
+const [config,root,target]=process.argv.slice(2),source=readFileSync(config,'utf8'),marker=' location = /healthz {',existing=/^ # BEGIN AIWORK MOBILE PREVIEW\n[\s\S]*?^ # END AIWORK MOBILE PREVIEW\n/gm;
+const blocks=[...source.matchAll(existing)];
+if(blocks.length>1||blocks.length===0&&(source.split(marker).length!==2||source.includes('BEGIN AIWORK MOBILE PREVIEW'))||blocks.length===1&&source.split('BEGIN AIWORK MOBILE PREVIEW').length!==2)throw Error('Unexpected Nginx configuration');
 const preview=` # BEGIN AIWORK MOBILE PREVIEW\n location = /m { return 302 /m/projects; }\n location ^~ /m/ { root ${root}/dist; try_files /index.html =404; add_header Cache-Control "no-store" always; }\n # END AIWORK MOBILE PREVIEW\n`;
-writeFileSync(target,source.replace(marker,preview+marker));
+writeFileSync(target,blocks.length===1?source.replace(existing,preview):source.replace(marker,preview+marker));
 NODE
 changed=0
 rollback(){ if [[ "$changed" == 1 ]]; then sudo -n cp -a "$backup/aiwork-studio.conf" "$config"; sudo -n nginx -t; sudo -n systemctl reload nginx; fi; }
@@ -61,6 +66,8 @@ done
 [[ "$preview_ready" == 1 ]]
 [[ "$(readlink -f "$current")" == "$desktop" ]]
 [[ "$(sha256sum "$desktop/dist/index.html" | cut -d' ' -f1)" == "$desktop_hash" ]]
+[[ "$(sha256sum "$static_root/index.html" | cut -d' ' -f1)" == "$served_desktop_hash" ]]
+[[ "$(curl --fail --silent --show-error --max-time 10 https://studio.gemstory.cn/projects | sha256sum | cut -d' ' -f1)" == "$served_desktop_hash" ]]
 curl --fail --silent --show-error https://studio.gemstory.cn/healthz
 sudo -n systemctl is-active --quiet aiwork-studio-cloud
 for asset in "$release"/dist/assets/*; do

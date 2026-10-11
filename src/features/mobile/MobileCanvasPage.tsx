@@ -2,13 +2,13 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import { addNavigationGuard, LocalLink } from '../../app/routes';
 import { sessionStore } from '../../infrastructure/api/session';
 import { workspaceMessage, type WorkspaceClient } from '../../infrastructure/api/workspace-client';
-import { viewportSchema, type Graph, type CanvasNode, type Viewport } from '../../domain/graph';
+import { type Graph, type CanvasNode, type Viewport } from '../../domain/graph';
 import { localText } from '../../domain/common';
-import { nodeBounds, nodeSize, visibleNodes, worldPosition, projectedNode } from '../canvas/geometry';
-import { updateViewport } from '../canvas/viewport';
+import { nodeBounds, nodeRect, nodeSize, visibleNodes, worldPosition, projectedNode } from '../canvas/geometry';
 import { Button } from '../../ui/Button';
 import { Dialog } from '../../ui/Dialog';
 import { createMobileGesture } from './mobile-canvas-gestures';
+import { initialMobileViewport, mobileViewportSchema } from './mobile-canvas-viewport';
 export function MobileCanvasPage({ client, projectId }: {
     client: WorkspaceClient;
     projectId: string;
@@ -20,6 +20,7 @@ export function MobileCanvasPage({ client, projectId }: {
         text: string;
         revision: number;
     }>(), [busy, setBusy] = useState(false), [message, setMessage] = useState('');
+    const [extent, setExtent] = useState({ width: 0, height: 0 }), [viewReady, setViewReady] = useState(false), remembered = useRef<Viewport | undefined>(undefined);
     const alive = useRef(true), stage = useRef<HTMLDivElement>(null), gesture = useRef(createMobileGesture()), viewRef = useRef(view), tap = useRef<{
         x: number;
         y: number;
@@ -37,24 +38,36 @@ export function MobileCanvasPage({ client, projectId }: {
     viewRef.current = view;
     const [context] = useState(() => { const identity = sessionStore.getState(); return identity.status === 'authenticated' ? identity.session.contextId : 'anonymous'; }), storageKey = 'aiwork:mobile-view:' + context + ':' + projectId;
     useEffect(() => { alive.current = true; void client.readGraph(projectId).then(value => { if (!alive.current)
-        return; setGraph(value); let restored: Viewport | undefined; try {
+        return; setGraph(value); remembered.current = undefined; try {
         const raw = sessionStorage.getItem(storageKey);
         if (raw) {
-            const parsed = viewportSchema.safeParse(JSON.parse(raw));
+            const parsed = mobileViewportSchema.safeParse(JSON.parse(raw));
             if (parsed.success)
-                restored = parsed.data;
+                remembered.current = parsed.data;
         }
     }
-    catch { /* Local view is optional. */ } if (restored)
-        setView(restored);
-    else if (stage.current)
-        setView(updateViewport({ x: 0, y: 0, scale: 1 }, { type: 'fit', bounds: value.nodes.length ? nodeBounds(visibleNodes(value), value) : null, width: stage.current.clientWidth, height: stage.current.clientHeight })); }).catch(failure => { if (alive.current)
+    catch { /* Local view is optional. */ } setViewReady(false); }).catch(failure => { if (alive.current)
         setError(workspaceMessage(failure)); }); return () => { alive.current = false; gesture.current.cancel(); }; }, [client, projectId, storageKey]);
-    useEffect(() => { if (!graph)
+    useEffect(() => {
+        const element = stage.current;
+        if (!element) return;
+        const measure = () => setExtent(current => { const width = element.clientWidth, height = element.clientHeight; return width === current.width && height === current.height ? current : { width, height }; });
+        measure();
+        const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(measure);
+        observer?.observe(element);
+        window.addEventListener('resize', measure);
+        return () => { observer?.disconnect(); window.removeEventListener('resize', measure); gesture.current.cancel(); tap.current = undefined; };
+    }, [list]);
+    useEffect(() => {
+        if (!graph || viewReady || !stage.current) return;
+        const next = initialMobileViewport(visibleNodes(graph).map(node => nodeRect(node, graph)), stage.current.clientWidth, stage.current.clientHeight, remembered.current);
+        if (next) { viewRef.current = next; setView(next); setViewReady(true); }
+    }, [graph, list, extent, viewReady]);
+    useEffect(() => { if (!graph || !viewReady)
         return; try {
         sessionStorage.setItem(storageKey, JSON.stringify(view));
     }
-    catch { /* Storage is optional. */ } }, [storageKey, view, graph]);
+    catch { /* Storage is optional. */ } }, [storageKey, view, graph, viewReady]);
     const dirty = !!editor && editor.text !== editor.node.data.text;
     useEffect(() => { const remove = addNavigationGuard(() => { if (!dirty && !pending.current && !working.current)
         return true; setError('节点正文尚未保存，请保存或明确放弃后离开。'); return false; }); const unload = (event: BeforeUnloadEvent) => { if (dirty || pending.current || working.current) {
@@ -63,7 +76,7 @@ export function MobileCanvasPage({ client, projectId }: {
     } }; window.addEventListener('beforeunload', unload); return () => { remove(); window.removeEventListener('beforeunload', unload); }; }, [dirty]);
     useEffect(() => { const cancel = () => { gesture.current.cancel(); tap.current = undefined; }; window.addEventListener('resize', cancel); return () => window.removeEventListener('resize', cancel); }, []);
     const point = (event: ReactPointerEvent) => { const box = stage.current!.getBoundingClientRect(); return { x: event.clientX - box.left, y: event.clientY - box.top }; };
-    function start(event: ReactPointerEvent<HTMLDivElement>) { if (event.button !== 0 && event.pointerType !== 'touch')
+    function start(event: ReactPointerEvent<HTMLDivElement>) { if (!graph || !viewReady || event.button !== 0 && event.pointerType !== 'touch')
         return; const p = point(event), target = (event.target as HTMLElement).closest<HTMLElement>('[data-mobile-node-id]'); if (!tap.current)
         tap.current = { ...p, nodeId: target?.dataset.mobileNodeId, moved: false };
     else
@@ -109,8 +122,7 @@ export function MobileCanvasPage({ client, projectId }: {
     function mapMove(event: ReactPointerEvent<SVGSVGElement>) { if (mapDragging.current !== event.pointerId)
         return; const box = event.currentTarget.getBoundingClientRect(), x = bounds.left + (event.clientX - box.left) / mapScale, y = bounds.top + (event.clientY - box.top) / mapScale; if (stage.current)
         setView(current => ({ ...current, x: stage.current!.clientWidth / 2 - x * current.scale, y: stage.current!.clientHeight / 2 - y * current.scale })); }
-    return <section className="card"><h1>手机画布</h1><div className="actions"><LocalLink className="button" href={'/m/projects/' + projectId + '/video'}>视频创作</LocalLink><Button onClick={() => setList(value => !value)}>节点列表</Button><Button onClick={() => { if (graph && stage.current)
-        setView(updateViewport(view, { type: 'fit', bounds: nodes.length ? bounds : null, width: stage.current.clientWidth, height: stage.current.clientHeight })); }}>适应画布</Button><Button onClick={() => setMinimap(value => !value)}>{minimap ? '收起小地图' : '显示小地图'}</Button></div>{error ? <p role="alert">{error}</p> : null}{message ? <p role="status">{message}</p> : null}<p className="muted">单指平移，双指缩放；点击文字节点编辑正文。</p>
+    return <section className="card"><h1>手机画布</h1><div className="actions"><LocalLink className="button" href={'/m/projects/' + projectId + '/video'}>视频创作</LocalLink><Button onClick={() => setList(value => !value)}>节点列表</Button><Button disabled={!graph} onClick={() => { remembered.current = undefined; gesture.current.cancel(); tap.current = undefined; setList(false); setViewReady(false); }}>适应画布</Button><Button onClick={() => setMinimap(value => !value)}>{minimap ? '收起小地图' : '显示小地图'}</Button></div>{error ? <p role="alert">{error}</p> : null}{message ? <p role="status">{message}</p> : null}<p className="muted">单指平移，双指缩放；点击文字节点编辑正文。</p>
  {list ? <div className="mobile-node-list">{nodes.map(node => <Button key={node.id} onClick={() => openNode(node.id)} disabled={node.type !== 'text'}>{'编辑' + node.title}</Button>)}</div> : <div ref={stage} className="mobile-canvas-stage" onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={event => { gesture.current.cancel(); end(event); }}><div className="mobile-canvas-world" style={{ transform: `translate(${view.x}px,${view.y}px) scale(${view.scale})` }}><svg className="mobile-canvas-wires" width="1" height="1" aria-hidden="true">{wires.map(wire => <path key={wire.id} className="mobile-canvas-wire" d={wire.path} fill="none" stroke="var(--accent)" strokeWidth="2" vectorEffect="non-scaling-stroke"/>)}</svg>{graph ? nodes.map(node => { const p = worldPosition(node, graph), size = nodeSize(node, graph); return <div key={node.id} className="mobile-node-card" data-mobile-node-id={node.id} style={{ left: p.x, top: p.y, width: size.width, height: size.height }}><strong>{node.title}</strong><p>{node.type === 'text' ? node.data.text : node.type === 'video-generation' ? '视频草稿' : node.type === 'result' ? '视频结果' : node.type === 'group' ? '节点分组' : '素材'}</p></div>; }) : <p>正在加载画布…</p>}</div>{minimap ? <svg className="mobile-minimap" aria-label="手机画布小地图" width={mapWidth} height={mapHeight} onPointerDown={event => { event.stopPropagation(); mapDragging.current = event.pointerId; event.currentTarget.setPointerCapture(event.pointerId); mapMove(event); }} onPointerMove={event => { event.stopPropagation(); mapMove(event); }} onPointerUp={event => { event.stopPropagation(); mapDragging.current = undefined; if (event.currentTarget.hasPointerCapture(event.pointerId))
         event.currentTarget.releasePointerCapture(event.pointerId); }} onPointerCancel={event => { event.stopPropagation(); mapDragging.current = undefined; }}>{graph ? nodes.map(node => { const p = worldPosition(node, graph), size = nodeSize(node, graph); return <rect key={node.id} x={(p.x - bounds.left) * mapScale} y={(p.y - bounds.top) * mapScale} width={size.width * mapScale} height={size.height * mapScale} fill="var(--accent)" opacity=".55"/>; }) : null}<rect x={(-view.x / view.scale - bounds.left) * mapScale} y={(-view.y / view.scale - bounds.top) * mapScale} width={(stage.current?.clientWidth ?? 390) / view.scale * mapScale} height={(stage.current?.clientHeight ?? 400) / view.scale * mapScale} fill="none" stroke="var(--text)"/></svg> : null}</div>}
  <Dialog open={!!editor} title="编辑节点正文" dismissible={!busy} onClose={() => { if (dirty || pending.current)
