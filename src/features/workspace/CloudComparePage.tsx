@@ -1,7 +1,8 @@
 import {useEffect,useRef,useState} from 'react';
 import type {Asset} from '../../domain/asset';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
-import {useRoute,LocalLink} from '../../app/routes';
+import {useRoute} from '../../app/routes';
+import {WorkspaceLink as LocalLink} from './workspace-navigation';
 import {Button} from '../../ui/Button';
 import {CloudAssetMedia} from './CloudAssetsPage';
 import {cloudVideoStatus} from './CloudVideoTaskDetail';

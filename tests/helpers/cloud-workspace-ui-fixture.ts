@@ -23,14 +23,28 @@ export const test=base.extend<{workspace:Awaited<ReturnType<typeof fixture>>&{ac
   const value={...env,account,providerCalls,setVideoOutcome(outcome:'success'|'failed'|'unknown'){videoOutcome=outcome;},setVideoReferenceSupport(support:{imageReferences:number;videoReferences:number;assetUploads:boolean}){const current=contracts.get(videoBase);if(!current)throw new Error('Missing fake video contract');contracts.set(videoBase,{...current,limits:{...current.limits,imageReferences:support.imageReferences,videoReferences:support.videoReferences},routes:{...current.routes,assets:support.assetUploads}});},setVideoSpecs(specs:typeof videoContract.videoSpecs){const current=contracts.get(videoBase);if(!current)throw Error("Missing fake contract");contracts.set(videoBase,{...current,videoSpecs:specs});},videoReferenceSupport(){const current=contracts.get(videoBase);if(!current)throw new Error('Missing fake video contract');return {imageReferences:current.limits.imageReferences??0,videoReferences:current.limits.videoReferences??0,assetUploads:current.routes.assets};},holdProvider(){let release!:()=>void;providerGate=new Promise(resolve=>{release=resolve;});return ()=>{release();providerGate=undefined;};},switchAccount(next:Account){value.account=next;apiModel.session={...next.view,onboardingCompletedAt:'2026-10-09T00:00:00.000Z'};apiModel.document={...apiModel.document,onboardingCompletedAt:'2026-10-09T00:00:00.000Z'};}};value.switchAccount(account);
   try{await use(value);}finally{await env.close();if(root.startsWith(join(tmpdir(),'aiwork-cloud-ui-')))await rm(root,{recursive:true,force:true});}
  },
- workspaceRoutes:[async({context,workspace,apiGuard},use,testInfo)=>{
+ workspaceRoutes:[async({context,workspace,apiGuard,browserName},use,testInfo)=>{
   void apiGuard;
+  // WebKit's intercepted requests omit Blob bodies (Playwright #6479). Capture
+  // the original bytes before fetch without modifying the actual request. This
+  // fixture still validates the full upload through the isolated real backend;
+  // it does not represent native upload/network acceptance on a real iPhone.
+  if(browserName==='webkit')await context.addInitScript(()=>{
+   const original=window.fetch.bind(window),bodies=new Map<string,number[]>();
+   Object.assign(window,{__studioTestBinaryBodies:bodies});
+   window.fetch=async(input,init)=>{const url=new URL(input instanceof Request?input.url:String(input),location.href);if(url.origin===location.origin&&/^\/studio-api\/assets\/[^/]+\/content$/.test(url.pathname)&&init?.body instanceof Blob)bodies.set(url.pathname+url.search,[...new Uint8Array(await init.body.arrayBuffer())]);return original(input,init);};
+  });
   const pattern=/\/studio-api\/(activity|projects|assets|prompts|prompt-drafts|runs|agent-conversations|agent-proposals|me\/(model-configs|video-capability|imports))(\/|\?|$)/,inFlight=new Set<Promise<unknown>>();
   const handle=async(route:Route)=>{
    const request=route.request(),url=new URL(request.url()),headers=request.headers();
    if(url.origin!=='http://127.0.0.1:4310')return route.abort();
-   const response=await workspace.app.inject({method:request.method() as 'GET'|'HEAD'|'POST'|'PATCH'|'DELETE'|'PUT',url:url.pathname+url.search,payload:request.postDataBuffer()??undefined,headers:{cookie:workspace.account.cookie,...(headers['x-workspace-context']?{'x-workspace-context':headers['x-workspace-context']}:{}),...(headers['x-csrf-token']?{'x-csrf-token':headers['x-csrf-token']}:{}),...(headers['content-type']?{'content-type':headers['content-type']}:{}),...(request.method()==='GET'||request.method()==='HEAD'?{}:{origin:'https://studio.test'})}});
-   await route.fulfill({status:response.statusCode,body:response.rawPayload,headers:{'content-type':String(response.headers['content-type']??'application/json'),'cache-control':'no-store'}});
+   let payload=request.postDataBuffer()??undefined;
+   if(browserName==='webkit'&&!payload&&request.method()==='PUT'&&/^\/studio-api\/assets\/[^/]+\/content$/.test(url.pathname)){
+    const bytes=await request.frame().evaluate(key=>{const bodies=(window as typeof window&{__studioTestBinaryBodies?:Map<string,number[]>}).__studioTestBinaryBodies,value=bodies?.get(key);bodies?.delete(key);return value;},url.pathname+url.search);
+    if(!bytes)throw Error('WebKit binary capture missing');payload=Buffer.from(bytes);
+   }
+   const response=await workspace.app.inject({method:request.method() as 'GET'|'HEAD'|'POST'|'PATCH'|'DELETE'|'PUT',url:url.pathname+url.search,payload,headers:{cookie:workspace.account.cookie,...(headers['x-workspace-context']?{'x-workspace-context':headers['x-workspace-context']}:{}),...(headers['x-csrf-token']?{'x-csrf-token':headers['x-csrf-token']}:{}),...(headers['content-type']?{'content-type':headers['content-type']}:{}),...(headers['range']?{range:headers['range']}:{}),...(request.method()==='GET'||request.method()==='HEAD'?{}:{origin:'https://studio.test'})}});
+   await route.fulfill({status:response.statusCode,body:response.rawPayload,headers:{'content-type':String(response.headers['content-type']??'application/json'),'cache-control':'no-store',...(response.headers['content-range']?{'content-range':String(response.headers['content-range'])}:{}),...(response.headers['accept-ranges']?{'accept-ranges':String(response.headers['accept-ranges'])}:{}),...(response.headers['content-length']?{'content-length':String(response.headers['content-length'])}:{}),...(response.headers['cross-origin-resource-policy']?{'cross-origin-resource-policy':String(response.headers['cross-origin-resource-policy'])}:{})}});
   };
   const handler=async(route:Route)=>{const pending=handle(route);inFlight.add(pending);try{await pending;}finally{inFlight.delete(pending);}};
   await context.route(pattern,handler);

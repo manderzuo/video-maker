@@ -6,7 +6,7 @@ import {createThumbnail} from '../assets/thumbnail-service';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {usePreferences} from '../settings/preferences-store';
-import {LocalLink} from '../../app/routes';
+import {WorkspaceLink as LocalLink} from './workspace-navigation';
 const hash=async(blob:Blob)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(n=>n.toString(16).padStart(2,'0')).join('');
 export async function uploadCloudAsset(client:WorkspaceClient,file:File){
  const metadata=await probeMedia(file),thumbnail=await createThumbnail(file,metadata.mimeType),sha256=await hash(file);

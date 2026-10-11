@@ -5,12 +5,13 @@ import type {PromptDraft} from '../../domain/prompt';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
-import {LocalLink,navigate} from '../../app/routes';
+import {WorkspaceLink as LocalLink,useWorkspaceNavigate} from './workspace-navigation';
 import {CloudAssetMedia} from './CloudAssetsPage';
 import {CloudPromptInputSnapshot} from './CloudPromptInputSnapshot';
 import {CloudVideoTaskDetail,cloudVideoStatus} from './CloudVideoTaskDetail';
 export const cloudTaskStatus=(task:CloudRun)=>task.kind==='video'?cloudVideoStatus(task):({persisted:'任务已保存，等待调用',sending:'模型调用中',response_received:'回复已保存，正在写入结果',succeeded:'已完成',failed_confirmed:'未发出调用',response_unknown:'调用结果未知'}[task.executionState]);
 export function CloudTasksPage({client}:{client:WorkspaceClient}){
+ const navigate=useWorkspaceNavigate();
  const [tasks,setTasks]=useState<CloudRun[]>([]),[assets,setAssets]=useState<Asset[]>([]),[error,setError]=useState(''),[busy,setBusy]=useState(false),[paused,setPaused]=useState(false),[query,setQuery]=useState(''),[details,setDetails]=useState<{task:CloudRun;input?:PromptDraft}>();
  const alive=useRef(true),reading=useRef(false);
  async function reload(){if(reading.current)return;reading.current=true;try{const rows=await client.listTasks();if(alive.current){setTasks(rows);setDetails(current=>current?{...current,task:rows.find(row=>row.id===current.task.id)??current.task}:current);setError('');}void client.listAssets().then(media=>{if(alive.current)setAssets(media);}).catch(()=>{/* Missing thumbnails stay empty; the stored result is not changed. */});}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{reading.current=false;}}

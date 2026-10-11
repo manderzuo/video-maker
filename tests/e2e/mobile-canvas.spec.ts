@@ -1,0 +1,66 @@
+import { randomUUID } from 'node:crypto';
+import { test, expect } from '../helpers/cloud-workspace-ui-fixture';
+test('observes a mobile canvas without changing cloud geometry and edits only its text', async ({ page, workspace, browserName }) => {
+    const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 手机画布' } })).json(), nodeId = randomUUID();
+    await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 0, idempotencyKey: randomUUID(), command: { type: 'operations', operations: [{ id: randomUUID(), type: 'add_node', payload: { node: { id: nodeId, type: 'text', title: '正文节点', x: 40, y: 60, locked: false, data: { kind: 'text', text: 'TEST DATA 原正文', referenceTokens: [] } } } }] } } });
+    const before = (await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json();
+    await page.goto('/m/projects/' + project.id + '/canvas');
+    await expect(page.getByRole('heading', { name: '手机画布', exact: true })).toBeVisible();
+    const stage = page.locator('.mobile-canvas-stage');
+    await expect(stage).toBeVisible();
+    if (browserName === 'chromium') {
+        const box = (await stage.boundingBox())!, cdp = await page.context().newCDPSession(page), x = Math.round(box.x + box.width * .6), y = Math.round(box.y + box.height * .7);
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, id: 1 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 60, y: y - 40, id: 1 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: x - 50, y, id: 1 }, { x: x + 20, y, id: 2 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 70, y, id: 1 }, { x: x + 50, y, id: 2 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await cdp.detach();
+    }
+    await page.getByRole('button', { name: '适应画布', exact: true }).click();
+    await expect(page.locator('.mobile-minimap')).toBeVisible();
+    const map = (await page.locator('.mobile-minimap').boundingBox())!;
+    await page.mouse.move(map.x + 30, map.y + 30);
+    await page.mouse.down();
+    await page.mouse.move(map.x + 80, map.y + 45);
+    await page.mouse.up();
+    expect((await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json()).toEqual(before);
+    await page.getByRole('button', { name: '节点列表', exact: true }).click();
+    await page.getByRole('button', { name: '编辑正文节点', exact: true }).click();
+    await page.getByLabel('节点正文', { exact: true }).fill('TEST DATA 手机修改正文');
+    await page.getByRole('button', { name: '保存节点正文', exact: true }).click();
+    await expect(page.getByText('正文已保存', { exact: true })).toBeVisible();
+    const after = (await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json();
+    expect(after.nodes[0].data.text).toBe('TEST DATA 手机修改正文');
+    expect(after.nodes[0].x).toBe(40);
+    expect(after.nodes[0].y).toBe(60);
+    expect(after.viewport).toEqual(before.viewport);
+    expect(after.edges).toEqual(before.edges);
+    expect(workspace.providerCalls.filter(call => call.method === 'POST')).toHaveLength(0);
+    await page.goto('/projects/' + project.id + '/canvas');
+    await expect(page.locator('[data-interaction-id="cloud:canvas:node-text"]').first()).toHaveValue('TEST DATA 手机修改正文');
+});
+test('shows existing canvas relationships in the mobile overview', async ({ page, workspace }) => {
+    const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 手机连线' } })).json(), source = randomUUID(), target = randomUUID();
+    const created = await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 0, idempotencyKey: randomUUID(), command: { type: 'operations', operations: [{ id: randomUUID(), type: 'add_node', payload: { node: { id: source, type: 'text', title: '文字', x: 40, y: 40, locked: false, data: { kind: 'text', text: 'TEST DATA 提示词', referenceTokens: [] } } } }, { id: randomUUID(), type: 'add_node', payload: { node: { id: target, type: 'video-generation', title: '视频', x: 440, y: 40, locked: false, data: { kind: 'video-generation', draft: { modelId: 'seedance', durationSeconds: 5, ratio: '9:16', resolution: '480p' }, inputBindings: [], stale: true } } } }, { id: randomUUID(), type: 'add_edge', payload: { edge: { id: randomUUID(), sourceId: source, targetId: target, port: 'text', order: 0 } } }] } } });
+    expect(created.statusCode).toBe(200);
+    await page.goto('/m/projects/' + project.id + '/canvas');
+    await expect(page.locator('.mobile-canvas-wire')).toHaveCount(1);
+    expect(workspace.providerCalls.filter(call => call.method === 'POST')).toHaveLength(0);
+});
+test('retains a conflicting mobile text edit and guards browser refresh', async ({ page, workspace }) => {
+    const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 正文冲突' } })).json(), id = randomUUID();
+    await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 0, idempotencyKey: randomUUID(), command: { type: 'operations', operations: [{ id: randomUUID(), type: 'add_node', payload: { node: { id, type: 'text', title: '正文节点', x: 40, y: 60, locked: false, data: { kind: 'text', text: 'TEST DATA 初始', referenceTokens: [] } } } }] } } });
+    await page.goto('/m/projects/' + project.id + '/canvas');
+    await page.getByRole('button', { name: '节点列表', exact: true }).click();
+    await page.getByRole('button', { name: '编辑正文节点', exact: true }).click();
+    const input = page.getByLabel('节点正文', { exact: true });
+    await input.fill('TEST DATA 手机修改');
+    await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 1, idempotencyKey: randomUUID(), command: { type: 'operations', operations: [{ id: randomUUID(), type: 'update_node', payload: { nodeId: id, patch: { data: { kind: 'text', text: 'TEST DATA 电脑新正文', referenceTokens: [] } } } }] } } });
+    await page.getByRole('button', { name: '保存节点正文', exact: true }).click();
+    await expect(page.getByRole('dialog', { name: '编辑节点正文', exact: true }).getByRole('alert')).toBeVisible();
+    await expect(input).toHaveValue('TEST DATA 手机修改');
+    expect((await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json().nodes[0].data.text).toBe('TEST DATA 电脑新正文');
+    expect(await page.evaluate(() => window.dispatchEvent(new Event('beforeunload', { cancelable: true })))).toBe(false);
+});

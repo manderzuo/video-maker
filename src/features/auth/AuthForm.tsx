@@ -1,7 +1,7 @@
 import {useEffect,useRef,useState,type FormEvent} from 'react';
 import {sessionStore,type AuthBootstrapView} from '../../infrastructure/api/session';
 import {apiMessage} from '../../infrastructure/api/client';
-import {LocalLink} from '../../app/routes';
+import {WorkspaceLink as LocalLink} from '../workspace/workspace-navigation';
 export function AuthForm({operation}:{operation:'register'|'login'}){
  const [username,setUsername]=useState(''),[password,setPassword]=useState(''),[bootstrap,setBootstrap]=useState<AuthBootstrapView|null>(null),[message,setMessage]=useState(''),[pending,setPending]=useState(false),composing=useRef(false),active=useRef(true);
  const title=operation==='register'?'注册':'登录';

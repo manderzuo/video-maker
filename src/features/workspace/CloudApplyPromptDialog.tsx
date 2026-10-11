@@ -6,6 +6,7 @@ import type {GraphOperation} from '../../application/commands/registry';
 import {ApiError} from '../../infrastructure/api/client';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
 import {Button} from '../../ui/Button';
+import {useWorkspacePresentation} from './workspace-navigation';
 import {Dialog} from '../../ui/Dialog';
 import {inspectVideoTextInputs, nextEdgeOrder, resolveFlowSpec, type FlowCapability} from './cloud-video-input';
 import type {VideoSpec} from '../../domain/common';
@@ -13,6 +14,7 @@ import type {VideoSpec} from '../../domain/common';
 type TargetMode = 'text' | 'video' | 'flow';
 
 export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose,onApplied}:{client:WorkspaceClient;draft:PromptDraft;version:PromptResultVersion;initialMode?:TargetMode;onClose:()=>void;onApplied:(revision:number,target:string,nodeId?:string)=>void}){
+ const {presentation}=useWorkspacePresentation();
  const [projects,setProjects]=useState<Project[]>([]),[target,setTarget]=useState(''),[graph,setGraph]=useState<Graph>(),[input,setInput]=useState<PromptDraft>();
  const [nodeId,setNodeId]=useState(''),[videoNodeId,setVideoNodeId]=useState(''),[replaceEdgeId,setReplaceEdgeId]=useState(''),[flowTitle,setFlowTitle]=useState('视频流程'),[mode,setMode]=useState<TargetMode>(initialMode??'text');
  const [cap,setCap]=useState<FlowCapability|null>(null),[capLoading,setCapLoading]=useState(false),[capError,setCapError]=useState(''),[selectedSpec,setSelectedSpec]=useState('');
@@ -79,7 +81,7 @@ export function CloudApplyPromptDialog({client,draft,version,initialMode,onClose
  async function apply(){if(busy||!graph||!input||!target||conflict)return;setBusy(true);setError('');try{
   if(!frozen.current){
    const operations=await buildOperations();
-   const focusNodeId=mode==='text'?(nodeId||(operations[0].payload.node as CanvasNode).id):undefined;
+   const focusNodeId=mode==='text'?(nodeId||(operations[0].payload.node as CanvasNode).id):presentation==='mobile'?(mode==='video'?videoNodeId:((operations.find(operation=>operation.type==='add_node'&&(operation.payload.node as CanvasNode).type==='video-generation')?.payload.node as CanvasNode|undefined)?.id)):undefined;
    frozen.current={target,nodeId:focusNodeId,revision:graph.revision,key:crypto.randomUUID(),command:{type:'operations',operations}};
   }
   const attempt=frozen.current,receipt=await client.command(attempt.target,attempt.revision,attempt.command,attempt.key);

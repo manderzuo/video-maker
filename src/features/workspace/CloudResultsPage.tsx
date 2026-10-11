@@ -3,7 +3,8 @@ import type {Asset} from '../../domain/asset';
 import type {CloudRun} from '../../domain/cloud-video-run';
 import type {GraphOperation} from '../../application/commands/registry';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
-import {navigate,useRoute,LocalLink} from '../../app/routes';
+import {useRoute} from '../../app/routes';
+import {WorkspaceLink as LocalLink,useWorkspaceNavigate,useWorkspacePresentation} from './workspace-navigation';
 import {Button} from '../../ui/Button';
 import {Dialog} from '../../ui/Dialog';
 import {CloudAssetMedia,uploadCloudAsset} from './CloudAssetsPage';
@@ -68,6 +69,7 @@ function clearPendingRequest(projectId:string,kind:PendingKind,recordId:string){
 const videoRecords=(runs:CloudRun[],projectId:string)=>runs.filter((run):run is VideoRecord=>run.kind==='video'&&run.projectId===projectId&&run.executionState==='succeeded'&&!!run.resultAssetId);
 const freeze=(operations:GraphOperation[],baseRevision:number):FrozenRequest=>({key:crypto.randomUUID(),baseRevision,operations,nodeIds:operations.flatMap(operation=>operation.type==='add_node'?[(operation.payload as {node:{id:string}}).node.id]:[])});
 export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;projectId:string}){
+ const navigate=useWorkspaceNavigate(),{navigation}=useWorkspacePresentation();
  const route=useRoute(),params=new URLSearchParams(route.split('?')[1]??''),highlight=params.get('runId')??undefined;
  const [snapshot,setSnapshot]=useState<Snapshot>(),[results,setResults]=useState<ProjectResult[]>([]),[media,setMedia]=useState<Asset[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState('');
  const [placements,setPlacements]=useState<Record<string,Placement>>(()=>readStoredPlacements(projectId)),[compare,setCompare]=useState<string[]>([]),[details,setDetails]=useState<VideoRecord>(),[pendingCount,setPendingCount]=useState(0);
@@ -323,7 +325,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
     {continuation.preview?<img data-interaction-id="cloud:results:tail-frame-preview" src={continuation.preview} alt="尾帧预览" style={{maxWidth:'100%',maxHeight:240}}/>:null}
     <label>续写提示词<textarea data-interaction-id="cloud:results:tail-frame-prompt" disabled={optimizing||frozenBusy(continuation.phase)} value={continuation.prompt} onChange={event=>setContinuation({...continuation,prompt:event.target.value})}/></label>
     <Button data-interaction-id="cloud:results:tail-frame-ai" busy={optimizing} disabled={optimizing||frozenBusy(continuation.phase)||!continuation.prompt.trim()} onClick={()=>void polishPrompt('tail-frame')}>文字 API 润色</Button>
-    <a data-interaction-id="cloud:results:tail-frame-text-settings" href="/settings/connections#text-api" target="_blank" rel="noopener noreferrer">配置文字 API</a>
+    <a data-interaction-id="cloud:results:tail-frame-text-settings" href={navigation?.href("/settings/connections#text-api")??"/settings/connections#text-api"} target="_blank" rel="noopener noreferrer">配置文字 API</a>
     {continuation.message?<p role="status">{continuation.message}</p>:null}
     {continuation.error?<p role="alert">{continuation.error}</p>:null}
    </>:null}
@@ -341,7 +343,7 @@ export function CloudResultsPage({client,projectId}:{client:WorkspaceClient;proj
     <label>需要修正的问题<textarea data-interaction-id="cloud:results:revision-instructions" disabled={optimizing||frozenBusy(revision.phase)} value={revision.instructions??''} onChange={event=>setRevision({...revision,instructions:event.target.value})}/></label>
     <p>文字 API 会结合原提示词和本次问题生成完整修正正文。直接保存则保留当前正文并附上修正要求；原视频保留。</p>
     <Button data-interaction-id="cloud:results:revision-ai" busy={optimizing} disabled={optimizing||frozenBusy(revision.phase)||!revision.prompt.trim()||(frozenSnapshot(revision.result.record).references.length>0&&!revision.availability)} onClick={()=>void polishPrompt('revision')}>文字 API 润色</Button>
-    <a data-interaction-id="cloud:results:revision-text-settings" href="/settings/connections#text-api" target="_blank" rel="noopener noreferrer">配置文字 API</a>
+    <a data-interaction-id="cloud:results:revision-text-settings" href={navigation?.href("/settings/connections#text-api")??"/settings/connections#text-api"} target="_blank" rel="noopener noreferrer">配置文字 API</a>
     <p data-interaction-id="cloud:results:revision-references">引用：{frozenSnapshot(revision.result.record).references.length?frozenSnapshot(revision.result.record).references.map(reference=>{const state=!revision.availability?'确认中':revision.availability[reference.assetId]&&assets.get(reference.assetId)?.trashedAt==null?'可读':'缺失或已删除';return reference.alias+'（'+state+'）';}).join('、'):'无'}</p>
     {revision.skipped.length?<p role="alert">以下引用不可读，未自动替换：{revision.skipped.join('、')}</p>:null}
     {revision.message?<p role="status">{revision.message}</p>:null}

@@ -3,7 +3,9 @@ import {useId,useLayoutEffect,useRef,type ReactNode,type RefObject} from 'react'
 import {createPortal} from 'react-dom';
 import {Button} from './Button';
 import {dialogContracts} from './dialog-contracts';
-export function Dialog({open,title,onClose,children,footer,dismissible=true,width=640,returnFocusRef}:{open:boolean;title:string;onClose:()=>void;children:ReactNode;footer?:ReactNode;dismissible?:boolean;width?:number;returnFocusRef?:RefObject<HTMLElement|null>}){
+import {useWorkspacePresentation} from '../features/workspace/workspace-navigation';
+export function Dialog({open,title,onClose,children,footer,dismissible=true,width=640,returnFocusRef,className}:{open:boolean;title:string;onClose:()=>void;children:ReactNode;footer?:ReactNode;dismissible?:boolean;width?:number;returnFocusRef?:RefObject<HTMLElement|null>;className?:string}){
+ const {presentation,viewport}=useWorkspacePresentation();
  const ref=useRef<HTMLDialogElement>(null),previous=useRef<HTMLElement|null>(null),titleId=useId();
  useLayoutEffect(()=>{
   const dialog=ref.current!;
@@ -11,7 +13,7 @@ export function Dialog({open,title,onClose,children,footer,dismissible=true,widt
   if(!open&&dialog.open){dialog.close();previous.current?.focus();}
   return()=>{if(dialog.open){dialog.close();previous.current?.focus();}};
  },[open,returnFocusRef]);
- return createPortal(<dialog data-dialog-id={dialogContracts[title]} ref={ref} className={'dialog dialog-'+width} aria-labelledby={titleId} aria-modal="true" onCancel={event=>{event.preventDefault();event.stopPropagation();if(dismissible)onClose();}} onKeyDown={event=>{
+ return createPortal(<dialog data-dialog-id={dialogContracts[title]} ref={ref} className={'dialog dialog-'+width+(className?' '+className:'')+(presentation==='mobile'?' mobile-dialog':'')} style={presentation==='mobile'&&viewport?{maxHeight:Math.max(120,viewport.height-16),top:viewport.top}:undefined} aria-labelledby={titleId} aria-modal="true" onCancel={event=>{event.preventDefault();event.stopPropagation();if(dismissible)onClose();}} onKeyDown={event=>{
   if(event.key!=='Tab')return;
   event.stopPropagation();
   const stops=Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),textarea:not(:disabled),select:not(:disabled),[tabindex]:not([tabindex="-1"])')).filter(element=>element.getClientRects().length>0);
