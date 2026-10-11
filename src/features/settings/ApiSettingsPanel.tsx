@@ -3,7 +3,6 @@ import {LocalLink} from '../../app/routes';
 import {createApiSettingsClient,apiSettingsMessage,ApiSettingsError,type ApiSettingsClient} from './api-settings-client';
 import {createApiSettingsStore,type ApiSettingsBridge} from './use-api-settings';
 import {ApiModelFields} from './ApiModelFields';
-import './api-settings.css';
 const defaultClient=createApiSettingsClient();
 export function ApiSettingsPanel({context,bridge,client=defaultClient,onEnter,onReloadOnboarding,enterBusy=false,readOnly=false}:{context:'welcome'|'settings';bridge:ApiSettingsBridge;client?:ApiSettingsClient;onEnter?:()=>Promise<void>;onReloadOnboarding?:()=>Promise<void>;enterBusy?:boolean;readOnly?:boolean}){
  const store=useMemo(()=>createApiSettingsStore(bridge,client),[bridge,client]),state=useSyncExternalStore(store.subscribe,store.getState),[enterPending,setEnterPending]=useState(false),[enterError,setEnterError]=useState(''),[enterConflict,setEnterConflict]=useState(false),[reloadPending,setReloadPending]=useState(false),[enterMessage,setEnterMessage]=useState('');

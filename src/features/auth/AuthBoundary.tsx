@@ -11,7 +11,6 @@ import {RegisterPage} from './RegisterPage';
 import {AccountPreferences} from './AccountPreferences';
 import {CloudWorkspace} from '../workspace/CloudWorkspace';
 import {navigation} from '../../app/navigation';
-import '../workspace/original-workbench.css';
 import {ApiSettingsPanel} from '../settings/ApiSettingsPanel';
 import {ApiSettingsError} from '../settings/api-settings-client';
 import type {ApiSettingsBridge} from '../settings/use-api-settings';

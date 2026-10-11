@@ -192,3 +192,18 @@ test('a narrow short viewport degrades to a scrollable layout with a usable canv
  await page.screenshot({path:testInfo.outputPath('audit-layout-800x600.png'),fullPage:true});
  expect(workspace.providerCalls).toHaveLength(0);
 });
+
+
+test('UI repair keeps task sidebar reachable across width and height boundaries',async({page,workspace},testInfo)=>{
+ const project=(await workspace.call('POST','/studio-api/projects',{...workspace.headers(workspace.account),payload:{title:'UI repair TEST DATA'}})).json();
+ for(const viewport of [{width:1024,height:720},{width:1023,height:720},{width:1280,height:719},{width:800,height:600},{width:1366,height:768}]){
+  await page.setViewportSize(viewport);await page.goto('/projects/'+project.id+'/canvas');
+  const side=page.locator('.canvas-side'),stage=page.locator('.canvas-stage');await expect(side).toBeVisible();
+  const a=await stage.boundingBox(),b=await side.boundingBox();if(!a||!b)throw Error('Missing layout');
+  if(viewport.width>=1024&&viewport.height>=720){expect(b.x).toBeGreaterThanOrEqual(a.x+a.width-2);expect(Math.abs(b.width-360)).toBeLessThan(3);}
+  else {expect(b.y).toBeGreaterThanOrEqual(a.y+a.height-2);await side.locator('h2').scrollIntoViewIfNeeded();await expect(side.locator('h2')).toBeVisible();}
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+  await page.screenshot({path:testInfo.outputPath('ui-repair-'+viewport.width+'x'+viewport.height+'.png'),fullPage:true});
+ }
+ expect(workspace.providerCalls).toHaveLength(0);
+});

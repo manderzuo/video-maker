@@ -13,7 +13,6 @@ import {CloudRecoveryPage} from './CloudRecoveryPage';
 import {CloudHelpPage} from './CloudHelpPage';
 import {CloudResultsPage} from './CloudResultsPage';
 import {CloudComparePage} from './CloudComparePage';
-import './workspace.css';
 import {CloudCanvasEntryPage} from './CloudCanvasEntryPage';
 export function CloudWorkspace({path}:{path:string}){
  const [client,setClient]=useState<WorkspaceClient>();

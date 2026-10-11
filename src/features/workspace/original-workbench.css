@@ -25,22 +25,6 @@
 .account-shell .prompt-generator-panel .cloud-prompt-pane{margin:16px 0}
 .account-shell .prompt-generator-panel .actions{flex-wrap:wrap}
 .account-shell .prompt-generator-panel h1{font-size:20px}
-@media(min-width:768px){
- .account-shell.app-shell.canvas-shell{grid-template-columns:64px minmax(0,1fr);height:100dvh;overflow:hidden}
- .account-shell.canvas-shell .account-content{display:flex;flex:1;padding:0;min-height:0;overflow:hidden}
- .account-shell.canvas-shell .cloud-canvas-page{gap:0}
- .account-shell.canvas-shell .canvas-main{gap:0;flex:1;min-height:0}
- .account-shell.canvas-shell .canvas-main:not(.side-collapsed){grid-template-columns:minmax(0,1fr) 400px}
- .account-shell.canvas-shell .canvas-main>.canvas-layout{min-height:0}
- .account-shell.canvas-shell .canvas-side{border-left:1px solid var(--line);padding:8px;gap:8px}
- .account-shell.canvas-shell .topbar .button{max-width:250px;overflow:hidden;text-overflow:ellipsis}
- .account-shell.canvas-shell .account-user{max-width:100px;overflow:hidden;text-overflow:ellipsis}
- .account-shell.canvas-shell .node-action-bar .button{min-height:34px;padding:4px 8px}
- .account-shell.canvas-shell .node-actions .button{min-height:32px}
-}
-@media(max-width:1023px){.account-shell.app-shell{grid-template-columns:140px minmax(0,1fr)}.account-shell .account-content{padding:24px}.account-user{display:none}}
-@media(max-width:767px){.account-shell.app-shell{display:flex;padding:0}.account-shell .account-content{padding:16px}.account-shell .account-header{flex-wrap:wrap}.account-shell .account-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.account-shell .cloud-canvas-page{overflow:visible}.account-shell .canvas-stage{height:520px;min-height:420px}.account-shell .canvas-main{display:block}.account-shell .canvas-main .canvas-side{max-height:none}.account-shell .canvas-main.side-collapsed .canvas-side{display:none}}
-
 .account-shell .cloud-canvas-page .canvas-asset-preview video{pointer-events:auto}
 .account-shell .cloud-canvas-page .canvas-layout{grid-template-columns:minmax(0,1fr)}
 .account-shell .video-task-list article{border-left:3px solid var(--accent);padding:8px;margin:8px 0;background:var(--panel);border-radius:6px}
@@ -51,3 +35,16 @@
 .account-shell .result-generation-actions .button-group{flex:1 1 120px;min-width:0}
 .account-shell .result-generation-actions .button.primary,.account-shell .button.result-generation-action{min-height:44px;padding:10px 16px;font-size:14px;font-weight:600;line-height:1.4}
 .account-shell .result-generation-actions .button{width:100%}
+
+/* Account shell and cloud canvas geometry have a single owner. Natural flow is the base. */
+.account-entry{min-height:100dvh;display:grid;place-content:center;padding:24px}.account-form{width:min(460px,calc(100vw - 48px))}.account-brand{font-weight:600;letter-spacing:.02em;color:var(--accent)}.account-switch{margin:24px 0 0}.account-fields{max-width:480px;margin:0 0 16px;padding:20px}
+.account-shell{width:100%;min-height:100dvh}.account-shell .card{overflow-wrap:anywhere}.account-content{min-width:0;width:100%;margin:0 auto}.account-shell .app-main{min-width:0}
+.cloud-canvas-page{min-width:0;display:flex;flex-direction:column;gap:8px;position:relative}.account-shell.canvas-shell .account-content{padding:0;max-width:none}.cloud-canvas-page>.actions,.cloud-canvas-page .canvas-toolbar{flex:none}
+.canvas-main{min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:stretch}.canvas-main>.canvas-layout{min-width:0}.cloud-canvas-page .canvas-stage{height:clamp(420px,60dvh,640px);min-height:420px}.canvas-side{min-width:0;display:grid;gap:12px;align-content:start;padding:16px}.canvas-main.side-collapsed .canvas-side{display:none}
+.account-shell .canvas-heading,.account-shell .canvas-toolbar,.account-shell .node-action-bar{padding:8px 12px;margin:0;flex-wrap:wrap;overflow:visible;white-space:normal;gap:8px;flex-shrink:0;min-height:52px;height:auto}.account-shell .canvas-heading h2{font-size:18px;margin:0 auto 0 0}.canvas-heading [role=status]{font-size:14px}.account-shell .node-action-bar .disabled-reason{max-height:none}
+.prompt-generator-panel{position:fixed;inset:0 0 0 auto;width:min(400px,100vw);overflow-y:auto;z-index:20;background:var(--panel);border-left:1px solid var(--line);box-shadow:-12px 0 40px #0005}.prompt-generator-panel textarea{min-height:160px}
+.cloud-connection-lights{padding:10px 0;gap:8px}.cloud-connection-lights .button-group{display:block}.cloud-connection-lights .connection-light-button{display:flex;align-items:center;width:100%;min-height:44px;gap:8px;background:transparent;border-color:transparent;padding:8px;font-size:12px;white-space:normal}.connection-dot.pending{background:var(--warning)}.connection-dot.missing{background:var(--muted)}.cloud-connection-lights .connection-light-button:hover{background:var(--surface-hover)}
+@media(min-width:768px){.account-shell.canvas-shell{grid-template-columns:64px minmax(0,1fr)}.account-shell.canvas-shell .navigation{height:100dvh;padding:8px 6px;overflow:auto}.account-shell.canvas-shell .brand{font-size:0;padding:8px 0 16px;text-align:center}.account-shell.canvas-shell .brand::before{content:'AW';font-size:18px;color:var(--accent)}.account-shell.canvas-shell .brand span,.account-shell.canvas-shell .nav-label,.account-shell.canvas-shell .navigation-footer>p{display:none}.account-shell.canvas-shell .nav-link{justify-content:center;padding:8px}.account-shell.canvas-shell .navigation-footer{display:block;padding:0}.account-shell.canvas-shell .account-nav{flex:1;min-height:0}.account-shell.canvas-shell .connection-light-button{flex-direction:column;justify-content:center;padding:8px 2px;font-size:12px;overflow-wrap:anywhere}}
+@media(min-width:1024px) and (min-height:720px){.account-shell.canvas-shell{height:100dvh;min-height:0;overflow:hidden}.account-shell.canvas-shell .app-main{display:flex;flex-direction:column;min-height:0}.account-shell.canvas-shell .account-content{display:flex;flex:1;min-height:0;overflow:hidden}.account-shell.canvas-shell .cloud-canvas-page{flex:1;min-height:0;gap:0}.account-shell.canvas-shell .canvas-main{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) 360px;grid-template-rows:minmax(0,1fr);gap:0}.account-shell.canvas-shell .canvas-main.side-collapsed{grid-template-columns:minmax(0,1fr)}.account-shell.canvas-shell .canvas-main>.canvas-layout{min-height:0;grid-template-rows:minmax(0,1fr)}.account-shell.canvas-shell .canvas-stage{height:100%;min-height:0;border-radius:0}.account-shell.canvas-shell .canvas-side{overflow:auto;min-height:0;padding:12px;border-left:1px solid var(--line)}}
+@media(max-width:1023px){.account-shell.app-shell:not(.canvas-shell){grid-template-columns:140px minmax(0,1fr)}.account-shell:not(.canvas-shell) .account-content{padding:24px}.account-user{display:none}}
+@media(max-width:767px){.account-shell.app-shell{display:flex;flex-direction:column}.account-shell .navigation{position:static;height:auto;padding:16px}.account-shell .account-content{padding:16px}.account-shell .account-header{flex-wrap:wrap}.account-shell .account-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.account-shell .brand{padding-bottom:16px}.account-form{width:min(460px,calc(100vw - 32px))}}

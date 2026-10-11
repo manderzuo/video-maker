@@ -1,3 +1,4 @@
+import '../features/canvas/legacy-shell.css';
 import {ConnectionLights} from '../features/settings/ConnectionLights';
 import {startRememberedConnections} from '../features/settings/remember-connections';
 import {useEffect,useState,lazy,Suspense,type ReactElement} from 'react';
