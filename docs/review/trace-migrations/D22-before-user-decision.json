@@ -1,0 +1,41 @@
+{
+  "head": "8a7ce6a5f96da2f0cb197154c3fc8175c59d9907",
+  "canonicalRow": "D22,弹窗,导出诊断确认,T38,WP05,待实施,Design 1.0",
+  "mapping": {
+    "id": "D22",
+    "taskId": "T38",
+    "label": "导出诊断确认",
+    "disposition": "cloud_counterpart_row_proof_pending",
+    "reason": "当前界面直接导出脱敏诊断，没有导出确认弹窗。原筛选和下载测试不能证明D22弹窗；原映射快照保留，规范迁移待决。",
+    "sources": [],
+    "proofs": [],
+    "candidates": [
+      {
+        "testId": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
+        "status": "passed"
+      },
+      {
+        "testId": "tests/e2e/cloud-activity-recovery.spec.ts::shows an empty activity page when the account has no commands",
+        "status": "passed"
+      },
+      {
+        "testId": "tests/e2e/cloud-activity-recovery.spec.ts::surfaces unknown and failed runs for recovery without sending requests",
+        "status": "passed"
+      },
+      {
+        "testId": "tests/e2e/cloud-activity-recovery.spec.ts::shows an empty recovery page when nothing needs attention",
+        "status": "passed"
+      },
+      {
+        "testId": "tests/e2e/cloud-activity-recovery.spec.ts::exports a redacted cloud diagnostics report",
+        "status": "passed"
+      }
+    ]
+  },
+  "historicalGateStatus": "incomplete",
+  "historicalMissing": [
+    "source_binding_missing",
+    "facet_missing:normal"
+  ],
+  "qualification": "This snapshot is historical, not reclassified as passed by the later user decision."
+}

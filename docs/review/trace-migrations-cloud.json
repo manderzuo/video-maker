@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "migrations": [
+    {
+      "id": "D22-20261011-direct-download",
+      "retiredCanonical": {
+        "id": "D22",
+        "kind": "dialogs",
+        "label": "导出诊断确认"
+      },
+      "decision": {
+        "sourceThreadId": "01a0f16b-a215-70a2-967f-f7319164802e",
+        "userMessage": "Sentinel_19ccbd9fdbc88191bf37f2400a60ba01",
+        "quote": "导出是直接下载不需要二次确认"
+      },
+      "outcome": "retired_by_explicit_user_decision",
+      "replacement": {
+        "interactionId": "cloud:activity:export",
+        "behavior": "点击现有导出按钮直接下载脱敏JSON，无二次确认；读取失败显示错误、无下载，可重试。",
+        "sources": [
+          {
+            "file": "src/features/workspace/CloudActivityPage.tsx",
+            "anchor": "data-interaction-id=\"cloud:activity:export\""
+          },
+          {
+            "file": "src/features/workspace/CloudReceiptActivityPage.tsx",
+            "anchor": "data-interaction-id=\"cloud:activity:export\""
+          }
+        ],
+        "proofs": [
+          {
+            "testId": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in operations view downloads redacted content without confirmation and recovers read failure",
+            "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+            "assertionLines": [
+              18,
+              19,
+              21,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29
+            ],
+            "facets": [
+              "normal",
+              "error",
+              "sideEffect"
+            ],
+            "expectedCoreWrites": 0,
+            "expectedPaidRequests": 0,
+            "executionReport": "docs/review/evidence/D22-direct-export-20261011.json",
+            "executionReportSha256": "08a7ebc8ece09944d5e6087942ba8e2b53c666ab02a3311c3e461cad6470f9cb",
+            "qualification": "Core-writes is the guard metric; actual fixture receipts unchanged and fake-provider paid POST count zero are asserted. No confirmation dialog is claimed."
+          },
+          {
+            "testId": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in receipts view downloads redacted content without confirmation and recovers read failure",
+            "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+            "assertionLines": [
+              18,
+              19,
+              21,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29
+            ],
+            "facets": [
+              "normal",
+              "error",
+              "sideEffect"
+            ],
+            "expectedCoreWrites": 0,
+            "expectedPaidRequests": 0,
+            "executionReport": "docs/review/evidence/D22-direct-export-20261011.json",
+            "executionReportSha256": "08a7ebc8ece09944d5e6087942ba8e2b53c666ab02a3311c3e461cad6470f9cb",
+            "qualification": "Core-writes is the guard metric; actual fixture receipts unchanged and fake-provider paid POST count zero are asserted. No confirmation dialog is claimed."
+          }
+        ]
+      },
+      "history": {
+        "snapshotPath": "docs/review/trace-migrations/D22-before-user-decision.json",
+        "sha256": "0cb9eb84ebcff3945177cd51bceaea6b48395d2a53c0eb899b2b61faba9989e9",
+        "priorStatus": "incomplete"
+      },
+      "checkerCompatibility": {
+        "retirementSupported": false,
+        "reason": "Existing evaluator requires source and normal proof for every canonical dialog; it has no retirement/migration disposition. Keep D22 source/proofs empty and retain its two technical gate gaps rather than invent a dialog or weaken the whole checker.",
+        "canonicalIdentityRetained": true,
+        "retainedErrors": [
+          "source_binding_missing",
+          "facet_missing:normal"
+        ]
+      },
+      "scope": {
+        "canonicalD22StatusOnlyChanged": true,
+        "other1495DeclarationGapsUntouched": true,
+        "legacyH03PreviewContractNotClaimedComplete": true
+      }
+    }
+  ]
+}

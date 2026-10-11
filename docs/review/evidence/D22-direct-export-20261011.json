@@ -1,0 +1,724 @@
+{
+  "format": "aiwork-studio-executed-test-evidence",
+  "version": 1,
+  "status": "passed",
+  "tests": [
+    {
+      "id": "tests/e2e/cloud-activity-recovery.spec.ts::lists recent command receipts across projects with canvas links",
+      "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+      "title": "lists recent command receipts across projects with canvas links",
+      "status": "passed",
+      "sourceHash": "d1a444733cf7d00cbb2c81e1fe1a802e8c1d1a22117cb7249c8f7b5109ecc3eb",
+      "assertions": 11,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 10,
+          "column": 365,
+          "function": "seedProject"
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 10,
+          "column": 365,
+          "function": "seedProject"
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 17,
+          "column": 365
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 20,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 21,
+          "column": 47
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 22,
+          "column": 29
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 24,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 27,
+          "column": 47
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 23,
+          "column": 84
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 26,
+          "column": 58
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-activity-recovery.spec.ts::shows an empty activity page when the account has no commands",
+      "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+      "title": "shows an empty activity page when the account has no commands",
+      "status": "passed",
+      "sourceHash": "d1a444733cf7d00cbb2c81e1fe1a802e8c1d1a22117cb7249c8f7b5109ecc3eb",
+      "assertions": 4,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 31,
+          "column": 60
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-activity-recovery.spec.ts::surfaces unknown and failed runs for recovery without sending requests",
+      "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+      "title": "surfaces unknown and failed runs for recovery without sending requests",
+      "status": "passed",
+      "sourceHash": "d1a444733cf7d00cbb2c81e1fe1a802e8c1d1a22117cb7249c8f7b5109ecc3eb",
+      "assertions": 9,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 35,
+          "column": 216
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 44,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 44,
+          "column": 144
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 47,
+          "column": 57
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 49,
+          "column": 21
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 51,
+          "column": 69
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 41,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 43,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 48,
+          "column": 56
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-activity-recovery.spec.ts::shows an empty recovery page when nothing needs attention",
+      "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+      "title": "shows an empty recovery page when nothing needs attention",
+      "status": "passed",
+      "sourceHash": "d1a444733cf7d00cbb2c81e1fe1a802e8c1d1a22117cb7249c8f7b5109ecc3eb",
+      "assertions": 4,
+      "actions": 0,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 55,
+          "column": 56
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-activity-recovery.spec.ts::exports a redacted cloud diagnostics report",
+      "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+      "title": "exports a redacted cloud diagnostics report",
+      "status": "passed",
+      "sourceHash": "d1a444733cf7d00cbb2c81e1fe1a802e8c1d1a22117cb7249c8f7b5109ecc3eb",
+      "assertions": 15,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 59,
+          "column": 216
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 67,
+          "column": 2
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 67,
+          "column": 160
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 70,
+          "column": 93
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 76,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 77,
+          "column": 33
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 78,
+          "column": 25
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 79,
+          "column": 29
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 80,
+          "column": 29
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 81,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 82,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 83,
+          "column": 63
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 64,
+          "column": 81
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 66,
+          "column": 56
+        },
+        {
+          "file": "tests/e2e/cloud-activity-recovery.spec.ts",
+          "line": 72,
+          "column": 60
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in operations view downloads redacted content without confirmation and recovers read failure",
+      "file": "tests/e2e/cloud-export-direct.spec.ts",
+      "title": "direct diagnostics export in operations view downloads redacted content without confirmation and recovers read failure",
+      "status": "passed",
+      "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+      "assertions": 29,
+      "actions": 2,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 8,
+          "column": 203
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 10,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 14,
+          "column": 84
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 18,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 18,
+          "column": 104
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 19
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 49
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 79
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 126
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 21,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 23,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 23,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 23,
+          "column": 121
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 24,
+          "column": 26
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 25,
+          "column": 26
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 25,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 26,
+          "column": 30
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 27,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 27,
+          "column": 90
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 27,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 40
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 77
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 107
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 154
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 29,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 29,
+          "column": 172
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 18,
+          "column": 15
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 20,
+          "column": 74
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    },
+    {
+      "id": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in receipts view downloads redacted content without confirmation and recovers read failure",
+      "file": "tests/e2e/cloud-export-direct.spec.ts",
+      "title": "direct diagnostics export in receipts view downloads redacted content without confirmation and recovers read failure",
+      "status": "passed",
+      "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+      "assertions": 29,
+      "actions": 3,
+      "assertionLocations": [
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 8,
+          "column": 203
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 10,
+          "column": 372
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 14,
+          "column": 84
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 18,
+          "column": 69
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 18,
+          "column": 104
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 19
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 49
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 79
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 19,
+          "column": 126
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 21,
+          "column": 39
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 23,
+          "column": 24
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 23,
+          "column": 87
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 23,
+          "column": 121
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 24,
+          "column": 26
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 25,
+          "column": 26
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 25,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 26,
+          "column": 30
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 27,
+          "column": 37
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 27,
+          "column": 90
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 27,
+          "column": 141
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 40
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 77
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 107
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 28,
+          "column": 154
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 29,
+          "column": 89
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 29,
+          "column": 172
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 379,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 421,
+          "function": "Object.base.extend.apiGuard.auto"
+        },
+        {
+          "file": "tests/helpers/account-api-ui-fixture.ts",
+          "line": 54,
+          "column": 462,
+          "function": "Object.base.extend.apiGuard.auto"
+        }
+      ],
+      "actionLocations": [
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 13,
+          "column": 98
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 18,
+          "column": 15
+        },
+        {
+          "file": "tests/e2e/cloud-export-direct.spec.ts",
+          "line": 20,
+          "column": 74
+        }
+      ],
+      "network": {
+        "coreWrites": 0,
+        "paidRequests": 0,
+        "blockedRequests": 0
+      }
+    }
+  ]
+}
