@@ -48,8 +48,17 @@ sudo -n install -m 0644 "/tmp/nginx-mobile-preview-$short.conf" "$config"
 sudo -n nginx -t
 sudo -n systemctl reload nginx
 expected_index="$(sha256sum "$release/dist/index.html" | cut -d' ' -f1)"
-preview_index="$(curl --fail --silent --show-error https://studio.gemstory.cn/m/projects | sha256sum | cut -d' ' -f1)"
-[[ "$preview_index" == "$expected_index" ]]
+# Nginx reload returns before the new workers accept requests. Verify readiness
+# across that bounded handover while retaining rollback for any persistent mismatch.
+preview_ready=0
+for attempt in 1 2 3 4 5; do
+  if preview_index="$(curl --fail --silent --show-error --max-time 10 https://studio.gemstory.cn/m/projects | sha256sum | cut -d' ' -f1)" && [[ "$preview_index" == "$expected_index" ]]; then
+    preview_ready=1
+    break
+  fi
+  sleep 1
+done
+[[ "$preview_ready" == 1 ]]
 [[ "$(readlink -f "$current")" == "$desktop" ]]
 [[ "$(sha256sum "$desktop/dist/index.html" | cut -d' ' -f1)" == "$desktop_hash" ]]
 curl --fail --silent --show-error https://studio.gemstory.cn/healthz
