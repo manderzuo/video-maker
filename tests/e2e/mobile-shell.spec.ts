@@ -1,4 +1,20 @@
 import { test, expect } from '../helpers/cloud-workspace-ui-fixture';
+test('prefers login at anonymous web entry and keeps registration an explicit choice', async ({ page, context }) => {
+    await context.route('**/studio-api/session', route => route.fulfill({ status: 401, json: { code: 'AUTH_REQUIRED' } }));
+    await context.route('**/studio-api/auth/bootstrap', route => route.fulfill({ json: { csrfToken: 'c'.repeat(43), expiresAt: new Date(Date.now() + 60000).toISOString() } }));
+    const privateRequests: string[] = [];
+    page.on('request', request => { if (/\/studio-api\/(projects|me\/document)/.test(new URL(request.url()).pathname)) privateRequests.push(request.url()); });
+    for (const path of ['/', '/projects', '/m', '/m/projects']) {
+        await page.goto(path);
+        await expect(page).toHaveURL(path.startsWith('/m') ? /\/m\/login\?returnTo=/ : /\/login$/);
+        await expect(page.getByRole('heading', { name: '登录', exact: true })).toBeVisible();
+        await page.getByRole('link', { name: '注册', exact: true }).click();
+        await expect(page.getByRole('heading', { name: '注册', exact: true })).toBeVisible();
+        await page.getByRole('link', { name: '登录', exact: true }).click();
+        await expect(page.getByRole('heading', { name: '登录', exact: true })).toBeVisible();
+    }
+    expect(privateRequests).toEqual([]);
+});
 test('keeps mobile navigation separate from desktop page memory', async ({ page, apiModel }) => {
     const memoryWrites: unknown[] = [];
     page.on('request', request => { if (request.method() === 'PATCH' && new URL(request.url()).pathname === '/studio-api/me/document')

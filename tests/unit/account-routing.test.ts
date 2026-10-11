@@ -8,5 +8,5 @@ vi.mock('../../src/features/settings/preferences-store',async importOriginal=>({
 beforeEach(()=>{harness.effects=[];harness.navigate.mockClear();vi.stubGlobal('document',{title:''});vi.stubGlobal('matchMedia',()=>({addEventListener:vi.fn(),removeEventListener:vi.fn()}));});
 afterEach(()=>{vi.unstubAllGlobals();});
 function visit(path:string){harness.path=path;AuthBoundary();for(const effect of harness.effects)effect();}
-it.each(['/','/projects','/projects/FAKE_PROJECT/canvas','/settings/connections','/welcome?from=private'])('anonymous entry %s redirects to register',path=>{visit(path);expect(harness.navigate).toHaveBeenCalledExactlyOnceWith('/register');});
+it.each(['/','/projects','/projects/FAKE_PROJECT/canvas','/settings/connections','/welcome?from=private'])('anonymous entry %s redirects to login',path=>{visit(path);expect(harness.navigate).toHaveBeenCalledExactlyOnceWith('/login');});
 it.each(['/login','/register','/login?from=private'])('explicit auth entry %s stays reachable',path=>{visit(path);expect(harness.navigate).not.toHaveBeenCalled();});
