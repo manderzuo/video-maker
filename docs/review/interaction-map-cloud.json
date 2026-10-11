@@ -3059,8 +3059,17 @@
       "taskId": "T13",
       "label": "选择工具",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "现行云端页面没有旧选择/平移工具按钮；键鼠选择和平移行为仍在，但不能冒充旧按钮的源码绑定。该旧入口规范迁移待决。",
-      "sources": [],
+      "reason": "canonical现行定义是V切换选择工具、单击/Shift选择，并不要求可见工具按钮；绑定真实keyboard/pointer入口。仅修来源，未将家族测试升级成全部状态证明，其他facets继续缺失。",
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "if (event.key.toLowerCase() === 'v' && !mod) setTool('select');"
+        },
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "if (event.shiftKey && !interactive) {"
+        }
+      ],
       "proofs": [],
       "candidates": [
         {
@@ -3178,8 +3187,17 @@
       "taskId": "T13",
       "label": "平移工具",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "现行云端页面没有旧选择/平移工具按钮；键鼠选择和平移行为仍在，但不能冒充旧按钮的源码绑定。该旧入口规范迁移待决。",
-      "sources": [],
+      "reason": "canonical指定H/空格或中键平移；现行H工具切换和中键手势是有效源码来源，不要求可见按钮。仅修绑定，不宣称全部键盘、弹窗保护及持久化状态已验证。",
+      "sources": [
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "else if (event.key.toLowerCase() === 'h' && !mod) setTool('pan');"
+        },
+        {
+          "file": "src/features/workspace/CloudCanvasSurface.tsx",
+          "anchor": "if (graph && event.button === 1) {"
+        }
+      ],
       "proofs": [],
       "candidates": [
         {
@@ -23577,7 +23595,7 @@
       "taskId": "T13",
       "label": "放大编辑或查看",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "真实浏览器验证50/80/100缩放、原编辑器及选区、组合输入阻止和超限草稿错误保留，并观察无文字更新及provider调用；持久化facet尚未单独登记。",
+      "reason": "实际放大操作沿现有视口自动保存，刷新保持100%且节点正文不变；后续输入沿原保存链路持久化。其他状态仍使用原真实passed证明，无新增业务保存调用。",
       "sources": [
         {
           "file": "src/features/canvas/nodes/TextNode.tsx",
@@ -23626,6 +23644,19 @@
           ],
           "facets": [
             "error"
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::readable editing persists its existing viewport and subsequent text save across reload",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            25,
+            26,
+            29,
+            30
+          ],
+          "facets": [
+            "persistence"
           ]
         }
       ],
@@ -23732,7 +23763,7 @@
       "taskId": "T13",
       "label": "导入素材",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "本轮冻结代码完整192项浏览器执行的正常交互及副作用证据。其他状态尚未逐项证明，不宣称全量追踪通过。",
+      "reason": "可见导入入口实际文件选择器已验证；保存中按钮与原文件输入禁用，503后无虚假素材和节点，重新选择成功，刷新后素材及图保持。coreWrites是守卫指标，不能称素材导入没有fixture写入。",
       "sources": [
         {
           "file": "src/features/workspace/CloudCanvasPage.tsx",
@@ -23752,6 +23783,41 @@
             "sideEffect"
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::visible import disables during save and recovers failed upload without a fake asset, then persists",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            41,
+            43
+          ],
+          "facets": [
+            "disabled"
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::visible import disables during save and recovers failed upload without a fake asset, then persists",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            49,
+            50,
+            52
+          ],
+          "facets": [
+            "error"
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::visible import disables during save and recovers failed upload without a fake asset, then persists",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            54,
+            55,
+            56
+          ],
+          "facets": [
+            "persistence"
+          ]
         }
       ],
       "candidates": [
@@ -23767,7 +23833,7 @@
       "taskId": "T38",
       "label": "画布回执视图",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "本轮冻结代码完整192项浏览器执行的正常交互及副作用证据。其他状态尚未逐项证明，不宣称全量追踪通过。",
+      "reason": "实际验证读取中可切换、两种读取503错误可恢复且不修改回执；视图选择仅临时状态刷新重置。disabled/persistence按现有设计不适用，没有新增禁用或偏好保存逻辑。",
       "sources": [
         {
           "file": "src/features/workspace/CloudActivityPage.tsx",
@@ -23799,6 +23865,34 @@
             "sideEffect"
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::activity view switches permit recovery from each view read failure without modifying cloud records",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            86,
+            87,
+            88,
+            89,
+            90
+          ],
+          "facets": [
+            "error"
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::activity view switches remain available during reads and reset locally without deleting persisted receipts",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            68,
+            69,
+            73,
+            74,
+            75
+          ],
+          "facets": [
+            "normal"
+          ]
         }
       ],
       "candidates": [
@@ -23807,14 +23901,18 @@
           "status": "passed"
         }
       ],
-      "testPath": "tests/e2e/cloud-project-batch.spec.ts"
+      "testPath": "tests/e2e/cloud-project-batch.spec.ts",
+      "notApplicable": {
+        "disabled": "该入口仅切换本地活动视图，设计始终可用；真实读取中及失败后均验证可切换，子页面业务控件禁用另行处理。",
+        "persistence": "视图选择是本页临时useState，刷新重置默认操作视图，无保存偏好契约；实际刷新及回执数据保留已验证。"
+      }
     },
     {
       "id": "cloud:activity:view-operations",
       "taskId": "T38",
       "label": "全部操作记录视图",
       "disposition": "cloud_counterpart_row_proof_pending",
-      "reason": "本轮冻结代码完整192项浏览器执行的正常交互及副作用证据。其他状态尚未逐项证明，不宣称全量追踪通过。",
+      "reason": "实际验证读取中可切换、两种读取503错误可恢复且不修改回执；视图选择仅临时状态刷新重置。disabled/persistence按现有设计不适用，没有新增禁用或偏好保存逻辑。",
       "sources": [
         {
           "file": "src/features/workspace/CloudActivityPage.tsx",
@@ -23846,6 +23944,34 @@
             "sideEffect"
           ],
           "expectedCoreWrites": 0
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::activity view switches permit recovery from each view read failure without modifying cloud records",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            86,
+            87,
+            88,
+            89,
+            90
+          ],
+          "facets": [
+            "error"
+          ]
+        },
+        {
+          "testId": "tests/e2e/cloud-ui-evidence-closure.spec.ts::activity view switches remain available during reads and reset locally without deleting persisted receipts",
+          "sourceHash": "f25872550740ea99adb292cd819ae9504984fd09a657d72333a725eff1ce4894",
+          "assertionLines": [
+            68,
+            69,
+            73,
+            74,
+            75
+          ],
+          "facets": [
+            "normal"
+          ]
         }
       ],
       "candidates": [
@@ -23854,7 +23980,11 @@
           "status": "passed"
         }
       ],
-      "testPath": "tests/e2e/cloud-project-batch.spec.ts"
+      "testPath": "tests/e2e/cloud-project-batch.spec.ts",
+      "notApplicable": {
+        "disabled": "该入口仅切换本地活动视图，设计始终可用；真实读取中及失败后均验证可切换，子页面业务控件禁用另行处理。",
+        "persistence": "视图选择是本页临时useState，刷新重置默认操作视图，无保存偏好契约；实际刷新及回执数据保留已验证。"
+      }
     }
   ],
   "pages": [
