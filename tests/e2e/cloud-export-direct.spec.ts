@@ -3,7 +3,36 @@ import {readFileSync} from 'node:fs';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
 import type {CloudDiagnosticsReport} from '../../src/features/workspace/cloud-diagnostics';
 
-for(const view of ['operations','receipts'] as const)test('direct diagnostics export in '+view+' view downloads redacted content without confirmation and recovers read failure',async({page,workspace},testInfo)=>{
+test('direct diagnostics export in operations view downloads redacted content without confirmation and recovers read failure',async({page,workspace},testInfo)=>{
+ const view='operations';
+ const headers=workspace.headers(workspace.account),secret='FAKE_EXPORT_TEST_KEY',body='PRIVATE_EXPORT_TEST_PROMPT 中文';
+ expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...headers,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:secret,expectedRevision:null}})).statusCode).toBe(200);
+ const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'Direct export TEST DATA'}})).json(),nodeId=randomUUID();
+ expect((await workspace.call('POST','/studio-api/projects/'+project.id+'/commands',{...headers,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:nodeId,type:'text',title:'TEST DATA',x:64,y:64,locked:false,data:{kind:'text',text:body,referenceTokens:[]}}}}]}}})).statusCode).toBe(200);
+ const before=(await workspace.pool.query('SELECT id FROM workspace_command_receipts')).rows;
+ await page.goto('/activity');
+
+ await expect(page.locator('article').filter({hasText:'Direct export TEST DATA'})).toHaveCount(2);
+ const button=page.locator('[data-interaction-id="cloud:activity:export"]');
+ let downloadCount=0,nativeDialogs=0,rejected=0,fail=true;page.on('download',()=>downloadCount++);page.on('dialog',async dialog=>{nativeDialogs++;await dialog.dismiss();});
+ await page.route('**/studio-api/me/model-configs',async route=>{if(fail){rejected++;await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({code:'INTERNAL_ERROR'})});}else await route.fallback();});
+ await button.click();await expect(page.getByRole('alert').first()).toBeVisible();await expect(button).toBeEnabled();
+ expect(rejected).toBe(1);expect(downloadCount).toBe(0);expect(nativeDialogs).toBe(0);await expect(page.getByRole('dialog')).toHaveCount(0);
+ fail=false;const downloading=page.waitForEvent('download');await button.click();const download=await downloading;
+ expect(download.suggestedFilename()).toBe('aiwork-cloud-diagnostics.json');const file=testInfo.outputPath('direct-'+view+'-diagnostics.json');await download.saveAs(file);
+ const report=JSON.parse(readFileSync(file,'utf8')) as CloudDiagnosticsReport;
+ expect(report.format).toBe('aiwork-studio-cloud-diagnostics');expect(report.version).toBe(1);expect(report.exportedAt).toBeGreaterThan(0);
+ expect(report.projects).toEqual([expect.objectContaining({id:project.id,title:'Direct export TEST DATA'})]);
+ expect(report.receipts).toEqual([expect.objectContaining({projectId:project.id,revision:1,commandType:'operations'})]);expect(report.runs).toEqual([]);
+ expect(report.modelConfigs).toContainEqual({channel:'video',apiBase:'https://video.example.test',model:'seedance',hasKey:true});
+ expect(JSON.stringify(report)).not.toContain(secret);expect(JSON.stringify(report)).not.toContain(body);expect(JSON.stringify(report)).not.toContain('referenceTokens');
+ await expect(page.getByRole('alert')).toHaveCount(0);expect(downloadCount).toBe(1);expect(nativeDialogs).toBe(0);await expect(page.getByRole('dialog')).toHaveCount(0);
+ expect((await workspace.pool.query('SELECT id FROM workspace_command_receipts')).rows).toEqual(before);expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+ await page.screenshot({path:testInfo.outputPath('direct-'+view+'-export.png')});
+});
+
+test('direct diagnostics export in receipts view downloads redacted content without confirmation and recovers read failure',async({page,workspace},testInfo)=>{
+ const view='receipts';
  const headers=workspace.headers(workspace.account),secret='FAKE_EXPORT_TEST_KEY',body='PRIVATE_EXPORT_TEST_PROMPT 中文';
  expect((await workspace.call('PATCH','/studio-api/me/model-configs/video',{...headers,payload:{apiBase:'https://video.example.test',model:'seedance',apiKey:secret,expectedRevision:null}})).statusCode).toBe(200);
  const project=(await workspace.call('POST','/studio-api/projects',{...headers,payload:{title:'Direct export TEST DATA'}})).json(),nodeId=randomUUID();

@@ -30,18 +30,21 @@
         "proofs": [
           {
             "testId": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in operations view downloads redacted content without confirmation and recovers read failure",
-            "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+            "sourceHash": "d8b7fb04a5e3151ec62f9913e3ea153b9a64a1e612569a12791be4a88c80bf08",
             "assertionLines": [
-              18,
+              9,
+              11,
+              15,
               19,
-              21,
-              23,
+              20,
+              22,
               24,
               25,
               26,
               27,
               28,
-              29
+              29,
+              30
             ],
             "facets": [
               "normal",
@@ -50,24 +53,27 @@
             ],
             "expectedCoreWrites": 0,
             "expectedPaidRequests": 0,
-            "executionReport": "docs/review/evidence/D22-direct-export-20261011.json",
-            "executionReportSha256": "08a7ebc8ece09944d5e6087942ba8e2b53c666ab02a3311c3e461cad6470f9cb",
-            "qualification": "Core-writes is the guard metric; actual fixture receipts unchanged and fake-provider paid POST count zero are asserted. No confirmation dialog is claimed."
+            "executionReport": "docs/review/evidence/D22-direct-export-declarations-20261011.json",
+            "executionReportSha256": "ba4ab4d6939f6c357ea72e829feee654820fb9b7f79a7bca01dd7d213c4a1ca1",
+            "qualification": "Explicit declarations; actual read-error/retry/redaction/no-confirmation/unchanged-receipts/zero-paid-POST assertions; no dialog claimed."
           },
           {
             "testId": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in receipts view downloads redacted content without confirmation and recovers read failure",
-            "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+            "sourceHash": "d8b7fb04a5e3151ec62f9913e3ea153b9a64a1e612569a12791be4a88c80bf08",
             "assertionLines": [
-              18,
-              19,
-              21,
-              23,
-              24,
-              25,
-              26,
-              27,
-              28,
-              29
+              37,
+              39,
+              43,
+              47,
+              48,
+              50,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58
             ],
             "facets": [
               "normal",
@@ -76,9 +82,9 @@
             ],
             "expectedCoreWrites": 0,
             "expectedPaidRequests": 0,
-            "executionReport": "docs/review/evidence/D22-direct-export-20261011.json",
-            "executionReportSha256": "08a7ebc8ece09944d5e6087942ba8e2b53c666ab02a3311c3e461cad6470f9cb",
-            "qualification": "Core-writes is the guard metric; actual fixture receipts unchanged and fake-provider paid POST count zero are asserted. No confirmation dialog is claimed."
+            "executionReport": "docs/review/evidence/D22-direct-export-declarations-20261011.json",
+            "executionReportSha256": "ba4ab4d6939f6c357ea72e829feee654820fb9b7f79a7bca01dd7d213c4a1ca1",
+            "qualification": "Explicit declarations; actual read-error/retry/redaction/no-confirmation/unchanged-receipts/zero-paid-POST assertions; no dialog claimed."
           }
         ]
       },
@@ -100,7 +106,80 @@
         "canonicalD22StatusOnlyChanged": true,
         "other1495DeclarationGapsUntouched": true,
         "legacyH03PreviewContractNotClaimedComplete": true
-      }
+      },
+      "replacementHistory": [
+        {
+          "qualification": "Historical actual 7-case run before test declaration repair; source hash valid at 8de50d4/15ac1b3, not claimed current",
+          "replacement": {
+            "interactionId": "cloud:activity:export",
+            "behavior": "点击现有导出按钮直接下载脱敏JSON，无二次确认；读取失败显示错误、无下载，可重试。",
+            "sources": [
+              {
+                "file": "src/features/workspace/CloudActivityPage.tsx",
+                "anchor": "data-interaction-id=\"cloud:activity:export\""
+              },
+              {
+                "file": "src/features/workspace/CloudReceiptActivityPage.tsx",
+                "anchor": "data-interaction-id=\"cloud:activity:export\""
+              }
+            ],
+            "proofs": [
+              {
+                "testId": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in operations view downloads redacted content without confirmation and recovers read failure",
+                "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+                "assertionLines": [
+                  18,
+                  19,
+                  21,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29
+                ],
+                "facets": [
+                  "normal",
+                  "error",
+                  "sideEffect"
+                ],
+                "expectedCoreWrites": 0,
+                "expectedPaidRequests": 0,
+                "executionReport": "docs/review/evidence/D22-direct-export-20261011.json",
+                "executionReportSha256": "08a7ebc8ece09944d5e6087942ba8e2b53c666ab02a3311c3e461cad6470f9cb",
+                "qualification": "Core-writes is the guard metric; actual fixture receipts unchanged and fake-provider paid POST count zero are asserted. No confirmation dialog is claimed."
+              },
+              {
+                "testId": "tests/e2e/cloud-export-direct.spec.ts::direct diagnostics export in receipts view downloads redacted content without confirmation and recovers read failure",
+                "sourceHash": "65d3f8c55335533fd643093377564082815f148083c037dec6a464c1ad56c204",
+                "assertionLines": [
+                  18,
+                  19,
+                  21,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29
+                ],
+                "facets": [
+                  "normal",
+                  "error",
+                  "sideEffect"
+                ],
+                "expectedCoreWrites": 0,
+                "expectedPaidRequests": 0,
+                "executionReport": "docs/review/evidence/D22-direct-export-20261011.json",
+                "executionReportSha256": "08a7ebc8ece09944d5e6087942ba8e2b53c666ab02a3311c3e461cad6470f9cb",
+                "qualification": "Core-writes is the guard metric; actual fixture receipts unchanged and fake-provider paid POST count zero are asserted. No confirmation dialog is claimed."
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

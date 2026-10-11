@@ -24,3 +24,7 @@ Microsoft Edge / msedge，本地云端 fixture 测试数据，原 4310 网络保
 退出 1，1497 → 1497，新增和消除均零。检查器不支持 canonical 弹窗退役：D22 的 source_binding_missing 和 facet_missing:normal 两项技术缺口保留，用户产品决策已解决。其他 1495 项声明缺口未扩展处理，整体严格门禁未通过。完整行 23（11 interactions + 1 page + 11 dialogs）、不完整行 296；canonical 数量 266/23/30 未变。未放宽检查器或虚构弹窗证明。
 
 两张本轮真实原尺寸截图已检查，测试数据和下载反馈可见。真实浏览器 125% 缩放受支持控制能力限制仍未验收，系统原生 IME 未实测，textarea 内部实际 Rendered Fonts 未取得；事件组合输入及 CSS 字体验证不能替代这些验收。未推送、部署或修改生产数据。
+
+## 测试声明登记修正
+
+完整198项UI通过后的追踪策略发现循环标题无法被现有字面量声明登记器识别（test_not_declared）。仅将两个导出用例改为显式声明，保留所有业务断言，检查器未改动。最终声明版本定向2/2真实通过，替代入口证据与当前源文件哈希/实际断言验证通过，原始报告见 evidence/D22-direct-export-declarations-20261011.json。replacementHistory 保留此前7项运行及旧哈希，原始报告未改写。本轮最终完整运行和追踪结果保存到本地 continued-current-full-ui-evidence.json、continued-current-trace-policy.log；以实际结果为准，未运行完成前不宣称通过。
