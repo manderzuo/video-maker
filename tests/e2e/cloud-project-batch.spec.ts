@@ -328,3 +328,17 @@ test('UI repair receipt display hiding stays isolated across account switches',a
  workspace.switchAccount(a);await page.reload();await page.getByRole('button',{name:'画布回执',exact:true}).click();await expect(page.locator('article')).toHaveCount(0);await page.getByRole('button',{name:/恢复隐藏显示/}).click();await expect(page.locator('article')).toHaveCount(1);
  expect((await workspace.pool.query('SELECT id FROM workspace_command_receipts')).rows).toHaveLength(2);expect(workspace.providerCalls).toHaveLength(0);
 });
+
+test('UI repair receipt reload ignores older success and error responses',async({page,workspace})=>{
+ const ctx=asCtx(workspace),{project,headers}=await makeProject(ctx,'Receipt ordering TEST DATA');await addTextNode(ctx,headers,project.id,0,'first');
+ await page.goto('/activity');await page.getByRole('button',{name:'画布回执',exact:true}).click();await expect(page.locator('article')).toHaveCount(1);
+ for(const [index,status] of [200,503].entries()){
+  const previous=(await workspace.call('GET','/studio-api/projects/'+project.id+'/receipts?limit=10',headers)).json();let reads=0,release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});const pattern='**/studio-api/projects/'+project.id+'/receipts?limit=10';
+  await page.route(pattern,async route=>{if(reads++===0){await gate;await route.fulfill({status,contentType:'application/json',body:JSON.stringify(status===200?previous:{code:'INTERNAL_ERROR'})});}else{const current=await workspace.call('GET','/studio-api/projects/'+project.id+'/receipts?limit=10',headers);await route.fulfill({status:current.statusCode,contentType:'application/json',body:JSON.stringify(current.json())});}});
+  try{
+   await page.getByRole('button',{name:'重新读取',exact:true}).click();await expect.poll(()=>reads).toBe(1);await addTextNode(ctx,headers,project.id,index+1,'new '+index);await page.getByRole('button',{name:'重新读取',exact:true}).click();await expect(page.locator('article')).toHaveCount(index+2);
+   const late=page.waitForResponse(response=>response.url().endsWith('/receipts?limit=10'));release();await (await late).finished();await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))));await expect(page.locator('article')).toHaveCount(index+2);await expect(page.getByRole('alert')).toHaveCount(0);
+  }finally{release();await page.unroute(pattern);}
+ }
+ expect((await workspace.pool.query('SELECT id FROM workspace_command_receipts')).rows).toHaveLength(3);expect(workspace.providerCalls).toHaveLength(0);
+});

@@ -1,5 +1,5 @@
 import {sessionStore} from '../../infrastructure/api/session';
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import type {Project} from '../../domain/project';
 import type {ReceiptSummary} from '../../domain/command-receipt';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
@@ -12,14 +12,16 @@ const commandLabels:Record<ReceiptSummary['commandType'],string>={operations:'�
 function hiddenKey(){const state=sessionStore.getState();return 'aiwork:activity:hidden:'+(state.status==='authenticated'?state.session.user.id:'anonymous');}
 function readHidden():string[]{try{const raw=localStorage.getItem(hiddenKey());const parsed=raw?JSON.parse(raw):[];return Array.isArray(parsed)?parsed.filter(id=>typeof id==='string'):[];}catch{return [];}}
 export function CloudReceiptActivityPage({client}:{client:WorkspaceClient}){
+ const alive=useRef(true),generation=useRef(0);
  const [rows,setRows]=useState<{project:Project;receipt:ReceiptSummary}[]>(),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
  const [query,setQuery]=useState(''),[kind,setKind]=useState(''),[from,setFrom]=useState(''),[to,setTo]=useState(''),[hidden,setHidden]=useState<string[]>(()=>readHidden()),[detail,setDetail]=useState<{project:Project;receipt:ReceiptSummary}>();
- async function reload(){setError('');try{
+ async function reload(){const request=++generation.current;setError('');try{
   const projects=await client.listProjects();
+  if(!alive.current||request!==generation.current)return;
   const per=await Promise.all(projects.map(async project=>({project,receipts:await client.listReceipts(project.id,10)})));
   const merged=per.flatMap(entry=>entry.receipts.map(receipt=>({project:entry.project,receipt}))).sort((a,b)=>b.receipt.createdAt-a.receipt.createdAt||b.receipt.revision-a.receipt.revision).slice(0,50);
-  setRows(merged);
- }catch(e){setError(workspaceMessage(e));}}
+  if(alive.current&&request===generation.current)setRows(merged);
+ }catch(e){if(alive.current&&request===generation.current)setError(workspaceMessage(e));}}
  function hide(id:string){setHidden(current=>{const next=[...current,id];try{localStorage.setItem(hiddenKey(),JSON.stringify(next));}catch{/* 仅本地显示状态，失败不影响记录 */}return next;});}
  function showAll(){setHidden([]);try{localStorage.removeItem(hiddenKey());}catch{/* 同上 */}}
  async function exportReport(){if(busy)return;setBusy(true);setError('');setMessage('');try{
@@ -29,7 +31,7 @@ export function CloudReceiptActivityPage({client}:{client:WorkspaceClient}){
   triggerLocalDownload(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),'aiwork-cloud-diagnostics.json');
   setMessage('已触发浏览器下载脱敏诊断报告；报告不含提示词全文、提交原文、密钥与媒体文件。');
  }catch(e){setError(workspaceMessage(e));}finally{setBusy(false);}}
- useEffect(()=>{let active=true;void reload().catch(()=>{if(active)setError('云端操作记录读取失败。');});return()=>{active=false;};},[client]);
+ useEffect(()=>{alive.current=true;void reload();return()=>{alive.current=false;generation.current++;};},[client]);
  const fromTime=from?new Date(from+'T00:00:00').getTime():undefined,toTime=to?new Date(to+'T23:59:59.999').getTime():undefined;
  const filtered=(rows??[]).filter(({project,receipt})=>!hidden.includes(receipt.id)&&(!query||project.title.toLowerCase().includes(query.toLowerCase()))&&(!kind||receipt.commandType===kind)&&(fromTime===undefined||receipt.createdAt>=fromTime)&&(toTime===undefined||receipt.createdAt<=toTime));
  const clearFilter=()=>{setQuery('');setKind('');setFrom('');setTo('');};
