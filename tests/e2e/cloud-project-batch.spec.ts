@@ -305,3 +305,16 @@ test('retries template commands on the same project without duplicates',async({p
  expect(graphs[0].graph.nodes.map(node=>node.title).sort()).toEqual(['分镜约束','创作需求']);
  expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
 });
+
+test('UI repair lays out project grid and confines list overflow to its container',async({page,workspace},testInfo)=>{
+ for(const title of ['UI repair project A','UI repair project B','UI repair 很长的中文项目名称包含数字123和English用于检查项目视图'])await makeProject(asCtx(workspace),title);
+ await page.setViewportSize({width:1366,height:768});await page.goto('/projects');
+ const cards=page.locator('.cloud-project-list > li');await expect(cards).toHaveCount(3);
+ const a=await cards.nth(0).boundingBox(),b=await cards.nth(1).boundingBox();if(!a||!b)throw Error('Missing cards');expect(Math.abs(a.y-b.y)).toBeLessThan(3);expect(b.x).toBeGreaterThan(a.x);
+ await page.setViewportSize({width:390,height:844});const c=await cards.nth(0).boundingBox(),d=await cards.nth(1).boundingBox();if(!c||!d)throw Error('Missing narrow cards');expect(d.y).toBeGreaterThanOrEqual(c.y+c.height);
+ await page.locator('[data-interaction-id="cloud:project:view"]').click();await expect(page.locator('.cloud-project-table')).toBeVisible();
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+ const wrapper=page.locator('.cloud-project-table-scroll');await expect(wrapper).toBeVisible();
+ await wrapper.evaluate(el=>{el.scrollLeft=el.scrollWidth;});await expect(page.locator('.cloud-project-table tbody tr').first().getByRole('link').last()).toBeVisible();
+ await page.screenshot({path:testInfo.outputPath('ui-repair-project-list-narrow.png'),fullPage:true});
+});
