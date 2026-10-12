@@ -51,6 +51,22 @@ it('sends completion only to the fixed TLS endpoint with pinned DNS and server s
  await outbound.completion('https://api.test/custom/v1','FAKE_KEY','{"model":"manual-model"}','task-key','task-session');
  expect(calls).toHaveLength(1);expect(calls[0]).toMatchObject({method:'POST',url:'https://api.test/custom/v1/chat/completions',address:publicAddress.address,idempotencyKey:'task-key',textSessionId:'task-session'});expect(calls[0].body?.toString()).toBe('{"model":"manual-model"}');
 });
+it('allows a slow prompt completion to finish after two minutes within its five-minute budget',async()=>{
+ vi.useFakeTimers();const calls:OutboundRequest[]=[];
+ const outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request:async input=>{calls.push(input);await new Promise(resolve=>setTimeout(resolve,180000));return {status:200,body:Buffer.from('{}')};}});
+ try{const pending=outbound.completion('https://api.test','FAKE_KEY','{}','key','session',300000).catch(error=>error);await vi.advanceTimersByTimeAsync(180000);expect(await pending).toMatchObject({status:200});expect(calls).toHaveLength(1);expect(calls[0].signal.aborted).toBe(false);}finally{vi.useRealTimers();}
+});
+it.each([120000,300000])('aborts a hung completion once at its bounded deadline: %s',async timeout=>{
+ vi.useFakeTimers();const request=vi.fn<(input:OutboundRequest)=>Promise<{status:number;body:Buffer}>>(()=>new Promise(()=>{})),outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});
+ try{const pending=(timeout===120000?outbound.completion('https://api.test','FAKE_KEY','{}','key','session'):outbound.completion('https://api.test','FAKE_KEY','{}','key','session',timeout)).catch(error=>error);await vi.advanceTimersByTimeAsync(timeout-1);expect(request.mock.calls[0][0].signal.aborted).toBe(false);await vi.advanceTimersByTimeAsync(1);expect(await pending).toMatchObject({code:'UPSTREAM_TIMEOUT'});expect(request).toHaveBeenCalledTimes(1);expect(request.mock.calls[0][0].signal.aborted).toBe(true);}finally{vi.useRealTimers();}
+});
+it('still bounds completion DNS resolution to fifteen seconds with the longer reply budget',async()=>{
+ vi.useFakeTimers();const request=vi.fn(),outbound=new RestrictedOutbound({resolve:()=>new Promise(()=>{}),request});
+ let outcome:unknown;try{void outbound.completion('https://api.test','FAKE_KEY','{}','key','session',300000).then(value=>{outcome=value;},error=>{outcome=error;});await vi.advanceTimersByTimeAsync(15000);expect(outcome).toMatchObject({code:'UPSTREAM_TIMEOUT'});expect(request).not.toHaveBeenCalled();}finally{vi.useRealTimers();}
+});
+it.each([0,-1,300001,Infinity,NaN,120000.5])('rejects an invalid completion deadline before transport: %s',async timeout=>{
+ const request=vi.fn(),outbound=new RestrictedOutbound({resolve:async()=>[publicAddress],request});await expect(outbound.completion('https://api.test','FAKE_KEY','{}','key','session',timeout)).rejects.toThrow('INVALID_REQUEST');expect(request).not.toHaveBeenCalled();
+});
 it('rejects unsafe DNS for completion and refuses redirects without exposing the upstream body',async()=>{
  const request=vi.fn().mockResolvedValue({status:302,body:Buffer.from('FAKE_PRIVATE_URL')});
  const blocked=new RestrictedOutbound({resolve:async()=>[{address:'127.0.0.1',family:4}],request});await expect(blocked.completion('https://api.test','FAKE_KEY','{}','key','session')).rejects.toThrow('OUTBOUND_BLOCKED');expect(request).not.toHaveBeenCalled();

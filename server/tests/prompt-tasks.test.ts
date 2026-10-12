@@ -1,8 +1,9 @@
-import {afterEach,beforeEach,expect,it} from 'vitest';
+import {afterEach,beforeEach,expect,it,vi} from 'vitest';
 import {randomUUID} from 'node:crypto';
 import {fixture,type Fixture,type Account} from './account-fixture.js';
 import {ApiSecrets} from '../src/security/api-secrets.js';
 import {RestrictedOutbound,type OutboundRequest} from '../src/security/outbound.js';
+import {HttpError} from '../src/errors.js';
 let f:Fixture,calls:OutboundRequest[],dependencies:{secrets:ApiSecrets;outbound:RestrictedOutbound},failure=false;
 const output={finalPrompt:'雨后的街道，镜头缓慢前进。',shotPlan:[],improvements:['具体描述光线'],warnings:[],suggestedSpec:{}};
 let semanticOutput:unknown;
@@ -56,6 +57,25 @@ it('records ambiguous transport outcomes and never automatically sends the paid 
  const a=await setup('PromptTask_Unknown','FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);expect(task.statusCode).toBe(202);failure=true;await work();await work();expect(calls).toHaveLength(1);
  const read=await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account));expect(read.json()).toMatchObject({executionState:'response_unknown',billingState:'pending_reconciliation'});expect(read.body).not.toContain('FAKE_PRIVATE');
  expect((await confirm(a.account,a.draft.id,p.id)).json().id).toBe(task.json().id);expect((await f.call('POST','/studio-api/prompt-drafts/'+a.draft.id+'/optimization-preview',{...f.headers(a.account),payload:{expectedRevision:0,configRevision:1,referenceAliases:[]}})).json().priorUnknownRunIds).toEqual([task.json().id]);
+});
+it('keeps a slow in-flight prompt lease alive beyond the old two-minute reply limit',async()=>{
+ const a=await setup('PromptTask_Slow','FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);
+ let finish!:(value:{status:number;body:Buffer})=>void,started!:()=>void;const ready=new Promise<void>(resolve=>{started=resolve;});
+ dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:input=>{calls.push(input);started();return new Promise(resolve=>{finish=resolve;});}});
+ const reply={status:200,body:Buffer.from(JSON.stringify({choices:[{message:{content:JSON.stringify(output)}}]}))};vi.useFakeTimers({toFake:['setTimeout','clearTimeout']});const pending=work();
+ try{await ready;await vi.advanceTimersByTimeAsync(180000);
+  const {recoverExpiredPromptTasks}=await import('../src/tasks/prompt-worker.js');await recoverExpiredPromptTasks(f.pool,new Date('2026-10-08T12:03:00Z'));
+  const sending=(await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json();
+  finish(reply);await pending;
+  expect(calls[0].signal.aborted).toBe(false);expect(sending.executionState).toBe('sending');expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json().executionState).toBe('succeeded');expect(calls).toHaveLength(1);
+ }finally{finish?.(reply);await pending;vi.useRealTimers();}
+});
+it.each(['UPSTREAM_TIMEOUT','UPSTREAM_TOO_LARGE','INVALID_UPSTREAM_RESULT'])('retains a safe specific diagnostic without changing old clients or resending: %s',async cause=>{
+ const a=await setup('Diagnostic_'+cause.slice(0,15),'FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);
+ dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async input=>{calls.push(input);if(cause==='INVALID_UPSTREAM_RESULT')return {status:200,body:Buffer.from('FAKE_PRIVATE_MALFORMED_REPLY')};throw new HttpError(504,cause);}});
+ await work();await work();const read=await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account));
+ expect(read.json()).toMatchObject({executionState:'response_unknown',billingState:'pending_reconciliation',errorCode:cause==='INVALID_UPSTREAM_RESULT'?cause:'UPSTREAM_FAILED'});
+ const stored=await f.pool.query('SELECT result_snapshot FROM workspace_tasks WHERE id=$1',[task.json().id]);expect(stored.rows[0].result_snapshot).toMatchObject({kind:'prompt-call-failure',cause,timeoutMs:300000});expect(JSON.stringify(stored.rows[0])).not.toContain('FAKE_');expect(calls).toHaveLength(1);
 });
 it('appends the result to the current draft without overwriting newer input or losing the frozen input snapshot',async()=>{
  const a=await setup('PromptTask_Input','FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);expect(task.statusCode).toBe(202);

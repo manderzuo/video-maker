@@ -12,6 +12,7 @@ import {promptCompileResultSchema,promptCompileInputSchema,type PromptCompileRes
 import {validatePromptTextResult} from '../../../src/domain/prompt-engine/validate-result.js';
 import {portableCloudContent} from '../../../src/domain/cloud-project-package.js';
 import {frozenTaskKey,userSecrets} from './prompt-repository.js';
+import {MAX_COMPLETION_TIMEOUT_MS} from '../security/outbound.js';
 type TaskRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow;request_body:string;result_snapshot:unknown};
 const context=(userId:string)=>({userId,sessionId:'persistent-task',contextId:'persistent-task'});
 const responseSchema=z.object({choices:z.array(z.object({message:z.object({content:z.string().max(65536)})})).min(1)});
@@ -39,17 +40,20 @@ export async function executeNextPromptTask(pool:Pool,dependencies:ApiSettingsDe
  const row=await transaction(pool,async db=>{
   const result=await db.query<TaskRow>("SELECT user_id,id,document,frozen_config,request_body,result_snapshot FROM workspace_tasks WHERE document->>'executionState'='persisted' ORDER BY created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED");const stored=result.rows[0];if(!stored)return undefined;
   const task=cloudTaskSchema.parse(stored.document),next={...task,executionState:'sending',updatedAt:now.getTime()};
-  await db.query('UPDATE workspace_tasks SET document=$3::jsonb,lease_until=$4,updated_at=$5 WHERE user_id=$1 AND id=$2',[stored.user_id,stored.id,JSON.stringify(next),new Date(now.getTime()+150000),now]);return {...stored,document:next};
+  // The lease must cover the whole reply budget; recovery must not discard a slow paid response.
+  await db.query('UPDATE workspace_tasks SET document=$3::jsonb,lease_until=$4,updated_at=$5 WHERE user_id=$1 AND id=$2',[stored.user_id,stored.id,JSON.stringify(next),new Date(now.getTime()+MAX_COMPLETION_TIMEOUT_MS+30000),now]);return {...stored,document:next};
  });if(!row)return false;
- const task=cloudTaskSchema.parse(row.document);let result:PromptCompileResult|undefined,errorCode:CloudTask['errorCode'],definitelyNotSent=false;
+ const task=cloudTaskSchema.parse(row.document);let result:PromptCompileResult|undefined,errorCode:CloudTask['errorCode'],definitelyNotSent=false,cause='UPSTREAM_FAILED',responseStatus:number|undefined;
  try{
   const key=await frozenTaskKey(pool,row.user_id,row.frozen_config,dependencies),keys=await userSecrets(pool,row.user_id,dependencies);
-  const reply=await dependencies.outbound.completion(row.frozen_config.api_base,key,row.request_body,'studio-text-'+task.id,'studio-prompt-'+task.draftId);
+  const reply=await dependencies.outbound.completion(row.frozen_config.api_base,key,row.request_body,'studio-text-'+task.id,'studio-prompt-'+task.draftId,MAX_COMPLETION_TIMEOUT_MS);responseStatus=reply.status;
   if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
-  try{result=parseResult(reply.body,keys);}catch{errorCode='INVALID_UPSTREAM_RESULT';}
- }catch(error){definitelyNotSent=error instanceof HttpError&&['OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','SECRET_UNAVAILABLE'].includes(error.code);errorCode=error instanceof HttpError&&error.code==='SECRET_UNAVAILABLE'?'SECRET_UNAVAILABLE':error instanceof HttpError&&error.code==='OUTBOUND_BLOCKED'?'OUTBOUND_BLOCKED':'UPSTREAM_FAILED';}
+  try{result=parseResult(reply.body,keys);}catch{errorCode='INVALID_UPSTREAM_RESULT';cause='INVALID_UPSTREAM_RESULT';}
+ }catch(error){definitelyNotSent=error instanceof HttpError&&['OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','SECRET_UNAVAILABLE'].includes(error.code);errorCode=error instanceof HttpError&&error.code==='SECRET_UNAVAILABLE'?'SECRET_UNAVAILABLE':error instanceof HttpError&&error.code==='OUTBOUND_BLOCKED'?'OUTBOUND_BLOCKED':'UPSTREAM_FAILED';cause=error instanceof HttpError&&['UPSTREAM_TIMEOUT','UPSTREAM_TOO_LARGE','OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','SECRET_UNAVAILABLE'].includes(error.code)?error.code:responseStatus!==undefined?'UPSTREAM_HTTP_ERROR':'UPSTREAM_FAILED';}
  const at=clock(),next=cloudTaskSchema.parse({...task,executionState:result?'response_received':definitelyNotSent?'failed_confirmed':'response_unknown',billingState:result||definitelyNotSent?'not_provided':'pending_reconciliation',...(errorCode?{errorCode}:{}),updatedAt:at.getTime()});
- await pool.query("UPDATE workspace_tasks SET document=$3::jsonb,result_snapshot=$4::jsonb,lease_until=NULL,updated_at=$5 WHERE user_id=$1 AND id=$2 AND document->>'executionState'='sending'",[row.user_id,row.id,JSON.stringify(next),result?JSON.stringify(result):null,at]);
+ // Preserve only bounded diagnostic metadata. Old frontend contracts and uncertain billing stay intact.
+ const snapshot=result??{kind:'prompt-call-failure',cause,timeoutMs:MAX_COMPLETION_TIMEOUT_MS,elapsedMs:Math.max(0,at.getTime()-now.getTime()),...(responseStatus!==undefined?{responseStatus}:{})};
+ await pool.query("UPDATE workspace_tasks SET document=$3::jsonb,result_snapshot=$4::jsonb,lease_until=NULL,updated_at=$5 WHERE user_id=$1 AND id=$2 AND document->>'executionState'='sending'",[row.user_id,row.id,JSON.stringify(next),JSON.stringify(snapshot),at]);
  if(result)try{await finalizeOne(pool,clock());}catch{/* Keep the durable sanitized response for the next finalization attempt. */}
  return true;
 }

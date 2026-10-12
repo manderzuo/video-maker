@@ -7,6 +7,7 @@ export type ResolvedAddress={address:string;family:number};
 export type OutboundRequest={url:string;address:string;family:4|6;apiKey:string;signal:AbortSignal;maxBytes:number;method?:'GET'|'POST';body?:Buffer;idempotencyKey?:string;textSessionId?:string};
 export type OutboundResponse={status:number;body:Buffer};
 export type OutboundAdapters={resolve:(hostname:string)=>Promise<ResolvedAddress[]>;request:(request:OutboundRequest)=>Promise<OutboundResponse>};
+export const MAX_COMPLETION_TIMEOUT_MS=300000;
 export type VideoOutboundOperation={kind:'asset';body:string}|{kind:'submit';body:string;idempotencyKey:string}|{kind:'query'|'content';taskId:string};
 const blocked4=new BlockList();
 for(const [address,prefix] of [['0.0.0.0',8],['10.0.0.0',8],['100.64.0.0',10],['127.0.0.0',8],['169.254.0.0',16],['172.16.0.0',12],['192.0.0.0',24],['192.0.2.0',24],['192.168.0.0',16],['198.18.0.0',15],['198.51.100.0',24],['203.0.113.0',24],['224.0.0.0',4],['240.0.0.0',4]] as const)blocked4.addSubnet(address,prefix,'ipv4');
@@ -74,17 +75,17 @@ export class RestrictedOutbound {
    if(reply.status>=300&&reply.status<400)throw new HttpError(502,'UPSTREAM_FAILED');if(reply.body.length>limit)throw new HttpError(502,'UPSTREAM_TOO_LARGE');return reply;
   }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}finally{clearTimeout(timer);}
  }
- async completion(base:string,apiKey:string,body:string,idempotencyKey:string,textSessionId:string):Promise<OutboundResponse>{
+ async completion(base:string,apiKey:string,body:string,idempotencyKey:string,textSessionId:string,timeoutMs=120000):Promise<OutboundResponse>{
   const normalized=normalizeModelBase(base),endpoint=new URL(normalized);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'/v1/chat/completions';
   if(!apiKey||/[\u0000-\u0020\u007f-\u009f]/.test(apiKey))throw new HttpError(400,'INVALID_API_KEY');
-  if(!/^[-A-Za-z0-9._~]{1,256}$/.test(idempotencyKey)||!/^[-A-Za-z0-9._~]{1,256}$/.test(textSessionId)||Buffer.byteLength(body)>8*1024*1024)throw new HttpError(400,'INVALID_REQUEST');
-  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),120000);
+  if(!/^[-A-Za-z0-9._~]{1,256}$/.test(idempotencyKey)||!/^[-A-Za-z0-9._~]{1,256}$/.test(textSessionId)||Buffer.byteLength(body)>8*1024*1024||!Number.isSafeInteger(timeoutMs)||timeoutMs<1||timeoutMs>MAX_COMPLETION_TIMEOUT_MS)throw new HttpError(400,'INVALID_REQUEST');
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs),dns=new AbortController(),dnsTimer=setTimeout(()=>dns.abort(),Math.min(15000,timeoutMs));
   try{
-   const hostname=hostName(endpoint),literal=isIP(hostname),addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),controller.signal);
+   const hostname=hostName(endpoint),literal=isIP(hostname),addresses=literal?[{address:hostname,family:literal}]:await bounded(this.adapters.resolve(hostname),dns.signal);clearTimeout(dnsTimer);
    if(!addresses.length||addresses.some(address=>address.family!==isIP(address.address)||!publicAddress(address.address)))throw new HttpError(400,'OUTBOUND_BLOCKED');
    const selected=addresses[0]!,response=await bounded(this.adapters.request({url:endpoint.href,address:selected.address,family:selected.family as 4|6,apiKey,signal:controller.signal,maxBytes:1024*1024,method:'POST',body:Buffer.from(body),idempotencyKey,textSessionId}),controller.signal);
    if(response.status>=300&&response.status<400)throw new HttpError(502,'UPSTREAM_FAILED');if(response.body.length>1024*1024)throw new HttpError(502,'UPSTREAM_TOO_LARGE');return response;
-  }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}finally{clearTimeout(timer);}
+  }catch(error){if(error instanceof HttpError)throw error;throw new HttpError(502,'UPSTREAM_FAILED');}finally{clearTimeout(timer);clearTimeout(dnsTimer);}
  }
  async models(channel:ModelChannel,base:string,apiKey:string):Promise<OutboundResponse>{
   const normalized=normalizeModelBase(base),url=new URL(normalized);
