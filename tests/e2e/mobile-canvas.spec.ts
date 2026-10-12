@@ -1,5 +1,108 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { test, expect } from '../helpers/cloud-workspace-ui-fixture';
+
+test('selects phone nodes by touch and keeps selection separate from panning and editing', async ({ page, workspace, browserName }) => {
+    const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 手机点选' } })).json();
+    const textId = randomUUID(), videoId = randomUUID();
+    expect((await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 0, idempotencyKey: randomUUID(), command: { type: 'operations', operations: [
+        { id: randomUUID(), type: 'add_node', payload: { node: { id: textId, type: 'text', title: '点选正文', x: 40, y: 40, locked: false, data: { kind: 'text', text: 'TEST DATA 选中后编辑', referenceTokens: [] } } } },
+        { id: randomUUID(), type: 'add_node', payload: { node: { id: videoId, type: 'video-generation', title: '点选视频', x: 440, y: 40, locked: false, data: { kind: 'video-generation', draft: { modelId: 'seedance', durationSeconds: 5, ratio: '9:16', resolution: '480p' }, inputBindings: [], stale: true } } } },
+    ] } } })).statusCode).toBe(200);
+    const before = (await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json();
+    await page.goto('/m/projects/' + project.id + '/canvas');
+    const card = page.locator('[data-mobile-node-id="' + textId + '"]'), video = page.locator('[data-mobile-node-id="' + videoId + '"]'), stage = page.locator('.mobile-canvas-stage');
+    await stage.scrollIntoViewIfNeeded();
+    await card.tap();
+    await expect(card).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('region', { name: '已选中节点', exact: true })).toContainText('点选正文');
+    await expect(page.getByRole('dialog', { name: '编辑节点正文', exact: true })).not.toBeVisible();
+    await page.getByRole('button', { name: '编辑正文', exact: true }).click();
+    await expect(page.getByLabel('节点正文', { exact: true })).toHaveValue('TEST DATA 选中后编辑');
+    await page.getByRole('button', { name: '放弃编辑', exact: true }).click();
+    await stage.scrollIntoViewIfNeeded();
+    await video.tap();
+    await expect(video).toHaveAttribute('aria-pressed', 'true');
+    await expect(card).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.getByRole('link', { name: '编辑视频草稿', exact: true })).toHaveAttribute('href', '/m/projects/' + project.id + '/video?node=' + videoId);
+    await page.getByRole('button', { name: '取消选中', exact: true }).click();
+    await stage.scrollIntoViewIfNeeded();
+    if (browserName === 'chromium') {
+        const box = (await card.boundingBox())!, cdp = await page.context().newCDPSession(page), x = Math.round(box.x + box.width / 2), y = Math.round(box.y + box.height / 2);
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, id: 1 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + 35, y: y + 20, id: 1 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await expect(card).toHaveAttribute('aria-pressed', 'false');
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y, id: 1 }, { x: x + 70, y, id: 2 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 10, y, id: 1 }, { x: x + 90, y, id: 2 }] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        await expect(card).toHaveAttribute('aria-pressed', 'false');
+        await cdp.detach();
+    }
+    await page.getByRole('button', { name: '节点列表', exact: true }).click();
+    await page.getByRole('button', { name: '选中点选视频', exact: true }).click();
+    await expect(page.getByRole('region', { name: '已选中节点', exact: true })).toContainText('点选视频');
+    expect((await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json()).toEqual(before);
+    expect(workspace.providerCalls).toHaveLength(0);
+});
+
+test('renders owned image and video files in phone nodes and opens an unscaled preview', async ({ page, workspace, browserName }, testInfo) => {
+    const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 手机素材' } })).json();
+    const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6nRAAAAAASUVORK5CYII=', 'base64'), clip = readFileSync(new URL('../fixtures/cloud-result-clip.mp4', import.meta.url));
+    const ids: string[] = [];
+    for (const [title, mimeType, bytes] of [['手机图片.png', 'image/png', image], ['手机视频.mp4', 'video/mp4', clip]] as const) {
+        const reserved = await workspace.call('POST', '/studio-api/assets', { ...h, payload: { title, mimeType, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') } });
+        expect(reserved.statusCode).toBe(201);
+        const id = reserved.json().id; ids.push(id);
+        expect((await workspace.app.inject({ method: 'PUT', url: '/studio-api/assets/' + id + '/content', payload: bytes, headers: { cookie: h.cookie, 'x-workspace-context': h.context, 'x-csrf-token': h.csrf, origin: 'https://studio.test', 'content-type': 'application/octet-stream' } })).statusCode).toBe(204);
+        expect((await workspace.call('POST', '/studio-api/assets/' + id + '/complete', { ...h, payload: {} })).statusCode).toBe(200);
+    }
+    const nodeIds = [randomUUID(), randomUUID()];
+    expect((await workspace.call('POST', '/studio-api/projects/' + project.id + '/commands', { ...h, payload: { expectedRevision: 0, idempotencyKey: randomUUID(), command: { type: 'operations', operations: nodeIds.map((id, index) => ({ id: randomUUID(), type: 'add_node', payload: { node: { id, title: index ? '视频素材节点' : '图片素材节点', type: 'asset', x: 40 + index * 400, y: 40, locked: false, data: { kind: 'asset', assetId: ids[index] } } } })) } } })).statusCode).toBe(200);
+    const before = (await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json();
+    let unavailable = true;
+    await page.route('**/studio-api/assets/' + ids[0] + '/files', route => unavailable ? route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: { code: 'UNAVAILABLE', message: 'TEST DATA transient file failure' } }) }) : route.fallback());
+    await page.goto('/m/projects/' + project.id + '/canvas');
+    const imageCard = page.locator('[data-mobile-node-id="' + nodeIds[0] + '"]'), videoCard = page.locator('[data-mobile-node-id="' + nodeIds[1] + '"]');
+    await expect(imageCard).toContainText('素材暂时无法读取');
+    await page.locator('.mobile-canvas-stage').scrollIntoViewIfNeeded();
+    await imageCard.tap();
+    await page.getByRole('button', { name: '查看素材', exact: true }).click();
+    const failedPreview = page.getByRole('dialog', { name: '节点素材预览', exact: true });
+    await expect(failedPreview).toContainText('素材暂时无法读取');
+    unavailable = false;
+    await failedPreview.getByRole('button', { name: '重新读取素材', exact: true }).click();
+    await expect.poll(() => failedPreview.locator('img').evaluateAll(elements => elements.some(element => (element as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    await expect.poll(() => imageCard.locator('img').evaluateAll(elements => elements.some(element => (element as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    await page.getByRole('button', { name: '关闭节点素材预览', exact: true }).click();
+    // Windows WebKit cannot decode this H.264 fixture; Chromium verifies a decoded frame and playback.
+    if (browserName === 'chromium') await expect.poll(() => videoCard.locator('video').evaluateAll(elements => elements.some(element => (element as HTMLVideoElement).readyState >= 2 && (element as HTMLVideoElement).videoWidth > 0))).toBe(true);
+    await page.locator('.mobile-canvas-stage').scrollIntoViewIfNeeded();
+    await imageCard.tap();
+    await expect(imageCard).toHaveAttribute('aria-pressed', 'true');
+    await page.getByRole('button', { name: '查看素材', exact: true }).click();
+    const preview = page.getByRole('dialog', { name: '节点素材预览', exact: true });
+    await expect(preview).toHaveClass(/mobile-dialog/);
+    await expect.poll(() => preview.locator('img').evaluateAll(elements => elements.some(element => (element as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    await page.getByRole('button', { name: '关闭节点素材预览', exact: true }).click();
+    await page.locator('.mobile-canvas-stage').scrollIntoViewIfNeeded();
+    await videoCard.tap();
+    await page.getByRole('button', { name: '查看素材', exact: true }).click();
+    if (browserName === 'chromium') {
+        const player = preview.locator('video');
+        await expect(player).toHaveAttribute('controls', '');
+        await expect.poll(() => player.evaluate(element => (element as HTMLVideoElement).readyState)).toBeGreaterThanOrEqual(2);
+        await player.evaluate(element => (element as HTMLVideoElement).play());
+        await expect.poll(() => player.evaluate(element => (element as HTMLVideoElement).currentTime)).toBeGreaterThan(0);
+        await player.evaluate(element => (element as HTMLVideoElement).pause());
+    } else {
+        testInfo.annotations.push({ type: 'media-limit', description: 'Windows WebKit does not decode the H.264 fixture; image, selection and error presentation verified. Real Safari playback remains device acceptance.' });
+        await expect(preview.getByText('当前浏览器无法预览此文件，请下载原件查看。', { exact: true })).toBeVisible();
+    }
+    await expect(preview.getByRole('link', { name: '下载原件', exact: true })).toHaveAttribute('href', '/studio-api/assets/' + ids[1] + '/content?variant=original');
+    expect((await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json()).toEqual(before);
+    expect(workspace.providerCalls).toHaveLength(0);
+});
 test('fits widely separated project nodes into the phone canvas on first open', async ({ page, workspace }) => {
     const h = workspace.headers(workspace.account), project = (await workspace.call('POST', '/studio-api/projects', { ...h, payload: { title: 'TEST DATA 宽画布' } })).json();
     const operations = [-5000, 5000].map((x, index) => ({ id: randomUUID(), type: 'add_node', payload: { node: { id: randomUUID(), type: 'text', title: '远处节点' + index, x, y: 40, locked: false, data: { kind: 'text', text: 'TEST DATA 原有内容' + index, referenceTokens: [] } } } }));

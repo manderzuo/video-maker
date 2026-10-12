@@ -57,6 +57,18 @@ test('creates, polishes, revises and continues a mobile video with one confirmed
     }) => node.type === 'result')).toHaveLength(1);
     expect(workspace.providerCalls.filter(call => call.method === 'POST' && call.url.includes('/videos/'))).toHaveLength(1);
     expect(workspace.providerCalls.filter(call => call.method === 'POST' && call.url.includes('/chat/'))).toHaveLength(1);
+    const resultNode = graph.nodes.find((node: { type: string }) => node.type === 'result');
+    await page.goto('/m/projects/' + project.id + '/canvas');
+    const resultCard = page.locator('[data-mobile-node-id="' + resultNode.id + '"]');
+    if (browserName === 'chromium') await expect.poll(() => resultCard.locator('video').evaluateAll(elements => elements.some(element => (element as HTMLVideoElement).readyState >= 2))).toBe(true);
+    await page.getByRole('button', { name: '节点列表', exact: true }).click();
+    await page.getByRole('button', { name: '选中' + resultNode.title, exact: true }).click();
+    await expect(page.getByRole('region', { name: '已选中节点', exact: true })).toContainText(resultNode.title);
+    await page.getByRole('button', { name: '查看素材', exact: true }).click();
+    const resultPreview = page.getByRole('dialog', { name: '节点素材预览', exact: true });
+    await expect(resultPreview.getByRole('link', { name: '下载原件', exact: true })).toHaveAttribute('href', '/studio-api/assets/' + resultNode.data.assetId + '/content?variant=original');
+    expect((await workspace.call('GET', '/studio-api/projects/' + project.id + '/graph', h)).json()).toEqual(graph);
+    await page.getByRole('button', { name: '关闭节点素材预览', exact: true }).click();
     await page.goto('/m/projects/' + project.id + '/results');
     await page.getByRole('button', { name: '尾帧续写', exact: true }).click();
     const tail = page.getByRole('dialog', { name: '尾帧续写', exact: true });

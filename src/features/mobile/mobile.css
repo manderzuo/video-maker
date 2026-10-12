@@ -20,3 +20,13 @@
 .mobile-workspace .mobile-minimap{position:absolute;right:8px;bottom:8px;z-index:5;background:var(--bg);border:1px solid var(--line);border-radius:6px;touch-action:none}.mobile-workspace .mobile-node-list{display:grid;gap:8px}
 .mobile-workspace .mobile-canvas-wires{position:absolute;overflow:visible;pointer-events:none}
 .mobile-workspace .mobile-header small{display:block;font-size:11px;font-weight:400;color:var(--text)}
+.mobile-workspace .mobile-node-card{display:flex;flex-direction:column;gap:8px;cursor:pointer}
+.mobile-workspace .mobile-node-card[aria-pressed=true]{border:3px solid var(--accent);box-shadow:0 0 0 3px var(--bg)}
+.mobile-workspace .mobile-node-card strong{flex:none;overflow-wrap:anywhere}
+.mobile-workspace .mobile-node-selection{border:1px solid var(--accent);border-radius:8px;padding:10px;margin:8px 0;overflow-wrap:anywhere}
+.mobile-workspace .mobile-node-selection .actions{margin-top:8px}
+.mobile-workspace .mobile-node-media{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;pointer-events:none}
+.mobile-workspace .mobile-node-media img,.mobile-workspace .mobile-node-media video{width:100%;height:100%;min-height:0;object-fit:contain}
+.dialog.mobile-dialog .mobile-node-media-interactive{display:flex;flex-direction:column;gap:12px;overflow-wrap:anywhere}
+.dialog.mobile-dialog .mobile-node-media-interactive img,.dialog.mobile-dialog .mobile-node-media-interactive video{width:100%;max-height:55dvh;object-fit:contain}
+.dialog.mobile-dialog .mobile-node-media-interactive audio{width:100%}
