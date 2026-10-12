@@ -43,8 +43,21 @@ const [config,root,target]=process.argv.slice(2),source=readFileSync(config,'utf
 const blocks=[...source.matchAll(existing)];
 if(blocks.length>1||blocks.length===0&&(source.split(marker).length!==2||source.includes('BEGIN AIWORK MOBILE PREVIEW'))||blocks.length===1&&source.split('BEGIN AIWORK MOBILE PREVIEW').length!==2)throw Error('Unexpected Nginx configuration');
 const preview=` # BEGIN AIWORK MOBILE PREVIEW\n location = /m { return 302 /m/projects; }\n location ^~ /m/ { root ${root}/dist; try_files /index.html =404; add_header Cache-Control "no-store" always; }\n # END AIWORK MOBILE PREVIEW\n`;
-writeFileSync(target,blocks.length===1?source.replace(existing,preview):source.replace(marker,preview+marker));
+let next=blocks.length===1?source.replace(existing,preview):source.replace(marker,preview+marker);
+const entryMaps=/^# BEGIN AIWORK MOBILE ENTRY MAPS\n[\s\S]*?^# END AIWORK MOBILE ENTRY MAPS\n/gm;
+const maps=`# BEGIN AIWORK MOBILE ENTRY MAPS\nmap $http_user_agent $aiwork_studio_phone {\n default 0;\n ~*(iPhone|iPod|Android.*Mobile|HarmonyOS.*(Mobile|Phone)|Windows.Phone) 1;\n}\nmap $arg_view $aiwork_studio_mobile_auto {\n default $aiwork_studio_phone;\n desktop 0;\n}\nmap "$aiwork_studio_mobile_auto:$uri" $aiwork_studio_mobile_entry {\n default "";\n "1:/" /m/projects;\n "1:/canvas" /m/projects;\n "1:/settings/appearance" /m/me;\n "~^1:(/projects(?:/[a-f0-9-]{36}/(?:canvas|results|compare))?|/assets|/tasks|/prompt-generator|/settings/connections|/login|/register)$" /m$1;\n}\n# END AIWORK MOBILE ENTRY MAPS\n`;
+const mapBlocks=[...next.matchAll(entryMaps)];
+if(mapBlocks.length>1||mapBlocks.length===0&&next.includes('BEGIN AIWORK MOBILE ENTRY MAPS'))throw Error('Unexpected mobile entry maps');
+next=mapBlocks.length?next.replace(entryMaps,maps):maps+next;
+const entryLocation=/^ # BEGIN AIWORK MOBILE ENTRY LOCATION\n[\s\S]*?^ # END AIWORK MOBILE ENTRY LOCATION\n/gm;
+const oldLocation=' location / { try_files $uri /index.html; add_header Cache-Control "no-store" always; }\n';
+const location=` # BEGIN AIWORK MOBILE ENTRY LOCATION\n location / {\n  if ($aiwork_studio_mobile_entry != "") {\n   add_header Cache-Control "no-store" always;\n   add_header Vary "User-Agent" always;\n   return 302 $aiwork_studio_mobile_entry$is_args$args;\n  }\n  try_files $uri /index.html;\n  add_header Cache-Control "no-store" always;\n }\n # END AIWORK MOBILE ENTRY LOCATION\n`;
+const locationBlocks=[...next.matchAll(entryLocation)];
+if(locationBlocks.length>1||locationBlocks.length===0&&(next.includes('BEGIN AIWORK MOBILE ENTRY LOCATION')||next.split(oldLocation).length!==2))throw Error('Unexpected desktop entry location');
+next=locationBlocks.length?next.replace(entryLocation,location):next.replace(oldLocation,location);
+writeFileSync(target,next);
 NODE
+sudo -n bash "$release/scripts/check-mobile-entry.sh" "/tmp/nginx-mobile-preview-$short.conf"
 changed=0
 rollback(){ if [[ "$changed" == 1 ]]; then sudo -n cp -a "$backup/aiwork-studio.conf" "$config"; sudo -n nginx -t; sudo -n systemctl reload nginx; fi; }
 trap rollback ERR

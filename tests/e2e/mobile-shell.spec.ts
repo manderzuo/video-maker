@@ -32,10 +32,14 @@ test('keeps mobile navigation separate from desktop page memory', async ({ page,
     await expect(page).toHaveURL(/\/m\/me$/);
     expect(apiModel.document.lastVisitedPage).toBe('/projects');
     expect(memoryWrites).toEqual([]);
+    await expect(page.getByRole('link', { name: '返回桌面版', exact: true })).toHaveAttribute('href', '/projects?view=desktop');
     await page.getByRole('link', { name: '返回桌面版', exact: true }).click();
     await expect(page.locator('.account-shell')).toBeVisible();
     await expect(page.locator('.mobile-workspace')).toHaveCount(0);
     await expect(page.locator('.mobile-dialog')).toHaveCount(0);
+    await page.reload();
+    await expect(page.locator('.account-shell')).toBeVisible();
+    await expect(page).toHaveURL(/\/projects\?view=desktop$/);
 });
 test('marks mobile portal dialogs and restores ordinary desktop dialogs', async ({ page }) => {
     await page.goto('/m/projects');

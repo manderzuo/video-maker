@@ -26,6 +26,7 @@ const migrationNames=(await readdir(path.join(root,'server/src/db/migrations')))
 for(const name of migrationNames)await addCommitted('server/src/db/migrations/'+name,'server/migrations/'+name);
 for(const name of ['aiwork-studio-cloud.service','nginx-studio-cloud.conf'])await add(path.join(root,'deploy',name),'deploy/'+name);
 for(const name of ['backup-account-cloud.sh'])await add(path.join(root,'scripts',name),'scripts/'+name);
+await addCommitted('scripts/check-mobile-entry.sh','scripts/check-mobile-entry.sh');
 for(const name of ['THIRD_PARTY_NOTICES.txt','runtime-licenses.json'])await add(path.join(root,'third-party',name),'third-party/'+name);
 const licenseOriginals=['licenses/infinite-canvas.LICENSE','licenses/prompt-for-seedance-gptimage2.5.LICENSE','licenses/infinite-canvas.docs_content_docs_business_license.mdx','licenses/infinite-canvas.docs_content_docs_business_license.zh-CN.mdx','licenses/infinite-canvas..agents_skills_frontend-design_LICENSE.txt','licenses/runtime-fflate-0.8.2.LICENSE','licenses/runtime-react-19.2.8.LICENSE','licenses/runtime-react-dom-19.2.8.LICENSE','licenses/runtime-scheduler-0.27.0.LICENSE','licenses/runtime-zod-4.3.6.LICENSE','licenses/runtime-zustand-5.0.15.LICENSE'];
 for(const name of licenseOriginals)await add(path.join(root,'third-party',name),'third-party/'+name);
