@@ -8,6 +8,7 @@ The completion adapter imposed a 120-second total deadline. The prompt worker al
 
 - Only prompt optimization opts into a bounded 300-second completion budget. Other text callers retain their 120-second default; video and catalog deadlines retain their existing budgets. DNS resolution remains bounded to 15 seconds.
 - The prompt sending lease is derived from the same budget plus 30 seconds. A reply arriving after the former lease deadline remains eligible for the original task's result, without another outbound call.
+- Production service inspection found a 90-second stop timeout. `TimeoutStopSec=360` allows graceful worker shutdown to drain the five-minute request budget; the unit must be installed and verified during release, with its previous bytes available for rollback.
 - On failure, `result_snapshot` retains bounded, allowlisted diagnostic metadata: cause, elapsed time, configured deadline, and HTTP status when available. It never stores raw exception messages, response text, prompts, images, or keys. Successful candidate persistence and local finalization retries remain unchanged.
 - Existing public task schemas, uncertain billing state, confirmation idempotency, and the explicit acknowledgement of previous unknown calls are preserved. No automatic replay or assertion of a refund, charge, or successful provider execution is added.
 
@@ -21,4 +22,4 @@ The full backend suite passed 306 tests across 29 files. Backend type checking a
 
 ## Release boundary
 
-Backend-only deployment with verified backup and restore is intended. Desktop and mobile frontend bytes, Nginx routing, credentials, database migrations, and dependency locks must remain unchanged. The longer deadline addresses premature local cancellation; it cannot guarantee upstream availability or recover a response that was never saved. Deployment identity and online verification will be recorded after execution.
+Backend and service-unit deployment with verified backup and restore is intended. Desktop and mobile frontend bytes, Nginx routing, credentials, database migrations, and dependency locks must remain unchanged. The longer deadline addresses premature local cancellation; it cannot guarantee upstream availability or recover a response that was never saved. Deployment identity and online verification will be recorded after execution.
