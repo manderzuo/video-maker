@@ -1,19 +1,20 @@
 import {promptCompileInputSchema,promptResultVersionSchema,type PromptCompileInput,type PromptResultVersion} from '../prompt.js';
 import {unverifiedCapabilities,type CapabilityProfile} from '../connection.js';
 import type {ValidationIssue} from '../common.js';
-import {resolveConstraints} from './constraints.js';
+import {resolveConstraints,resolveStructuredConstraints} from './constraints.js';
 export function validatePromptResult(raw:PromptResultVersion,input:PromptCompileInput,caps:CapabilityProfile):ValidationIssue[]{
  const parsed=promptResultVersionSchema.safeParse(raw);const issues:ValidationIssue[]=[];
  const issue=(code:string,path:string,message:string)=>issues.push({code,path,message});
  if(!parsed.success)return parsed.error.issues.map(e=>({code:'result_schema_invalid',path:e.path.join('.'),message:e.message}));
  const result=parsed.data;input=promptCompileInputSchema.parse(input);
  if(!result.finalPrompt.trim())issue('result_empty','finalPrompt','结果正文不能为空。');
- const constraints=resolveConstraints(input);
+ if(result.origin==='ai'&&result.warnings.length)issue('ai_review_required','warnings','AI 识别到需确认内容，请查看具体检查提示。');
+ const constraints=result.origin==='ai'?resolveStructuredConstraints(input):resolveConstraints(input);
  for(const conflict of constraints.conflicts)issue('constraint_conflict',`requestedSpec.${conflict.field}`,`需求 ${conflict.originalValue} 与表单 ${conflict.formValue} 尚未确认。`);
  input=constraints.resolved;
  const locks=[...input.lockedConstraints.filter(c=>c.locked)];
- if(!locks.some(c=>c.field==='personCount')){const count=input.userRequest.match(/([\d一二三四五六七八九十]+)\s*(?:位|个|名)\s*(?:人物|人|角色)/);if(count)locks.push({id:'detected-person-count',field:'personCount',originalValue:count[1],locked:true});}
- if(!locks.some(c=>c.field==='noCuts')&&/(不切镜|一镜到底|不要切镜)/.test(input.userRequest))locks.push({id:'detected-no-cuts',field:'noCuts',originalValue:'不切镜',locked:true});
+ if(result.origin!=='ai'&&!locks.some(c=>c.field==='personCount')){const count=input.userRequest.match(/([\d一二三四五六七八九十]+)\s*(?:位|个|名)\s*(?:人物|人|角色)/);if(count)locks.push({id:'detected-person-count',field:'personCount',originalValue:count[1],locked:true});}
+ if(result.origin!=='ai'&&!locks.some(c=>c.field==='noCuts')&&/(不切镜|一镜到底|不要切镜)/.test(input.userRequest))locks.push({id:'detected-no-cuts',field:'noCuts',originalValue:'不切镜',locked:true});
  const segments=[result.finalPrompt,...result.shotPlan.map(s=>s.prompt)];
  for(const lock of locks){
   if(['durationSeconds','ratio'].includes(lock.field))continue;

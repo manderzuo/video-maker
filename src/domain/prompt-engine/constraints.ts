@@ -44,10 +44,13 @@ function durationEvidence(text:string):{values:string[];timelineEnd:number}{
  for(const match of seconds)if(!contained(match,ranges)&&eventTime(match.index,match[0].length))points.push(match);
  return {values:[...new Set(seconds.filter(match=>!inInterval(match)&&!points.includes(match)).map(match=>String(Number(match[1]))))],timelineEnd:Math.max(0,...intervals.map(interval=>Number(interval[2])),...points.map(point=>Number(point[1])))};
 }
-export function resolveConstraints(raw:PromptCompileInput):ConstraintResolution{
+// AI paths validate explicit fields only. Creative prose is interpreted by the
+// configured model, never by the local rule compiler's text heuristics.
+export function resolveStructuredConstraints(raw:PromptCompileInput):ConstraintResolution{return resolveConstraints(raw,'structured');}
+export function resolveConstraints(raw:PromptCompileInput,mode:'rules'|'structured'='rules'):ConstraintResolution{
  const input=promptCompileInputSchema.parse(raw);const resolved=structuredClone(input);
- const request=currentRequest(input.userRequest);
- const durations=durationEvidence(request);
+ const request=mode==='rules'?currentRequest(input.userRequest):'';
+ const durations=mode==='rules'?durationEvidence(request):{values:[],timelineEnd:0};
  const conflicts:ConstraintResolution['conflicts']=[];
  const candidates:{field:'durationSeconds'|'ratio';values:string[]}[]=[
   {field:'durationSeconds',values:durations.values},
@@ -72,11 +75,11 @@ export function resolveConstraints(raw:PromptCompileInput):ConstraintResolution{
  }
  if(resolved.requestedSpec.durationSeconds!==undefined&&durations.timelineEnd>resolved.requestedSpec.durationSeconds&&!conflicts.some(conflict=>conflict.field==='durationSeconds'))conflicts.push({field:'durationSeconds',originalValue:`时间轴终点 ${durations.timelineEnd} 秒`,formValue:String(resolved.requestedSpec.durationSeconds)});
  // Deliberately limited, explainable detection; this is not semantic understanding.
- const literalFields:Record<string,string[]>={
+ const literalFields:Record<string,string[]>=mode==='rules'?{
   brand:[...input.userRequest.matchAll(/品牌\s*[:：为]\s*[“"「]?([^，,。\n”"」]+)/g)].map(m=>m[1].trim()),
   personCount:[...input.userRequest.matchAll(/(\d+)\s*(?:位|个|名)\s*(?:人物|人|角色)/g)].map(m=>m[1]),
   dialogue:[...input.userRequest.matchAll(/(?:台词|对白)\s*[:：]?\s*[“"「]([^”"」]+)[”"」]/g)].map(m=>m[1]),
- };
+ }:{};
  for(const lock of input.lockedConstraints.filter(c=>c.locked&&c.acceptedValue===undefined)){
   const found=literalFields[lock.field];
   if(found?.length&&!found.includes(lock.originalValue))conflicts.push({field:lock.field,originalValue:found.join(' / '),formValue:lock.originalValue});

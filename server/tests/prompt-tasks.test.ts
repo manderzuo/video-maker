@@ -5,8 +5,9 @@ import {ApiSecrets} from '../src/security/api-secrets.js';
 import {RestrictedOutbound,type OutboundRequest} from '../src/security/outbound.js';
 let f:Fixture,calls:OutboundRequest[],dependencies:{secrets:ApiSecrets;outbound:RestrictedOutbound},failure=false;
 const output={finalPrompt:'雨后的街道，镜头缓慢前进。',shotPlan:[],improvements:['具体描述光线'],warnings:[],suggestedSpec:{}};
+let semanticOutput:unknown;
 beforeEach(async()=>{
- calls=[];failure=false;dependencies={secrets:new ApiSecrets({activeVersion:'test',keys:new Map([['test',Buffer.alloc(32,7)]])}),outbound:new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async input=>{calls.push(input);if(failure)throw Error('FAKE_PRIVATE_PROVIDER_FAILURE');return {status:200,body:Buffer.from(JSON.stringify({id:'mock-text-result',choices:[{message:{content:JSON.stringify(output)}}]}))};}})};
+ calls=[];failure=false;semanticOutput=undefined;dependencies={secrets:new ApiSecrets({activeVersion:'test',keys:new Map([['test',Buffer.alloc(32,7)]])}),outbound:new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async input=>{calls.push(input);if(failure)throw Error('FAKE_PRIVATE_PROVIDER_FAILURE');return {status:200,body:Buffer.from(JSON.stringify({id:'mock-text-result',choices:[{message:{content:JSON.stringify(semanticOutput??output)}}]}))};}})};
  f=await fixture({workspace:true,content:true,apiSettings:dependencies});
 });
 afterEach(async()=>{await f?.close();});
@@ -14,6 +15,24 @@ async function setup(name:string,key:string){const account=await f.signup(name);
 async function preview(account:Account,id:string){const reply=await f.call('POST','/studio-api/prompt-drafts/'+id+'/optimization-preview',{...f.headers(account),payload:{expectedRevision:0,configRevision:1,referenceAliases:[]}});expect(reply.statusCode).toBe(201);return reply.json();}
 const confirm=(account:Account,id:string,approvalId:string)=>f.call('POST','/studio-api/prompt-drafts/'+id+'/optimize',{...f.headers(account),payload:{approvalId,decision:{confirmed:true,acknowledgeTextFee:true}}});
 async function work(){const {executeNextPromptTask}=await import('../src/tasks/prompt-worker.js');return executeNextPromptTask(f.pool,dependencies,()=>new Date('2026-10-08T12:00:00Z'));}
+it.each([false,true])('lets one model request interpret the full creative input and preserves semantic warnings: %s',warning=>{
+ return (async()=>{
+  const a=await setup('Semantic_'+warning,'FAKE_SEMANTIC_KEY'),requestedSpec={durationSeconds:15,ratio:'9:16',resolution:'480p'};
+  const prompt='【时间轴】1.2秒角色甲进入；9.6秒台词结束。画外音：“等我20秒。”原片画幅16:9。'+(warning?'第20秒人物乙入画。':'');
+  const userRequest=JSON.stringify({任务:'针对原视频修正错误',当前完整提示词:prompt,本次修正要求:'保持场景及人物运动连续。'});
+  expect((await f.call('PATCH','/studio-api/prompt-drafts/'+a.draft.id,{...f.headers(a.account),payload:{expectedRevision:0,userRequest,requestedSpec}})).statusCode).toBe(200);
+  const response=await f.call('POST','/studio-api/prompt-drafts/'+a.draft.id+'/optimization-preview',{...f.headers(a.account),payload:{expectedRevision:1,configRevision:1,referenceAliases:[]}});
+  expect(response.statusCode).toBe(201);expect(calls).toHaveLength(0);
+  semanticOutput={finalPrompt:'保持人物运动和场景连续的完整候选正文。',shotPlan:[{id:'one',durationSeconds:15,prompt:'完整镜头',startState:'人物走近',endState:'人物停下'}],improvements:[],warnings:warning?['第20秒入画超过已选15秒，请确认时长或入画时间。']:[],suggestedSpec:requestedSpec};
+  const task=await confirm(a.account,a.draft.id,response.json().id);expect(task.statusCode).toBe(202);await work();await work();expect(calls).toHaveLength(1);
+  const request=JSON.parse(calls[0].body!.toString()),content=JSON.parse(request.messages[1].content);
+  expect(content.userRequest).toBe(userRequest);expect(content.requestedSpec).toEqual(requestedSpec);expect(content.semanticReview.performedBy).toBe('model');
+  const draft=(await f.call('GET','/studio-api/prompt-drafts/'+a.draft.id,f.headers(a.account))).json(),version=draft.resultVersions[0];
+  expect(draft.userRequest).toBe(userRequest);expect(version).toMatchObject({origin:'ai',sourceRevision:1,validationState:warning?'needs_review':'valid'});
+  if(warning)expect(version.warnings).toContain('第20秒入画超过已选15秒，请确认时长或入画时间。');else expect(version.warnings).toEqual([]);
+  expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json().executionState).toBe('succeeded');
+ })();
+});
 it('persists A/B tasks before sending and uses each frozen owner key without requiring catalog membership',async()=>{
  const a=await setup('PromptTask_A','FAKE_KEY_A'),b=await setup('PromptTask_B','FAKE_KEY_B');
  const pa=await preview(a.account,a.draft.id),pb=await preview(b.account,b.draft.id);
