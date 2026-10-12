@@ -90,3 +90,27 @@ it.each(['出现在3-8秒。','入画时间为8秒。','出场时间：7秒。']
 it.each(['主体出现时长为3-4秒。','主体出现持续时间为3-4秒。','入画后视频总时长为3-4秒。','主体出现在1—2秒。制作一段2—4秒的视频。','角色出现在1-2秒的视频中。','主体出现在0—2秒。制作一段2—4秒的视频。','角色出现在3-4秒长的视频中。','角色出现在3秒长的短片中。','角色出现在3-4秒长片段中。'])('retains duration conflicts near appearance wording: %s',timing=>{
  expect(resolveConstraints(f.promptInput({userRequest:timing,requestedSpec:{durationSeconds:5}})).readyForAI).toBe(false);
 });
+
+it.each(['0.8 秒起声音进入。','4.8 秒句尾气息变弱。','9.8 秒处有一次叹息。','14.5 秒后只剩环境音。','5.3 秒前保持安静。','第10.6秒起播放旁白。','4.8秒末结束这一句。'])('recognizes narrated event timestamps without treating them as duration: %s',timing=>{
+ const input=f.promptInput({userRequest:'总时长15秒，9:16。'+timing,requestedSpec:{durationSeconds:15,ratio:'9:16'}});
+ expect(resolveConstraints(input).conflicts).toEqual([]);
+ const unspecified=resolveConstraints(f.promptInput({userRequest:timing,requestedSpec:{}}));
+ expect(unspecified.readyForAI).toBe(true);expect(unspecified.resolved.requestedSpec).toEqual({});
+});
+it('retains a revision envelope containing shot intervals and decimal voice-over cues',()=>{
+ const prompt='9:16竖屏，总时长15秒。【时间轴】0–5秒：中景；0.8秒起OS进入，4.8秒句尾气息变弱。5–10秒：特写；5.3秒起旁白继续，9.8秒处有一次短促叹息。10–15秒：近景；10.6秒起声音更轻，14.5秒后只剩环境音。';
+ const userRequest=JSON.stringify({任务:'针对原视频修正错误',原始提示词:prompt,当前完整提示词:prompt,本次修正要求:'修复服装时有时无，保持服装一致性。',保留要求:'保留未修改的台词和时间轴。'});
+ const input=f.promptInput({userRequest,sceneId:'edit',requestedSpec:{durationSeconds:15,ratio:'9:16',resolution:'480p'}});
+ expect(resolveConstraints(input).readyForAI).toBe(true);
+ const body=JSON.parse(buildPromptOptimizationRequest({...f.draft(),...input},'mock-text',[]));
+ expect(JSON.parse(body.messages[1].content).userRequest).toBe(userRequest);
+ expect(JSON.parse(body.messages[1].content).requestedSpec).toEqual(input.requestedSpec);
+});
+it.each(['15.8秒起声音进入。','16秒处叹息。','16秒后只剩环境音。','16秒前保持安静。','16秒句尾气息变弱。'])('still rejects an out-of-bounds narrated timestamp: %s',timing=>{
+ const resolution=resolveConstraints(f.promptInput({userRequest:timing,requestedSpec:{durationSeconds:15}}));
+ expect(resolution.conflicts).toContainEqual({field:'durationSeconds',originalValue:'时间轴终点 '+(/15\.8/.test(timing)?'15.8':'16')+' 秒',formValue:'15'});
+});
+it.each(['旁白持续4.8秒后结束。','镜头总时长为4.8秒后进入下一段。','制作一个4.8秒长的视频。','0–5秒：建立场景。旁白持续4.8秒后结束。','4.8秒的片段末尾叹息。','总时长从4.8秒起。'])('keeps actual length requirements near timestamp cues: %s',userRequest=>{
+ const resolution=resolveConstraints(f.promptInput({userRequest,requestedSpec:{durationSeconds:15}}));
+ expect(resolution.conflicts).toContainEqual({field:'durationSeconds',originalValue:'4.8',formValue:'15'});
+});

@@ -17,14 +17,16 @@ function durationEvidence(text:string):{values:string[];timelineEnd:number}{
  const timelineIntervals:RegExpMatchArray[]=[];
  const points:RegExpMatchArray[]=[];
  const ranges=[...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:秒\s*)?(?:[-—–~～]|至|到)\s*(\d+(?:\.\d+)?)\s*秒/g)];
- const durationPrefix=/(?:总时长|时长|持续|总共|片长|视频长度|总长|时长目标)\s*[:：]?\s*(?:(?:大约|约)?(?:为|是)?(?:大约|约)?)\s*$/;
+ const durationPrefix=/(?:总时长|时长|持续|总共|片长|视频长度|总长|时长目标)\s*[:：]?\s*(?:(?:大约|约)?(?:为|是)?(?:大约|约)?(?:从|至少|不少于|不低于|不得少于)?)\s*$/;
  const eventPrefix=/(?:出现|入画|出场|进入(?:画面|镜头)?|离开(?:画面|镜头)?|出画|开始|结束|停止|转向|切换)(?:(?:的)?时间(?:点|段)?\s*[:：为是在于]?|在|于|[:：])\s*(?:大概|大约|约)?\s*(?:第)?\s*$/;
  const eventTime=(index:number,length:number)=>{
   const prefix=text.slice(0,index),suffix=text.slice(index+length);
   if(durationPrefix.test(prefix))return false;
   // Check event cues on either side of the timestamp, independent of word order.
   // They do not specify how long the video or action lasts.
-  return eventPrefix.test(prefix)&&!/^\s*(?:长\s*)?(?:的\s*)?(?:视频|片段|短片)/.test(suffix)||/第\s*$/.test(prefix)||/^(?:\s*(?:左右|前后|之间|期间))?\s*(?:的时候|时(?!长)|出现|进入|入画|出场|离开|出画|开始|结束|停止|转向|切换)/.test(suffix);
+  // Narrated timing also uses “秒起/处/后” or a cue such as “秒句尾”.
+  // Explicit duration prefixes above still take precedence over these cues.
+  return eventPrefix.test(prefix)&&!/^\s*(?:长\s*)?(?:的\s*)?(?:视频|片段|短片)/.test(suffix)||/第\s*$/.test(prefix)||/^(?:\s*(?:左右|前后|之间|期间))?\s*(?:的时候|时(?!长)|起|处|后|前|末|句尾|段尾|出现|进入|入画|出场|离开|出画|开始|结束|停止|转向|切换)/.test(suffix);
  };
  for(const match of ranges){
   const prefix=text.slice(0,match.index),sentence=prefix.slice(Math.max(prefix.lastIndexOf('。'),prefix.lastIndexOf('\n'))+1);
