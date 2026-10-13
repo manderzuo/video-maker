@@ -1,0 +1,8 @@
+[Unit]
+Description=Check AI Work production progress every two minutes
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+Persistent=true
+[Install]
+WantedBy=timers.target

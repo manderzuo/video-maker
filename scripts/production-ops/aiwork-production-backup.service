@@ -1,0 +1,12 @@
+[Unit]
+Description=Verified encrypted Studio and Core production backup
+After=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/aiwork-production/linux_ops.py backup
+User=root
+UMask=0077
+TimeoutStartSec=15min
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

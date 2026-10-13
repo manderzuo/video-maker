@@ -1,0 +1,12 @@
+[Unit]
+Description=AI Work private business health and settlement alerts
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/aiwork-production/linux_ops.py monitor
+User=root
+UMask=0077
+TimeoutStartSec=90
+NoNewPrivileges=true
+PrivateTmp=true
