@@ -25,9 +25,10 @@ type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow
 const owner=(userId:string)=>({userId,sessionId:'persistent-video',contextId:'persistent-video'});
 function safeRedactor(keys:string[]){return (text:string)=>{for(const key of keys)text=text.split(key).join('[已隐藏密钥]');return text.replace(/Bearer\s+[^\s,;"']+/gi,'Bearer [已隐藏密钥]');};}
 const retryDelay=(attempt:number)=>Math.min(300000,3000*2**Math.min(7,Math.max(0,attempt-1)));
-// Keep user intent changed since this claim; stages and the final CAS use the
-// same merge, so an in-flight response cannot undo a pause or resume.
-const mergedDocument="jsonb_set(jsonb_set($4::jsonb,'{queryState}',CASE WHEN query_control_revision<>$7 THEN document->'queryState' ELSE $4::jsonb->'queryState' END),'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1))";
+// Keep newer user intent, except that attention stops even a racing resume.
+// A pause stays explicit; resuming an attention task permits one original-task
+// read, never an automatic retry loop when that read still requires attention.
+const mergedDocument="jsonb_set(jsonb_set($4::jsonb,'{queryState}',CASE WHEN $4::jsonb->>'attentionCode'='budget_continuation_requires_attention' THEN CASE WHEN document->>'queryState'='paused_by_user' THEN document->'queryState' ELSE to_jsonb('interrupted'::text) END WHEN query_control_revision<>$7 THEN document->'queryState' ELSE $4::jsonb->'queryState' END),'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1))";
 async function save(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date,retry=false){
  const count=retry?Math.min(16,(row.phase==='delivery'?row.delivery_retry_count:row.query_retry_count)+1):0,due=new Date(at.getTime()+(retry?retryDelay(count):3000));
  const result=await pool.query(`UPDATE workspace_video_runs SET document=${mergedDocument},lease_until=NULL,lease_token=NULL,
