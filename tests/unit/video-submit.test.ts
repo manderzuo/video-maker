@@ -79,6 +79,15 @@ it('resource readiness: HTTP400 preflight journal restores after a Run save faul
  expect(recovered.run.taskId).toBeUndefined();expect(mock.requests.filter(r=>r.method==='GET')).toHaveLength(0);
  expect(posts()).toHaveLength(1);
 });
+it('resource readiness: preflight HTTP rejection without a request ID remains confirmed and creates no video task ID',async()=>{
+ mock.faults.submitError={status:400,code:'reference_resource_unavailable'};
+ const run=await submitVideo(runId,options());
+ expect(run).toMatchObject({executionState:'failed_confirmed',failure:{reasonCode:'reference_resource_unavailable'},billingState:'not_provided'});
+ expect(run.taskId).toBeUndefined();expect(run.coreRequestId).toBeUndefined();
+ const recovery=await recoverSubmission(runId,{action:'query_original'},options());
+ expect(recovery).toMatchObject({status:'manual_check',reason:'reference_preflight_rejection_confirmed'});
+ expect(posts()).toHaveLength(1);expect(mock.requests.filter(r=>r.method==='GET')).toHaveLength(0);
+});
 
 it('F0 review: failed-response journal recovers after a Run-save fault without a second POST',async()=>{
  const prepared=await prepareVideoRequest(runId,options()),originalRequest=client.requestJson;

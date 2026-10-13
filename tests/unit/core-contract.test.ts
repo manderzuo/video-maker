@@ -1,5 +1,10 @@
 import {it,expect} from 'vitest';
 import {parseVideoTask,parseCoreModels,classifyCoreError} from '../../src/adapters/core/contracts';
+it('resource readiness: only the verified preflight HTTP400 code proves no video send',()=>{
+ expect(classifyCoreError(400,{error:{code:'reference_resource_unavailable'}}).submissionOutcome).toBe('not_sent');
+ expect(classifyCoreError(503,{error:{code:'reference_resource_unavailable'}}).submissionOutcome).toBe('unknown');
+ expect(classifyCoreError(400,{error:{code:'reference_resource_download_failed'}}).submissionOutcome).toBe('unknown');
+});
 import {resolveCapabilities,type DeploymentContract} from '../../src/adapters/core/capabilities';
 import {startMockCore} from '../mock-core/server';
 import {registerTestMockOrigin} from '../helpers/mock-network';
