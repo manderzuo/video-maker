@@ -38,7 +38,7 @@ export function classifyCoreError(status:number,body:unknown,retryAfter?:string,
  const code=rawCode&&Object.hasOwn(textCodes,rawCode)?textCodes[rawCode]:error&&rawCode&&/^[a-z][a-z0-9_]{0,95}$/.test(rawCode)&&redact(rawCode)===rawCode?rawCode:'core_http_error';
  const categories:Record<number,CoreFailure['category']>={400:'invalid_request',401:'authentication',402:'quota',403:'forbidden',404:'not_found',409:'conflict',413:'invalid_request',422:'invalid_request',429:'rate_limited',500:'unavailable',502:'unavailable',503:'unavailable',504:'unavailable'};
  // An HTTP class alone is insufficient to prove a paid send never happened.
- const preAdmission=new Set(['insufficient_scope','quota_insufficient','idempotency_conflict','video_billing_paused','invalid_request_error','budget_policy_unconfigured','budget_preparation_busy']);
+ const preAdmission=new Set(['insufficient_scope','quota_insufficient','idempotency_conflict','video_billing_paused','invalid_request_error','budget_policy_unconfigured','budget_preparation_busy','video_retry_not_eligible','video_retry_limit_reached','video_retry_invalid']);
  const retryAfterMs=status===429?parseRetryAfter(retryAfter):undefined;
  return {httpStatus:status,category:categories[status]??'unknown',errorCode:code,...(requestId&&redact(requestId)===requestId?{requestId}:{}),...(retryAfterMs===undefined?{}:{retryAfterMs}),submissionOutcome:preAdmission.has(code)||(status===400&&code==='reference_resource_unavailable')?'not_sent':'unknown'};
 }

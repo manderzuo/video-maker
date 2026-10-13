@@ -8,7 +8,7 @@ export type OutboundRequest={url:string;address:string;family:4|6;apiKey:string;
 export type OutboundResponse={status:number;body:Buffer};
 export type OutboundAdapters={resolve:(hostname:string)=>Promise<ResolvedAddress[]>;request:(request:OutboundRequest)=>Promise<OutboundResponse>};
 export const MAX_COMPLETION_TIMEOUT_MS=300000;
-export type VideoOutboundOperation={kind:'asset';body:string}|{kind:'submit';body:string;idempotencyKey:string}|{kind:'query'|'content';taskId:string};
+export type VideoOutboundOperation={kind:'asset';body:string}|{kind:'submit';body:string;idempotencyKey:string}|{kind:'retry'|'retryLookup';taskId:string}|{kind:'query'|'content';taskId:string};
 const blocked4=new BlockList();
 for(const [address,prefix] of [['0.0.0.0',8],['10.0.0.0',8],['100.64.0.0',10],['127.0.0.0',8],['169.254.0.0',16],['172.16.0.0',12],['192.0.0.0',24],['192.0.2.0',24],['192.168.0.0',16],['198.18.0.0',15],['198.51.100.0',24],['203.0.113.0',24],['224.0.0.0',4],['240.0.0.0',4]] as const)blocked4.addSubnet(address,prefix,'ipv4');
 const global6=new BlockList();global6.addSubnet('2000::',3,'ipv6');
@@ -63,6 +63,9 @@ export class RestrictedOutbound {
   if(operation.kind==='asset'||operation.kind==='submit'){
    if(typeof operation.body!=='string'||Buffer.byteLength(operation.body)>46*1024*1024)throw new HttpError(400,'INVALID_REQUEST');body=Buffer.from(operation.body);path=operation.kind==='asset'?'v1/assets':'v1/videos/generations';
    if(operation.kind==='submit'){if(!/^[-A-Za-z0-9._~]{1,256}$/.test(operation.idempotencyKey))throw new HttpError(400,'INVALID_REQUEST');idempotencyKey=operation.idempotencyKey;}
+  }else if(operation.kind==='retry'||operation.kind==='retryLookup'){
+   if(!/^[-A-Za-z0-9._~]{1,256}$/.test(operation.taskId)||['.','..'].includes(operation.taskId))throw new HttpError(400,'INVALID_REQUEST');
+   path='v1/videos/'+operation.taskId+'/retry';if(operation.kind==='retry')body=Buffer.from(JSON.stringify({max_retries:1}));
   }else if(operation.kind==='query'||operation.kind==='content'){
    if(!/^[-A-Za-z0-9._~]{1,256}$/.test(operation.taskId)||['.','..'].includes(operation.taskId))throw new HttpError(400,'INVALID_REQUEST');path='v1/videos/'+operation.taskId+(operation.kind==='content'?'/content':'');
   }else throw new HttpError(400,'INVALID_REQUEST');

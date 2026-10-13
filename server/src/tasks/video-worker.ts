@@ -20,8 +20,9 @@ import {ownedProject,readProjectGraph} from '../projects/repository.js';
 import {applyProjectCommandInTransaction} from '../projects/commands.js';
 import {projectCommandSchema} from '../projects/contracts.js';
 import {resultPlacement} from '../../../src/features/workspace/cloud-result-actions.js';
+import type {DeploymentContract} from '../../../src/adapters/core/capabilities.js';
 export type VideoLane='submit'|'query'|'delivery';
-type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow&{canvasAutoPlace?:boolean};lease_token:string;query_control_revision:number;query_retry_count:number;delivery_retry_count:number;phase:VideoLane};
+type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow&{canvasAutoPlace?:boolean};frozen_contract:DeploymentContract;lease_token:string;query_control_revision:number;query_retry_count:number;delivery_retry_count:number;phase:VideoLane};
 const owner=(userId:string)=>({userId,sessionId:'persistent-video',contextId:'persistent-video'});
 function safeRedactor(keys:string[]){return (text:string)=>{for(const key of keys)text=text.split(key).join('[已隐藏密钥]');return text.replace(/Bearer\s+[^\s,;"']+/gi,'Bearer [已隐藏密钥]');};}
 const retryDelay=(attempt:number)=>Math.min(300000,3000*2**Math.min(7,Math.max(0,attempt-1)));
@@ -31,13 +32,25 @@ const retryDelay=(attempt:number)=>Math.min(300000,3000*2**Math.min(7,Math.max(0
 const mergedDocument="jsonb_set(jsonb_set($4::jsonb,'{queryState}',CASE WHEN $4::jsonb->>'attentionCode'='budget_continuation_requires_attention' THEN CASE WHEN document->>'queryState'='paused_by_user' THEN document->'queryState' ELSE to_jsonb('interrupted'::text) END WHEN query_control_revision<>$7 THEN document->'queryState' ELSE $4::jsonb->'queryState' END),'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1))";
 async function save(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date,retry=false){
  const count=retry?Math.min(16,(row.phase==='delivery'?row.delivery_retry_count:row.query_retry_count)+1):0,due=new Date(at.getTime()+(retry?retryDelay(count):3000));
- const result=await pool.query(`UPDATE workspace_video_runs SET document=${mergedDocument},lease_until=NULL,lease_token=NULL,
+ await transaction(pool,async db=>{
+ const result=await db.query<{document:unknown}>(`UPDATE workspace_video_runs SET document=${mergedDocument},lease_until=NULL,lease_token=NULL,
  next_query_at=CASE WHEN $8='delivery' THEN next_query_at ELSE $5 END,
  next_delivery_at=CASE WHEN $8='delivery' THEN $5 ELSE next_delivery_at END,
  query_retry_count=CASE WHEN $8='delivery' THEN query_retry_count ELSE $9 END,
  delivery_retry_count=CASE WHEN $8='delivery' THEN $9 ELSE delivery_retry_count END,updated_at=$6
- WHERE user_id=$1 AND id=$2 AND lease_token=$3`,[row.user_id,row.id,row.lease_token,JSON.stringify(run),due,at,row.query_control_revision,row.phase,count]);
+ WHERE user_id=$1 AND id=$2 AND lease_token=$3 RETURNING document`,[row.user_id,row.id,row.lease_token,JSON.stringify(run),due,at,row.query_control_revision,row.phase,count]);
  if(result.rowCount!==1)throw new HttpError(409,'TASK_LEASE_CHANGED');
+ const saved=cloudVideoRunSchema.parse(result.rows[0]!.document);
+ if(saved.maxAutomaticRetries!==1||saved.retryOfRunId||saved.retryRunId||!saved.taskId||saved.executionState!=='failed_confirmed'||saved.queryState==='paused_by_user'||saved.failure?.reasonCode!=='reference_resource_download_failed')return;
+ const project=await db.query('SELECT id FROM workspace_projects WHERE user_id=$1 AND id=$2 AND trashed_at IS NULL AND purged_at IS NULL FOR SHARE',[row.user_id,saved.projectId]);if(!project.rowCount)return;
+ const child=cloudVideoRunSchema.parse({...saved,id:randomUUID(),idempotencyKey:'studio-video-retry-'+saved.id,recordRevision:0,
+  maxAutomaticRetries:undefined,retryRunId:undefined,retryOfRunId:saved.id,retryOfCoreTaskId:saved.taskId,
+  finalBody:undefined,finalBodyHash:undefined,taskId:undefined,coreRequestId:undefined,workContext:undefined,failure:undefined,attentionCode:undefined,issueCode:undefined,resultAssetId:undefined,executionFinishedAt:undefined,
+  executionState:'persisted',queryState:'idle',billingState:'not_provided',deliveryState:'not_ready',createdAt:at.getTime(),updatedAt:at.getTime()});
+ await db.query('INSERT INTO workspace_video_runs(user_id,id,project_id,config_id,secret_version,frozen_config,frozen_contract,document,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7::jsonb,$8::jsonb,$9,$9)',[row.user_id,child.id,child.projectId,row.frozen_config.id,child.secretVersion,JSON.stringify(row.frozen_config),JSON.stringify(row.frozen_contract),JSON.stringify(child),at]);
+ for(const ref of child.inputSnapshot.references)await db.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[row.user_id,child.projectId,ref.assetId,'run:'+child.id]);
+ await db.query("UPDATE workspace_video_runs SET document=jsonb_set(document,'{retryRunId}',to_jsonb($3::text)),updated_at=$4 WHERE user_id=$1 AND id=$2",[row.user_id,saved.id,child.id,at]);
+ });
 }
 async function stage(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date){const result=await pool.query(`UPDATE workspace_video_runs SET document=${mergedDocument},updated_at=$5,lease_until=$6 WHERE user_id=$1 AND id=$2 AND lease_token=$3`,[row.user_id,row.id,row.lease_token,JSON.stringify(run),at,new Date(at.getTime()+150000),row.query_control_revision]);if(result.rowCount!==1)throw new HttpError(409,'TASK_LEASE_CHANGED');}
 async function prepareReferences(pool:Pool,row:VideoRow,run:CloudVideoRun,dependencies:VideoTaskDependencies,key:string,redact:(input:string)=>string,clock:()=>Date){
@@ -89,7 +102,7 @@ async function placeCanvasResult(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Dat
  });
 }
 const submitEligible="v.document->>'executionState'='persisted'";
-const queryEligible=`v.document->>'taskId' IS NOT NULL AND v.document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted')
+const queryEligible=`(v.document->>'taskId' IS NOT NULL OR (v.document->>'retryOfCoreTaskId' IS NOT NULL AND v.document->>'executionState'='submit_unknown')) AND v.document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted')
  AND (v.next_query_at IS NULL OR v.next_query_at<=$1)
  AND (v.document->>'executionState' IN ('accepted','running') OR v.document->>'billingState'='pending_reconciliation')`;
 const deliveryEligible=`v.document->>'executionState'='succeeded' AND (v.next_delivery_at IS NULL OR v.next_delivery_at<=$1)
@@ -98,14 +111,14 @@ const deliveryEligible=`v.document->>'executionState'='succeeded' AND (v.next_de
  AND EXISTS(SELECT 1 FROM workspace_projects p WHERE p.user_id=v.user_id AND p.id=v.project_id AND p.trashed_at IS NULL AND p.purged_at IS NULL)))`;
 export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDependencies,clock:()=>Date=()=>new Date(),lane:VideoLane|'any'='any'){
  const now=clock(),row=await transaction(pool,async db=>{
-  const result=await db.query<VideoRow>(`SELECT v.user_id,v.id,v.document,v.frozen_config,v.lease_token,v.query_control_revision,v.query_retry_count,v.delivery_retry_count,
+  const result=await db.query<VideoRow>(`SELECT v.user_id,v.id,v.document,v.frozen_config,v.frozen_contract,v.lease_token,v.query_control_revision,v.query_retry_count,v.delivery_retry_count,
    CASE WHEN ${submitEligible} THEN 'submit' WHEN $2='delivery' OR ($2='any' AND (${deliveryEligible})) THEN 'delivery' ELSE 'query' END AS phase
    FROM workspace_video_runs v WHERE v.lease_token IS NULL AND (
    ($2 IN ('submit','any') AND (${submitEligible})) OR ($2 IN ('query','any') AND (${queryEligible})) OR ($2 IN ('delivery','any') AND (${deliveryEligible})))
    ORDER BY CASE WHEN ${submitEligible} THEN v.created_at WHEN $2='delivery' OR ($2='any' AND (${deliveryEligible})) THEN COALESCE(v.next_delivery_at,v.created_at) ELSE COALESCE(v.next_query_at,v.created_at) END,v.created_at,v.id
    LIMIT 1 FOR UPDATE OF v SKIP LOCKED`,[now,lane]);
   const stored=result.rows[0];if(!stored)return undefined;
-  const current=cloudVideoRunSchema.parse(stored.document),run=current.executionState==='persisted'?{...current,executionState:current.inputSnapshot.references.length?'uploading' as const:'submitting' as const,updatedAt:now.getTime()}:current,token=randomUUID();
+  const current=cloudVideoRunSchema.parse(stored.document),run=current.executionState==='persisted'?{...current,executionState:!current.retryOfCoreTaskId&&current.inputSnapshot.references.length?'uploading' as const:'submitting' as const,updatedAt:now.getTime()}:current,token=randomUUID();
   await db.query("UPDATE workspace_video_runs SET document=jsonb_set($3::jsonb,'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1)),lease_token=$4,lease_until=$5 WHERE user_id=$1 AND id=$2",[stored.user_id,stored.id,JSON.stringify(run),token,new Date(now.getTime()+150000)]);
   return {...stored,document:run,lease_token:token};
  });if(!row)return false;
@@ -123,14 +136,19 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
   }
   const key=await frozenTaskKey(pool,row.user_id,row.frozen_config,dependencies),redact=safeRedactor(await userSecrets(pool,row.user_id,dependencies));
   if(row.phase==='submit'){
-   const mappings=await prepareReferences(pool,row,run,dependencies,key,redact,clock),finalBody=buildVideoRequestBody(run.inputSnapshot,mappings);
+   const mappings=run.retryOfCoreTaskId?[]:await prepareReferences(pool,row,run,dependencies,key,redact,clock),finalBody=run.retryOfCoreTaskId?JSON.stringify({max_retries:1}):buildVideoRequestBody(run.inputSnapshot,mappings);
    run={...run,finalBody,finalBodyHash:createHash('sha256').update(finalBody).digest('hex'),executionState:'submitting',updatedAt:clock().getTime()};await stage(pool,row,run,clock());
    // Check after the final durable stage, immediately before the only paid send.
    if(mappings.some(mapping=>mapping.expiresAt<=clock().getTime()+5000))throw new HttpError(409,'REFERENCE_EXPIRED');
-   sending=true;const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'submit',body:finalBody,idempotencyKey:run.idempotencyKey});
+   sending=true;const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,run.retryOfCoreTaskId?{kind:'retry',taskId:run.retryOfCoreTaskId}:{kind:'submit',body:finalBody,idempotencyKey:run.idempotencyKey});
    if(reply.status<200||reply.status>=300){const failure=classifyCoreError(reply.status,JSON.parse(reply.body.toString('utf8')),undefined,redact);
     run=isReferencePreflightRejection(failure)?cloudVideoRunSchema.parse({...run,...applySubmissionOutcome(run,{ok:false,error:failure}),inputSnapshot:run.inputSnapshot,executionFinishedAt:clock().getTime(),updatedAt:clock().getTime()}):{...run,executionState:failure.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',queryState:'interrupted',billingState:failure.submissionOutcome==='not_sent'?'not_provided':'pending_reconciliation',...(failure.submissionOutcome==='not_sent'?{failure:{reasonCode:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()};
    }else{const observed=observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact));run=cloudVideoRunSchema.parse({...run,...observed,inputSnapshot:run.inputSnapshot,...(!run.executionFinishedAt&&observed.executionFinishedAt?{executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});}
+  }else if(run.retryOfCoreTaskId&&!run.taskId&&run.executionState==='submit_unknown'){
+   await stage(pool,row,run,clock());
+   const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'retryLookup',taskId:run.retryOfCoreTaskId});
+   if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
+   run=cloudVideoRunSchema.parse({...run,...observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact)),inputSnapshot:run.inputSnapshot,updatedAt:clock().getTime()});
   }else if(run.taskId){
    await stage(pool,row,run,clock());
    const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'query',taskId:run.taskId});
@@ -149,14 +167,15 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
   }
   const expired=error instanceof HttpError&&error.code==='REFERENCE_EXPIRED',notSent=error instanceof HttpError&&['SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','REFERENCE_CHANGED','REFERENCE_EXPIRED'].includes(error.code),submission=row.phase==='submit';
   const next={...run,...(submission?{executionState:notSent?'failed_confirmed' as const:'submit_unknown' as const,queryState:'interrupted' as const,billingState:notSent||!sending?'not_provided' as const:'pending_reconciliation' as const,...(notSent?{failure:{reasonCode:expired?'reference_asset_expired' as const:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{} )}:secretMissing?{queryState:'auth_required' as const}:{}),issueCode:secretMissing?'SECRET_UNAVAILABLE' as const:error instanceof HttpError&&error.code==='OUTBOUND_BLOCKED'?'OUTBOUND_BLOCKED' as const:run.executionState==='uploading'?'UPLOAD_UNKNOWN' as const:'UPSTREAM_FAILED' as const,updatedAt:clock().getTime()};
-  try{await save(pool,row,cloudVideoRunSchema.parse(next),clock(),!submission&&!secretMissing);}catch(lost){if(!(lost instanceof HttpError&&lost.code==='TASK_LEASE_CHANGED'))throw lost;}
+  const recoveringRetry=submission&&sending&&!!run.retryOfCoreTaskId&&!notSent;
+  try{await save(pool,row,cloudVideoRunSchema.parse({...next,...(recoveringRetry?{queryState:'polling'}:{})}),clock(),recoveringRetry||!submission&&!secretMissing);}catch(lost){if(!(lost instanceof HttpError&&lost.code==='TASK_LEASE_CHANGED'))throw lost;}
  }
  return true;
 }
 export async function recoverExpiredVideoTasks(pool:Pool,now:Date){
  await transaction(pool,async db=>{
   const rows=await db.query<VideoRow>('SELECT user_id,id,document,frozen_config,lease_token FROM workspace_video_runs WHERE lease_token IS NOT NULL AND lease_until<$1 FOR UPDATE SKIP LOCKED',[now]);
-  for(const row of rows.rows){const run=cloudVideoRunSchema.parse(row.document),uncertain=['uploading','submitting'].includes(run.executionState),next=cloudVideoRunSchema.parse({...run,...(uncertain?{executionState:'submit_unknown',queryState:'interrupted',billingState:run.executionState==='uploading'?'not_provided':'pending_reconciliation',issueCode:run.executionState==='uploading'?'UPLOAD_UNKNOWN':'UPSTREAM_FAILED'}:{}),recordRevision:run.recordRevision+1,updatedAt:now.getTime()});await db.query('UPDATE workspace_video_runs SET document=$3::jsonb,lease_token=NULL,lease_until=NULL,next_query_at=$4,updated_at=$4 WHERE user_id=$1 AND id=$2',[row.user_id,row.id,JSON.stringify(next),now]);}
+  for(const row of rows.rows){const run=cloudVideoRunSchema.parse(row.document),uncertain=['uploading','submitting'].includes(run.executionState),next=cloudVideoRunSchema.parse({...run,...(uncertain?{executionState:'submit_unknown',queryState:run.retryOfCoreTaskId?'polling':'interrupted',billingState:run.executionState==='uploading'?'not_provided':'pending_reconciliation',issueCode:run.executionState==='uploading'?'UPLOAD_UNKNOWN':'UPSTREAM_FAILED'}:{}),recordRevision:run.recordRevision+1,updatedAt:now.getTime()});await db.query('UPDATE workspace_video_runs SET document=$3::jsonb,lease_token=NULL,lease_until=NULL,next_query_at=$4,updated_at=$4 WHERE user_id=$1 AND id=$2',[row.user_id,row.id,JSON.stringify(next),now]);}
  });
 }
 export function startVideoWorker(pool:Pool,dependencies:VideoTaskDependencies,clock:()=>Date=()=>new Date()){
