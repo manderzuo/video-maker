@@ -63,6 +63,8 @@ export async function controlVideoTask(pool:Pool,context:AuthContext,id:string,e
   if(action==='pause'&&!run.taskId)throw new HttpError(409,'ORIGINAL_TASK_ID_REQUIRED');
   if(action==='resume'){if(!run.taskId)throw new HttpError(409,'ORIGINAL_TASK_ID_REQUIRED');await frozenTaskKey(pool,context.userId,row.frozen_config,dependencies);}
   const next=cloudVideoRunSchema.parse({...run,...(action==='withdraw'?{executionState:'failed_confirmed',queryState:'idle',failure:{reasonCode:'video_not_submitted'},billingState:'not_provided',executionFinishedAt:now.getTime()}:{queryState:action==='pause'?'paused_by_user':'polling'}),recordRevision:run.recordRevision+1,updatedAt:now.getTime()});
-  await db.query('UPDATE workspace_video_runs SET document=$3::jsonb,lease_token=NULL,lease_until=NULL,next_query_at=$4,updated_at=$4 WHERE user_id=$1 AND id=$2',[context.userId,id,JSON.stringify(next),now]);return next;
+  // Query intent is independent of execution ownership. A resume must never
+  // make an in-flight query or download available to another worker.
+  await db.query('UPDATE workspace_video_runs SET document=$3::jsonb,query_control_revision=query_control_revision+1,next_query_at=$4,updated_at=$4 WHERE user_id=$1 AND id=$2',[context.userId,id,JSON.stringify(next),now]);return next;
  });
 }

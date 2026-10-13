@@ -6,7 +6,7 @@ import {HttpError} from '../errors.js';
 import {parseContent,promptDraftSchema,type ContentKind,type Content} from './contracts.js';
 import {ownedProject,readProjectGraph} from '../projects/repository.js';
 import {compileVideoPrompt} from '../../../src/domain/prompt-engine/compile-video.js';
-import type {PromptCompileResult} from '../../../src/domain/prompt.js';
+import type {PromptCompileResult,PromptDraft} from '../../../src/domain/prompt.js';
 export type ContentRow={kind:ContentKind;document:unknown;revision:number;trashed_at:Date|null};
 export async function ownedContent(db:Pool|PoolClient,context:AuthContext,id:string,kind:ContentKind,lock=false){
  const rows=await db.query<ContentRow>('SELECT kind,document,revision,trashed_at FROM workspace_content WHERE user_id=$1 AND id::text=$2 AND kind=$3'+(lock?' FOR UPDATE':''),[context.userId,id,kind]);
@@ -30,6 +30,16 @@ export async function validateContentResources(db:PoolClient,context:AuthContext
 }
 export async function writeContent(db:PoolClient,context:AuthContext,kind:ContentKind,document:Content,now:Date,trashed=false){
  await validateContentResources(db,context,document);
+ return saveContentVersion(db,context,kind,document,now,trashed);
+}
+// A saved task only appends a result to a draft already locked by its owner.
+// Existing source/asset bindings are unchanged and remain historical lineage:
+// deleting the editable source must not make a paid response impossible to save.
+export async function appendSavedPromptResult(db:PoolClient,context:AuthContext,draft:PromptDraft,result:PromptDraft['resultVersions'][number],now:Date,trashed:boolean){
+ const next=promptDraftSchema.parse({...draft,revision:draft.revision+1,resultVersions:[...draft.resultVersions,result]});
+ return saveContentVersion(db,context,'draft',next,now,trashed);
+}
+async function saveContentVersion(db:PoolClient,context:AuthContext,kind:ContentKind,document:Content,now:Date,trashed:boolean){
  const result=await db.query('UPDATE workspace_content SET revision=$3,document=$4::jsonb,updated_at=$5,trashed_at=$6 WHERE user_id=$1 AND id=$2',[context.userId,document.id,document.revision,JSON.stringify(document),now,trashed?now:null]);
  if(result.rowCount!==1)throw new Error('Content update incomplete');
  await db.query('INSERT INTO workspace_content_versions(user_id,id,revision,document,created_at) VALUES($1,$2,$3,$4::jsonb,$5)',[context.userId,document.id,document.revision,JSON.stringify(document),now]);

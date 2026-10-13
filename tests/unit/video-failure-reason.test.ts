@@ -4,7 +4,7 @@ import {runSchema} from '../../src/domain/run';
 import {f} from '../helpers/fixtures';
 import {videoFailureMessage,mergeVideoFailure} from '../../src/domain/video-failure';
 const semantic='input image content[1] may contain real person';
-it.each(['reference_resource_unavailable','reference_resource_download_failed'])('resource readiness: closed code %s survives persistence and billing-only updates',code=>{
+it.each(['reference_resource_unavailable','reference_resource_download_failed','reference_asset_expired','reference_asset_missing'])('resource readiness: closed code %s survives persistence and billing-only updates',code=>{
  const parsed=parseVideoTask({task:{id:'reference-failed',status:'failed',error:{code,billing_state:'pending',message:'PRIVATE_SIGNED_URL',upstream:{code:3003,message:'PRIVATE_PROVIDER_TEXT'}}}});
  expect(parsed.failure).toMatchObject({reasonCode:code,gatewayCode:code});
  expect(parsed.billingState).toBe('pending_reconciliation');

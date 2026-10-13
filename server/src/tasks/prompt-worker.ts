@@ -5,7 +5,7 @@ import {transaction} from '../db/transaction.js';
 import {HttpError} from '../errors.js';
 import type {ApiSettingsDependencies} from '../settings/service.js';
 import type {ConfigRow} from '../settings/repository.js';
-import {ownedContent,writeContent} from '../prompts/repository.js';
+import {ownedContent,appendSavedPromptResult} from '../prompts/repository.js';
 import {promptDraftSchema} from '../prompts/contracts.js';
 import {cloudTaskSchema,type CloudTask} from '../../../src/domain/cloud-task.js';
 import {promptCompileResultSchema,promptCompileInputSchema,type PromptCompileResult} from '../../../src/domain/prompt.js';
@@ -13,7 +13,7 @@ import {validatePromptTextResult} from '../../../src/domain/prompt-engine/valida
 import {portableCloudContent} from '../../../src/domain/cloud-project-package.js';
 import {frozenTaskKey,userSecrets} from './prompt-repository.js';
 import {MAX_COMPLETION_TIMEOUT_MS} from '../security/outbound.js';
-type TaskRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow;request_body:string;result_snapshot:unknown};
+type TaskRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow;request_body:string;result_snapshot:unknown;finalize_attempts:number};
 const context=(userId:string)=>({userId,sessionId:'persistent-task',contextId:'persistent-task'});
 const responseSchema=z.object({choices:z.array(z.object({message:z.object({content:z.string().max(65536)})})).min(1)});
 function parseResult(body:Buffer,keys:string[]):PromptCompileResult{
@@ -23,16 +23,24 @@ function parseResult(body:Buffer,keys:string[]):PromptCompileResult{
  return promptCompileResultSchema.refine(result=>!!result.finalPrompt.trim()).parse(portableCloudContent(JSON.parse(text)));
 }
 async function finalizeOne(pool:Pool,now:Date){return transaction(pool,async db=>{
- const result=await db.query<TaskRow>("SELECT user_id,id,document,frozen_config,request_body,result_snapshot FROM workspace_tasks WHERE document->>'executionState'='response_received' ORDER BY created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED");const row=result.rows[0];if(!row)return false;
+ const result=await db.query<TaskRow>("SELECT user_id,id,document,frozen_config,request_body,result_snapshot,finalize_attempts FROM workspace_tasks WHERE document->>'executionState'='response_received' AND (next_finalize_at IS NULL OR next_finalize_at<=$1) ORDER BY COALESCE(next_finalize_at,created_at),created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED",[now]);const row=result.rows[0];if(!row)return false;
+ await db.query('SAVEPOINT prompt_finalize');
+ try{
  const task=cloudTaskSchema.parse(row.document),owner=context(row.user_id),content=await ownedContent(db,owner,task.draftId,'draft',true),draft=promptDraftSchema.parse(content.document),candidate=promptCompileResultSchema.parse(row.result_snapshot);
  const source=await db.query<{document:unknown}>('SELECT document FROM workspace_content_versions WHERE user_id=$1 AND id=$2 AND revision=$3',[row.user_id,task.draftId,task.sourceRevision]);if(!source.rows[0])throw new Error('Frozen task input missing');
  const frozen=promptDraftSchema.parse(source.rows[0].document),{userRequest,sceneId,requestedSpec,audioPlan,lockedConstraints,references}=frozen;
  const version={...candidate,id:randomUUID(),sourceRevision:task.sourceRevision,origin:'ai' as const,validationState:'unchecked' as const,promptRunId:task.id,createdAt:now.getTime()};
  const issues=validatePromptTextResult(version,promptCompileInputSchema.parse({userRequest,sceneId,requestedSpec,audioPlan,lockedConstraints,references}));
  const checked={...version,validationState:issues.length?'needs_review' as const:'valid' as const,warnings:[...candidate.warnings,...issues.map(issue=>issue.message)]};
- await writeContent(db,owner,'draft',promptDraftSchema.parse({...draft,revision:draft.revision+1,resultVersions:[...draft.resultVersions,checked]}),now,content.row.trashed_at!==null);
+ await appendSavedPromptResult(db,owner,draft,checked,now,content.row.trashed_at!==null);
  const {errorCode:_,...previous}=task;void _;const next=cloudTaskSchema.parse({...previous,executionState:'succeeded',resultVersionId:version.id,updatedAt:now.getTime()});
- await db.query('UPDATE workspace_tasks SET document=$3::jsonb,lease_until=NULL,updated_at=$4 WHERE user_id=$1 AND id=$2',[row.user_id,row.id,JSON.stringify(next),now]);return true;
+ await db.query('UPDATE workspace_tasks SET document=$3::jsonb,lease_until=NULL,finalize_attempts=0,next_finalize_at=NULL,finalize_error=NULL,updated_at=$4 WHERE user_id=$1 AND id=$2',[row.user_id,row.id,JSON.stringify(next),now]);return true;
+ }catch{
+  await db.query('ROLLBACK TO SAVEPOINT prompt_finalize');
+  const attempts=Math.min(16,row.finalize_attempts+1),due=new Date(now.getTime()+Math.min(300000,3000*2**Math.min(7,attempts-1)));
+  await db.query("UPDATE workspace_tasks SET finalize_attempts=$3,next_finalize_at=$4,finalize_error='RESULT_SAVE_PENDING' WHERE user_id=$1 AND id=$2",[row.user_id,row.id,attempts,due]);
+  return false; // This response stays durable; other tasks may proceed now.
+ }
  });}
 export async function executeNextPromptTask(pool:Pool,dependencies:ApiSettingsDependencies,clock:()=>Date=()=>new Date()){
  const now=clock();

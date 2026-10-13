@@ -15,7 +15,7 @@ afterEach(async()=>{await f?.close();});
 async function setup(name:string,key:string){const account=await f.signup(name);expect((await f.call('PATCH','/studio-api/me/model-configs/text',{...f.headers(account),payload:{apiBase:'https://api.example.test',model:'Vendor/Directory-Free',apiKey:key,expectedRevision:null}})).statusCode).toBe(200);const draft=await f.call('POST','/studio-api/prompt-drafts',{...f.headers(account),payload:{type:'video',userRequest:'雨后的街道',sceneId:'text',requestedSpec:{},audioPlan:'',lockedConstraints:[],references:[],ruleVersion:'studio-video-rules-v1',idempotencyKey:randomUUID()}});expect(draft.statusCode).toBe(201);return {account,draft:draft.json()};}
 async function preview(account:Account,id:string){const reply=await f.call('POST','/studio-api/prompt-drafts/'+id+'/optimization-preview',{...f.headers(account),payload:{expectedRevision:0,configRevision:1,referenceAliases:[]}});expect(reply.statusCode).toBe(201);return reply.json();}
 const confirm=(account:Account,id:string,approvalId:string)=>f.call('POST','/studio-api/prompt-drafts/'+id+'/optimize',{...f.headers(account),payload:{approvalId,decision:{confirmed:true,acknowledgeTextFee:true}}});
-async function work(){const {executeNextPromptTask}=await import('../src/tasks/prompt-worker.js');return executeNextPromptTask(f.pool,dependencies,()=>new Date('2026-10-08T12:00:00Z'));}
+async function work(at=new Date('2026-10-08T12:00:00Z')){const {executeNextPromptTask}=await import('../src/tasks/prompt-worker.js');return executeNextPromptTask(f.pool,dependencies,()=>new Date(at));}
 it.each([false,true])('lets one model request interpret the full creative input and preserves semantic warnings: %s',warning=>{
  return (async()=>{
   const a=await setup('Semantic_'+warning,'FAKE_SEMANTIC_KEY'),requestedSpec={durationSeconds:15,ratio:'9:16',resolution:'480p'};
@@ -85,11 +85,24 @@ it('keeps a received response durable if saving the draft fails, then finishes w
  const a=await setup('PromptTask_SaveRetry','FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);expect(task.statusCode).toBe(202);
  await f.pool.query("CREATE FUNCTION reject_ai_version() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'synthetic write failure'; END $$; CREATE TRIGGER reject_ai_version BEFORE INSERT ON workspace_content_versions FOR EACH ROW EXECUTE FUNCTION reject_ai_version()");
  await work();expect(calls).toHaveLength(1);expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json().executionState).toBe('response_received');
- await f.pool.query('DROP TRIGGER reject_ai_version ON workspace_content_versions');await work();expect(calls).toHaveLength(1);expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json().executionState).toBe('succeeded');
+ const retry=(await f.pool.query('SELECT next_finalize_at,finalize_attempts,finalize_error FROM workspace_tasks WHERE id=$1',[task.json().id])).rows[0];expect(retry).toMatchObject({finalize_attempts:1,finalize_error:'RESULT_SAVE_PENDING'});await f.pool.query('DROP TRIGGER reject_ai_version ON workspace_content_versions');expect(await work()).toBe(false);await work(retry.next_finalize_at);expect(calls).toHaveLength(1);expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json().executionState).toBe('succeeded');
 });
 it('turns an expired sending lease into an unknown outcome without replaying after worker restart',async()=>{
  const a=await setup('PromptTask_Restart','FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);expect(task.statusCode).toBe(202);
  await f.pool.query("UPDATE workspace_tasks SET document=jsonb_set(document,'{executionState}','\"sending\"'),lease_until=$1",[new Date('2026-10-08T11:00:00Z')]);const {recoverExpiredPromptTasks}=await import('../src/tasks/prompt-worker.js');await recoverExpiredPromptTasks(f.pool,new Date('2026-10-08T12:00:00Z'));await work();expect(calls).toHaveLength(0);expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json()).toMatchObject({executionState:'response_unknown',billingState:'pending_reconciliation'});
+});
+it('isolates a persistent finalization failure and saves a different user response without resending either call',async()=>{
+ const a=await setup('Poison_A','FAKE_KEY_A'),b=await setup('Poison_B','FAKE_KEY_B'),first=await confirm(a.account,a.draft.id,(await preview(a.account,a.draft.id)).id),second=await confirm(b.account,b.draft.id,(await preview(b.account,b.draft.id)).id);
+ // Reject only updates to the first existing draft; real savepoint rollback
+ // must undo its partial result append while the second user's write succeeds.
+ await f.pool.query("CREATE FUNCTION reject_one_result() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF OLD.document->>'userRequest'='poison this result' THEN RAISE EXCEPTION 'synthetic private detail'; END IF; RETURN NEW; END $$; CREATE TRIGGER reject_one_result BEFORE UPDATE ON workspace_content FOR EACH ROW EXECUTE FUNCTION reject_one_result()");
+ await f.pool.query("UPDATE workspace_content SET document=jsonb_set(document,'{userRequest}','\"poison this result\"') WHERE id=$1",[a.draft.id]);
+ // Ensure the poisoned task is the first selected regardless of UUID order.
+ await f.pool.query('UPDATE workspace_tasks SET created_at=$2 WHERE id=$1',[first.json().id,new Date('2026-10-08T11:59:59Z')]);
+ await work();await work();
+ expect(calls).toHaveLength(2);expect((await f.call('GET','/studio-api/runs/'+first.json().id,f.headers(a.account))).json().executionState).toBe('response_received');expect((await f.call('GET','/studio-api/runs/'+second.json().id,f.headers(b.account))).json().executionState).toBe('succeeded');
+ const failed=(await f.pool.query('SELECT result_snapshot,finalize_attempts,next_finalize_at,finalize_error FROM workspace_tasks WHERE id=$1',[first.json().id])).rows[0];expect(failed).toMatchObject({result_snapshot:output,finalize_attempts:1,finalize_error:'RESULT_SAVE_PENDING'});expect(JSON.stringify(failed)).not.toContain('synthetic private');
+ await work(failed.next_finalize_at);expect(calls).toHaveLength(2);expect((await f.pool.query('SELECT finalize_attempts FROM workspace_tasks WHERE id=$1',[first.json().id])).rows[0].finalize_attempts).toBe(2);
 });
 it('runs the durable task in the background even when no browser waits for the response',async()=>{
  const a=await setup('PromptTask_Background','FAKE_KEY_A'),p=await preview(a.account,a.draft.id);expect((await confirm(a.account,a.draft.id,p.id)).statusCode).toBe(202);
