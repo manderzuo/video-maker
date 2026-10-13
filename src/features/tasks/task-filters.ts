@@ -8,6 +8,7 @@ import {pollVideoOnce,resumePolling,type PollOptions} from '../../application/ru
 import {sanitizeKnownSecrets} from '../../security/credential-session';
 import {redact} from '../../security/redaction';
 import {acquireMediaUrl} from '../review/object-url-pool';
+import {videoAttentionLabel} from '../../domain/video-attention';
 export type TaskFilter={kind?:'all'|'video'|'prompt';projectId?:string;connectionId?:string;executionState?:string;queryState?:string;deliveryState?:string;billingState?:string;query?:string;includeArchived?:boolean};
 type CommonTask={locallyWithdrawn?:boolean;id:string;title:string;projectId?:string;projectTitle:string;projectArchived:boolean;nodeExists:boolean;draftExists:boolean;archived:boolean;connectionId:string;authBindingId:string;originSnapshot:string;executionState:string;queryState:string;deliveryState:string;billingState:string;taskId?:string;coreRequestId?:string;createdAt:number};
 export type TaskListItem=CommonTask&({kind:'video';record:Run}|{kind:'prompt';record:PromptRun});
@@ -15,7 +16,7 @@ export const executionLabels:Record<string,string>={draft:'草稿',preflight_blo
 export const queryLabels:Record<string,string>={idle:'查询空闲',polling:'查询中',paused_by_user:'已停止本地查询',interrupted:'查询中断',auth_required:'需要原授权',not_applicable:'文字无异步查询通道'};
 export const deliveryLabels:Record<string,string>={not_ready:'内容待获取',fetching:'获取内容中',available_for_preview:'可预览',cached_local:'本地已缓存',browser_download_triggered:'已触发浏览器下载',download_failed:'下载失败',not_applicable:'文字结果见草稿历史'};
 export const billingLabels:Record<string,string>={not_provided:'账务未提供',reserved:'Core记录预留',pending_reconciliation:'账务待核对',settled:'Core记录结算',released:'Core记录释放'};
-export function taskExecutionLabel(item:TaskListItem){return item.locallyWithdrawn?'本地待提交已撤回（原执行记录保留）':item.executionState==='succeeded'?(item.kind==='video'?'视频已完成':'文字请求已完成'):executionLabels[item.executionState]??'状态未知';}
+export function taskExecutionLabel(item:TaskListItem){return item.kind==='video'&&item.record.attentionCode?videoAttentionLabel:item.locallyWithdrawn?'本地待提交已撤回（原执行记录保留）':item.executionState==='succeeded'?(item.kind==='video'?'视频已完成':'文字请求已完成'):executionLabels[item.executionState]??'状态未知';}
 function archiveId(kind:TaskListItem['kind'],id:string){return 'task-archive:'+kind+':'+id;}
 export function taskCanArchive(item:Pick<TaskListItem,'executionState'|'queryState'|'deliveryState'|'billingState'>){return ['succeeded','failed_confirmed'].includes(item.executionState)&&['idle','not_applicable'].includes(item.queryState)&&!['fetching','download_failed'].includes(item.deliveryState)&&item.billingState!=='pending_reconciliation';}
 export async function listLocalTasks(filter:TaskFilter={},db?:StudioDb):Promise<TaskListItem[]>{

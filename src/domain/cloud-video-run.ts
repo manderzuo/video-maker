@@ -15,8 +15,8 @@ export type CloudVideoRecord=z.infer<typeof cloudVideoRecordSchema>;
 export const cloudRunSchema=z.union([cloudTaskSchema,cloudVideoRunSchema,cloudVideoArchiveSchema,cloudAgentRunSchema]);
 export type CloudRun=z.infer<typeof cloudRunSchema>;
 export function portableVideoRun(input:CloudVideoRecord):CloudVideoArchive{
- const {id,kind,projectId,nodeId,graphRevision,inputSnapshot,requestedSpec,executionSpec,executionState,queryState,deliveryState,billingState,resultAssetId,failure,executionFinishedAt,createdAt,updatedAt,recordRevision,issueCode}=input;
- return cloudVideoArchiveSchema.parse({id,kind,projectId,nodeId,graphRevision,inputSnapshot,requestedSpec,executionSpec,executionState,queryState,deliveryState,billingState,resultAssetId,failure,executionFinishedAt,createdAt,updatedAt,recordRevision,issueCode,historical:true});
+ const {id,kind,projectId,nodeId,graphRevision,inputSnapshot,requestedSpec,executionSpec,executionState,queryState,deliveryState,billingState,resultAssetId,failure,attentionCode,executionFinishedAt,createdAt,updatedAt,recordRevision,issueCode}=input;
+ return cloudVideoArchiveSchema.parse({id,kind,projectId,nodeId,graphRevision,inputSnapshot,requestedSpec,executionSpec,executionState,queryState,deliveryState,billingState,resultAssetId,failure,attentionCode,executionFinishedAt,createdAt,updatedAt,recordRevision,issueCode,historical:true});
 }
 export const cloudVideoPreviewSchema=z.strictObject({id:z.uuid(),projectId:z.uuid(),graphRevision:z.number().int().nonnegative(),configRevision:z.number().int().positive(),apiBase:z.url(),model:z.string(),contractVersion:z.string(),expiresAt:z.number().int(),priorUnknownRunIds:z.array(z.uuid()),nodes:z.array(z.strictObject({nodeId:z.uuid(),title:z.string(),inputSnapshot:videoRunSnapshotSchema,assets:z.array(z.strictObject({assetId:z.uuid(),sha256:z.string(),bytes:z.number().int().positive(),mimeType:z.string(),title:z.string()})),dependencies:z.array(z.string())}))});
 export type CloudVideoPreview=z.infer<typeof cloudVideoPreviewSchema>;

@@ -7,6 +7,7 @@ import {redact} from '../../security/redaction';
 import {taskExecutionLabel,queryLabels,deliveryLabels,billingLabels,querySingleTask,type TaskListItem} from './task-filters';
 import {pausePolling,readPollSummary} from '../../application/runs/poll-video';
 import {normalizeVideoFailure,videoFailureDetails,type VideoFailureInfo} from '../../domain/video-failure';
+import {videoAttentionMessage} from '../../domain/video-attention';
 import {videoNeedsTracking} from '../../domain/run-status';
 import {studioTabId} from '../projects/project-service';
 import {UnknownSubmissionDialog} from '../canvas/UnknownSubmissionDialog';
@@ -26,6 +27,7 @@ export function TaskDetail({item,onClose,onChange}:{item:TaskListItem;onClose:()
  async function query(){try{await querySingleTask(item);await onChange();setMessage('已查询原任务，没有创建新任务。');}catch{setMessage('查询尚未完成，请核对原服务与授权；未重新提交。');}}
  return <>{authOpen&&item.kind==='video'?<ReauthorizeDialog run={item.record} onClose={()=>setAuthOpen(false)} onAuthorized={()=>{setAuthOpen(false);setMessage('已使用当前输入授权只读验证原任务；原归属与请求保持不变。');}}/>:null}{!unknown?<Dialog open title="任务详情" onClose={onClose} width={960} footer={<Button data-interaction-id="ui:TaskDetail:Button:e8b0366eaa87" onClick={onClose}>关闭</Button>}>
  <h3>{item.title}</h3><p data-interaction-id="V-11">{taskExecutionLabel(item)} · {queryLabels[item.queryState]} · {deliveryLabels[item.deliveryState]} · {billingLabels[item.billingState]}</p><p>原项目：{item.projectTitle}{item.projectArchived?' · 项目已归档，任务追踪仍保留':''}</p><p>原服务：{item.connectionId} · 原授权绑定：{item.authBindingId}</p>
+ {item.kind==='video'&&item.record.attentionCode?<p role="status">{videoAttentionMessage}</p>:null}
  {item.kind==='video'&&item.executionState==='failed_confirmed'?<p className="status-warning">{failureDetails.message}<br/>{failureDetails.upstreamCode?<>错误码：{failureDetails.upstreamCode}。 </>:null}{failureDetails.billingMessage}{currentFailure?.gatewayCode?<><br/>原因代码：{currentFailure.gatewayCode}</>:null}</p>:null}
  <dl><dt>本地记录</dt><dd className="break-word">{item.id}</dd><dt>Core任务ID</dt><dd className="break-word">{item.taskId??'未提供；不会编造查询身份'}</dd><dt>Core请求ID</dt><dd className="break-word">{item.coreRequestId??'未提供'}</dd></dl>
  <div className="actions"><Button data-interaction-id="ui:TaskDetail:Button:bd1d1fe5f989" disabled={!item.taskId} onClick={()=>copy(item.taskId)}>复制任务ID</Button><Button data-interaction-id="ui:TaskDetail:Button:53860c4af7f3" disabled={!item.coreRequestId} onClick={()=>copy(item.coreRequestId)}>复制请求ID</Button><Button data-interaction-id="J-03" disabled={!item.nodeExists||item.kind!=='video'} disabledReason="原节点已删除或不可用，保留历史且不重建" onClick={()=>{if(item.kind==='video'){onClose();navigate('/projects/'+encodeURIComponent(item.record.projectId)+'/canvas?node='+encodeURIComponent(item.record.nodeId));}}}>定位原节点</Button>{item.kind==='prompt'?<Button data-interaction-id="ui:TaskDetail:Button:9d276f5ce646" disabled={!item.draftExists} disabledReason="原草稿已不可用，保留请求历史" onClick={()=>{if(item.kind==='prompt'){onClose();navigate('/prompt-generator?draftId='+encodeURIComponent(item.record.draftId));}}}>查看原草稿</Button>:null}</div>

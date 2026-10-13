@@ -1,13 +1,15 @@
 import {z} from 'zod';
 import {normalizeVideoFailure,type VideoFailureInfo} from '../../domain/video-failure.js';
+import {videoAttentionCodeSchema} from '../../domain/video-attention.js';
 import {parseRetryAfter} from './retry-policy.js';
 import {runWorkContextSchema,type Run,type BillingState} from '../../domain/run.js';
 import {sanitizeKnownSecrets} from '../../security/credential-session.js';
 export type CoreModel={id:string};
-export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;failure?:VideoFailureInfo;contentAvailable:boolean;billingState:BillingState;workContext?:Run['workContext']};
+export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;failure?:VideoFailureInfo;attentionCode?:Run['attentionCode'];contentAvailable:boolean;billingState:BillingState;workContext?:Run['workContext']};
 export type CoreFailure={httpStatus:number;category:'quota'|'forbidden'|'conflict'|'rate_limited'|'unavailable'|'invalid_request'|'authentication'|'not_found'|'protocol'|'unknown';errorCode:string;requestId?:string;retryAfterMs?:number;submissionOutcome:'not_sent'|'unknown'};
 const nonempty=z.string().trim().min(1).max(256);
-const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional(),message:z.unknown().optional(),upstream:z.unknown().optional()}).optional()});
+const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),stage:z.string().max(128).optional(),notice:z.unknown().optional(),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional(),message:z.unknown().optional(),upstream:z.unknown().optional()}).optional()});
+const attentionNoticeSchema=z.object({code:videoAttentionCodeSchema,billing_state:z.string().max(64).optional()});
 const replySchema=z.object({task:taskShape.optional(),video_task:taskShape.optional(),data:z.object({task:taskShape.optional()}).optional(),id:nonempty.optional(),status:z.string().optional(),request_id:nonempty.optional(),content_url:z.string().nullable().optional(),work_context:z.object({work_id:nonempty,base_version_id:nonempty.nullable().optional()}).nullable().optional()});
 export function parseVideoTask(input:unknown,redact:(input:string)=>string=sanitizeKnownSecrets):CoreTaskView{
  const parsed=replySchema.safeParse(input);if(!parsed.success)throw new Error('core_task_protocol_invalid');const reply=parsed.data;
@@ -20,11 +22,13 @@ export function parseVideoTask(input:unknown,redact:(input:string)=>string=sanit
  const workContext=reply.work_context?runWorkContextSchema.parse({workId:reply.work_context.work_id,...(status==='completed'&&reply.work_context.base_version_id?{baseVersionId:reply.work_context.base_version_id}:{})}):undefined;
  if(redact(task.id)!==task.id||reply.request_id&&redact(reply.request_id)!==reply.request_id||workContext&&redact(JSON.stringify(workContext))!==JSON.stringify(workContext))throw Error('core_task_protocol_invalid');
  // Content is an observation, never proof of download success or settled billing.
- const billing:Readonly<Record<string,BillingState>>={pending:'pending_reconciliation',settled:'settled',released:'released'},wireBilling=task.error?.billing_state;
+ const notice='notice' in task?attentionNoticeSchema.safeParse(task.notice):undefined;
+ const attention=task.status==='processing'&&'stage' in task&&task.stage==='continuation_requires_attention'&&notice?.success?notice.data:undefined;
+ const billing:Readonly<Record<string,BillingState>>={pending:'pending_reconciliation',settled:'settled',released:'released'},wireBilling=task.error?.billing_state??attention?.billing_state;
  const billingState=wireBilling&&Object.hasOwn(billing,wireBilling)?billing[wireBilling]:'not_provided';
  const rawUpstream=task.error?.upstream,upstream=rawUpstream&&typeof rawUpstream==='object'&&!Array.isArray(rawUpstream)?rawUpstream as Record<string,unknown>:undefined;
  const failure=status==='failed'?normalizeVideoFailure({gatewayCode:code,message:task.error?.message,upstreamCode:upstream?.code,upstreamMessage:upstream?.message}):undefined;
- return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),...(failure?{failure}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState,...(workContext?{workContext}:{})};
+ return {taskId:task.id,...(reply.request_id?{requestId:reply.request_id}:{}),status,...(code&&/^[a-z][a-z0-9_]{0,95}$/.test(code)?{errorCode:code}:{}),...(failure?{failure}:{}),...(attention?{attentionCode:attention.code}:{}),contentAvailable:status==='completed'&&!!task.content_url,billingState,...(workContext?{workContext}:{})};
 }
 export function parseCoreModels(input:unknown):CoreModel[]{const reply=z.object({data:z.array(z.object({id:nonempty}))}).parse(input);if(new Set(reply.data.map(m=>m.id)).size!==reply.data.length)throw new Error('core_model_duplicate');return reply.data.map(({id})=>({id}));}
 export function classifyCoreError(status:number,body:unknown,retryAfter?:string,redact:(input:string)=>string=sanitizeKnownSecrets):CoreFailure{
