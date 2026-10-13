@@ -83,8 +83,8 @@ Owner: parent. Scripts/docs in Studio scripts/production-ops and deployment reco
 - [x] Review repository diffs, cross-service error mappings, backward compatibility and new migrations. Resolve material defects before release.
 - [x] Run necessary consolidated regressions; coordinate AI Work host-lease maintenance only once test/build artifacts are ready. No repeated whole-suite runs without a change or unresolved concern.
 - [x] Back up live ledger/database/config, build pinned artifacts, activate services with rollback, and safely close only proven permanent pre-video legacy failures.
-- [ ] Verify original request and financial identities, healthy services, fair queue progress, new monitor/backup schedules and repository publication.
-- [ ] Report actual tests, deployed revisions and remaining provider limitations. Do not claim a long soak test or guaranteed upstream availability without evidence.
+- [x] Verify original request and financial identities, healthy services, fair queue progress, new monitor/backup schedules and repository publication.
+- [x] Report actual tests, deployed revisions and remaining provider limitations. Do not claim a long soak test or guaranteed upstream availability without evidence.
 
 ## Progress
 
@@ -103,3 +103,4 @@ Owner: parent. Scripts/docs in Studio scripts/production-ops and deployment reco
 - AI Work source 4995846 fixes first-anchor timestamp consistency and adds administrator-only restoration of identical reference bytes under the frozen asset ID. Maintenance-window checks: 58 passed, 1 optional live-media probe skipped; 15 protected tables and 23 unresolved holds unchanged. The final release is now activated and healthy; two additional real capacity/resource read-only probes passed with credentials unchanged and zero paid submissions.
 - Studio source 683e8a3 backend, desktop and mobile are deployed; additive migration 010 preserved every historical task document. All deployed static file hashes were checked.
 - Exact old Studio task check: the original long-running helper-only request reached 8 failures and attention; Studio shows interrupted query and does not loop. It has NOT been declared completed or automatically re-submitted. A separate old Core request closed with reference_asset_expired. The other already-sent unknown video retains its original held budget.
+- Repository publication confirmed with remote reads: AI Work ae06ab1 on main and repair branch, Core a33ac66 on main and repair branch, Studio 31e3e64 on default/mobile/publish branches. All three worktrees clean; this closing record changes documentation only. Final report is docs/production-stability-20261013.md.
