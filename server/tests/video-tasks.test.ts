@@ -20,7 +20,7 @@ const confirm=(owner:Awaited<ReturnType<typeof setup>>,approvalId:string)=>f.cal
 async function work(){const {executeNextVideoTask}=await import('../src/tasks/video-worker.js');const result=await executeNextVideoTask(f.pool,{...dependencies,assets:assets(),contracts:new Map([[base,contract]])},()=>new Date(time));await executeNextVideoTask(f.pool,{...dependencies,assets:assets(),contracts:new Map([[base,contract]])},()=>new Date(time),'delivery');time=new Date(time.getTime()+5000);return result;}
 const read=(account:Account,id:string)=>f.call('GET','/studio-api/runs/'+id,f.headers(account));
 it('automatically schedules exactly one independent retry and keeps original task billing',async()=>{
- contract.routes.workContext=true;contract.routes.videoRetry=true;resourceFailure=true;mode='failed';
+ contract.routes.workContext=false;contract.routes.videoRetry=true;resourceFailure=true;mode='failed';
  const a=await setup('VideoTask_ReferenceRetry','MOCK_KEY_A'),created=await confirm(a,(await preview(a)).id),id=created.json()[0].id;
  expect(created.json()[0].maxAutomaticRetries).toBe(1);
  await work();await work();
