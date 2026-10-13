@@ -2,8 +2,18 @@ import {it,expect} from 'vitest';
 import {parseVideoTask} from '../../src/adapters/core/contracts';
 import {runSchema} from '../../src/domain/run';
 import {f} from '../helpers/fixtures';
-import {videoFailureMessage} from '../../src/domain/video-failure';
+import {videoFailureMessage,mergeVideoFailure} from '../../src/domain/video-failure';
 const semantic='input image content[1] may contain real person';
+it.each(['reference_resource_unavailable','reference_resource_download_failed'])('resource readiness: closed code %s survives persistence and billing-only updates',code=>{
+ const parsed=parseVideoTask({task:{id:'reference-failed',status:'failed',error:{code,billing_state:'pending',message:'PRIVATE_SIGNED_URL',upstream:{code:3003,message:'PRIVATE_PROVIDER_TEXT'}}}});
+ expect(parsed.failure).toMatchObject({reasonCode:code,gatewayCode:code});
+ expect(parsed.billingState).toBe('pending_reconciliation');
+ expect(JSON.stringify(parsed)).not.toMatch(/PRIVATE_/);
+ expect(runSchema.parse({...f.run(),failure:parsed.failure}).failure?.reasonCode).toBe(code);
+ const generic=parseVideoTask({task:{id:'reference-failed',status:'failed',error:{code:'video_execution_failed',billing_state:'settled'}}});
+ expect(mergeVideoFailure(parsed.failure,generic.failure)?.reasonCode).toBe(code);
+ expect(videoFailureMessage(code)).toContain('参考素材');
+});
 const error=(patch:Record<string,unknown>={})=>({code:'video_execution_failed',billing_state:'pending',message:'FAKE_PRIVATE_LOG_DO_NOT_STORE',upstream:{code:3003,message:semantic},...patch});
 for(const wrapper of ['task','video_task','data'] as const){
  it(`F0: ${wrapper} preserves the safe image-rejection reason and billing without provider text`,()=>{

@@ -1,6 +1,8 @@
 import {z} from 'zod';
 import type {BillingState} from './run.js';
 const messages:Readonly<Record<string,string>>={
+ reference_resource_unavailable:'上游参考素材未通过下载预检，视频尚未提交。请稍后重新发起任务；已执行的辅助步骤费用仍按 Core 记录核对。',
+ reference_resource_download_failed:'上游读取参考素材失败，视频未生成。可能涉及下载超时或访问凭证失效，具体原因尚未确认；不会自动重发，积分继续核对。',
  video_reference_real_person_rejected:'生成失败：上游判定参考图片可能包含真人，拒绝生成。',
  budget_policy_expired:'执行网关的视频预算策略已过期，视频尚未提交。请更新网关预算配置；已发生的辅助费用和预冻结以 Core 核对结果为准。',
  video_not_submitted:'本次辅助步骤已结束，但未提交视频生成；不会自动重发。辅助步骤可能已扣费，账务以 Core 记录为准。',
@@ -12,7 +14,7 @@ const messages:Readonly<Record<string,string>>={
 export function safeVideoFailureCode(code:string|undefined):string{return code&&Object.hasOwn(messages,code)?code:'video_failure_reason_unavailable';}
 export function videoFailureMessage(code:string|undefined):string{return messages[safeVideoFailureCode(code)];}
 
-const gatewayCodes=['budget_policy_expired','video_not_submitted','video_execution_failed','seedance_budget_execution_failed','video_failure_reason_unavailable'] as const;
+const gatewayCodes=['reference_resource_unavailable','reference_resource_download_failed','budget_policy_expired','video_not_submitted','video_execution_failed','seedance_budget_execution_failed','video_failure_reason_unavailable'] as const;
 const reasonCodes=['video_reference_real_person_rejected',...gatewayCodes] as const;
 const gatewayCodeSchema=z.enum(gatewayCodes);
 export const videoFailureInfoSchema=z.strictObject({reasonCode:z.enum(reasonCodes),gatewayCode:gatewayCodeSchema.optional(),upstreamCode:z.string().regex(/^[0-9]{1,12}$/).optional()});

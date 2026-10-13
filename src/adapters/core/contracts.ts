@@ -36,5 +36,5 @@ export function classifyCoreError(status:number,body:unknown,retryAfter?:string,
  // An HTTP class alone is insufficient to prove a paid send never happened.
  const preAdmission=new Set(['insufficient_scope','quota_insufficient','idempotency_conflict','video_billing_paused','invalid_request_error','budget_policy_unconfigured','budget_preparation_busy']);
  const retryAfterMs=status===429?parseRetryAfter(retryAfter):undefined;
- return {httpStatus:status,category:categories[status]??'unknown',errorCode:code,...(requestId&&redact(requestId)===requestId?{requestId}:{}),...(retryAfterMs===undefined?{}:{retryAfterMs}),submissionOutcome:preAdmission.has(code)?'not_sent':'unknown'};
+ return {httpStatus:status,category:categories[status]??'unknown',errorCode:code,...(requestId&&redact(requestId)===requestId?{requestId}:{}),...(retryAfterMs===undefined?{}:{retryAfterMs}),submissionOutcome:preAdmission.has(code)||(status===400&&code==='reference_resource_unavailable')?'not_sent':'unknown'};
 }

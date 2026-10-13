@@ -1,9 +1,20 @@
-import {mergeVideoFailure} from './video-failure.js';
+import {mergeVideoFailure,normalizeVideoFailure} from './video-failure.js';
 import type {Run} from './run.js';
 import type {CoreTaskView,CoreFailure} from '../adapters/core/contracts.js';
+export function isReferencePreflightRejection(error:CoreFailure):boolean{
+ return error.httpStatus===400&&error.errorCode==='reference_resource_unavailable'&&error.submissionOutcome==='not_sent';
+}
 export function applySubmissionOutcome(run:Run,reply:{ok:true;value:CoreTaskView}|{ok:false;error:CoreFailure}):Run{
  if(run.executionState!=='submitting'&&run.executionState!=='submit_unknown')throw Error('submission_state_invalid');
- if(!reply.ok){const now=Date.now();return {...run,executionState:reply.error.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',...(reply.error.submissionOutcome==='not_sent'?{executionFinishedAt:now}:{}),queryState:'interrupted',updatedAt:now};}
+ if(!reply.ok){
+  const now=Date.now(),referenceRejected=isReferencePreflightRejection(reply.error),id=referenceRejected?reply.error.requestId:undefined;
+  // A preflight rejection may have a request ID but no video task. Keep the
+  // diagnostic identity without treating it as a queryable video task ID.
+  return {...run,executionState:reply.error.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',
+   ...(reply.error.submissionOutcome==='not_sent'?{executionFinishedAt:now}:{}),
+   ...(referenceRejected?{failure:normalizeVideoFailure({gatewayCode:reply.error.errorCode})}:{}),
+   ...(id?{coreRequestId:id}:{}),queryState:'interrupted',updatedAt:now};
+ }
  return observeVideoTask(run,reply.value);
 }
 export function observeVideoTask(run:Run,task:CoreTaskView):Run{

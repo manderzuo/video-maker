@@ -5,7 +5,7 @@ import {withDatabase,transact,requestResult,storageErrorCode,type StudioDb} from
 import {readRun,saveRun,putRunInTransaction,validateFrozenBody} from '../../infrastructure/storage/run-repository';
 import {assertAssetBinding} from '../../adapters/core/assets';
 import {acquireRunTrackingLease,assertRunWriter,type RunLeaseRecord} from '../../infrastructure/storage/run-lease';
-import {applySubmissionOutcome} from '../../domain/video-run-machine';
+import {applySubmissionOutcome,isReferencePreflightRejection} from '../../domain/video-run-machine';
 import {applyQueryObservation} from '../../domain/run-status';
 import {z} from 'zod';
 import {bindingSchema} from '../../domain/common';
@@ -30,7 +30,8 @@ export async function recoverSubmission(runId:string,decision:RecoveryDecision,o
   const stored=await transact(db,['receipts','leases'],'readonly',async tx=>({journal:await requestResult<unknown>(tx.objectStore('receipts').get(`submission-response:${runId}`)),lease:await requestResult<RunLeaseRecord|undefined>(tx.objectStore('leases').get(`dispatch:${runId}`))}));
   const journal=parseSubmissionJournal(stored.journal,run);
   if(!journal&&run.executionState==='submitting'&&stored.lease&&stored.lease.expiresAt>Date.now())return {status:'manual_check',run,reason:'original_submission_in_progress'};
-  if(decision.action==='query_original'&&!run.taskId&&!(journal?.reply.ok))return {status:'manual_check',run,reason:'no_verified_identity_lookup_endpoint'};
+  const preflightRejected=journal?.reply.ok===false&&isReferencePreflightRejection(journal.reply.error);
+  if(decision.action==='query_original'&&!run.taskId&&!(journal?.reply.ok)&&!preflightRejected)return {status:'manual_check',run,reason:'no_verified_identity_lookup_endpoint'};
   if(decision.action==='replay_original'){
    if(capability.videoIdempotencyReplay!==true)throw Error('idempotency_replay_unverified');
    if(decision.confirmed!==true)throw Error('original_replay_confirmation_required');
@@ -45,7 +46,7 @@ export async function recoverSubmission(runId:string,decision:RecoveryDecision,o
    const next={...run,executionState:'submit_unknown' as const,queryState:'interrupted' as const,updatedAt:Date.now()};await saveRun(next,{db,runToken:claim.token});run=next;claim=await acquireRunTrackingLease(runId,tabId,Date.now(),db);if(!claim.ok)throw Error(claim.errorCode);
   }
   if(decision.action==='query_original'||run.taskId){
-   if(!run.taskId)return {status:'manual_check',run,reason:'no_verified_identity_lookup_endpoint'};
+   if(!run.taskId)return {status:'manual_check',run,reason:preflightRejected?'reference_preflight_rejection_confirmed':'no_verified_identity_lookup_endpoint'};
    const reply=await client.queryVideo(run.taskId);
    const next=reply.ok&&allowedCorePath('/v1/videos/'+reply.value.taskId,'GET')&&sanitizeKnownSecrets(reply.value.taskId)===reply.value.taskId?applyQueryObservation(run,reply):{...run,queryState:!reply.ok&&reply.error.category==='authentication'?'auth_required' as const:'interrupted' as const,updatedAt:Date.now()};
    await saveRun(next,{db,runToken:claim.token});return {status:'queried',run:next};

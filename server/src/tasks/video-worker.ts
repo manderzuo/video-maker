@@ -12,6 +12,7 @@ import {cloudVideoRunSchema,type CloudVideoRun} from '../../../src/domain/cloud-
 import {buildVideoRequestBody} from '../../../src/domain/video-request.js';
 import {observeVideoTask} from '../../../src/domain/video-run-machine.js';
 import {parseVideoTask,classifyCoreError} from '../../../src/adapters/core/contracts.js';
+import {applySubmissionOutcome,isReferencePreflightRejection} from '../../../src/domain/video-run-machine.js';
 import {ownedAsset,manifests,reserveVideoResult,completeAsset} from '../assets/repository.js';
 import {verifyAssetFile,writeAssetFile} from '../assets/storage.js';
 import {detectMediaMime} from '../../../src/features/assets/media-probe.js';
@@ -81,7 +82,8 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
    const mappings=await prepareReferences(pool,row,run,dependencies,key,redact,clock),finalBody=run.finalBody??buildVideoRequestBody(run.inputSnapshot,mappings);
    run={...run,finalBody,finalBodyHash:createHash('sha256').update(finalBody).digest('hex'),executionState:'submitting',updatedAt:clock().getTime()};await stage(pool,row,run,clock());sending=true;
    const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'submit',body:finalBody,idempotencyKey:run.idempotencyKey});
-   if(reply.status<200||reply.status>=300){const failure=classifyCoreError(reply.status,JSON.parse(reply.body.toString('utf8')),undefined,redact);run={...run,executionState:failure.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',queryState:'interrupted',billingState:failure.submissionOutcome==='not_sent'?'not_provided':'pending_reconciliation',...(failure.submissionOutcome==='not_sent'?{failure:{reasonCode:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()};}
+   if(reply.status<200||reply.status>=300){const failure=classifyCoreError(reply.status,JSON.parse(reply.body.toString('utf8')),undefined,redact);
+    run=isReferencePreflightRejection(failure)?cloudVideoRunSchema.parse({...run,...applySubmissionOutcome(run,{ok:false,error:failure}),inputSnapshot:run.inputSnapshot,executionFinishedAt:clock().getTime(),updatedAt:clock().getTime()}):{...run,executionState:failure.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',queryState:'interrupted',billingState:failure.submissionOutcome==='not_sent'?'not_provided':'pending_reconciliation',...(failure.submissionOutcome==='not_sent'?{failure:{reasonCode:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()};}
    else{const observed=observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact));run=cloudVideoRunSchema.parse({...run,...observed,inputSnapshot:run.inputSnapshot,...(!run.executionFinishedAt&&observed.executionFinishedAt?{executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});}
   }else if(run.taskId){
    const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'query',taskId:run.taskId});if(reply.status===401||reply.status===403){run={...run,queryState:'auth_required',updatedAt:clock().getTime()};await save(pool,row,run,clock());return true;}if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');

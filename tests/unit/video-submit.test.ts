@@ -13,6 +13,7 @@ import {createAuthBinding} from '../../src/domain/authorization';
 import {setSessionCredential,withCredential} from '../../src/security/credential-session';
 import {startMockCore} from '../mock-core/server';
 import {f} from '../helpers/fixtures';
+import {classifyCoreError} from '../../src/adapters/core/contracts';
 import type {Run} from '../../src/domain/run';
 import {fingerprintText} from '../../src/application/runs/fingerprint';
 let db:StudioDb,lease:ProjectLeaseToken,client:CoreClient,runId:string,mock:Awaited<ReturnType<typeof startMockCore>>;
@@ -46,6 +47,37 @@ it('F0: immediate failed submission persists a safe journal that is readable for
  expect(run).toMatchObject({executionState:'failed_confirmed',failure:wanted,billingState:'pending_reconciliation'});
  expect(await readSavedSubmissionReply(run,db)).toMatchObject({ok:true,value:{failure:wanted,billingState:'pending_reconciliation'}});
  const stored=await transact(db,['runs','receipts'],'readonly',async tx=>({runs:await requestResult(tx.objectStore('runs').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll())}));expect(JSON.stringify(stored)).not.toMatch(/FAKE_PRIVATE_DO_NOT_STORE|input image/);expect(posts()).toHaveLength(1);
+});
+
+it('resource readiness: HTTP400 preparation rejection persists a confirmed reason without inventing a queryable video identity',async()=>{
+ const original=client.requestJson,special:CoreClient={...client,requestJson:async(...args)=>{
+  const reply=await original(...args);
+  return args[1]==='/v1/videos/generations'?{ok:false,error:classifyCoreError(400,{request_id:'request-reference-preflight',error:{code:'reference_resource_unavailable',message:'PRIVATE_SIGNED_URL',billing_state:'pending'}})}:reply;
+ }};
+ const run=await submitVideo(runId,{...options(),client:special});
+ expect(run).toMatchObject({executionState:'failed_confirmed',coreRequestId:'request-reference-preflight',failure:{reasonCode:'reference_resource_unavailable'}});
+ expect(run.taskId).toBeUndefined();
+ expect(['not_provided','pending_reconciliation']).toContain(run.billingState);
+ const recovered=await recoverSubmission(runId,{action:'query_original'},{...options(),client:special});
+ expect(recovered.status).toBe('manual_check');expect(recovered.run.executionState).toBe('failed_confirmed');
+ expect(mock.requests.filter(r=>r.method==='GET')).toHaveLength(0);
+ expect(posts()).toHaveLength(1);
+ const stored=await transact(db,['runs','receipts'],'readonly',async tx=>({runs:await requestResult(tx.objectStore('runs').getAll()),receipts:await requestResult(tx.objectStore('receipts').getAll())}));
+ expect(JSON.stringify(stored)).not.toContain('PRIVATE_SIGNED_URL');
+});
+
+it('resource readiness: HTTP400 preflight journal restores after a Run save fault without a new submission',async()=>{
+ const original=client.requestJson,special:CoreClient={...client,requestJson:async(...args)=>{
+  const reply=await original(...args);return args[1]==='/v1/videos/generations'?{ok:false,error:classifyCoreError(400,{error:{code:'reference_resource_unavailable',request_id:'request-reference-preflight'}})}:reply;
+ }};
+ const originalPut=IDBObjectStore.prototype.put;
+ const fault=vi.spyOn(IDBObjectStore.prototype,'put').mockImplementation(function(this:IDBObjectStore,...args:Parameters<typeof originalPut>){if(this.name==='runs'&&(args[0] as Run).executionState==='failed_confirmed')throw new DOMException('injected preflight save fault','QuotaExceededError');return originalPut.apply(this,args);});
+ await expect(submitVideo(runId,{...options(),client:special})).rejects.toThrow('submission_result_save_failed_check_original');
+ fault.mockRestore();
+ const recovered=await recoverSubmission(runId,{action:'query_original'},{...options(),client:special});
+ expect(recovered.status).toBe('manual_check');expect(recovered.run).toMatchObject({executionState:'failed_confirmed',failure:{reasonCode:'reference_resource_unavailable'}});
+ expect(recovered.run.taskId).toBeUndefined();expect(mock.requests.filter(r=>r.method==='GET')).toHaveLength(0);
+ expect(posts()).toHaveLength(1);
 });
 
 it('F0 review: failed-response journal recovers after a Run-save fault without a second POST',async()=>{
