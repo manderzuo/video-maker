@@ -1,6 +1,18 @@
 import {z} from 'zod';
 import type {BillingState} from './run.js';
 const messages:Readonly<Record<string,string>>={
+ assistant_json_duplicate_key:'AI 规划结果包含重复或冲突字段，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_json_invalid:'AI 规划结果格式不完整或不合法，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_json_invalid_escape:'AI 规划结果的文字转义格式错误，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_json_control_character:'AI 规划结果包含未正确编码的字符，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_json_not_object:'AI 规划结果格式错误，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_output_truncated:'AI 规划结果被截断，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_output_too_large:'AI 规划结果超出长度限制，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_output_blocked:'辅助模型未能返回可用规划，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_output_invalid:'辅助模型返回的规划格式不受支持，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ assistant_schema_invalid:'AI 规划结果的字段或类型不符合要求，视频尚未提交。辅助模型费用以 Core 结算为准。',
+ work_parent_required:'本次操作需要指定原视频，尚未提交视频生成。上传尾帧图片生成新片段时，请使用生成操作。辅助模型费用以 Core 结算为准。',
+ work_decision_invalid:'AI 规划与本次操作或规格不一致，视频尚未提交。辅助模型费用以 Core 结算为准。',
  reference_resource_unavailable:'上游参考素材未通过下载预检，视频尚未提交。请稍后重新发起任务；已执行的辅助步骤费用仍按 Core 记录核对。',
  reference_resource_download_failed:'上游读取参考素材失败，视频未生成。可能涉及下载超时或访问凭证失效，具体原因尚未确认；不会自动重发，积分继续核对。',
  reference_asset_expired:'参考素材已过期，本次视频无法继续生成。请重新确认素材后发起新任务；已执行的辅助步骤费用及预留仍以 Core 账务记录为准。',
@@ -16,7 +28,7 @@ const messages:Readonly<Record<string,string>>={
 export function safeVideoFailureCode(code:string|undefined):string{return code&&Object.hasOwn(messages,code)?code:'video_failure_reason_unavailable';}
 export function videoFailureMessage(code:string|undefined):string{return messages[safeVideoFailureCode(code)];}
 
-const gatewayCodes=['reference_resource_unavailable','reference_resource_download_failed','reference_asset_expired','reference_asset_missing','budget_policy_expired','video_not_submitted','video_execution_failed','seedance_budget_execution_failed','video_failure_reason_unavailable'] as const;
+const gatewayCodes=['assistant_json_duplicate_key','assistant_json_invalid','assistant_json_invalid_escape','assistant_json_control_character','assistant_json_not_object','assistant_output_truncated','assistant_output_too_large','assistant_output_blocked','assistant_output_invalid','assistant_schema_invalid','work_parent_required','work_decision_invalid','reference_resource_unavailable','reference_resource_download_failed','reference_asset_expired','reference_asset_missing','budget_policy_expired','video_not_submitted','video_execution_failed','seedance_budget_execution_failed','video_failure_reason_unavailable'] as const;
 const reasonCodes=['video_reference_real_person_rejected',...gatewayCodes] as const;
 const gatewayCodeSchema=z.enum(gatewayCodes);
 export const videoFailureInfoSchema=z.strictObject({reasonCode:z.enum(reasonCodes),gatewayCode:gatewayCodeSchema.optional(),upstreamCode:z.string().regex(/^[0-9]{1,12}$/).optional()});
