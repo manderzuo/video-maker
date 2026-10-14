@@ -1,0 +1,11 @@
+# Explicit generation intent and planning error display
+
+Deployed program: `58b74cbf46fd04a8d864b7c9b04f741bfd8c916c`; Core companion `8f9d06dae1807381307aef0b77cc33f47d6a3239`. Backend/desktop: `/opt/aiwork-studio/releases/cloud-planner-58b74cb`; mobile: `/opt/aiwork-studio/releases/mobile-planner-58b74cb`.
+
+The Studio generate action now sends `action=create` with the frozen prompt, specifications and exact owned reference mappings. This makes the user's explicit UI operation available to the AI planner when the script mentions a prior clip or real tail frame. Existing frozen submissions/replays retain their exact original body and identity. Native parent editing/continuation remains a separate Core operation; this patch does not claim native continuation or strict first-frame capabilities for an uploaded image.
+
+Closed public AI-format and work-planning errors survive task parsing, persistence and billing-only observations. The interface explains that video submission has not occurred and that helper fees remain governed by Core receipts. Provider prose, model output, credentials and unknown error strings are not persisted or displayed. The original failed task's generic explanation was updated only after verifying its exact Core request/error, using the new application schema. Execution state, frozen input, charge, reservation and original task identity were preserved; nothing was resubmitted.
+
+Validation: 870 frontend unit tests and 331 server tests passed, both TypeScript checks passed, and targeted ESLint passed. Desktop and mobile packages were built from the committed program; no package, database migration, runtime configuration or keyring change was needed. HTTPS `/projects` and `/m/` matched their release index hashes; all 11 unique scripts/styles, including the lazy mobile workspace, returned 200 and matched the archive hashes.
+
+Deployment requirement: mobile HTML still references the shared `/assets/` route, which is rooted at the desktop release. Copy all new mobile hashed chunks into that common static root as well as preserving previous hashed assets. An initial public check caught two omitted mobile chunks; both were synchronized before final verification. AI Work was not restarted. No new paid model/video verification was run. Backups: `/opt/aiwork-studio/backups/planner-20261015`.
