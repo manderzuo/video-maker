@@ -8,7 +8,7 @@ export type CoreModel={id:string};
 export type CoreTaskView={taskId:string;requestId?:string;status:'queued'|'processing'|'completed'|'failed'|'unknown';errorCode?:string;failure?:VideoFailureInfo;attentionCode?:Run['attentionCode'];contentAvailable:boolean;billingState:BillingState;workContext?:Run['workContext']};
 export type CoreFailure={httpStatus:number;category:'quota'|'forbidden'|'conflict'|'rate_limited'|'unavailable'|'invalid_request'|'authentication'|'not_found'|'protocol'|'unknown';errorCode:string;requestId?:string;retryAfterMs?:number;submissionOutcome:'not_sent'|'unknown'};
 const nonempty=z.string().trim().min(1).max(256);
-const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),stage:z.string().max(128).optional(),notice:z.unknown().optional(),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional(),message:z.unknown().optional(),upstream:z.unknown().optional()}).optional()});
+const taskShape=z.object({id:nonempty,status:z.string().trim().min(1).max(64),stage:z.string().max(128).optional(),billing_state:z.string().max(64).optional(),notice:z.unknown().optional(),content_url:z.string().nullable().optional(),error:z.object({code:nonempty.optional(),type:nonempty.optional(),billing_state:z.string().max(64).optional(),message:z.unknown().optional(),upstream:z.unknown().optional()}).optional()});
 const attentionNoticeSchema=z.object({code:videoAttentionCodeSchema,billing_state:z.string().max(64).optional()});
 const replySchema=z.object({task:taskShape.optional(),video_task:taskShape.optional(),data:z.object({task:taskShape.optional()}).optional(),id:nonempty.optional(),status:z.string().optional(),request_id:nonempty.optional(),content_url:z.string().nullable().optional(),work_context:z.object({work_id:nonempty,base_version_id:nonempty.nullable().optional()}).nullable().optional()});
 export function parseVideoTask(input:unknown,redact:(input:string)=>string=sanitizeKnownSecrets):CoreTaskView{
@@ -24,7 +24,7 @@ export function parseVideoTask(input:unknown,redact:(input:string)=>string=sanit
  // Content is an observation, never proof of download success or settled billing.
  const notice='notice' in task?attentionNoticeSchema.safeParse(task.notice):undefined;
  const attention=task.status==='processing'&&'stage' in task&&task.stage==='continuation_requires_attention'&&notice?.success?notice.data:undefined;
- const billing:Readonly<Record<string,BillingState>>={pending:'pending_reconciliation',settled:'settled',released:'released'},wireBilling=task.error?.billing_state??attention?.billing_state;
+ const billing:Readonly<Record<string,BillingState>>={pending:'pending_reconciliation',settled:'settled',released:'released'},wireBilling=('billing_state' in task?task.billing_state:undefined)??task.error?.billing_state??attention?.billing_state;
  const billingState=wireBilling&&Object.hasOwn(billing,wireBilling)?billing[wireBilling]:'not_provided';
  const rawUpstream=task.error?.upstream,upstream=rawUpstream&&typeof rawUpstream==='object'&&!Array.isArray(rawUpstream)?rawUpstream as Record<string,unknown>:undefined;
  const failure=status==='failed'?normalizeVideoFailure({gatewayCode:code,message:task.error?.message,upstreamCode:upstream?.code,upstreamMessage:upstream?.message}):undefined;

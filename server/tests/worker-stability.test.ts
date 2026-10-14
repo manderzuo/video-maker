@@ -20,6 +20,22 @@ async function work(){const {executeNextVideoTask}=await import('../src/tasks/vi
 const read=(account:Account,id:string)=>f.call('GET','/studio-api/runs/'+id,f.headers(account));
 import {executeNextVideoTask,startVideoWorker} from '../src/tasks/video-worker.js';
 import {executeNextPromptTask} from '../src/tasks/prompt-worker.js';
+it('respects download Retry-After and clears recovered save errors without resubmitting',async()=>{
+ const a=await setup('SharedDownload','FAKE_SHARED_KEY'),id=(await confirm(a,(await preview(a)).id)).json()[0].id;await work();await work();
+ let reads=0;
+ dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async request=>{
+  expect(request.method).toBe('GET');expect(request.url.endsWith('/content')).toBe(true);reads++;
+  return reads===1?{status:429,body:Buffer.from('{}'),retryAfter:'30'}:{status:200,body:video};
+ }});
+ const stored=(await read(a.account,id)).json();await f.pool.query('UPDATE workspace_video_runs SET document=$2::jsonb WHERE id=$1',[id,JSON.stringify({...stored,issueCode:'RESULT_SAVE_PENDING'})]);
+ await executeNextVideoTask(f.pool,{...dependencies,assets:assets(),contracts:new Map([[base,contract]])},()=>new Date(time),'delivery');
+ const due=(await f.pool.query('SELECT next_delivery_at FROM workspace_video_runs WHERE id=$1',[id])).rows[0].next_delivery_at as Date;
+ expect(due.getTime()-time.getTime()).toBe(30000);expect((await read(a.account,id)).json().executionState).toBe('succeeded');
+ expect(await executeNextVideoTask(f.pool,{...dependencies,assets:assets(),contracts:new Map([[base,contract]])},()=>new Date(time),'delivery')).toBe(false);
+ time=due;await executeNextVideoTask(f.pool,{...dependencies,assets:assets(),contracts:new Map([[base,contract]])},()=>new Date(time),'delivery');
+ const saved=(await read(a.account,id)).json();expect(saved.deliveryState).toBe('available_for_preview');expect(saved.issueCode).toBeUndefined();expect(reads).toBe(2);
+ expect(calls.filter(call=>call.url.endsWith('/generations'))).toHaveLength(1);
+});
 it('queries all due tasks fairly even when older queries are slow',async()=>{
  const a=await setup('AuditSchedule','FAKE_AUDIT_KEY'),ids:string[]=[];
  for(let i=0;i<3;i++)ids.push((await confirm(a,(await preview(a)).id)).json()[0].id);

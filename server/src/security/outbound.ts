@@ -5,7 +5,7 @@ import {HttpError} from '../errors.js';
 export type ModelChannel='text'|'video';
 export type ResolvedAddress={address:string;family:number};
 export type OutboundRequest={url:string;address:string;family:4|6;apiKey:string;signal:AbortSignal;maxBytes:number;method?:'GET'|'POST';body?:Buffer;idempotencyKey?:string;textSessionId?:string};
-export type OutboundResponse={status:number;body:Buffer};
+export type OutboundResponse={status:number;body:Buffer;retryAfter?:string};
 export type OutboundAdapters={resolve:(hostname:string)=>Promise<ResolvedAddress[]>;request:(request:OutboundRequest)=>Promise<OutboundResponse>};
 export const MAX_COMPLETION_TIMEOUT_MS=300000;
 export type VideoOutboundOperation={kind:'asset';body:string}|{kind:'submit';body:string;idempotencyKey:string}|{kind:'retry'|'retryLookup';taskId:string}|{kind:'query'|'content';taskId:string};
@@ -50,7 +50,8 @@ export async function nativeHttpsRequest(input:OutboundRequest):Promise<Outbound
    const status=response.statusCode??502;if(status>=300&&status<400){response.destroy();reject(new HttpError(502,'UPSTREAM_FAILED'));return;}
    let size=0;const chunks:Buffer[]=[];
    response.on('data',(chunk:Buffer)=>{size+=chunk.length;if(size>input.maxBytes){response.destroy();reject(new HttpError(502,'UPSTREAM_TOO_LARGE'));return;}chunks.push(chunk);});
-   response.on('end',()=>resolve({status,body:Buffer.concat(chunks)}));response.on('error',reject);response.on('aborted',()=>reject(new HttpError(502,'UPSTREAM_FAILED')));
+   const retryAfter=response.headers?.['retry-after'];
+   response.on('end',()=>resolve({status,body:Buffer.concat(chunks),...(typeof retryAfter==='string'&&retryAfter.length<=128?{retryAfter}:{})}));response.on('error',reject);response.on('aborted',()=>reject(new HttpError(502,'UPSTREAM_FAILED')));
   });req.on('error',reject);req.end(input.body);
  });
 }

@@ -12,6 +12,7 @@ import {cloudVideoRunSchema,type CloudVideoRun} from '../../../src/domain/cloud-
 import {buildVideoRequestBody} from '../../../src/domain/video-request.js';
 import {observeVideoTask} from '../../../src/domain/video-run-machine.js';
 import {parseVideoTask,classifyCoreError} from '../../../src/adapters/core/contracts.js';
+import {parseRetryAfter} from '../../../src/adapters/core/retry-policy.js';
 import {applySubmissionOutcome,isReferencePreflightRejection} from '../../../src/domain/video-run-machine.js';
 import {ownedAsset,manifests,reserveVideoResult,completeAsset} from '../assets/repository.js';
 import {verifyAssetFile,writeAssetFile} from '../assets/storage.js';
@@ -26,12 +27,13 @@ type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow
 const owner=(userId:string)=>({userId,sessionId:'persistent-video',contextId:'persistent-video'});
 function safeRedactor(keys:string[]){return (text:string)=>{for(const key of keys)text=text.split(key).join('[已隐藏密钥]');return text.replace(/Bearer\s+[^\s,;"']+/gi,'Bearer [已隐藏密钥]');};}
 const retryDelay=(attempt:number)=>Math.min(300000,3000*2**Math.min(7,Math.max(0,attempt-1)));
+class ContentBusy extends Error {constructor(readonly retryAfterMs:number){super('content download busy');}}
 // Keep newer user intent, except that attention stops even a racing resume.
 // A pause stays explicit; resuming an attention task permits one original-task
 // read, never an automatic retry loop when that read still requires attention.
 const mergedDocument="jsonb_set(jsonb_set($4::jsonb,'{queryState}',CASE WHEN $4::jsonb->>'attentionCode'='budget_continuation_requires_attention' THEN CASE WHEN document->>'queryState'='paused_by_user' THEN document->'queryState' ELSE to_jsonb('interrupted'::text) END WHEN query_control_revision<>$7 THEN document->'queryState' ELSE $4::jsonb->'queryState' END),'{recordRevision}',to_jsonb(COALESCE((document->>'recordRevision')::integer,0)+1))";
-async function save(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date,retry=false){
- const count=retry?Math.min(16,(row.phase==='delivery'?row.delivery_retry_count:row.query_retry_count)+1):0,due=new Date(at.getTime()+(retry?retryDelay(count):3000));
+async function save(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Date,retry=false,retryAfterMs=0){
+ const count=retry?Math.min(16,(row.phase==='delivery'?row.delivery_retry_count:row.query_retry_count)+1):0,due=new Date(at.getTime()+Math.max(retry?retryDelay(count):3000,retryAfterMs));
  await transaction(pool,async db=>{
  const result=await db.query<{document:unknown}>(`UPDATE workspace_video_runs SET document=${mergedDocument},lease_until=NULL,lease_token=NULL,
  next_query_at=CASE WHEN $8='delivery' THEN next_query_at ELSE $5 END,
@@ -81,7 +83,7 @@ async function copyResult(pool:Pool,row:VideoRow,run:CloudVideoRun,dependencies:
  const prior=await pool.query<{id:string;state:string}>("SELECT id,state FROM workspace_assets WHERE user_id=$1 AND document->>'sourceRunId'=$2",[row.user_id,run.id]);let asset;
  if(prior.rows[0]?.state==='complete'){const stored=await ownedAsset(pool,owner(row.user_id),prior.rows[0].id),files=manifests(stored);await verifyAssetFile(dependencies.assets,row.user_id,stored.id,'original',files.original);asset=files.asset;}
  else{
-  if(!run.taskId)throw new HttpError(409,'TASK_ID_REQUIRED');const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'content',taskId:run.taskId},Math.min(dependencies.assets.maxAssetBytes,200*1024*1024));if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');const mimeType=detectMediaMime(reply.body.subarray(0,128));if(!mimeType||!mimeType.startsWith('video/'))throw new HttpError(400,'UPLOAD_INVALID');const manifest={sha256:createHash('sha256').update(reply.body).digest('hex'),bytes:reply.body.length,mimeType};
+  if(!run.taskId)throw new HttpError(409,'TASK_ID_REQUIRED');const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'content',taskId:run.taskId},Math.min(dependencies.assets.maxAssetBytes,200*1024*1024));if(reply.status===429)throw new ContentBusy(parseRetryAfter(reply.retryAfter,clock().getTime())??3000);if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');const mimeType=detectMediaMime(reply.body.subarray(0,128));if(!mimeType||!mimeType.startsWith('video/'))throw new HttpError(400,'UPLOAD_INVALID');const manifest={sha256:createHash('sha256').update(reply.body).digest('hex'),bytes:reply.body.length,mimeType};
   await stage(pool,row,run,clock());const pending=await reserveVideoResult(pool,owner(row.user_id),run.id,manifest,dependencies.assets,now);await writeAssetFile(dependencies.assets,row.user_id,pending.id,'original',manifest,Readable.from(reply.body));asset=await completeAsset(pool,owner(row.user_id),pending.id,dependencies.assets);
  }
  await pool.query('INSERT INTO workspace_asset_references(user_id,project_id,asset_id,source_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[row.user_id,run.projectId,asset.id,'run:'+run.id]);return {...run,resultAssetId:asset.id,deliveryState:'available_for_preview' as const,updatedAt:now.getTime()};
@@ -132,6 +134,7 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
    }
    await stage(pool,row,run,clock());
    let retry=false;try{await placeCanvasResult(pool,row,run,clock());}catch{retry=true;}
+   if(!retry&&run.issueCode==='RESULT_SAVE_PENDING')run={...run,issueCode:undefined};
    await save(pool,row,run,clock(),retry);return true;
   }
   const key=await frozenTaskKey(pool,row.user_id,row.frozen_config,dependencies),redact=safeRedactor(await userSecrets(pool,row.user_id,dependencies));
@@ -162,6 +165,10 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
   if(error instanceof HttpError&&error.code==='TASK_LEASE_CHANGED')return true;
   const secretMissing=error instanceof HttpError&&error.code==='SECRET_UNAVAILABLE';
   if(row.phase==='delivery'){
+   if(error instanceof ContentBusy){
+    const next={...run,deliveryState:'not_ready' as const,updatedAt:clock().getTime()};
+    try{await save(pool,row,cloudVideoRunSchema.parse(next),clock(),true,error.retryAfterMs);}catch(lost){if(!(lost instanceof HttpError&&lost.code==='TASK_LEASE_CHANGED'))throw lost;}return true;
+   }
    const next={...run,...(run.deliveryState==='available_for_preview'?{}:{deliveryState:'download_failed' as const}),issueCode:'RESULT_SAVE_PENDING' as const,updatedAt:clock().getTime()};
    try{await save(pool,row,cloudVideoRunSchema.parse(next),clock(),true);}catch(lost){if(!(lost instanceof HttpError&&lost.code==='TASK_LEASE_CHANGED'))throw lost;}return true;
   }
