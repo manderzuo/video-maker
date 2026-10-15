@@ -1,16 +1,26 @@
 {
   "schemaVersion": 1,
   "verification": "reviewed",
-  "sourceCommit": "345670bb3c4e6eb673afcb412e7a1dbd17eeffae",
+  "contractVersion": "gemstory-multi-image-reviewed-20261015",
+  "modelFamily": "seedance2-fast",
+  "providerDocumentation": "https://docs.volcengine.com/docs/ark/create-video-generation-task-api?lang=zh",
+  "sourceCommit": "8f9d06dae1807381307aef0b77cc33f47d6a3239",
   "sources": {
-    "assets.rs": "cc2d99038f37fe7775da358acef9f33bdc97e6ab0368ff31d559828fcdaea202",
-    "user_routes.rs": "fca8c5a85148e0b17a58bc47f6e18f41e905c867074f52b9231f0697b8a3e7a4"
+    "assets.rs": "00d3afa1a2ad120c5e08f389829138768fd8468e89d6ce13a877ffd235f10262",
+    "user_routes.rs": "7c609300d45abbd1c290d9f8d88dc16c06cc8febdb2d3f61cc418f7681b70b7e",
+    "budget_flow.rs": "66b9c66ec9d1cd459fe6ac86714a95eb1a830793c0f69cdb2e63adbc55cdaab1",
+    "work_execution.rs": "9a821d41dd67430d9d6ddeb8d11e6ea14f5101bda1318f619eaeebb93d845e3a"
+  },
+  "nativeSourceCommit": "f4c44fea3bd4b9b02a00543e9b8b405fd4a3602e",
+  "nativeSources": {
+    "bridge_planner.rs": "614db3499cbf911fbb6c9dbacb51a744f168c443f56f616109c1f7757d7e967b",
+    "video.rs": "694c0d42003740203e570ce89cdc52706ef78edc48598109b852f5b08aa9023e"
   },
   "route": "/v1/assets",
   "scope": "assets:write",
   "assetBytes": 33554432,
-  "imageReferences": 1,
+  "imageReferences": 9,
   "videoReferences": 0,
   "requestField": "image_asset_ids",
-  "limitations": ["只开放本次核验所需的单张图片参考，视频参考继续门控", "固定源码审阅不代表当前服务上传权限与成片已验证，真实结果另记", "不开放远端continuation、取消或图片生成"]
+  "limitations": ["Seedance 2.0 Fast 官方模型文档上限为九张参考图；当前 Core 与 AI Work 数组传输允许十张，因此按较小的九张开放，包括已提取的真实尾帧", "保留素材顺序、摘要和所有权校验；数量来自模型能力配置，不针对某个三图场景；32 MiB 是现有素材传输上限，不代表模型对每种图片尺寸和内容均接受", "这是官方模型能力与当前输入链路的源码审阅，不宣称 TRAE 多图成片已实测或保证人物一致性；多图中的尾帧属于参考图，不承诺严格首帧锁定", "不改变视频参考、远端continuation、取消或图片生成能力；未知结果不得重发或计作零费用"]
 }

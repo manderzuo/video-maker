@@ -1,4 +1,5 @@
 import {it,expect} from 'vitest';
+import {readFileSync} from 'node:fs';
 import {preflightRun,type RunDraftInput} from '../../src/application/runs/preflight';
 import {createAuthBinding} from '../../src/domain/authorization';
 import {f} from '../helpers/fixtures';
@@ -17,3 +18,22 @@ function referenceDraft(mediaType:'image'|'video',limit:number,assetBytes?:numbe
 it('a zero media-reference capability explains the service blocker without falsely reporting a readable small file as oversized',()=>{for(const media of ['image','video'] as const){const input=referenceDraft(media,0),before=structuredClone(input),result=preflightRun(input);expect(result.status).toBe('blocked');expect(result.issues).toHaveLength(1);expect(result.issues[0].code).toBe('reference_service_unavailable');expect(result.issues[0].message).toContain(media==='image'?'图片':'视频');expect(result.issues[0].message).toContain('网关');expect(input).toEqual(before);}});
 it('enabled references still enforce genuine file-size and reference-count limits',()=>{const size=referenceDraft('image',1,100);expect(preflightRun(size).issues.map(i=>i.code)).toContain('reference_size_invalid');const count=referenceDraft('image',1,1000000);count.graph.nodes.push({id:'ref2',type:'asset',title:'第二张',x:0,y:600,locked:false,data:{kind:'asset',assetId:'a2'}});count.assets.push(f.asset({id:'a2',mediaType:'image',mimeType:'image/png',bytes:100,sha256:'b'.repeat(64)}));count.readableAssetIds.push('a2');count.graph.edges.push({id:'ref-edge2',sourceId:'ref2',targetId:'v1',port:'image',order:2});expect(preflightRun(count).issues.map(i=>i.code)).toContain('reference_limit_unverified_or_exceeded');});
 it('unauthorized preflight does not invent a missing-blob failure when readability has not been checked',()=>{const input=referenceDraft('image',0);input.credentialAvailable=false;input.connection=undefined;input.binding=undefined;input.readableAssetIds=[];const result=preflightRun(input);expect(result.status).toBe('blocked');expect(result.issues.map(i=>i.code)).toEqual(['session_credential_required','reference_service_unavailable']);});
+it('the deployed multi-image review retains tail/father/mother order, supports nine images and rejects ten',()=>{
+ const review=JSON.parse(readFileSync('deploy/seedance-image-reference-review.json','utf8')),input=referenceDraft('image',review.imageReferences,review.assetBytes);
+ input.graph.edges[0].order=1;input.graph.edges[1].order=2;
+ for(const [id,order,title] of [['mother',3,'母亲参考'],['tail',0,'真实尾帧']] as const){
+  input.assets.push(f.asset({id,mediaType:'image',mimeType:'image/png',bytes:100,sha256:(id==='tail'?'c':'b').repeat(64)}));input.readableAssetIds.push(id);
+  input.graph.nodes.push({id:'node-'+id,type:'asset',title,x:0,y:500,locked:false,data:{kind:'asset',assetId:id}});
+  input.graph.edges.push({id:'edge-'+id,sourceId:'node-'+id,targetId:'v1',port:'image',order});
+ }
+ const before=structuredClone(input),ready=preflightRun(input);expect(ready.status).toBe('ready');expect(input).toEqual(before);
+ if(ready.status==='ready')expect(ready.plan.nodes[0].inputSnapshot.references.map(ref=>ref.assetId)).toEqual(['tail',input.assets[0].id,'mother']);
+ for(let number=4;number<=10;number++){
+  const id='extra-'+number;
+  input.assets.push(f.asset({id,mediaType:'image',mimeType:'image/png',bytes:100,sha256:number.toString(16).repeat(64)}));input.readableAssetIds.push(id);
+  input.graph.nodes.push({id:'node-'+id,type:'asset',title:'参考'+number,x:0,y:800,locked:false,data:{kind:'asset',assetId:id}});
+  input.graph.edges.push({id:'edge-'+id,sourceId:'node-'+id,targetId:'v1',port:'image',order:number});
+  if(number<=9){const result=preflightRun(input);expect(result.status).toBe('ready');if(result.status==='ready')expect(result.plan.nodes[0].inputSnapshot.references.map(ref=>ref.assetId)).toEqual(['tail',input.assets[0].id,'mother',...Array.from({length:number-3},(_,i)=>'extra-'+(i+4))]);}
+ }
+ expect(preflightRun(input).issues.map(issue=>issue.code)).toContain('reference_limit_unverified_or_exceeded');
+});

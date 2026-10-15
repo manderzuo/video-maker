@@ -1,6 +1,6 @@
 import {afterEach,beforeEach,expect,it} from 'vitest';
 import {randomUUID,createHash} from 'node:crypto';
-import {mkdtemp,rm} from 'node:fs/promises';
+import {mkdtemp,rm,readFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {fixture,type Fixture,type Account} from './account-fixture.js';
@@ -126,10 +126,29 @@ it('marks an expired submit lease as unknown without a new submit or lookup with
 it('does not interrupt the submission lease through a query-control action before an upstream task exists',async()=>{
  const a=await setup('VideoTask_EarlyPause','MOCK_KEY_A'),p=await preview(a),created=await confirm(a,p.id);expect(created.statusCode).toBe(202);const run=created.json()[0];expect((await f.call('POST','/studio-api/runs/'+run.id+'/query-control',{...f.headers(a.account),payload:{expectedRevision:run.recordRevision,mode:'pause'}})).statusCode).toBe(409);await work();expect(calls.filter(request=>request.method==='POST')).toHaveLength(1);
 });
-async function addImage(owner:Awaited<ReturnType<typeof setup>>){
- const bytes=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6nRAAAAAASUVORK5CYII=','base64'),hash=createHash('sha256').update(bytes).digest('hex');const reserved=await f.call('POST','/studio-api/assets',{...f.headers(owner.account),payload:{title:'已确认参考图片',mimeType:'image/png',bytes:bytes.length,sha256:hash}});expect(reserved.statusCode).toBe(201);const assetId=reserved.json().id,h=f.headers(owner.account);expect((await f.app.inject({method:'PUT',url:'/studio-api/assets/'+assetId+'/content',payload:bytes,headers:{cookie:h.cookie,'x-workspace-context':h.context,'x-csrf-token':h.csrf,origin:'https://studio.test','content-type':'application/octet-stream'}})).statusCode).toBe(204);expect((await f.call('POST','/studio-api/assets/'+assetId+'/complete',{...h,payload:{}})).statusCode).toBe(200);
- const sourceId=randomUUID(),saved=await f.call('POST','/studio-api/projects/'+owner.projectId+'/commands',{...h,payload:{expectedRevision:1,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:sourceId,type:'asset',title:'图片参考',x:0,y:300,locked:false,data:{kind:'asset',assetId}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId,targetId:owner.nodeId,port:'image',order:1}}}]}}});expect(saved.statusCode,saved.body).toBe(200);owner.revision=2;return hash;
+async function addImage(owner:Awaited<ReturnType<typeof setup>>,order=1){
+ const bytes=Buffer.concat([Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6nRAAAAAASUVORK5CYII=','base64'),Buffer.from([order])]),hash=createHash('sha256').update(bytes).digest('hex');const reserved=await f.call('POST','/studio-api/assets',{...f.headers(owner.account),payload:{title:'已确认参考图片',mimeType:'image/png',bytes:bytes.length,sha256:hash}});expect(reserved.statusCode).toBe(201);const assetId=reserved.json().id,h=f.headers(owner.account);expect((await f.app.inject({method:'PUT',url:'/studio-api/assets/'+assetId+'/content',payload:bytes,headers:{cookie:h.cookie,'x-workspace-context':h.context,'x-csrf-token':h.csrf,origin:'https://studio.test','content-type':'application/octet-stream'}})).statusCode).toBe(204);expect((await f.call('POST','/studio-api/assets/'+assetId+'/complete',{...h,payload:{}})).statusCode).toBe(200);
+ const sourceId=randomUUID(),saved=await f.call('POST','/studio-api/projects/'+owner.projectId+'/commands',{...h,payload:{expectedRevision:owner.revision,idempotencyKey:randomUUID(),command:{type:'operations',operations:[{id:randomUUID(),type:'add_node',payload:{node:{id:sourceId,type:'asset',title:'图片参考',x:0,y:300,locked:false,data:{kind:'asset',assetId}}}},{id:randomUUID(),type:'add_edge',payload:{edge:{id:randomUUID(),sourceId,targetId:owner.nodeId,port:'image',order}}}]}}});expect(saved.statusCode,saved.body).toBe(200);owner.revision++;return hash;
 }
+it('uploads all nine references in graph order, freezes their mapping and blocks a tenth before any upstream call',async()=>{
+ const review=JSON.parse(await readFile(new URL('../../deploy/seedance-image-reference-review.json',import.meta.url),'utf8'));
+ const originalLimit=contract.limits.imageReferences;contract.limits.imageReferences=review.imageReferences;
+ try{
+  const a=await setup('VideoTask_NineImages','MOCK_KEY_A'),hashes=new Map<number,string>();
+  for(const order of [9,1,8,2,7,3,6,4,5])hashes.set(order,await addImage(a,order));
+  const p=await preview(a);expect(calls).toHaveLength(0);
+  const created=await confirm(a,p.id);expect(created.statusCode).toBe(202);await work();
+  expect(calls.map(request=>new URL(request.url).pathname)).toEqual([...Array(9).fill('/v1/assets'),'/v1/videos/generations']);
+  const body=JSON.parse(calls[9].body!.toString());
+  expect(body.image_asset_ids).toEqual([1,2,3,4,5,6,7,8,9].map(order=>'owned-upload-'+hashes.get(order)!.slice(0,12)));
+  await work();expect(calls.filter(request=>request.url.endsWith('/v1/assets'))).toHaveLength(9);
+  expect(calls.filter(request=>request.url.endsWith('/generations'))).toHaveLength(1);
+  a.revision=(await f.call('GET','/studio-api/projects/'+a.projectId+'/workspace',f.headers(a.account))).json().graph.revision;
+  await addImage(a,10);const before=calls.length;
+  const blocked=await f.call('POST','/studio-api/projects/'+a.projectId+'/video-run-preview',{...f.headers(a.account),payload:{expectedRevision:a.revision,configRevision:1,nodeIds:[a.nodeId]}});
+  expect(blocked.statusCode,blocked.body).toBe(422);expect(blocked.json()).toMatchObject({code:'VIDEO_PREFLIGHT_BLOCKED',issues:expect.arrayContaining(['参考数量超限或上限尚未核验'])});expect(calls).toHaveLength(before);
+ }finally{contract.limits.imageReferences=originalLimit;}
+});
 it('uploads exactly the explicitly connected owned image before submitting and freezes the remote mapping',async()=>{
  const a=await setup('VideoTask_Image','MOCK_KEY_A'),hash=await addImage(a),p=await preview(a),created=await confirm(a,p.id);expect(created.statusCode).toBe(202);await work();expect(calls.map(request=>new URL(request.url).pathname)).toEqual(['/v1/assets','/v1/videos/generations']);const body=JSON.parse(calls[1].body!.toString());expect(body.image_asset_ids).toEqual(['owned-upload-'+hash.slice(0,12)]);await work();expect(calls.filter(request=>request.url.endsWith('/v1/assets'))).toHaveLength(1);
 });
