@@ -47,7 +47,7 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
  const [writingPending,setWritingPending]=useState(false),[writingDraft,setWritingDraft]=useState<{id?:string;ai:boolean}>(),[invalidCount,setInvalidCount]=useState(0),[draftReset,setDraftReset]=useState(0);
  const invalidInputs=useRef(new Set<string>()),composing=useRef(false),writingAI=useRef(false),writingDirty=useRef(false);
  function textValidity(nodeId:string,valid:boolean){if(valid)invalidInputs.current.delete(nodeId);else invalidInputs.current.add(nodeId);setInvalidCount(invalidInputs.current.size);model.setComposing(composing.current||invalidInputs.current.size>0);}
- function save(){if(invalidInputs.current.size){setError('部分文本超过64KiB，输入保留在本页；请修正后保存或明确放弃。');return;}void model.save();}
+ function save(){if(invalidInputs.current.size){setError('部分文本超过64KiB，输入保留在本页；请修正后保存或明确放弃。');return;}setError('');void model.save();}
  function writingKeyFor(userId:string){return 'aiwork:writing-pending:'+userId+':'+projectId;}
  function storeWriting(value:{key:string;fingerprint:string;nodeId:string;request:WritingRequest}|undefined){
   const identity=sessionStore.getState();
@@ -90,10 +90,9 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   setError('');
   try{model.stage(operations);pruneInvalidInputs();}catch{setError('此修改暂未应用，请先重试保存或核对当前画布。');return false;}
   await model.save();
-  for(let attempt=0;attempt<50&&model.getState().status==='saving';attempt++)await new Promise(resolve=>setTimeout(resolve,100));
-  const ok=model.getState().status==='saved';
-  if(!ok)setError('保存未完成 · 输入已保留，可重试保存。');
-  return ok;
+  // Save failures are rendered from the current model error. Keeping a second
+  // banner here leaves a stale failure visible after the same request succeeds.
+  return model.getState().status==='saved';
  }
  function add(type:'text'|'video-generation'|'asset',asset?:Asset){
   const id=crypto.randomUUID(),base={id,title:type==='text'?'文字':type==='asset'?asset!.title:'视频草稿',x:64+((graph?.nodes.length??0)%3)*380,y:64+Math.floor((graph?.nodes.length??0)/3)*440,locked:false};
@@ -111,7 +110,6 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   const before=model.getState(),node=before.graph?.nodes.find(n=>n.id===nodeId);
   if(invalidInputs.current.size||!node||node.type!=='text'||node.locked||!before.graph){setError('所选文字节点已不可用。');return;}
   await model.save();
-  for(let attempt=0;attempt<50&&model.getState().status==='saving';attempt++)await new Promise(resolve=>setTimeout(resolve,100));
   const state=model.getState();
   if(state.status!=='saved'||!state.graph){setError('画布尚未保存成功，未携带正文；输入已保留。');return;}
   const fresh=state.graph.nodes.find(n=>n.id===nodeId);
@@ -128,7 +126,6 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
   const prev=writing.current;
   writing.current={key:prev?.key??'',busy:true,fingerprint:prev?.fingerprint??'',nodeId:prev?.nodeId,request:prev?.request};
   await model.save();
-  for(let attempt=0;attempt<50&&model.getState().status==='saving';attempt++)await new Promise(resolve=>setTimeout(resolve,100));
   const current=model.getState();
   if(current.status!=='saved'||!current.graph){const heldSave=writing.current;if(heldSave)heldSave.busy=false;setError('画布尚未保存成功，未创建写作草稿；输入与未决动作已保留。');return;}
   const fresh=current.graph.nodes.find(n=>n.id===nodeId);
@@ -174,7 +171,7 @@ export function CloudCanvasPage({client,projectId}:{client:WorkspaceClient;proje
    setWritingDraft({id:value.id,ai:writingAI.current});
   }catch(e){held.busy=false;setError(workspaceMessage(e));}
  }
- async function saveBeforeAction(){if(invalidInputs.current.size){setError('部分文字超过64KiB，请修正后保存，输入已保留。');return undefined;}await model.save();for(let attempt=0;attempt<50&&model.getState().status==='saving';attempt++)await new Promise(resolve=>setTimeout(resolve,100));const fresh=model.getState();if(fresh.status!=='saved'||!fresh.graph){setError('画布尚未保存成功，输入已保留；请重试保存。');return undefined;}return fresh.graph;}
+ async function saveBeforeAction(){if(invalidInputs.current.size){setError('部分文字超过64KiB，请修正后保存，输入已保留。');return undefined;}await model.save();const fresh=model.getState();if(fresh.status!=='saved'||!fresh.graph){setError('画布尚未保存成功，输入已保留；请重试保存。');return undefined;}return fresh.graph;}
  async function generate(ids:string[]){const fresh=await saveBeforeAction();if(!fresh)return;const targets=ids.filter(id=>fresh.nodes.some(node=>node.id===id&&node.type==='video-generation'&&!node.locked));if(!targets.length){setError('请选择一个可编辑的视频草稿节点。');return;}setSelected(targets);setPreflightRequest({id:crypto.randomUUID(),nodeIds:targets});}
  async function openResultAction(node:Extract<CanvasNode,{type:'result'}>,action:'details'|'tail-frame'|'revision'){
   const fresh=await saveBeforeAction();if(!fresh)return;

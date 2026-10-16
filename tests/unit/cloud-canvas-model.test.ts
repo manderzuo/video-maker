@@ -6,6 +6,15 @@ const graph={projectId:project.id,revision:0,nodes:[],edges:[],viewport:{x:0,y:0
 const snapshot={project,graph,history:{undoDepth:0,redoDepth:0}};
 const node={id:'node',type:'text' as const,title:'文字',x:0,y:0,locked:false,data:{kind:'text' as const,text:'不丢失的输入',referenceTokens:[]}};
 const operation={id:'op',type:'add_node' as const,payload:{node}};
+it('joins an in-flight save until its receipt arrives instead of reporting an early completion',async()=>{
+ const api=client();let release!:(value:Awaited<ReturnType<typeof api.command>>)=>void;
+ api.command.mockImplementationOnce(()=>new Promise(resolve=>{release=resolve;}));
+ const model=createCloudCanvasModel(project.id,api);await model.load();model.stage([operation]);
+ const first=model.save();let finished=false;const joined=model.save().then(()=>{finished=true;});
+ await Promise.resolve();await Promise.resolve();expect(finished).toBe(false);
+ release({id:project.id,status:'applied',revision:1,project:{...project,revision:1},graph:{...graph,revision:1,nodes:[node]},history:{undoDepth:1,redoDepth:0}});
+ await Promise.all([first,joined]);expect(model.getState().status).toBe('saved');expect(api.command).toHaveBeenCalledTimes(1);model.dispose();
+});
 it('defers viewport autosave until a minimap drag finishes, including pauses longer than the save delay',async()=>{
  vi.useFakeTimers();const api=client(),model=createCloudCanvasModel(project.id,api,{autosaveMs:1500});
  try{await model.load();model.setViewportDragging(true);model.viewport({x:-100,y:-50,scale:1});await vi.advanceTimersByTimeAsync(5000);expect(api.command).not.toHaveBeenCalled();model.viewport({x:-200,y:-80,scale:1});model.setViewportDragging(false);await vi.advanceTimersByTimeAsync(1500);expect(api.command).toHaveBeenCalledTimes(1);expect(api.command.mock.calls[0][2]).toEqual({type:'viewport',viewport:{x:-200,y:-80,scale:1}});}finally{model.dispose();vi.useRealTimers();}

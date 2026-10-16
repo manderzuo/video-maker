@@ -25,6 +25,7 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi,options
  function cancelAutosave(){if(timer!==undefined){clearTimeout(timer);timer=undefined;}}
  function scheduleAutosave(){cancelAutosave();if(disposed||composing||viewportDragging||options.autosaveMs===undefined||state.status!=='dirty'||attempt)return;timer=setTimeout(()=>{timer=undefined;void save();},options.autosaveMs);}
  let attempt:{key:string;revision:number;command:CloudCommand}|undefined;
+ let saving:Promise<void>|undefined;
  const listeners=new Set<()=>void>();const publish=(next:CloudCanvasState)=>{if(disposed)return;state=next;for(const cb of listeners)cb();};
  const busy=()=>state.status==='saving'||state.status==='loading';
  async function refreshResults(){
@@ -54,14 +55,18 @@ export function createCloudCanvasModel(projectId:string,client:CanvasApi,options
  }
  function viewport(value:Viewport){if(disposed||busy()||!state.graph||attempt)return;publish({...state,status:'dirty',graph:{...state.graph,viewport:value},error:undefined});scheduleAutosave();}
  async function save(){
+  if(saving)return saving;
   if(disposed||composing||viewportDragging||busy()||!base||!state.graph||state.status==='saved')return;cancelAutosave();
   const changedViewport=JSON.stringify(state.graph.viewport)!==JSON.stringify(base.viewport);
   attempt??={key:crypto.randomUUID(),revision:base.revision,command:state.pending.length?{type:'operations',operations:structuredClone(state.pending),...(changedViewport?{viewport:structuredClone(state.graph.viewport)}:{})}:{type:'viewport',viewport:structuredClone(state.graph.viewport)}};
   const request=attempt,generation=epoch;publish({...state,status:'saving',error:undefined});
-  try{
-   const data=await client.command(projectId,request.revision,request.command,request.key);if(disposed||epoch!==generation)return;
-   base=data.graph;attempt=undefined;publish({status:'saved',project:data.project,graph:data.graph,history:data.history??state.history,pending:[]});
-  }catch(error){if(disposed||epoch!==generation)return;publish({...state,status:'failed',error});}
+  const pending=(async()=>{
+   try{
+    const data=await client.command(projectId,request.revision,request.command,request.key);if(disposed||epoch!==generation)return;
+    base=data.graph;attempt=undefined;publish({status:'saved',project:data.project,graph:data.graph,history:data.history??state.history,pending:[]});
+   }catch(error){if(disposed||epoch!==generation)return;publish({...state,status:'failed',error});}
+  })();
+  saving=pending;try{await pending;}finally{if(saving===pending)saving=undefined;}
  }
  async function history(type:'undo'|'redo'){
   if(disposed||busy()||state.status!=='saved'||!base)return;
