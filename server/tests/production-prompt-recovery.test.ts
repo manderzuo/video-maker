@@ -46,3 +46,11 @@ it.each([false,true])('lost prompt response is recovered from the original Core 
  const {reconcileNextPromptTask}=await import('../src/tasks/prompt-worker.js');expect(await reconcileNextPromptTask(f.pool,dependencies,()=>new Date('2026-10-08T13:00:00Z'))).toBe(true);
  expect((await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account))).json()).toMatchObject({executionState:'succeeded',billingState:'settled'});expect(calls.filter(r=>r.url.endsWith('/chat/completions'))).toHaveLength(1);
 });
+it.each([false,true])('unavailable provider lookup is distinct from a pending original Core identity; core=%s',async core=>{
+ const a=await setup('ReviewMissingLookup'+core,'FAKE_REVIEW_LOOKUP_KEY'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);
+ dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async r=>{calls.push(r);if(r.url.endsWith('/chat/completions'))throw Error('response lost');return {status:404,body:Buffer.from(JSON.stringify(core?{error:{code:'idempotency_not_found'}}:{error:{code:'NOT_FOUND'}}))};}});
+ await work();const {reconcileNextPromptTask}=await import('../src/tasks/prompt-worker.js');await reconcileNextPromptTask(f.pool,dependencies,()=>new Date('2026-10-08T13:00:00Z'));
+ const row=(await f.pool.query('SELECT document,result_snapshot FROM workspace_tasks WHERE id=$1',[task.json().id])).rows[0];expect(row.document).toMatchObject({executionState:'response_unknown',billingState:core?'pending_reconciliation':'not_provided'});
+ if(!core){expect(row.result_snapshot.reconciliationReview).toMatchObject({state:'manual_review_required',reason:'original_lookup_unavailable'});const before=calls.length;expect(await reconcileNextPromptTask(f.pool,dependencies,()=>new Date('2026-10-08T14:00:00Z'))).toBe(false);expect(calls).toHaveLength(before);}
+ expect(calls.filter(r=>r.url.endsWith('/chat/completions'))).toHaveLength(1);
+});

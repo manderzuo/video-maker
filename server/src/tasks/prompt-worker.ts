@@ -43,7 +43,7 @@ async function finalizeOne(pool:Pool,now:Date){return transaction(pool,async db=
  });}
 export async function reconcileNextPromptTask(pool:Pool,dependencies:ApiSettingsDependencies,clock:()=>Date=()=>new Date()){
  const now=clock(),row=await transaction(pool,async db=>{
-  const rows=await db.query<TaskRow>("SELECT user_id,id,document,frozen_config,request_body,result_snapshot,finalize_attempts FROM workspace_tasks WHERE document->>'executionState' IN ('response_unknown','failed_confirmed','succeeded') AND document->>'billingState' IN ('not_provided','pending_reconciliation') AND (next_finalize_at IS NULL OR next_finalize_at<=$1) ORDER BY COALESCE(next_finalize_at,created_at),created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED",[now]);
+  const rows=await db.query<TaskRow>("SELECT user_id,id,document,frozen_config,request_body,result_snapshot,finalize_attempts FROM workspace_tasks WHERE document->>'executionState' IN ('response_unknown','failed_confirmed','succeeded') AND document->>'billingState' IN ('not_provided','pending_reconciliation') AND COALESCE(result_snapshot->'reconciliationReview'->>'state','')<>'manual_review_required' AND (next_finalize_at IS NULL OR next_finalize_at<=$1) ORDER BY COALESCE(next_finalize_at,created_at),created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED",[now]);
   const row=rows.rows[0];if(!row)return undefined;
   await db.query('UPDATE workspace_tasks SET next_finalize_at=$3,finalize_attempts=LEAST(16,finalize_attempts+1) WHERE user_id=$1 AND id=$2',[row.user_id,row.id,new Date(now.getTime()+300000)]);return row;
  });if(!row)return false;
@@ -59,6 +59,15 @@ export async function reconcileNextPromptTask(pool:Pool,dependencies:ApiSettings
   }
   const key=await frozenTaskKey(pool,row.user_id,row.frozen_config,dependencies);
   const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'textLookup',body:row.request_body,idempotencyKey:'studio-text-'+task.id});
+  if(reply.status===404||reply.status===405){
+   let originalPending=false;try{const parsed=strictJson(reply.body.toString('utf8')) as {error?:{code?:unknown}};originalPending=parsed.error?.code==='idempotency_not_found';}catch{/* An unavailable route cannot establish an original bill. */}
+   if(!originalPending){
+    const snapshot={...(row.result_snapshot&&typeof row.result_snapshot==='object'?row.result_snapshot:{}),reconciliationReview:{state:'manual_review_required',reason:'original_lookup_unavailable',status:reply.status,checkedAt:clock().getTime()}};
+    // Unprovided fees are not zero fees or released credits. Preserve the
+    // unknown execution and stop repeatedly calling an unavailable protocol.
+    await pool.query("UPDATE workspace_tasks SET document=jsonb_set(jsonb_set(document,'{billingState}','\"not_provided\"'),'{updatedAt}',to_jsonb($4::bigint)),result_snapshot=$3::jsonb,updated_at=$5 WHERE user_id=$1 AND id=$2 AND document->>'billingState' IN ('not_provided','pending_reconciliation')",[row.user_id,row.id,JSON.stringify(snapshot),clock().getTime(),clock()]);return true;
+   }
+  }
   if(reply.status<200||reply.status>=300)return false;
   const recovery=strictJson(reply.body.toString('utf8')) as {request_id?:unknown;status?:unknown;result?:unknown;billing_state?:unknown;actual_microcredits?:unknown};
   let next=task,snapshot=row.result_snapshot,changed=false;
