@@ -27,6 +27,10 @@ type VideoRow={user_id:string;id:string;document:unknown;frozen_config:ConfigRow
 const owner=(userId:string)=>({userId,sessionId:'persistent-video',contextId:'persistent-video'});
 function safeRedactor(keys:string[]){return (text:string)=>{for(const key of keys)text=text.split(key).join('[已隐藏密钥]');return text.replace(/Bearer\s+[^\s,;"']+/gi,'Bearer [已隐藏密钥]');};}
 const retryDelay=(attempt:number)=>Math.min(300000,3000*2**Math.min(7,Math.max(0,attempt-1)));
+// Server-owned reviewed source evidence identifies older Core deployments too;
+// workContext controls UI features and is not a billing protocol switch.
+const reviewedCoreSql="(v.frozen_contract->'routes'->>'workContext'='true' OR (v.frozen_contract->>'verification' IN ('reviewed','live_verified') AND EXISTS(SELECT 1 FROM jsonb_array_elements(v.frozen_contract->'evidence') proof WHERE proof->>'kind'='fixed_source' AND proof->>'reference' ~ '^Core@[0-9a-f]{40}([; ]|$)')))";
+const reviewedCore=(contract:DeploymentContract)=>contract.routes.workContext||contract.verification!=='unknown'&&contract.evidence.some(e=>e.kind==='fixed_source'&&/^Core@[0-9a-f]{40}([; ]|$)/.test(e.reference));
 class ContentBusy extends Error {constructor(readonly retryAfterMs:number){super('content download busy');}}
 class UploadRetry extends Error {constructor(readonly retryAfterMs:number){super('unpaid reference upload retry');}}
 // Keep newer user intent, except that attention stops even a racing resume.
@@ -60,8 +64,8 @@ async function prepareReferences(pool:Pool,row:VideoRow,run:CloudVideoRun,depend
  const refs=run.inputSnapshot.references,files=[];
  for(const ref of refs){const stored=await ownedAsset(pool,owner(row.user_id),ref.assetId),{asset,original}=manifests(stored);if(stored.state!=='complete'||asset.trashedAt!=null||asset.sha256!==ref.sha256||asset.bytes!==ref.bytes||!['image','video'].includes(asset.mediaType))throw new HttpError(409,'REFERENCE_CHANGED');const path=await verifyAssetFile(dependencies.assets,row.user_id,ref.assetId,'original',original);files.push({asset,path});}
  // Only called from a newly claimed persisted run: no generation dispatch has
- // happened. Unknown uploads are never repeated; known expired uploads may be
- // refreshed here, including legacy rows whose expiry was not recorded.
+ // happened. Unpaid uploads retry under a separate bounded counter; expired
+ // mappings are refreshed here, including legacy rows without recorded expiry.
  for(let pass=0;pass<3;pass++){
  const mappings:{coreAssetId:string;expiresAt:number}[]=[];
  for(const {asset,path}of files){
@@ -110,7 +114,7 @@ const submitEligible="v.document->>'executionState'='persisted' AND (v.next_quer
 const queryEligible=`(v.document->>'taskId' IS NOT NULL OR (v.document->>'executionState'='submit_unknown' AND (v.document->>'retryOfCoreTaskId' IS NOT NULL OR v.document->>'finalBody' IS NOT NULL))) AND v.document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted')
  AND (v.next_query_at IS NULL OR v.next_query_at<=$1)
  AND (v.document->>'executionState' IN ('accepted','running') OR v.document->>'billingState'='pending_reconciliation'
- OR (v.document->>'executionState' IN ('succeeded','failed_confirmed') AND v.document->>'billingState'='not_provided' AND v.frozen_contract->'routes'->>'workContext'='true'))`;
+ OR (v.document->>'executionState' IN ('succeeded','failed_confirmed') AND v.document->>'billingState'='not_provided' AND ${reviewedCoreSql}))`;
 const deliveryEligible=`v.document->>'executionState'='succeeded' AND (v.next_delivery_at IS NULL OR v.next_delivery_at<=$1)
  AND (v.document->>'deliveryState'<>'available_for_preview' OR (v.document->>'issueCode'='RESULT_SAVE_PENDING' AND v.document->>'resultAssetId' IS NOT NULL) OR (v.frozen_config->>'canvasAutoPlace'='true'
  AND NOT EXISTS(SELECT 1 FROM workspace_command_receipts c WHERE c.user_id=v.user_id AND c.id=v.id)
@@ -178,7 +182,7 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
    if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
    const observed=observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact));run=cloudVideoRunSchema.parse({...run,...observed,inputSnapshot:run.inputSnapshot,...(!run.executionFinishedAt&&observed.executionFinishedAt?{executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});
   }
-  const reconciliation=(run.billingState==='pending_reconciliation'||run.billingState==='not_provided'&&row.frozen_contract.routes.workContext)&&['succeeded','failed_confirmed'].includes(run.executionState);
+  const reconciliation=(run.billingState==='pending_reconciliation'||run.billingState==='not_provided'&&reviewedCore(row.frozen_contract))&&['succeeded','failed_confirmed'].includes(run.executionState);
   await save(pool,row,cloudVideoRunSchema.parse(run),clock(),reconciliation);
  }catch(error){
   if(error instanceof HttpError&&error.code==='TASK_LEASE_CHANGED')return true;

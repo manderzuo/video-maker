@@ -66,3 +66,10 @@ it('historical delivered runs can reconcile an unprovided bill through the origi
  dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async r=>{calls.push(r);expect(r.method).toBe('GET');const taskId=new URL(r.url).pathname.split('/').pop();return {status:200,body:Buffer.from(JSON.stringify({task:{id:taskId,status:'completed',billing_state:'settled'}}))};}});
  const result=await executeNextVideoTask(f.pool,{...dependencies,assets:assets(),contracts:new Map([[base,contract]])},()=>new Date(time),'query');expect(result).toBe(true);expect((await read(a.account,id)).json().billingState).toBe('settled');expect(calls.filter(r=>r.url.endsWith('/generations'))).toHaveLength(1);
 });
+it.each([true,false])('legacy Core billing proof=%s is independent of the continuation UI flag',async core=>{
+ const a=await setup('LegacyCoreBill'+core,'FAKE_LEGACY_CORE_KEY'),id=(await confirm(a,(await preview(a)).id)).json()[0].id;await work();await work();await work();
+ const proof=[{kind:'fixed_source',reference:(core?'Core@':'Other@')+'a'.repeat(40)+'; user_routes.rs SHA256 fixture'}];
+ await f.pool.query("UPDATE workspace_video_runs SET frozen_contract=jsonb_set(jsonb_set(frozen_contract,'{routes,workContext}','false'),'{evidence}',$2::jsonb),next_query_at=NULL WHERE id=$1",[id,JSON.stringify(proof)]);
+ const before=calls.length;dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async r=>{calls.push(r);expect(r.method).toBe('GET');const taskId=new URL(r.url).pathname.split('/').pop();return {status:200,body:Buffer.from(JSON.stringify({task:{id:taskId,status:'completed',billing_state:'settled'}}))};}});
+ await work();expect((await read(a.account,id)).json().billingState).toBe(core?'settled':'not_provided');expect(calls.length-before).toBe(core?1:0);
+});
