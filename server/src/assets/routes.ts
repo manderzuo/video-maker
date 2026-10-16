@@ -9,6 +9,8 @@ import {HttpError} from '../errors.js';
 import {uploadSchema,assetPatchSchema} from './contracts.js';
 import {reserveAsset,listAssets,completeAsset,ownedAsset,manifests,changeAsset,cancelUpload,listAssetReferences} from './repository.js';
 import {writeAssetFile,assetFile,validateStorageOptions,type AssetStorageOptions} from './storage.js';
+import {createHash} from 'node:crypto';
+import {privateRevalidation,matchesEtag} from '../private-cache.js';
 const noQuery=z.strictObject({}),revision=z.strictObject({expectedRevision:z.number().int().nonnegative()}),params=z.strictObject({id:z.uuid()});
 const contentQuery=z.strictObject({variant:z.enum(['original','thumbnail']).default('original')});
 function assetId(value:unknown){const parsed=params.safeParse(value);if(!parsed.success)throw new HttpError(404,'NOT_FOUND');return parsed.data.id;}
@@ -20,10 +22,10 @@ function byteRange(value:string|undefined,size:number){
 export function registerAssetRoutes(app:FastifyInstance,pool:Pool,options:AssetStorageOptions,now:()=>Date){
  validateStorageOptions(options);
  app.addContentTypeParser('application/octet-stream',(_request,payload,done)=>done(null,payload));
- app.get('/studio-api/assets',async request=>{const query=z.strictObject({trashed:z.enum(['true','false']).optional()}).parse(request.query);return listAssets(pool,requestAuthContext(request),query.trashed==='true');});
+ app.get('/studio-api/assets',async(request,reply)=>{const query=z.strictObject({trashed:z.enum(['true','false']).optional()}).parse(request.query),value=await listAssets(pool,requestAuthContext(request),query.trashed==='true'),etag='"assets-v1-'+createHash('sha256').update(JSON.stringify(value)).digest('hex')+'"';privateRevalidation(reply,etag);if(matchesEtag(request.headers['if-none-match'],etag))return reply.code(304).send();return value;});
  app.post('/studio-api/assets',async(request,reply)=>{noQuery.parse(request.query);const result=await reserveAsset(pool,requestAuthContext(request),uploadSchema.parse(request.body),options,now());return reply.code(result.duplicate?200:201).send(result.value);});
  app.get('/studio-api/assets/:id',async request=>{noQuery.parse(request.query);const row=await ownedAsset(pool,requestAuthContext(request),assetId(request.params));if(row.state!=='complete')throw new HttpError(404,'NOT_FOUND');return manifests(row).asset;});
- app.get('/studio-api/assets/:id/files',async request=>{noQuery.parse(request.query);const row=await ownedAsset(pool,requestAuthContext(request),assetId(request.params));if(row.state!=='complete')throw new HttpError(404,'NOT_FOUND');const {asset,thumbnail}=manifests(row);return {asset,...(thumbnail?{thumbnail}:{})};});
+ app.get('/studio-api/assets/:id/files',async(request,reply)=>{noQuery.parse(request.query);const row=await ownedAsset(pool,requestAuthContext(request),assetId(request.params));if(row.state!=='complete')throw new HttpError(404,'NOT_FOUND');const {asset,thumbnail}=manifests(row),value={asset,...(thumbnail?{thumbnail}:{})},etag='"files-v1-'+createHash('sha256').update(JSON.stringify(value)).digest('hex')+'"';privateRevalidation(reply,etag);if(matchesEtag(request.headers['if-none-match'],etag))return reply.code(304).send();return value;});
  app.get('/studio-api/assets/:id/references',async request=>{noQuery.parse(request.query);return listAssetReferences(pool,requestAuthContext(request),assetId(request.params));});
  app.put('/studio-api/assets/:id/content',{bodyLimit:options.maxAssetBytes},async(request,reply)=>{
   const context=requestAuthContext(request),id=assetId(request.params),query=contentQuery.parse(request.query);
@@ -39,7 +41,10 @@ export function registerAssetRoutes(app:FastifyInstance,pool:Pool,options:AssetS
   const context=requestAuthContext(request),id=assetId(request.params),query=contentQuery.parse(request.query),row=await ownedAsset(pool,context,id),metadata=manifests(row);
   if(row.state!=='complete'||metadata.asset.trashedAt!=null)throw new HttpError(404,'NOT_FOUND');
   const manifest=metadata[query.variant];if(!manifest)throw new HttpError(404,'NOT_FOUND');const file=await assetFile(options,context.userId,id,query.variant,manifest);
-  let range;try{range=byteRange(request.headers.range,manifest.bytes);}catch(error){reply.header('Content-Range',`bytes */${manifest.bytes}`);throw error;}
+  const etag=`"media-v1-${query.variant}-${manifest.sha256}"`;privateRevalidation(reply,etag);
+  if(matchesEtag(request.headers['if-none-match'],etag))return reply.code(304).send();
+  const rangeHeader=request.headers['if-range']&&request.headers['if-range']!==etag?undefined:request.headers.range;
+  let range;try{range=byteRange(rangeHeader,manifest.bytes);}catch(error){reply.header('Content-Range',`bytes */${manifest.bytes}`);throw error;}
   reply.header('Content-Type',manifest.mimeType).header('X-Content-Type-Options','nosniff').header('Cross-Origin-Resource-Policy','same-origin').header('Accept-Ranges','bytes').header('Content-Length',range?range.end-range.start+1:manifest.bytes);
   if(range)reply.code(206).header('Content-Range',`bytes ${range.start}-${range.end}/${manifest.bytes}`);
   return reply.send(createReadStream(file,range));

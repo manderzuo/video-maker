@@ -29,8 +29,8 @@ export function MobileNodeMedia({ client, assetId, interactive = false, onRetry 
     if (!files) return <p className="mobile-node-media-loading">正在读取素材…</p>;
     const { asset, thumbnail } = files, url = client.contentUrl(assetId);
     return <div className={'mobile-node-media' + (interactive ? ' mobile-node-media-interactive' : '')}>
-        {asset.mediaType === 'image' && !failed ? <img src={client.contentUrl(assetId, variant)} alt={asset.title} onError={() => { if (variant === 'thumbnail') setVariant('original'); else setFailed(true); }}/> : null}
-        {asset.mediaType === 'video' && !failed ? <video key={attempt} src={url} aria-label={asset.title} poster={thumbnail ? client.contentUrl(assetId, 'thumbnail') : undefined} controls={interactive} preload="metadata" muted playsInline onError={() => setFailed(true)}/> : null}
+        {asset.mediaType === 'image' && !failed ? <img loading={interactive?"eager":"lazy"} fetchPriority={interactive?"high":"low"} src={client.contentUrl(assetId, variant)} alt={asset.title} onError={() => { if (variant === 'thumbnail') setVariant('original'); else setFailed(true); }}/> : null}
+        {asset.mediaType === 'video' && !failed ? <video key={attempt} src={url} aria-label={asset.title} poster={thumbnail ? client.contentUrl(assetId, 'thumbnail') : undefined} controls={interactive} preload={interactive||!thumbnail?"metadata":"none"} muted playsInline onError={() => setFailed(true)}/> : null}
         {asset.mediaType === 'audio' ? interactive ? <audio key={attempt} src={url} controls preload="metadata" onError={() => setFailed(true)}/> : <p>音频素材 · {asset.title}</p> : null}
         {asset.mediaType === 'text' ? <p>文字素材 · {asset.title}</p> : null}
         {failed ? <><p>当前浏览器无法预览此文件，请下载原件查看。</p>{interactive ? <Button onClick={retry}>重新读取素材</Button> : null}</> : null}

@@ -1,5 +1,14 @@
 import {randomUUID} from 'node:crypto';
 import {test,expect} from '../helpers/cloud-workspace-ui-fixture';
+test('a large existing graph saves one new node with a small authoritative response',async({page,workspace})=>{
+ const h=workspace.headers(workspace.account),p=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'TEST DATA 大画布保存'}})).json();
+ const nodes=Array.from({length:100},(_,i)=>({id:randomUUID(),type:'text',title:'TEST DATA '+i,x:10000+i*400,y:10000,locked:false,data:{kind:'text',text:('TEST DATA '+i+' ').repeat(500),referenceTokens:[]}}));
+ const seed=await workspace.call('POST','/studio-api/projects/'+p.id+'/commands',{...h,payload:{expectedRevision:0,idempotencyKey:randomUUID(),command:{type:'operations',operations:nodes.map(node=>({id:randomUUID(),type:'add_node',payload:{node}}))}}});expect(seed.statusCode).toBe(200);expect(seed.rawPayload.length).toBeGreaterThan(500000);
+ await page.goto('/projects/'+p.id+'/canvas');await expect(page.getByRole('status').first()).toContainText('已保存');
+ const response=page.waitForResponse(r=>r.request().method()==='POST'&&r.url().endsWith('/projects/'+p.id+'/commands'));
+ await page.getByRole('button',{name:'添加文字节点',exact:true}).click();const saved=await response,body=await saved.json();expect(saved.status()).toBe(200);expect(body).not.toHaveProperty('graph');expect(Buffer.byteLength(JSON.stringify(body))).toBeLessThan(2500);
+ await expect(page.getByRole('status').first()).toContainText('已保存');expect((await workspace.call('GET','/studio-api/projects/'+p.id+'/workspace',h)).json().graph.nodes).toHaveLength(101);expect(workspace.providerCalls.filter(call=>call.method==='POST')).toHaveLength(0);
+});
 
 for(const lostResponse of [false,true])test('clears the failed connection-save banner after an identical retry succeeds and persists the edge; lost response='+lostResponse,async({page,workspace})=>{
  const h=workspace.headers(workspace.account),p=(await workspace.call('POST','/studio-api/projects',{...h,payload:{title:'TEST DATA 保存恢复'}})).json();

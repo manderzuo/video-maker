@@ -32,6 +32,7 @@ export async function buildStudioApp(options:{pool:Pool;origin:string;now?:()=>D
  app.addHook('onRequest',async(_request,reply)=>{reply.header('Cache-Control','no-store');});
  await app.register(cookie);installAuthGuard(app,options.pool,options.origin,now);
  app.setErrorHandler((error,_request,reply)=>{
+  reply.header('Cache-Control','no-store').removeHeader('ETag');
   if(error instanceof HttpError)return reply.code(error.status).send({code:error.code,...(error.issues?{issues:error.issues}:{})});
   if(error instanceof ZodError)return reply.code(400).send({code:'INVALID_REQUEST'});
   const status=(error as {statusCode?:number}).statusCode;if(status===413)return reply.code(413).send({code:'BODY_TOO_LARGE'});if(status&&status>=400&&status<500)return reply.code(status).send({code:'INVALID_REQUEST'});

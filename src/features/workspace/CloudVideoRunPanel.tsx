@@ -1,7 +1,7 @@
 import {canvasVideoSpecs} from '../../domain/canvas-video-spec';
 import {useEffect,useRef,useState} from 'react';
 import type {Graph} from '../../domain/graph';
-import type {CloudVideoPreview,CloudVideoRecord} from '../../domain/cloud-video-run';
+import type {CloudVideoPreview,CloudVideoRecord,CloudVideoSummary} from '../../domain/cloud-video-run';
 import {workspaceMessage,type WorkspaceClient} from '../../infrastructure/api/workspace-client';
 import {CloudVideoTaskDetail,cloudVideoStatus} from './CloudVideoTaskDetail';
 import {Button} from '../../ui/Button';
@@ -9,15 +9,17 @@ import {Dialog} from '../../ui/Dialog';
 import {ApiError} from '../../infrastructure/api/client';
 import {inspectVideoTextInputs} from './cloud-video-input';
 export function CloudVideoRunPanel({client,graph,saved,onResultInserted,preflightRequest,onError}:{preflightRequest?:{id:string;nodeIds:string[]};client:WorkspaceClient;graph:Graph;saved:boolean;onResultInserted:()=>void;onError:(message:string)=>void}){
- const [error,setError]=useState(''),[busy,setBusy]=useState(false),[preview,setPreview]=useState<CloudVideoPreview>(),[runs,setRuns]=useState<CloudVideoRecord[]>([]),[detail,setDetail]=useState<CloudVideoRecord>();
+ const [error,setError]=useState(''),[busy,setBusy]=useState(false),[preview,setPreview]=useState<CloudVideoPreview>(),[runs,setRuns]=useState<CloudVideoSummary[]>([]),[detail,setDetail]=useState<CloudVideoRecord>(),[loaded,setLoaded]=useState(false);
+ const detailRef=useRef(detail);detailRef.current=detail;
  const alive=useRef(true),reading=useRef(false),working=useRef(false);
  const [previewInvalid,setPreviewInvalid]=useState(false),[confirmationUnknown,setConfirmationUnknown]=useState(false);
  const stalePreview=!!preview&&!confirmationUnknown&&(previewInvalid||graph.revision!==preview.graphRevision);
  useEffect(()=>{if(!preview||confirmationUnknown)return;const remaining=preview.expiresAt-Date.now();setPreviewInvalid(remaining<=0);const timer=setTimeout(()=>setPreviewInvalid(true),Math.max(0,remaining));return()=>clearTimeout(timer);},[preview?.id,confirmationUnknown]);
  const nodes=graph.nodes.filter(node=>node.type==='video-generation');
  function reportError(message:string){setError(message);onError(message);}
- async function reload(){if(reading.current)return;reading.current=true;try{const rows=(await client.listTasks()).filter((run):run is CloudVideoRecord=>run.kind==='video'&&run.projectId===graph.projectId);if(alive.current){setRuns(rows);setDetail(current=>current?rows.find(run=>run.id===current.id)??current:current);}}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{reading.current=false;}}
- useEffect(()=>{alive.current=true;void reload();const timer=setInterval(()=>{void reload();},1500);return()=>{alive.current=false;clearInterval(timer);};},[client,graph.projectId]);
+ async function reload(){if(reading.current)return;reading.current=true;try{const rows=await client.listVideoSummaries(graph.projectId);if(alive.current){setRuns(rows);setLoaded(true);const selected=detailRef.current,changed=selected&&rows.find(run=>run.id===selected.id);if(selected&&changed&&(changed.updatedAt!==selected.updatedAt||changed.recordRevision!==selected.recordRevision)){const fresh=await client.readTask(selected.id);if(alive.current&&detailRef.current?.id===selected.id&&fresh.kind==='video')setDetail(fresh);}}}catch(e){if(alive.current)setError(workspaceMessage(e));}finally{reading.current=false;}}
+ useEffect(()=>{alive.current=true;void reload();const timer=setInterval(()=>{void reload();},4000);return()=>{alive.current=false;clearInterval(timer);};},[client,graph.projectId]);
+ async function openDetail(id:string){await action(async()=>{const task=await client.readTask(id);if(alive.current&&task.kind==='video')setDetail(task);});}
  async function action(work:()=>Promise<void>){if(working.current)return;working.current=true;setBusy(true);reportError('');try{await work();}catch(e){if(alive.current)reportError(workspaceMessage(e));}finally{working.current=false;if(alive.current)setBusy(false);}}
  async function readPreview(nodeIds:string[]){
   if(!nodeIds.length)return;
@@ -55,7 +57,7 @@ export function CloudVideoRunPanel({client,graph,saved,onResultInserted,prefligh
    }
   });
  }
- return <section className="card"><h2>视频任务</h2><div className="video-task-list" aria-label="本项目视频任务" aria-live="polite">{runs.length?runs.map(run=><article key={run.id} data-execution-state={run.executionState}><p><strong>{graph.nodes.find(node=>node.id===run.nodeId)?.title??'视频任务'}</strong> · {cloudVideoStatus(run)} · {new Date(run.createdAt).toLocaleString()}</p><Button data-interaction-id="cloud:video:details" disabled={busy} onClick={()=>setDetail(run)}>查看视频任务</Button></article>):<p>尚无已确认的视频任务</p>}</div>{error?<p role="alert">{error}</p>:null}
+ return <section className="card"><h2>视频任务</h2><div className="video-task-list" aria-label="本项目视频任务" aria-live="polite">{runs.length?runs.map(run=><article key={run.id} data-execution-state={run.executionState}><p><strong>{graph.nodes.find(node=>node.id===run.nodeId)?.title??'视频任务'}</strong> · {cloudVideoStatus(run)} · {new Date(run.createdAt).toLocaleString()}</p><Button data-interaction-id="cloud:video:details" disabled={busy} onClick={()=>void openDetail(run.id)}>查看视频任务</Button></article>):<p>{loaded?'尚无已确认的视频任务':'正在读取本项目视频任务…'}</p>}</div>{error?<p role="alert">{error}</p>:null}
   <Dialog open={!!preview} title="确认云端视频生成" width={480} dismissible={!busy} onClose={()=>setPreview(undefined)} footer={<><Button data-interaction-id="cloud:video:cancel" disabled={busy} onClick={()=>setPreview(undefined)}>取消</Button><Button data-interaction-id="cloud:video:confirm" variant="primary" busy={busy} disabled={busy||!saved} onClick={confirm}>确认</Button></>}>
    {preview?.maxAutomaticRetries===1?<p>上游确认素材下载失败时，最多自动重新生成一次；复用已优化的提示词，重试可能额外消耗视频积分，两次账务分别核对。</p>:null}
    <p>API：{preview?.apiBase} · 模型：{preview?.model}</p>{preview?.nodes.map(node=><article key={node.nodeId}><h3>{node.title}</h3><p>{node.inputSnapshot.spec.durationSeconds} 秒 · {node.inputSnapshot.spec.ratio} · {node.inputSnapshot.spec.resolution??'默认分辨率'}</p><pre className="ui-prose" aria-label="视频生成预览正文">{node.inputSnapshot.prompt}</pre><p>将上传的参考素材：{node.assets.length?node.assets.map(asset=>asset.title+'（'+asset.bytes+' 字节）').join('、'):'无'}</p></article>)}

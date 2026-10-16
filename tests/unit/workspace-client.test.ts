@@ -1,9 +1,22 @@
 import {it,expect,vi} from 'vitest';
 import {createWorkspaceClient} from '../../src/infrastructure/api/workspace-client';
+import {buildGraphDelta} from '../../src/domain/cloud-workspace-transfer';
+import type {Graph} from '../../src/domain/graph';
 const identity={userId:'11111111-1111-4111-8111-111111111111',contextId:'a'.repeat(43),csrfToken:'c'.repeat(43)};
 const project={id:'22222222-2222-4222-8222-222222222222',schemaVersion:1,title:'云端项目',description:'',revision:0,createdAt:1,updatedAt:1,archived:false,trashedAt:null,tags:[],starred:false};
 const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json'}});
 function bridge(){let current:typeof identity|null=identity;const listeners=new Set<()=>void>();return {getIdentity:()=>current,subscribe:(cb:()=>void)=>{listeners.add(cb);return()=>{listeners.delete(cb);};},change(){current={...identity,contextId:'b'.repeat(43)};for(const cb of listeners)cb();},refresh:vi.fn(async()=>{})};}
+it('revalidates snapshots and reconstructs compact receipts against a known revision without resending a command',async()=>{
+ const base:Graph={projectId:project.id,revision:0,nodes:[],edges:[],viewport:{x:0,y:0,scale:1}},after={...base,revision:1};
+ const fetcher=vi.fn<typeof fetch>().mockResolvedValueOnce(json({project,graph:base,history:{undoDepth:0,redoDepth:0}})).mockResolvedValueOnce(json({id:project.id,status:'applied',revision:1,project:{...project,revision:1},delta:buildGraphDelta(base,after)}));
+ const client=createWorkspaceClient(bridge(),fetcher);await client.readWorkspace(project.id);const saved=await client.command(project.id,0,{type:'viewport',viewport:base.viewport},project.id);
+ expect(saved.graph).toEqual(after);expect(fetcher.mock.calls[0][1]?.cache).toBe('no-cache');expect(fetcher.mock.calls[1][1]?.headers).toMatchObject({'X-Workspace-Transfer':'delta-v1'});expect(fetcher).toHaveBeenCalledTimes(2);client.dispose();
+});
+it('coalesces repeated media metadata requests and clears failures so the same asset can be read again',async()=>{
+ let reject!:(error:Error)=>void;const fetcher=vi.fn<typeof fetch>().mockImplementationOnce(()=>new Promise((_resolve,no)=>{reject=no;}));const client=createWorkspaceClient(bridge(),fetcher);
+ const one=client.readAssetFiles(project.id),two=client.readAssetFiles(project.id),failed=Promise.allSettled([one,two]);expect(fetcher).toHaveBeenCalledTimes(1);reject(new Error('connection closed'));expect((await failed).every(r=>r.status==='rejected')).toBe(true);
+ const asset={id:project.id,sha256:'a'.repeat(64),mediaType:'image',mimeType:'image/png',bytes:8,blobKey:'asset:'+project.id,title:'TEST DATA',createdAt:1};fetcher.mockResolvedValueOnce(json({asset}));expect((await client.readAssetFiles(project.id)).asset.id).toBe(project.id);expect(fetcher).toHaveBeenCalledTimes(2);client.dispose();
+});
 it('reads server projects without consulting legacy browser storage',async()=>{
  const fetcher=vi.fn<typeof fetch>().mockResolvedValue(json([project])),auth=bridge(),client=createWorkspaceClient(auth,fetcher);
  const old=vi.fn(()=>{throw new Error('legacy data must not be read');});vi.stubGlobal('indexedDB',{open:old});try{expect(await client.listProjects()).toEqual([project]);expect(old).not.toHaveBeenCalled();expect(fetcher.mock.calls[0]).toMatchObject(['/studio-api/projects',{credentials:'same-origin',cache:'no-store',redirect:'error',headers:{'X-Workspace-Context':identity.contextId}}]);}finally{client.dispose();vi.unstubAllGlobals();}

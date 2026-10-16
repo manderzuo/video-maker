@@ -11,6 +11,7 @@ import type {ProjectCommand} from './contracts.js';
 import {assetSchema,type Asset} from '../../../src/domain/asset.js';
 import {promptDraftSchema,promptLibrarySchema} from '../../../src/domain/prompt.js';
 import {cloudVideoRecordSchema,type CloudVideoRecord} from '../../../src/domain/cloud-video-run.js';
+import {buildGraphDelta} from '../../../src/domain/cloud-workspace-transfer.js';
 const contents=(graph:Graph)=>JSON.stringify({...graph,revision:0,viewport:{x:0,y:0,scale:1}});
 // Resource references are checked even when an input binding is inactive.
 export function graphAssetIds(graph:Graph){
@@ -52,6 +53,15 @@ export async function validateResources(client:PoolClient,context:AuthContext,gr
 }
 export async function applyProjectCommand(pool:Pool,context:AuthContext,projectId:string,input:ProjectCommand,now:Date){
  return transaction(pool,client=>applyProjectCommandInTransaction(client,context,projectId,input,now));
+}
+export async function applyProjectCommandDelta(pool:Pool,context:AuthContext,projectId:string,input:ProjectCommand,now:Date){
+ return transaction(pool,async client=>{
+  const {graph,...receipt}=await applyProjectCommandInTransaction(client,context,projectId,input,now);
+  // Use the original committed request's base even when replaying an old key
+  // after other commands. The command and response negotiation share one identity.
+  const original=await client.query<{before_graph:unknown}>('SELECT before_graph FROM workspace_command_receipts WHERE user_id=$1 AND project_id=$2 AND id=$3',[context.userId,projectId,input.idempotencyKey]);
+  const before=graphSchema.parse(original.rows[0]?.before_graph);return {...receipt,delta:buildGraphDelta(before,graph)};
+ });
 }
 export async function applyProjectCommandInTransaction(client:PoolClient,context:AuthContext,projectId:string,input:ProjectCommand,now:Date){
   const project=await ownedProject(client,context,projectId,true),before=await readProjectGraph(client,context,projectId);

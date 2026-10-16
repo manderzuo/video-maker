@@ -9,6 +9,27 @@ const add=(node=textNode())=>({type:'operations',operations:[{id:randomUUID(),ty
 async function project(account:Account){const r=await env.call('POST','/studio-api/projects',{...env.headers(account),payload:{title:'云端画布'}});expect(r.statusCode).toBe(201);return r.json<{id:string;revision:number}>();}
 const command=(account:Account,id:string,expectedRevision:number,value:unknown,idempotencyKey=randomUUID())=>env.call('POST',`/studio-api/projects/${id}/commands`,{...env.headers(account),payload:{expectedRevision,command:value,idempotencyKey}});
 const graph=(account:Account,id:string)=>env.call('GET',`/studio-api/projects/${id}/graph`,env.headers(account));
+it('polls only owned project video summaries, excludes prompt bodies and revalidates billing changes',async()=>{
+ const a=await env.signup('Summary_A'),b=await env.signup('Summary_B'),p=await project(a),other=await project(a);
+ const docs=[p,other].map(project=>({id:randomUUID(),kind:'video',historical:true,projectId:project.id,nodeId:randomUUID(),executionState:'succeeded',queryState:'idle',deliveryState:'available_for_preview',billingState:'settled',recordRevision:0,createdAt:1,updatedAt:1,inputSnapshot:{prompt:'PRIVATE FULL PROMPT MUST NOT BE POLLED'.repeat(1000)},finalBody:'PRIVATE FULL REQUEST'}));
+ for(const doc of docs)await env.pool.query('INSERT INTO workspace_task_archives(user_id,id,project_id,source_task_id,document)VALUES($1,$2,$3,$4,$5::jsonb)',[a.view.user.id,doc.id,doc.projectId,randomUUID(),JSON.stringify(doc)]);
+ const path=`/studio-api/projects/${p.id}/video-run-summaries`,first=await env.call('GET',path,env.headers(a));expect(first.statusCode).toBe(200);expect(first.json()).toHaveLength(1);expect(first.body).not.toContain('PRIVATE');expect(first.json()[0].id).toBe(docs[0].id);
+ const extraHeaders={'if-none-match':String(first.headers.etag)};expect((await env.call('GET',path,{...env.headers(a),extraHeaders})).statusCode).toBe(304);expect((await env.call('GET',path,{...env.headers(b),extraHeaders})).statusCode).toBe(404);
+ await env.pool.query("UPDATE workspace_task_archives SET document=jsonb_set(document,'{billingState}','\"released\"')WHERE user_id=$1 AND id=$2",[a.view.user.id,docs[0].id]);const changed=await env.call('GET',path,{...env.headers(a),extraHeaders});expect(changed.statusCode).toBe(200);expect(changed.json()[0].billingState).toBe('released');expect(changed.headers.etag).not.toBe(first.headers.etag);
+});
+it('returns a compact canonical delta and replays it with the original base even after a later edit',async()=>{
+ const a=await env.signup(),p=await project(a),key=randomUUID(),value=add();
+ const call=()=>env.call('POST',`/studio-api/projects/${p.id}/commands`,{...env.headers(a),extraHeaders:{'x-workspace-transfer':'delta-v1'},payload:{expectedRevision:0,idempotencyKey:key,command:value}});
+ const saved=await call();expect(saved.statusCode).toBe(200);expect(saved.json()).not.toHaveProperty('graph');expect(saved.json().delta).toMatchObject({baseRevision:0,revision:1,nodes:[value.operations[0].payload.node]});
+ await command(a,p.id,1,add());const replay=await call();expect(replay.statusCode).toBe(200);expect(replay.json()).toMatchObject({status:'replayed',revision:2,delta:{baseRevision:0,revision:2}});expect(replay.json().delta.nodes).toHaveLength(2);
+});
+it('revalidates a cached workspace only after ownership and returns the changed revision after an edit',async()=>{
+ const a=await env.signup('Cache_A'),b=await env.signup('Cache_B'),p=await project(a),path=`/studio-api/projects/${p.id}/workspace`;
+ const first=await env.call('GET',path,env.headers(a));expect(first.headers['cache-control']).toContain('private');const etag=first.headers.etag;expect(etag).toBeTruthy();
+ const extraHeaders={'if-none-match':String(etag)};const fresh=await env.call('GET',path,{...env.headers(a),extraHeaders});expect(fresh.statusCode).toBe(304);expect(fresh.body).toBe('');
+ expect((await env.call('GET',path,{...env.headers(b),extraHeaders:{'if-none-match':String(etag)}})).statusCode).toBe(404);
+ await command(a,p.id,0,add());const changed=await env.call('GET',path,{...env.headers(a),extraHeaders});expect(changed.statusCode).toBe(200);expect(changed.headers.etag).not.toBe(etag);
+});
 it('saves typed graph commands, project revision and history in one server transaction',async()=>{
  const a=await env.signup(),p=await project(a),node=textNode();
  const saved=await command(a,p.id,0,add(node));expect(saved.statusCode).toBe(200);

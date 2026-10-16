@@ -4,6 +4,7 @@ import {graphSchema,type Graph,type Viewport} from '../../domain/graph';
 import {assetSchema} from '../../domain/asset';
 import {promptLibrarySchema,promptDraftSchema,type PromptDraft,type PromptLibraryEntry,type PromptCompileResult} from '../../domain/prompt';
 import type {GraphOperation} from '../../application/commands/registry';
+import {fullCommandReceiptSchema as receiptSchema,commandTransferSchema,applyGraphDelta} from '../../domain/cloud-workspace-transfer';
 import {ApiError} from './client';
 import {cloudProjectPackageSchema,privateFileSchema,type CloudProjectPackage} from '../../domain/cloud-project-package';
 import {receiptSummarySchema} from '../../domain/command-receipt';
@@ -11,20 +12,21 @@ import {activityPageSchema} from '../../domain/activity';
 import {purgePreviewSchema,purgeReceiptSchema} from '../../domain/project-purge';
 import {workspaceMigrationSchema,migrationBatchSchema,type WorkspaceMigration} from '../../domain/workspace-migration';
 import {cloudTaskSchema,promptOptimizationPreviewSchema} from '../../domain/cloud-task';
-import {cloudRunSchema,cloudVideoRunSchema,cloudVideoCapabilitySchema,cloudVideoPreviewSchema} from '../../domain/cloud-video-run';
+import {cloudRunSchema,cloudVideoRunSchema,cloudVideoCapabilitySchema,cloudVideoPreviewSchema,cloudVideoSummarySchema,type CloudVideoSummary} from '../../domain/cloud-video-run';
 import {cloudAgentConversationSchema,cloudAgentProposalSchema,cloudAgentPreviewSchema,cloudAgentRunSchema,type CloudAgentConversation} from '../../domain/cloud-agent';
 import type {AgentGrant} from '../../domain/agent-session';
 export type WorkspaceIdentity={userId:string;contextId:string;csrfToken:string};
 export type WorkspaceBridge={getIdentity:()=>WorkspaceIdentity|null;subscribe:(cb:()=>void)=>()=>void;refresh:()=>Promise<unknown>};
 export type CloudCommand={type:'operations';operations:GraphOperation[];viewport?:Viewport}|{type:'undo'|'redo'}|{type:'viewport';viewport:Viewport};
-const historySchema=z.strictObject({undoDepth:z.number().int().nonnegative(),redoDepth:z.number().int().nonnegative()});
-const receiptSchema=z.strictObject({id:z.uuid(),status:z.enum(['applied','replayed']),revision:z.number().int().nonnegative(),commandRevision:z.number().int().nonnegative().optional(),project:projectSchema,graph:graphSchema,history:historySchema.optional()}).refine(value=>value.project.id===value.graph.projectId&&value.revision===value.project.revision&&value.revision===value.graph.revision);
 export const workspaceSchema=z.strictObject({project:projectSchema,graph:graphSchema,history:z.strictObject({undoDepth:z.number().int().nonnegative(),redoDepth:z.number().int().nonnegative()})}).refine(value=>value.project.id===value.graph.projectId&&value.project.revision===value.graph.revision);
 export type WorkspaceSnapshot=z.infer<typeof workspaceSchema>;
+const assetFilesSchema=z.strictObject({asset:assetSchema,thumbnail:privateFileSchema.optional()});
 const errors=new Set(['AUTH_REQUIRED','SESSION_CHANGED','CSRF_INVALID','REVISION_CONFLICT','INVALID_COMMAND','IDEMPOTENCY_CONFLICT','HISTORY_EMPTY','HISTORY_CHANGED','PROJECT_IN_TRASH','PROJECT_PURGED','ASSET_IN_USE','ASSET_ALREADY_COMPLETE','UPLOAD_INVALID','UPLOAD_INCOMPLETE','USER_QUOTA_EXCEEDED','MEDIA_UNAVAILABLE','NOT_FOUND','INVALID_REQUEST','BODY_TOO_LARGE','INTERNAL_ERROR','PACKAGE_INCOMPLETE','CONFIG_CHANGED','PREVIEW_EXPIRED','MODEL_CONFIG_REQUIRED','PROMPT_INPUT_INVALID','INPUT_CONTAINS_CREDENTIAL','PRIOR_UNKNOWN_CONFIRMATION_REQUIRED','VIDEO_PREFLIGHT_BLOCKED','VIDEO_CONTRACT_UNVERIFIED','VIDEO_MODEL_CHANGED','TASK_ALREADY_STARTED','ORIGINAL_TASK_ID_REQUIRED','SECRET_UNAVAILABLE']);
 for(const code of ['GRANT_CHANGED','AGENT_SCOPE_INVALID','AGENT_CONTEXT_INVALID','HISTORY_READONLY','PROPOSAL_ALREADY_DECIDED','IMPORT_ALREADY_COMMITTED','MIGRATION_ASSET_CONFLICT','MIGRATION_HISTORY_INVALID','MIGRATION_REFERENCE_INVALID'])errors.add(code);
 export function workspaceMessage(error:unknown){
  const code=error instanceof ApiError?error.code:'';
+ if(code==='REQUEST_TIMEOUT'||code==='NETWORK_ERROR')return '网络响应中断或超时，输入和原保存请求已保留，请重试确认。';
+ if(code==='INVALID_RESPONSE')return '云端返回的数据不完整或格式不符，输入已保留，请重试原请求确认。';
  const messages:Record<string,string>={REVISION_CONFLICT:'另一设备已修改此内容。本次输入尚未保存，请重新加载后核对。',HISTORY_EMPTY:'没有可撤销或重做的操作。',HISTORY_CHANGED:'画布已发生变化，无法应用这条历史。',USER_QUOTA_EXCEEDED:'云端空间不足，本次文件尚未保存。',UPLOAD_INVALID:'文件内容与上传清单不符，请重新选择原文件。',UPLOAD_INCOMPLETE:'文件尚未上传完整，请重试。',ASSET_IN_USE:'素材仍被项目或撤销历史引用，暂不能移入回收站。',AUTH_REQUIRED:'登录已过期，请重新登录。',STALE_RESPONSE:'账号已变化，旧请求已停止。',SESSION_CHANGED:'账号已变化，请重新登录。',NOT_FOUND:'内容不存在或不属于当前账号。',PROJECT_PURGED:'项目已永久删除，画布不可用；任务与审计记录保留。'};
  if(code==='VIDEO_PREFLIGHT_BLOCKED'&&error instanceof ApiError&&error.issues?.length)return error.issues.join('；');
  const taskMessages:Record<string,string>={CONFIG_CHANGED:'API 配置已变化，请重新预览并确认。',PREVIEW_EXPIRED:'本次预览已失效，请重新预览。',MODEL_CONFIG_REQUIRED:'请先在 API 设置保存对应通道的模型配置。',VIDEO_CONTRACT_UNVERIFIED:'当前地址的视频生成规格尚未核验，请检查 API 设置。',VIDEO_MODEL_CHANGED:'视频草稿的模型与 API 设置不同，请明确修改草稿后重新预览。',TASK_ALREADY_STARTED:'任务已经开始，无法撤回提交。',ORIGINAL_TASK_ID_REQUIRED:'尚未取得原任务编号，不能恢复查询或重新提交。',SECRET_UNAVAILABLE:'原任务密钥暂不可用，请恢复原密钥版本后再查询。',PROMPT_INPUT_INVALID:'请检查创意、规格冲突及参考素材选择。',INPUT_CONTAINS_CREDENTIAL:'输入包含已保存的密钥，请移除后再调用。',PRIOR_UNKNOWN_CONFIRMATION_REQUIRED:'此前的调用结果未知，请先核对并明确确认再次调用的风险。'};
@@ -33,30 +35,36 @@ export function workspaceMessage(error:unknown){
 }
 export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetch=fetch){
  const initial=bridge.getIdentity(),controllers=new Set<AbortController>();let disposed=false,invalid=false;
+ const graphs=new Map<string,Graph>();
+ const assetReads=new Map<string,Promise<z.infer<typeof assetFilesSchema>>>();
+ const summaryReads=new Map<string,Promise<CloudVideoSummary[]>>();
+ function remember(graph:Graph){if((graphs.get(graph.projectId)?.revision??-1)>graph.revision)return;graphs.delete(graph.projectId);graphs.set(graph.projectId,structuredClone(graph));while(graphs.size>8)graphs.delete(graphs.keys().next().value!);}
  const current=()=>{const now=bridge.getIdentity();return !disposed&&!invalid&&!!initial&&!!now&&now.userId===initial.userId&&now.contextId===initial.contextId;};
  const abort=()=>{invalid=true;for(const controller of controllers)controller.abort();};
  const unsubscribe=bridge.subscribe(()=>{if(!current())abort();});
  const resource=(id:string)=>{if(!z.uuid().safeParse(id).success)throw new ApiError(0,'INVALID_REQUEST');return id;};
- async function request<T>(path:string,schema:z.ZodType<T>,options:{method?:'GET'|'POST'|'PATCH'|'DELETE'|'PUT';body?:unknown;binary?:Blob}={}):Promise<T>{
+ async function request<T>(path:string,schema:z.ZodType<T>,options:{method?:'GET'|'POST'|'PATCH'|'DELETE'|'PUT';body?:unknown;binary?:Blob;revalidate?:boolean;delta?:boolean;timeoutMs?:number;priority?:'high'|'low'|'auto'}={}):Promise<T>{
   if(!current())throw new ApiError(0,'STALE_RESPONSE');const identity=initial!,controller=new AbortController();controllers.add(controller);
   const method=options.method??'GET',headers:Record<string,string>={Accept:'application/json','X-Workspace-Context':identity.contextId};if(method!=='GET')headers['X-CSRF-Token']=identity.csrfToken;
   if(options.body!==undefined)headers['Content-Type']='application/json';if(options.binary)headers['Content-Type']='application/octet-stream';
+  if(options.delta)headers['X-Workspace-Transfer']='delta-v1';
+  const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(options.timeoutMs??(options.binary?120000:15000))]);
   try{
-   const response=await fetcher(path,{method,headers,credentials:'same-origin',mode:'same-origin',cache:'no-store',redirect:'error',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(options.binary?120000:15000)]),body:options.binary??(options.body===undefined?undefined:JSON.stringify(options.body))});
+   const response=await fetcher(path,{method,headers,credentials:'same-origin',mode:'same-origin',cache:options.revalidate?'no-cache':'no-store',priority:options.priority??'auto',redirect:'error',signal,body:options.binary??(options.body===undefined?undefined:JSON.stringify(options.body))});
    if(!current())throw new ApiError(0,'STALE_RESPONSE');
    if(response.status===204&&response.ok)return schema.parse(undefined);
    const text=await response.text();if(!current())throw new ApiError(0,'STALE_RESPONSE');if(new TextEncoder().encode(text).length>16*1024*1024)throw new ApiError(response.status,'INVALID_RESPONSE');
    let value:unknown;try{value=JSON.parse(text);}catch{throw new ApiError(response.status,'INVALID_RESPONSE');}
    if(!response.ok){const parsed=z.strictObject({code:z.string(),issues:z.array(z.string().max(512)).max(30).optional()}).safeParse(value),code=parsed.success&&errors.has(parsed.data.code)?parsed.data.code:'INTERNAL_ERROR';if(response.status===401||code==='SESSION_CHANGED'){abort();void bridge.refresh();}throw new ApiError(response.status,code,parsed.success&&code==='VIDEO_PREFLIGHT_BLOCKED'?parsed.data.issues:undefined);}
    const parsed=schema.safeParse(value);if(!parsed.success)throw new ApiError(response.status,'INVALID_RESPONSE');return parsed.data;
-  }catch(error){if(!current()&&!(error instanceof ApiError&&['AUTH_REQUIRED','SESSION_CHANGED'].includes(error.code)))throw new ApiError(0,'STALE_RESPONSE');if(error instanceof ApiError)throw error;throw new ApiError(0,'NETWORK_ERROR');}
+  }catch(error){if(!current()&&!(error instanceof ApiError&&['AUTH_REQUIRED','SESSION_CHANGED'].includes(error.code)))throw new ApiError(0,'STALE_RESPONSE');if(error instanceof ApiError)throw error;throw new ApiError(0,signal.aborted&&!controller.signal.aborted?'REQUEST_TIMEOUT':'NETWORK_ERROR');}
   finally{controllers.delete(controller);}
  }
  async function downloadAsset(id:string,variant:'original'|'thumbnail',limit:number){
   const path='/studio-api/assets/'+resource(id)+'/content?variant='+variant;
   if(!current())throw new ApiError(0,'STALE_RESPONSE');const controller=new AbortController();controllers.add(controller);
   try{
-   const response=await fetcher(path,{method:'GET',headers:{'X-Workspace-Context':initial!.contextId},credentials:'same-origin',mode:'same-origin',cache:'no-store',redirect:'error',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(120000)])});
+   const response=await fetcher(path,{method:'GET',headers:{'X-Workspace-Context':initial!.contextId},credentials:'same-origin',mode:'same-origin',cache:'no-cache',redirect:'error',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(120000)])});
    if(!current())throw new ApiError(0,'STALE_RESPONSE');
    if(!response.ok){if(response.status===401){abort();void bridge.refresh();}throw new ApiError(response.status,response.status===401?'AUTH_REQUIRED':'MEDIA_UNAVAILABLE');}
    const reader=response.body?.getReader();if(!reader)throw new ApiError(response.status,'INVALID_RESPONSE');
@@ -71,19 +79,23 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   createProject:(input:{title:string;description?:string;tags?:string[]})=>request('/studio-api/projects',projectSchema,{method:'POST',body:input}),
   readProject:async(id:string)=>request('/studio-api/projects/'+resource(id),projectSchema),
   readGraph:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/graph',graphSchema.refine((graph:Graph)=>graph.projectId===id)),
-  readWorkspace:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/workspace',workspaceSchema),
+  readWorkspace:async(id:string)=>{const value=await request('/studio-api/projects/'+resource(id)+'/workspace',workspaceSchema,{revalidate:true,timeoutMs:60000,priority:'high'});remember(value.graph);return value;},
   patchProject:async(id:string,expectedRevision:number,patch:{title?:string;description?:string;starred?:boolean;archived?:boolean;tags?:string[]})=>request('/studio-api/projects/'+resource(id),projectSchema,{method:'PATCH',body:{expectedRevision,...patch}}),
   trashProject:async(id:string,expectedRevision:number)=>request('/studio-api/projects/'+resource(id),projectSchema,{method:'DELETE',body:{expectedRevision}}),
   restoreProject:async(id:string,expectedRevision:number)=>request('/studio-api/projects/'+resource(id)+'/restore',projectSchema,{method:'POST',body:{expectedRevision}}),
   copyProject:async(id:string,expectedRevision:number,idempotencyKey:string,title?:string)=>request('/studio-api/projects/'+resource(id)+'/copy',workspaceSchema,{method:'POST',body:{expectedRevision,idempotencyKey,...(title?{title}:{})}}),
   exportProject:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/export',cloudProjectPackageSchema),
   importProject:(data:CloudProjectPackage,assets:Record<string,string>,idempotencyKey:string)=>request('/studio-api/projects/import',workspaceSchema,{method:'POST',body:{data,assets,idempotencyKey}}),
-  command:async(id:string,expectedRevision:number,command:CloudCommand,idempotencyKey:string=crypto.randomUUID())=>request('/studio-api/projects/'+resource(id)+'/commands',receiptSchema,{method:'POST',body:{expectedRevision,command,idempotencyKey}}),
+  command:async(id:string,expectedRevision:number,command:CloudCommand,idempotencyKey:string=crypto.randomUUID())=>{
+   const base=graphs.get(id),known=base?.revision===expectedRevision?base:undefined;
+   const value=await request('/studio-api/projects/'+resource(id)+'/commands',commandTransferSchema,{method:'POST',body:{expectedRevision,command,idempotencyKey},delta:!!known,timeoutMs:120000,priority:'high'});
+   try{const result='graph'in value?value:known?{...value,graph:applyGraphDelta(known,value.delta)}:undefined;if(!result)throw new Error('missing_delta_base');const {delta:_,...full}=result as typeof result&{delta?:unknown};void _;const parsed=receiptSchema.parse(full);remember(parsed.graph);return parsed;}catch{throw new ApiError(200,'INVALID_RESPONSE');}
+  },
   listReceipts:async(id:string,limit=20)=>request('/studio-api/projects/'+resource(id)+'/receipts?limit='+limit,z.array(receiptSummarySchema)),
   listActivity:async(options:{projectId?:string;unassigned?:boolean;cursor?:string}={})=>{const query=new URLSearchParams();if(options.projectId)query.set('projectId',resource(options.projectId));if(options.unassigned)query.set('unassigned','true');if(options.cursor)query.set('cursor',options.cursor);return request('/studio-api/activity?'+query.toString(),activityPageSchema);},
   purgePreview:async(id:string)=>request('/studio-api/projects/'+resource(id)+'/purge-preview',purgePreviewSchema,{method:'POST',body:{}}),
   purgeProject:async(id:string,input:{title:string;expectedRevision:number;impactToken:string;confirmed:true;idempotencyKey:string})=>request('/studio-api/projects/'+resource(id)+'/purge',purgeReceiptSchema,{method:'POST',body:input}),
-  listAssets:(trashed=false)=>request('/studio-api/assets'+(trashed?'?trashed=true':''),z.array(assetSchema)),
+  listAssets:(trashed=false)=>request('/studio-api/assets'+(trashed?'?trashed=true':''),z.array(assetSchema),{timeoutMs:60000,revalidate:true}),
   listPrompts:(trashed=false)=>request('/studio-api/prompts'+(trashed?'?trashed=true':''),z.array(promptLibrarySchema)),
   createPrompt:(input:Omit<PromptLibraryEntry,'id'|'revision'|'trashed'>,idempotencyKey:string)=>request('/studio-api/prompts',promptLibrarySchema,{method:'POST',body:{...input,idempotencyKey}}),
   patchPrompt:async(id:string,expectedRevision:number,patch:Partial<Omit<PromptLibraryEntry,'id'|'revision'|'trashed'>>)=>request('/studio-api/prompts/'+resource(id),promptLibrarySchema,{method:'PATCH',body:{expectedRevision,...patch}}),
@@ -95,6 +107,7 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   optimizationPreview:async(id:string,expectedRevision:number,configRevision:number,referenceAliases:string[])=>request('/studio-api/prompt-drafts/'+resource(id)+'/optimization-preview',promptOptimizationPreviewSchema,{method:'POST',body:{expectedRevision,configRevision,referenceAliases}}),
   optimizeDraft:async(id:string,approvalId:string,acknowledgePriorUnknown=false)=>request('/studio-api/prompt-drafts/'+resource(id)+'/optimize',cloudTaskSchema,{method:'POST',body:{approvalId,decision:{confirmed:true,acknowledgeTextFee:true,...(acknowledgePriorUnknown?{acknowledgePriorUnknown:true}:{})}}}),
   listTasks:async()=>request('/studio-api/runs',z.array(cloudRunSchema)),
+  listVideoSummaries:async(id:string)=>{if(!current())throw new ApiError(0,'STALE_RESPONSE');const path='/studio-api/projects/'+resource(id)+'/video-run-summaries',prior=summaryReads.get(id);if(prior)return prior;const pending=request(path,z.array(cloudVideoSummarySchema),{revalidate:true,timeoutMs:60000,priority:'low'});summaryReads.set(id,pending);try{return await pending;}finally{if(summaryReads.get(id)===pending)summaryReads.delete(id);}},
   readTask:async(id:string)=>request('/studio-api/runs/'+resource(id),cloudRunSchema),
   videoCapability:async()=>request('/studio-api/me/video-capability',cloudVideoCapabilitySchema),
   videoPreview:async(id:string,expectedRevision:number,configRevision:number,nodeIds:string[])=>request('/studio-api/projects/'+resource(id)+'/video-run-preview',cloudVideoPreviewSchema,{method:'POST',body:{expectedRevision,configRevision,nodeIds}}),
@@ -128,7 +141,7 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   restoreDraft:async(id:string,expectedRevision:number)=>request('/studio-api/prompt-drafts/'+resource(id)+'/restore',promptDraftSchema,{method:'POST',body:{expectedRevision}}),
   readAsset:async(id:string)=>request('/studio-api/assets/'+resource(id),assetSchema),
   assetReferences:async(id:string)=>request('/studio-api/assets/'+resource(id)+'/references',z.array(z.strictObject({projectId:z.uuid(),projectTitle:z.string(),nodeId:z.uuid().optional(),nodeTitle:z.string().optional(),source:z.string(),current:z.boolean()}))),
-  readAssetFiles:async(id:string)=>request('/studio-api/assets/'+resource(id)+'/files',z.strictObject({asset:assetSchema,thumbnail:privateFileSchema.optional()})),
+  readAssetFiles:async(id:string)=>{if(!current())throw new ApiError(0,'STALE_RESPONSE');const path='/studio-api/assets/'+resource(id)+'/files',prior=assetReads.get(id);if(prior)return prior;const pending=request(path,assetFilesSchema,{revalidate:true,timeoutMs:60000,priority:'low'});assetReads.set(id,pending);try{return await pending;}finally{if(assetReads.get(id)===pending)assetReads.delete(id);}},
   reserveAsset:(input:{title:string;description?:string;tags?:string[];mimeType:string;bytes:number;sha256:string;thumbnail?:{bytes:number;sha256:string;mimeType:string};width?:number;height?:number;durationSeconds?:number})=>request('/studio-api/assets',z.union([assetSchema,z.strictObject({id:z.uuid(),state:z.literal('pending')})]),{method:'POST',body:input}),
   uploadFile:async(id:string,blob:Blob,variant:'original'|'thumbnail'='original')=>request('/studio-api/assets/'+resource(id)+'/content?variant='+variant,z.undefined(),{method:'PUT',binary:blob}),
   completeAsset:async(id:string)=>request('/studio-api/assets/'+resource(id)+'/complete',assetSchema,{method:'POST',body:{}}),
@@ -138,7 +151,7 @@ export function createWorkspaceClient(bridge:WorkspaceBridge,fetcher:typeof fetc
   restoreAsset:async(id:string,expectedRevision:number)=>request('/studio-api/assets/'+resource(id)+'/restore',assetSchema,{method:'POST',body:{expectedRevision}}),
   contentUrl:(id:string,variant:'original'|'thumbnail'='original')=>'/studio-api/assets/'+resource(id)+'/content?variant='+variant,
   downloadAsset,
-  dispose(){disposed=true;abort();unsubscribe();}
+  dispose(){disposed=true;abort();unsubscribe();graphs.clear();assetReads.clear();summaryReads.clear();}
  };
 }
 export type WorkspaceClient=ReturnType<typeof createWorkspaceClient>;

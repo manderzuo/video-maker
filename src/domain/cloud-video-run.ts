@@ -12,6 +12,9 @@ export const cloudVideoArchiveSchema=cloudVideoRunSchema.omit({connectionId:true
 export type CloudVideoArchive=z.infer<typeof cloudVideoArchiveSchema>;
 export const cloudVideoRecordSchema=z.union([cloudVideoRunSchema,cloudVideoArchiveSchema]);
 export type CloudVideoRecord=z.infer<typeof cloudVideoRecordSchema>;
+export const cloudVideoSummarySchema=cloudVideoRunSchema.pick({id:true,kind:true,projectId:true,nodeId:true,executionState:true,queryState:true,deliveryState:true,billingState:true,resultAssetId:true,createdAt:true,updatedAt:true,recordRevision:true,requestedSpec:true,executionSpec:true,attentionCode:true,retryOfRunId:true,retryRunId:true}).extend({historical:z.literal(true).optional()});
+export type CloudVideoSummary=z.infer<typeof cloudVideoSummarySchema>;
+export function summarizeVideoRun(input:Record<string,unknown>){return cloudVideoSummarySchema.parse(Object.fromEntries(Object.keys(cloudVideoSummarySchema.shape).filter(key=>input[key]!==undefined).map(key=>[key,input[key]])));}
 export const cloudRunSchema=z.union([cloudTaskSchema,cloudVideoRunSchema,cloudVideoArchiveSchema,cloudAgentRunSchema]);
 export type CloudRun=z.infer<typeof cloudRunSchema>;
 export function portableVideoRun(input:CloudVideoRecord):CloudVideoArchive{

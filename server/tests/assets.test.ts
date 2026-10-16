@@ -14,6 +14,16 @@ async function upload(account:Account,id:string,body=bytes,variant='original'){
  const h=env.headers(account);return env.app.inject({method:'PUT',url:`/studio-api/assets/${id}/content?variant=${variant}`,payload:body,headers:{cookie:h.cookie,'x-workspace-context':h.context,'x-csrf-token':h.csrf,origin,'content-type':'application/octet-stream'}});
 }
 const complete=(a:Account,id:string)=>env.call('POST',`/studio-api/assets/${id}/complete`,{...env.headers(a),payload:{}});
+it('reuses private media bytes with ETags but never bypasses authentication, ownership or trash checks',async()=>{
+ const a=await env.signup('Cache_A'),b=await env.signup('Cache_B'),asset=await begin(a);await upload(a,asset.id);await complete(a,asset.id);
+ const path=`/studio-api/assets/${asset.id}/content`,first=await env.call('GET',path,env.headers(a)),etag=String(first.headers.etag);
+ expect(first.headers['cache-control']).toContain('private');expect(first.headers['cache-control']).not.toContain('no-store');expect(etag).not.toBe('undefined');
+ const extraHeaders={'if-none-match':etag};const cached=await env.call('GET',path,{...env.headers(a),extraHeaders});expect(cached.statusCode).toBe(304);expect(cached.rawPayload.length).toBe(0);
+ expect((await env.call('GET',path,{extraHeaders})).statusCode).toBe(401);expect((await env.call('GET',path,{...env.headers(b),extraHeaders})).statusCode).toBe(404);
+ const staleRange=await env.call('GET',path,{...env.headers(a),extraHeaders:{range:'bytes=0-9','if-range':'"old-version"'}});expect(staleRange.statusCode).toBe(200);expect(staleRange.rawPayload).toEqual(bytes);
+ await env.call('DELETE',`/studio-api/assets/${asset.id}`,{...env.headers(a),payload:{expectedRevision:0}});
+ expect((await env.call('GET',path,{...env.headers(a),extraHeaders})).statusCode).toBe(404);
+});
 it('publishes original and thumbnail only after complete size/hash validation',async()=>{
  const a=await env.signup(),asset=await begin(a,{thumbnail:{bytes:bytes.length,sha256:sha(bytes),mimeType:'image/png'}});
  expect((await env.call('GET','/studio-api/assets',env.headers(a))).json()).toEqual([]);

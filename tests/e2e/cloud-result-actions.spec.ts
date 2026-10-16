@@ -39,7 +39,7 @@ async function generate(page:import('@playwright/test').Page,value:unknown,proje
 
   await page.getByRole('button',{name:'确认',exact:true}).click();
  }
- await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded'",[projectId])).rows[0].n,{timeout:15000}).toBe(nodeIds.length);
+ await expect.poll(async()=>(await ctx.pool.query("SELECT count(*)::int n FROM workspace_video_runs WHERE project_id=$1 AND document->>'executionState'='succeeded' AND document->>'deliveryState'='available_for_preview' AND document->>'resultAssetId' IS NOT NULL",[projectId])).rows[0].n,{timeout:15000}).toBe(nodeIds.length);
  return (await ctx.pool.query('SELECT document FROM workspace_video_runs WHERE project_id=$1 ORDER BY created_at',[projectId])).rows.map(row=>row.document as {id:string;resultAssetId:string;inputSnapshot:{references:{alias:string;assetId:string}[]}});
 }
 test('generates a saved tail-frame continuation from its canvas node with the exact frame and prompt',async({page,workspace})=>{
