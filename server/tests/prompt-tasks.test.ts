@@ -74,8 +74,8 @@ it.each(['UPSTREAM_TIMEOUT','UPSTREAM_TOO_LARGE','INVALID_UPSTREAM_RESULT'])('re
  const a=await setup('Diagnostic_'+cause.slice(0,15),'FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);
  dependencies.outbound=new RestrictedOutbound({resolve:async()=>[{address:'93.184.216.34',family:4}],request:async input=>{calls.push(input);if(cause==='INVALID_UPSTREAM_RESULT')return {status:200,body:Buffer.from('FAKE_PRIVATE_MALFORMED_REPLY')};throw new HttpError(504,cause);}});
  await work();await work();const read=await f.call('GET','/studio-api/runs/'+task.json().id,f.headers(a.account));
- expect(read.json()).toMatchObject({executionState:'response_unknown',billingState:'pending_reconciliation',errorCode:cause==='INVALID_UPSTREAM_RESULT'?cause:'UPSTREAM_FAILED'});
- const stored=await f.pool.query('SELECT result_snapshot FROM workspace_tasks WHERE id=$1',[task.json().id]);expect(stored.rows[0].result_snapshot).toMatchObject({kind:'prompt-call-failure',cause,timeoutMs:300000});expect(JSON.stringify(stored.rows[0])).not.toContain('FAKE_');expect(calls).toHaveLength(1);
+ expect(read.json()).toMatchObject({executionState:cause==='INVALID_UPSTREAM_RESULT'?'failed_confirmed':'response_unknown',billingState:'pending_reconciliation',errorCode:cause==='INVALID_UPSTREAM_RESULT'?cause:'UPSTREAM_FAILED'});
+ const stored=await f.pool.query('SELECT result_snapshot FROM workspace_tasks WHERE id=$1',[task.json().id]);expect(stored.rows[0].result_snapshot).toMatchObject(cause==='INVALID_UPSTREAM_RESULT'?{kind:'prompt-call-response-v2',cause,responseStatus:200}:{kind:'prompt-call-failure',cause,timeoutMs:300000});if(cause==='INVALID_UPSTREAM_RESULT')expect(stored.rows[0].result_snapshot.sealedResponse).toBeTruthy();expect(JSON.stringify(stored.rows[0])).not.toContain('FAKE_');expect(calls).toHaveLength(1);
 });
 it('appends the result to the current draft without overwriting newer input or losing the frozen input snapshot',async()=>{
  const a=await setup('PromptTask_Input','FAKE_KEY_A'),p=await preview(a.account,a.draft.id),task=await confirm(a.account,a.draft.id,p.id);expect(task.statusCode).toBe(202);
@@ -101,7 +101,7 @@ it('isolates a persistent finalization failure and saves a different user respon
  await f.pool.query('UPDATE workspace_tasks SET created_at=$2 WHERE id=$1',[first.json().id,new Date('2026-10-08T11:59:59Z')]);
  await work();await work();
  expect(calls).toHaveLength(2);expect((await f.call('GET','/studio-api/runs/'+first.json().id,f.headers(a.account))).json().executionState).toBe('response_received');expect((await f.call('GET','/studio-api/runs/'+second.json().id,f.headers(b.account))).json().executionState).toBe('succeeded');
- const failed=(await f.pool.query('SELECT result_snapshot,finalize_attempts,next_finalize_at,finalize_error FROM workspace_tasks WHERE id=$1',[first.json().id])).rows[0];expect(failed).toMatchObject({result_snapshot:output,finalize_attempts:1,finalize_error:'RESULT_SAVE_PENDING'});expect(JSON.stringify(failed)).not.toContain('synthetic private');
+ const failed=(await f.pool.query('SELECT result_snapshot,finalize_attempts,next_finalize_at,finalize_error FROM workspace_tasks WHERE id=$1',[first.json().id])).rows[0];expect(failed).toMatchObject({result_snapshot:{kind:'prompt-call-response-v2',candidate:output},finalize_attempts:1,finalize_error:'RESULT_SAVE_PENDING'});expect(failed.result_snapshot.sealedResponse).toBeTruthy();expect(JSON.stringify(failed)).not.toContain('synthetic private');
  await work(failed.next_finalize_at);expect(calls).toHaveLength(2);expect((await f.pool.query('SELECT finalize_attempts FROM workspace_tasks WHERE id=$1',[first.json().id])).rows[0].finalize_attempts).toBe(2);
 });
 it('runs the durable task in the background even when no browser waits for the response',async()=>{

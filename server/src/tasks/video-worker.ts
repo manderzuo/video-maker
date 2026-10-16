@@ -28,6 +28,7 @@ const owner=(userId:string)=>({userId,sessionId:'persistent-video',contextId:'pe
 function safeRedactor(keys:string[]){return (text:string)=>{for(const key of keys)text=text.split(key).join('[已隐藏密钥]');return text.replace(/Bearer\s+[^\s,;"']+/gi,'Bearer [已隐藏密钥]');};}
 const retryDelay=(attempt:number)=>Math.min(300000,3000*2**Math.min(7,Math.max(0,attempt-1)));
 class ContentBusy extends Error {constructor(readonly retryAfterMs:number){super('content download busy');}}
+class UploadRetry extends Error {constructor(readonly retryAfterMs:number){super('unpaid reference upload retry');}}
 // Keep newer user intent, except that attention stops even a racing resume.
 // A pause stays explicit; resuming an attention task permits one original-task
 // read, never an automatic retry loop when that read still requires attention.
@@ -65,10 +66,12 @@ async function prepareReferences(pool:Pool,row:VideoRow,run:CloudVideoRun,depend
  const mappings:{coreAssetId:string;expiresAt:number}[]=[];
  for(const {asset,path}of files){
   const prior=await pool.query<{state:string;remote_id:string|null;expires_at:Date|null}>('SELECT state,remote_id,expires_at FROM workspace_video_uploads WHERE user_id=$1 AND run_id=$2 AND asset_id=$3',[row.user_id,row.id,asset.id]);const stored=prior.rows[0];
-  if(stored){if(stored.state!=='succeeded'||!stored.remote_id)throw new HttpError(409,'UPLOAD_UNKNOWN');if(stored.expires_at&&stored.expires_at.getTime()>clock().getTime()+5000){mappings.push({coreAssetId:stored.remote_id,expiresAt:stored.expires_at.getTime()});continue;}}
+  if(stored?.state==='succeeded'&&stored.remote_id&&stored.expires_at&&stored.expires_at.getTime()>clock().getTime()+5000){mappings.push({coreAssetId:stored.remote_id,expiresAt:stored.expires_at.getTime()});continue;}
   await stage(pool,row,run,clock());await pool.query("INSERT INTO workspace_video_uploads(user_id,run_id,asset_id,state) VALUES($1,$2,$3,'sending') ON CONFLICT(user_id,run_id,asset_id) DO UPDATE SET state='sending',remote_id=NULL,expires_at=NULL",[row.user_id,row.id,asset.id]);
   const bytes=await readFile(path),extension=asset.mimeType.split('/')[1],body=JSON.stringify({filename:asset.sha256+'.'+extension,mime_type:asset.mimeType,data_base64:bytes.toString('base64')});
-  const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'asset',body});if(reply.status<200||reply.status>=300)throw new HttpError(409,'UPLOAD_UNKNOWN');
+  let reply;try{reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'asset',body});}catch(error){if(error instanceof HttpError&&['OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE'].includes(error.code))throw error;throw new UploadRetry(3000);}
+  if(reply.status===429||reply.status>=500){throw new UploadRetry(parseRetryAfter(reply.retryAfter,clock().getTime())??3000);}
+  if(reply.status<200||reply.status>=300)throw new HttpError(409,'UPLOAD_UNKNOWN');
   const parsed=z.object({object:z.literal('asset'),id:z.string().regex(/^[-A-Za-z0-9._~]{1,256}$/),sha256:z.string(),bytes:z.number(),mime_type:z.string(),created_at:z.number(),expires_at:z.number()}).safeParse(JSON.parse(reply.body.toString('utf8')));
   if(!parsed.success||redact(parsed.data.id)!==parsed.data.id||parsed.data.sha256!==asset.sha256||parsed.data.bytes!==asset.bytes||parsed.data.mime_type!==asset.mimeType||!Number.isSafeInteger(parsed.data.expires_at*1000)||parsed.data.expires_at*1000<=clock().getTime()+5000||parsed.data.created_at>parsed.data.expires_at)throw new HttpError(409,'UPLOAD_UNKNOWN');
   await stage(pool,row,run,clock());
@@ -103,12 +106,13 @@ async function placeCanvasResult(pool:Pool,row:VideoRow,run:CloudVideoRun,at:Dat
   await applyProjectCommandInTransaction(db,context,run.projectId,projectCommandSchema.parse({expectedRevision:graph.revision,idempotencyKey:run.id,command:batch.operations.length?{type:'operations',operations:batch.operations}:{type:'viewport',viewport:graph.viewport}}),at);
  });
 }
-const submitEligible="v.document->>'executionState'='persisted'";
-const queryEligible=`(v.document->>'taskId' IS NOT NULL OR (v.document->>'retryOfCoreTaskId' IS NOT NULL AND v.document->>'executionState'='submit_unknown')) AND v.document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted')
+const submitEligible="v.document->>'executionState'='persisted' AND (v.next_query_at IS NULL OR v.next_query_at<=$1)";
+const queryEligible=`(v.document->>'taskId' IS NOT NULL OR (v.document->>'executionState'='submit_unknown' AND (v.document->>'retryOfCoreTaskId' IS NOT NULL OR v.document->>'finalBody' IS NOT NULL))) AND v.document->>'queryState' NOT IN ('paused_by_user','auth_required','interrupted')
  AND (v.next_query_at IS NULL OR v.next_query_at<=$1)
- AND (v.document->>'executionState' IN ('accepted','running') OR v.document->>'billingState'='pending_reconciliation')`;
+ AND (v.document->>'executionState' IN ('accepted','running') OR v.document->>'billingState'='pending_reconciliation'
+ OR (v.document->>'executionState' IN ('succeeded','failed_confirmed') AND v.document->>'billingState'='not_provided' AND v.frozen_contract->'routes'->>'workContext'='true'))`;
 const deliveryEligible=`v.document->>'executionState'='succeeded' AND (v.next_delivery_at IS NULL OR v.next_delivery_at<=$1)
- AND (v.document->>'deliveryState'<>'available_for_preview' OR (v.frozen_config->>'canvasAutoPlace'='true'
+ AND (v.document->>'deliveryState'<>'available_for_preview' OR (v.document->>'issueCode'='RESULT_SAVE_PENDING' AND v.document->>'resultAssetId' IS NOT NULL) OR (v.frozen_config->>'canvasAutoPlace'='true'
  AND NOT EXISTS(SELECT 1 FROM workspace_command_receipts c WHERE c.user_id=v.user_id AND c.id=v.id)
  AND EXISTS(SELECT 1 FROM workspace_projects p WHERE p.user_id=v.user_id AND p.id=v.project_id AND p.trashed_at IS NULL AND p.purged_at IS NULL)))`;
 export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDependencies,clock:()=>Date=()=>new Date(),lane:VideoLane|'any'='any'){
@@ -127,6 +131,12 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
  let run=cloudVideoRunSchema.parse(row.document),sending=false;
  try{
   if(row.phase==='delivery'){
+   if(run.deliveryState==='available_for_preview'&&run.issueCode==='RESULT_SAVE_PENDING'&&run.resultAssetId){
+    const stored=await ownedAsset(pool,owner(row.user_id),run.resultAssetId),{original}=manifests(stored);
+    const bound=await pool.query("SELECT 1 FROM workspace_asset_references WHERE user_id=$1 AND project_id=$2 AND asset_id=$3 AND source_id=$4",[row.user_id,run.projectId,run.resultAssetId,'run:'+run.id]);
+    if(stored.state!=='complete'||!bound.rowCount)throw new HttpError(409,'RESULT_SAVE_PENDING');
+    await verifyAssetFile(dependencies.assets,row.user_id,run.resultAssetId,'original',original);
+   }
    if(run.deliveryState!=='available_for_preview'){
     const key=await frozenTaskKey(pool,row.user_id,row.frozen_config,dependencies);
     run={...run,deliveryState:'fetching'};await stage(pool,row,run,clock());
@@ -145,24 +155,38 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
    if(mappings.some(mapping=>mapping.expiresAt<=clock().getTime()+5000))throw new HttpError(409,'REFERENCE_EXPIRED');
    sending=true;const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,run.retryOfCoreTaskId?{kind:'retry',taskId:run.retryOfCoreTaskId}:{kind:'submit',body:finalBody,idempotencyKey:run.idempotencyKey});
    if(reply.status<200||reply.status>=300){const failure=classifyCoreError(reply.status,JSON.parse(reply.body.toString('utf8')),undefined,redact);
-    run=isReferencePreflightRejection(failure)?cloudVideoRunSchema.parse({...run,...applySubmissionOutcome(run,{ok:false,error:failure}),inputSnapshot:run.inputSnapshot,executionFinishedAt:clock().getTime(),updatedAt:clock().getTime()}):{...run,executionState:failure.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',queryState:'interrupted',billingState:failure.submissionOutcome==='not_sent'?'not_provided':'pending_reconciliation',...(failure.submissionOutcome==='not_sent'?{failure:{reasonCode:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()};
+    run=isReferencePreflightRejection(failure)?cloudVideoRunSchema.parse({...run,...applySubmissionOutcome(run,{ok:false,error:failure}),inputSnapshot:run.inputSnapshot,executionFinishedAt:clock().getTime(),updatedAt:clock().getTime()}):{...run,executionState:failure.submissionOutcome==='not_sent'?'failed_confirmed':'submit_unknown',queryState:failure.submissionOutcome==='not_sent'?'interrupted':'polling',billingState:failure.submissionOutcome==='not_sent'?'not_provided':'pending_reconciliation',...(failure.submissionOutcome==='not_sent'?{failure:{reasonCode:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()};
    }else{const observed=observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact));run=cloudVideoRunSchema.parse({...run,...observed,inputSnapshot:run.inputSnapshot,...(!run.executionFinishedAt&&observed.executionFinishedAt?{executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});}
   }else if(run.retryOfCoreTaskId&&!run.taskId&&run.executionState==='submit_unknown'){
    await stage(pool,row,run,clock());
    const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'retryLookup',taskId:run.retryOfCoreTaskId});
+   if(reply.status===429)throw new ContentBusy(parseRetryAfter(reply.retryAfter,clock().getTime())??3000);
+   if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
+   run=cloudVideoRunSchema.parse({...run,...observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact)),inputSnapshot:run.inputSnapshot,updatedAt:clock().getTime()});
+  }else if(!run.taskId&&run.executionState==='submit_unknown'&&run.finalBody){
+   if(createHash('sha256').update(run.finalBody).digest('hex')!==run.finalBodyHash)throw new HttpError(409,'REQUEST_SNAPSHOT_INVALID');
+   await stage(pool,row,run,clock());
+   const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'lookup',body:run.finalBody,idempotencyKey:run.idempotencyKey});
+   if(reply.status===429)throw new ContentBusy(parseRetryAfter(reply.retryAfter,clock().getTime())??3000);
    if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
    run=cloudVideoRunSchema.parse({...run,...observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact)),inputSnapshot:run.inputSnapshot,updatedAt:clock().getTime()});
   }else if(run.taskId){
    await stage(pool,row,run,clock());
    const reply=await dependencies.outbound.video(row.frozen_config.api_base,key,{kind:'query',taskId:run.taskId});
    if(reply.status===401||reply.status===403){run={...run,queryState:'auth_required',updatedAt:clock().getTime()};await save(pool,row,run,clock());return true;}
+   if(reply.status===429)throw new ContentBusy(parseRetryAfter(reply.retryAfter,clock().getTime())??3000);
    if(reply.status<200||reply.status>=300)throw new HttpError(502,'UPSTREAM_FAILED');
    const observed=observeVideoTask(run,parseVideoTask(JSON.parse(reply.body.toString('utf8')),redact));run=cloudVideoRunSchema.parse({...run,...observed,inputSnapshot:run.inputSnapshot,...(!run.executionFinishedAt&&observed.executionFinishedAt?{executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});
   }
-  const reconciliation=run.billingState==='pending_reconciliation'&&['succeeded','failed_confirmed'].includes(run.executionState);
+  const reconciliation=(run.billingState==='pending_reconciliation'||run.billingState==='not_provided'&&row.frozen_contract.routes.workContext)&&['succeeded','failed_confirmed'].includes(run.executionState);
   await save(pool,row,cloudVideoRunSchema.parse(run),clock(),reconciliation);
  }catch(error){
   if(error instanceof HttpError&&error.code==='TASK_LEASE_CHANGED')return true;
+  if(error instanceof UploadRetry&&row.phase==='submit'&&!sending){
+   const exhausted=row.query_retry_count>=4,next=cloudVideoRunSchema.parse({...run,executionState:exhausted?'failed_confirmed':'persisted',queryState:'idle',billingState:'not_provided',...(exhausted?{issueCode:'UPLOAD_UNKNOWN',failure:{reasonCode:'video_not_submitted'},executionFinishedAt:clock().getTime()}:{}),updatedAt:clock().getTime()});
+   await save(pool,row,next,clock(),true,error.retryAfterMs);return true;
+  }
+  if(error instanceof ContentBusy&&row.phase==='query'){await save(pool,row,run,clock(),true,error.retryAfterMs);return true;}
   const secretMissing=error instanceof HttpError&&error.code==='SECRET_UNAVAILABLE';
   if(row.phase==='delivery'){
    if(error instanceof ContentBusy){
@@ -172,9 +196,9 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
    const next={...run,...(run.deliveryState==='available_for_preview'?{}:{deliveryState:'download_failed' as const}),issueCode:'RESULT_SAVE_PENDING' as const,updatedAt:clock().getTime()};
    try{await save(pool,row,cloudVideoRunSchema.parse(next),clock(),true);}catch(lost){if(!(lost instanceof HttpError&&lost.code==='TASK_LEASE_CHANGED'))throw lost;}return true;
   }
-  const expired=error instanceof HttpError&&error.code==='REFERENCE_EXPIRED',notSent=error instanceof HttpError&&['SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','REFERENCE_CHANGED','REFERENCE_EXPIRED'].includes(error.code),submission=row.phase==='submit';
+  const expired=error instanceof HttpError&&error.code==='REFERENCE_EXPIRED',submission=row.phase==='submit',notSent=submission&&!sending||error instanceof HttpError&&['SECRET_UNAVAILABLE','OUTBOUND_BLOCKED','INVALID_API_KEY','INVALID_API_BASE','REFERENCE_CHANGED','REFERENCE_EXPIRED'].includes(error.code);
   const next={...run,...(submission?{executionState:notSent?'failed_confirmed' as const:'submit_unknown' as const,queryState:'interrupted' as const,billingState:notSent||!sending?'not_provided' as const:'pending_reconciliation' as const,...(notSent?{failure:{reasonCode:expired?'reference_asset_expired' as const:'video_not_submitted' as const},executionFinishedAt:clock().getTime()}:{} )}:secretMissing?{queryState:'auth_required' as const}:{}),issueCode:secretMissing?'SECRET_UNAVAILABLE' as const:error instanceof HttpError&&error.code==='OUTBOUND_BLOCKED'?'OUTBOUND_BLOCKED' as const:run.executionState==='uploading'?'UPLOAD_UNKNOWN' as const:'UPSTREAM_FAILED' as const,updatedAt:clock().getTime()};
-  const recoveringRetry=submission&&sending&&!!run.retryOfCoreTaskId&&!notSent;
+  const recoveringRetry=submission&&sending&&!notSent;
   try{await save(pool,row,cloudVideoRunSchema.parse({...next,...(recoveringRetry?{queryState:'polling'}:{})}),clock(),recoveringRetry||!submission&&!secretMissing);}catch(lost){if(!(lost instanceof HttpError&&lost.code==='TASK_LEASE_CHANGED'))throw lost;}
  }
  return true;
@@ -182,7 +206,11 @@ export async function executeNextVideoTask(pool:Pool,dependencies:VideoTaskDepen
 export async function recoverExpiredVideoTasks(pool:Pool,now:Date){
  await transaction(pool,async db=>{
   const rows=await db.query<VideoRow>('SELECT user_id,id,document,frozen_config,lease_token FROM workspace_video_runs WHERE lease_token IS NOT NULL AND lease_until<$1 FOR UPDATE SKIP LOCKED',[now]);
-  for(const row of rows.rows){const run=cloudVideoRunSchema.parse(row.document),uncertain=['uploading','submitting'].includes(run.executionState),next=cloudVideoRunSchema.parse({...run,...(uncertain?{executionState:'submit_unknown',queryState:run.retryOfCoreTaskId?'polling':'interrupted',billingState:run.executionState==='uploading'?'not_provided':'pending_reconciliation',issueCode:run.executionState==='uploading'?'UPLOAD_UNKNOWN':'UPSTREAM_FAILED'}:{}),recordRevision:run.recordRevision+1,updatedAt:now.getTime()});await db.query('UPDATE workspace_video_runs SET document=$3::jsonb,lease_token=NULL,lease_until=NULL,next_query_at=$4,updated_at=$4 WHERE user_id=$1 AND id=$2',[row.user_id,row.id,JSON.stringify(next),now]);}
+  for(const row of rows.rows){
+   const run=cloudVideoRunSchema.parse(row.document),upload=run.executionState==='uploading',submitting=run.executionState==='submitting';
+   const next=cloudVideoRunSchema.parse({...run,...(upload?{executionState:'persisted',queryState:'idle',billingState:'not_provided'}:submitting?{executionState:'submit_unknown',queryState:run.retryOfCoreTaskId||run.finalBody&&run.finalBodyHash?'polling':'interrupted',billingState:'pending_reconciliation',issueCode:'UPSTREAM_FAILED'}:{}),recordRevision:run.recordRevision+1,updatedAt:now.getTime()});
+   await db.query('UPDATE workspace_video_runs SET document=$3::jsonb,lease_token=NULL,lease_until=NULL,next_query_at=$4,updated_at=$4 WHERE user_id=$1 AND id=$2',[row.user_id,row.id,JSON.stringify(next),now]);
+  }
  });
 }
 export function startVideoWorker(pool:Pool,dependencies:VideoTaskDependencies,clock:()=>Date=()=>new Date()){

@@ -10,6 +10,7 @@ import {validatePromptResult} from '../../domain/prompt-engine/validate-result';
 import {fingerprintText} from '../../application/runs/fingerprint';
 import {sanitizeKnownSecrets} from '../../security/credential-session';
 import {z} from 'zod';
+import {promptResultObject} from '../../domain/prompt-engine/structured-result';
 export type PromptParseResult={status:'parsed'|'needs_review'|'invalid';format:'json'|'legacy'|'text';raw:string;result?:PromptCompileResult;issues:ValidationIssue[]};
 const strictResult=promptCompileResultSchema.extend({shotPlan:z.array(shotSchema.strict())}).strict();
 const creativeSpecFields=new Set(['aspectRatio','audio','frameRate','motionIntensity','resolution','shotCount','style']);
@@ -17,7 +18,7 @@ export function parsePromptResponse(raw:unknown):PromptParseResult{
  let text='';if(typeof raw==='string')text=raw;else if(isSafeSnapshot(raw)){try{text=JSON.stringify(raw);}catch{/* Invalid shape is reported below. */}}
  const invalid=(code:string,message:string):PromptParseResult=>({status:'invalid',format:'text',raw:sanitizeKnownSecrets(text),issues:[{code,path:'result',message}]});
  if(byteLength(text)>65536){text='';return invalid('prompt_response_too_large','响应超过64KiB，不能作为结果导入。');}if(!text.trim())return invalid('prompt_response_empty','文字响应为空。');text=sanitizeKnownSecrets(text);
- let object:unknown;try{const content=text.trim().replace(/^```(?:json)?\s*\n([\s\S]*?)\n```$/i,'$1');object=JSON.parse(content);}catch{/* Only the explicit frozen-source markers are a supported fallback. */}
+ let object:unknown;try{object=promptResultObject(text);}catch{/* Only the explicit frozen-source markers are a supported fallback. */}
  if(object!==undefined){const parsed=strictResult.safeParse(object);if(parsed.success)return {status:'parsed',format:'json',raw:text,result:parsed.data,issues:[]};
   if(object&&typeof object==='object'&&!Array.isArray(object)&&isSafeSnapshot(object)){
    const record=object as Record<string,unknown>,allowed=['finalPrompt','shotPlan','improvements','warnings','suggestedSpec'];
